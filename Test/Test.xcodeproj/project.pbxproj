@@ -1,0 +1,292 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		51B7423316345C5200DB18E1 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 51B7423016345C5200DB18E1 /* main.cpp */; };
+		51B7423416345C5200DB18E1 /* TestComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 51B7423116345C5200DB18E1 /* TestComponent.cpp */; };
+		51B7427916345D6C00DB18E1 /* libBaconBox.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 51B7426C16345D4500DB18E1 /* libBaconBox.a */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		51B7426B16345D4500DB18E1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 51B7426716345D4500DB18E1 /* BaconBox.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 51B7424F16345CFF00DB18E1;
+			remoteInfo = BaconBox;
+		};
+		51B7427716345D6700DB18E1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 51B7426716345D4500DB18E1 /* BaconBox.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 51B7424E16345CFF00DB18E1;
+			remoteInfo = BaconBox;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		51B7422416345C0B00DB18E1 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		51B7422616345C0B00DB18E1 /* ID */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = ID; sourceTree = BUILT_PRODUCTS_DIR; };
+		51B7423016345C5200DB18E1 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = main.cpp; path = IDs/main.cpp; sourceTree = SOURCE_ROOT; };
+		51B7423116345C5200DB18E1 /* TestComponent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TestComponent.cpp; path = IDs/TestComponent.cpp; sourceTree = SOURCE_ROOT; };
+		51B7423216345C5200DB18E1 /* TestComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TestComponent.h; path = IDs/TestComponent.h; sourceTree = SOURCE_ROOT; };
+		51B7426716345D4500DB18E1 /* BaconBox.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = BaconBox.xcodeproj; path = ../../BaconBox.xcodeproj; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		51B7422316345C0B00DB18E1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				51B7427916345D6C00DB18E1 /* libBaconBox.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		51B7420516345BC200DB18E1 = {
+			isa = PBXGroup;
+			children = (
+				51B7426616345D3900DB18E1 /* Framework */,
+				51B7421316345BC200DB18E1 /* Test */,
+				51B7421116345BC200DB18E1 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		51B7421116345BC200DB18E1 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				51B7422616345C0B00DB18E1 /* ID */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		51B7421316345BC200DB18E1 /* Test */ = {
+			isa = PBXGroup;
+			children = (
+				51B7422816345C0B00DB18E1 /* ID */,
+			);
+			path = Test;
+			sourceTree = "<group>";
+		};
+		51B7422816345C0B00DB18E1 /* ID */ = {
+			isa = PBXGroup;
+			children = (
+				51B7423016345C5200DB18E1 /* main.cpp */,
+				51B7423116345C5200DB18E1 /* TestComponent.cpp */,
+				51B7423216345C5200DB18E1 /* TestComponent.h */,
+			);
+			name = ID;
+			path = ../ID;
+			sourceTree = "<group>";
+		};
+		51B7426616345D3900DB18E1 /* Framework */ = {
+			isa = PBXGroup;
+			children = (
+				51B7426716345D4500DB18E1 /* BaconBox.xcodeproj */,
+			);
+			name = Framework;
+			path = Test;
+			sourceTree = "<group>";
+		};
+		51B7426816345D4500DB18E1 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				51B7426C16345D4500DB18E1 /* libBaconBox.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		51B7422516345C0B00DB18E1 /* ID */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 51B7422D16345C0B00DB18E1 /* Build configuration list for PBXNativeTarget "ID" */;
+			buildPhases = (
+				51B7422216345C0B00DB18E1 /* Sources */,
+				51B7422316345C0B00DB18E1 /* Frameworks */,
+				51B7422416345C0B00DB18E1 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				51B7427816345D6700DB18E1 /* PBXTargetDependency */,
+			);
+			name = ID;
+			productName = ID;
+			productReference = 51B7422616345C0B00DB18E1 /* ID */;
+			productType = "com.apple.product-type.tool";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		51B7420716345BC200DB18E1 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0450;
+				ORGANIZATIONNAME = Anhero;
+			};
+			buildConfigurationList = 51B7420A16345BC200DB18E1 /* Build configuration list for PBXProject "Test" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 51B7420516345BC200DB18E1;
+			productRefGroup = 51B7421116345BC200DB18E1 /* Products */;
+			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 51B7426816345D4500DB18E1 /* Products */;
+					ProjectRef = 51B7426716345D4500DB18E1 /* BaconBox.xcodeproj */;
+				},
+			);
+			projectRoot = "";
+			targets = (
+				51B7422516345C0B00DB18E1 /* ID */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		51B7426C16345D4500DB18E1 /* libBaconBox.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libBaconBox.a;
+			remoteRef = 51B7426B16345D4500DB18E1 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
+/* Begin PBXSourcesBuildPhase section */
+		51B7422216345C0B00DB18E1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				51B7423316345C5200DB18E1 /* main.cpp in Sources */,
+				51B7423416345C5200DB18E1 /* TestComponent.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		51B7427816345D6700DB18E1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = BaconBox;
+			targetProxy = 51B7427716345D6700DB18E1 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		51B7421816345BC200DB18E1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		51B7421916345BC200DB18E1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		51B7422E16345C0B00DB18E1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				HEADER_SEARCH_PATHS = "../BaconBox/**";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		51B7422F16345C0B00DB18E1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				HEADER_SEARCH_PATHS = "../BaconBox/**";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		51B7420A16345BC200DB18E1 /* Build configuration list for PBXProject "Test" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				51B7421816345BC200DB18E1 /* Debug */,
+				51B7421916345BC200DB18E1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		51B7422D16345C0B00DB18E1 /* Build configuration list for PBXNativeTarget "ID" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				51B7422E16345C0B00DB18E1 /* Debug */,
+				51B7422F16345C0B00DB18E1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 51B7420716345BC200DB18E1 /* Project object */;
+}

@@ -7,38 +7,24 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		240F610E1633A48300A136D0 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 240F610D1633A48300A136D0 /* main.cpp */; };
-		24CD5A1316343907001EB407 /* ID.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 24CD5A1216343907001EB407 /* ID.cpp */; };
-		24CD5A1716343C07001EB407 /* TestComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 24CD5A1516343C07001EB407 /* TestComponent.cpp */; };
-		24CD5A1D16343CDA001EB407 /* Component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 24CD5A1C16343CDA001EB407 /* Component.cpp */; };
+		51B7426016345D1900DB18E1 /* Component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 51B7425B16345D1900DB18E1 /* Component.cpp */; };
+		51B7426116345D1900DB18E1 /* Component.h in Headers */ = {isa = PBXBuildFile; fileRef = 51B7425C16345D1900DB18E1 /* Component.h */; };
+		51B7426216345D1900DB18E1 /* Entity.h in Headers */ = {isa = PBXBuildFile; fileRef = 51B7425D16345D1900DB18E1 /* Entity.h */; };
+		51B7426316345D1900DB18E1 /* ID.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 51B7425E16345D1900DB18E1 /* ID.cpp */; };
+		51B7426416345D1900DB18E1 /* ID.h in Headers */ = {isa = PBXBuildFile; fileRef = 51B7425F16345D1900DB18E1 /* ID.h */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXCopyFilesBuildPhase section */
-		240F61071633A48300A136D0 /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = /usr/share/man/man1/;
-			dstSubfolderSpec = 0;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 1;
-		};
-/* End PBXCopyFilesBuildPhase section */
-
 /* Begin PBXFileReference section */
-		240F61091633A48300A136D0 /* BaconBox */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = BaconBox; sourceTree = BUILT_PRODUCTS_DIR; };
-		240F610D1633A48300A136D0 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
-		240F611C1633A4F700A136D0 /* Entity.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Entity.h; path = Core/Entity.h; sourceTree = "<group>"; };
-		240F611D1633A53700A136D0 /* Component.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Component.h; path = Core/Component.h; sourceTree = "<group>"; };
-		24CD5A1016343872001EB407 /* ID.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ID.h; path = Core/ID.h; sourceTree = "<group>"; };
-		24CD5A1216343907001EB407 /* ID.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ID.cpp; path = Core/ID.cpp; sourceTree = "<group>"; };
-		24CD5A1516343C07001EB407 /* TestComponent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TestComponent.cpp; path = Test/TestComponent.cpp; sourceTree = "<group>"; };
-		24CD5A1616343C07001EB407 /* TestComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TestComponent.h; path = Test/TestComponent.h; sourceTree = "<group>"; };
-		24CD5A1C16343CDA001EB407 /* Component.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Component.cpp; path = Core/Component.cpp; sourceTree = "<group>"; };
+		51B7424F16345CFF00DB18E1 /* libBaconBox.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libBaconBox.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		51B7425B16345D1900DB18E1 /* Component.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Component.cpp; sourceTree = "<group>"; };
+		51B7425C16345D1900DB18E1 /* Component.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Component.h; sourceTree = "<group>"; };
+		51B7425D16345D1900DB18E1 /* Entity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Entity.h; sourceTree = "<group>"; };
+		51B7425E16345D1900DB18E1 /* ID.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ID.cpp; sourceTree = "<group>"; };
+		51B7425F16345D1900DB18E1 /* ID.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ID.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		240F61061633A48300A136D0 /* Frameworks */ = {
+		51B7424C16345CFF00DB18E1 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -48,63 +34,65 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		240F60FE1633A48300A136D0 = {
+		51B7424416345CFF00DB18E1 = {
 			isa = PBXGroup;
 			children = (
-				240F610C1633A48300A136D0 /* BaconBox */,
-				240F610A1633A48300A136D0 /* Products */,
+				51B7425916345D1900DB18E1 /* BaconBox */,
+				51B7425016345CFF00DB18E1 /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		240F610A1633A48300A136D0 /* Products */ = {
+		51B7425016345CFF00DB18E1 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				240F61091633A48300A136D0 /* BaconBox */,
+				51B7424F16345CFF00DB18E1 /* libBaconBox.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		240F610C1633A48300A136D0 /* BaconBox */ = {
+		51B7425916345D1900DB18E1 /* BaconBox */ = {
 			isa = PBXGroup;
 			children = (
-				24CD5A1416343BE2001EB407 /* Test */,
-				240F611A1633A4CF00A136D0 /* Core */,
-				240F610D1633A48300A136D0 /* main.cpp */,
+				51B7425A16345D1900DB18E1 /* Core */,
 			);
 			path = BaconBox;
 			sourceTree = "<group>";
 		};
-		240F611A1633A4CF00A136D0 /* Core */ = {
+		51B7425A16345D1900DB18E1 /* Core */ = {
 			isa = PBXGroup;
 			children = (
-				240F611C1633A4F700A136D0 /* Entity.h */,
-				240F611D1633A53700A136D0 /* Component.h */,
-				24CD5A1016343872001EB407 /* ID.h */,
-				24CD5A1216343907001EB407 /* ID.cpp */,
-				24CD5A1C16343CDA001EB407 /* Component.cpp */,
+				51B7425B16345D1900DB18E1 /* Component.cpp */,
+				51B7425C16345D1900DB18E1 /* Component.h */,
+				51B7425D16345D1900DB18E1 /* Entity.h */,
+				51B7425E16345D1900DB18E1 /* ID.cpp */,
+				51B7425F16345D1900DB18E1 /* ID.h */,
 			);
-			name = Core;
-			sourceTree = "<group>";
-		};
-		24CD5A1416343BE2001EB407 /* Test */ = {
-			isa = PBXGroup;
-			children = (
-				24CD5A1516343C07001EB407 /* TestComponent.cpp */,
-				24CD5A1616343C07001EB407 /* TestComponent.h */,
-			);
-			name = Test;
+			path = Core;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
+/* Begin PBXHeadersBuildPhase section */
+		51B7424D16345CFF00DB18E1 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				51B7426116345D1900DB18E1 /* Component.h in Headers */,
+				51B7426216345D1900DB18E1 /* Entity.h in Headers */,
+				51B7426416345D1900DB18E1 /* ID.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
 /* Begin PBXNativeTarget section */
-		240F61081633A48300A136D0 /* BaconBox */ = {
+		51B7424E16345CFF00DB18E1 /* BaconBox */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 240F61131633A48300A136D0 /* Build configuration list for PBXNativeTarget "BaconBox" */;
+			buildConfigurationList = 51B7425316345CFF00DB18E1 /* Build configuration list for PBXNativeTarget "BaconBox" */;
 			buildPhases = (
-				240F61051633A48300A136D0 /* Sources */,
-				240F61061633A48300A136D0 /* Frameworks */,
-				240F61071633A48300A136D0 /* CopyFiles */,
+				51B7424B16345CFF00DB18E1 /* Sources */,
+				51B7424C16345CFF00DB18E1 /* Frameworks */,
+				51B7424D16345CFF00DB18E1 /* Headers */,
 			);
 			buildRules = (
 			);
@@ -112,51 +100,49 @@
 			);
 			name = BaconBox;
 			productName = BaconBox;
-			productReference = 240F61091633A48300A136D0 /* BaconBox */;
-			productType = "com.apple.product-type.tool";
+			productReference = 51B7424F16345CFF00DB18E1 /* libBaconBox.a */;
+			productType = "com.apple.product-type.library.static";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		240F61001633A48300A136D0 /* Project object */ = {
+		51B7424616345CFF00DB18E1 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0450;
-				ORGANIZATIONNAME = "Anhero Inc.";
+				ORGANIZATIONNAME = Anhero;
 			};
-			buildConfigurationList = 240F61031633A48300A136D0 /* Build configuration list for PBXProject "BaconBox" */;
+			buildConfigurationList = 51B7424916345CFF00DB18E1 /* Build configuration list for PBXProject "BaconBox" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 			);
-			mainGroup = 240F60FE1633A48300A136D0;
-			productRefGroup = 240F610A1633A48300A136D0 /* Products */;
+			mainGroup = 51B7424416345CFF00DB18E1;
+			productRefGroup = 51B7425016345CFF00DB18E1 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				240F61081633A48300A136D0 /* BaconBox */,
+				51B7424E16345CFF00DB18E1 /* BaconBox */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXSourcesBuildPhase section */
-		240F61051633A48300A136D0 /* Sources */ = {
+		51B7424B16345CFF00DB18E1 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				240F610E1633A48300A136D0 /* main.cpp in Sources */,
-				24CD5A1316343907001EB407 /* ID.cpp in Sources */,
-				24CD5A1716343C07001EB407 /* TestComponent.cpp in Sources */,
-				24CD5A1D16343CDA001EB407 /* Component.cpp in Sources */,
+				51B7426016345D1900DB18E1 /* Component.cpp in Sources */,
+				51B7426316345D1900DB18E1 /* ID.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
-		240F61111633A48300A136D0 /* Debug */ = {
+		51B7425116345CFF00DB18E1 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -185,7 +171,7 @@
 			};
 			name = Debug;
 		};
-		240F61121633A48300A136D0 /* Release */ = {
+		51B7425216345CFF00DB18E1 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -207,16 +193,18 @@
 			};
 			name = Release;
 		};
-		240F61141633A48300A136D0 /* Debug */ = {
+		51B7425416345CFF00DB18E1 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				EXECUTABLE_PREFIX = lib;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
 		};
-		240F61151633A48300A136D0 /* Release */ = {
+		51B7425516345CFF00DB18E1 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				EXECUTABLE_PREFIX = lib;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -224,25 +212,25 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		240F61031633A48300A136D0 /* Build configuration list for PBXProject "BaconBox" */ = {
+		51B7424916345CFF00DB18E1 /* Build configuration list for PBXProject "BaconBox" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				240F61111633A48300A136D0 /* Debug */,
-				240F61121633A48300A136D0 /* Release */,
+				51B7425116345CFF00DB18E1 /* Debug */,
+				51B7425216345CFF00DB18E1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		240F61131633A48300A136D0 /* Build configuration list for PBXNativeTarget "BaconBox" */ = {
+		51B7425316345CFF00DB18E1 /* Build configuration list for PBXNativeTarget "BaconBox" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				240F61141633A48300A136D0 /* Debug */,
-				240F61151633A48300A136D0 /* Release */,
+				51B7425416345CFF00DB18E1 /* Debug */,
+				51B7425516345CFF00DB18E1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = 240F61001633A48300A136D0 /* Project object */;
+	rootObject = 51B7424616345CFF00DB18E1 /* Project object */;
 }
