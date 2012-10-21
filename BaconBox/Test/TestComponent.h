@@ -6,7 +6,7 @@
 namespace BaconBox {
 	class TestComponent : public Component {
 	public:
-		virtual int getId() const;
+		HAS_ID(TestComponent);
 		
 		int x;
 	};

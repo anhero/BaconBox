@@ -4,9 +4,13 @@
 #include "ID.h"
 
 namespace BaconBox {
+	class Entity;
+	
 	class Component {
 	public:
-		virtual int getId() const;
+		HAS_ID(Component);
+	private:
+		Entity *entity;
 	};
 }
 

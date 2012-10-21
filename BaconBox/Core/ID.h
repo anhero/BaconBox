@@ -1,6 +1,8 @@
 #ifndef BB_ID_H
 #define BB_ID_H
 
+#define HAS_ID(TYPE) virtual int getId() const { return ID<TYPE>::NUMBER; }
+
 namespace BaconBox {
 	class IDImplementation {
 	private:
@@ -11,14 +13,14 @@ namespace BaconBox {
 	template <typename T>
 	class ID : private IDImplementation {
 	public:
-		static int getId() {
-			return ID<T>::id;
-		}
+		static const int NUMBER;
 	private:
-		static int id;
+		
+		ID();
+		ID(const ID &);
 	};
 	
 	template <typename T>
-	int ID<T>::id = IDImplementation::getNextId();
+	const int ID<T>::NUMBER = IDImplementation::getNextId();
 }
 #endif

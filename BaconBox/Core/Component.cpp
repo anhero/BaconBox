@@ -1,7 +1,6 @@
 #include "Component.h"
 
+#include "ID.h"
+
 namespace BaconBox {
-	int Component::getId() const {
-		return ID<Component>::getId();
-	}
 }
