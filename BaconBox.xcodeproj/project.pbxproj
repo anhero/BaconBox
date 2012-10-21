@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		240F610E1633A48300A136D0 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 240F610D1633A48300A136D0 /* main.cpp */; };
+		24CD5A1316343907001EB407 /* ID.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 24CD5A1216343907001EB407 /* ID.cpp */; };
+		24CD5A1716343C07001EB407 /* TestComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 24CD5A1516343C07001EB407 /* TestComponent.cpp */; };
+		24CD5A1D16343CDA001EB407 /* Component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 24CD5A1C16343CDA001EB407 /* Component.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -27,7 +30,11 @@
 		240F610D1633A48300A136D0 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		240F611C1633A4F700A136D0 /* Entity.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Entity.h; path = Core/Entity.h; sourceTree = "<group>"; };
 		240F611D1633A53700A136D0 /* Component.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Component.h; path = Core/Component.h; sourceTree = "<group>"; };
-		240F611E1633A59900A136D0 /* ComponentManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ComponentManager.h; path = Core/ComponentManager.h; sourceTree = "<group>"; };
+		24CD5A1016343872001EB407 /* ID.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ID.h; path = Core/ID.h; sourceTree = "<group>"; };
+		24CD5A1216343907001EB407 /* ID.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ID.cpp; path = Core/ID.cpp; sourceTree = "<group>"; };
+		24CD5A1516343C07001EB407 /* TestComponent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TestComponent.cpp; path = Test/TestComponent.cpp; sourceTree = "<group>"; };
+		24CD5A1616343C07001EB407 /* TestComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TestComponent.h; path = Test/TestComponent.h; sourceTree = "<group>"; };
+		24CD5A1C16343CDA001EB407 /* Component.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Component.cpp; path = Core/Component.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +67,7 @@
 		240F610C1633A48300A136D0 /* BaconBox */ = {
 			isa = PBXGroup;
 			children = (
+				24CD5A1416343BE2001EB407 /* Test */,
 				240F611A1633A4CF00A136D0 /* Core */,
 				240F610D1633A48300A136D0 /* main.cpp */,
 			);
@@ -71,9 +79,20 @@
 			children = (
 				240F611C1633A4F700A136D0 /* Entity.h */,
 				240F611D1633A53700A136D0 /* Component.h */,
-				240F611E1633A59900A136D0 /* ComponentManager.h */,
+				24CD5A1016343872001EB407 /* ID.h */,
+				24CD5A1216343907001EB407 /* ID.cpp */,
+				24CD5A1C16343CDA001EB407 /* Component.cpp */,
 			);
 			name = Core;
+			sourceTree = "<group>";
+		};
+		24CD5A1416343BE2001EB407 /* Test */ = {
+			isa = PBXGroup;
+			children = (
+				24CD5A1516343C07001EB407 /* TestComponent.cpp */,
+				24CD5A1616343C07001EB407 /* TestComponent.h */,
+			);
+			name = Test;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -128,6 +147,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				240F610E1633A48300A136D0 /* main.cpp in Sources */,
+				24CD5A1316343907001EB407 /* ID.cpp in Sources */,
+				24CD5A1716343C07001EB407 /* TestComponent.cpp in Sources */,
+				24CD5A1D16343CDA001EB407 /* Component.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
