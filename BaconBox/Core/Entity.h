@@ -12,6 +12,7 @@ namespace BaconBox {
 	 */
 	class Entity {
 	public:
+		void sendMessage(int id, int message, void *data);
 	private:
 		std::vector<Component *> components;
 		

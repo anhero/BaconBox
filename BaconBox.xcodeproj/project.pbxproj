@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		24CD5A5216346284001EB407 /* Entity.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 24CD5A5116346284001EB407 /* Entity.cpp */; };
 		51B7426016345D1900DB18E1 /* Component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 51B7425B16345D1900DB18E1 /* Component.cpp */; };
 		51B7426116345D1900DB18E1 /* Component.h in Headers */ = {isa = PBXBuildFile; fileRef = 51B7425C16345D1900DB18E1 /* Component.h */; };
 		51B7426216345D1900DB18E1 /* Entity.h in Headers */ = {isa = PBXBuildFile; fileRef = 51B7425D16345D1900DB18E1 /* Entity.h */; };
@@ -15,6 +16,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		24CD5A5116346284001EB407 /* Entity.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Entity.cpp; sourceTree = "<group>"; };
 		51B7424F16345CFF00DB18E1 /* libBaconBox.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libBaconBox.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		51B7425B16345D1900DB18E1 /* Component.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Component.cpp; sourceTree = "<group>"; };
 		51B7425C16345D1900DB18E1 /* Component.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Component.h; sourceTree = "<group>"; };
@@ -66,6 +68,7 @@
 				51B7425D16345D1900DB18E1 /* Entity.h */,
 				51B7425E16345D1900DB18E1 /* ID.cpp */,
 				51B7425F16345D1900DB18E1 /* ID.h */,
+				24CD5A5116346284001EB407 /* Entity.cpp */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -136,6 +139,7 @@
 			files = (
 				51B7426016345D1900DB18E1 /* Component.cpp in Sources */,
 				51B7426316345D1900DB18E1 /* ID.cpp in Sources */,
+				24CD5A5216346284001EB407 /* Entity.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
