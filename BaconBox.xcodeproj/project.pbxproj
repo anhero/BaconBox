@@ -8,6 +8,40 @@
 
 /* Begin PBXBuildFile section */
 		24CD5A5216346284001EB407 /* Entity.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 24CD5A5116346284001EB407 /* Entity.cpp */; };
+		24CD5A5B1634782A001EB407 /* Vector2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 24CD5A591634782A001EB407 /* Vector2.cpp */; };
+		24CD5A5C1634782A001EB407 /* Vector2.h in Headers */ = {isa = PBXBuildFile; fileRef = 24CD5A5A1634782A001EB407 /* Vector2.h */; };
+		24CD5A6016347894001EB407 /* MathHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 24CD5A5E16347894001EB407 /* MathHelper.cpp */; };
+		24CD5A6116347894001EB407 /* MathHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 24CD5A5F16347894001EB407 /* MathHelper.h */; };
+		24CD5A63163478CA001EB407 /* StaticAssert.h in Headers */ = {isa = PBXBuildFile; fileRef = 24CD5A62163478CA001EB407 /* StaticAssert.h */; };
+		24CD5A6816347906001EB407 /* IsBaseOf.h in Headers */ = {isa = PBXBuildFile; fileRef = 24CD5A6416347905001EB407 /* IsBaseOf.h */; };
+		24CD5A6916347906001EB407 /* IsNumber.h in Headers */ = {isa = PBXBuildFile; fileRef = 24CD5A6516347906001EB407 /* IsNumber.h */; };
+		24CD5A6A16347906001EB407 /* IsSame.h in Headers */ = {isa = PBXBuildFile; fileRef = 24CD5A6616347906001EB407 /* IsSame.h */; };
+		24CD5A6B16347906001EB407 /* Iterators.h in Headers */ = {isa = PBXBuildFile; fileRef = 24CD5A6716347906001EB407 /* Iterators.h */; };
+		24CD5A6D16347943001EB407 /* Ease.h in Headers */ = {isa = PBXBuildFile; fileRef = 24CD5A6C16347943001EB407 /* Ease.h */; };
+		24CD5A6F16347954001EB407 /* SafeEnum.h in Headers */ = {isa = PBXBuildFile; fileRef = 24CD5A6E16347954001EB407 /* SafeEnum.h */; };
+		24CD5A7F16347A32001EB407 /* Array.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 24CD5A7116347A32001EB407 /* Array.cpp */; };
+		24CD5A8016347A32001EB407 /* Array.h in Headers */ = {isa = PBXBuildFile; fileRef = 24CD5A7216347A32001EB407 /* Array.h */; };
+		24CD5A8116347A32001EB407 /* DefaultSerializer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 24CD5A7316347A32001EB407 /* DefaultSerializer.cpp */; };
+		24CD5A8216347A32001EB407 /* DefaultSerializer.h in Headers */ = {isa = PBXBuildFile; fileRef = 24CD5A7416347A32001EB407 /* DefaultSerializer.h */; };
+		24CD5A8316347A32001EB407 /* JsonSerializer.h in Headers */ = {isa = PBXBuildFile; fileRef = 24CD5A7516347A32001EB407 /* JsonSerializer.h */; };
+		24CD5A8416347A32001EB407 /* Object.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 24CD5A7616347A32001EB407 /* Object.cpp */; };
+		24CD5A8516347A32001EB407 /* Object.h in Headers */ = {isa = PBXBuildFile; fileRef = 24CD5A7716347A32001EB407 /* Object.h */; };
+		24CD5A8616347A32001EB407 /* Serializable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 24CD5A7816347A32001EB407 /* Serializable.cpp */; };
+		24CD5A8716347A32001EB407 /* Serializable.h in Headers */ = {isa = PBXBuildFile; fileRef = 24CD5A7916347A32001EB407 /* Serializable.h */; };
+		24CD5A8816347A32001EB407 /* Serializer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 24CD5A7A16347A32001EB407 /* Serializer.cpp */; };
+		24CD5A8916347A32001EB407 /* Serializer.h in Headers */ = {isa = PBXBuildFile; fileRef = 24CD5A7B16347A32001EB407 /* Serializer.h */; };
+		24CD5A8A16347A32001EB407 /* Value.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 24CD5A7C16347A32001EB407 /* Value.cpp */; };
+		24CD5A8B16347A32001EB407 /* Value.h in Headers */ = {isa = PBXBuildFile; fileRef = 24CD5A7D16347A32001EB407 /* Value.h */; };
+		24CD5A8C16347A32001EB407 /* XmlSerializer.h in Headers */ = {isa = PBXBuildFile; fileRef = 24CD5A7E16347A32001EB407 /* XmlSerializer.h */; };
+		24CD5A9116347A51001EB407 /* JsonBoxSerializer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 24CD5A8F16347A51001EB407 /* JsonBoxSerializer.cpp */; };
+		24CD5A9216347A51001EB407 /* JsonBoxSerializer.h in Headers */ = {isa = PBXBuildFile; fileRef = 24CD5A9016347A51001EB407 /* JsonBoxSerializer.h */; };
+		24CD5A9516347A5C001EB407 /* TinyXMLSerializer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 24CD5A9316347A5C001EB407 /* TinyXMLSerializer.cpp */; };
+		24CD5A9616347A5C001EB407 /* TinyXMLSerializer.h in Headers */ = {isa = PBXBuildFile; fileRef = 24CD5A9416347A5C001EB407 /* TinyXMLSerializer.h */; };
+		24CD5A9916347EE9001EB407 /* libJsonBox.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 24CD5A9716347EE8001EB407 /* libJsonBox.a */; };
+		24CD5A9A16347EE9001EB407 /* libtinyxml.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 24CD5A9816347EE8001EB407 /* libtinyxml.a */; };
+		24CD5AA316348058001EB407 /* DeleteHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 24CD5AA216348057001EB407 /* DeleteHelper.h */; };
+		24CD5AA616348089001EB407 /* State.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 24CD5AA416348089001EB407 /* State.cpp */; };
+		24CD5AA716348089001EB407 /* State.h in Headers */ = {isa = PBXBuildFile; fileRef = 24CD5AA516348089001EB407 /* State.h */; };
 		51B7426016345D1900DB18E1 /* Component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 51B7425B16345D1900DB18E1 /* Component.cpp */; };
 		51B7426116345D1900DB18E1 /* Component.h in Headers */ = {isa = PBXBuildFile; fileRef = 51B7425C16345D1900DB18E1 /* Component.h */; };
 		51B7426216345D1900DB18E1 /* Entity.h in Headers */ = {isa = PBXBuildFile; fileRef = 51B7425D16345D1900DB18E1 /* Entity.h */; };
@@ -17,6 +51,40 @@
 
 /* Begin PBXFileReference section */
 		24CD5A5116346284001EB407 /* Entity.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Entity.cpp; sourceTree = "<group>"; };
+		24CD5A591634782A001EB407 /* Vector2.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Vector2.cpp; sourceTree = "<group>"; };
+		24CD5A5A1634782A001EB407 /* Vector2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Vector2.h; sourceTree = "<group>"; };
+		24CD5A5E16347894001EB407 /* MathHelper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MathHelper.cpp; path = Helper/MathHelper.cpp; sourceTree = "<group>"; };
+		24CD5A5F16347894001EB407 /* MathHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MathHelper.h; path = Helper/MathHelper.h; sourceTree = "<group>"; };
+		24CD5A62163478CA001EB407 /* StaticAssert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StaticAssert.h; path = Helper/StaticAssert.h; sourceTree = "<group>"; };
+		24CD5A6416347905001EB407 /* IsBaseOf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IsBaseOf.h; path = Helper/IsBaseOf.h; sourceTree = "<group>"; };
+		24CD5A6516347906001EB407 /* IsNumber.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IsNumber.h; path = Helper/IsNumber.h; sourceTree = "<group>"; };
+		24CD5A6616347906001EB407 /* IsSame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IsSame.h; path = Helper/IsSame.h; sourceTree = "<group>"; };
+		24CD5A6716347906001EB407 /* Iterators.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Iterators.h; path = Helper/Iterators.h; sourceTree = "<group>"; };
+		24CD5A6C16347943001EB407 /* Ease.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Ease.h; path = Helper/Ease.h; sourceTree = "<group>"; };
+		24CD5A6E16347954001EB407 /* SafeEnum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SafeEnum.h; path = Helper/SafeEnum.h; sourceTree = "<group>"; };
+		24CD5A7116347A32001EB407 /* Array.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Array.cpp; path = Helper/Serialization/Array.cpp; sourceTree = "<group>"; };
+		24CD5A7216347A32001EB407 /* Array.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Array.h; path = Helper/Serialization/Array.h; sourceTree = "<group>"; };
+		24CD5A7316347A32001EB407 /* DefaultSerializer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = DefaultSerializer.cpp; path = Helper/Serialization/DefaultSerializer.cpp; sourceTree = "<group>"; };
+		24CD5A7416347A32001EB407 /* DefaultSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DefaultSerializer.h; path = Helper/Serialization/DefaultSerializer.h; sourceTree = "<group>"; };
+		24CD5A7516347A32001EB407 /* JsonSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JsonSerializer.h; path = Helper/Serialization/JsonSerializer.h; sourceTree = "<group>"; };
+		24CD5A7616347A32001EB407 /* Object.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Object.cpp; path = Helper/Serialization/Object.cpp; sourceTree = "<group>"; };
+		24CD5A7716347A32001EB407 /* Object.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Object.h; path = Helper/Serialization/Object.h; sourceTree = "<group>"; };
+		24CD5A7816347A32001EB407 /* Serializable.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Serializable.cpp; path = Helper/Serialization/Serializable.cpp; sourceTree = "<group>"; };
+		24CD5A7916347A32001EB407 /* Serializable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Serializable.h; path = Helper/Serialization/Serializable.h; sourceTree = "<group>"; };
+		24CD5A7A16347A32001EB407 /* Serializer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Serializer.cpp; path = Helper/Serialization/Serializer.cpp; sourceTree = "<group>"; };
+		24CD5A7B16347A32001EB407 /* Serializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Serializer.h; path = Helper/Serialization/Serializer.h; sourceTree = "<group>"; };
+		24CD5A7C16347A32001EB407 /* Value.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Value.cpp; path = Helper/Serialization/Value.cpp; sourceTree = "<group>"; };
+		24CD5A7D16347A32001EB407 /* Value.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Value.h; path = Helper/Serialization/Value.h; sourceTree = "<group>"; };
+		24CD5A7E16347A32001EB407 /* XmlSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XmlSerializer.h; path = Helper/Serialization/XmlSerializer.h; sourceTree = "<group>"; };
+		24CD5A8F16347A51001EB407 /* JsonBoxSerializer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = JsonBoxSerializer.cpp; path = Helper/Serialization/JsonBox/JsonBoxSerializer.cpp; sourceTree = "<group>"; };
+		24CD5A9016347A51001EB407 /* JsonBoxSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JsonBoxSerializer.h; path = Helper/Serialization/JsonBox/JsonBoxSerializer.h; sourceTree = "<group>"; };
+		24CD5A9316347A5C001EB407 /* TinyXMLSerializer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TinyXMLSerializer.cpp; path = Helper/Serialization/TinyXML/TinyXMLSerializer.cpp; sourceTree = "<group>"; };
+		24CD5A9416347A5C001EB407 /* TinyXMLSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TinyXMLSerializer.h; path = Helper/Serialization/TinyXML/TinyXMLSerializer.h; sourceTree = "<group>"; };
+		24CD5A9716347EE8001EB407 /* libJsonBox.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libJsonBox.a; path = libraries/Darwin/x86_64/lib/libJsonBox.a; sourceTree = "<group>"; };
+		24CD5A9816347EE8001EB407 /* libtinyxml.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libtinyxml.a; path = libraries/Darwin/x86_64/lib/libtinyxml.a; sourceTree = "<group>"; };
+		24CD5AA216348057001EB407 /* DeleteHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DeleteHelper.h; path = Helper/DeleteHelper.h; sourceTree = "<group>"; };
+		24CD5AA416348089001EB407 /* State.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = State.cpp; sourceTree = "<group>"; };
+		24CD5AA516348089001EB407 /* State.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = State.h; sourceTree = "<group>"; };
 		51B7424F16345CFF00DB18E1 /* libBaconBox.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libBaconBox.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		51B7425B16345D1900DB18E1 /* Component.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Component.cpp; sourceTree = "<group>"; };
 		51B7425C16345D1900DB18E1 /* Component.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Component.h; sourceTree = "<group>"; };
@@ -30,15 +98,86 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				24CD5A9916347EE9001EB407 /* libJsonBox.a in Frameworks */,
+				24CD5A9A16347EE9001EB407 /* libtinyxml.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		24CD5A5D16347861001EB407 /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				24CD5A7016347A00001EB407 /* Serialization */,
+				24CD5AA216348057001EB407 /* DeleteHelper.h */,
+				24CD5A6C16347943001EB407 /* Ease.h */,
+				24CD5A6416347905001EB407 /* IsBaseOf.h */,
+				24CD5A6516347906001EB407 /* IsNumber.h */,
+				24CD5A6616347906001EB407 /* IsSame.h */,
+				24CD5A6716347906001EB407 /* Iterators.h */,
+				24CD5A5E16347894001EB407 /* MathHelper.cpp */,
+				24CD5A5F16347894001EB407 /* MathHelper.h */,
+				24CD5A6E16347954001EB407 /* SafeEnum.h */,
+				24CD5A62163478CA001EB407 /* StaticAssert.h */,
+			);
+			name = Helper;
+			sourceTree = "<group>";
+		};
+		24CD5A7016347A00001EB407 /* Serialization */ = {
+			isa = PBXGroup;
+			children = (
+				24CD5A8D16347A3C001EB407 /* JsonBox */,
+				24CD5A8E16347A43001EB407 /* TinyXML */,
+				24CD5A7116347A32001EB407 /* Array.cpp */,
+				24CD5A7216347A32001EB407 /* Array.h */,
+				24CD5A7316347A32001EB407 /* DefaultSerializer.cpp */,
+				24CD5A7416347A32001EB407 /* DefaultSerializer.h */,
+				24CD5A7516347A32001EB407 /* JsonSerializer.h */,
+				24CD5A7616347A32001EB407 /* Object.cpp */,
+				24CD5A7716347A32001EB407 /* Object.h */,
+				24CD5A7816347A32001EB407 /* Serializable.cpp */,
+				24CD5A7916347A32001EB407 /* Serializable.h */,
+				24CD5A7A16347A32001EB407 /* Serializer.cpp */,
+				24CD5A7B16347A32001EB407 /* Serializer.h */,
+				24CD5A7C16347A32001EB407 /* Value.cpp */,
+				24CD5A7D16347A32001EB407 /* Value.h */,
+				24CD5A7E16347A32001EB407 /* XmlSerializer.h */,
+			);
+			name = Serialization;
+			sourceTree = "<group>";
+		};
+		24CD5A8D16347A3C001EB407 /* JsonBox */ = {
+			isa = PBXGroup;
+			children = (
+				24CD5A8F16347A51001EB407 /* JsonBoxSerializer.cpp */,
+				24CD5A9016347A51001EB407 /* JsonBoxSerializer.h */,
+			);
+			name = JsonBox;
+			sourceTree = "<group>";
+		};
+		24CD5A8E16347A43001EB407 /* TinyXML */ = {
+			isa = PBXGroup;
+			children = (
+				24CD5A9316347A5C001EB407 /* TinyXMLSerializer.cpp */,
+				24CD5A9416347A5C001EB407 /* TinyXMLSerializer.h */,
+			);
+			name = TinyXML;
+			sourceTree = "<group>";
+		};
+		24CD5A9B16347EF2001EB407 /* libraries */ = {
+			isa = PBXGroup;
+			children = (
+				24CD5A9716347EE8001EB407 /* libJsonBox.a */,
+				24CD5A9816347EE8001EB407 /* libtinyxml.a */,
+			);
+			name = libraries;
+			sourceTree = "<group>";
+		};
 		51B7424416345CFF00DB18E1 = {
 			isa = PBXGroup;
 			children = (
+				24CD5A9B16347EF2001EB407 /* libraries */,
 				51B7425916345D1900DB18E1 /* BaconBox */,
 				51B7425016345CFF00DB18E1 /* Products */,
 			);
@@ -56,6 +195,7 @@
 			isa = PBXGroup;
 			children = (
 				51B7425A16345D1900DB18E1 /* Core */,
+				24CD5A5D16347861001EB407 /* Helper */,
 			);
 			path = BaconBox;
 			sourceTree = "<group>";
@@ -65,10 +205,14 @@
 			children = (
 				51B7425B16345D1900DB18E1 /* Component.cpp */,
 				51B7425C16345D1900DB18E1 /* Component.h */,
+				24CD5A5116346284001EB407 /* Entity.cpp */,
 				51B7425D16345D1900DB18E1 /* Entity.h */,
 				51B7425E16345D1900DB18E1 /* ID.cpp */,
 				51B7425F16345D1900DB18E1 /* ID.h */,
-				24CD5A5116346284001EB407 /* Entity.cpp */,
+				24CD5AA416348089001EB407 /* State.cpp */,
+				24CD5AA516348089001EB407 /* State.h */,
+				24CD5A591634782A001EB407 /* Vector2.cpp */,
+				24CD5A5A1634782A001EB407 /* Vector2.h */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -83,6 +227,27 @@
 				51B7426116345D1900DB18E1 /* Component.h in Headers */,
 				51B7426216345D1900DB18E1 /* Entity.h in Headers */,
 				51B7426416345D1900DB18E1 /* ID.h in Headers */,
+				24CD5A5C1634782A001EB407 /* Vector2.h in Headers */,
+				24CD5A6116347894001EB407 /* MathHelper.h in Headers */,
+				24CD5A63163478CA001EB407 /* StaticAssert.h in Headers */,
+				24CD5A6816347906001EB407 /* IsBaseOf.h in Headers */,
+				24CD5A6916347906001EB407 /* IsNumber.h in Headers */,
+				24CD5A6A16347906001EB407 /* IsSame.h in Headers */,
+				24CD5A6B16347906001EB407 /* Iterators.h in Headers */,
+				24CD5A6D16347943001EB407 /* Ease.h in Headers */,
+				24CD5A6F16347954001EB407 /* SafeEnum.h in Headers */,
+				24CD5A8016347A32001EB407 /* Array.h in Headers */,
+				24CD5A8216347A32001EB407 /* DefaultSerializer.h in Headers */,
+				24CD5A8316347A32001EB407 /* JsonSerializer.h in Headers */,
+				24CD5A8516347A32001EB407 /* Object.h in Headers */,
+				24CD5A8716347A32001EB407 /* Serializable.h in Headers */,
+				24CD5A8916347A32001EB407 /* Serializer.h in Headers */,
+				24CD5A8B16347A32001EB407 /* Value.h in Headers */,
+				24CD5A8C16347A32001EB407 /* XmlSerializer.h in Headers */,
+				24CD5A9216347A51001EB407 /* JsonBoxSerializer.h in Headers */,
+				24CD5A9616347A5C001EB407 /* TinyXMLSerializer.h in Headers */,
+				24CD5AA316348058001EB407 /* DeleteHelper.h in Headers */,
+				24CD5AA716348089001EB407 /* State.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -140,6 +305,17 @@
 				51B7426016345D1900DB18E1 /* Component.cpp in Sources */,
 				51B7426316345D1900DB18E1 /* ID.cpp in Sources */,
 				24CD5A5216346284001EB407 /* Entity.cpp in Sources */,
+				24CD5A5B1634782A001EB407 /* Vector2.cpp in Sources */,
+				24CD5A6016347894001EB407 /* MathHelper.cpp in Sources */,
+				24CD5A7F16347A32001EB407 /* Array.cpp in Sources */,
+				24CD5A8116347A32001EB407 /* DefaultSerializer.cpp in Sources */,
+				24CD5A8416347A32001EB407 /* Object.cpp in Sources */,
+				24CD5A8616347A32001EB407 /* Serializable.cpp in Sources */,
+				24CD5A8816347A32001EB407 /* Serializer.cpp in Sources */,
+				24CD5A8A16347A32001EB407 /* Value.cpp in Sources */,
+				24CD5A9116347A51001EB407 /* JsonBoxSerializer.cpp in Sources */,
+				24CD5A9516347A5C001EB407 /* TinyXMLSerializer.cpp in Sources */,
+				24CD5AA616348089001EB407 /* State.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -201,6 +377,16 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				EXECUTABLE_PREFIX = lib;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"TIXML_USE_STL=1",
+					"$(inherited)",
+				);
+				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/libraries/Darwin/x86_64/include\"";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/libraries/Darwin/x86_64/lib\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -209,6 +395,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				EXECUTABLE_PREFIX = lib;
+				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/libraries/Darwin/x86_64/include\"";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/libraries/Darwin/x86_64/lib\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;

@@ -16,6 +16,9 @@ namespace BaconBox {
 		void sendMessage(int message, void *data);
 		virtual void receiveMessage(int id, int message, void *data);
 		
+		virtual void update();
+		virtual void render();
+		
 		const std::string &getName() const;
 		void setName(const std::string& newName);
 	private:

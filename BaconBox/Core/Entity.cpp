@@ -9,6 +9,24 @@ namespace BaconBox {
 		}
 	}
 	
+	void Entity::update() {
+		for (std::vector<Component *>::iterator i = this->components.begin(); i != this->components.end(); ++i) {
+			(*i)->update();
+		}
+		for (std::vector<Entity *>::iterator i = this->children.begin(); i != this->children.end(); ++i) {
+			(*i)->update();
+		}
+	}
+	
+	void Entity::render() {
+		for (std::vector<Component *>::iterator i = this->components.begin(); i != this->components.end(); ++i) {
+			(*i)->render();
+		}
+		for (std::vector<Entity *>::iterator i = this->children.begin(); i != this->children.end(); ++i) {
+			(*i)->render();
+		}
+	}
+	
 	const std::string &Entity::getName() const {
 		return this->name;
 	}

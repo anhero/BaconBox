@@ -1,0 +1,38 @@
+#!/bin/bash
+
+_name="libpng"
+_license="libpng License" 
+
+#_version="1.5.1"
+_version="1.4.5"
+_archive="${_name}-${_version}.tar.gz"
+_archive_url="http://downloads.sourceforge.net/sourceforge/libpng/${_archive}"
+#_hash="220035f111ea045a51e290906025e8b5" #1.5.1
+_hash="dd4175393720ae041c67ace87cf6d212" #1.4.5
+
+#Host
+if [ -n "${target_crosscompile-}" ]; then
+	if [[ -n "${configure_host-}" ]]; then
+		config_cmdline="${config_cmdline-} --host=${configure_host}"
+	fi
+fi
+
+[[ -n ${configure_host-} ]] && 
+
+
+config_cmdline="${config_cmdline-} --enable-static=yes --enable-shared=no"
+
+function discover() {
+	#TODO: If using the system's library, include it, otherwise, locally built
+	if [ $1 == '--cflags' ]; then
+		echo -I${libs_builddir}/include/libpng15
+	else
+		print_error Unrecognized parameter or missing parameter.
+		exit 1
+	fi
+}
+
+load_base http.fetch
+load_base configuremakemake.build
+
+# vim: ft=sh

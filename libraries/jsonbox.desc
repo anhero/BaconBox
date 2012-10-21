@@ -1,0 +1,23 @@
+#!/bin/bash
+
+_name="jsonbox"
+_license="MIT"
+_version="0.4.1"
+_archive="${_name}-${_version}-src.tar.gz"
+_archive_url="https://github.com/downloads/anhero/JsonBox/${_archive}"
+_hash="0c36f0f50ec413ca067bf02f587fe529" #tar.gz
+
+WGET_FLAGS="--no-check-certificate"
+
+load_base http.fetch
+
+function build() {
+	cd "${lib_workdir}/${_pkgdir}-src" || exit 1
+	make
+	mkdir -p "${libs_builddir}/lib/"
+	cp build/*.a "${libs_builddir}/lib/"
+	mkdir -p "${libs_builddir}/include/"
+	cp -prf include/* "${libs_builddir}/include/" || exit 1
+}
+
+# vim: ft=sh

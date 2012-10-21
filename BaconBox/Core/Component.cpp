@@ -11,6 +11,12 @@ namespace BaconBox {
 
 	void Component::receiveMessage(int id, int message, void *data) {
 	}
+	
+	void Component::update() {
+	}
+	
+	void Component::render() {
+	}
 
 	const std::string &Component::getName() const {
 		return this->name;

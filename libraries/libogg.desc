@@ -1,0 +1,27 @@
+#!/bin/bash
+
+_name="libogg"
+_license="BSD-style"
+_version="1.2.2"
+_archive="${_name}-${_version}.tar.gz"
+
+_archive_url="http://downloads.xiph.org/releases/ogg/${_archive}"
+
+_hash="5a9fcabc9a1b7c6f1cd75ddc78f36c56"
+
+config_cmdline="--enable-shared=no"
+
+# Fix for a lion bug where it is set to -O4, causing compilation bugs.
+CFLAGS="${CFLAGS-} -O2"
+
+#Host
+if [ -n "${target_crosscompile-}" ]; then
+	if [[ -n "${configure_host-}" ]]; then
+		config_cmdline="${config_cmdline-} --host=${configure_host}"
+	fi
+fi
+
+load_base http.fetch
+load_base configuremakemake.build
+
+# vim: ft=sh
