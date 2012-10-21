@@ -1,0 +1,226 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		240F610E1633A48300A136D0 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 240F610D1633A48300A136D0 /* main.cpp */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		240F61071633A48300A136D0 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		240F61091633A48300A136D0 /* BaconBox */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = BaconBox; sourceTree = BUILT_PRODUCTS_DIR; };
+		240F610D1633A48300A136D0 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		240F611C1633A4F700A136D0 /* Entity.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Entity.h; path = Core/Entity.h; sourceTree = "<group>"; };
+		240F611D1633A53700A136D0 /* Component.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Component.h; path = Core/Component.h; sourceTree = "<group>"; };
+		240F611E1633A59900A136D0 /* ComponentManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ComponentManager.h; path = Core/ComponentManager.h; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		240F61061633A48300A136D0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		240F60FE1633A48300A136D0 = {
+			isa = PBXGroup;
+			children = (
+				240F610C1633A48300A136D0 /* BaconBox */,
+				240F610A1633A48300A136D0 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		240F610A1633A48300A136D0 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				240F61091633A48300A136D0 /* BaconBox */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		240F610C1633A48300A136D0 /* BaconBox */ = {
+			isa = PBXGroup;
+			children = (
+				240F611A1633A4CF00A136D0 /* Core */,
+				240F610D1633A48300A136D0 /* main.cpp */,
+			);
+			path = BaconBox;
+			sourceTree = "<group>";
+		};
+		240F611A1633A4CF00A136D0 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				240F611C1633A4F700A136D0 /* Entity.h */,
+				240F611D1633A53700A136D0 /* Component.h */,
+				240F611E1633A59900A136D0 /* ComponentManager.h */,
+			);
+			name = Core;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		240F61081633A48300A136D0 /* BaconBox */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 240F61131633A48300A136D0 /* Build configuration list for PBXNativeTarget "BaconBox" */;
+			buildPhases = (
+				240F61051633A48300A136D0 /* Sources */,
+				240F61061633A48300A136D0 /* Frameworks */,
+				240F61071633A48300A136D0 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = BaconBox;
+			productName = BaconBox;
+			productReference = 240F61091633A48300A136D0 /* BaconBox */;
+			productType = "com.apple.product-type.tool";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		240F61001633A48300A136D0 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0450;
+				ORGANIZATIONNAME = "Anhero Inc.";
+			};
+			buildConfigurationList = 240F61031633A48300A136D0 /* Build configuration list for PBXProject "BaconBox" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 240F60FE1633A48300A136D0;
+			productRefGroup = 240F610A1633A48300A136D0 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				240F61081633A48300A136D0 /* BaconBox */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		240F61051633A48300A136D0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				240F610E1633A48300A136D0 /* main.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		240F61111633A48300A136D0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		240F61121633A48300A136D0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		240F61141633A48300A136D0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		240F61151633A48300A136D0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		240F61031633A48300A136D0 /* Build configuration list for PBXProject "BaconBox" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				240F61111633A48300A136D0 /* Debug */,
+				240F61121633A48300A136D0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		240F61131633A48300A136D0 /* Build configuration list for PBXNativeTarget "BaconBox" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				240F61141633A48300A136D0 /* Debug */,
+				240F61151633A48300A136D0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 240F61001633A48300A136D0 /* Project object */;
+}
