@@ -13,9 +13,23 @@ namespace BaconBox {
 	class Entity {
 	public:
 		void sendMessage(int id, int message, void *data);
-	private:
-		std::vector<Component *> components;
 		
+		const std::string &getName() const;
+		void setName(const std::string &newName);
+		
+		const std::vector<Component *> &getComponents() const;
+		void addComponent(Component *newComponent);
+		void removeComponentAt(std::vector<Component *>::size_type index);
+		void removeComponent(Component *component);
+		void removeComponents(int id);
+
+		const std::vector<Entity *> &getChildren() const;
+		void addChild(Entity *newChild);
+		void removeChildAt(std::vector<Entity *>::size_type index);
+		void removeChild(Entity *child);
+	private:
+		std::string name;
+		std::vector<Component *> components;
 		std::vector<Entity *> children;
 		Entity *parent;
 	};

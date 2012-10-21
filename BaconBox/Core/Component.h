@@ -7,6 +7,7 @@ namespace BaconBox {
 	class Entity;
 	
 	class Component {
+		friend class Entity;
 	public:
 		HAS_ID(Component);
 		
