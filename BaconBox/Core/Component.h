@@ -1,6 +1,8 @@
 #ifndef BB_COMPONENT_H
 #define BB_COMPONENT_H
 
+#include <string>
+
 #include "ID.h"
 
 namespace BaconBox {
@@ -13,7 +15,11 @@ namespace BaconBox {
 		
 		void sendMessage(int message, void *data);
 		virtual void receiveMessage(int id, int message, void *data);
+		
+		const std::string &getName() const;
+		void setName(const std::string& newName);
 	private:
+		std::string name;
 		Entity *entity;
 	};
 }
