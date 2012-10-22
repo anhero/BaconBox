@@ -5,7 +5,7 @@
 namespace BaconBox {
 	const std::string State::DEFAULT_NAME = "State";
 
-	State::State(const std::string &newName) : sigly::HasSlots<>(), name(newName), entities() {
+	State::State(const std::string &newName) : name(newName), entities() {
 	}
 
 	State::~State() {
@@ -38,26 +38,24 @@ namespace BaconBox {
 	}
 
 	void State::internalUpdate() {
-		for (std::list<Entity *>::iterator i = this->entities.begin(); i != this->entities.end(); ++i) {
+		for (std::vector<Entity *>::iterator i = this->entities.begin(); i != this->entities.end(); ++i) {
 			(*i)->update();
 		}
 		this->update();
 	}
 
 	void State::internalRender() {
-		for (std::list<Entity *>::iterator i = this->entities.begin(); i != this->entities.end(); ++i) {
+		for (std::vector<Entity *>::iterator i = this->entities.begin(); i != this->entities.end(); ++i) {
 			(*i)->render();
 		}
 		this->render();
 	}
 
 	void State::internalOnGetFocus() {
-		activateSlots();
 		onGetFocus();
 	}
 
 	void State::internalOnLoseFocus() {
-		deactivateSlots();
 		onLoseFocus();
 	}
 }

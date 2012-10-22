@@ -5,7 +5,7 @@
 #define BB_STATE_H
 
 #include <string>
-#include <list>
+#include <vector>
 
 #include <sigly.h>
 
@@ -16,7 +16,7 @@ namespace BaconBox {
 	 * A state represents the game's different states, it contains and
 	 * manages the Layerable objects. Ex: the PlayState, the MenuState.
 	 */
-	class State : public sigly::HasSlots<> {
+	class State {
 		friend class Engine;
 	public:
 		/**
@@ -112,7 +112,7 @@ namespace BaconBox {
 		/// State's name, used as an identifier.
 		std::string name;
 		
-		std::list<Entity *> entities;
+		std::vector<Entity *> entities;
 	};
 }
 #endif
