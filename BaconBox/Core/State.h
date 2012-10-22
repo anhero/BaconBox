@@ -6,8 +6,8 @@
 
 #include <string>
 #include <vector>
-
-#include <sigly.h>
+#include <set>
+#include <list>
 
 namespace BaconBox {
 	class Entity;
@@ -71,6 +71,8 @@ namespace BaconBox {
 		void setName(const std::string &newName);
 		
 		void add(Entity *newEntity);
+		
+		void remove(Entity *newEntity);
 	protected:
 		/**
 		 * Method called by the engine when the state gets called to be played.
@@ -113,6 +115,10 @@ namespace BaconBox {
 		std::string name;
 		
 		std::vector<Entity *> entities;
+		
+		std::list<Entity *> toAdd;
+		
+		std::set<Entity *> toRemove;
 	};
 }
 #endif
