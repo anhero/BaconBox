@@ -3,19 +3,16 @@
  * @ingroup StateMachine
  */
 
-#ifndef BB_RED_BOX_ENGINE_H
-#define BB_RED_BOX_ENGINE_H
+#ifndef BB_ENGINE_H
+#define BB_ENGINE_H
 
 #include <map>
 #include <string>
 
-#include "State.h"
-
 namespace BaconBox {
 	class MainWindow;
-	class GraphicDriver;
-	class SoundEngine;
-	class MusicEngine;
+	class State;
+	
 	/**
 	 * Class managing the states.
 	 * @ingroup StateMachine
@@ -39,10 +36,6 @@ namespace BaconBox {
 		 */
 		static void application(int argc, char *argv[],
 		                        const std::string &name = DEFAULT_APPLICATION_NAME);
-
-
-		/// Signal sent when the BaconBox engine is initialized.
-		static sigly::Signal4<unsigned int, unsigned int, float, float> onInitialize;
 
 		/**
 		 * Adds a state to the engine's list.
@@ -186,24 +179,6 @@ namespace BaconBox {
 		 * @return Reference to the main window.
 		 */
 		static MainWindow &getMainWindow();
-
-		/**
-		 * Gets the graphic driver.
-		 * @return Reference to the graphic driver.
-		 */
-		static GraphicDriver &getGraphicDriver();
-
-		/**
-		 * Gets the sound engine.
-		 * @return Reference to the sound engine.
-		 */
-		static SoundEngine &getSoundEngine();
-
-		/**
-		 * Gets the music engine.
-		 * @return Reference to the music engine.
-		 */
-		static MusicEngine &getMusicEngine();
 	private:
 
 		/**

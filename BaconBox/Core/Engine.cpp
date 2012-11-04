@@ -3,37 +3,27 @@
 #include <cassert>
 #include <cstdlib>
 
+#include <iostream>
 #include <algorithm>
+// ===== BEGIN TO REMOVE EVENTUALLY =====
+#include <OpenGL/OpenGL.h>
+#include <OpenGL/gl.h>
+// ===== END TO REMOVE EVENTUALLY =====
 
+#include "MainWindow.h"
 #include "PlatformFlagger.h"
 #include "TimeHelper.h"
-#include "GraphicDriver.h"
 #include "DeleteHelper.h"
 
-#ifndef BB_ANDROID
-#include "Font.h"
-#endif
-
-#include "AudioEngine.h"
-#include "SoundEngine.h"
-#include "MusicEngine.h"
-#include "InputManager.h"
-#include "TimerManager.h"
-#include "ResourceManager.h"
-#include "Console.h"
-#include "Factory.h"
-#include "GraphicObjectLayer.h"
 #include <libgen.h>
 
+#include "State.h"
+
 #include BB_MAIN_WINDOW_INCLUDE
-#include BB_SOUND_ENGINE_INCLUDE
-#include BB_MUSIC_ENGINE_INCLUDE
-#include BB_GRAPHIC_DRIVER_INCLUDE
 
 namespace BaconBox {
 	const double Engine::DEFAULT_UPDATES_PER_SECOND = 60.0;
 	const std::string Engine::DEFAULT_APPLICATION_NAME = std::string("BaconBoxApp");
-	sigly::Signal4<unsigned int, unsigned int, float, float> Engine::onInitialize = sigly::Signal4<unsigned int, unsigned int, float, float>();
 
 	int Engine::argc;
 	char **Engine::argv;
@@ -52,9 +42,6 @@ namespace BaconBox {
 			if (engine.states.empty()) {
 				assert(!engine.currentState);
 				engine.nextState = newState;
-
-			} else {
-				newState->deactivateSlots();
 			}
 
 			engine.states.insert(std::pair<std::string, State *>(newState->getName(), newState));
@@ -85,8 +72,7 @@ namespace BaconBox {
 			engine.nextState = it->second;
 
 		} else {
-			Console::println("State \"" + name +
-			                 "\" doesn't exist so it cannot be played.");
+			std::cout << "State \"" << name << "\" doesn't exist so it cannot be played." << std::endl;
 		}
 
 		return engine.nextState;
@@ -160,10 +146,6 @@ namespace BaconBox {
 				engine.currentState->internalUpdate();
 
 				engine.renderedSinceLastUpdate = false;
-				// We update the input manager.
-				InputManager::getInstance().update();
-				// We update the timers.
-				TimerManager::update();
 				engine.nextUpdate += engine.updateDelay;
 				engine.lastUpdate = TimeHelper::getInstance().getSinceStartComplete();
 				++engine.loops;
@@ -171,16 +153,40 @@ namespace BaconBox {
 
 			if (!engine.renderedSinceLastUpdate) {
 				engine.currentState->internalRender();
+				// ===== BEGIN TO REMOVE EVENTUALLY =====
+				glClearColor(0.0f,
+							 0.0f,
+							 0.0f,
+							 1.0f);
+				
+				glClear(GL_COLOR_BUFFER_BIT);
+				
+				glMatrixMode(GL_MODELVIEW);
+				glLoadIdentity();
+				
+				switch (MainWindow::getInstance().getOrientation().underlying()) {
+					case WindowOrientation::HORIZONTAL_LEFT:
+						glRotatef(-90.0f, 0, 0, 1);
+						glTranslatef(-static_cast<float>(MainWindow::getInstance().getContextWidth()), 0.0f, 0.0f);
+						break;
+						
+					case WindowOrientation::HORIZONTAL_RIGHT:
+						glRotatef(90.0f, 0.0f, 0.0f, 1.0f);
+						glTranslatef(0.0f, -static_cast<float>(MainWindow::getInstance().getContextHeight()), 0.0f);
+						break;
+						
+					default:
+						break;
+				}
+				
+				glScalef(1.0f, 1.0f, 1);
+				glRotatef(0.0f, 0, 0, 1);
+				glTranslatef(0.0f, 0.0f, 0);
+				// ===== END TO REMOVE EVENTUALLY =====
 				engine.renderedSinceLastUpdate = true;
 				engine.bufferSwapped = false;
 				engine.lastRender = TimeHelper::getInstance().getSinceStartComplete();
 			}
-
-			if (static_cast<AudioEngine *>(engine.soundEngine) != static_cast<AudioEngine *>(engine.musicEngine)) {
-				engine.soundEngine->update();
-			}
-
-			engine.musicEngine->update();
 		}
 
 		if (engine.needsExit) {
@@ -192,16 +198,8 @@ namespace BaconBox {
 	                              unsigned int resolutionHeight,
 	                              float contextWidth,
 	                              float contextHeight) {
-		RegisterInFactory<GraphicObjectLayer::SpriteContainer::ValueType, GraphicObjectLayer::SpriteContainer::ValueType>::registerInFactory("Sprite");
-		RegisterInFactory<GraphicObjectLayer::InanimateSpriteContainer::ValueType, GraphicObjectLayer::InanimateSpriteContainer::ValueType>::registerInFactory("InanimatSprite");
 		TimeHelper::getInstance();
-		InputManager::getInstance();
-		onInitialize.shoot(resolutionWidth, resolutionHeight, contextWidth, contextHeight);
-
-		getInstance().graphicDriver->initializeGraphicDriver();
-#ifndef BB_ANDROID
-		Font::initializeFontRenderer();
-#endif
+		MainWindow::getInstance().onBaconBoxInit(resolutionWidth, resolutionHeight, contextWidth, contextHeight);
 	}
 
 	double Engine::getSinceLastUpdate() {
@@ -251,18 +249,6 @@ namespace BaconBox {
 		return *getInstance().mainWindow;
 	}
 
-	GraphicDriver &Engine::getGraphicDriver() {
-		return *getInstance().graphicDriver;
-	}
-
-	SoundEngine &Engine::getSoundEngine() {
-		return *getInstance().soundEngine;
-	}
-
-	MusicEngine &Engine::getMusicEngine() {
-		return *getInstance().musicEngine;
-	}
-
 	Engine &Engine::getInstance() {
 		static Engine instance;
 		return instance;
@@ -272,40 +258,14 @@ namespace BaconBox {
 		loops(0), nextUpdate(0), updateDelay(1.0 / DEFAULT_UPDATES_PER_SECOND),
 		minFps(DEFAULT_MIN_FRAMES_PER_SECOND), bufferSwapped(false), needsExit(false),
 		tmpExitCode(0), renderedSinceLastUpdate(true), applicationPath(),
-		applicationName(DEFAULT_APPLICATION_NAME), mainWindow(NULL),
-		graphicDriver(NULL), soundEngine(NULL), musicEngine(NULL) {
+		applicationName(DEFAULT_APPLICATION_NAME), mainWindow(NULL) {
 
 		mainWindow = BB_MAIN_WINDOW_IMPL;
-		graphicDriver = BB_GRAPHIC_DRIVER_IMPL;
-		soundEngine = BB_SOUND_ENGINE_IMPL;
-		musicEngine = BB_MUSIC_ENGINE_IMPL;
 	}
 
 	Engine::~Engine() {
 		// We delete the states.
 		std::for_each(states.begin(), states.end(), DeletePointerFromPair());
-
-		// We unload the resources.
-		ResourceManager::unloadAll();
-
-		// We unload the audio engines.
-		if (static_cast<AudioEngine *>(musicEngine) == static_cast<AudioEngine *>(soundEngine)) {
-			delete musicEngine;
-
-		} else {
-			if (musicEngine) {
-				delete musicEngine;
-			}
-
-			if (soundEngine) {
-				delete soundEngine;
-			}
-		}
-
-		// We unload the graphic driver;
-		if (graphicDriver) {
-			delete graphicDriver;
-		}
 
 		// We unload the main window;
 		if (mainWindow) {

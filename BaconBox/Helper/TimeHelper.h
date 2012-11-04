@@ -2,8 +2,8 @@
  * @file
  * @ingroup Helper
  */
-#ifndef RB_TIMEHELPER_H
-#define RB_TIMEHELPER_H
+#ifndef BB_TIMEHELPER_H
+#define BB_TIMEHELPER_H
 
 namespace BaconBox {
 	/**
@@ -119,6 +119,7 @@ namespace BaconBox {
 		 * calculated.
 		 */
 		double timeScale;
+		
 		/// Set to true if TimeHelper is considered to be paused, false if not.
 		bool paused;
     };

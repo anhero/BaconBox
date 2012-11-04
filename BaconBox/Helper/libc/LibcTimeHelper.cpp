@@ -1,8 +1,8 @@
-#include "BaconBox/PlatformFlagger.h"
+#include "PlatformFlagger.h"
 
-#if defined(RB_MAC_PLATFORM) || defined(RB_LINUX)
+#if defined(BB_MAC_PLATFORM) || defined(BB_LINUX)
 
-#include "BaconBox/Helper/libc/LibcTimeHelper.h"
+#include "LibcTimeHelper.h"
 
 #include <unistd.h>
 #include <cmath>

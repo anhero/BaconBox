@@ -7,6 +7,20 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		247873E71636061B006D4A59 /* Engine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 247873E51636061B006D4A59 /* Engine.cpp */; };
+		247873E81636061B006D4A59 /* Engine.h in Headers */ = {isa = PBXBuildFile; fileRef = 247873E61636061B006D4A59 /* Engine.h */; };
+		247873F0163606C9006D4A59 /* TimeHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 247873EE163606C9006D4A59 /* TimeHelper.cpp */; };
+		247873F1163606C9006D4A59 /* TimeHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 247873EF163606C9006D4A59 /* TimeHelper.h */; };
+		247873F5163606DE006D4A59 /* LibcTimeHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 247873F3163606DE006D4A59 /* LibcTimeHelper.cpp */; };
+		247873F6163606DE006D4A59 /* LibcTimeHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 247873F4163606DE006D4A59 /* LibcTimeHelper.h */; };
+		247873FA1636075C006D4A59 /* PlatformFlagger.h in Headers */ = {isa = PBXBuildFile; fileRef = 247873F91636075C006D4A59 /* PlatformFlagger.h */; };
+		247873FD16360993006D4A59 /* MainWindow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 247873FB16360993006D4A59 /* MainWindow.cpp */; };
+		247873FE16360993006D4A59 /* MainWindow.h in Headers */ = {isa = PBXBuildFile; fileRef = 247873FC16360993006D4A59 /* MainWindow.h */; };
+		2478740016360998006D4A59 /* WindowOrientation.h in Headers */ = {isa = PBXBuildFile; fileRef = 247873FF16360998006D4A59 /* WindowOrientation.h */; };
+		2478740416360A61006D4A59 /* SDLMainWindow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2478740216360A61006D4A59 /* SDLMainWindow.cpp */; };
+		2478740516360A61006D4A59 /* SDLMainWindow.h in Headers */ = {isa = PBXBuildFile; fileRef = 2478740316360A61006D4A59 /* SDLMainWindow.h */; };
+		2478740816360C7F006D4A59 /* libSDL2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2478740616360C7F006D4A59 /* libSDL2.a */; };
+		2478740916360C7F006D4A59 /* libSDL2main.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2478740716360C7F006D4A59 /* libSDL2main.a */; };
 		24CD5A5216346284001EB407 /* Entity.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 24CD5A5116346284001EB407 /* Entity.cpp */; };
 		24CD5A5B1634782A001EB407 /* Vector2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 24CD5A591634782A001EB407 /* Vector2.cpp */; };
 		24CD5A5C1634782A001EB407 /* Vector2.h in Headers */ = {isa = PBXBuildFile; fileRef = 24CD5A5A1634782A001EB407 /* Vector2.h */; };
@@ -50,6 +64,20 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		247873E51636061B006D4A59 /* Engine.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Engine.cpp; sourceTree = "<group>"; };
+		247873E61636061B006D4A59 /* Engine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Engine.h; sourceTree = "<group>"; };
+		247873EE163606C9006D4A59 /* TimeHelper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TimeHelper.cpp; path = Helper/TimeHelper.cpp; sourceTree = "<group>"; };
+		247873EF163606C9006D4A59 /* TimeHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TimeHelper.h; path = Helper/TimeHelper.h; sourceTree = "<group>"; };
+		247873F3163606DE006D4A59 /* LibcTimeHelper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LibcTimeHelper.cpp; path = Helper/libc/LibcTimeHelper.cpp; sourceTree = "<group>"; };
+		247873F4163606DE006D4A59 /* LibcTimeHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LibcTimeHelper.h; path = Helper/libc/LibcTimeHelper.h; sourceTree = "<group>"; };
+		247873F91636075C006D4A59 /* PlatformFlagger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlatformFlagger.h; path = Helper/PlatformFlagger.h; sourceTree = "<group>"; };
+		247873FB16360993006D4A59 /* MainWindow.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MainWindow.cpp; sourceTree = "<group>"; };
+		247873FC16360993006D4A59 /* MainWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainWindow.h; sourceTree = "<group>"; };
+		247873FF16360998006D4A59 /* WindowOrientation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WindowOrientation.h; sourceTree = "<group>"; };
+		2478740216360A61006D4A59 /* SDLMainWindow.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SDLMainWindow.cpp; path = SDL/SDLMainWindow.cpp; sourceTree = "<group>"; };
+		2478740316360A61006D4A59 /* SDLMainWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SDLMainWindow.h; path = SDL/SDLMainWindow.h; sourceTree = "<group>"; };
+		2478740616360C7F006D4A59 /* libSDL2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSDL2.a; path = libraries/Darwin/x86_64/lib/libSDL2.a; sourceTree = "<group>"; };
+		2478740716360C7F006D4A59 /* libSDL2main.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSDL2main.a; path = libraries/Darwin/x86_64/lib/libSDL2main.a; sourceTree = "<group>"; };
 		24CD5A5116346284001EB407 /* Entity.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Entity.cpp; sourceTree = "<group>"; };
 		24CD5A591634782A001EB407 /* Vector2.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Vector2.cpp; sourceTree = "<group>"; };
 		24CD5A5A1634782A001EB407 /* Vector2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Vector2.h; sourceTree = "<group>"; };
@@ -98,6 +126,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2478740816360C7F006D4A59 /* libSDL2.a in Frameworks */,
+				2478740916360C7F006D4A59 /* libSDL2main.a in Frameworks */,
 				24CD5A9916347EE9001EB407 /* libJsonBox.a in Frameworks */,
 				24CD5A9A16347EE9001EB407 /* libtinyxml.a in Frameworks */,
 			);
@@ -106,9 +136,28 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		247873F2163606D4006D4A59 /* libc */ = {
+			isa = PBXGroup;
+			children = (
+				247873F3163606DE006D4A59 /* LibcTimeHelper.cpp */,
+				247873F4163606DE006D4A59 /* LibcTimeHelper.h */,
+			);
+			name = libc;
+			sourceTree = "<group>";
+		};
+		2478740116360A57006D4A59 /* SDL */ = {
+			isa = PBXGroup;
+			children = (
+				2478740216360A61006D4A59 /* SDLMainWindow.cpp */,
+				2478740316360A61006D4A59 /* SDLMainWindow.h */,
+			);
+			name = SDL;
+			sourceTree = "<group>";
+		};
 		24CD5A5D16347861001EB407 /* Helper */ = {
 			isa = PBXGroup;
 			children = (
+				247873F2163606D4006D4A59 /* libc */,
 				24CD5A7016347A00001EB407 /* Serialization */,
 				24CD5AA216348057001EB407 /* DeleteHelper.h */,
 				24CD5A6C16347943001EB407 /* Ease.h */,
@@ -118,8 +167,11 @@
 				24CD5A6716347906001EB407 /* Iterators.h */,
 				24CD5A5E16347894001EB407 /* MathHelper.cpp */,
 				24CD5A5F16347894001EB407 /* MathHelper.h */,
+				247873F91636075C006D4A59 /* PlatformFlagger.h */,
 				24CD5A6E16347954001EB407 /* SafeEnum.h */,
 				24CD5A62163478CA001EB407 /* StaticAssert.h */,
+				247873EE163606C9006D4A59 /* TimeHelper.cpp */,
+				247873EF163606C9006D4A59 /* TimeHelper.h */,
 			);
 			name = Helper;
 			sourceTree = "<group>";
@@ -168,6 +220,8 @@
 		24CD5A9B16347EF2001EB407 /* libraries */ = {
 			isa = PBXGroup;
 			children = (
+				2478740616360C7F006D4A59 /* libSDL2.a */,
+				2478740716360C7F006D4A59 /* libSDL2main.a */,
 				24CD5A9716347EE8001EB407 /* libJsonBox.a */,
 				24CD5A9816347EE8001EB407 /* libtinyxml.a */,
 			);
@@ -203,16 +257,22 @@
 		51B7425A16345D1900DB18E1 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				2478740116360A57006D4A59 /* SDL */,
 				51B7425B16345D1900DB18E1 /* Component.cpp */,
 				51B7425C16345D1900DB18E1 /* Component.h */,
+				247873E51636061B006D4A59 /* Engine.cpp */,
+				247873E61636061B006D4A59 /* Engine.h */,
 				24CD5A5116346284001EB407 /* Entity.cpp */,
 				51B7425D16345D1900DB18E1 /* Entity.h */,
 				51B7425E16345D1900DB18E1 /* ID.cpp */,
 				51B7425F16345D1900DB18E1 /* ID.h */,
+				247873FB16360993006D4A59 /* MainWindow.cpp */,
+				247873FC16360993006D4A59 /* MainWindow.h */,
 				24CD5AA416348089001EB407 /* State.cpp */,
 				24CD5AA516348089001EB407 /* State.h */,
 				24CD5A591634782A001EB407 /* Vector2.cpp */,
 				24CD5A5A1634782A001EB407 /* Vector2.h */,
+				247873FF16360998006D4A59 /* WindowOrientation.h */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -248,6 +308,13 @@
 				24CD5A9616347A5C001EB407 /* TinyXMLSerializer.h in Headers */,
 				24CD5AA316348058001EB407 /* DeleteHelper.h in Headers */,
 				24CD5AA716348089001EB407 /* State.h in Headers */,
+				247873E81636061B006D4A59 /* Engine.h in Headers */,
+				247873F1163606C9006D4A59 /* TimeHelper.h in Headers */,
+				247873F6163606DE006D4A59 /* LibcTimeHelper.h in Headers */,
+				247873FA1636075C006D4A59 /* PlatformFlagger.h in Headers */,
+				247873FE16360993006D4A59 /* MainWindow.h in Headers */,
+				2478740016360998006D4A59 /* WindowOrientation.h in Headers */,
+				2478740516360A61006D4A59 /* SDLMainWindow.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -258,9 +325,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 51B7425316345CFF00DB18E1 /* Build configuration list for PBXNativeTarget "BaconBox" */;
 			buildPhases = (
+				51B7424D16345CFF00DB18E1 /* Headers */,
 				51B7424B16345CFF00DB18E1 /* Sources */,
 				51B7424C16345CFF00DB18E1 /* Frameworks */,
-				51B7424D16345CFF00DB18E1 /* Headers */,
 			);
 			buildRules = (
 			);
@@ -316,6 +383,11 @@
 				24CD5A9116347A51001EB407 /* JsonBoxSerializer.cpp in Sources */,
 				24CD5A9516347A5C001EB407 /* TinyXMLSerializer.cpp in Sources */,
 				24CD5AA616348089001EB407 /* State.cpp in Sources */,
+				247873E71636061B006D4A59 /* Engine.cpp in Sources */,
+				247873F0163606C9006D4A59 /* TimeHelper.cpp in Sources */,
+				247873F5163606DE006D4A59 /* LibcTimeHelper.cpp in Sources */,
+				247873FD16360993006D4A59 /* MainWindow.cpp in Sources */,
+				2478740416360A61006D4A59 /* SDLMainWindow.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -327,8 +399,8 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++98";
+				CLANG_CXX_LIBRARY = "libstdc++";
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
@@ -337,6 +409,8 @@
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
+					"TIXML_USE_STL=1",
+					"SDL=1",
 					"DEBUG=1",
 					"$(inherited)",
 				);
@@ -356,8 +430,8 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++98";
+				CLANG_CXX_LIBRARY = "libstdc++";
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = YES;
@@ -379,6 +453,7 @@
 				EXECUTABLE_PREFIX = lib;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
+					"SDL=1",
 					"TIXML_USE_STL=1",
 					"$(inherited)",
 				);
@@ -395,6 +470,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				EXECUTABLE_PREFIX = lib;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"TIXML_USE_STL=1",
+					"SDL=1",
+				);
 				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/libraries/Darwin/x86_64/include\"";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",

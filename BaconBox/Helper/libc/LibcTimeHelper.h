@@ -2,16 +2,16 @@
  * @file
  * @ingroup Helper
  */
-#ifndef RB_LIBC_TIME_HELPER_H
-#define RB_LIBC_TIME_HELPER_H
+#ifndef BB_LIBC_TIME_HELPER_H
+#define BB_LIBC_TIME_HELPER_H
 
-#include "BaconBox/PlatformFlagger.h"
+#include "PlatformFlagger.h"
 
-#if defined(RB_MAC_PLATFORM) || defined(RB_LINUX)
+#if defined(BB_MAC_PLATFORM) || defined(BB_LINUX)
 
 #include <sys/time.h>
 
-#include "BaconBox/Helper/TimeHelper.h"
+#include "TimeHelper.h"
 
 namespace BaconBox {
 	/**

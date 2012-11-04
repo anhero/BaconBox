@@ -1,15 +1,15 @@
-#include "BaconBox/Helper/TimeHelper.h"
+#include "TimeHelper.h"
 
-#include "BaconBox/PlatformFlagger.h"
+#include "PlatformFlagger.h"
 
-#ifdef RB_TIME_HELPER_INCLUDE
-#include RB_TIME_HELPER_INCLUDE
+#ifdef BB_TIME_HELPER_INCLUDE
+#include BB_TIME_HELPER_INCLUDE
 #endif
 
 using namespace BaconBox;
 
 TimeHelper& TimeHelper::getInstance() {
-	static RB_TIME_HELPER_IMPL instance;
+	static BB_TIME_HELPER_IMPL instance;
 	return instance;
 }
 
