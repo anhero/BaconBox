@@ -12,6 +12,16 @@ namespace BaconBox {
 	 */
 	class Entity {
 	public:
+		Entity();
+		
+		Entity(const Entity &src);
+		
+		~Entity();
+		
+		Entity &operator=(const Entity &src);
+		
+		virtual Entity *clone() const;
+		
 		void sendMessage(int id, int message, void *data);
 		
 		void update();
@@ -30,7 +40,12 @@ namespace BaconBox {
 		void addChild(Entity *newChild);
 		void removeChildAt(std::vector<Entity *>::size_type index);
 		void removeChild(Entity *child);
+		
+		void clear();
 	private:
+		void free();
+		void copyFrom(const Entity &src);
+		
 		std::string name;
 		std::vector<Component *> components;
 		std::vector<Entity *> children;

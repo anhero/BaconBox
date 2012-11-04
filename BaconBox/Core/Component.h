@@ -13,6 +13,16 @@ namespace BaconBox {
 	public:
 		HAS_ID(Component);
 		
+		Component();
+		
+		Component(const Component &src);
+		
+		virtual ~Component();
+		
+		Component &operator=(const Component &src);
+		
+		virtual Component *clone() const;
+		
 		void sendMessage(int message, void *data);
 		virtual void receiveMessage(int id, int message, void *data);
 		

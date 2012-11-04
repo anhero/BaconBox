@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2404E5E41646F1D3002B937C /* Transform.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2404E5E21646F1D3002B937C /* Transform.cpp */; };
+		2404E5E51646F1D3002B937C /* Transform.h in Headers */ = {isa = PBXBuildFile; fileRef = 2404E5E31646F1D3002B937C /* Transform.h */; };
 		247873E71636061B006D4A59 /* Engine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 247873E51636061B006D4A59 /* Engine.cpp */; };
 		247873E81636061B006D4A59 /* Engine.h in Headers */ = {isa = PBXBuildFile; fileRef = 247873E61636061B006D4A59 /* Engine.h */; };
 		247873F0163606C9006D4A59 /* TimeHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 247873EE163606C9006D4A59 /* TimeHelper.cpp */; };
@@ -64,6 +66,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2404E5E21646F1D3002B937C /* Transform.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Transform.cpp; path = Components/Transform.cpp; sourceTree = "<group>"; };
+		2404E5E31646F1D3002B937C /* Transform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Transform.h; path = Components/Transform.h; sourceTree = "<group>"; };
 		247873E51636061B006D4A59 /* Engine.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Engine.cpp; sourceTree = "<group>"; };
 		247873E61636061B006D4A59 /* Engine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Engine.h; sourceTree = "<group>"; };
 		247873EE163606C9006D4A59 /* TimeHelper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TimeHelper.cpp; path = Helper/TimeHelper.cpp; sourceTree = "<group>"; };
@@ -136,6 +140,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2404E5E01646F0C2002B937C /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				2404E5E21646F1D3002B937C /* Transform.cpp */,
+				2404E5E31646F1D3002B937C /* Transform.h */,
+			);
+			name = Components;
+			sourceTree = "<group>";
+		};
 		247873F2163606D4006D4A59 /* libc */ = {
 			isa = PBXGroup;
 			children = (
@@ -248,6 +261,7 @@
 		51B7425916345D1900DB18E1 /* BaconBox */ = {
 			isa = PBXGroup;
 			children = (
+				2404E5E01646F0C2002B937C /* Components */,
 				51B7425A16345D1900DB18E1 /* Core */,
 				24CD5A5D16347861001EB407 /* Helper */,
 			);
@@ -315,6 +329,7 @@
 				247873FE16360993006D4A59 /* MainWindow.h in Headers */,
 				2478740016360998006D4A59 /* WindowOrientation.h in Headers */,
 				2478740516360A61006D4A59 /* SDLMainWindow.h in Headers */,
+				2404E5E51646F1D3002B937C /* Transform.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -388,6 +403,7 @@
 				247873F5163606DE006D4A59 /* LibcTimeHelper.cpp in Sources */,
 				247873FD16360993006D4A59 /* MainWindow.cpp in Sources */,
 				2478740416360A61006D4A59 /* SDLMainWindow.cpp in Sources */,
+				2404E5E41646F1D3002B937C /* Transform.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

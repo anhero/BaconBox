@@ -5,6 +5,8 @@
 #include <Helper/Serialization/DefaultSerializer.h>
 #include <Helper/Serialization/JsonSerializer.h>
 
+#include "PlayState.h"
+
 int main(int argc, char *argv[]) {
 	// Initialize BaconBox
 	BaconBox::Engine::application(argc, argv, "PyramidQuest");
@@ -19,7 +21,7 @@ int main(int argc, char *argv[]) {
 	// We initialize the engine with a screen resolution.
 	BaconBox::Engine::initializeEngine(800, 600);
 	
-	BaconBox::Engine::addState(new BaconBox::State());
+	BaconBox::Engine::addState(new BaconBox::PlayState("PlayState"));
 	
 	BaconBox::DefaultSerializer::setDefaultSerializer(new BaconBox::JsonSerializer(false));
 	

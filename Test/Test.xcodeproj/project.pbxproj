@@ -20,6 +20,7 @@
 		2404E5DD1646BD81002B937C /* ForceFeedback.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2478744C16364ACC006D4A59 /* ForceFeedback.framework */; };
 		2404E5DE1646BDA3002B937C /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2478743E16364A47006D4A59 /* OpenGL.framework */; };
 		2404E5DF1646BDD3002B937C /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2478744E16364B9B006D4A59 /* Carbon.framework */; };
+		2404E5E81646FD51002B937C /* PlayState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2404E5E61646FD51002B937C /* PlayState.cpp */; };
 		247874361636471A006D4A59 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 247874331636471A006D4A59 /* main.cpp */; };
 		247874371636471A006D4A59 /* TestComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 247874341636471A006D4A59 /* TestComponent.cpp */; };
 		2478743A1636476D006D4A59 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 247874391636476D006D4A59 /* Cocoa.framework */; };
@@ -81,6 +82,8 @@
 		2404E5B11646B87F002B937C /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		2404E5B21646B87F002B937C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		2404E5D51646BCDF002B937C /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		2404E5E61646FD51002B937C /* PlayState.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PlayState.cpp; sourceTree = "<group>"; };
+		2404E5E71646FD51002B937C /* PlayState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayState.h; sourceTree = "<group>"; };
 		2478741E16364554006D4A59 /* MainTest */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = MainTest; sourceTree = BUILT_PRODUCTS_DIR; };
 		247874331636471A006D4A59 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = main.cpp; path = ID/main.cpp; sourceTree = SOURCE_ROOT; };
 		247874341636471A006D4A59 /* TestComponent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TestComponent.cpp; path = ID/TestComponent.cpp; sourceTree = SOURCE_ROOT; };
@@ -185,6 +188,8 @@
 			isa = PBXGroup;
 			children = (
 				2404E5D51646BCDF002B937C /* main.cpp */,
+				2404E5E61646FD51002B937C /* PlayState.cpp */,
+				2404E5E71646FD51002B937C /* PlayState.h */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -362,6 +367,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2404E5D61646BCDF002B937C /* main.cpp in Sources */,
+				2404E5E81646FD51002B937C /* PlayState.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

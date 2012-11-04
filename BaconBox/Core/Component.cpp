@@ -3,6 +3,28 @@
 #include "Entity.h"
 
 namespace BaconBox {
+	Component::Component() : name(), entity(NULL) {
+	}
+	
+	Component::Component(const Component &src) : name(src.name), entity(NULL) {
+	}
+	
+	Component::~Component() {
+	}
+	
+	Component &Component::operator=(const Component &src) {
+		if (this != &src)
+		{
+			this->name = src.name;
+		}
+		
+		return *this;
+	}
+	
+	Component *Component::clone() const {
+		return new Component(*this);
+	}
+	
 	void Component::sendMessage(int message, void *data) {
 		if (entity) {
 			entity->sendMessage(this->getId(), message, data);
