@@ -17,6 +17,8 @@ namespace BaconBox {
 		entity->sendMessage(ID<Transform>::NUMBER, Transform::MESSAGE_GET_ROTATION, &ff);
 		
 		std::cout << "omg " << ff << std::endl;
+		
+		this->add(entity);
 	}
 	
 	void PlayState::update() {

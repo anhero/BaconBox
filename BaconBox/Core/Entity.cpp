@@ -1,7 +1,5 @@
 #include "Entity.h"
 
-#include "Component.h"
-
 namespace BaconBox {
 	Entity::Entity() : name(), components(), children(), parent(NULL) {
 	}

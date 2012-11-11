@@ -168,6 +168,16 @@
 		2404E5AC1646B87F002B937C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2478744E16364B9B006D4A59 /* Carbon.framework */,
+				2478744C16364ACC006D4A59 /* ForceFeedback.framework */,
+				2478744A16364AB7006D4A59 /* IOKit.framework */,
+				2478744816364AAA006D4A59 /* AudioUnit.framework */,
+				2478744616364A88006D4A59 /* Foundation.framework */,
+				2478744416364A76006D4A59 /* CoreFoundation.framework */,
+				2478744216364A5A006D4A59 /* CoreAudio.framework */,
+				2478744016364A4E006D4A59 /* libiconv.dylib */,
+				2478743E16364A47006D4A59 /* OpenGL.framework */,
+				247874391636476D006D4A59 /* Cocoa.framework */,
 				2404E5AD1646B87F002B937C /* Cocoa.framework */,
 				2404E5AF1646B87F002B937C /* Other Frameworks */,
 			);
@@ -216,16 +226,6 @@
 			isa = PBXGroup;
 			children = (
 				2404E5A11646B7AB002B937C /* Framework */,
-				2478744E16364B9B006D4A59 /* Carbon.framework */,
-				2478744C16364ACC006D4A59 /* ForceFeedback.framework */,
-				2478744A16364AB7006D4A59 /* IOKit.framework */,
-				2478744816364AAA006D4A59 /* AudioUnit.framework */,
-				2478744616364A88006D4A59 /* Foundation.framework */,
-				2478744416364A76006D4A59 /* CoreFoundation.framework */,
-				2478744216364A5A006D4A59 /* CoreAudio.framework */,
-				2478744016364A4E006D4A59 /* libiconv.dylib */,
-				2478743E16364A47006D4A59 /* OpenGL.framework */,
-				247874391636476D006D4A59 /* Cocoa.framework */,
 				51B7421316345BC200DB18E1 /* Test */,
 				2404E5B31646B87F002B937C /* Main */,
 				2404E5AC1646B87F002B937C /* Frameworks */,
@@ -522,6 +522,7 @@
 				2404E5C71646B87F002B937C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		2478742516364554006D4A59 /* Build configuration list for PBXNativeTarget "MainTest" */ = {
 			isa = XCConfigurationList;
