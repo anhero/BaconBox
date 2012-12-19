@@ -58,6 +58,8 @@
 		24CD5AA316348058001EB407 /* DeleteHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 24CD5AA216348057001EB407 /* DeleteHelper.h */; };
 		24CD5AA616348089001EB407 /* State.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 24CD5AA416348089001EB407 /* State.cpp */; };
 		24CD5AA716348089001EB407 /* State.h in Headers */ = {isa = PBXBuildFile; fileRef = 24CD5AA516348089001EB407 /* State.h */; };
+		513A8E06167548F90070EB3E /* MovieClipEntity.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 513A8E04167548F90070EB3E /* MovieClipEntity.cpp */; };
+		513A8E07167548F90070EB3E /* MovieClipEntity.h in Headers */ = {isa = PBXBuildFile; fileRef = 513A8E05167548F90070EB3E /* MovieClipEntity.h */; };
 		51B7426016345D1900DB18E1 /* Component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 51B7425B16345D1900DB18E1 /* Component.cpp */; };
 		51B7426116345D1900DB18E1 /* Component.h in Headers */ = {isa = PBXBuildFile; fileRef = 51B7425C16345D1900DB18E1 /* Component.h */; };
 		51B7426216345D1900DB18E1 /* Entity.h in Headers */ = {isa = PBXBuildFile; fileRef = 51B7425D16345D1900DB18E1 /* Entity.h */; };
@@ -117,6 +119,10 @@
 		24CD5AA216348057001EB407 /* DeleteHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DeleteHelper.h; path = Helper/DeleteHelper.h; sourceTree = "<group>"; };
 		24CD5AA416348089001EB407 /* State.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = State.cpp; sourceTree = "<group>"; };
 		24CD5AA516348089001EB407 /* State.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = State.h; sourceTree = "<group>"; };
+		513A8E04167548F90070EB3E /* MovieClipEntity.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MovieClipEntity.cpp; sourceTree = "<group>"; };
+		513A8E05167548F90070EB3E /* MovieClipEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MovieClipEntity.h; sourceTree = "<group>"; };
+		513A8E09167549980070EB3E /* MovieClipHolder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MovieClipHolder.cpp; sourceTree = "<group>"; };
+		513A8E0A167549980070EB3E /* MovieClipHolder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MovieClipHolder.h; sourceTree = "<group>"; };
 		51B7424F16345CFF00DB18E1 /* libBaconBox.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libBaconBox.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		51B7425B16345D1900DB18E1 /* Component.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Component.cpp; sourceTree = "<group>"; };
 		51B7425C16345D1900DB18E1 /* Component.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Component.h; sourceTree = "<group>"; };
@@ -241,6 +247,25 @@
 			name = libraries;
 			sourceTree = "<group>";
 		};
+		513A8E03167548F90070EB3E /* MovieClipEntity */ = {
+			isa = PBXGroup;
+			children = (
+				513A8E08167549710070EB3E /* Flash */,
+				513A8E04167548F90070EB3E /* MovieClipEntity.cpp */,
+				513A8E05167548F90070EB3E /* MovieClipEntity.h */,
+			);
+			path = MovieClipEntity;
+			sourceTree = "<group>";
+		};
+		513A8E08167549710070EB3E /* Flash */ = {
+			isa = PBXGroup;
+			children = (
+				513A8E09167549980070EB3E /* MovieClipHolder.cpp */,
+				513A8E0A167549980070EB3E /* MovieClipHolder.h */,
+			);
+			path = Flash;
+			sourceTree = "<group>";
+		};
 		51B7424416345CFF00DB18E1 = {
 			isa = PBXGroup;
 			children = (
@@ -261,6 +286,7 @@
 		51B7425916345D1900DB18E1 /* BaconBox */ = {
 			isa = PBXGroup;
 			children = (
+				513A8E03167548F90070EB3E /* MovieClipEntity */,
 				2404E5E01646F0C2002B937C /* Components */,
 				51B7425A16345D1900DB18E1 /* Core */,
 				24CD5A5D16347861001EB407 /* Helper */,
@@ -330,6 +356,7 @@
 				2478740016360998006D4A59 /* WindowOrientation.h in Headers */,
 				2478740516360A61006D4A59 /* SDLMainWindow.h in Headers */,
 				2404E5E51646F1D3002B937C /* Transform.h in Headers */,
+				513A8E07167548F90070EB3E /* MovieClipEntity.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -404,6 +431,7 @@
 				247873FD16360993006D4A59 /* MainWindow.cpp in Sources */,
 				2478740416360A61006D4A59 /* SDLMainWindow.cpp in Sources */,
 				2404E5E41646F1D3002B937C /* Transform.cpp in Sources */,
+				513A8E06167548F90070EB3E /* MovieClipEntity.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

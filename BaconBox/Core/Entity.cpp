@@ -27,6 +27,22 @@ namespace BaconBox {
 	Entity *Entity::clone() const {
 		return new Entity(*this);
 	}
+	
+	
+	Component * Entity::getComponent(const std::string &componentName) const {
+		Component *result = NULL;
+		bool notFound = true;
+		std::vector<Component *>::const_iterator i = this->components.begin();
+		
+		while (notFound && i != this->components.end()) {
+			if ((*i)->getName() == componentName) {
+				result = (*i);
+				notFound = false;
+			}
+		}
+		
+		return result;
+	}
 
 	void Entity::sendMessage(int id, int message, void *data) {
 		for (std::vector<Component *>::iterator i = this->components.begin(); i != this->components.end(); ++i) {

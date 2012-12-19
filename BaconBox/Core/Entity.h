@@ -32,37 +32,7 @@ namespace BaconBox {
 		const std::string &getName() const;
 		void setName(const std::string &newName);
 
-		template <typename T>
-		T *getComponent(const std::string &componentName) const {
-			T *result = NULL;
-			bool notFound = true;
-			std::vector<Component *>::const_iterator i = this->components.begin();
 
-			while (notFound && i != this->components.end()) {
-				if ((*i)->getId() == ID<T>::NUMBER && (*i)->getName() == componentName) {
-					result = reinterpret_cast<T *>(*i);
-					notFound = false;
-				}
-			}
-
-			return result;
-		}
-
-		template <typename T>
-		T *getComponent() const {
-			T *result = NULL;
-			bool notFound = true;
-			std::vector<Component *>::const_iterator i = this->components.begin();
-
-			while (notFound && i != this->components.end()) {
-				if ((*i)->getId() == ID<T>::NUMBER) {
-					result = reinterpret_cast<T *>(*i);
-					notFound = false;
-				}
-			}
-
-			return result;
-		}
 
 		const std::vector<Component *> &getComponents() const;
 		void addComponent(Component *newComponent);
@@ -76,6 +46,10 @@ namespace BaconBox {
 		void removeChild(Entity *child);
 
 		void clear();
+		
+		
+		Component * getComponent(const std::string &componentName) const ;
+	
 	private:
 		void free();
 		void copyFrom(const Entity &src);
