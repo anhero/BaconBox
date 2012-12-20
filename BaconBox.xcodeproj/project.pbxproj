@@ -23,6 +23,8 @@
 		2478740516360A61006D4A59 /* SDLMainWindow.h in Headers */ = {isa = PBXBuildFile; fileRef = 2478740316360A61006D4A59 /* SDLMainWindow.h */; };
 		2478740816360C7F006D4A59 /* libSDL2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2478740616360C7F006D4A59 /* libSDL2.a */; };
 		2478740916360C7F006D4A59 /* libSDL2main.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2478740716360C7F006D4A59 /* libSDL2main.a */; };
+		248393851683DA47008C94A6 /* IDManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 248393831683DA47008C94A6 /* IDManager.cpp */; };
+		248393861683DA47008C94A6 /* IDManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 248393841683DA47008C94A6 /* IDManager.h */; };
 		24CD5A5216346284001EB407 /* Entity.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 24CD5A5116346284001EB407 /* Entity.cpp */; };
 		24CD5A5B1634782A001EB407 /* Vector2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 24CD5A591634782A001EB407 /* Vector2.cpp */; };
 		24CD5A5C1634782A001EB407 /* Vector2.h in Headers */ = {isa = PBXBuildFile; fileRef = 24CD5A5A1634782A001EB407 /* Vector2.h */; };
@@ -63,8 +65,6 @@
 		51B7426016345D1900DB18E1 /* Component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 51B7425B16345D1900DB18E1 /* Component.cpp */; };
 		51B7426116345D1900DB18E1 /* Component.h in Headers */ = {isa = PBXBuildFile; fileRef = 51B7425C16345D1900DB18E1 /* Component.h */; };
 		51B7426216345D1900DB18E1 /* Entity.h in Headers */ = {isa = PBXBuildFile; fileRef = 51B7425D16345D1900DB18E1 /* Entity.h */; };
-		51B7426316345D1900DB18E1 /* ID.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 51B7425E16345D1900DB18E1 /* ID.cpp */; };
-		51B7426416345D1900DB18E1 /* ID.h in Headers */ = {isa = PBXBuildFile; fileRef = 51B7425F16345D1900DB18E1 /* ID.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -84,6 +84,8 @@
 		2478740316360A61006D4A59 /* SDLMainWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SDLMainWindow.h; path = SDL/SDLMainWindow.h; sourceTree = "<group>"; };
 		2478740616360C7F006D4A59 /* libSDL2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSDL2.a; path = libraries/Darwin/x86_64/lib/libSDL2.a; sourceTree = "<group>"; };
 		2478740716360C7F006D4A59 /* libSDL2main.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSDL2main.a; path = libraries/Darwin/x86_64/lib/libSDL2main.a; sourceTree = "<group>"; };
+		248393831683DA47008C94A6 /* IDManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = IDManager.cpp; sourceTree = "<group>"; };
+		248393841683DA47008C94A6 /* IDManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IDManager.h; sourceTree = "<group>"; };
 		24CD5A5116346284001EB407 /* Entity.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Entity.cpp; sourceTree = "<group>"; };
 		24CD5A591634782A001EB407 /* Vector2.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Vector2.cpp; sourceTree = "<group>"; };
 		24CD5A5A1634782A001EB407 /* Vector2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Vector2.h; sourceTree = "<group>"; };
@@ -127,8 +129,6 @@
 		51B7425B16345D1900DB18E1 /* Component.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Component.cpp; sourceTree = "<group>"; };
 		51B7425C16345D1900DB18E1 /* Component.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Component.h; sourceTree = "<group>"; };
 		51B7425D16345D1900DB18E1 /* Entity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Entity.h; sourceTree = "<group>"; };
-		51B7425E16345D1900DB18E1 /* ID.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ID.cpp; sourceTree = "<group>"; };
-		51B7425F16345D1900DB18E1 /* ID.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ID.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -304,8 +304,6 @@
 				247873E61636061B006D4A59 /* Engine.h */,
 				24CD5A5116346284001EB407 /* Entity.cpp */,
 				51B7425D16345D1900DB18E1 /* Entity.h */,
-				51B7425E16345D1900DB18E1 /* ID.cpp */,
-				51B7425F16345D1900DB18E1 /* ID.h */,
 				247873FB16360993006D4A59 /* MainWindow.cpp */,
 				247873FC16360993006D4A59 /* MainWindow.h */,
 				24CD5AA416348089001EB407 /* State.cpp */,
@@ -313,6 +311,8 @@
 				24CD5A591634782A001EB407 /* Vector2.cpp */,
 				24CD5A5A1634782A001EB407 /* Vector2.h */,
 				247873FF16360998006D4A59 /* WindowOrientation.h */,
+				248393831683DA47008C94A6 /* IDManager.cpp */,
+				248393841683DA47008C94A6 /* IDManager.h */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -326,7 +326,6 @@
 			files = (
 				51B7426116345D1900DB18E1 /* Component.h in Headers */,
 				51B7426216345D1900DB18E1 /* Entity.h in Headers */,
-				51B7426416345D1900DB18E1 /* ID.h in Headers */,
 				24CD5A5C1634782A001EB407 /* Vector2.h in Headers */,
 				24CD5A6116347894001EB407 /* MathHelper.h in Headers */,
 				24CD5A63163478CA001EB407 /* StaticAssert.h in Headers */,
@@ -357,6 +356,7 @@
 				2478740516360A61006D4A59 /* SDLMainWindow.h in Headers */,
 				2404E5E51646F1D3002B937C /* Transform.h in Headers */,
 				513A8E07167548F90070EB3E /* MovieClipEntity.h in Headers */,
+				248393861683DA47008C94A6 /* IDManager.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -412,7 +412,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				51B7426016345D1900DB18E1 /* Component.cpp in Sources */,
-				51B7426316345D1900DB18E1 /* ID.cpp in Sources */,
 				24CD5A5216346284001EB407 /* Entity.cpp in Sources */,
 				24CD5A5B1634782A001EB407 /* Vector2.cpp in Sources */,
 				24CD5A6016347894001EB407 /* MathHelper.cpp in Sources */,
@@ -432,6 +431,7 @@
 				2478740416360A61006D4A59 /* SDLMainWindow.cpp in Sources */,
 				2404E5E41646F1D3002B937C /* Transform.cpp in Sources */,
 				513A8E06167548F90070EB3E /* MovieClipEntity.cpp in Sources */,
+				248393851683DA47008C94A6 /* IDManager.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

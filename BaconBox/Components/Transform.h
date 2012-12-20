@@ -7,7 +7,7 @@
 namespace BaconBox {
 	class Transform : public Component {
 	public:
-		HAS_ID(Transform);
+		static int ID;
 		
 		static const int MESSAGE_GET_POSITION = 0;
 		static const int MESSAGE_GET_ROTATION = 1;
@@ -25,6 +25,8 @@ namespace BaconBox {
 		Transform &operator=(const Transform &src);
 		
 		virtual Transform *clone() const;
+		
+		virtual int getID() const;
 		
 		virtual void receiveMessage(int id, int message, void *data);
 		

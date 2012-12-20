@@ -3,15 +3,13 @@
 
 #include <string>
 
-#include "ID.h"
-
 namespace BaconBox {
 	class Entity;
 	
 	class Component {
 		friend class Entity;
 	public:
-		HAS_ID(Component);
+		static int ID;
 		
 		Component();
 		
@@ -22,6 +20,8 @@ namespace BaconBox {
 		Component &operator=(const Component &src);
 		
 		virtual Component *clone() const;
+		
+		virtual int getID() const;
 		
 		void sendMessage(int message, void *data);
 		virtual void receiveMessage(int id, int message, void *data);

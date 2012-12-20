@@ -1,6 +1,10 @@
 #include "Transform.h"
 
+#include "IDManager.h"
+
 namespace BaconBox {
+	int Transform::ID = IDManager::getID();
+	
 	Transform::Transform() : Component(), position(), rotation(0.0f), scale() {
 	}
 
@@ -23,9 +27,13 @@ namespace BaconBox {
 	Transform *Transform::clone() const {
 		return new Transform(*this);
 	}
+	
+	int Transform::getID() const {
+		return Transform::ID;
+	}
 
 	void Transform::receiveMessage(int id, int message, void *data) {
-		if (id == ID<Transform>::NUMBER) {
+		if (id == Transform::ID) {
 			switch (message) {
 			case Transform::MESSAGE_GET_POSITION:
 				*reinterpret_cast<Vector2 *>(data) = this->getPosition();

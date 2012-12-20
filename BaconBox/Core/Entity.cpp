@@ -111,7 +111,7 @@ namespace BaconBox {
 		std::vector<Component *>::size_type i = 0;
 
 		while (i < this->components.size()) {
-			if (this->components[i]->getId() == id) {
+			if (this->components[i]->getID() == id) {
 				this->components[i]->entity = NULL;
 				this->components.erase(this->components.begin() + i);
 
