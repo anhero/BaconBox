@@ -11,7 +11,7 @@ all: check
 
 
 	@echo "-------- BaconBox --------"
-	"$(FLASCC)/usr/bin/g++" $(BASE_CFLAGS) -DBB_FLASH_PLATEFORM EntityWrapper.abc Entity_wrapper.c ../../Core/ID.cpp ../../Core/Component.cpp ../../Core/Entity.cpp ../../MovieClipEntity/MovieClipEntity.cpp ../../MovieClipEntity/Flash/MovieClipHolder.cpp main.cpp -emit-swc=BaconBox -o BaconBox.swc -lFlash++ -lAS3++
+	"$(FLASCC)/usr/bin/g++" $(BASE_CFLAGS) -DBB_FLASH_PLATEFORM EntityWrapper.abc Entity_wrapper.c ../../Core/IDManager.cpp ../../Core/Component.cpp ../../Core/Entity.cpp ../../MovieClipEntity/MovieClipEntity.cpp ../../MovieClipEntity/Flash/MovieClipHolder.cpp main.cpp -emit-swc=BaconBox -o BaconBox.swc -lFlash++ -lAS3++
 
 	@echo "-------- Compile EntityMovieClip --------"
 	"$(FLEX)/bin/compc" -include-libraries=BaconBox.swc -include-classes=EntityHolderMovieClip -source-path . -debug=true -o pipi.swc
