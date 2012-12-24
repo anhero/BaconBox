@@ -47,3 +47,8 @@ Release
 
 libraries/*
 !libraries/*.desc
+BaconBox/Special/Flash/BaconBox.swc
+BaconBox/Special/Flash/EntityWrapper.abc
+BaconBox/Special/Flash/EntityWrapper.as3
+BaconBox/Special/Flash/Entity_wrapper.c
+BaconBox/Special/Flash/temp.swc
