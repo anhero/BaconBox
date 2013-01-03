@@ -60,6 +60,14 @@
 		24CD5AA316348058001EB407 /* DeleteHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 24CD5AA216348057001EB407 /* DeleteHelper.h */; };
 		24CD5AA616348089001EB407 /* State.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 24CD5AA416348089001EB407 /* State.cpp */; };
 		24CD5AA716348089001EB407 /* State.h in Headers */ = {isa = PBXBuildFile; fileRef = 24CD5AA516348089001EB407 /* State.h */; };
+		51043B86169622150016F113 /* Mesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 51043B84169622150016F113 /* Mesh.cpp */; };
+		51043B87169622150016F113 /* Mesh.h in Headers */ = {isa = PBXBuildFile; fileRef = 51043B85169622150016F113 /* Mesh.h */; };
+		51043B8C1696245A0016F113 /* StandardVertexArray.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 51043B881696245A0016F113 /* StandardVertexArray.cpp */; };
+		51043B8D1696245A0016F113 /* StandardVertexArray.h in Headers */ = {isa = PBXBuildFile; fileRef = 51043B891696245A0016F113 /* StandardVertexArray.h */; };
+		51043B8E1696245A0016F113 /* VertexArray.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 51043B8A1696245A0016F113 /* VertexArray.cpp */; };
+		51043B8F1696245A0016F113 /* VertexArray.h in Headers */ = {isa = PBXBuildFile; fileRef = 51043B8B1696245A0016F113 /* VertexArray.h */; };
+		51043B921696267B0016F113 /* AxisAlignedBoundingBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 51043B901696267B0016F113 /* AxisAlignedBoundingBox.cpp */; };
+		51043B931696267B0016F113 /* AxisAlignedBoundingBox.h in Headers */ = {isa = PBXBuildFile; fileRef = 51043B911696267B0016F113 /* AxisAlignedBoundingBox.h */; };
 		513A8E06167548F90070EB3E /* MovieClipEntity.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 513A8E04167548F90070EB3E /* MovieClipEntity.cpp */; };
 		513A8E07167548F90070EB3E /* MovieClipEntity.h in Headers */ = {isa = PBXBuildFile; fileRef = 513A8E05167548F90070EB3E /* MovieClipEntity.h */; };
 		51B7426016345D1900DB18E1 /* Component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 51B7425B16345D1900DB18E1 /* Component.cpp */; };
@@ -121,6 +129,14 @@
 		24CD5AA216348057001EB407 /* DeleteHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DeleteHelper.h; path = Helper/DeleteHelper.h; sourceTree = "<group>"; };
 		24CD5AA416348089001EB407 /* State.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = State.cpp; sourceTree = "<group>"; };
 		24CD5AA516348089001EB407 /* State.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = State.h; sourceTree = "<group>"; };
+		51043B84169622150016F113 /* Mesh.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Mesh.cpp; path = Components/Mesh.cpp; sourceTree = "<group>"; };
+		51043B85169622150016F113 /* Mesh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Mesh.h; path = Components/Mesh.h; sourceTree = "<group>"; };
+		51043B881696245A0016F113 /* StandardVertexArray.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = StandardVertexArray.cpp; sourceTree = "<group>"; };
+		51043B891696245A0016F113 /* StandardVertexArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StandardVertexArray.h; sourceTree = "<group>"; };
+		51043B8A1696245A0016F113 /* VertexArray.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = VertexArray.cpp; sourceTree = "<group>"; };
+		51043B8B1696245A0016F113 /* VertexArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VertexArray.h; sourceTree = "<group>"; };
+		51043B901696267B0016F113 /* AxisAlignedBoundingBox.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AxisAlignedBoundingBox.cpp; sourceTree = "<group>"; };
+		51043B911696267B0016F113 /* AxisAlignedBoundingBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AxisAlignedBoundingBox.h; sourceTree = "<group>"; };
 		513A8E04167548F90070EB3E /* MovieClipEntity.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MovieClipEntity.cpp; sourceTree = "<group>"; };
 		513A8E05167548F90070EB3E /* MovieClipEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MovieClipEntity.h; sourceTree = "<group>"; };
 		513A8E09167549980070EB3E /* MovieClipHolder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MovieClipHolder.cpp; sourceTree = "<group>"; };
@@ -149,6 +165,8 @@
 		2404E5E01646F0C2002B937C /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				51043B84169622150016F113 /* Mesh.cpp */,
+				51043B85169622150016F113 /* Mesh.h */,
 				2404E5E21646F1D3002B937C /* Transform.cpp */,
 				2404E5E31646F1D3002B937C /* Transform.h */,
 			);
@@ -286,6 +304,12 @@
 		51B7425916345D1900DB18E1 /* BaconBox */ = {
 			isa = PBXGroup;
 			children = (
+				51043B901696267B0016F113 /* AxisAlignedBoundingBox.cpp */,
+				51043B911696267B0016F113 /* AxisAlignedBoundingBox.h */,
+				51043B881696245A0016F113 /* StandardVertexArray.cpp */,
+				51043B891696245A0016F113 /* StandardVertexArray.h */,
+				51043B8A1696245A0016F113 /* VertexArray.cpp */,
+				51043B8B1696245A0016F113 /* VertexArray.h */,
 				513A8E03167548F90070EB3E /* MovieClipEntity */,
 				2404E5E01646F0C2002B937C /* Components */,
 				51B7425A16345D1900DB18E1 /* Core */,
@@ -357,6 +381,10 @@
 				2404E5E51646F1D3002B937C /* Transform.h in Headers */,
 				513A8E07167548F90070EB3E /* MovieClipEntity.h in Headers */,
 				248393861683DA47008C94A6 /* IDManager.h in Headers */,
+				51043B87169622150016F113 /* Mesh.h in Headers */,
+				51043B8D1696245A0016F113 /* StandardVertexArray.h in Headers */,
+				51043B8F1696245A0016F113 /* VertexArray.h in Headers */,
+				51043B931696267B0016F113 /* AxisAlignedBoundingBox.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -432,6 +460,10 @@
 				2404E5E41646F1D3002B937C /* Transform.cpp in Sources */,
 				513A8E06167548F90070EB3E /* MovieClipEntity.cpp in Sources */,
 				248393851683DA47008C94A6 /* IDManager.cpp in Sources */,
+				51043B86169622150016F113 /* Mesh.cpp in Sources */,
+				51043B8C1696245A0016F113 /* StandardVertexArray.cpp in Sources */,
+				51043B8E1696245A0016F113 /* VertexArray.cpp in Sources */,
+				51043B921696267B0016F113 /* AxisAlignedBoundingBox.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
