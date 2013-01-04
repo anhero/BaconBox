@@ -2,8 +2,8 @@
  * @file
  * @ingroup Input
  */
-#ifndef RB_POINTER_BUTTON_SIGNAL_DATA_H
-#define RB_POINTER_BUTTON_SIGNAL_DATA_H
+#ifndef BB_POINTER_BUTTON_SIGNAL_DATA_H
+#define BB_POINTER_BUTTON_SIGNAL_DATA_H
 
 #include "BaconBox/Input/Pointer/PointerSignalData.h"
 #include "BaconBox/Input/Pointer/CursorButton.h"

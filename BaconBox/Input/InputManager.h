@@ -2,8 +2,8 @@
  * @file
  * @ingroup Input
  */
-#ifndef RB_INPUT_MANAGER_H
-#define RB_INPUT_MANAGER_H
+#ifndef BB_INPUT_MANAGER_H
+#define BB_INPUT_MANAGER_H
 
 #include <vector>
 

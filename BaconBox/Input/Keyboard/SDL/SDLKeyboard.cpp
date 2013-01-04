@@ -1,6 +1,6 @@
 #include "BaconBox/PlatformFlagger.h"
 
-#ifdef RB_SDL
+#ifdef BB_SDL
 
 #include "BaconBox/Input/Keyboard/SDL/SDLKeyboard.h"
 

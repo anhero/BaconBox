@@ -2,8 +2,8 @@
  * @file
  * @ingroup Input
  */
-#ifndef RB_SDL_POINTER_H
-#define RB_SDL_POINTER_H
+#ifndef BB_SDL_POINTER_H
+#define BB_SDL_POINTER_H
 
 #include "BaconBox/Input/Pointer/Pointer.h"
 

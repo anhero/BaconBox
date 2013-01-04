@@ -2,8 +2,8 @@
  * @file
  * @ingroup Input
  */
-#ifndef RB_KEY_H
-#define RB_KEY_H
+#ifndef BB_KEY_H
+#define BB_KEY_H
 namespace BaconBox {
 	/**
 	 * Key codes for keyboard input.

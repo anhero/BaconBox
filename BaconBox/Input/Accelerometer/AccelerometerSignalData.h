@@ -2,8 +2,8 @@
  * @file
  * @ingroup Input
  */
-#ifndef RB_ACCELEROMETER_SIGNAL_DATA_H
-#define RB_ACCELEROMETER_SIGNAL_DATA_H
+#ifndef BB_ACCELEROMETER_SIGNAL_DATA_H
+#define BB_ACCELEROMETER_SIGNAL_DATA_H
 
 #include "BaconBox/Input/InputSignalData.h"
 #include "BaconBox/Input/Accelerometer/AccelerometerState.h"

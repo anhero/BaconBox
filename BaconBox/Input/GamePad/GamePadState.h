@@ -2,8 +2,8 @@
  * @file
  * @ingroup Input
  */
-#ifndef RB_GAME_PAD_STATE_H
-#define RB_GAME_PAD_STATE_H
+#ifndef BB_GAME_PAD_STATE_H
+#define BB_GAME_PAD_STATE_H
 
 #include <vector>
 #include <utility>

@@ -2,8 +2,8 @@
  * @file
  * @ingroup Input
  */
-#ifndef RB_NULL_ACCELEROMETER_H
-#define RB_NULL_ACCELEROMETER_H
+#ifndef BB_NULL_ACCELEROMETER_H
+#define BB_NULL_ACCELEROMETER_H
 
 #include "BaconBox/Input/Accelerometer/Accelerometer.h"
 
@@ -33,4 +33,4 @@ namespace BaconBox {
 
 }
 
-#endif // RB_NULL_ACCELEROMETER_H
+#endif // BB_NULL_ACCELEROMETER_H

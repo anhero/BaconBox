@@ -2,30 +2,30 @@
 
 #include "BaconBox/PlatformFlagger.h"
 
-#ifdef RB_ACCELEROMETER_INCLUDE
-#include RB_ACCELEROMETER_INCLUDE
+#ifdef BB_ACCELEROMETER_INCLUDE
+#include BB_ACCELEROMETER_INCLUDE
 #endif
 
-#ifdef RB_GAME_PAD_INCLUDE
-#include RB_GAME_PAD_INCLUDE
+#ifdef BB_GAME_PAD_INCLUDE
+#include BB_GAME_PAD_INCLUDE
 #endif
 
-#ifdef RB_KEYBOARD_INCLUDE
-#include RB_KEYBOARD_INCLUDE
+#ifdef BB_KEYBOARD_INCLUDE
+#include BB_KEYBOARD_INCLUDE
 #endif
 
-#ifdef RB_POINTER_INCLUDE
-#include RB_POINTER_INCLUDE
+#ifdef BB_POINTER_INCLUDE
+#include BB_POINTER_INCLUDE
 #endif
 
-#ifdef RB_INPUT_MANAGER_INCLUDE
-#include RB_INPUT_MANAGER_INCLUDE
+#ifdef BB_INPUT_MANAGER_INCLUDE
+#include BB_INPUT_MANAGER_INCLUDE
 #endif
 
 using namespace BaconBox;
 
 InputManager& InputManager::getInstance() {
-	static RB_INPUT_MANAGER_IMPL instance;
+	static BB_INPUT_MANAGER_IMPL instance;
 	return instance;
 }
 
@@ -66,7 +66,7 @@ void InputManager::setNbAccelerometers(unsigned int nb) {
 		unsigned int oldSize = accelerometers.size();
 		accelerometers.resize(nb, NULL);
 		for(unsigned int i = oldSize; i < nb; ++i) {
-			accelerometers[i] = RB_ACCELEROMETER_IMPL;
+			accelerometers[i] = BB_ACCELEROMETER_IMPL;
 		}
 	} else if(nb < accelerometers.size()) {
 		for(unsigned int i = nb; i < accelerometers.size(); ++i) {
@@ -83,7 +83,7 @@ void InputManager::setNbGamePads(unsigned int nb) {
 		unsigned int oldSize = gamePads.size();
 		gamePads.resize(nb, NULL);
 		for(unsigned int i = oldSize; i < nb; ++i) {
-			gamePads[i] = RB_GAME_PAD_IMPL;
+			gamePads[i] = BB_GAME_PAD_IMPL;
 		}
 	} else if(nb < gamePads.size()) {
 		for(unsigned int i = nb; i < gamePads.size(); ++i) {
@@ -100,7 +100,7 @@ void InputManager::setNbKeyboards(unsigned int nb) {
 		unsigned int oldSize = keyboards.size();
 		keyboards.resize(nb, NULL);
 		for(unsigned int i = oldSize; i < nb; ++i) {
-			keyboards[i] = RB_KEYBOARD_IMPL;
+			keyboards[i] = BB_KEYBOARD_IMPL;
 		}
 	} else if(nb < keyboards.size()) {
 		for(unsigned int i = nb; i < keyboards.size(); ++i) {
@@ -117,7 +117,7 @@ void InputManager::setNbPointers(unsigned int nb) {
 		unsigned int oldSize = pointers.size();
 		pointers.resize(nb, NULL);
 		for(unsigned int i = oldSize; i < nb; ++i) {
-			pointers[i] = RB_POINTER_IMPL;
+			pointers[i] = BB_POINTER_IMPL;
 		}
 	} else if(nb < pointers.size()) {
 		for(unsigned int i = nb; i < pointers.size(); ++i) {

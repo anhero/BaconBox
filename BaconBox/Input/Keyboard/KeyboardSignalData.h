@@ -2,8 +2,8 @@
  * @file
  * @ingroup Input
  */
-#ifndef RB_KEYBOARD_SIGNAL_DATA_H
-#define RB_KEYBOARD_SIGNAL_DATA_H
+#ifndef BB_KEYBOARD_SIGNAL_DATA_H
+#define BB_KEYBOARD_SIGNAL_DATA_H
 
 #include "BaconBox/Input/InputSignalData.h"
 #include "BaconBox/Input/Keyboard/KeyboardState.h"

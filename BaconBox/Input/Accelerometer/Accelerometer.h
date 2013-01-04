@@ -2,8 +2,8 @@
  * @file
  * @ingroup Input
  */
-#ifndef RB_ACCELEROMETER_H
-#define RB_ACCELEROMETER_H
+#ifndef BB_ACCELEROMETER_H
+#define BB_ACCELEROMETER_H
 
 #include <sigly.h>
 

@@ -2,8 +2,8 @@
  * @file
  * @ingroup Input
  */
-#ifndef RB_INPUT_SIGNAL_DATA_H
-#define RB_INPUT_SIGNAL_DATA_H
+#ifndef BB_INPUT_SIGNAL_DATA_H
+#define BB_INPUT_SIGNAL_DATA_H
 
 #include "BaconBox/SignalSlots/SignalData.h"
 

@@ -2,12 +2,12 @@
  * @file
  * @ingroup Input
  */
-#ifndef RB_SDL_INPUT_MANAGER_H
-#define RB_SDL_INPUT_MANAGER_H
+#ifndef BB_SDL_INPUT_MANAGER_H
+#define BB_SDL_INPUT_MANAGER_H
 
 #include "BaconBox/PlatformFlagger.h"
 
-#ifdef RB_SDL
+#ifdef BB_SDL
 
 #include "BaconBox/Input/InputManager.h"
 

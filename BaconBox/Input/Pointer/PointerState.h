@@ -2,8 +2,8 @@
  * @file
  * @ingroup Input
  */
-#ifndef RB_POINTER_STATE_H
-#define RB_POINTER_STATE_H
+#ifndef BB_POINTER_STATE_H
+#define BB_POINTER_STATE_H
 
 #include <vector>
 

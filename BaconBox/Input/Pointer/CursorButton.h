@@ -2,8 +2,8 @@
  * @file
  * @ingroup Input
  */
-#ifndef RB_CURSOR_BUTTON_H
-#define RB_CURSOR_BUTTON_H
+#ifndef BB_CURSOR_BUTTON_H
+#define BB_CURSOR_BUTTON_H
 
 namespace BaconBox {
 	namespace CursorButton {

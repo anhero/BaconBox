@@ -2,8 +2,8 @@
  * @file
  * @ingroup Input
  */
-#ifndef RB_NULL_POINTER_H
-#define RB_NULL_POINTER_H
+#ifndef BB_NULL_POINTER_H
+#define BB_NULL_POINTER_H
 
 #include "BaconBox/Input/Pointer/Pointer.h"
 
@@ -32,4 +32,4 @@ namespace BaconBox {
 	};
 }
 
-#endif // RB_NULL_POINTER_H
+#endif // BB_NULL_POINTER_H

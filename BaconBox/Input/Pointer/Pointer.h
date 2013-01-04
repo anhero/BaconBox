@@ -2,8 +2,8 @@
  * @file
  * @ingroup Input
  */
-#ifndef RB_POINTER_H
-#define RB_POINTER_H
+#ifndef BB_POINTER_H
+#define BB_POINTER_H
 
 #include <sigly.h>
 

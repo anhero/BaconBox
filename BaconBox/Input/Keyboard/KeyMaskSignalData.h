@@ -2,8 +2,8 @@
  * @file
  * @ingroup Input
  */
-#ifndef RB_KEY_MASK_SIGNAL_DATA_H
-#define RB_KEY_MASK_SIGNAL_DATA_H
+#ifndef BB_KEY_MASK_SIGNAL_DATA_H
+#define BB_KEY_MASK_SIGNAL_DATA_H
 
 #include <string>
 

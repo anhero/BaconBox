@@ -2,8 +2,8 @@
  * @file
  * @ingroup Input
  */
-#ifndef RB_NULL_GAME_PAD_H
-#define RB_NULL_GAME_PAD_H
+#ifndef BB_NULL_GAME_PAD_H
+#define BB_NULL_GAME_PAD_H
 
 namespace BaconBox {
 	/**
@@ -30,4 +30,4 @@ namespace BaconBox {
 
 }
 
-#endif // RB_NULL_GAME_PAD_H
+#endif // BB_NULL_GAME_PAD_H

@@ -1,8 +1,8 @@
 /**
  * @file
  */
-#ifndef RB_GAMEPAD_H
-#define RB_GAMEPAD_H
+#ifndef BB_GAMEPAD_H
+#define BB_GAMEPAD_H
 
 #include "BaconBox/Input/GamePad/GamePad.h"
 #include <SDL2/SDL.h>
@@ -41,7 +41,7 @@ namespace BaconBox {
 	};
 }
 
-#endif // RB_GAMEPAD_H
+#endif // BB_GAMEPAD_H
 
 
 

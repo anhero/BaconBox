@@ -2,8 +2,8 @@
  * @file
  * @ingroup Input
  */
-#ifndef RB_INPUT_DEVICE_H
-#define RB_INPUT_DEVICE_H
+#ifndef BB_INPUT_DEVICE_H
+#define BB_INPUT_DEVICE_H
 
 namespace BaconBox {
 	/**

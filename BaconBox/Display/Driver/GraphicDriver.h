@@ -68,66 +68,8 @@ namespace BaconBox {
 		virtual void drawShapeWithColor(const VertexArray &vertices,
 		                                const Color &color) = 0;
 
-		/**
-		 * Draws the alpha component of the given vertices and texture to the
-		 * alpha component of the frame buffer, so the next call to any
-		 * "drawMaskedShape..." functions can use the given mask as its inverted
-		 * alpha value. This version of the function will also use the alpha
-		 * component of the shape's color (in addition to the texture alpha
-		 * component).
-		 * @param vertices Vertices to draw.
-		 * @param textureInformation Pointer to the texture information.
-		 * @param textureCoordinates Texture coordinates in the texture to
-		 * draw.
-		 * @param color Color to render.
-		 */
-		virtual void drawMaskShapeWithTextureAndColor(const VertexArray &vertices,
-		                                              const TextureInformation *textureInformation,
-		                                              const TextureCoordinates &textureCoordinates,
-		                                              const Color &color) = 0;
-
-		/**
-		 * Draw the alpha component of the given vertices and texture to the
-		 * alpha component of the frame buffer, so the next call to any
-		 * "drawMaskedShape..." functions can use the given mask as its
-		 * inverted alpha value.
-		 * @param vertices Vertices to draw.
-		 * @param textureInformation Pointer to the texture information.
-		 * @param textureCoordinates Texture coordinates in the texture to
-		 * draw.
-		 */
-		virtual void drawMaskShapeWithTexture(const VertexArray &vertices,
-		                                      const TextureInformation *textureInformation,
-		                                      const TextureCoordinates &textureCoordinates) = 0;
-
-		/**
-		 * Draw the giver shape masked by using a blend between the alpha
-		 * component of the shape and the inversed alpha component
-		 * of the color buffer. So if a mask has been rendered with any
-		 * "drawMaskShape..." function, the given shape will appear through
-		 * the transparent part of the mask.
-		 * This version of the function render with a texture and a color.
-		 * @param vertices Array of vertices to draw. They have to be like this:
-		 * [x1, y1, x2, y2, x3, y3, ...]. The order must be clockwise.
-		 * @param textureInformation Pointer to the texture information.
-		 * @param textureCoordinates Texture coordinates in the texture to
-		 * draw.
-		 * @param color Color to render.
-		 * @param invertedMask If true, the mask effect will be inverted.
-		 */
-		virtual void drawMaskedShapeWithTextureAndColor(const VertexArray &vertices,
-		                                                const TextureInformation *textureInformation,
-		                                                const TextureCoordinates &textureCoordinates,
-		                                                const Color &color,
-		                                                bool invertedMask = false) = 0;
-
-		/**
-		 * Reset the alpha channel to it's original state after a call
-		 * to any "drawMask..." function.
-		 * @param vertices Vertices to draw.
-		 */
-		virtual void unmaskShape(const VertexArray &vertices) = 0;
-
+	
+		
 		virtual void drawBatchWithTextureAndColor(const VertexArray &vertices,
 		                                          const TextureInformation *textureInformation,
 		                                          const TextureCoordinates &textureCoordinates,
@@ -141,24 +83,7 @@ namespace BaconBox {
 										  const IndiceArray &indices,
 										  const IndiceArrayList &indiceList) = 0;
 
-		virtual void drawMaskBatchWithTextureAndColor(const VertexArray &vertices,
-		                                              const TextureInformation *textureInformation,
-		                                              const TextureCoordinates &textureCoordinates,
-													  const IndiceArray &indices,
-													  const IndiceArrayList &indiceList,
-		                                              const ColorArray &colors) = 0;
-
-		virtual void drawMaskedBatchWithTextureAndColor(const VertexArray &vertices,
-		                                                const TextureInformation *textureInformation,
-		                                                const TextureCoordinates &textureCoordinates,
-														const IndiceArray &indices,
-														const IndiceArrayList &indiceList,
-		                                                const ColorArray &colors,
-		                                                bool invertedMask) = 0;
-
-		virtual void unmaskBatch(const VertexArray &vertices,
-								 const IndiceArray &indices,
-								 const IndiceArrayList &indiceList) = 0;
+		
 
 		/**
 		 * Prepare the scene before rendering object.

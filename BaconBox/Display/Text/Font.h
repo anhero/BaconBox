@@ -7,7 +7,7 @@
 
 #include <string>
 #include "BaconBox/Display/Text/GlyphInformation.h"
-#include "BaconBox/Display/RBString32.h"
+#include "BaconBox/Helper/String32.h"
 
 namespace BaconBox {
 	class FontImplementation;

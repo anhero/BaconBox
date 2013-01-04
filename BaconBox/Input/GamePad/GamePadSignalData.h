@@ -2,8 +2,8 @@
  * @file
  * @ingroup Input
  */
-#ifndef RB_GAME_PAD_SIGNAL_DATA_H
-#define RB_GAME_PAD_SIGNAL_DATA_H
+#ifndef BB_GAME_PAD_SIGNAL_DATA_H
+#define BB_GAME_PAD_SIGNAL_DATA_H
 
 #include "BaconBox/Input/InputSignalData.h"
 #include "BaconBox/Input/GamePad/GamePadState.h"

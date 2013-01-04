@@ -164,6 +164,77 @@
 		51E5194316975B4400F6D446 /* WindowOrientation.h in Headers */ = {isa = PBXBuildFile; fileRef = 51E5192416975B4400F6D446 /* WindowOrientation.h */; };
 		51E5194516975BCF00F6D446 /* PlatformFlagger.h in Headers */ = {isa = PBXBuildFile; fileRef = 51E5194416975BCF00F6D446 /* PlatformFlagger.h */; };
 		51E5194716975C9300F6D446 /* TextureCoordinates.h in Headers */ = {isa = PBXBuildFile; fileRef = 51E5194616975C9300F6D446 /* TextureCoordinates.h */; };
+		51E5199F169763AA00F6D446 /* Accelerometer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 51E51950169763AA00F6D446 /* Accelerometer.cpp */; };
+		51E519A0169763AA00F6D446 /* Accelerometer.h in Headers */ = {isa = PBXBuildFile; fileRef = 51E51951169763AA00F6D446 /* Accelerometer.h */; };
+		51E519A1169763AA00F6D446 /* AccelerometerSignalData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 51E51952169763AA00F6D446 /* AccelerometerSignalData.cpp */; };
+		51E519A2169763AA00F6D446 /* AccelerometerSignalData.h in Headers */ = {isa = PBXBuildFile; fileRef = 51E51953169763AA00F6D446 /* AccelerometerSignalData.h */; };
+		51E519A3169763AA00F6D446 /* AccelerometerState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 51E51954169763AA00F6D446 /* AccelerometerState.cpp */; };
+		51E519A4169763AA00F6D446 /* AccelerometerState.h in Headers */ = {isa = PBXBuildFile; fileRef = 51E51955169763AA00F6D446 /* AccelerometerState.h */; };
+		51E519A5169763AA00F6D446 /* NullAccelerometer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 51E51956169763AA00F6D446 /* NullAccelerometer.cpp */; };
+		51E519A6169763AA00F6D446 /* NullAccelerometer.h in Headers */ = {isa = PBXBuildFile; fileRef = 51E51957169763AA00F6D446 /* NullAccelerometer.h */; };
+		51E519A7169763AA00F6D446 /* GamePad.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 51E51959169763AA00F6D446 /* GamePad.cpp */; };
+		51E519A8169763AA00F6D446 /* GamePad.h in Headers */ = {isa = PBXBuildFile; fileRef = 51E5195A169763AA00F6D446 /* GamePad.h */; };
+		51E519A9169763AA00F6D446 /* GamePadButtonSignalData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 51E5195B169763AA00F6D446 /* GamePadButtonSignalData.cpp */; };
+		51E519AA169763AA00F6D446 /* GamePadButtonSignalData.h in Headers */ = {isa = PBXBuildFile; fileRef = 51E5195C169763AA00F6D446 /* GamePadButtonSignalData.h */; };
+		51E519AB169763AA00F6D446 /* GamePadSignalData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 51E5195D169763AA00F6D446 /* GamePadSignalData.cpp */; };
+		51E519AC169763AA00F6D446 /* GamePadSignalData.h in Headers */ = {isa = PBXBuildFile; fileRef = 51E5195E169763AA00F6D446 /* GamePadSignalData.h */; };
+		51E519AD169763AA00F6D446 /* GamePadState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 51E5195F169763AA00F6D446 /* GamePadState.cpp */; };
+		51E519AE169763AA00F6D446 /* GamePadState.h in Headers */ = {isa = PBXBuildFile; fileRef = 51E51960169763AA00F6D446 /* GamePadState.h */; };
+		51E519AF169763AA00F6D446 /* GamePadThumbstickSignalData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 51E51961169763AA00F6D446 /* GamePadThumbstickSignalData.cpp */; };
+		51E519B0169763AA00F6D446 /* GamePadThumbstickSignalData.h in Headers */ = {isa = PBXBuildFile; fileRef = 51E51962169763AA00F6D446 /* GamePadThumbstickSignalData.h */; };
+		51E519B1169763AA00F6D446 /* NullGamePad.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 51E51963169763AA00F6D446 /* NullGamePad.cpp */; };
+		51E519B2169763AA00F6D446 /* NullGamePad.h in Headers */ = {isa = PBXBuildFile; fileRef = 51E51964169763AA00F6D446 /* NullGamePad.h */; };
+		51E519B3169763AA00F6D446 /* SDLGamePad.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 51E51966169763AA00F6D446 /* SDLGamePad.cpp */; };
+		51E519B4169763AA00F6D446 /* SDLGamePad.h in Headers */ = {isa = PBXBuildFile; fileRef = 51E51967169763AA00F6D446 /* SDLGamePad.h */; };
+		51E519B5169763AA00F6D446 /* InputDevice.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 51E51968169763AA00F6D446 /* InputDevice.cpp */; };
+		51E519B6169763AA00F6D446 /* InputDevice.h in Headers */ = {isa = PBXBuildFile; fileRef = 51E51969169763AA00F6D446 /* InputDevice.h */; };
+		51E519B7169763AA00F6D446 /* InputManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 51E5196A169763AA00F6D446 /* InputManager.cpp */; };
+		51E519B8169763AA00F6D446 /* InputManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 51E5196B169763AA00F6D446 /* InputManager.h */; };
+		51E519B9169763AA00F6D446 /* InputSignalData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 51E5196C169763AA00F6D446 /* InputSignalData.cpp */; };
+		51E519BA169763AA00F6D446 /* InputSignalData.h in Headers */ = {isa = PBXBuildFile; fileRef = 51E5196D169763AA00F6D446 /* InputSignalData.h */; };
+		51E519BB169763AA00F6D446 /* InputState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 51E5196E169763AA00F6D446 /* InputState.cpp */; };
+		51E519BC169763AA00F6D446 /* InputState.h in Headers */ = {isa = PBXBuildFile; fileRef = 51E5196F169763AA00F6D446 /* InputState.h */; };
+		51E519BD169763AA00F6D446 /* Key.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 51E51971169763AA00F6D446 /* Key.cpp */; };
+		51E519BE169763AA00F6D446 /* Key.h in Headers */ = {isa = PBXBuildFile; fileRef = 51E51972169763AA00F6D446 /* Key.h */; };
+		51E519BF169763AA00F6D446 /* Keyboard.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 51E51973169763AA00F6D446 /* Keyboard.cpp */; };
+		51E519C0169763AA00F6D446 /* Keyboard.h in Headers */ = {isa = PBXBuildFile; fileRef = 51E51974169763AA00F6D446 /* Keyboard.h */; };
+		51E519C1169763AA00F6D446 /* KeyboardSignalData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 51E51975169763AA00F6D446 /* KeyboardSignalData.cpp */; };
+		51E519C2169763AA00F6D446 /* KeyboardSignalData.h in Headers */ = {isa = PBXBuildFile; fileRef = 51E51976169763AA00F6D446 /* KeyboardSignalData.h */; };
+		51E519C3169763AA00F6D446 /* KeyboardState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 51E51977169763AA00F6D446 /* KeyboardState.cpp */; };
+		51E519C4169763AA00F6D446 /* KeyboardState.h in Headers */ = {isa = PBXBuildFile; fileRef = 51E51978169763AA00F6D446 /* KeyboardState.h */; };
+		51E519C5169763AA00F6D446 /* KeyMaskSignalData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 51E51979169763AA00F6D446 /* KeyMaskSignalData.cpp */; };
+		51E519C6169763AA00F6D446 /* KeyMaskSignalData.h in Headers */ = {isa = PBXBuildFile; fileRef = 51E5197A169763AA00F6D446 /* KeyMaskSignalData.h */; };
+		51E519C7169763AA00F6D446 /* KeySignalData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 51E5197B169763AA00F6D446 /* KeySignalData.cpp */; };
+		51E519C8169763AA00F6D446 /* KeySignalData.h in Headers */ = {isa = PBXBuildFile; fileRef = 51E5197C169763AA00F6D446 /* KeySignalData.h */; };
+		51E519C9169763AA00F6D446 /* NullKeyboard.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 51E5197D169763AA00F6D446 /* NullKeyboard.cpp */; };
+		51E519CA169763AA00F6D446 /* NullKeyboard.h in Headers */ = {isa = PBXBuildFile; fileRef = 51E5197E169763AA00F6D446 /* NullKeyboard.h */; };
+		51E519CD169763AA00F6D446 /* SDLKeyboard.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 51E51983169763AA00F6D446 /* SDLKeyboard.cpp */; };
+		51E519CE169763AA00F6D446 /* SDLKeyboard.h in Headers */ = {isa = PBXBuildFile; fileRef = 51E51984169763AA00F6D446 /* SDLKeyboard.h */; };
+		51E519CF169763AA00F6D446 /* CursorButton.h in Headers */ = {isa = PBXBuildFile; fileRef = 51E51986169763AA00F6D446 /* CursorButton.h */; };
+		51E519D0169763AA00F6D446 /* CursorState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 51E51987169763AA00F6D446 /* CursorState.cpp */; };
+		51E519D1169763AA00F6D446 /* CursorState.h in Headers */ = {isa = PBXBuildFile; fileRef = 51E51988169763AA00F6D446 /* CursorState.h */; };
+		51E519D4169763AA00F6D446 /* NullPointer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 51E5198C169763AA00F6D446 /* NullPointer.cpp */; };
+		51E519D5169763AA00F6D446 /* NullPointer.h in Headers */ = {isa = PBXBuildFile; fileRef = 51E5198D169763AA00F6D446 /* NullPointer.h */; };
+		51E519D6169763AA00F6D446 /* Pointer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 51E5198E169763AA00F6D446 /* Pointer.cpp */; };
+		51E519D7169763AA00F6D446 /* Pointer.h in Headers */ = {isa = PBXBuildFile; fileRef = 51E5198F169763AA00F6D446 /* Pointer.h */; };
+		51E519D8169763AA00F6D446 /* PointerButtonSignalData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 51E51990169763AA00F6D446 /* PointerButtonSignalData.cpp */; };
+		51E519D9169763AA00F6D446 /* PointerButtonSignalData.h in Headers */ = {isa = PBXBuildFile; fileRef = 51E51991169763AA00F6D446 /* PointerButtonSignalData.h */; };
+		51E519DA169763AA00F6D446 /* PointerSignalData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 51E51992169763AA00F6D446 /* PointerSignalData.cpp */; };
+		51E519DB169763AA00F6D446 /* PointerSignalData.h in Headers */ = {isa = PBXBuildFile; fileRef = 51E51993169763AA00F6D446 /* PointerSignalData.h */; };
+		51E519DC169763AA00F6D446 /* PointerState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 51E51994169763AA00F6D446 /* PointerState.cpp */; };
+		51E519DD169763AA00F6D446 /* PointerState.h in Headers */ = {isa = PBXBuildFile; fileRef = 51E51995169763AA00F6D446 /* PointerState.h */; };
+		51E519E0169763AA00F6D446 /* SDLPointer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 51E5199A169763AA00F6D446 /* SDLPointer.cpp */; };
+		51E519E1169763AA00F6D446 /* SDLPointer.h in Headers */ = {isa = PBXBuildFile; fileRef = 51E5199B169763AA00F6D446 /* SDLPointer.h */; };
+		51E519E2169763AA00F6D446 /* SDLInputManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 51E5199D169763AA00F6D446 /* SDLInputManager.cpp */; };
+		51E519E3169763AA00F6D446 /* SDLInputManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 51E5199E169763AA00F6D446 /* SDLInputManager.h */; };
+		51E519EC169764E200F6D446 /* SignalAnalyzer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 51E519E6169764E200F6D446 /* SignalAnalyzer.cpp */; };
+		51E519ED169764E200F6D446 /* SignalAnalyzer.h in Headers */ = {isa = PBXBuildFile; fileRef = 51E519E7169764E200F6D446 /* SignalAnalyzer.h */; };
+		51E519EE169764E200F6D446 /* SignalAnalyzerManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 51E519E8169764E200F6D446 /* SignalAnalyzerManager.cpp */; };
+		51E519EF169764E200F6D446 /* SignalAnalyzerManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 51E519E9169764E200F6D446 /* SignalAnalyzerManager.h */; };
+		51E519F0169764E200F6D446 /* SignalData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 51E519EA169764E200F6D446 /* SignalData.cpp */; };
+		51E519F1169764E200F6D446 /* SignalData.h in Headers */ = {isa = PBXBuildFile; fileRef = 51E519EB169764E200F6D446 /* SignalData.h */; };
+		51E519F51697652D00F6D446 /* LibcTimeHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 51E519F31697652D00F6D446 /* LibcTimeHelper.cpp */; };
+		51E519F61697652D00F6D446 /* LibcTimeHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 51E519F41697652D00F6D446 /* LibcTimeHelper.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -325,6 +396,77 @@
 		51E5192416975B4400F6D446 /* WindowOrientation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WindowOrientation.h; sourceTree = "<group>"; };
 		51E5194416975BCF00F6D446 /* PlatformFlagger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlatformFlagger.h; sourceTree = "<group>"; };
 		51E5194616975C9300F6D446 /* TextureCoordinates.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextureCoordinates.h; sourceTree = "<group>"; };
+		51E51950169763AA00F6D446 /* Accelerometer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Accelerometer.cpp; sourceTree = "<group>"; };
+		51E51951169763AA00F6D446 /* Accelerometer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Accelerometer.h; sourceTree = "<group>"; };
+		51E51952169763AA00F6D446 /* AccelerometerSignalData.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AccelerometerSignalData.cpp; sourceTree = "<group>"; };
+		51E51953169763AA00F6D446 /* AccelerometerSignalData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccelerometerSignalData.h; sourceTree = "<group>"; };
+		51E51954169763AA00F6D446 /* AccelerometerState.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AccelerometerState.cpp; sourceTree = "<group>"; };
+		51E51955169763AA00F6D446 /* AccelerometerState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccelerometerState.h; sourceTree = "<group>"; };
+		51E51956169763AA00F6D446 /* NullAccelerometer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NullAccelerometer.cpp; sourceTree = "<group>"; };
+		51E51957169763AA00F6D446 /* NullAccelerometer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NullAccelerometer.h; sourceTree = "<group>"; };
+		51E51959169763AA00F6D446 /* GamePad.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GamePad.cpp; sourceTree = "<group>"; };
+		51E5195A169763AA00F6D446 /* GamePad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GamePad.h; sourceTree = "<group>"; };
+		51E5195B169763AA00F6D446 /* GamePadButtonSignalData.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GamePadButtonSignalData.cpp; sourceTree = "<group>"; };
+		51E5195C169763AA00F6D446 /* GamePadButtonSignalData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GamePadButtonSignalData.h; sourceTree = "<group>"; };
+		51E5195D169763AA00F6D446 /* GamePadSignalData.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GamePadSignalData.cpp; sourceTree = "<group>"; };
+		51E5195E169763AA00F6D446 /* GamePadSignalData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GamePadSignalData.h; sourceTree = "<group>"; };
+		51E5195F169763AA00F6D446 /* GamePadState.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GamePadState.cpp; sourceTree = "<group>"; };
+		51E51960169763AA00F6D446 /* GamePadState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GamePadState.h; sourceTree = "<group>"; };
+		51E51961169763AA00F6D446 /* GamePadThumbstickSignalData.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GamePadThumbstickSignalData.cpp; sourceTree = "<group>"; };
+		51E51962169763AA00F6D446 /* GamePadThumbstickSignalData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GamePadThumbstickSignalData.h; sourceTree = "<group>"; };
+		51E51963169763AA00F6D446 /* NullGamePad.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NullGamePad.cpp; sourceTree = "<group>"; };
+		51E51964169763AA00F6D446 /* NullGamePad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NullGamePad.h; sourceTree = "<group>"; };
+		51E51966169763AA00F6D446 /* SDLGamePad.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SDLGamePad.cpp; sourceTree = "<group>"; };
+		51E51967169763AA00F6D446 /* SDLGamePad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDLGamePad.h; sourceTree = "<group>"; };
+		51E51968169763AA00F6D446 /* InputDevice.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = InputDevice.cpp; sourceTree = "<group>"; };
+		51E51969169763AA00F6D446 /* InputDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InputDevice.h; sourceTree = "<group>"; };
+		51E5196A169763AA00F6D446 /* InputManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = InputManager.cpp; sourceTree = "<group>"; };
+		51E5196B169763AA00F6D446 /* InputManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InputManager.h; sourceTree = "<group>"; };
+		51E5196C169763AA00F6D446 /* InputSignalData.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = InputSignalData.cpp; sourceTree = "<group>"; };
+		51E5196D169763AA00F6D446 /* InputSignalData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InputSignalData.h; sourceTree = "<group>"; };
+		51E5196E169763AA00F6D446 /* InputState.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = InputState.cpp; sourceTree = "<group>"; };
+		51E5196F169763AA00F6D446 /* InputState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InputState.h; sourceTree = "<group>"; };
+		51E51971169763AA00F6D446 /* Key.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Key.cpp; sourceTree = "<group>"; };
+		51E51972169763AA00F6D446 /* Key.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Key.h; sourceTree = "<group>"; };
+		51E51973169763AA00F6D446 /* Keyboard.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Keyboard.cpp; sourceTree = "<group>"; };
+		51E51974169763AA00F6D446 /* Keyboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Keyboard.h; sourceTree = "<group>"; };
+		51E51975169763AA00F6D446 /* KeyboardSignalData.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = KeyboardSignalData.cpp; sourceTree = "<group>"; };
+		51E51976169763AA00F6D446 /* KeyboardSignalData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeyboardSignalData.h; sourceTree = "<group>"; };
+		51E51977169763AA00F6D446 /* KeyboardState.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = KeyboardState.cpp; sourceTree = "<group>"; };
+		51E51978169763AA00F6D446 /* KeyboardState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeyboardState.h; sourceTree = "<group>"; };
+		51E51979169763AA00F6D446 /* KeyMaskSignalData.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = KeyMaskSignalData.cpp; sourceTree = "<group>"; };
+		51E5197A169763AA00F6D446 /* KeyMaskSignalData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeyMaskSignalData.h; sourceTree = "<group>"; };
+		51E5197B169763AA00F6D446 /* KeySignalData.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = KeySignalData.cpp; sourceTree = "<group>"; };
+		51E5197C169763AA00F6D446 /* KeySignalData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeySignalData.h; sourceTree = "<group>"; };
+		51E5197D169763AA00F6D446 /* NullKeyboard.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NullKeyboard.cpp; sourceTree = "<group>"; };
+		51E5197E169763AA00F6D446 /* NullKeyboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NullKeyboard.h; sourceTree = "<group>"; };
+		51E51983169763AA00F6D446 /* SDLKeyboard.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SDLKeyboard.cpp; sourceTree = "<group>"; };
+		51E51984169763AA00F6D446 /* SDLKeyboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDLKeyboard.h; sourceTree = "<group>"; };
+		51E51986169763AA00F6D446 /* CursorButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CursorButton.h; sourceTree = "<group>"; };
+		51E51987169763AA00F6D446 /* CursorState.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CursorState.cpp; sourceTree = "<group>"; };
+		51E51988169763AA00F6D446 /* CursorState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CursorState.h; sourceTree = "<group>"; };
+		51E5198C169763AA00F6D446 /* NullPointer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NullPointer.cpp; sourceTree = "<group>"; };
+		51E5198D169763AA00F6D446 /* NullPointer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NullPointer.h; sourceTree = "<group>"; };
+		51E5198E169763AA00F6D446 /* Pointer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Pointer.cpp; sourceTree = "<group>"; };
+		51E5198F169763AA00F6D446 /* Pointer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Pointer.h; sourceTree = "<group>"; };
+		51E51990169763AA00F6D446 /* PointerButtonSignalData.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PointerButtonSignalData.cpp; sourceTree = "<group>"; };
+		51E51991169763AA00F6D446 /* PointerButtonSignalData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PointerButtonSignalData.h; sourceTree = "<group>"; };
+		51E51992169763AA00F6D446 /* PointerSignalData.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PointerSignalData.cpp; sourceTree = "<group>"; };
+		51E51993169763AA00F6D446 /* PointerSignalData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PointerSignalData.h; sourceTree = "<group>"; };
+		51E51994169763AA00F6D446 /* PointerState.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PointerState.cpp; sourceTree = "<group>"; };
+		51E51995169763AA00F6D446 /* PointerState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PointerState.h; sourceTree = "<group>"; };
+		51E5199A169763AA00F6D446 /* SDLPointer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SDLPointer.cpp; sourceTree = "<group>"; };
+		51E5199B169763AA00F6D446 /* SDLPointer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDLPointer.h; sourceTree = "<group>"; };
+		51E5199D169763AA00F6D446 /* SDLInputManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SDLInputManager.cpp; sourceTree = "<group>"; };
+		51E5199E169763AA00F6D446 /* SDLInputManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDLInputManager.h; sourceTree = "<group>"; };
+		51E519E6169764E200F6D446 /* SignalAnalyzer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SignalAnalyzer.cpp; sourceTree = "<group>"; };
+		51E519E7169764E200F6D446 /* SignalAnalyzer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignalAnalyzer.h; sourceTree = "<group>"; };
+		51E519E8169764E200F6D446 /* SignalAnalyzerManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SignalAnalyzerManager.cpp; sourceTree = "<group>"; };
+		51E519E9169764E200F6D446 /* SignalAnalyzerManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignalAnalyzerManager.h; sourceTree = "<group>"; };
+		51E519EA169764E200F6D446 /* SignalData.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SignalData.cpp; sourceTree = "<group>"; };
+		51E519EB169764E200F6D446 /* SignalData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignalData.h; sourceTree = "<group>"; };
+		51E519F31697652D00F6D446 /* LibcTimeHelper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LibcTimeHelper.cpp; sourceTree = "<group>"; };
+		51E519F41697652D00F6D446 /* LibcTimeHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LibcTimeHelper.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -373,6 +515,8 @@
 		51E516BA1697529200F6D446 /* BaconBox */ = {
 			isa = PBXGroup;
 			children = (
+				51E519E5169764E200F6D446 /* SignalSlots */,
+				51E5194E169763AA00F6D446 /* Input */,
 				51E5194616975C9300F6D446 /* TextureCoordinates.h */,
 				51E5194416975BCF00F6D446 /* PlatformFlagger.h */,
 				51E518FE16975B4300F6D446 /* Display */,
@@ -438,6 +582,7 @@
 		51E516DA1697529200F6D446 /* Helper */ = {
 			isa = PBXGroup;
 			children = (
+				51E519F21697652D00F6D446 /* libc */,
 				51E517C5169754B400F6D446 /* String32.h */,
 				51E516DB1697529200F6D446 /* AlgorithmHelper.h */,
 				51E516DC1697529200F6D446 /* Base64.cpp */,
@@ -666,6 +811,162 @@
 			path = SDL;
 			sourceTree = "<group>";
 		};
+		51E5194E169763AA00F6D446 /* Input */ = {
+			isa = PBXGroup;
+			children = (
+				51E5194F169763AA00F6D446 /* Accelerometer */,
+				51E51958169763AA00F6D446 /* GamePad */,
+				51E51968169763AA00F6D446 /* InputDevice.cpp */,
+				51E51969169763AA00F6D446 /* InputDevice.h */,
+				51E5196A169763AA00F6D446 /* InputManager.cpp */,
+				51E5196B169763AA00F6D446 /* InputManager.h */,
+				51E5196C169763AA00F6D446 /* InputSignalData.cpp */,
+				51E5196D169763AA00F6D446 /* InputSignalData.h */,
+				51E5196E169763AA00F6D446 /* InputState.cpp */,
+				51E5196F169763AA00F6D446 /* InputState.h */,
+				51E51970169763AA00F6D446 /* Keyboard */,
+				51E51985169763AA00F6D446 /* Pointer */,
+				51E5199C169763AA00F6D446 /* SDL */,
+			);
+			path = Input;
+			sourceTree = "<group>";
+		};
+		51E5194F169763AA00F6D446 /* Accelerometer */ = {
+			isa = PBXGroup;
+			children = (
+				51E51950169763AA00F6D446 /* Accelerometer.cpp */,
+				51E51951169763AA00F6D446 /* Accelerometer.h */,
+				51E51952169763AA00F6D446 /* AccelerometerSignalData.cpp */,
+				51E51953169763AA00F6D446 /* AccelerometerSignalData.h */,
+				51E51954169763AA00F6D446 /* AccelerometerState.cpp */,
+				51E51955169763AA00F6D446 /* AccelerometerState.h */,
+				51E51956169763AA00F6D446 /* NullAccelerometer.cpp */,
+				51E51957169763AA00F6D446 /* NullAccelerometer.h */,
+			);
+			path = Accelerometer;
+			sourceTree = "<group>";
+		};
+		51E51958169763AA00F6D446 /* GamePad */ = {
+			isa = PBXGroup;
+			children = (
+				51E51959169763AA00F6D446 /* GamePad.cpp */,
+				51E5195A169763AA00F6D446 /* GamePad.h */,
+				51E5195B169763AA00F6D446 /* GamePadButtonSignalData.cpp */,
+				51E5195C169763AA00F6D446 /* GamePadButtonSignalData.h */,
+				51E5195D169763AA00F6D446 /* GamePadSignalData.cpp */,
+				51E5195E169763AA00F6D446 /* GamePadSignalData.h */,
+				51E5195F169763AA00F6D446 /* GamePadState.cpp */,
+				51E51960169763AA00F6D446 /* GamePadState.h */,
+				51E51961169763AA00F6D446 /* GamePadThumbstickSignalData.cpp */,
+				51E51962169763AA00F6D446 /* GamePadThumbstickSignalData.h */,
+				51E51963169763AA00F6D446 /* NullGamePad.cpp */,
+				51E51964169763AA00F6D446 /* NullGamePad.h */,
+				51E51965169763AA00F6D446 /* SDL */,
+			);
+			path = GamePad;
+			sourceTree = "<group>";
+		};
+		51E51965169763AA00F6D446 /* SDL */ = {
+			isa = PBXGroup;
+			children = (
+				51E51966169763AA00F6D446 /* SDLGamePad.cpp */,
+				51E51967169763AA00F6D446 /* SDLGamePad.h */,
+			);
+			path = SDL;
+			sourceTree = "<group>";
+		};
+		51E51970169763AA00F6D446 /* Keyboard */ = {
+			isa = PBXGroup;
+			children = (
+				51E51971169763AA00F6D446 /* Key.cpp */,
+				51E51972169763AA00F6D446 /* Key.h */,
+				51E51973169763AA00F6D446 /* Keyboard.cpp */,
+				51E51974169763AA00F6D446 /* Keyboard.h */,
+				51E51975169763AA00F6D446 /* KeyboardSignalData.cpp */,
+				51E51976169763AA00F6D446 /* KeyboardSignalData.h */,
+				51E51977169763AA00F6D446 /* KeyboardState.cpp */,
+				51E51978169763AA00F6D446 /* KeyboardState.h */,
+				51E51979169763AA00F6D446 /* KeyMaskSignalData.cpp */,
+				51E5197A169763AA00F6D446 /* KeyMaskSignalData.h */,
+				51E5197B169763AA00F6D446 /* KeySignalData.cpp */,
+				51E5197C169763AA00F6D446 /* KeySignalData.h */,
+				51E5197D169763AA00F6D446 /* NullKeyboard.cpp */,
+				51E5197E169763AA00F6D446 /* NullKeyboard.h */,
+				51E51982169763AA00F6D446 /* SDL */,
+			);
+			path = Keyboard;
+			sourceTree = "<group>";
+		};
+		51E51982169763AA00F6D446 /* SDL */ = {
+			isa = PBXGroup;
+			children = (
+				51E51983169763AA00F6D446 /* SDLKeyboard.cpp */,
+				51E51984169763AA00F6D446 /* SDLKeyboard.h */,
+			);
+			path = SDL;
+			sourceTree = "<group>";
+		};
+		51E51985169763AA00F6D446 /* Pointer */ = {
+			isa = PBXGroup;
+			children = (
+				51E51986169763AA00F6D446 /* CursorButton.h */,
+				51E51987169763AA00F6D446 /* CursorState.cpp */,
+				51E51988169763AA00F6D446 /* CursorState.h */,
+				51E5198C169763AA00F6D446 /* NullPointer.cpp */,
+				51E5198D169763AA00F6D446 /* NullPointer.h */,
+				51E5198E169763AA00F6D446 /* Pointer.cpp */,
+				51E5198F169763AA00F6D446 /* Pointer.h */,
+				51E51990169763AA00F6D446 /* PointerButtonSignalData.cpp */,
+				51E51991169763AA00F6D446 /* PointerButtonSignalData.h */,
+				51E51992169763AA00F6D446 /* PointerSignalData.cpp */,
+				51E51993169763AA00F6D446 /* PointerSignalData.h */,
+				51E51994169763AA00F6D446 /* PointerState.cpp */,
+				51E51995169763AA00F6D446 /* PointerState.h */,
+				51E51999169763AA00F6D446 /* SDL */,
+			);
+			path = Pointer;
+			sourceTree = "<group>";
+		};
+		51E51999169763AA00F6D446 /* SDL */ = {
+			isa = PBXGroup;
+			children = (
+				51E5199A169763AA00F6D446 /* SDLPointer.cpp */,
+				51E5199B169763AA00F6D446 /* SDLPointer.h */,
+			);
+			path = SDL;
+			sourceTree = "<group>";
+		};
+		51E5199C169763AA00F6D446 /* SDL */ = {
+			isa = PBXGroup;
+			children = (
+				51E5199D169763AA00F6D446 /* SDLInputManager.cpp */,
+				51E5199E169763AA00F6D446 /* SDLInputManager.h */,
+			);
+			path = SDL;
+			sourceTree = "<group>";
+		};
+		51E519E5169764E200F6D446 /* SignalSlots */ = {
+			isa = PBXGroup;
+			children = (
+				51E519E6169764E200F6D446 /* SignalAnalyzer.cpp */,
+				51E519E7169764E200F6D446 /* SignalAnalyzer.h */,
+				51E519E8169764E200F6D446 /* SignalAnalyzerManager.cpp */,
+				51E519E9169764E200F6D446 /* SignalAnalyzerManager.h */,
+				51E519EA169764E200F6D446 /* SignalData.cpp */,
+				51E519EB169764E200F6D446 /* SignalData.h */,
+			);
+			path = SignalSlots;
+			sourceTree = "<group>";
+		};
+		51E519F21697652D00F6D446 /* libc */ = {
+			isa = PBXGroup;
+			children = (
+				51E519F31697652D00F6D446 /* LibcTimeHelper.cpp */,
+				51E519F41697652D00F6D446 /* LibcTimeHelper.h */,
+			);
+			path = libc;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -764,6 +1065,42 @@
 				51E5194316975B4400F6D446 /* WindowOrientation.h in Headers */,
 				51E5194516975BCF00F6D446 /* PlatformFlagger.h in Headers */,
 				51E5194716975C9300F6D446 /* TextureCoordinates.h in Headers */,
+				51E519A0169763AA00F6D446 /* Accelerometer.h in Headers */,
+				51E519A2169763AA00F6D446 /* AccelerometerSignalData.h in Headers */,
+				51E519A4169763AA00F6D446 /* AccelerometerState.h in Headers */,
+				51E519A6169763AA00F6D446 /* NullAccelerometer.h in Headers */,
+				51E519A8169763AA00F6D446 /* GamePad.h in Headers */,
+				51E519AA169763AA00F6D446 /* GamePadButtonSignalData.h in Headers */,
+				51E519AC169763AA00F6D446 /* GamePadSignalData.h in Headers */,
+				51E519AE169763AA00F6D446 /* GamePadState.h in Headers */,
+				51E519B0169763AA00F6D446 /* GamePadThumbstickSignalData.h in Headers */,
+				51E519B2169763AA00F6D446 /* NullGamePad.h in Headers */,
+				51E519B4169763AA00F6D446 /* SDLGamePad.h in Headers */,
+				51E519B6169763AA00F6D446 /* InputDevice.h in Headers */,
+				51E519B8169763AA00F6D446 /* InputManager.h in Headers */,
+				51E519BA169763AA00F6D446 /* InputSignalData.h in Headers */,
+				51E519BC169763AA00F6D446 /* InputState.h in Headers */,
+				51E519BE169763AA00F6D446 /* Key.h in Headers */,
+				51E519C0169763AA00F6D446 /* Keyboard.h in Headers */,
+				51E519C2169763AA00F6D446 /* KeyboardSignalData.h in Headers */,
+				51E519C4169763AA00F6D446 /* KeyboardState.h in Headers */,
+				51E519C6169763AA00F6D446 /* KeyMaskSignalData.h in Headers */,
+				51E519C8169763AA00F6D446 /* KeySignalData.h in Headers */,
+				51E519CA169763AA00F6D446 /* NullKeyboard.h in Headers */,
+				51E519CE169763AA00F6D446 /* SDLKeyboard.h in Headers */,
+				51E519CF169763AA00F6D446 /* CursorButton.h in Headers */,
+				51E519D1169763AA00F6D446 /* CursorState.h in Headers */,
+				51E519D5169763AA00F6D446 /* NullPointer.h in Headers */,
+				51E519D7169763AA00F6D446 /* Pointer.h in Headers */,
+				51E519D9169763AA00F6D446 /* PointerButtonSignalData.h in Headers */,
+				51E519DB169763AA00F6D446 /* PointerSignalData.h in Headers */,
+				51E519DD169763AA00F6D446 /* PointerState.h in Headers */,
+				51E519E1169763AA00F6D446 /* SDLPointer.h in Headers */,
+				51E519E3169763AA00F6D446 /* SDLInputManager.h in Headers */,
+				51E519ED169764E200F6D446 /* SignalAnalyzer.h in Headers */,
+				51E519EF169764E200F6D446 /* SignalAnalyzerManager.h in Headers */,
+				51E519F1169764E200F6D446 /* SignalData.h in Headers */,
+				51E519F61697652D00F6D446 /* LibcTimeHelper.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -880,6 +1217,41 @@
 				51E5193316975B4400F6D446 /* TextureInformation.cpp in Sources */,
 				51E5193D16975B4400F6D446 /* MainWindow.cpp in Sources */,
 				51E5194116975B4400F6D446 /* SDLMainWindow.cpp in Sources */,
+				51E5199F169763AA00F6D446 /* Accelerometer.cpp in Sources */,
+				51E519A1169763AA00F6D446 /* AccelerometerSignalData.cpp in Sources */,
+				51E519A3169763AA00F6D446 /* AccelerometerState.cpp in Sources */,
+				51E519A5169763AA00F6D446 /* NullAccelerometer.cpp in Sources */,
+				51E519A7169763AA00F6D446 /* GamePad.cpp in Sources */,
+				51E519A9169763AA00F6D446 /* GamePadButtonSignalData.cpp in Sources */,
+				51E519AB169763AA00F6D446 /* GamePadSignalData.cpp in Sources */,
+				51E519AD169763AA00F6D446 /* GamePadState.cpp in Sources */,
+				51E519AF169763AA00F6D446 /* GamePadThumbstickSignalData.cpp in Sources */,
+				51E519B1169763AA00F6D446 /* NullGamePad.cpp in Sources */,
+				51E519B3169763AA00F6D446 /* SDLGamePad.cpp in Sources */,
+				51E519B5169763AA00F6D446 /* InputDevice.cpp in Sources */,
+				51E519B7169763AA00F6D446 /* InputManager.cpp in Sources */,
+				51E519B9169763AA00F6D446 /* InputSignalData.cpp in Sources */,
+				51E519BB169763AA00F6D446 /* InputState.cpp in Sources */,
+				51E519BD169763AA00F6D446 /* Key.cpp in Sources */,
+				51E519BF169763AA00F6D446 /* Keyboard.cpp in Sources */,
+				51E519C1169763AA00F6D446 /* KeyboardSignalData.cpp in Sources */,
+				51E519C3169763AA00F6D446 /* KeyboardState.cpp in Sources */,
+				51E519C5169763AA00F6D446 /* KeyMaskSignalData.cpp in Sources */,
+				51E519C7169763AA00F6D446 /* KeySignalData.cpp in Sources */,
+				51E519C9169763AA00F6D446 /* NullKeyboard.cpp in Sources */,
+				51E519CD169763AA00F6D446 /* SDLKeyboard.cpp in Sources */,
+				51E519D0169763AA00F6D446 /* CursorState.cpp in Sources */,
+				51E519D4169763AA00F6D446 /* NullPointer.cpp in Sources */,
+				51E519D6169763AA00F6D446 /* Pointer.cpp in Sources */,
+				51E519D8169763AA00F6D446 /* PointerButtonSignalData.cpp in Sources */,
+				51E519DA169763AA00F6D446 /* PointerSignalData.cpp in Sources */,
+				51E519DC169763AA00F6D446 /* PointerState.cpp in Sources */,
+				51E519E0169763AA00F6D446 /* SDLPointer.cpp in Sources */,
+				51E519E2169763AA00F6D446 /* SDLInputManager.cpp in Sources */,
+				51E519EC169764E200F6D446 /* SignalAnalyzer.cpp in Sources */,
+				51E519EE169764E200F6D446 /* SignalAnalyzerManager.cpp in Sources */,
+				51E519F0169764E200F6D446 /* SignalData.cpp in Sources */,
+				51E519F51697652D00F6D446 /* LibcTimeHelper.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -889,7 +1261,7 @@
 		51B7425116345CFF00DB18E1 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++98";
 				CLANG_CXX_LIBRARY = "libstdc++";
@@ -920,7 +1292,7 @@
 		51B7425216345CFF00DB18E1 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++98";
 				CLANG_CXX_LIBRARY = "libstdc++";
@@ -955,7 +1327,7 @@
 					"\"$(SRCROOT)/libraries/Darwin/x86_64/lib\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)\"";
+				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)\" \"$(SRCROOT)/libraries/Darwin/x86_64/include\"";
 			};
 			name = Debug;
 		};
@@ -973,7 +1345,7 @@
 					"\"$(SRCROOT)/libraries/Darwin/x86_64/lib\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)\"";
+				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)\" \"$(SRCROOT)/libraries/Darwin/x86_64/include\"";
 			};
 			name = Release;
 		};

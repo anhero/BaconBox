@@ -2,8 +2,8 @@
  * @file
  * @ingroup Input
  */
-#ifndef RB_KEYBOARD_STATE_H
-#define RB_KEYBOARD_STATE_H
+#ifndef BB_KEYBOARD_STATE_H
+#define BB_KEYBOARD_STATE_H
 
 #include <map>
 #include <set>

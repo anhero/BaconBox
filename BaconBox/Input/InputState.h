@@ -2,8 +2,8 @@
  * @file
  * @ingroup Input
  */
-#ifndef RB_INPUT_STATE_H
-#define RB_INPUT_STATE_H
+#ifndef BB_INPUT_STATE_H
+#define BB_INPUT_STATE_H
 
 namespace BaconBox {
 	/**

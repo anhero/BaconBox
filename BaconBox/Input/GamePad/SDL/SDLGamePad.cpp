@@ -1,7 +1,7 @@
 #include "BaconBox/Input/GamePad/SDL/SDLGamePad.h"
 
-#define RB_MIN_SDL_JOYSTICK_VALUE 32768.0f
-#define RB_MAX_SDL_JOYSTICK_VALUE 32767.0f
+#define BB_MIN_SDL_JOYSTICK_VALUE 32768.0f
+#define BB_MAX_SDL_JOYSTICK_VALUE 32767.0f
 
 namespace BaconBox {
     
@@ -36,10 +36,10 @@ namespace BaconBox {
             float  axisValue = SDL_JoystickGetAxis(joystick, i);
             float finalAxisValue;
             if(axisValue < 0){
-                finalAxisValue = axisValue / RB_MIN_SDL_JOYSTICK_VALUE;
+                finalAxisValue = axisValue / BB_MIN_SDL_JOYSTICK_VALUE;
             }
             else {
-                finalAxisValue = axisValue / RB_MAX_SDL_JOYSTICK_VALUE;
+                finalAxisValue = axisValue / BB_MAX_SDL_JOYSTICK_VALUE;
             }
             getThumbstick()[i] =  finalAxisValue;
             

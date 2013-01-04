@@ -1,6 +1,6 @@
 #include "BaconBox/PlatformFlagger.h"
 
-#ifdef RB_SDL
+#ifdef BB_SDL
 
 #include "BaconBox/Input/SDL/SDLInputManager.h"
 

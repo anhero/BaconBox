@@ -2,8 +2,8 @@
  * @file
  * @ingroup Input
  */
-#ifndef RB_ACCELEROMETER_STATE_H
-#define RB_ACCELEROMETER_STATE_H
+#ifndef BB_ACCELEROMETER_STATE_H
+#define BB_ACCELEROMETER_STATE_H
 
 #include "BaconBox/Input/InputState.h"
 

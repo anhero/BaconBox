@@ -1,9 +1,9 @@
-#ifndef RB_SDL_KEYBOARD_H
-#define RB_SDL_KEYBOARD_H
+#ifndef BB_SDL_KEYBOARD_H
+#define BB_SDL_KEYBOARD_H
 
 #include "BaconBox/PlatformFlagger.h"
 
-#ifdef RB_SDL
+#ifdef BB_SDL
 
 #include <vector>
 

@@ -2,8 +2,8 @@
  * @file
  * @ingroup Input
  */
-#ifndef RB_GAME_PAD_RB
-#define RB_GAME_PAD_RB
+#ifndef BB_GAME_PAD_RB
+#define BB_GAME_PAD_RB
 
 #include <sigly.h>
 

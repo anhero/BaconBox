@@ -2,8 +2,8 @@
  * @file
  * @ingroup Input
  */
-#ifndef RB_NULL_KEYBOARD_H
-#define RB_NULL_KEYBOARD_H
+#ifndef BB_NULL_KEYBOARD_H
+#define BB_NULL_KEYBOARD_H
 
 #include "BaconBox/Input/Keyboard/Keyboard.h"
 
@@ -32,4 +32,4 @@ namespace BaconBox {
 
 }
 
-#endif // RB_NULL_KEYBOARD_H
+#endif // BB_NULL_KEYBOARD_H

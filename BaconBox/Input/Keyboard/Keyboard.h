@@ -2,8 +2,8 @@
  * @file
  * @ingroup Input
  */
-#ifndef RB_KEYBOARD_H
-#define RB_KEYBOARD_H
+#ifndef BB_KEYBOARD_H
+#define BB_KEYBOARD_H
 
 #include <vector>
 #include <map>
