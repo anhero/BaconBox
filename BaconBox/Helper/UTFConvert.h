@@ -2,12 +2,12 @@
  * @file
  * @ingroup Helper
  */
-#ifndef RB_UTF_CONVERT_H
-#define RB_UTF_CONVERT_H
+#ifndef BB_UTF_CONVERT_H
+#define BB_UTF_CONVERT_H
 
 #include <string>
 
-#include "BaconBox/Display/RBString32.h"
+#include "BaconBox/Helper/String32.h"
 
 namespace BaconBox {
 	/**

@@ -2,8 +2,8 @@
  * @file
  * @ingroup Helper
  */
-#ifndef RB_COMPRESSION_H
-#define RB_COMPRESSION_H
+#ifndef BB_COMPRESSION_H
+#define BB_COMPRESSION_H
 
 #include <string>
 

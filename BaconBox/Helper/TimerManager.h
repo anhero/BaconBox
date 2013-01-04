@@ -2,8 +2,8 @@
  * @file
  * @ingroup Helper
  */
-#ifndef RB_TIMER_MANAGER_H
-#define RB_TIMER_MANAGER_H
+#ifndef BB_TIMER_MANAGER_H
+#define BB_TIMER_MANAGER_H
 
 #include <set>
 

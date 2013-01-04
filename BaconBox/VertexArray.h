@@ -2,8 +2,8 @@
  * @file
  * @ingroup Display
  */
-#ifndef RB_VERTICES_ARRAY_H
-#define RB_VERTICES_ARRAY_H
+#ifndef BB_VERTICES_ARRAY_H
+#define BB_VERTICES_ARRAY_H
 
 #include <iostream>
 #include <vector>

@@ -25,7 +25,7 @@ std::string Parser::intToString(const int anInt){
 std::string Parser::doubleToString(const double aDouble, int precision){
 	std::stringstream ss;
 	//std::ostringstream oss;
-	if(precision != RB_FULL_PRECISION){
+	if(precision != BB_FULL_PRECISION){
 		ss << std::fixed <<std::setprecision(precision) << aDouble;
 	}
 	else {

@@ -2,8 +2,8 @@
  * @file
  * @ingroup Helper
  */
-#ifndef RB_CALL_HELPER_H
-#define RB_CALL_HELPER_H
+#ifndef BB_CALL_HELPER_H
+#define BB_CALL_HELPER_H
 
 namespace BaconBox {
 	template <typename T, typename U, bool CALL>
@@ -33,4 +33,4 @@ namespace BaconBox {
 	};
 }
 
-#endif // RB_CALL_HELPER_H
+#endif // BB_CALL_HELPER_H

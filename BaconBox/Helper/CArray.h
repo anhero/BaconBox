@@ -2,8 +2,8 @@
  * @file
  * @ingroup Helper
  */
-#ifndef RB_CARRAY_H
-#define RB_CARRAY_H
+#ifndef BB_CARRAY_H
+#define BB_CARRAY_H
 
 namespace BaconBox{
 	/** 

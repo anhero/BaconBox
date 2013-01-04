@@ -2,8 +2,8 @@
  * @file
  * @ingroup Helper
  */
-#ifndef RB_POOL_H
-#define RB_POOL_H
+#ifndef BB_POOL_H
+#define BB_POOL_H
 
 #include <vector>
 #include <set>

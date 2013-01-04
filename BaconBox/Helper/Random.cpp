@@ -13,7 +13,7 @@ int Random::getRandomInteger(int min, int max) {
 	if(!initialized) {
 		init();
 	}
-#ifdef RB_IPHONE_PLATFORM
+#ifdef BB_IPHONE_PLATFORM
 	return (arc4random() % ((max + 1) - min)) + min;
 #else
 	return (rand() % ((max + 1) - min)) + min;
@@ -26,7 +26,7 @@ bool Random::getRandomBool(){
 	if(!initialized) {
 		init();
 	}
-#ifdef RB_IPHONE_PLATFORM
+#ifdef BB_IPHONE_PLATFORM
 	return arc4random()%2;
 #else
 	return rand()%2;

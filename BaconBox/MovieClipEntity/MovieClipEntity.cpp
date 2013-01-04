@@ -30,7 +30,7 @@ namespace BaconBox {
 	
 	MovieClipEntity::MovieClipEntity():Entity(){
 		mesh  = new Mesh();
-		mesh->GetVertices().resize(4);
+		mesh->getVertices().resize(4);
 		addComponent(mesh);
 		
 	}

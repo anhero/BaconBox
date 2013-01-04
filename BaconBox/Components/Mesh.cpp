@@ -5,7 +5,7 @@ namespace BaconBox {
 	
 	}
 	
-	StandardVertexArray & Mesh::GetVertices(){
+	StandardVertexArray & Mesh::getVertices(){
 		return vertices;
 	}
 }

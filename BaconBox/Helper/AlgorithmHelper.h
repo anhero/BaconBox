@@ -2,8 +2,8 @@
  * @file
  * @ingroup Helper
  */
-#ifndef RB_ALGORITHMS_H
-#define RB_ALGORITHMS_H
+#ifndef BB_ALGORITHMS_H
+#define BB_ALGORITHMS_H
 
 #include <algorithm>
 #include <iterator>

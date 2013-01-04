@@ -2,8 +2,8 @@
  * @file
  * @ingroup Display
  */
-#ifndef RB_STANDARD_VERTICES_ARRAY_H
-#define RB_STANDARD_VERTICES_ARRAY_H
+#ifndef BB_STANDARD_VERTICES_ARRAY_H
+#define BB_STANDARD_VERTICES_ARRAY_H
 
 #include "VertexArray.h"
 

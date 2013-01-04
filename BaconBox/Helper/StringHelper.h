@@ -2,8 +2,8 @@
  * @file
  * @ingroup Helper
  */
-#ifndef RB_STRINGHELPER_H
-#define RB_STRINGHELPER_H
+#ifndef BB_STRINGHELPER_H
+#define BB_STRINGHELPER_H
 
 #include <cctype>
 

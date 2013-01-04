@@ -14,7 +14,7 @@ namespace BaconBox {
 	class Mesh  : public Component {
     public:
 		Mesh();
-		StandardVertexArray & GetVertices();
+		StandardVertexArray & getVertices();
         
     private:
 		StandardVertexArray vertices;
