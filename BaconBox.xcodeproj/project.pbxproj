@@ -11,6 +11,23 @@
 		2478740916360C7F006D4A59 /* libSDL2main.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2478740716360C7F006D4A59 /* libSDL2main.a */; };
 		24CD5A9916347EE9001EB407 /* libJsonBox.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 24CD5A9716347EE8001EB407 /* libJsonBox.a */; };
 		24CD5A9A16347EE9001EB407 /* libtinyxml.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 24CD5A9816347EE8001EB407 /* libtinyxml.a */; };
+		5153CCE01698A80A00431A19 /* libfreetype.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5153CCDF1698A80A00431A19 /* libfreetype.a */; };
+		5153CCE31698A82A00431A19 /* libpng.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5153CCE21698A82A00431A19 /* libpng.a */; };
+		5153CCE81698A86E00431A19 /* libogg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5153CCE61698A86E00431A19 /* libogg.a */; };
+		5153CCE91698A86E00431A19 /* libvorbis.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5153CCE71698A86E00431A19 /* libvorbis.a */; };
+		5153CCED1698A88E00431A19 /* libz.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5153CCEC1698A88E00431A19 /* libz.a */; };
+		5153CCEF1698A8C200431A19 /* libSDL2_mixer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5153CCEE1698A8C200431A19 /* libSDL2_mixer.a */; };
+		5153CCF11698A8ED00431A19 /* libvorbisenc.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5153CCF01698A8ED00431A19 /* libvorbisenc.a */; };
+		5153CCF31698A8F600431A19 /* libvorbisfile.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5153CCF21698A8F600431A19 /* libvorbisfile.a */; };
+		5153CD011698AA3300431A19 /* Font.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5153CCF51698AA3300431A19 /* Font.cpp */; };
+		5153CD021698AA3300431A19 /* Font.h in Headers */ = {isa = PBXBuildFile; fileRef = 5153CCF61698AA3300431A19 /* Font.h */; };
+		5153CD031698AA3300431A19 /* FontPointer.h in Headers */ = {isa = PBXBuildFile; fileRef = 5153CCF71698AA3300431A19 /* FontPointer.h */; };
+		5153CD041698AA3300431A19 /* FontImplementation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5153CCF91698AA3300431A19 /* FontImplementation.cpp */; };
+		5153CD051698AA3300431A19 /* FontImplementation.h in Headers */ = {isa = PBXBuildFile; fileRef = 5153CCFA1698AA3300431A19 /* FontImplementation.h */; };
+		5153CD061698AA3300431A19 /* GlyphInformation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5153CCFB1698AA3300431A19 /* GlyphInformation.cpp */; };
+		5153CD071698AA3300431A19 /* GlyphInformation.h in Headers */ = {isa = PBXBuildFile; fileRef = 5153CCFC1698AA3300431A19 /* GlyphInformation.h */; };
+		5153CD0A1698AA3300431A19 /* TextAlignment.h in Headers */ = {isa = PBXBuildFile; fileRef = 5153CCFF1698AA3300431A19 /* TextAlignment.h */; };
+		5153CD0B1698AA3300431A19 /* TextDirection.h in Headers */ = {isa = PBXBuildFile; fileRef = 5153CD001698AA3300431A19 /* TextDirection.h */; };
 		51E5174B1697529200F6D446 /* AxisAlignedBoundingBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 51E516BB1697529200F6D446 /* AxisAlignedBoundingBox.cpp */; };
 		51E5174C1697529200F6D446 /* AxisAlignedBoundingBox.h in Headers */ = {isa = PBXBuildFile; fileRef = 51E516BC1697529200F6D446 /* AxisAlignedBoundingBox.h */; };
 		51E5174D1697529200F6D446 /* Mesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 51E516BE1697529200F6D446 /* Mesh.cpp */; };
@@ -242,6 +259,24 @@
 		2478740716360C7F006D4A59 /* libSDL2main.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSDL2main.a; path = libraries/Darwin/x86_64/lib/libSDL2main.a; sourceTree = "<group>"; };
 		24CD5A9716347EE8001EB407 /* libJsonBox.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libJsonBox.a; path = libraries/Darwin/x86_64/lib/libJsonBox.a; sourceTree = "<group>"; };
 		24CD5A9816347EE8001EB407 /* libtinyxml.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libtinyxml.a; path = libraries/Darwin/x86_64/lib/libtinyxml.a; sourceTree = "<group>"; };
+		5153CCDF1698A80A00431A19 /* libfreetype.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libfreetype.a; path = libraries/Darwin/x86_64/lib/libfreetype.a; sourceTree = "<group>"; };
+		5153CCE21698A82A00431A19 /* libpng.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpng.a; path = libraries/Darwin/x86_64/lib/libpng.a; sourceTree = SOURCE_ROOT; };
+		5153CCE61698A86E00431A19 /* libogg.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libogg.a; path = libraries/Darwin/x86_64/lib/libogg.a; sourceTree = "<group>"; };
+		5153CCE71698A86E00431A19 /* libvorbis.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libvorbis.a; path = libraries/Darwin/x86_64/lib/libvorbis.a; sourceTree = "<group>"; };
+		5153CCEA1698A88300431A19 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		5153CCEC1698A88E00431A19 /* libz.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libz.a; path = libraries/Darwin/x86_64/lib/libz.a; sourceTree = "<group>"; };
+		5153CCEE1698A8C200431A19 /* libSDL2_mixer.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSDL2_mixer.a; path = libraries/Darwin/x86_64/lib/libSDL2_mixer.a; sourceTree = "<group>"; };
+		5153CCF01698A8ED00431A19 /* libvorbisenc.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libvorbisenc.a; path = libraries/Darwin/x86_64/lib/libvorbisenc.a; sourceTree = "<group>"; };
+		5153CCF21698A8F600431A19 /* libvorbisfile.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libvorbisfile.a; path = libraries/Darwin/x86_64/lib/libvorbisfile.a; sourceTree = "<group>"; };
+		5153CCF51698AA3300431A19 /* Font.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Font.cpp; sourceTree = "<group>"; };
+		5153CCF61698AA3300431A19 /* Font.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Font.h; sourceTree = "<group>"; };
+		5153CCF71698AA3300431A19 /* FontPointer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FontPointer.h; sourceTree = "<group>"; };
+		5153CCF91698AA3300431A19 /* FontImplementation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FontImplementation.cpp; sourceTree = "<group>"; };
+		5153CCFA1698AA3300431A19 /* FontImplementation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FontImplementation.h; sourceTree = "<group>"; };
+		5153CCFB1698AA3300431A19 /* GlyphInformation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GlyphInformation.cpp; sourceTree = "<group>"; };
+		5153CCFC1698AA3300431A19 /* GlyphInformation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GlyphInformation.h; sourceTree = "<group>"; };
+		5153CCFF1698AA3300431A19 /* TextAlignment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextAlignment.h; sourceTree = "<group>"; };
+		5153CD001698AA3300431A19 /* TextDirection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextDirection.h; sourceTree = "<group>"; };
 		51B7424F16345CFF00DB18E1 /* libBaconBox.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libBaconBox.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		51E516BB1697529200F6D446 /* AxisAlignedBoundingBox.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AxisAlignedBoundingBox.cpp; sourceTree = "<group>"; };
 		51E516BC1697529200F6D446 /* AxisAlignedBoundingBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AxisAlignedBoundingBox.h; sourceTree = "<group>"; };
@@ -478,6 +513,14 @@
 				2478740916360C7F006D4A59 /* libSDL2main.a in Frameworks */,
 				24CD5A9916347EE9001EB407 /* libJsonBox.a in Frameworks */,
 				24CD5A9A16347EE9001EB407 /* libtinyxml.a in Frameworks */,
+				5153CCE01698A80A00431A19 /* libfreetype.a in Frameworks */,
+				5153CCE31698A82A00431A19 /* libpng.a in Frameworks */,
+				5153CCE81698A86E00431A19 /* libogg.a in Frameworks */,
+				5153CCE91698A86E00431A19 /* libvorbis.a in Frameworks */,
+				5153CCED1698A88E00431A19 /* libz.a in Frameworks */,
+				5153CCEF1698A8C200431A19 /* libSDL2_mixer.a in Frameworks */,
+				5153CCF11698A8ED00431A19 /* libvorbisenc.a in Frameworks */,
+				5153CCF31698A8F600431A19 /* libvorbisfile.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -487,6 +530,13 @@
 		24CD5A9B16347EF2001EB407 /* libraries */ = {
 			isa = PBXGroup;
 			children = (
+				5153CCF01698A8ED00431A19 /* libvorbisenc.a */,
+				5153CCF21698A8F600431A19 /* libvorbisfile.a */,
+				5153CCEE1698A8C200431A19 /* libSDL2_mixer.a */,
+				5153CCEC1698A88E00431A19 /* libz.a */,
+				5153CCE61698A86E00431A19 /* libogg.a */,
+				5153CCE71698A86E00431A19 /* libvorbis.a */,
+				5153CCDF1698A80A00431A19 /* libfreetype.a */,
 				2478740616360C7F006D4A59 /* libSDL2.a */,
 				2478740716360C7F006D4A59 /* libSDL2main.a */,
 				24CD5A9716347EE8001EB407 /* libJsonBox.a */,
@@ -495,9 +545,34 @@
 			name = libraries;
 			sourceTree = "<group>";
 		};
+		5153CCF41698AA3300431A19 /* Text */ = {
+			isa = PBXGroup;
+			children = (
+				5153CCF51698AA3300431A19 /* Font.cpp */,
+				5153CCF61698AA3300431A19 /* Font.h */,
+				5153CCF71698AA3300431A19 /* FontPointer.h */,
+				5153CCF81698AA3300431A19 /* FreetypeImplementation */,
+				5153CCFB1698AA3300431A19 /* GlyphInformation.cpp */,
+				5153CCFC1698AA3300431A19 /* GlyphInformation.h */,
+				5153CCFF1698AA3300431A19 /* TextAlignment.h */,
+				5153CD001698AA3300431A19 /* TextDirection.h */,
+			);
+			path = Text;
+			sourceTree = "<group>";
+		};
+		5153CCF81698AA3300431A19 /* FreetypeImplementation */ = {
+			isa = PBXGroup;
+			children = (
+				5153CCF91698AA3300431A19 /* FontImplementation.cpp */,
+				5153CCFA1698AA3300431A19 /* FontImplementation.h */,
+			);
+			path = FreetypeImplementation;
+			sourceTree = "<group>";
+		};
 		51B7424416345CFF00DB18E1 = {
 			isa = PBXGroup;
 			children = (
+				5153CCEA1698A88300431A19 /* libz.dylib */,
 				51E516BA1697529200F6D446 /* BaconBox */,
 				24CD5A9B16347EF2001EB407 /* libraries */,
 				51B7425016345CFF00DB18E1 /* Products */,
@@ -563,6 +638,7 @@
 		51E516C71697529200F6D446 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				5153CCE21698A82A00431A19 /* libpng.a */,
 				51E516C81697529200F6D446 /* Component.cpp */,
 				51E516C91697529200F6D446 /* Component.h */,
 				51E516CA1697529200F6D446 /* Engine.cpp */,
@@ -754,6 +830,7 @@
 		51E518FE16975B4300F6D446 /* Display */ = {
 			isa = PBXGroup;
 			children = (
+				5153CCF41698AA3300431A19 /* Text */,
 				51E518FF16975B4400F6D446 /* Color.cpp */,
 				51E5190016975B4400F6D446 /* Color.h */,
 				51E5190116975B4400F6D446 /* ColorFormat.h */,
@@ -1101,6 +1178,12 @@
 				51E519EF169764E200F6D446 /* SignalAnalyzerManager.h in Headers */,
 				51E519F1169764E200F6D446 /* SignalData.h in Headers */,
 				51E519F61697652D00F6D446 /* LibcTimeHelper.h in Headers */,
+				5153CD021698AA3300431A19 /* Font.h in Headers */,
+				5153CD031698AA3300431A19 /* FontPointer.h in Headers */,
+				5153CD051698AA3300431A19 /* FontImplementation.h in Headers */,
+				5153CD071698AA3300431A19 /* GlyphInformation.h in Headers */,
+				5153CD0A1698AA3300431A19 /* TextAlignment.h in Headers */,
+				5153CD0B1698AA3300431A19 /* TextDirection.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1252,6 +1335,9 @@
 				51E519EE169764E200F6D446 /* SignalAnalyzerManager.cpp in Sources */,
 				51E519F0169764E200F6D446 /* SignalData.cpp in Sources */,
 				51E519F51697652D00F6D446 /* LibcTimeHelper.cpp in Sources */,
+				5153CD011698AA3300431A19 /* Font.cpp in Sources */,
+				5153CD041698AA3300431A19 /* FontImplementation.cpp in Sources */,
+				5153CD061698AA3300431A19 /* GlyphInformation.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

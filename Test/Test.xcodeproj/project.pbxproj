@@ -472,7 +472,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
-				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../libraries/Darwin/x86_64/include\"";
+				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../libraries/Darwin/x86_64/include\" \"$(SRCROOT)/..\"";
 			};
 			name = Debug;
 		};
@@ -496,7 +496,7 @@
 				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../libraries/Darwin/x86_64/include\"";
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				SDKROOT = macosx;
-				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../libraries/Darwin/x86_64/include\"";
+				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../libraries/Darwin/x86_64/include\" \"$(SRCROOT)/..\"";
 			};
 			name = Release;
 		};
