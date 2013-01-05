@@ -7,7 +7,7 @@
 
 #include <vector>
 
-#include "BaconBox/Vector2.h"
+#include "BaconBox/Core/Vector2.h"
 
 namespace BaconBox {
 	typedef std::vector<Vector2> TextureCoordinates;
