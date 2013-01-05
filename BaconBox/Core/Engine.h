@@ -10,7 +10,7 @@
 #include <string>
 #include <sigly.h>
 
-#include "BaconBox/State.h"
+#include "BaconBox/Core/State.h"
 namespace BaconBox {
 	class MainWindow;
 	class GraphicDriver;
