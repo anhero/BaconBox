@@ -3,30 +3,30 @@
 #include <fstream>
 
 #include "BaconBox/PlatformFlagger.h"
-#ifdef RB_IPHONE_PLATFORM
+#ifdef BB_IPHONE_PLATFORM
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
-#elif defined(RB_MAC_PLATFORM) || defined(RB_LINUX)
+#elif defined(BB_MAC_PLATFORM) || defined(BB_LINUX)
 #include <sys/types.h>
 #include <pwd.h>
 #include <unistd.h>
 #include <sys/stat.h>
 
 #include <sstream>
-#elif defined(RB_QT)
+#elif defined(BB_QT)
 #include <QDir>
 #include <iostream>
 #include <QCoreApplication>
 #include <QDesktopServices>
 #endif
-
+#include "BaconBox/Console.h"
 #include "BaconBox/Engine.h"
 
 namespace BaconBox {
 
 	std::string ResourcePathHandler::getResourcePathFor(const std::string &item) {
 		std::string path;
-#ifdef RB_IPHONE_PLATFORM
+#ifdef BB_IPHONE_PLATFORM
 		NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 
 		NSString *resourceDirectory = [[NSBundle mainBundle] resourcePath];
@@ -36,7 +36,7 @@ namespace BaconBox {
 
 		path = Engine::getApplicationPath();
 
-#ifdef RB_MAC_PLATFORM
+#ifdef BB_MAC_PLATFORM
 		path = path + "/../Resources/" + item;
 #else
 		path = path + "/resources/" + item;
@@ -53,7 +53,7 @@ namespace BaconBox {
 	}
 
 	std::string ResourcePathHandler::getDocumentPath() {
-#ifdef RB_IPHONE_PLATFORM
+#ifdef BB_IPHONE_PLATFORM
 		NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 
 		NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
@@ -61,10 +61,10 @@ namespace BaconBox {
 	std::string documentPath = [documentsDirectory cStringUsingEncoding: NSASCIIStringEncoding];
 		[pool release];
 		return documentPath;
-#elif defined(RB_QT)
+#elif defined(BB_QT)
 		return QDesktopServices::storageLocation(QDesktopServices::DataLocation).toStdString();
-#elif defined(RB_MAC_PLATFORM) || defined(RB_LINUX)
-#ifdef RB_MAC_PLATFORM
+#elif defined(BB_MAC_PLATFORM) || defined(BB_LINUX)
+#ifdef BB_MAC_PLATFORM
 		const std::string PATH = "/Library/Application Support/";
 #else
 		const std::string PATH = "/.config/";
@@ -90,8 +90,8 @@ namespace BaconBox {
 	}
 
 	bool ResourcePathHandler::createFolder(const std::string &path) {
-#ifdef RB_IPHONE_PLATFORM
-#elif defined(RB_MAC_PLATFORM) || defined(RB_LINUX)
+#ifdef BB_IPHONE_PLATFORM
+#elif defined(BB_MAC_PLATFORM) || defined(BB_LINUX)
 
 		if (mkdir(path.c_str(), 0755)) {
 			return true;
@@ -114,7 +114,7 @@ namespace BaconBox {
 			std::string tmpPath;
 			tmpPath.reserve(path.size());
 
-#ifdef RB_WIN32
+#ifdef BB_WIN32
 
 			if (path.size() >= 2 && path.at(1) == ':' && ((path.at(0) >= 'A' && path.at(0) <= 'Z') || (path.at(0) >= 'a' && path.at(0) <= 'z'))) {
 				tmpPath.append(path, 0, 2);
@@ -154,8 +154,8 @@ namespace BaconBox {
 	}
 
 	bool ResourcePathHandler::folderExists(const std::string &path) {
-#ifdef RB_IPHONE_PLATFORM
-#elif defined(RB_MAC_PLATFORM) || defined(RB_LINUX)
+#ifdef BB_IPHONE_PLATFORM
+#elif defined(BB_MAC_PLATFORM) || defined(BB_LINUX)
 		struct stat st;
 		return stat(path.c_str(), &st) == 0;
 #else

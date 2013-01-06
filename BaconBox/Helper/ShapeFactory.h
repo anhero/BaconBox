@@ -2,8 +2,8 @@
  * @file
  * @ingroup Helper
  */
-#ifndef RB_SHAPE_FACTORY_H
-#define RB_SHAPE_FACTORY_H
+#ifndef BB_SHAPE_FACTORY_H
+#define BB_SHAPE_FACTORY_H
 
 #include "BaconBox/Vector2.h"
 

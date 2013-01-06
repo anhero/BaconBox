@@ -10,8 +10,8 @@
 #define RESOURCE_PATH_FOR(path) (char*)((std::string)[[[NSBundle mainBundle] resourcePath] cStringUsingEncoding:NSASCIIStringEncoding] + "/" + path ).c_str()
 #endif
 
-#ifndef RB_RESOURCE_PATH_HANDLER_H
-#define RB_RESOURCE_PATH_HANDLER_H
+#ifndef BB_RESOURCE_PATH_HANDLER_H
+#define BB_RESOURCE_PATH_HANDLER_H
 
 #include <string>
 namespace BaconBox {

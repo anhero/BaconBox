@@ -3,8 +3,8 @@
  * @ingroup Helper
  */
 
-#ifndef RB_RANDOMGENERATOR_H
-#define RB_RANDOMGENERATOR_H
+#ifndef BB_RANDOMGENERATOR_H
+#define BB_RANDOMGENERATOR_H
 
 #include <cstdlib>
 

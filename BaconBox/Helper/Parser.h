@@ -3,10 +3,10 @@
  * @ingroup Helper
  */
 
-#ifndef RB_PARSER_H
-#define RB_PARSER_H
+#ifndef BB_PARSER_H
+#define BB_PARSER_H
 
-#define RB_FULL_PRECISION -1
+#define BB_FULL_PRECISION -1
 
 #include <string>
 
@@ -31,7 +31,7 @@ namespace BaconBox {
 		/**
 		 * Create a string from the given float. Ex: 12.3 would give "12.3".
 		 */
-		static std::string doubleToString(const double aFloat, int precision = RB_FULL_PRECISION);
+		static std::string doubleToString(const double aFloat, int precision = BB_FULL_PRECISION);
 	};
 }
 

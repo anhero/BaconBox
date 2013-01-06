@@ -2,8 +2,8 @@
  * @file
  * @ingroup Helper
  */
-#ifndef RB_BASE_64_H
-#define RB_BASE_64_H
+#ifndef BB_BASE_64_H
+#define BB_BASE_64_H
 
 #include <string>
 

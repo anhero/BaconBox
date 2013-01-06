@@ -2,8 +2,8 @@
  * @file
  * @ingroup Helper
  */
-#ifndef RB_BIT_HELPER_H
-#define RB_BIT_HELPER_H
+#ifndef BB_BIT_HELPER_H
+#define BB_BIT_HELPER_H
 
 #include <stdint.h>
 #include <bitset>

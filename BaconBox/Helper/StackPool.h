@@ -2,8 +2,8 @@
  * @file
  * @ingroup Helper
  */
-#ifndef RB_STACK_POOL_H
-#define RB_STACK_POOL_H
+#ifndef BB_STACK_POOL_H
+#define BB_STACK_POOL_H
 
 #include <cstddef>
 #include <vector>

@@ -2,8 +2,8 @@
  * @file
  * @ingroup Helper
  */
-#ifndef RB_STEP_TWEEN_H
-#define RB_STEP_TWEEN_H
+#ifndef BB_STEP_TWEEN_H
+#define BB_STEP_TWEEN_H
 
 #include "BaconBox/Helper/Ease.h"
 #include "BaconBox/Helper/MathHelper.h"

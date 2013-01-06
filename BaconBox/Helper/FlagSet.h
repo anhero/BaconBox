@@ -2,8 +2,8 @@
  * @file
  * @ingroup Helper
  */
-#ifndef RB_FLAG_SET_H
-#define RB_FLAG_SET_H
+#ifndef BB_FLAG_SET_H
+#define BB_FLAG_SET_H
 
 #include <set>
 

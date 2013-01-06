@@ -2,8 +2,8 @@
  * @file
  * @ingroup Helper
  */
-#ifndef RB_TWEEN_H
-#define RB_TWEEN_H
+#ifndef BB_TWEEN_H
+#define BB_TWEEN_H
 
 #include "BaconBox/Helper/Stopwatch.h"
 #include "BaconBox/Helper/Ease.h"

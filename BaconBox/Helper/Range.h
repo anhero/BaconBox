@@ -2,8 +2,8 @@
  * @file
  * @ingroup Helper
  */
-#ifndef RB_RANGE_H
-#define RB_RANGE_H
+#ifndef BB_RANGE_H
+#define BB_RANGE_H
 
 #include <algorithm>
 
@@ -69,4 +69,4 @@ namespace BaconBox {
 	};
 }
 
-#endif // RB_RANGE_H
+#endif // BB_RANGE_H

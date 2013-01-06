@@ -2,8 +2,8 @@
  * @file
  * @ingroup Helper
  */
-#ifndef RB_STOPWATCH_H
-#define RB_STOPWATCH_H
+#ifndef BB_STOPWATCH_H
+#define BB_STOPWATCH_H
 
 #include "BaconBox/Helper/TimeHelper.h"
 

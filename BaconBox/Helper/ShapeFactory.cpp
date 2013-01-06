@@ -6,7 +6,7 @@
 #include <functional>
 #include <list>
 
-#include "BaconBox/Display/VertexArray.h"
+#include "BaconBox/VertexArray.h"
 
 namespace BaconBox {
 	void ShapeFactory::createRegularPolygon(unsigned int nbSides, float sideLength,

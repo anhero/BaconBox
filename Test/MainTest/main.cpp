@@ -4,6 +4,7 @@
 #include <Core/State.h>
 #include <Helper/Serialization/DefaultSerializer.h>
 #include <Helper/Serialization/JsonSerializer.h>
+#include <BaconBox/Display/Camera.h>
 
 int main(int argc, char *argv[]) {
 	// Initialize BaconBox
@@ -19,7 +20,11 @@ int main(int argc, char *argv[]) {
 	// We initialize the engine with a screen resolution.
 	BaconBox::Engine::initializeEngine(800, 600);
 	
-	BaconBox::Engine::addState(new BaconBox::State());
+	BaconBox::State * state = new BaconBox::State();
+	BaconBox::Camera * camera = new BaconBox::Camera();
+	state->add(camera);
+	
+	BaconBox::Engine::addState(state);
 	
 	BaconBox::DefaultSerializer::setDefaultSerializer(new BaconBox::JsonSerializer(false));
 	

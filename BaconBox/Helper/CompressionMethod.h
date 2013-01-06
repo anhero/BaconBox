@@ -2,8 +2,8 @@
  * @file
  * @ingroup Helper
  */
-#ifndef RB_COMPRESSION_METHOD_H
-#define RB_COMPRESSION_METHOD_H
+#ifndef BB_COMPRESSION_METHOD_H
+#define BB_COMPRESSION_METHOD_H
 
 #include "BaconBox/Helper/SafeEnum.h"
 
