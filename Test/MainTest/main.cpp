@@ -4,7 +4,6 @@
 #include <Core/State.h>
 #include <Helper/Serialization/DefaultSerializer.h>
 #include <Helper/Serialization/JsonSerializer.h>
-#include <BaconBox/Display/Camera.h>
 
 int main(int argc, char *argv[]) {
 	// Initialize BaconBox
@@ -21,8 +20,6 @@ int main(int argc, char *argv[]) {
 	BaconBox::Engine::initializeEngine(800, 600);
 	
 	BaconBox::State * state = new BaconBox::State();
-	BaconBox::Camera * camera = new BaconBox::Camera();
-	state->add(camera);
 	
 	BaconBox::Engine::addState(state);
 	
