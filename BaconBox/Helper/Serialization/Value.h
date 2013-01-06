@@ -271,8 +271,8 @@ namespace BaconBox {
 
 		/**
 		 * Sets the value as a string.
-		 * @param newString New string value that the Value will contain. If the
-		 * value's type is changed if necessary to contain the integer.
+		 * @param newString New string value that the Value will contain.
+		 * Changes the value's type to a string if necessary.
 		 */
 		void setString(const std::string &newString);
 
