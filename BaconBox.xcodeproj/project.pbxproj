@@ -28,6 +28,10 @@
 		5153CD071698AA3300431A19 /* GlyphInformation.h in Headers */ = {isa = PBXBuildFile; fileRef = 5153CCFC1698AA3300431A19 /* GlyphInformation.h */; };
 		5153CD0A1698AA3300431A19 /* TextAlignment.h in Headers */ = {isa = PBXBuildFile; fileRef = 5153CCFF1698AA3300431A19 /* TextAlignment.h */; };
 		5153CD0B1698AA3300431A19 /* TextDirection.h in Headers */ = {isa = PBXBuildFile; fileRef = 5153CD001698AA3300431A19 /* TextDirection.h */; };
+		5153CD1D169925E700431A19 /* Camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5153CD1B169925E700431A19 /* Camera.cpp */; };
+		5153CD1E169925E700431A19 /* Camera.h in Headers */ = {isa = PBXBuildFile; fileRef = 5153CD1C169925E700431A19 /* Camera.h */; };
+		5153CD211699282300431A19 /* CameraDriverRenderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5153CD1F1699282300431A19 /* CameraDriverRenderer.cpp */; };
+		5153CD221699282300431A19 /* CameraDriverRenderer.h in Headers */ = {isa = PBXBuildFile; fileRef = 5153CD201699282300431A19 /* CameraDriverRenderer.h */; };
 		51E5174B1697529200F6D446 /* AxisAlignedBoundingBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 51E516BB1697529200F6D446 /* AxisAlignedBoundingBox.cpp */; };
 		51E5174C1697529200F6D446 /* AxisAlignedBoundingBox.h in Headers */ = {isa = PBXBuildFile; fileRef = 51E516BC1697529200F6D446 /* AxisAlignedBoundingBox.h */; };
 		51E5174D1697529200F6D446 /* Mesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 51E516BE1697529200F6D446 /* Mesh.cpp */; };
@@ -263,7 +267,6 @@
 		5153CCE21698A82A00431A19 /* libpng.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpng.a; path = libraries/Darwin/x86_64/lib/libpng.a; sourceTree = SOURCE_ROOT; };
 		5153CCE61698A86E00431A19 /* libogg.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libogg.a; path = libraries/Darwin/x86_64/lib/libogg.a; sourceTree = "<group>"; };
 		5153CCE71698A86E00431A19 /* libvorbis.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libvorbis.a; path = libraries/Darwin/x86_64/lib/libvorbis.a; sourceTree = "<group>"; };
-		5153CCEA1698A88300431A19 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		5153CCEC1698A88E00431A19 /* libz.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libz.a; path = libraries/Darwin/x86_64/lib/libz.a; sourceTree = "<group>"; };
 		5153CCEE1698A8C200431A19 /* libSDL2_mixer.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSDL2_mixer.a; path = libraries/Darwin/x86_64/lib/libSDL2_mixer.a; sourceTree = "<group>"; };
 		5153CCF01698A8ED00431A19 /* libvorbisenc.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libvorbisenc.a; path = libraries/Darwin/x86_64/lib/libvorbisenc.a; sourceTree = "<group>"; };
@@ -277,6 +280,10 @@
 		5153CCFC1698AA3300431A19 /* GlyphInformation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GlyphInformation.h; sourceTree = "<group>"; };
 		5153CCFF1698AA3300431A19 /* TextAlignment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextAlignment.h; sourceTree = "<group>"; };
 		5153CD001698AA3300431A19 /* TextDirection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextDirection.h; sourceTree = "<group>"; };
+		5153CD1B169925E700431A19 /* Camera.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Camera.cpp; sourceTree = "<group>"; };
+		5153CD1C169925E700431A19 /* Camera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Camera.h; sourceTree = "<group>"; };
+		5153CD1F1699282300431A19 /* CameraDriverRenderer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CameraDriverRenderer.cpp; sourceTree = "<group>"; };
+		5153CD201699282300431A19 /* CameraDriverRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CameraDriverRenderer.h; sourceTree = "<group>"; };
 		51B7424F16345CFF00DB18E1 /* libBaconBox.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libBaconBox.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		51E516BB1697529200F6D446 /* AxisAlignedBoundingBox.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AxisAlignedBoundingBox.cpp; sourceTree = "<group>"; };
 		51E516BC1697529200F6D446 /* AxisAlignedBoundingBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AxisAlignedBoundingBox.h; sourceTree = "<group>"; };
@@ -530,6 +537,7 @@
 		24CD5A9B16347EF2001EB407 /* libraries */ = {
 			isa = PBXGroup;
 			children = (
+				5153CCE21698A82A00431A19 /* libpng.a */,
 				5153CCF01698A8ED00431A19 /* libvorbisenc.a */,
 				5153CCF21698A8F600431A19 /* libvorbisfile.a */,
 				5153CCEE1698A8C200431A19 /* libSDL2_mixer.a */,
@@ -572,7 +580,6 @@
 		51B7424416345CFF00DB18E1 = {
 			isa = PBXGroup;
 			children = (
-				5153CCEA1698A88300431A19 /* libz.dylib */,
 				51E516BA1697529200F6D446 /* BaconBox */,
 				24CD5A9B16347EF2001EB407 /* libraries */,
 				51B7425016345CFF00DB18E1 /* Products */,
@@ -622,6 +629,8 @@
 				51E516C01697529200F6D446 /* OpenGL */,
 				51E516C31697529200F6D446 /* Transform.cpp */,
 				51E516C41697529200F6D446 /* Transform.h */,
+				5153CD1F1699282300431A19 /* CameraDriverRenderer.cpp */,
+				5153CD201699282300431A19 /* CameraDriverRenderer.h */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -638,7 +647,6 @@
 		51E516C71697529200F6D446 /* Core */ = {
 			isa = PBXGroup;
 			children = (
-				5153CCE21698A82A00431A19 /* libpng.a */,
 				51E516C81697529200F6D446 /* Component.cpp */,
 				51E516C91697529200F6D446 /* Component.h */,
 				51E516CA1697529200F6D446 /* Engine.cpp */,
@@ -840,6 +848,8 @@
 				51E5190F16975B4400F6D446 /* TextureInformation.cpp */,
 				51E5191016975B4400F6D446 /* TextureInformation.h */,
 				51E5191116975B4400F6D446 /* Window */,
+				5153CD1B169925E700431A19 /* Camera.cpp */,
+				5153CD1C169925E700431A19 /* Camera.h */,
 			);
 			path = Display;
 			sourceTree = "<group>";
@@ -1184,6 +1194,8 @@
 				5153CD071698AA3300431A19 /* GlyphInformation.h in Headers */,
 				5153CD0A1698AA3300431A19 /* TextAlignment.h in Headers */,
 				5153CD0B1698AA3300431A19 /* TextDirection.h in Headers */,
+				5153CD1E169925E700431A19 /* Camera.h in Headers */,
+				5153CD221699282300431A19 /* CameraDriverRenderer.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1338,6 +1350,8 @@
 				5153CD011698AA3300431A19 /* Font.cpp in Sources */,
 				5153CD041698AA3300431A19 /* FontImplementation.cpp in Sources */,
 				5153CD061698AA3300431A19 /* GlyphInformation.cpp in Sources */,
+				5153CD1D169925E700431A19 /* Camera.cpp in Sources */,
+				5153CD211699282300431A19 /* CameraDriverRenderer.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
