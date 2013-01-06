@@ -1,11 +1,13 @@
 #include "BaconBox/State.h"
 
 #include "Entity.h"
+#include "Camera.h"
 
 namespace BaconBox {
 	const std::string State::DEFAULT_NAME = "State";
 
-	State::State(const std::string &newName) : name(newName), entities(), toAdd(), toRemove() {
+	State::State(const std::string &newName) : name(newName), entities(), toAdd(), toRemove(), camera(new Camera()) {
+		this->add(this->camera);
 	}
 
 	State::~State() {
@@ -32,9 +34,17 @@ namespace BaconBox {
 	}
 	
 	void State::remove(Entity *newEntity) {
-		if (newEntity) {
+		if (newEntity && newEntity != this->camera) {
 			this->toRemove.insert(newEntity);
 		}
+	}
+	
+	Camera &State::getCamera() {
+		return *this->camera;
+	}
+	
+	const Camera &State::getCamera() const {
+		return *this->camera;
 	}
 
 	void State::onGetFocus() {

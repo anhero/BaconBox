@@ -11,6 +11,7 @@
 
 namespace BaconBox {
 	class Entity;
+	class Camera;
 	
 	/**
 	 * A state represents the game's different states, it contains and
@@ -73,6 +74,10 @@ namespace BaconBox {
 		void add(Entity *newEntity);
 		
 		void remove(Entity *newEntity);
+		
+		Camera &getCamera();
+		
+		const Camera &getCamera() const;
 	protected:
 		/**
 		 * Method called by the engine when the state gets called to be played.
@@ -119,6 +124,8 @@ namespace BaconBox {
 		std::list<Entity *> toAdd;
 		
 		std::set<Entity *> toRemove;
+		
+		Camera *camera;
 	};
 }
 #endif
