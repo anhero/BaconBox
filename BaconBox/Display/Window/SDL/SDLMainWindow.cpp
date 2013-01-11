@@ -4,7 +4,7 @@
 
 #include "BaconBox/Input/SDL/SDLInputManager.h"
 #include "BaconBox/Display/Driver/OpenGL/BBOpenGL.h"
-#include "BaconBox/Engine.h"
+#include "BaconBox/Core/Engine.h"
 #include "BaconBox/Display/Driver/GraphicDriver.h"
 
 namespace BaconBox {

@@ -1,7 +1,7 @@
-#include "BaconBox/State.h"
+#include "State.h"
 
 #include "Entity.h"
-#include "Camera.h"
+#include "BaconBox/Display/Camera.h"
 
 namespace BaconBox {
 	const std::string State::DEFAULT_NAME = "State";

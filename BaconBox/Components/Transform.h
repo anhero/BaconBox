@@ -1,8 +1,8 @@
 #ifndef BB_TRANSFORM_H
 #define BB_TRANSFORM_H
 
-#include "Component.h"
-#include "Vector2.h"
+#include "BaconBox/Core/Component.h"
+#include "BaconBox/Vector2.h"
 
 namespace BaconBox {
 	class Transform : public Component {

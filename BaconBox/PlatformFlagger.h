@@ -37,16 +37,19 @@
 #endif // linux
 
 //Windows systems
-#ifdef _WIN32
+#if defined(_WIN32) || defined(__CYGWIN__)
 	#ifdef BB_QT
 		#include <qt_windows.h>
 	#endif // BB_QT
 
-	#define BB_WIN32
+	#define BB_WINDOWS_PLATFORM
+
 
 	#define BB_TIME_HELPER_IMPL BaconBox::WindowsTimeHelper
 	#define BB_TIME_HELPER_INCLUDE "BaconBox/Helper/Windows/WindowsTimeHelper.h"
 #endif // _WIN32
+
+
 
 //Apple systems
 #ifdef __APPLE__

@@ -10,9 +10,9 @@
 #include <locale>
 
 #include <tinyxml.h>
-#include "Value.h"
-#include "Array.h"
-#include "Object.h"
+#include "BaconBox/Helper/Serialization/Value.h"
+#include "BaconBox/Helper/Serialization/Array.h"
+#include "BaconBox/Helper/Serialization/Object.h"
 
 namespace BaconBox {
 	const std::string FALSE_STRING = std::string("false");

@@ -4,7 +4,7 @@
 #ifndef BB_CAMERADRIVERRENDERER_H
 #define BB_CAMERADRIVERRENDERER_H
 
-#include "Component.h"
+#include "BaconBox/Core/Component.h"
 
 
 namespace BaconBox {

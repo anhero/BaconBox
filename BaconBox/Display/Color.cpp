@@ -29,7 +29,7 @@ namespace BaconBox {
 	const Color Color::BLUE(0, 0, 255);
 	const Color Color::TEAL(0, 128, 128);
 	const Color Color::AQUA(0, 255, 255);
-	const Color Color::TRANSPARENT(0, 0, 0, 0);
+	//const Color Color::TRANSPARENT(0, 0, 0, 0);
 
 	uint8_t Color::getWithinRange(int32_t component) {
 		return static_cast<uint8_t>((component < 0) ? (0) : ((component > MAX_COMPONENT_VALUE_32) ? (MAX_COMPONENT_VALUE) : (component)));
@@ -325,7 +325,7 @@ namespace BaconBox {
 		result.insert(std::make_pair(std::string("blue"), Color::BLUE));
 		result.insert(std::make_pair(std::string("teal"), Color::TEAL));
 		result.insert(std::make_pair(std::string("aqua"), Color::AQUA));
-		result.insert(std::make_pair(std::string("transparent"), Color::TRANSPARENT));
+		//result.insert(std::make_pair(std::string("transparent"), Color::TRANSPARENT));
 		return result;
 	}
 

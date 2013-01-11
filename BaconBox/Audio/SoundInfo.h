@@ -9,7 +9,7 @@
 #include "BaconBox/PlatformFlagger.h"
 
 #ifdef BB_OPENAL
-#ifdef BB_WIN32
+#ifdef BB_WINDOWS_PLATFORM
 #include <al.h>
 #include <alc.h>
 #elif defined(BB_LINUX)

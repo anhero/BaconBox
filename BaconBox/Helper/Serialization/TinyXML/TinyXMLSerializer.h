@@ -1,7 +1,7 @@
 #ifndef BB_TINY_XML_SERIALIZER_H
 #define BB_TINY_XML_SERIALIZER_H
 
-#include "Serializer.h"
+#include "BaconBox/Helper/Serialization/Serializer.h"
 
 namespace BaconBox {
 	class TinyXMLSerializer : public Serializer {

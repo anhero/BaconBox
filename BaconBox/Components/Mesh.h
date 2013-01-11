@@ -5,7 +5,7 @@
 #define BB_MeshComponent_H
 #include <vector>
 #include "Vector2.h"
-#include "Component.h"
+#include "BaconBox/Core/Component.h"
 #include "../StandardVertexArray.h"
 namespace BaconBox {
 	/**

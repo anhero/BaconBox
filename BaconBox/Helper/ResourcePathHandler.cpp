@@ -20,7 +20,7 @@
 #include <QDesktopServices>
 #endif
 #include "BaconBox/Console.h"
-#include "BaconBox/Engine.h"
+#include "BaconBox/Core/Engine.h"
 
 namespace BaconBox {
 
@@ -114,7 +114,7 @@ namespace BaconBox {
 			std::string tmpPath;
 			tmpPath.reserve(path.size());
 
-#ifdef BB_WIN32
+#ifdef BB_WINDOWS_PLATFORM
 
 			if (path.size() >= 2 && path.at(1) == ':' && ((path.at(0) >= 'A' && path.at(0) <= 'Z') || (path.at(0) >= 'a' && path.at(0) <= 'z'))) {
 				tmpPath.append(path, 0, 2);

@@ -6,7 +6,7 @@
 #define BB_DEFAULT_SERIALIZER_H
 
 #include "Value.h"
-#include "IsBaseOf.h"
+#include "BaconBox/Helper/IsBaseOf.h"
 #include "Serializable.h"
 
 namespace BaconBox {

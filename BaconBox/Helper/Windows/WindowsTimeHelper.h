@@ -3,8 +3,7 @@
 
 #include "BaconBox/PlatformFlagger.h"
 
-#ifdef BB_WIN32
-
+#ifdef BB_WINDOWS_PLATFORM
 #include <windows.h>
 
 #include "BaconBox/Helper/TimeHelper.h"

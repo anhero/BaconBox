@@ -6,7 +6,7 @@
 #include "BaconBox/Audio/MusicEngine.h"
 #include "BaconBox/Audio/SoundFX.h"
 #include "BaconBox/Audio/BackgroundMusic.h"
-#include "BaconBox/Engine.h"
+#include "BaconBox/Core/Engine.h"
 
 namespace BaconBox {
 	SoundEngine &AudioEngine::getSoundEngine() {

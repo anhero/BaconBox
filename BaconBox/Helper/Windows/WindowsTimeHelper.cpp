@@ -1,6 +1,6 @@
 #include "BaconBox/PlatformFlagger.h"
 
-#ifdef BB_WIN32
+#ifdef BB_WINDOWS_PLATFORM
 
 #include "BaconBox/Helper/Windows/WindowsTimeHelper.h"
 

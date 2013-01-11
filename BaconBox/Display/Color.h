@@ -27,6 +27,7 @@ namespace BaconBox {
 		static const uint8_t MAX_COMPONENT_VALUE = 0xff;
 		/// Maximum value a component can have.
 		static const uint8_t MAX_COMPONENT_VALUE_32 = 0xff;
+                
 		/// Black color (0, 0, 0, 255).
 		static const Color BLACK;
 		/// Silver color (192, 192, 192, 255).
@@ -60,7 +61,7 @@ namespace BaconBox {
 		/// Aqua color (0, 255, 255, 255).
 		static const Color AQUA;
 		/// Transparent color (0, 0, 0, 0).
-		static const Color TRANSPARENT;
+                //static const Color TRANSPARENT;
 
 		/// Enumeration for the indexes of the color's array of components.
 		enum Component {

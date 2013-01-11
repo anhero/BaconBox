@@ -5,7 +5,7 @@
 #ifndef BB_STANDARD_VERTICES_ARRAY_H
 #define BB_STANDARD_VERTICES_ARRAY_H
 
-#include "VertexArray.h"
+#include "BaconBox/VertexArray.h"
 
 namespace BaconBox {
 	class StandardVertexArray : public VertexArray {
