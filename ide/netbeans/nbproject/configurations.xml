@@ -316,20 +316,20 @@
     </logicalFolder>
   </logicalFolder>
   <sourceRootList>
-    <Elem>../../BaconBox</Elem>
+    <Elem>C:\MinGW\msys\1.0\home\BerzerkJoe\EntityBB\BaconBox</Elem>
   </sourceRootList>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
     <conf name="Debug" type="3">
       <toolsSet>
         <remote-sources-mode>LOCAL_SOURCES</remote-sources-mode>
-        <compilerSet>default</compilerSet>
+        <compilerSet>MinGW_TDM|MinGW_TDM</compilerSet>
       </toolsSet>
       <compileType>
         <cTool>
           <incDir>
             <pElem>../../</pElem>
-            <pElem>../../libraries/CYGWIN_NT-6.1-WOW64/i686/include</pElem>
+            <pElem>../../libraries/MINGW32_NT-6.1/i686/include</pElem>
             <pElem>../../BaconBox</pElem>
           </incDir>
           <preprocessorList>
@@ -341,7 +341,7 @@
         <ccTool>
           <incDir>
             <pElem>../../</pElem>
-            <pElem>../../libraries/CYGWIN_NT-6.1-WOW64/i686/include</pElem>
+            <pElem>../../libraries/MINGW32_NT-6.1/i686/include</pElem>
             <pElem>../../BaconBox</pElem>
           </incDir>
           <preprocessorList>

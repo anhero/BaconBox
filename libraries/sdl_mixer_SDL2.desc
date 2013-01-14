@@ -5,7 +5,7 @@ _license="zlib"
 _version="1.2.11"
 _archive="${_name}-1.2.11.tar.bz2"
 _archive_url="http://anhero.net/stuff/${_archive}"
-_hash="66424413d9826161a5d44b4f5002658c" 
+_hash="ac5fb0f7bb0b52ede2fe90a5bbafc00c" 
 
 # Library configuration
 config_cmdline="--with-sdl-prefix=${libs_builddir}"

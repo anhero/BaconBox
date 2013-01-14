@@ -5,7 +5,7 @@ _license="zlib"
 _version="2.0.0-dd7e57847ea9"
 _archive="${_name}-${_version}.tar.bz2"
 _archive_url="http://anhero.net/stuff/${_archive}"
-_hash="04406a85db1c67f848bc0110b3b43694"
+_hash="f3b29f2b91b340dd27cfc4685ba115c7"
 
 load_base http.fetch
 load_base configuremakemake.build
