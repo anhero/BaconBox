@@ -32,6 +32,8 @@
 		5153CD1E169925E700431A19 /* Camera.h in Headers */ = {isa = PBXBuildFile; fileRef = 5153CD1C169925E700431A19 /* Camera.h */; };
 		5153CD211699282300431A19 /* CameraDriverRenderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5153CD1F1699282300431A19 /* CameraDriverRenderer.cpp */; };
 		5153CD221699282300431A19 /* CameraDriverRenderer.h in Headers */ = {isa = PBXBuildFile; fileRef = 5153CD201699282300431A19 /* CameraDriverRenderer.h */; };
+		51B374D516A4F04D0052740F /* Vector2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 51B374D316A4F04D0052740F /* Vector2.cpp */; };
+		51B374D616A4F04D0052740F /* Vector2.h in Headers */ = {isa = PBXBuildFile; fileRef = 51B374D416A4F04D0052740F /* Vector2.h */; };
 		51E5174B1697529200F6D446 /* AxisAlignedBoundingBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 51E516BB1697529200F6D446 /* AxisAlignedBoundingBox.cpp */; };
 		51E5174C1697529200F6D446 /* AxisAlignedBoundingBox.h in Headers */ = {isa = PBXBuildFile; fileRef = 51E516BC1697529200F6D446 /* AxisAlignedBoundingBox.h */; };
 		51E5174D1697529200F6D446 /* Mesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 51E516BE1697529200F6D446 /* Mesh.cpp */; };
@@ -52,8 +54,6 @@
 		51E5175C1697529200F6D446 /* IDManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 51E516CF1697529200F6D446 /* IDManager.h */; };
 		51E517611697529200F6D446 /* State.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 51E516D51697529200F6D446 /* State.cpp */; };
 		51E517621697529200F6D446 /* State.h in Headers */ = {isa = PBXBuildFile; fileRef = 51E516D61697529200F6D446 /* State.h */; };
-		51E517631697529200F6D446 /* Vector2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 51E516D71697529200F6D446 /* Vector2.cpp */; };
-		51E517641697529200F6D446 /* Vector2.h in Headers */ = {isa = PBXBuildFile; fileRef = 51E516D81697529200F6D446 /* Vector2.h */; };
 		51E517661697529200F6D446 /* AlgorithmHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 51E516DB1697529200F6D446 /* AlgorithmHelper.h */; };
 		51E517671697529200F6D446 /* Base64.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 51E516DC1697529200F6D446 /* Base64.cpp */; };
 		51E517681697529200F6D446 /* Base64.h in Headers */ = {isa = PBXBuildFile; fileRef = 51E516DD1697529200F6D446 /* Base64.h */; };
@@ -284,6 +284,8 @@
 		5153CD1C169925E700431A19 /* Camera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Camera.h; sourceTree = "<group>"; };
 		5153CD1F1699282300431A19 /* CameraDriverRenderer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CameraDriverRenderer.cpp; sourceTree = "<group>"; };
 		5153CD201699282300431A19 /* CameraDriverRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CameraDriverRenderer.h; sourceTree = "<group>"; };
+		51B374D316A4F04D0052740F /* Vector2.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Vector2.cpp; sourceTree = "<group>"; };
+		51B374D416A4F04D0052740F /* Vector2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Vector2.h; sourceTree = "<group>"; };
 		51B7424F16345CFF00DB18E1 /* libBaconBox.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libBaconBox.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		51E516BB1697529200F6D446 /* AxisAlignedBoundingBox.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AxisAlignedBoundingBox.cpp; sourceTree = "<group>"; };
 		51E516BC1697529200F6D446 /* AxisAlignedBoundingBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AxisAlignedBoundingBox.h; sourceTree = "<group>"; };
@@ -305,8 +307,6 @@
 		51E516CF1697529200F6D446 /* IDManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IDManager.h; sourceTree = "<group>"; };
 		51E516D51697529200F6D446 /* State.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = State.cpp; sourceTree = "<group>"; };
 		51E516D61697529200F6D446 /* State.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = State.h; sourceTree = "<group>"; };
-		51E516D71697529200F6D446 /* Vector2.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Vector2.cpp; sourceTree = "<group>"; };
-		51E516D81697529200F6D446 /* Vector2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Vector2.h; sourceTree = "<group>"; };
 		51E516DB1697529200F6D446 /* AlgorithmHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlgorithmHelper.h; sourceTree = "<group>"; };
 		51E516DC1697529200F6D446 /* Base64.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Base64.cpp; sourceTree = "<group>"; };
 		51E516DD1697529200F6D446 /* Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Base64.h; sourceTree = "<group>"; };
@@ -597,6 +597,8 @@
 		51E516BA1697529200F6D446 /* BaconBox */ = {
 			isa = PBXGroup;
 			children = (
+				51B374D316A4F04D0052740F /* Vector2.cpp */,
+				51B374D416A4F04D0052740F /* Vector2.h */,
 				51E519E5169764E200F6D446 /* SignalSlots */,
 				51E5194E169763AA00F6D446 /* Input */,
 				51E5194616975C9300F6D446 /* TextureCoordinates.h */,
@@ -657,8 +659,6 @@
 				51E516CF1697529200F6D446 /* IDManager.h */,
 				51E516D51697529200F6D446 /* State.cpp */,
 				51E516D61697529200F6D446 /* State.h */,
-				51E516D71697529200F6D446 /* Vector2.cpp */,
-				51E516D81697529200F6D446 /* Vector2.h */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -1071,7 +1071,6 @@
 				51E5175A1697529200F6D446 /* Entity.h in Headers */,
 				51E5175C1697529200F6D446 /* IDManager.h in Headers */,
 				51E517621697529200F6D446 /* State.h in Headers */,
-				51E517641697529200F6D446 /* Vector2.h in Headers */,
 				51E517661697529200F6D446 /* AlgorithmHelper.h in Headers */,
 				51E517681697529200F6D446 /* Base64.h in Headers */,
 				51E5176A1697529200F6D446 /* BitHelper.h in Headers */,
@@ -1196,6 +1195,7 @@
 				5153CD0B1698AA3300431A19 /* TextDirection.h in Headers */,
 				5153CD1E169925E700431A19 /* Camera.h in Headers */,
 				5153CD221699282300431A19 /* CameraDriverRenderer.h in Headers */,
+				51B374D616A4F04D0052740F /* Vector2.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1260,7 +1260,6 @@
 				51E517591697529200F6D446 /* Entity.cpp in Sources */,
 				51E5175B1697529200F6D446 /* IDManager.cpp in Sources */,
 				51E517611697529200F6D446 /* State.cpp in Sources */,
-				51E517631697529200F6D446 /* Vector2.cpp in Sources */,
 				51E517671697529200F6D446 /* Base64.cpp in Sources */,
 				51E517691697529200F6D446 /* BitHelper.cpp in Sources */,
 				51E5176B1697529200F6D446 /* CallHelper.cpp in Sources */,
@@ -1352,6 +1351,7 @@
 				5153CD061698AA3300431A19 /* GlyphInformation.cpp in Sources */,
 				5153CD1D169925E700431A19 /* Camera.cpp in Sources */,
 				5153CD211699282300431A19 /* CameraDriverRenderer.cpp in Sources */,
+				51B374D516A4F04D0052740F /* Vector2.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
