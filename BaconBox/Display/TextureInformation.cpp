@@ -20,12 +20,13 @@ namespace BaconBox {
 	}
 #else
 	TextureInformation::TextureInformation(): poweredWidth(0), poweredHeight(0), imageWidth(0),
-		imageHeight(0) {
+		imageHeight(0), colorFormat(ColorFormat::RGBA) {
 	}
 	TextureInformation::TextureInformation(unsigned int newImageWidth,
 	                                       unsigned int newImageHeight): poweredWidth(MathHelper::nextPowerOf2(newImageWidth)),
 		poweredHeight(MathHelper::nextPowerOf2(newImageHeight)),
-		imageWidth(newImageWidth), imageHeight(newImageHeight) {
+		imageWidth(newImageWidth), imageHeight(newImageHeight),
+                colorFormat(ColorFormat::RGBA){
 	}
 #endif
 

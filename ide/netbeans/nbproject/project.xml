@@ -10,7 +10,7 @@
             <sourceEncoding>UTF-8</sourceEncoding>
             <make-dep-projects/>
             <sourceRootList>
-                <sourceRootElem>C:\MinGW\msys\1.0\home\BerzerkJoe\EntityBB\BaconBox</sourceRootElem>
+                <sourceRootElem>../../../../MinGW/msys/1.0/home/BerzerkJoe/EntityBB/BaconBox</sourceRootElem>
             </sourceRootList>
             <confList>
                 <confElem>

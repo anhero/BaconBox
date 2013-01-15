@@ -5,7 +5,6 @@
 namespace BaconBox {
 #ifdef BB_FLASH_PLATEFORM
 	MovieClipEntity::MovieClipEntity(AS3::local::var aMC):Entity(){
-		test = 1;
 		MovieClipHolder * mcHolder = new MovieClipHolder(aMC);
 		addComponent(mcHolder);
 		

@@ -14,6 +14,12 @@
 	#define BB_SDL
 #endif
 
+#if defined(__FLASHPLAYER__)
+        #define BB_FLASH_PLATEFORM
+        #define BB_TIME_HELPER_IMPL BaconBox::LibcTimeHelper
+	#define BB_TIME_HELPER_INCLUDE "BaconBox/Helper/libc/LibcTimeHelper.h"
+#endif
+
 
 /*******************************************************************************
  * System-specific defines
@@ -209,7 +215,7 @@
 // For NULL main window.
 #ifndef BB_MAIN_WINDOW_IMPL
 	#define BB_MAIN_WINDOW_IMPL new NullMainWindow()
-	#define BB_MAIN_WINDOW_INCLUDE "NullMainWindow.h"
+	#define BB_MAIN_WINDOW_INCLUDE "BaconBox/Display/Window/NullMainWindow.h"
 #endif
 
 // For NULL sound engine

@@ -23,7 +23,6 @@
 		class MovieClipEntity { 
     	public:
     		MovieClipEntity(AS3::local::var aMC);
-    		int getNumber();
 			void setMovieClip(AS3::local::var aMC);
 		};
 	}

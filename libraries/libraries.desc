@@ -1,23 +1,23 @@
 #!/bin/bash
 #Libraries to build
 
-#libraries+=( 'zlib' )
-#libraries+=( 'freetype' )
-#libraries+=( 'libpng' )
+libraries+=( 'zlib' )
+libraries+=( 'freetype' )
+libraries+=( 'libpng' )
 
 # For ports which aren't using OGG/Vorbis
-#if [[ ${libs_target-} != "ios" ]]; then
-#	libraries+=( 'libogg' )
-#	libraries+=( 'libvorbis' )
-#fi
+if [[ ${libs_target-} != "ios" ]]; then
+	libraries+=( 'libogg' )
+	libraries+=( 'libvorbis' )
+fi
 
 # For ports which aren't using SDL
 #if [[ ${libs_target-} != "ios"     ]] &&
 #   [[ ${libs_target-} != "android" ]]; then
    	#libraries+=( 'sdl' )
 	#libraries+=( 'sdl_mixer' )
-#	libraries+=( 'sdl2' )
-#	libraries+=( 'sdl_mixer_SDL2' )
+	libraries+=( 'sdl2' )
+	libraries+=( 'sdl_mixer_SDL2' )
 #fi
 
 # Serialization libraries

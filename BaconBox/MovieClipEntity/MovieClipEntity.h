@@ -6,6 +6,8 @@
 
 #include "BaconBox/Core/Entity.h"
 
+#include "BaconBox/PlatformFlagger.h"
+
 #ifdef BB_FLASH_PLATEFORM
 #include "Flash/MovieClipHolder.h"
 #else

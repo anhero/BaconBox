@@ -13,6 +13,7 @@ namespace BaconBox {
 	 * @ingroup GraphicDrivers
 	 */
 	class NullGraphicDriver : public GraphicDriver {
+            friend class Engine;
 	public:
 		/**
 		 * Gets the null graphic driver instance.
