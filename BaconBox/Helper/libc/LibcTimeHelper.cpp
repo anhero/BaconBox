@@ -1,6 +1,6 @@
 #include "BaconBox/PlatformFlagger.h"
 
-#if defined(BB_MAC_PLATFORM) || defined(BB_LINUX)
+#if defined(BB_MAC_PLATFORM) || defined(BB_LINUX) || defined(BB_FLASH_PLATEFORM)
 
 #include "LibcTimeHelper.h"
 
@@ -16,6 +16,7 @@ LibcTimeHelper::LibcTimeHelper() : TimeHelper() {
 
 LibcTimeHelper::~LibcTimeHelper() {
 }
+
 
 void LibcTimeHelper::refreshTime() {
 	timeval currentTime;

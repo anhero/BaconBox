@@ -16,8 +16,8 @@ fi
 #   [[ ${libs_target-} != "android" ]]; then
    	#libraries+=( 'sdl' )
 	#libraries+=( 'sdl_mixer' )
-	libraries+=( 'sdl2' )
-	libraries+=( 'sdl_mixer_SDL2' )
+#	libraries+=( 'sdl2' )
+#	libraries+=( 'sdl_mixer_SDL2' )
 #fi
 
 # Serialization libraries

@@ -5,8 +5,12 @@ CXX="$(FLASCC)/usr/bin/g++"
 AS3COMPILER:=asc2.jar
 BASE_CFLAGS=-Werror -Wno-write-strings -Wno-trigraphs -DTIXML_USE_STL -DTINYXML_USE_STL
 PROJECT_ROOT=../../..
-CUSTOM_LIB_PATH=$(PROJECT_ROOT)/libraries/FreeBSD/i686
+CUSTOM_LIB_PATH=$(wildcard $(PROJECT_ROOT)/libraries/FreeBSD/i686 $(PROJECT_ROOT)/libraries/FreeBSD/x86_64)
 LINK_FLAG=-lpng -lz -lFlash++ -lAS3++ -lJsonBox -ltinyxml -lfreetype
+
+#VPATH = $PROJECT_ROOT
+vpath %.c $(PROJECT_ROOT)
+vpath %.cpp $(PROJECT_ROOT)
 
 AUDIO_SOURCES = \
 BaconBox/Audio/AudioEngine.o \
@@ -18,6 +22,7 @@ BaconBox/Audio/NullAudio.o \
 BaconBox/Audio/NullAudioEngine.o \
 BaconBox/Audio/Sound.o \
 BaconBox/Audio/SoundFX.o \
+BaconBox/Audio/SoundEngine.o \
 BaconBox/Audio/SoundInfo.o \
 BaconBox/Audio/SoundParameters.o
 
@@ -123,6 +128,7 @@ $(DISPLAY_SOURCES) \
 $(HELPER_SOURCES) \
 $(INPUT_SOURCES) \
 $(MOVIECLIP_SOURCES) \
+$(SIGNALSLOTS_SOURCES) \
 BaconBox/AxisAlignedBoundingBox.o \
 BaconBox/Console.o \
 BaconBox/ResourceManager.o \
@@ -132,16 +138,16 @@ BaconBox/VertexArray.o
 
 FLASCC_FILE_PATH=BaconBox/Special/Flash
 
-all: $(BUILD_PATH)/BaconBox.swc
+all: check $(BUILD_PATH)/BaconBox.swc
 
-$(BUILD_PATH)/temp.swc: check swig $(addprefix $(BUILD_PATH)/, $(ALL_SOURCES)) Entity_wrapper.o main.o
+$(BUILD_PATH)/temp.swc: EntityWrapper.abc $(addprefix $(BUILD_PATH)/,$(ALL_SOURCES)) $(addprefix $(BUILD_PATH)/,$(FLASCC_SOURCES)) #Entity_wrapper.o main.o
 
 	@echo "-------- BaconBox --------"
-	"$(FLASCC)/usr/bin/g++" $(BASE_CFLAGS) -I$(PROJECT_ROOT) -I$(CUSTOM_LIB_PATH)/include -DBB_FLASH_PLATEFORM EntityWrapper.abc $(addprefix $(BUILD_PATH)/, $(ALL_SOURCES)) Entity_wrapper.o main.o -emit-swc=temp -o $(BUILD_PATH)/temp.swc -L$(CUSTOM_LIB_PATH)/lib $(LINK_FLAG)
+	"$(FLASCC)/usr/bin/g++" $(BASE_CFLAGS) -I$(PROJECT_ROOT) -I$(CUSTOM_LIB_PATH)/include -DBB_FLASH_PLATEFORM EntityWrapper.abc $(addprefix $(BUILD_PATH)/, $(ALL_SOURCES)) $(addprefix $(BUILD_PATH)/, $(FLASCC_SOURCES)) -emit-swc=temp -o $(BUILD_PATH)/temp.swc -L$(CUSTOM_LIB_PATH)/lib $(LINK_FLAG)
 
 $(BUILD_PATH)/BaconBox.swc: $(BUILD_PATH)/temp.swc
 	@echo "-------- Compile EntityMovieClip --------"
-	"$(FLEX)/bin/compc" -include-libraries=temp.swc -include-classes=EntityHolderMovieClip -source-path $(BUILD_PATH)/ -debug=true -o $(BUILD_PATH)/BaconBox.swc
+	"$(FLEX)/bin/compc" -include-libraries=$(BUILD_PATH)/temp.swc -include-classes=EntityHolderMovieClip -source-path . -debug=true -o $(BUILD_PATH)/BaconBox.swc
 
 $?UNAME=$(shell uname -s)
 ifneq (,$(findstring CYGWIN,$(UNAME)))
@@ -158,8 +164,6 @@ else
 	echo "ASC is no longer supported" ; exit 1 ;
 endif
 
-swig: EntityWrapper.abc
-
 
 EntityWrapper.as Entity_wrapper.c: $(BUILD_PATH)/build
 	@echo "-------- SWIG wrappers --------"
@@ -172,21 +176,24 @@ EntityWrapper.abc: EntityWrapper.as
 #	mv EntityWrapper.as EntityWrapper.as3
 
 
-Entity_wrapper.o main.o: Entity_wrapper.c main.cpp
+#Entity_wrapper.o main.o: Entity_wrapper.c main.cpp
+#	echo $@ --------------------
+#	$(CXX) $< -c $(BASE_CFLAGS) -I$(PROJECT_ROOT) -I$(CUSTOM_LIB_PATH)/include -o $@
+
+
+$(BUILD_PATH)/%.o: %.c
+	@echo "-------- BUILD C FILE--------"
 	$(CXX) $< -c $(BASE_CFLAGS) -I$(PROJECT_ROOT) -I$(CUSTOM_LIB_PATH)/include -o $@
 
-
-%.o: %.c
-	@echo "-------- BUILD C FILE--------"
-	$(CXX) $(patsubst $(BUILD_PATH)/%, $(PROJECT_ROOT)/%, $<) -c $(BASE_CFLAGS) -I$(PROJECT_ROOT) -I$(CUSTOM_LIB_PATH)/include -o $@
-
-%.o: %.cpp
+$(BUILD_PATH)/%.o: %.cpp
 	@echo "-------- BUILD CPP FILE--------"
-	$(CXX) $(patsubst $(BUILD_PATH)/%, $(PROJECT_ROOT)/%, $<) -c $(BASE_CFLAGS) -I$(PROJECT_ROOT) -I$(CUSTOM_LIB_PATH)/include -o $@
+	$(CXX) $< -c $(BASE_CFLAGS) -I$(PROJECT_ROOT) -I$(CUSTOM_LIB_PATH)/include -o $@
 
 $(BUILD_PATH)/build: $(PROJECT_ROOT)/BaconBox
 	mkdir $(BUILD_PATH)
 	cp -r $(PROJECT_ROOT)/BaconBox $(BUILD_PATH)
+	rm $(addsuffix .cpp, $(basename $(addprefix $(BUILD_PATH)/, $(ALL_SOURCES))))
+
 	touch $(BUILD_PATH)/build
 
 
