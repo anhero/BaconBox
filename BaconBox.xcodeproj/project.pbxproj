@@ -76,7 +76,6 @@
 		51E5177F1697529200F6D446 /* MathHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 51E516F61697529200F6D446 /* MathHelper.h */; };
 		51E517801697529200F6D446 /* Parser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 51E516F71697529200F6D446 /* Parser.cpp */; };
 		51E517811697529200F6D446 /* Parser.h in Headers */ = {isa = PBXBuildFile; fileRef = 51E516F81697529200F6D446 /* Parser.h */; };
-		51E517821697529200F6D446 /* PlatformFlagger.h in Headers */ = {isa = PBXBuildFile; fileRef = 51E516F91697529200F6D446 /* PlatformFlagger.h */; };
 		51E517831697529200F6D446 /* Pool.h in Headers */ = {isa = PBXBuildFile; fileRef = 51E516FA1697529200F6D446 /* Pool.h */; };
 		51E517841697529200F6D446 /* Random.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 51E516FB1697529200F6D446 /* Random.cpp */; };
 		51E517851697529200F6D446 /* Random.h in Headers */ = {isa = PBXBuildFile; fileRef = 51E516FC1697529200F6D446 /* Random.h */; };
@@ -329,7 +328,6 @@
 		51E516F61697529200F6D446 /* MathHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MathHelper.h; sourceTree = "<group>"; };
 		51E516F71697529200F6D446 /* Parser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Parser.cpp; sourceTree = "<group>"; };
 		51E516F81697529200F6D446 /* Parser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Parser.h; sourceTree = "<group>"; };
-		51E516F91697529200F6D446 /* PlatformFlagger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlatformFlagger.h; sourceTree = "<group>"; };
 		51E516FA1697529200F6D446 /* Pool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Pool.h; sourceTree = "<group>"; };
 		51E516FB1697529200F6D446 /* Random.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Random.cpp; sourceTree = "<group>"; };
 		51E516FC1697529200F6D446 /* Random.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Random.h; sourceTree = "<group>"; };
@@ -690,7 +688,6 @@
 				51E516F61697529200F6D446 /* MathHelper.h */,
 				51E516F71697529200F6D446 /* Parser.cpp */,
 				51E516F81697529200F6D446 /* Parser.h */,
-				51E516F91697529200F6D446 /* PlatformFlagger.h */,
 				51E516FA1697529200F6D446 /* Pool.h */,
 				51E516FB1697529200F6D446 /* Random.cpp */,
 				51E516FC1697529200F6D446 /* Random.h */,
@@ -1087,7 +1084,6 @@
 				51E5177B1697529200F6D446 /* Iterators.h in Headers */,
 				51E5177F1697529200F6D446 /* MathHelper.h in Headers */,
 				51E517811697529200F6D446 /* Parser.h in Headers */,
-				51E517821697529200F6D446 /* PlatformFlagger.h in Headers */,
 				51E517831697529200F6D446 /* Pool.h in Headers */,
 				51E517851697529200F6D446 /* Random.h in Headers */,
 				51E517861697529200F6D446 /* Range.h in Headers */,
