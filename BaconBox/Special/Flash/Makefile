@@ -143,9 +143,11 @@ all: check $(BUILD_PATH)/BaconBox.swc
 $(BUILD_PATH)/temp.swc: EntityWrapper.abc $(addprefix $(BUILD_PATH)/,$(ALL_SOURCES)) $(addprefix $(BUILD_PATH)/,$(FLASCC_SOURCES)) #Entity_wrapper.o main.o
 
 	@echo "-------- BaconBox --------"
-	"$(FLASCC)/usr/bin/g++" $(BASE_CFLAGS) -I$(PROJECT_ROOT) -I$(CUSTOM_LIB_PATH)/include -DBB_FLASH_PLATEFORM EntityWrapper.abc $(addprefix $(BUILD_PATH)/, $(ALL_SOURCES)) $(addprefix $(BUILD_PATH)/, $(FLASCC_SOURCES)) -emit-swc=temp -o $(BUILD_PATH)/temp.swc -L$(CUSTOM_LIB_PATH)/lib $(LINK_FLAG)
+	"$(FLASCC)/usr/bin/g++" $(BASE_CFLAGS) -I$(PROJECT_ROOT) -I$(CUSTOM_LIB_PATH)/include -DBB_FLASH_PLATEFORM EntityWrapper.abc \
+	$(addprefix $(BUILD_PATH)/, $(ALL_SOURCES)) $(addprefix $(BUILD_PATH)/, $(FLASCC_SOURCES)) -emit-swc=temp -o $(BUILD_PATH)/temp.swc \
+	-L$(CUSTOM_LIB_PATH)/lib $(LINK_FLAG)
 
-$(BUILD_PATH)/BaconBox.swc: $(BUILD_PATH)/temp.swc
+$(BUILD_PATH)/BaconBox.swc: $(BUILD_PATH)/temp.swc EntityHolderMovieClip.as
 	@echo "-------- Compile EntityMovieClip --------"
 	"$(FLEX)/bin/compc" -include-libraries=$(BUILD_PATH)/temp.swc -include-classes=EntityHolderMovieClip -source-path . -debug=true -o $(BUILD_PATH)/BaconBox.swc
 
@@ -165,15 +167,17 @@ else
 endif
 
 
-EntityWrapper.as Entity_wrapper.c: $(BUILD_PATH)/build
+EntityWrapper.as3 Entity_wrapper.c: $(BUILD_PATH)/build entity.i
 	@echo "-------- SWIG wrappers --------"
 	"$(FLASCC)/usr/bin/swig" -as3 -c++ -module EntityWrapper -outdir . -includeall -ignoremissing -o Entity_wrapper.c entity.i
-
-EntityWrapper.abc: EntityWrapper.as
+	cp Entity_wrapper.c $(BUILD_PATH)/BaconBox/Special/Flash/
+	mv EntityWrapper.as EntityWrapper.as3
+EntityWrapper.abc: EntityWrapper.as3
 	@echo "-------- Compile the SWIG wrapper to ABC --------"
+	mv EntityWrapper.as3 EntityWrapper.as
 	$(AS3COMPILERARGS) -abcfuture -AS3 -import $(call nativepath,$(FLASCC)/usr/lib/builtin.abc) -import $(call nativepath,$(FLASCC)/usr/lib/playerglobal.abc) EntityWrapper.as 
 	# rename the output so the compiler doesn't accidentally use both this .as file along with the .abc file we just produced
-#	mv EntityWrapper.as EntityWrapper.as3
+	mv EntityWrapper.as EntityWrapper.as3
 
 
 #Entity_wrapper.o main.o: Entity_wrapper.c main.cpp
