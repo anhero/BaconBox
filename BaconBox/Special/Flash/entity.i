@@ -24,5 +24,6 @@
     	public:
     		MovieClipEntity(AS3::local::var aMC);
 			void setMovieClip(AS3::local::var aMC);
+			void tick();
 		};
 	}

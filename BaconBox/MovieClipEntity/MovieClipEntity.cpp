@@ -8,15 +8,23 @@ namespace BaconBox {
 		MovieClipHolder * mcHolder = new MovieClipHolder(aMC);
 		addComponent(mcHolder);
 		
+		
+		
+		
+		bob = 0;
+		
+		
+		AS3::local::var otherMC = ((MovieClipHolder*)getComponent("MovieClipHolder"))->getMovieCLip();
+		inline_as3("import flash.display.MovieClip;\n"::);
+		inline_as3("var aMovieClip;\n"::);
+		AS3_CopyVarxxToVar(aMovieClip, otherMC);
+		inline_as3("(aMovieClip as MovieClip).gotoAndStop(2);\n"::);
+
+		
 	}
 	
 //	int MovieClipEntity::getNumber(){
 //
-//		AS3::local::var aMC = ((MovieClipHolder*)getComponent("MovieClipHolder"))->getMovieCLip();
-//		inline_as3("import flash.display.MovieClip;\n"::);
-//		inline_as3("var aMovieClip;\n"::);
-//		AS3_CopyVarxxToVar(aMovieClip, aMC);
-//		inline_as3("(aMovieClip as MovieClip).gotoAndStop(2);\n"::);
 //		
 //		return test;
 //	}
@@ -24,6 +32,19 @@ namespace BaconBox {
 	void MovieClipEntity::setMovieClip(AS3::local::var aMC){
 		
 		}
+	
+	void MovieClipEntity::tick(){
+		
+		bob++;
+		if(bob > 200) bob = 0;
+		AS3::local::var otherMC = ((MovieClipHolder*)getComponent("MovieClipHolder"))->getMovieCLip();
+		inline_as3("import flash.display.MovieClip;\n"::);
+		inline_as3("var aMovieClip;\n"::);
+		AS3_CopyVarxxToVar(aMovieClip, otherMC);
+		inline_as3("(aMovieClip as MovieClip).x = %0;\n"::"r"(bob));
+		
+		inline_as3("(aMovieClip as MovieClip).gotoAndStop(%0);\n"::"r"(bob%2+1));
+	}
 	
 #else
 	

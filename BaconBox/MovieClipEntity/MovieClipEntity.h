@@ -22,6 +22,8 @@ namespace BaconBox {
 #ifdef BB_FLASH_PLATEFORM
 		MovieClipEntity(AS3::local::var aMC);
 		void setMovieClip(AS3::local::var aMC);
+		
+		void tick();
 #else
 		MovieClipEntity();
 #endif
@@ -31,8 +33,9 @@ namespace BaconBox {
     private:
 #ifndef BB_FLASH_PLATEFORM
 		Mesh * mesh;
-#endif
 		
+#endif
+		int bob;
 		
 	};
 }
