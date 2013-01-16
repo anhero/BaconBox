@@ -114,10 +114,11 @@ OBJECTFILES= \
 	${OBJECTDIR}/_ext/1774422509/Keyboard.o \
 	${OBJECTDIR}/_ext/1621708528/SDLMainWindow.o \
 	${OBJECTDIR}/_ext/700401247/Font.o \
-	${OBJECTDIR}/_ext/1120482205/SDLPointer.o \
-	${OBJECTDIR}/_ext/357189265/PointerSignalData.o \
 	${OBJECTDIR}/_ext/588717407/SDLGamePad.o \
 	${OBJECTDIR}/_ext/2054729558/DefaultSerializer.o \
+	${OBJECTDIR}/_ext/1313538916/NullMainWindow.o \
+	${OBJECTDIR}/_ext/1120482205/SDLPointer.o \
+	${OBJECTDIR}/_ext/357189265/PointerSignalData.o \
 	${OBJECTDIR}/_ext/1013356456/Vector2.o \
 	${OBJECTDIR}/_ext/1619289542/Component.o \
 	${OBJECTDIR}/_ext/700401247/GlyphInformation.o \
@@ -559,16 +560,6 @@ ${OBJECTDIR}/_ext/700401247/Font.o: ../../BaconBox/Display/Text/Font.cpp
 	${RM} $@.d
 	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/700401247/Font.o ../../BaconBox/Display/Text/Font.cpp
 
-${OBJECTDIR}/_ext/1120482205/SDLPointer.o: ../../BaconBox/Input/Pointer/SDL/SDLPointer.cpp 
-	${MKDIR} -p ${OBJECTDIR}/_ext/1120482205
-	${RM} $@.d
-	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/1120482205/SDLPointer.o ../../BaconBox/Input/Pointer/SDL/SDLPointer.cpp
-
-${OBJECTDIR}/_ext/357189265/PointerSignalData.o: ../../BaconBox/Input/Pointer/PointerSignalData.cpp 
-	${MKDIR} -p ${OBJECTDIR}/_ext/357189265
-	${RM} $@.d
-	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/357189265/PointerSignalData.o ../../BaconBox/Input/Pointer/PointerSignalData.cpp
-
 ${OBJECTDIR}/_ext/588717407/SDLGamePad.o: ../../BaconBox/Input/GamePad/SDL/SDLGamePad.cpp 
 	${MKDIR} -p ${OBJECTDIR}/_ext/588717407
 	${RM} $@.d
@@ -578,6 +569,21 @@ ${OBJECTDIR}/_ext/2054729558/DefaultSerializer.o: ../../BaconBox/Helper/Serializ
 	${MKDIR} -p ${OBJECTDIR}/_ext/2054729558
 	${RM} $@.d
 	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/2054729558/DefaultSerializer.o ../../BaconBox/Helper/Serialization/DefaultSerializer.cpp
+
+${OBJECTDIR}/_ext/1313538916/NullMainWindow.o: ../../BaconBox/Display/Window/NullMainWindow.cpp 
+	${MKDIR} -p ${OBJECTDIR}/_ext/1313538916
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/1313538916/NullMainWindow.o ../../BaconBox/Display/Window/NullMainWindow.cpp
+
+${OBJECTDIR}/_ext/1120482205/SDLPointer.o: ../../BaconBox/Input/Pointer/SDL/SDLPointer.cpp 
+	${MKDIR} -p ${OBJECTDIR}/_ext/1120482205
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/1120482205/SDLPointer.o ../../BaconBox/Input/Pointer/SDL/SDLPointer.cpp
+
+${OBJECTDIR}/_ext/357189265/PointerSignalData.o: ../../BaconBox/Input/Pointer/PointerSignalData.cpp 
+	${MKDIR} -p ${OBJECTDIR}/_ext/357189265
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/357189265/PointerSignalData.o ../../BaconBox/Input/Pointer/PointerSignalData.cpp
 
 ${OBJECTDIR}/_ext/1013356456/Vector2.o: ../../BaconBox/Vector2.cpp 
 	${MKDIR} -p ${OBJECTDIR}/_ext/1013356456

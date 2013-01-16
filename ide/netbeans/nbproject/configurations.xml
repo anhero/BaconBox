@@ -60,8 +60,6 @@
         <itemPath>../../BaconBox/Core/IDManager.h</itemPath>
         <itemPath>../../BaconBox/Core/State.cpp</itemPath>
         <itemPath>../../BaconBox/Core/State.h</itemPath>
-        <itemPath>../../BaconBox/Vector2.cpp</itemPath>
-        <itemPath>../../BaconBox/Vector2.h</itemPath>
       </logicalFolder>
       <logicalFolder name="Display" displayName="Display" projectFiles="true">
         <logicalFolder name="Driver" displayName="Driver" projectFiles="true">
@@ -99,6 +97,8 @@
           </logicalFolder>
           <itemPath>../../BaconBox/Display/Window/MainWindow.cpp</itemPath>
           <itemPath>../../BaconBox/Display/Window/MainWindow.h</itemPath>
+          <itemPath>../../BaconBox/Display/Window/NullMainWindow.cpp</itemPath>
+          <itemPath>../../BaconBox/Display/Window/NullMainWindow.h</itemPath>
           <itemPath>../../BaconBox/Display/Window/WindowOrientation.h</itemPath>
         </logicalFolder>
         <itemPath>../../BaconBox/Display/Camera.cpp</itemPath>
@@ -300,6 +300,8 @@
       <itemPath>../../BaconBox/StandardVertexArray.cpp</itemPath>
       <itemPath>../../BaconBox/StandardVertexArray.h</itemPath>
       <itemPath>../../BaconBox/TextureCoordinates.h</itemPath>
+      <itemPath>../../BaconBox/Vector2.cpp</itemPath>
+      <itemPath>../../BaconBox/Vector2.h</itemPath>
       <itemPath>../../BaconBox/VertexArray.cpp</itemPath>
       <itemPath>../../BaconBox/VertexArray.h</itemPath>
     </logicalFolder>
@@ -316,7 +318,7 @@
     </logicalFolder>
   </logicalFolder>
   <sourceRootList>
-    <Elem>C:\MinGW\msys\1.0\home\BerzerkJoe\EntityBB\BaconBox</Elem>
+    <Elem>../../../../MinGW/msys/1.0/home/BerzerkJoe/EntityBB/BaconBox</Elem>
   </sourceRootList>
   <projectmakefile>Makefile</projectmakefile>
   <confs>

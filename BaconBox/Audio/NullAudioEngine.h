@@ -18,6 +18,7 @@ namespace BaconBox {
 	 */
 	class NullAudioEngine : public SoundEngine, public MusicEngine {
 		friend class AudioEngine;
+                friend class Engine;
 	public:
 		/**
 		 * Gets NullaudioEngine's instance.
