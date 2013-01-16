@@ -2,6 +2,7 @@ FLASCC:=X
 FLEX:=X
 BUILD_PATH=$(PROJECT_ROOT)/build
 CXX="$(FLASCC)/usr/bin/g++"
+cc=$cxx
 AS3COMPILER:=asc2.jar
 BASE_CFLAGS=-Werror -Wno-write-strings -Wno-trigraphs -DTIXML_USE_STL -DTINYXML_USE_STL
 PROJECT_ROOT=../../..
@@ -29,7 +30,8 @@ BaconBox/Audio/SoundParameters.o
 COMPONENTS_SOURCES = \
 BaconBox/Components/CameraDriverRenderer.o \
 BaconBox/Components/Mesh.o \
-BaconBox/Components/Transform.o 
+BaconBox/Components/Transform.o \
+BaconBox/Components/Flash/MovieClipHolder.o
 
 CORE_SOURCES= \
 BaconBox/Core/Component.o \
@@ -107,8 +109,7 @@ BaconBox/Input/Pointer/PointerSignalData.o \
 BaconBox/Input/Pointer/PointerState.o
 
 MOVIECLIP_SOURCES= \
-BaconBox/MovieClipEntity/MovieClipEntity.o \
-BaconBox/MovieClipEntity/Flash/MovieClipHolder.o
+BaconBox/MovieClipEntity/MovieClipEntity.o
 
 SIGNALSLOTS_SOURCES= \
 BaconBox/SignalSlots/SignalAnalyzer.o \

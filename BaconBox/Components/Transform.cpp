@@ -1,7 +1,7 @@
 #include "Transform.h"
 
 #include "BaconBox/Core/IDManager.h"
-
+#include "BaconBox/Core/Entity.h"
 namespace BaconBox {
 	int Transform::ID = IDManager::getID();
 	
@@ -32,8 +32,8 @@ namespace BaconBox {
 		return Transform::ID;
 	}
 
-	void Transform::receiveMessage(int id, int message, void *data) {
-		if (id == Transform::ID) {
+	void Transform::receiveMessage(int senderID, int destID, int message, void *data) {
+            if(destID != Transform::ID)return;
 			switch (message) {
 			case Transform::MESSAGE_GET_POSITION:
 				*reinterpret_cast<Vector2 *>(data) = this->getPosition();
@@ -62,8 +62,8 @@ namespace BaconBox {
 			default:
 				break;
 			}
-		}
 	}
+	
 
 	const Vector2 &Transform::getPosition() const {
 		return this->position;
@@ -71,6 +71,7 @@ namespace BaconBox {
 
 	void Transform::setPosition(const Vector2 &newPosition) {
 		this->position = newPosition;
+                sendMessage(Entity::BROADCAST, MESSAGE_POSITION_CHANGED, &(this->position));
 	}
 
 	float Transform::getRotation() const {
@@ -79,6 +80,7 @@ namespace BaconBox {
 
 	void Transform::setRotation(float newRotation) {
 		this->rotation = newRotation;
+                sendMessage(Entity::BROADCAST, MESSAGE_ROTATION_CHANGED, &(this->rotation));
 	}
 
 	const Vector2 &Transform::getScale() const {
@@ -87,5 +89,6 @@ namespace BaconBox {
 
 	void Transform::setScale(const Vector2 &newScale) {
 		this->scale = newScale;
+                sendMessage(Entity::BROADCAST, MESSAGE_SCALE_CHANGED, &(this->scale));
 	}
 }

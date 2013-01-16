@@ -38,7 +38,7 @@ namespace BaconBox {
 	}
 	
 	void CameraDriverRenderer::render(){
-		Engine::getGraphicDriver().prepareScene(Vector2(), 0, Vector2(1,1), Color::TEAL);
+		Engine::getGraphicDriver().prepareScene(Vector2(), 0, Vector2(1,1), Color::BLUE);
 	}
     
 }

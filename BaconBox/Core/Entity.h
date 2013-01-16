@@ -14,6 +14,8 @@ namespace BaconBox {
 	 */
 	class Entity {
 	public:
+                static int BROADCAST;
+                
 		Entity();
 
 		Entity(const Entity &src);
@@ -24,7 +26,7 @@ namespace BaconBox {
 
 		virtual Entity *clone() const;
 
-		void sendMessage(int id, int message, void *data);
+		void sendMessage(int senderID, int destID, int message, void *data);
 
 		void update();
 		void render();

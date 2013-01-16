@@ -1,6 +1,9 @@
 #include "Entity.h"
 
 namespace BaconBox {
+    
+        int Entity::BROADCAST = -1;
+    
 	Entity::Entity() : name(), components(), children(), parent(NULL) {
 	}
 
@@ -44,9 +47,9 @@ namespace BaconBox {
 		return result;
 	}
 
-	void Entity::sendMessage(int id, int message, void *data) {
+	void Entity::sendMessage(int senderID, int destID, int message, void *data) {
 		for (std::vector<Component *>::iterator i = this->components.begin(); i != this->components.end(); ++i) {
-			(*i)->receiveMessage(id, message, data);
+			(*i)->receiveMessage(senderID, destID, message, data);
 		}
 	}
 

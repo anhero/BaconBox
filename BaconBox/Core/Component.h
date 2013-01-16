@@ -23,8 +23,8 @@ namespace BaconBox {
 		
 		virtual int getID() const;
 		
-		void sendMessage(int message, void *data);
-		virtual void receiveMessage(int id, int message, void *data);
+		void sendMessage(int destID, int message, void *data);
+		virtual void receiveMessage(int senderID, int destID, int message, void *data);
 		
 		virtual void update();
 		virtual void render();

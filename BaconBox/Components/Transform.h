@@ -15,6 +15,9 @@ namespace BaconBox {
 		static const int MESSAGE_SET_POSITION = 3;
 		static const int MESSAGE_SET_ROTATION = 4;
 		static const int MESSAGE_SET_SCALE = 5;
+		static const int MESSAGE_POSITION_CHANGED = 6;
+		static const int MESSAGE_ROTATION_CHANGED = 7;
+		static const int MESSAGE_SCALE_CHANGED = 8;
 		
 		Transform();
 		
@@ -28,7 +31,7 @@ namespace BaconBox {
 		
 		virtual int getID() const;
 		
-		virtual void receiveMessage(int id, int message, void *data);
+		virtual void receiveMessage(int senderID, int destID, int message, void *data);
 		
 		const Vector2 &getPosition() const;
 		void setPosition(const Vector2 &newPosition);

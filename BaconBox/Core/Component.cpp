@@ -32,13 +32,13 @@ namespace BaconBox {
 		return Component::ID;
 	}
 	
-	void Component::sendMessage(int message, void *data) {
+	void Component::sendMessage(int destID, int message, void *data) {
 		if (entity) {
-			entity->sendMessage(this->getID(), message, data);
+			entity->sendMessage(this->getID(), destID, message, data);
 		}
 	}
 
-	void Component::receiveMessage(int id, int message, void *data) {
+	void Component::receiveMessage(int senderID, int destID, int message, void *data) {
 	}
 	
 	void Component::update() {

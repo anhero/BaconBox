@@ -9,7 +9,7 @@
 #include "BaconBox/PlatformFlagger.h"
 
 #ifdef BB_FLASH_PLATEFORM
-#include "Flash/MovieClipHolder.h"
+#include "BaconBox/ComponentS/Flash/MovieClipHolder.h"
 #else
 #include "BaconBox/Components/Mesh.h"
 #endif

@@ -1,6 +1,7 @@
 #include "MovieClipEntity.h"
+#include "BaconBox/Components/Transform.h"
 #include <string>
-
+#include "BaconBox/Components/Transform.h"
 
 namespace BaconBox {
 #ifdef BB_FLASH_PLATEFORM
@@ -8,6 +9,8 @@ namespace BaconBox {
 		MovieClipHolder * mcHolder = new MovieClipHolder(aMC);
 		addComponent(mcHolder);
 		
+                Transform * transform = new Transform();
+                addComponent(transform);
 		
 		
 		
@@ -43,7 +46,6 @@ namespace BaconBox {
 		AS3_CopyVarxxToVar(aMovieClip, otherMC);
 		inline_as3("(aMovieClip as MovieClip).x = %0;\n"::"r"(bob));
 		
-		inline_as3("(aMovieClip as MovieClip).gotoAndStop(%0);\n"::"r"(bob%2+1));
 	}
 	
 #else

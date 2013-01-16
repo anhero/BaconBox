@@ -7,10 +7,14 @@ public class EntityHolderMovieClip  extends MovieClip {
     public function EntityHolderMovieClip() {
     	super();
     	_entity = MovieClipEntity.create(this);
-        _bob = 3;
+        //_bob = 3;
     }
     public function tick():void{
-        return _entity.tick();
+        _entity.tick();
+    }
+
+    public function getChiffre():int{
+        return 3;
     }
 }
 }
