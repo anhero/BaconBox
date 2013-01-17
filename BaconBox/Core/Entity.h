@@ -49,8 +49,8 @@ namespace BaconBox {
 
 		void clear();
 		
-		
 		Component * getComponent(const std::string &componentName) const ;
+		Component * getComponent(int id) const ;
 	
 	private:
 		void free();

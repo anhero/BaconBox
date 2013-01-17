@@ -2,7 +2,7 @@ FLASCC:=X
 FLEX:=X
 BUILD_PATH=$(PROJECT_ROOT)/build
 CXX="$(FLASCC)/usr/bin/g++"
-cc=$cxx
+
 AS3COMPILER:=asc2.jar
 BASE_CFLAGS=-Werror -Wno-write-strings -Wno-trigraphs -DTIXML_USE_STL -DTINYXML_USE_STL
 PROJECT_ROOT=../../..
@@ -141,16 +141,12 @@ FLASCC_FILE_PATH=BaconBox/Special/Flash
 
 all: check $(BUILD_PATH)/BaconBox.swc
 
-$(BUILD_PATH)/temp.swc: EntityWrapper.abc $(addprefix $(BUILD_PATH)/,$(ALL_SOURCES)) $(addprefix $(BUILD_PATH)/,$(FLASCC_SOURCES)) #Entity_wrapper.o main.o
+$(BUILD_PATH)/BaconBox.swc: EntityWrapper.abc EntityHolderMovieClip.abc $(addprefix $(BUILD_PATH)/,$(ALL_SOURCES)) $(addprefix $(BUILD_PATH)/,$(FLASCC_SOURCES))
 
 	@echo "-------- BaconBox --------"
-	"$(FLASCC)/usr/bin/g++" $(BASE_CFLAGS) -I$(PROJECT_ROOT) -I$(CUSTOM_LIB_PATH)/include -DBB_FLASH_PLATEFORM EntityWrapper.abc \
-	$(addprefix $(BUILD_PATH)/, $(ALL_SOURCES)) $(addprefix $(BUILD_PATH)/, $(FLASCC_SOURCES)) -emit-swc=temp -o $(BUILD_PATH)/temp.swc \
+	"$(FLASCC)/usr/bin/g++" $(BASE_CFLAGS) -I$(PROJECT_ROOT) -I$(CUSTOM_LIB_PATH)/include -DBB_FLASH_PLATEFORM EntityWrapper.abc EntityHolderMovieClip.abc \
+	$(addprefix $(BUILD_PATH)/, $(ALL_SOURCES)) $(addprefix $(BUILD_PATH)/, $(FLASCC_SOURCES)) -emit-swc=BaconBox -o $(BUILD_PATH)/BaconBox.swc \
 	-L$(CUSTOM_LIB_PATH)/lib $(LINK_FLAG)
-
-$(BUILD_PATH)/BaconBox.swc: $(BUILD_PATH)/temp.swc EntityHolderMovieClip.as
-	@echo "-------- Compile EntityMovieClip --------"
-	"$(FLEX)/bin/compc" -include-libraries=$(BUILD_PATH)/temp.swc -include-classes=EntityHolderMovieClip -source-path . -debug=true -o $(BUILD_PATH)/BaconBox.swc
 
 $?UNAME=$(shell uname -s)
 ifneq (,$(findstring CYGWIN,$(UNAME)))
@@ -168,10 +164,10 @@ else
 endif
 
 
-EntityWrapper.as3 Entity_wrapper.c: $(BUILD_PATH)/build entity.i
+EntityWrapper.as3 Entity_wrapper.cpp: $(BUILD_PATH)/build entity.i
 	@echo "-------- SWIG wrappers --------"
-	"$(FLASCC)/usr/bin/swig" -as3 -c++ -module EntityWrapper -outdir . -includeall -ignoremissing -o Entity_wrapper.c entity.i
-	cp Entity_wrapper.c $(BUILD_PATH)/BaconBox/Special/Flash/
+	"$(FLASCC)/usr/bin/swig" -as3 -c++ -module EntityWrapper -outdir . -includeall -ignoremissing -o Entity_wrapper.cpp entity.i
+#	cp Entity_wrapper.cpp $(BUILD_PATH)/BaconBox/Special/Flash/
 	mv EntityWrapper.as EntityWrapper.as3
 EntityWrapper.abc: EntityWrapper.as3
 	@echo "-------- Compile the SWIG wrapper to ABC --------"
@@ -180,8 +176,12 @@ EntityWrapper.abc: EntityWrapper.as3
 	# rename the output so the compiler doesn't accidentally use both this .as file along with the .abc file we just produced
 	mv EntityWrapper.as EntityWrapper.as3
 
+EntityHolderMovieClip.abc: EntityWrapper.abc EntityHolderMovieClip.as
+	@echo "-------- Compile the EntityHolderMovieClip to ABC --------"
+	$(AS3COMPILERARGS) -abcfuture -AS3 -import $(call nativepath,$(FLASCC)/usr/lib/builtin.abc) -import $(call nativepath,$(FLASCC)/usr/lib/playerglobal.abc) -import $(call nativepath,./EntityWrapper.abc) EntityHolderMovieClip.as 
 
-#Entity_wrapper.o main.o: Entity_wrapper.c main.cpp
+
+#Entity_wrapper.o main.o: Entity_wrapper.cpp main.cpp
 #	echo $@ --------------------
 #	$(CXX) $< -c $(BASE_CFLAGS) -I$(PROJECT_ROOT) -I$(CUSTOM_LIB_PATH)/include -o $@
 
@@ -212,7 +212,7 @@ check:
 	fi
 
 clean:
-	rm -rf *_wrapper.c *.swf *.swc *.as3 *.abc *.o $(BUILD_PATH) 
+	rm -rf *_wrapper.cpp *.swf *.swc *.as3 *.abc *.o $(BUILD_PATH) 
 #$(addprefix $(PROJECT_ROOT)/, $(BUILD_PATH), $(ALL_SOURCES))
 
 

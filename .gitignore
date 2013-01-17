@@ -45,12 +45,14 @@ Release
 #SVN repo add to our project
 .svn
 
+*.abc
+
 libraries/*
 !libraries/*.desc
 BaconBox/Special/Flash/BaconBox.swc
-BaconBox/Special/Flash/EntityWrapper.abc
 BaconBox/Special/Flash/EntityWrapper.as3
 BaconBox/Special/Flash/EntityWrapper.as
 BaconBox/Special/Flash/Entity_wrapper.c
+BaconBox/Special/Flash/Entity_wrapper.cpp
 BaconBox/Special/Flash/temp.swc
 dist

@@ -6,22 +6,21 @@
 namespace BaconBox {
 #ifdef BB_FLASH_PLATEFORM
 	MovieClipEntity::MovieClipEntity(AS3::local::var aMC):Entity(){
+            
+            
+            
 		MovieClipHolder * mcHolder = new MovieClipHolder(aMC);
 		addComponent(mcHolder);
 		
                 Transform * transform = new Transform();
                 addComponent(transform);
+//                std::string testString = "x";
+//		AS3::local::var propertyNameAS = AS3::local::internal::new_String(testString.c_str());
+//		AS3::local::internal::setproperty(aMC, propertyNameAS, AS3::local::internal::new_int(-100));
+//		
+//		bob = 0;
 		
-		
-		
-		bob = 0;
-		
-		
-		AS3::local::var otherMC = ((MovieClipHolder*)getComponent("MovieClipHolder"))->getMovieCLip();
-		inline_as3("import flash.display.MovieClip;\n"::);
-		inline_as3("var aMovieClip;\n"::);
-		AS3_CopyVarxxToVar(aMovieClip, otherMC);
-		inline_as3("(aMovieClip as MovieClip).gotoAndStop(2);\n"::);
+                transform->setPosition(Vector2(-100,-100));
 
 		
 	}
@@ -40,7 +39,7 @@ namespace BaconBox {
 		
 		bob++;
 		if(bob > 200) bob = 0;
-		((MovieClipHolder*)getComponent("MovieClipHolder"))->receiveMessage(0, 0, 0, NULL);
+		//((Transform*)getComponent(Transform::ID))->setPosition(Vector2(200,200));
 		
 	}
 	

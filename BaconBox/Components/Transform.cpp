@@ -71,7 +71,7 @@ namespace BaconBox {
 
 	void Transform::setPosition(const Vector2 &newPosition) {
 		this->position = newPosition;
-                sendMessage(Entity::BROADCAST, MESSAGE_POSITION_CHANGED, &(this->position));
+		sendMessage(Entity::BROADCAST, MESSAGE_POSITION_CHANGED, &(this->position));
 	}
 
 	float Transform::getRotation() const {

@@ -21,7 +21,12 @@ namespace BaconBox {
 		void setMovieClip(AS3::local::var aMC);
 		AS3::local::var getMovieCLip();
 
+		void setProperty(const std::string & propertyName, AS3::local::var arg);
 
+		AS3::local::var getProperty(const std::string & propertyName);
+
+
+		AS3::local::var callFunction(const std::string & functionName, int argCount, AS3::local::var *args);
 
 		virtual void receiveMessage(int senderID, int destID, int message, void *data);
 		

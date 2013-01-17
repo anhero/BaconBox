@@ -1,5 +1,6 @@
 package {
 import flash.display.MovieClip;
+import MovieClipEntity;
 
 public class EntityHolderMovieClip  extends MovieClip {
 	private var _entity:MovieClipEntity;

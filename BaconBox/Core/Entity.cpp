@@ -46,6 +46,24 @@ namespace BaconBox {
 		
 		return result;
 	}
+        
+        Component * Entity::getComponent(int id) const {
+            Component *result = NULL;
+		bool notFound = true;
+		std::vector<Component *>::const_iterator i = this->components.begin();
+		
+		while (notFound && i != this->components.end()) {
+			if ((*i)->getID() == id) {
+				result = (*i);
+				notFound = false;
+			}
+                        else{
+                            i++;
+                        }
+		}
+		
+		return result;
+        }
 
 	void Entity::sendMessage(int senderID, int destID, int message, void *data) {
 		for (std::vector<Component *>::iterator i = this->components.begin(); i != this->components.end(); ++i) {
@@ -84,6 +102,7 @@ namespace BaconBox {
 	const std::vector<Component *> &Entity::getComponents() const {
 		return components;
 	}
+        
 
 	void Entity::addComponent(Component *newComponent) {
 		components.push_back(newComponent);
