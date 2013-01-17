@@ -40,11 +40,7 @@ namespace BaconBox {
 		
 		bob++;
 		if(bob > 200) bob = 0;
-		AS3::local::var otherMC = ((MovieClipHolder*)getComponent("MovieClipHolder"))->getMovieCLip();
-		inline_as3("import flash.display.MovieClip;\n"::);
-		inline_as3("var aMovieClip;\n"::);
-		AS3_CopyVarxxToVar(aMovieClip, otherMC);
-		inline_as3("(aMovieClip as MovieClip).x = %0;\n"::"r"(bob));
+		((MovieClipHolder*)getComponent("MovieClipHolder"))->receiveMessage(0, 0, 0, NULL);
 		
 	}
 	
