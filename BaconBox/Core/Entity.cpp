@@ -42,6 +42,9 @@ namespace BaconBox {
 				result = (*i);
 				notFound = false;
 			}
+			else{
+				i++;
+			}
 		}
 		
 		return result;
@@ -57,11 +60,10 @@ namespace BaconBox {
 				result = (*i);
 				notFound = false;
 			}
-                        else{
-                            i++;
-                        }
+			else{
+				i++;
+			}
 		}
-		
 		return result;
         }
 
