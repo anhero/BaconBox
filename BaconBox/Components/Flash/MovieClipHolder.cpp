@@ -16,6 +16,8 @@ namespace BaconBox {
 
 		setName("MovieClipHolder");
 		setMovieClip(aMC);
+		AS3::local::var args[1] = {AS3::local::internal::new_int(1)};
+		callFunction("gotoAndStop", 1, args);
 	}
 	
 	void MovieClipHolder::setMovieClip(AS3::local::var aMC){
@@ -53,10 +55,14 @@ namespace BaconBox {
 				setProperty("y", AS3::local::internal::new_int(pos->y));
 		 	}	
 		 	else if(message == Transform::MESSAGE_ROTATION_CHANGED){
+		 		float rotation = *reinterpret_cast<float*>(data);
+		 		setProperty("rotation", AS3::local::internal::new_Number(rotation));
 
 		 	}
 		 	else if(message == Transform::MESSAGE_SCALE_CHANGED){
-
+		 		Vector2 * scale = (reinterpret_cast<Vector2 *>(data));
+		 		setProperty("scaleX", AS3::local::internal::new_Number(scale->x));
+				setProperty("scaleY", AS3::local::internal::new_Number(scale->y));
 		 	}	
 		 }
 
