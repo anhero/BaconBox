@@ -6,9 +6,11 @@ namespace BaconBox {
 	int Transform::ID = IDManager::getID();
 	
 	Transform::Transform() : Component(), position(), rotation(0.0f), scale() {
+		setName("Transform");
 	}
 
 	Transform::Transform(const Transform &src) : Component(), position(src.position), rotation(src.rotation), scale(src.scale) {
+		setName("Transform");
 	}
 
 	Transform::~Transform() {
