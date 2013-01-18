@@ -14,22 +14,9 @@ namespace BaconBox {
 		
                 Transform * transform = new Transform();
                 addComponent(transform);
-//                std::string testString = "x";
-//		AS3::local::var propertyNameAS = AS3::local::internal::new_String(testString.c_str());
-//		AS3::local::internal::setproperty(aMC, propertyNameAS, AS3::local::internal::new_int(-100));
-//		
-//		bob = 0;
 		
-                transform->setPosition(Vector2(-100,-100));
-
 		
 	}
-	
-//	int MovieClipEntity::getNumber(){
-//
-//		
-//		return test;
-//	}
 	
 	void MovieClipEntity::setMovieClip(AS3::local::var aMC){
 		
