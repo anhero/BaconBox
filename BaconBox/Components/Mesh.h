@@ -13,6 +13,7 @@ namespace BaconBox {
 	 */
 	class Mesh  : public Component {
     public:
+		static int ID;
 		Mesh();
 		StandardVertexArray & getVertices();
         
