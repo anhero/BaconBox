@@ -5,7 +5,7 @@
 	
 	#include "../../MovieClipEntity/MovieClipEntity.h"
 	#include <AS3/AS3.h>
-	#include <Flash++.h>
+	#include <AS3++.h>
 
 %}
 
