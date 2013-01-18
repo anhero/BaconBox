@@ -182,6 +182,9 @@ EntityWrapper.as3 Entity_wrapper.cpp: $(BUILD_PATH)/build entity.i
 	"$(FLASCC)/usr/bin/swig" -as3 -c++ -module EntityWrapper -outdir . -includeall -ignoremissing -o Entity_wrapper.cpp entity.i
 #	cp Entity_wrapper.cpp $(BUILD_PATH)/BaconBox/Special/Flash/
 	mv EntityWrapper.as EntityWrapper.as3
+
+	"$(FLASCC)/usr/bin/swig" -as3 -c++ -module BaconBox -outdir . -includeall -ignoremissing -o BaconBox.cpp ../Swig/BaconBox.i
+
 EntityWrapper.abc: EntityWrapper.as3
 	@echo "-------- Compile the SWIG wrapper to ABC --------"
 	mv EntityWrapper.as3 EntityWrapper.as
