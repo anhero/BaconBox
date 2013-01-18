@@ -56,3 +56,5 @@ BaconBox/Special/Flash/Entity_wrapper.c
 BaconBox/Special/Flash/Entity_wrapper.cpp
 BaconBox/Special/Flash/temp.swc
 dist
+BaconBox/Special/Flash/BaconBox.as
+BaconBox/Special/Flash/BaconBox.cpp
