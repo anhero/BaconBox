@@ -7,7 +7,7 @@ AS3COMPILER:=asc2.jar
 BASE_CFLAGS=-Werror -Wno-write-strings -Wno-trigraphs -DTIXML_USE_STL -DTINYXML_USE_STL
 PROJECT_ROOT=../../..
 CUSTOM_LIB_PATH=$(wildcard $(PROJECT_ROOT)/libraries/FreeBSD/i686 $(PROJECT_ROOT)/libraries/FreeBSD/x86_64)
-LINK_FLAG=-lpng -lz -lFlash++ -lAS3++ -lJsonBox -ltinyxml -lfreetype
+LINK_FLAG=-lpng -lz -lAS3++ -lJsonBox -ltinyxml -lfreetype
 
 #VPATH = $PROJECT_ROOT
 vpath %.c $(PROJECT_ROOT)
@@ -139,11 +139,24 @@ BaconBox/VertexArray.o
 
 FLASCC_FILE_PATH=BaconBox/Special/Flash
 
+
+
 all: check $(BUILD_PATH)/BaconBox.swc
+
+
+swf: check $(BUILD_PATH)/BaconBox.swf
+
+
+$(BUILD_PATH)/BaconBox.swf: EntityWrapper.abc EntityHolderMovieClip.abc $(addprefix $(BUILD_PATH)/,$(ALL_SOURCES)) $(addprefix $(BUILD_PATH)/,$(FLASCC_SOURCES))
+
+	@echo "-------- BaconBox.swf--------"
+	"$(FLASCC)/usr/bin/g++" $(BASE_CFLAGS) -I$(PROJECT_ROOT) -I$(CUSTOM_LIB_PATH)/include -DBB_FLASH_PLATEFORM EntityWrapper.abc EntityHolderMovieClip.abc \
+	$(addprefix $(BUILD_PATH)/, $(ALL_SOURCES)) $(addprefix $(BUILD_PATH)/, $(FLASCC_SOURCES)) -emit-swf -o $(BUILD_PATH)/BaconBox.swf \
+	-L$(CUSTOM_LIB_PATH)/lib $(LINK_FLAG)
 
 $(BUILD_PATH)/BaconBox.swc: EntityWrapper.abc EntityHolderMovieClip.abc $(addprefix $(BUILD_PATH)/,$(ALL_SOURCES)) $(addprefix $(BUILD_PATH)/,$(FLASCC_SOURCES))
 
-	@echo "-------- BaconBox --------"
+	@echo "-------- BaconBox.swc --------"
 	"$(FLASCC)/usr/bin/g++" $(BASE_CFLAGS) -I$(PROJECT_ROOT) -I$(CUSTOM_LIB_PATH)/include -DBB_FLASH_PLATEFORM EntityWrapper.abc EntityHolderMovieClip.abc \
 	$(addprefix $(BUILD_PATH)/, $(ALL_SOURCES)) $(addprefix $(BUILD_PATH)/, $(FLASCC_SOURCES)) -emit-swc=BaconBox -o $(BUILD_PATH)/BaconBox.swc \
 	-L$(CUSTOM_LIB_PATH)/lib $(LINK_FLAG)
@@ -212,7 +225,7 @@ check:
 	fi
 
 clean:
-	rm -rf *_wrapper.cpp *.swf *.swc *.as3 *.abc *.o $(BUILD_PATH) 
+	rm -rf *_wrapper.cpp *_wrapper.c *.swf *.swc *.as3 *.abc *.o $(BUILD_PATH) 
 #$(addprefix $(PROJECT_ROOT)/, $(BUILD_PATH), $(ALL_SOURCES))
 
 
