@@ -18,6 +18,8 @@ namespace BaconBox {
 		Mesh();
 		StandardVertexArray &getVertices();
 		
+		const StandardVertexArray getRelativeVertices() const;
+		
 		virtual int getID() const;
 		
 		virtual void receiveMessage(int senderID, int destID, int message, void *data);

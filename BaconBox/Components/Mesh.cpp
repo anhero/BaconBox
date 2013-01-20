@@ -13,6 +13,26 @@ namespace BaconBox {
 	StandardVertexArray &Mesh::getVertices() {
 		return vertices;
 	}
+	
+	const StandardVertexArray Mesh::getRelativeVertices() const {
+		Transform *transform = reinterpret_cast<Transform*>(this->getEntity()->getComponent(Transform::ID));
+		
+		if (transform) {
+			StandardVertexArray result(this->vertices.getNbVertices());
+			
+			Vector2 position = transform->getPosition();
+			
+			StandardVertexArray::SizeType i = 0;
+			
+			while (i < result.getNbVertices()) {
+				result[i] = this->vertices[i] - position;
+			}
+			
+			return result;
+		} else {
+			return StandardVertexArray();
+		}
+	}
 
 	int Mesh::getID() const {
 		return Mesh::ID;
