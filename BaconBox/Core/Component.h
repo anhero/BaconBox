@@ -31,6 +31,8 @@ namespace BaconBox {
 		
 		const std::string &getName() const;
 		void setName(const std::string& newName);
+		
+		Entity *getEntity() const;
 	private:
 		std::string name;
 		Entity *entity;

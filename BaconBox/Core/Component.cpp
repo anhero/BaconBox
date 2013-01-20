@@ -54,4 +54,8 @@ namespace BaconBox {
 	void Component::setName(const std::string &newName) {
 		this->name = newName;
 	}
+	
+	Entity *Component::getEntity() const {
+		return this->entity;
+	}
 }

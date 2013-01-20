@@ -5,6 +5,11 @@
 #include <BaconBox/Helper/Serialization/DefaultSerializer.h>
 #include <BaconBox/Helper/Serialization/JsonSerializer.h>
 #include <BaconBox/Helper/Random.h>
+#include <BaconBox/Core/Component.h>
+#include <BaconBox/Components/Transform.h>
+#include <BaconBox/Components/Mesh.h>
+
+#include "PlayState.h"
 int main(int argc, char *argv[]) {
 	// Initialize BaconBox
 	BaconBox::Engine::application(argc, argv, "test");
@@ -19,7 +24,7 @@ int main(int argc, char *argv[]) {
 	// We initialize the engine with a screen resolution.
 	BaconBox::Engine::initializeEngine(800, 600);
 	
-	BaconBox::State * state = new BaconBox::State();
+	BaconBox::State * state = new BaconBox::PlayState();
 	
 	BaconBox::Engine::addState(state);
 	

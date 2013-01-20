@@ -6,7 +6,8 @@
 #include <vector>
 #include "BaconBox/Vector2.h"
 #include "BaconBox/Core/Component.h"
-#include "../StandardVertexArray.h"
+#include "BaconBox/StandardVertexArray.h"
+
 namespace BaconBox {
 	/**
 	 * 
@@ -15,11 +16,13 @@ namespace BaconBox {
     public:
 		static int ID;
 		Mesh();
-		StandardVertexArray & getVertices();
-        
+		StandardVertexArray &getVertices();
+		
+		virtual int getID() const;
+		
+		virtual void receiveMessage(int senderID, int destID, int message, void *data);
     private:
 		StandardVertexArray vertices;
-		
 	};
 }
 

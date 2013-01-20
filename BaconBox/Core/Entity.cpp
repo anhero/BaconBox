@@ -1,9 +1,9 @@
 #include "Entity.h"
 
 namespace BaconBox {
-    
-        int Entity::BROADCAST = -1;
-    
+
+	int Entity::BROADCAST = -1;
+
 	Entity::Entity() : name(), components(), children(), parent(NULL) {
 	}
 
@@ -20,7 +20,7 @@ namespace BaconBox {
 			this->name = src.name;
 
 			this->clear();
-			
+
 			this->copyFrom(src);
 		}
 
@@ -30,42 +30,43 @@ namespace BaconBox {
 	Entity *Entity::clone() const {
 		return new Entity(*this);
 	}
-	
-	
-	Component * Entity::getComponent(const std::string &componentName) const {
+
+
+	Component *Entity::getComponent(const std::string &componentName) const {
 		Component *result = NULL;
 		bool notFound = true;
 		std::vector<Component *>::const_iterator i = this->components.begin();
-		
+
 		while (notFound && i != this->components.end()) {
 			if ((*i)->getName() == componentName) {
 				result = (*i);
 				notFound = false;
-			}
-			else{
+
+			} else {
 				i++;
 			}
 		}
-		
+
 		return result;
 	}
-        
-        Component * Entity::getComponent(int id) const {
-            Component *result = NULL;
+
+	Component *Entity::getComponent(int id) const {
+		Component *result = NULL;
 		bool notFound = true;
 		std::vector<Component *>::const_iterator i = this->components.begin();
-		
+
 		while (notFound && i != this->components.end()) {
 			if ((*i)->getID() == id) {
 				result = (*i);
 				notFound = false;
-			}
-			else{
+
+			} else {
 				i++;
 			}
 		}
+
 		return result;
-        }
+	}
 
 	void Entity::sendMessage(int senderID, int destID, int message, void *data) {
 		for (std::vector<Component *>::iterator i = this->components.begin(); i != this->components.end(); ++i) {
@@ -104,7 +105,7 @@ namespace BaconBox {
 	const std::vector<Component *> &Entity::getComponents() const {
 		return components;
 	}
-        
+
 
 	void Entity::addComponent(Component *newComponent) {
 		components.push_back(newComponent);
@@ -190,21 +191,21 @@ namespace BaconBox {
 			delete *i;
 		}
 	}
-	
+
 	void Entity::copyFrom(const Entity &src) {
 		this->components.reserve(src.components.size());
 		this->children.reserve(src.children.size());
-		
+
 		Component *tmpComponent;
-		
+
 		for (std::vector<Component *>::const_iterator i = src.components.begin(); i != src.components.end(); ++i) {
 			tmpComponent = (*i)->clone();
 			tmpComponent->entity = this;
 			this->components.push_back(tmpComponent);
 		}
-		
+
 		Entity *tmpEntity;
-		
+
 		for (std::vector<Entity *>::const_iterator i = src.children.begin(); i != src.children.end(); ++i) {
 			tmpEntity = (*i)->clone();
 			tmpEntity->parent = this;

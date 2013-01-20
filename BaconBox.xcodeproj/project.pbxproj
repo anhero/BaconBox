@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		246274CA16AC8AB4006C7FFF /* MeshDriverRenderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 246274C816AC8AB3006C7FFF /* MeshDriverRenderer.cpp */; };
+		246274CB16AC8AB4006C7FFF /* MeshDriverRenderer.h in Headers */ = {isa = PBXBuildFile; fileRef = 246274C916AC8AB4006C7FFF /* MeshDriverRenderer.h */; };
 		2478740816360C7F006D4A59 /* libSDL2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2478740616360C7F006D4A59 /* libSDL2.a */; };
 		2478740916360C7F006D4A59 /* libSDL2main.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2478740716360C7F006D4A59 /* libSDL2main.a */; };
 		24CD5A9916347EE9001EB407 /* libJsonBox.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 24CD5A9716347EE8001EB407 /* libJsonBox.a */; };
@@ -38,8 +40,6 @@
 		51E5174C1697529200F6D446 /* AxisAlignedBoundingBox.h in Headers */ = {isa = PBXBuildFile; fileRef = 51E516BC1697529200F6D446 /* AxisAlignedBoundingBox.h */; };
 		51E5174D1697529200F6D446 /* Mesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 51E516BE1697529200F6D446 /* Mesh.cpp */; };
 		51E5174E1697529200F6D446 /* Mesh.h in Headers */ = {isa = PBXBuildFile; fileRef = 51E516BF1697529200F6D446 /* Mesh.h */; };
-		51E5174F1697529200F6D446 /* OpenGLMeshRenderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 51E516C11697529200F6D446 /* OpenGLMeshRenderer.cpp */; };
-		51E517501697529200F6D446 /* OpenGLMeshRenderer.h in Headers */ = {isa = PBXBuildFile; fileRef = 51E516C21697529200F6D446 /* OpenGLMeshRenderer.h */; };
 		51E517511697529200F6D446 /* Transform.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 51E516C31697529200F6D446 /* Transform.cpp */; };
 		51E517521697529200F6D446 /* Transform.h in Headers */ = {isa = PBXBuildFile; fileRef = 51E516C41697529200F6D446 /* Transform.h */; };
 		51E517531697529200F6D446 /* Console.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 51E516C51697529200F6D446 /* Console.cpp */; };
@@ -258,6 +258,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		246274C816AC8AB3006C7FFF /* MeshDriverRenderer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MeshDriverRenderer.cpp; sourceTree = "<group>"; };
+		246274C916AC8AB4006C7FFF /* MeshDriverRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeshDriverRenderer.h; sourceTree = "<group>"; };
 		2478740616360C7F006D4A59 /* libSDL2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSDL2.a; path = libraries/Darwin/x86_64/lib/libSDL2.a; sourceTree = "<group>"; };
 		2478740716360C7F006D4A59 /* libSDL2main.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSDL2main.a; path = libraries/Darwin/x86_64/lib/libSDL2main.a; sourceTree = "<group>"; };
 		24CD5A9716347EE8001EB407 /* libJsonBox.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libJsonBox.a; path = libraries/Darwin/x86_64/lib/libJsonBox.a; sourceTree = "<group>"; };
@@ -290,8 +292,6 @@
 		51E516BC1697529200F6D446 /* AxisAlignedBoundingBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AxisAlignedBoundingBox.h; sourceTree = "<group>"; };
 		51E516BE1697529200F6D446 /* Mesh.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Mesh.cpp; sourceTree = "<group>"; };
 		51E516BF1697529200F6D446 /* Mesh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Mesh.h; sourceTree = "<group>"; };
-		51E516C11697529200F6D446 /* OpenGLMeshRenderer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OpenGLMeshRenderer.cpp; sourceTree = "<group>"; };
-		51E516C21697529200F6D446 /* OpenGLMeshRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenGLMeshRenderer.h; sourceTree = "<group>"; };
 		51E516C31697529200F6D446 /* Transform.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Transform.cpp; sourceTree = "<group>"; };
 		51E516C41697529200F6D446 /* Transform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Transform.h; sourceTree = "<group>"; };
 		51E516C51697529200F6D446 /* Console.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Console.cpp; sourceTree = "<group>"; };
@@ -626,22 +626,14 @@
 			children = (
 				51E516BE1697529200F6D446 /* Mesh.cpp */,
 				51E516BF1697529200F6D446 /* Mesh.h */,
-				51E516C01697529200F6D446 /* OpenGL */,
 				51E516C31697529200F6D446 /* Transform.cpp */,
 				51E516C41697529200F6D446 /* Transform.h */,
 				5153CD1F1699282300431A19 /* CameraDriverRenderer.cpp */,
 				5153CD201699282300431A19 /* CameraDriverRenderer.h */,
+				246274C816AC8AB3006C7FFF /* MeshDriverRenderer.cpp */,
+				246274C916AC8AB4006C7FFF /* MeshDriverRenderer.h */,
 			);
 			path = Components;
-			sourceTree = "<group>";
-		};
-		51E516C01697529200F6D446 /* OpenGL */ = {
-			isa = PBXGroup;
-			children = (
-				51E516C11697529200F6D446 /* OpenGLMeshRenderer.cpp */,
-				51E516C21697529200F6D446 /* OpenGLMeshRenderer.h */,
-			);
-			path = OpenGL;
 			sourceTree = "<group>";
 		};
 		51E516C71697529200F6D446 /* Core */ = {
@@ -1060,7 +1052,6 @@
 			files = (
 				51E5174C1697529200F6D446 /* AxisAlignedBoundingBox.h in Headers */,
 				51E5174E1697529200F6D446 /* Mesh.h in Headers */,
-				51E517501697529200F6D446 /* OpenGLMeshRenderer.h in Headers */,
 				51E517521697529200F6D446 /* Transform.h in Headers */,
 				51E517541697529200F6D446 /* Console.h in Headers */,
 				51E517561697529200F6D446 /* Component.h in Headers */,
@@ -1192,6 +1183,7 @@
 				5153CD1E169925E700431A19 /* Camera.h in Headers */,
 				5153CD221699282300431A19 /* CameraDriverRenderer.h in Headers */,
 				51B374D616A4F04D0052740F /* Vector2.h in Headers */,
+				246274CB16AC8AB4006C7FFF /* MeshDriverRenderer.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1248,7 +1240,6 @@
 			files = (
 				51E5174B1697529200F6D446 /* AxisAlignedBoundingBox.cpp in Sources */,
 				51E5174D1697529200F6D446 /* Mesh.cpp in Sources */,
-				51E5174F1697529200F6D446 /* OpenGLMeshRenderer.cpp in Sources */,
 				51E517511697529200F6D446 /* Transform.cpp in Sources */,
 				51E517531697529200F6D446 /* Console.cpp in Sources */,
 				51E517551697529200F6D446 /* Component.cpp in Sources */,
@@ -1348,6 +1339,7 @@
 				5153CD1D169925E700431A19 /* Camera.cpp in Sources */,
 				5153CD211699282300431A19 /* CameraDriverRenderer.cpp in Sources */,
 				51B374D516A4F04D0052740F /* Vector2.cpp in Sources */,
+				246274CA16AC8AB4006C7FFF /* MeshDriverRenderer.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
