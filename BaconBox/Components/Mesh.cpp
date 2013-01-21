@@ -2,6 +2,7 @@
 #include "BaconBox/Core/IDManager.h"
 #include "BaconBox/Components/Transform.h"
 #include "BaconBox/Core/Entity.h"
+#include "BaconBox/Helper/Vector2ChangedData.h"
 
 namespace BaconBox {
 	int Mesh::ID = IDManager::getID();
@@ -38,7 +39,7 @@ namespace BaconBox {
 		if (senderID == Transform::ID && destID == Entity::BROADCAST) {
 			switch (message) {
 			case Transform::MESSAGE_POSITION_CHANGED: {
-				Vector2 newPosition(*reinterpret_cast<Vector2 *>(data));
+				Vector2ChangedData newPosition(*reinterpret_cast<Vector2ChangedData *>(data));
 
 				// TODO: change the vertices' position.
 				break;

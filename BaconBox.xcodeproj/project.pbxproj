@@ -258,6 +258,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		245C1B6616ACD2EB00C74B67 /* Vector2ChangedData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Vector2ChangedData.h; sourceTree = "<group>"; };
+		245C1B6816ACD35B00C74B67 /* ValueChangedData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ValueChangedData.h; sourceTree = "<group>"; };
 		246274C816AC8AB3006C7FFF /* MeshDriverRenderer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MeshDriverRenderer.cpp; sourceTree = "<group>"; };
 		246274C916AC8AB4006C7FFF /* MeshDriverRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeshDriverRenderer.h; sourceTree = "<group>"; };
 		2478740616360C7F006D4A59 /* libSDL2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSDL2.a; path = libraries/Darwin/x86_64/lib/libSDL2.a; sourceTree = "<group>"; };
@@ -706,6 +708,8 @@
 				51E517291697529200F6D446 /* UTFConvert.cpp */,
 				51E5172A1697529200F6D446 /* UTFConvert.h */,
 				51E5172B1697529200F6D446 /* Windows */,
+				245C1B6616ACD2EB00C74B67 /* Vector2ChangedData.h */,
+				245C1B6816ACD35B00C74B67 /* ValueChangedData.h */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
