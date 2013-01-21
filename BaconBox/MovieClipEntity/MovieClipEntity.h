@@ -5,14 +5,13 @@
 #define BB_MOVIECLIPENTITY_H
 
 #include "BaconBox/Core/Entity.h"
-
 #include "BaconBox/PlatformFlagger.h"
 
 #ifdef BB_FLASH_PLATEFORM
-#include "BaconBox/ComponentS/Flash/MovieClipHolder.h"
-#else
-#include "BaconBox/Components/Mesh.h"
+#include <AS3/AS3.h>
+#include <AS3/AS3++.h>
 #endif
+
 namespace BaconBox {
 	/**
 	 * 
@@ -26,9 +25,7 @@ namespace BaconBox {
 #endif
 		
     private:
-#if !defined(BB_FLASH_PLATEFORM)
-		Mesh * mesh;
-#endif
+
 		
 	};
 }
