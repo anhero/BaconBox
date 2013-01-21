@@ -19,23 +19,16 @@ namespace BaconBox {
 	 */
 	class MovieClipEntity : public Entity { 
     public:
-#ifdef BB_FLASH_PLATEFORM
-		MovieClipEntity(AS3::local::var aMC);
-		void setMovieClip(AS3::local::var aMC);
-		
-		void tick();
-#else
-		MovieClipEntity();
-#endif
-		
-
+	MovieClipEntity();
 	
-    private:
-#ifndef BB_FLASH_PLATEFORM
-		Mesh * mesh;
-		
+#ifdef BB_FLASH_PLATEFORM
+		void setMovieClip(AS3::local::var aMC);
 #endif
-		int bob;
+		
+    private:
+#if !defined(BB_FLASH_PLATEFORM)
+		Mesh * mesh;
+#endif
 		
 	};
 }

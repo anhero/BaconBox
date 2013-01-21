@@ -22,8 +22,7 @@
 
 		class MovieClipEntity { 
     	public:
-    		MovieClipEntity(AS3::local::var aMC);
+    		MovieClipEntity();
 			void setMovieClip(AS3::local::var aMC);
-			void tick();
 		};
 	}
