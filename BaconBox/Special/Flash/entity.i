@@ -3,7 +3,7 @@
 
 %{
 	
-	#include "../../MovieClipEntity/MovieClipEntity.h"
+	#include "BaconBox/MovieClipEntity/MovieClipEntity.h"
 	#include <AS3/AS3.h>
 	#include <AS3/AS3++.h>
 
