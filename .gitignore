@@ -52,9 +52,9 @@ libraries/*
 BaconBox/Special/Flash/BaconBox.swc
 BaconBox/Special/Flash/EntityWrapper.as3
 BaconBox/Special/Flash/EntityWrapper.as
-BaconBox/Special/Flash/Entity_wrapper.c
-BaconBox/Special/Flash/Entity_wrapper.cpp
+BaconBox/Special/Flash/EntityWrapper.cpp
 BaconBox/Special/Flash/temp.swc
 dist
 BaconBox/Special/Flash/BaconBox.as
+BaconBox/Special/Flash/BaconBox.as3
 BaconBox/Special/Flash/BaconBox.cpp
