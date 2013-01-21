@@ -15,9 +15,16 @@ namespace BaconBox {
 	class Mesh  : public Component {
     public:
 		static int ID;
+		
 		Mesh();
+		
 		StandardVertexArray &getVertices();
 		
+		/**
+		 * Gets the vertices relative to the entity's position.
+		 * @return Array of vertices with their positions relative to the 
+		 * entity's position.
+		 */
 		const StandardVertexArray getRelativeVertices() const;
 		
 		virtual int getID() const;

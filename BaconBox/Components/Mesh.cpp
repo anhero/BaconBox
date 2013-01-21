@@ -18,15 +18,11 @@ namespace BaconBox {
 		Transform *transform = reinterpret_cast<Transform*>(this->getEntity()->getComponent(Transform::ID));
 		
 		if (transform) {
-			StandardVertexArray result(this->vertices.getNbVertices());
+			StandardVertexArray result(this->vertices);
 			
 			Vector2 position = transform->getPosition();
 			
-			StandardVertexArray::SizeType i = 0;
-			
-			while (i < result.getNbVertices()) {
-				result[i] = this->vertices[i] - position;
-			}
+			result.move(-position.x, -position.y);
 			
 			return result;
 		} else {
