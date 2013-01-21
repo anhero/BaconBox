@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configurationDescriptor version="84">
   <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
-    <logicalFolder name="MainTest" displayName="MainTest" projectFiles="true">
-      <itemPath>C:/Workspace/EntityBB/Test/MainTest/main.cpp</itemPath>
+    <logicalFolder name="Main" displayName="Main" projectFiles="true">
+      <itemPath>../../../Main/Main-Info.plist</itemPath>
+      <itemPath>../../../Main/Main-Prefix.pch</itemPath>
+      <itemPath>../../../Main/PlayState.cpp</itemPath>
+      <itemPath>../../../Main/PlayState.h</itemPath>
+      <itemPath>../../../Main/main.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
                    displayName="Test Files"
@@ -17,7 +21,7 @@
     </logicalFolder>
   </logicalFolder>
   <sourceRootList>
-    <Elem>../../../MainTest</Elem>
+    <Elem>../../../Main</Elem>
   </sourceRootList>
   <projectmakefile>Makefile</projectmakefile>
   <confs>

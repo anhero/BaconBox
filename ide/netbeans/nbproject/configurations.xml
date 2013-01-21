@@ -38,14 +38,12 @@
         <itemPath>../../BaconBox/Audio/SoundParameters.h</itemPath>
       </logicalFolder>
       <logicalFolder name="Components" displayName="Components" projectFiles="true">
-        <logicalFolder name="OpenGL" displayName="OpenGL" projectFiles="true">
-          <itemPath>../../BaconBox/Components/OpenGL/OpenGLMeshRenderer.cpp</itemPath>
-          <itemPath>../../BaconBox/Components/OpenGL/OpenGLMeshRenderer.h</itemPath>
-        </logicalFolder>
         <itemPath>../../BaconBox/Components/CameraDriverRenderer.cpp</itemPath>
         <itemPath>../../BaconBox/Components/CameraDriverRenderer.h</itemPath>
         <itemPath>../../BaconBox/Components/Mesh.cpp</itemPath>
         <itemPath>../../BaconBox/Components/Mesh.h</itemPath>
+        <itemPath>../../BaconBox/Components/MeshDriverRenderer.cpp</itemPath>
+        <itemPath>../../BaconBox/Components/MeshDriverRenderer.h</itemPath>
         <itemPath>../../BaconBox/Components/Transform.cpp</itemPath>
         <itemPath>../../BaconBox/Components/Transform.h</itemPath>
       </logicalFolder>
