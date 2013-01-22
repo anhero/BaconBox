@@ -6,7 +6,8 @@
 
 #include "../../Core/Component.h"
 
-
+#include <AS3/AS3.h>
+#include <AS3/AS3++.h>
 
 namespace BaconBox {
 	/**
