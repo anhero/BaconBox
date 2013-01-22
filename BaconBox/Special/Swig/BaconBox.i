@@ -44,7 +44,18 @@
 
 %include "BaconBox/Core/Entity.h"
 
-%include "BaconBox/Vector2.h"
+//%include "BaconBox/Vector2.h"
+
+namespace BaconBox{
+	class Vector2{
+		public:
+		Vector2();
+
+		float x;
+		float y;
+	};
+}
+
 
 %include "BaconBox/Components/Transform.h"
 
