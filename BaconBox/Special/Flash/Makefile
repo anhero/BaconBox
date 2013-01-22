@@ -203,7 +203,7 @@ endif
 
 $(addsuffix .as3,$(SWIG_OUTPUT)) $(addsuffix .cpp,$(SWIG_OUTPUT)): $(BUILD_PATH)/build $(SWIG_INTERFACE)
 	@echo "-------- SWIG wrappers --------"
-	"$(FLASCC)/usr/bin/swig" -as3 -c++ -module $(SWIG_MODULE) -outdir . -ignoremissing -I$(PROJECT_ROOT) -DBB_FLASH_PLATEFORM -o $(addsuffix .cpp,$(SWIG_OUTPUT)) $(SWIG_INTERFACE)
+	"$(FLASCC)/usr/bin/swig" -as3 -c++ -module $(SWIG_MODULE) -outdir . -ignoremissing -package BaconBox -I$(PROJECT_ROOT) -DBB_FLASH_PLATEFORM -o $(addsuffix .cpp,$(SWIG_OUTPUT)) $(SWIG_INTERFACE)
 #	cp Entity_wrapper.cpp $(BUILD_PATH)/BaconBox/Special/Flash/
 	mv $(addsuffix .as,$(SWIG_OUTPUT)) $(addsuffix .as3,$(SWIG_OUTPUT))
 

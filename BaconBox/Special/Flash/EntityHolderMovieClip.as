@@ -1,6 +1,6 @@
 package {
 import flash.display.MovieClip;
-import MovieClipEntity;
+import BaconBox.MovieClipEntity;
 
 public class EntityHolderMovieClip  extends MovieClip {
 	private var _entity:MovieClipEntity;
