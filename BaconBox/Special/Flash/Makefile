@@ -250,7 +250,7 @@ check:
 	fi
 
 clean:
-	rm -rf *_wrapper.cpp *_wrapper.c *.swf *.swc *.as3 *.abc *.o $(BUILD_PATH) 
+	rm -rf EntityWrapper.cpp BaconBox.cpp EntityWrapper.c *.swf *.swc *.as3 *.abc *.o $(BUILD_PATH) 
 #$(addprefix $(PROJECT_ROOT)/, $(BUILD_PATH), $(ALL_SOURCES))
 
 
