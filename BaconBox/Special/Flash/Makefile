@@ -4,17 +4,25 @@ BUILD_PATH=$(PROJECT_ROOT)/build
 CXX="$(FLASCC)/usr/bin/g++"
 
 AS3COMPILER:=asc2.jar
-BASE_CFLAGS=-Werror -Wno-write-strings -Wno-trigraphs -DTIXML_USE_STL -DTINYXML_USE_STL
+BASE_CFLAGS=-Werror -Wno-write-strings -Wno-trigraphs
+DEFINE_FLAG=-DTIXML_USE_STL -DTINYXML_USE_STL
 PROJECT_ROOT=../../..
 CUSTOM_LIB_PATH=$(wildcard $(PROJECT_ROOT)/libraries/FreeBSD/i686 $(PROJECT_ROOT)/libraries/FreeBSD/x86_64)
 LINK_FLAG=-lpng -lz -lAS3++ -lJsonBox -ltinyxml -lfreetype
 
 
 
+ifdef lua
+partialSwig=1
+LINK_FLAG += -llua
+DEFINE_FLAG+= -DBB_LUA
+endif
+
+
 ifdef partialSwig
-SWIG_INTERFACE=entity.i
-SWIG_OUTPUT=EntityWrapper
-SWIG_MODULE=EntityWrapper
+SWIG_INTERFACE=BaconBoxAS3.i
+SWIG_OUTPUT=BaconBoxAS3
+SWIG_MODULE=BaconBoxAS3
 else
 SWIG_INTERFACE=../Swig/BaconBox.i
 SWIG_OUTPUT=BaconBox
@@ -133,6 +141,9 @@ FLASCC_SOURCES = \
 BaconBox/Special/Flash/$(addsuffix .o,$(SWIG_OUTPUT)) \
 BaconBox/Special/Flash/main.o
 
+SCRIPT_SOURCES = \
+BaconBox/Script/Lua/LuaManager.o
+
 
 ALL_SOURCES= \
 $(AUDIO_SOURCES) \
@@ -143,6 +154,7 @@ $(HELPER_SOURCES) \
 $(INPUT_SOURCES) \
 $(MOVIECLIP_SOURCES) \
 $(SIGNALSLOTS_SOURCES) \
+$(SCRIPT_SOURCES) \
 BaconBox/AxisAlignedBoundingBox.o \
 BaconBox/Console.o \
 BaconBox/ResourceManager.o \
@@ -151,12 +163,6 @@ BaconBox/Vector2.o \
 BaconBox/VertexArray.o
 
 FLASCC_FILE_PATH=BaconBox/Special/Flash
-
-
-
-
-
-
 
 
 
@@ -174,14 +180,14 @@ swf: check $(BUILD_PATH)/BaconBox.swf
 $(BUILD_PATH)/BaconBox.swf: $(addsuffix .abc,$(SWIG_OUTPUT)) EntityHolderMovieClip.abc $(addprefix $(BUILD_PATH)/,$(ALL_SOURCES)) $(addprefix $(BUILD_PATH)/,$(FLASCC_SOURCES))
 
 	@echo "-------- BaconBox.swf--------"
-	"$(FLASCC)/usr/bin/g++" $(BASE_CFLAGS) -I$(PROJECT_ROOT) -I$(CUSTOM_LIB_PATH)/include -DBB_FLASH_PLATEFORM $(addsuffix .abc,$(SWIG_OUTPUT)) EntityHolderMovieClip.abc \
+	"$(FLASCC)/usr/bin/g++" $(BASE_CFLAGS) $(DEFINE_FLAG) -I$(PROJECT_ROOT) -I$(CUSTOM_LIB_PATH)/include $(addsuffix .abc,$(SWIG_OUTPUT)) EntityHolderMovieClip.abc \
 	$(addprefix $(BUILD_PATH)/, $(ALL_SOURCES)) $(addprefix $(BUILD_PATH)/, $(FLASCC_SOURCES)) -emit-swf -o $(BUILD_PATH)/BaconBox.swf \
 	-L$(CUSTOM_LIB_PATH)/lib $(LINK_FLAG)
 
 $(BUILD_PATH)/BaconBox.swc: $(addsuffix .abc,$(SWIG_OUTPUT)) EntityHolderMovieClip.abc $(addprefix $(BUILD_PATH)/,$(ALL_SOURCES)) $(addprefix $(BUILD_PATH)/,$(FLASCC_SOURCES))
 
 	@echo "-------- BaconBox.swc --------"
-	"$(FLASCC)/usr/bin/g++" $(BASE_CFLAGS) -I$(PROJECT_ROOT) -I$(CUSTOM_LIB_PATH)/include -DBB_FLASH_PLATEFORM $(addsuffix .abc,$(SWIG_OUTPUT)) EntityHolderMovieClip.abc \
+	"$(FLASCC)/usr/bin/g++" $(BASE_CFLAGS) $(DEFINE_FLAG) -I$(PROJECT_ROOT) -I$(CUSTOM_LIB_PATH)/include $(addsuffix .abc,$(SWIG_OUTPUT)) EntityHolderMovieClip.abc \
 	$(addprefix $(BUILD_PATH)/, $(ALL_SOURCES)) $(addprefix $(BUILD_PATH)/, $(FLASCC_SOURCES)) -emit-swc=BaconBox -o $(BUILD_PATH)/BaconBox.swc \
 	-L$(CUSTOM_LIB_PATH)/lib $(LINK_FLAG)
 
@@ -203,7 +209,7 @@ endif
 
 $(addsuffix .as3,$(SWIG_OUTPUT)) $(addsuffix .cpp,$(SWIG_OUTPUT)): $(BUILD_PATH)/build $(SWIG_INTERFACE)
 	@echo "-------- SWIG wrappers --------"
-	"$(FLASCC)/usr/bin/swig" -as3 -c++ -module $(SWIG_MODULE) -outdir . -ignoremissing -package BaconBox -I$(PROJECT_ROOT) -DBB_FLASH_PLATEFORM -o $(addsuffix .cpp,$(SWIG_OUTPUT)) $(SWIG_INTERFACE)
+	"$(FLASCC)/usr/bin/swig" -as3 -c++ -module $(SWIG_MODULE) -outdir . -ignoremissing $(DEFINE_FLAG) -DBB_FLASH_PLATEFORM -package BaconBox -I$(PROJECT_ROOT) -o $(addsuffix .cpp,$(SWIG_OUTPUT)) $(SWIG_INTERFACE)
 #	cp Entity_wrapper.cpp $(BUILD_PATH)/BaconBox/Special/Flash/
 	mv $(addsuffix .as,$(SWIG_OUTPUT)) $(addsuffix .as3,$(SWIG_OUTPUT))
 
@@ -226,11 +232,11 @@ EntityHolderMovieClip.abc: $(addsuffix .abc,$(SWIG_OUTPUT)) EntityHolderMovieCli
 
 $(BUILD_PATH)/%.o: %.c
 	@echo "-------- BUILD C FILE--------"
-	$(CXX) $< -c $(BASE_CFLAGS) -I$(PROJECT_ROOT) -I$(CUSTOM_LIB_PATH)/include -o $@
+	$(CXX) $< -c $(BASE_CFLAGS) $(DEFINE_FLAG) -I$(PROJECT_ROOT) -I$(CUSTOM_LIB_PATH)/include -o $@
 
 $(BUILD_PATH)/%.o: %.cpp
 	@echo "-------- BUILD CPP FILE--------"
-	$(CXX) $< -c $(BASE_CFLAGS) -I$(PROJECT_ROOT) -I$(CUSTOM_LIB_PATH)/include -o $@
+	$(CXX) $< -c $(BASE_CFLAGS) $(DEFINE_FLAG) -I$(PROJECT_ROOT) -I$(CUSTOM_LIB_PATH)/include -o $@
 
 $(BUILD_PATH)/build: $(PROJECT_ROOT)/BaconBox
 	mkdir $(BUILD_PATH)
@@ -250,8 +256,7 @@ check:
 	fi
 
 clean:
-	rm -rf EntityWrapper.cpp BaconBox.cpp EntityWrapper.c *.swf *.swc *.as3 *.abc *.o $(BUILD_PATH) 
-#$(addprefix $(PROJECT_ROOT)/, $(BUILD_PATH), $(ALL_SOURCES))
+	rm -rf $(addsuffix .cpp,$(SWIG_OUTPUT)) *.swf *.swc *.as3 *.abc *.o $(BUILD_PATH) 
 
 
 
