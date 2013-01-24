@@ -1,5 +1,8 @@
 #include "BaconBox/Script/Lua/LuaManager.h"
 #include <iostream>
+
+extern "C" int luaopen_BaconBox(lua_State* L); 
+
 namespace BaconBox {
 	LuaManager::LuaManager(){
 		L=luaL_newstate();
@@ -8,6 +11,7 @@ namespace BaconBox {
         luaopen_io(L);
         luaopen_string(L);
         luaopen_math(L);
+	luaopen_BaconBox(L);
 	}
 	
 	void LuaManager::doString(const std::string & string){
