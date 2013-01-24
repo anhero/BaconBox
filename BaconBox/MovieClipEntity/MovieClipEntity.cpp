@@ -20,7 +20,7 @@ namespace BaconBox {
 
 		#else
 		
-		    mesh  = new Mesh();
+		    Mesh *mesh  = new Mesh();
 		    mesh->getVertices().resize(4);
 		    addComponent(mesh);
 		    this->addComponent(new MeshDriverRenderer());
