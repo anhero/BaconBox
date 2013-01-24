@@ -154,7 +154,6 @@ $(HELPER_SOURCES) \
 $(INPUT_SOURCES) \
 $(MOVIECLIP_SOURCES) \
 $(SIGNALSLOTS_SOURCES) \
-$(SCRIPT_SOURCES) \
 BaconBox/AxisAlignedBoundingBox.o \
 BaconBox/Console.o \
 BaconBox/ResourceManager.o \
@@ -164,7 +163,9 @@ BaconBox/VertexArray.o
 
 FLASCC_FILE_PATH=BaconBox/Special/Flash
 
-
+ifdef lua
+ALL_SOURCES+= $(SCRIPT_SOURCES)
+endif
 
 
 all: check $(BUILD_PATH)/BaconBox.swc
