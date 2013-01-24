@@ -2,10 +2,11 @@
 %module BaconBox
 
 %{
-	
+	#include "BaconBox/PlatformFlagger.h"
 	#ifdef BB_FLASH_PLATEFORM
 	#include <AS3/AS3.h>
 	#include <AS3/AS3++.h>
+	#include "BaconBox/Components/Flash/MovieClipHolder.h" 
 	#endif
 
 
@@ -14,11 +15,12 @@
 
 	#include "BaconBox/Vector2.h"
 	#include "BaconBox/Components/Transform.h"
-	#include "BaconBox/Components/Flash/MovieClipHolder.h" 
 
 	#include "BaconBox/MovieClipEntity/MovieClipEntity.h"
 
 %}
+
+
 
 #ifdef BB_FLASH_PLATEFORM
 
@@ -37,6 +39,9 @@
 %ignore Component(const Component &src);
 %ignore Entity(const Entity &src);
 %ignore Transform(const Transform &src);
+
+%include "BaconBox/Components/Flash/MovieClipHolder.h"
+
 #endif
 
 
@@ -50,6 +55,9 @@ namespace BaconBox{
 	class Vector2{
 		public:
 		Vector2();
+		#if defined(BB_LUA)
+		Vector2(float x, float y);
+		#endif
 
 		float x;
 		float y;
@@ -58,9 +66,6 @@ namespace BaconBox{
 
 
 %include "BaconBox/Components/Transform.h"
-
-
-%include "BaconBox/Components/Flash/MovieClipHolder.h"
 
 
 %include "BaconBox/MovieClipEntity/MovieClipEntity.h"
