@@ -46,6 +46,7 @@ Release
 .svn
 
 *.abc
+*.o
 
 libraries/*
 !libraries/*.desc
@@ -58,3 +59,4 @@ dist
 BaconBox/Special/Flash/BaconBox.as
 BaconBox/Special/Flash/BaconBox.as3
 BaconBox/Special/Flash/BaconBox.cpp
+BaconBoxLua.cpp
