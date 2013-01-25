@@ -163,6 +163,7 @@ BaconBox/Console.o \
 BaconBox/ResourceManager.o \
 BaconBox/StandardVertexArray.o \
 BaconBox/Vector2.o \
+BaconBox/EntityFactory.o \
 BaconBox/VertexArray.o
 
 FLASCC_FILE_PATH=BaconBox/Special/Flash
