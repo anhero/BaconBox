@@ -22,6 +22,9 @@
 
 %}
 
+#if defined(BB_LUA)
+		%include "std_string.i"
+#endif
 
 
 #ifdef BB_FLASH_PLATEFORM
@@ -32,6 +35,7 @@
 %typemap(in) (AS3::local::var aMC) {
 	AS3_GetVarxxFromVar($1, $input);
 }
+
 
 
 %rename("getComponentByID") getComponent(int) const;
@@ -51,6 +55,7 @@
 %include "BaconBox/Core/Entity.h"
 
 //%include "BaconBox/Vector2.h"
+
 
 namespace BaconBox{
 	class Vector2{
