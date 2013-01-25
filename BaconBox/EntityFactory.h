@@ -7,7 +7,7 @@ namespace BaconBox {
 	class EntityFactory {
 	public:
 	    EntityFactory();
-	    Entity * getEntity(std::string & key);
+	    Entity * getEntity(const std::string & key);
 	private:
 		
 	};
