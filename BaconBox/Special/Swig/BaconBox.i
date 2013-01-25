@@ -17,6 +17,8 @@
 	#include "BaconBox/Components/Transform.h"
 
 	#include "BaconBox/MovieClipEntity/MovieClipEntity.h"
+	#include "BaconBox/EntityFactory.h"
+
 
 %}
 
@@ -40,7 +42,6 @@
 %ignore Entity(const Entity &src);
 %ignore Transform(const Transform &src);
 
-%include "BaconBox/Components/Flash/MovieClipHolder.h"
 
 #endif
 
@@ -67,7 +68,10 @@ namespace BaconBox{
 
 %include "BaconBox/Components/Transform.h"
 
-
 %include "BaconBox/MovieClipEntity/MovieClipEntity.h"
 
+%include "BaconBox/EntityFactory.h" 
 
+#ifdef BB_FLASH_PLATEFORM
+%include "BaconBox/Components/Flash/MovieClipHolder.h"
+#endif
