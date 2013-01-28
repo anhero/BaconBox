@@ -26,7 +26,7 @@ namespace BaconBox {
 		AS3::local::var getProperty(const std::string & propertyName);
 
 
-		AS3::local::var callFunction(const std::string & functionName, int argCount, AS3::local::var *args);
+		AS3::local::var callMethod(const std::string & functionName, int argCount, AS3::local::var *args);
 
 		virtual void receiveMessage(int senderID, int destID, int message, void *data);
 		
