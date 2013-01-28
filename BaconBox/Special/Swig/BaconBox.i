@@ -2,7 +2,7 @@
 %module BaconBox
 
 #if defined(BB_LUA)
-	%native(cast) int cast(lua_State*L);
+	%native(cast) int luacast(lua_State*L);
 #endif
 
 %{
@@ -34,7 +34,7 @@
 		return NULL;
 	}
 
-	int cast(lua_State*L){
+	int luacast(lua_State*L){
 		void * myDataPtr;
         void ** ptrToPtr = &myDataPtr;
 
@@ -66,6 +66,8 @@
 
 
 %}
+
+
 
 #if defined(BB_LUA)
 		%include "std_string.i"
