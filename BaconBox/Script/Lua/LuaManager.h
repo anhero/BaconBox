@@ -5,8 +5,9 @@
 #ifndef BB_LUA_MANAGER_H
 #define BB_LUA_MANAGER_H
 
-	#include "lua.hpp"
  	#include <string>
+
+struct lua_State;
 
 namespace BaconBox {
 
