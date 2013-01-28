@@ -76,7 +76,9 @@ BaconBox/Display/Text/Font.o \
 BaconBox/Display/Text/GlyphInformation.o \
 BaconBox/Display/Text/FreetypeImplementation/FontImplementation.o \
 BaconBox/Display/Window/MainWindow.o \
-BaconBox/Display/Window/NullMainWindow.o
+BaconBox/Display/Window/NullMainWindow.o \
+BaconBox/Display/Window/Flash/FlashMainWindow.o
+
 
 HELPER_SOURCES= \
 BaconBox/Helper/Base64.o \
@@ -102,7 +104,8 @@ BaconBox/Helper/Serialization/Serializable.o \
 BaconBox/Helper/Serialization/Serializer.o \
 BaconBox/Helper/Serialization/Value.o \
 BaconBox/Helper/Serialization/JsonBox/JsonBoxSerializer.o \
-BaconBox/Helper/Serialization/TinyXML/TinyXMLSerializer.o
+BaconBox/Helper/Serialization/TinyXML/TinyXMLSerializer.o \
+BaconBox/Helper/Flash/FlashHelper.o
 
 INPUT_SOURCES= \
 BaconBox/Input/InputDevice.o \
