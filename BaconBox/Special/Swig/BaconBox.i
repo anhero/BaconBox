@@ -68,6 +68,10 @@ end
 
 	#include "BaconBox/MovieClipEntity/MovieClipEntity.h"
 	#include "BaconBox/EntityFactory.h"
+  #include "BaconBox/Core/State.h"
+
+  #include "BaconBox/Core/Engine.h"
+
 
 #if defined(BB_LUA)
 	swig_type_info * getTypeByName(lua_State* L, const char * name){
@@ -110,6 +114,9 @@ end
         return 1;
 	}
 	#endif
+
+
+
 
 
 %}
@@ -175,3 +182,5 @@ namespace BaconBox{
 #ifdef BB_FLASH_PLATEFORM
 %include "BaconBox/Components/Flash/MovieClipHolder.h"
 #endif
+%include "BaconBox/Core/State.h"
+%include "BaconBox/Core/Engine.h"
