@@ -15,7 +15,7 @@ namespace BaconBox {
 	 * @ingroup WindowDisplay
 	 */
 	class SDLMainWindow : public MainWindow {
-		friend class Engine;
+		friend class BaseEngine;
 	public:
 		/**
 		 * Method called when the engine is initialized.

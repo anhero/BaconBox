@@ -29,7 +29,7 @@ namespace BaconBox {
 	 * @ingroup Audio
 	 */
 	class ResourceManager {
-		friend class Engine;
+		friend class BaseEngine;
 	public:
 		/**
 		 * Add a texture already loaded as a pixmap into the graphic memory and

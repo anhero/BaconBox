@@ -18,7 +18,7 @@ namespace BaconBox {
 	 * manages the Layerable objects. Ex: the PlayState, the MenuState.
 	 */
 	class State {
-		friend class Engine;
+		friend class BaseEngine;
 	public:
 		/**
 		 * Default name given to states initialized with the default

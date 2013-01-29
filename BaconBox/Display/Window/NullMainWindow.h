@@ -11,7 +11,7 @@
 namespace BaconBox {
 	
 	class NullMainWindow : public MainWindow {
-		friend class Engine;
+		friend class BaseEngine;
 	public:
 		/**
 		 * Method called when the engine is initialized.

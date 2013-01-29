@@ -18,7 +18,7 @@ namespace BaconBox {
 	 * @ingroup WindowDisplay
 	 */
 	class MainWindow : public sigly::HasSlots<> {
-		friend class Engine;
+		friend class BaseEngine;
 	public:
 		/// Default name given to all new main windows.
 		static const std::string DEFAULT_NAME;
