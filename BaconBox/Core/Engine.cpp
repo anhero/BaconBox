@@ -22,6 +22,11 @@ namespace BaconBox {
 		return getInstance().playState(name);
 	}
 	
+	
+	State *Engine::getState(const std::string &name){
+		return getInstance().getState(name);
+	}
+	
 	State *Engine::getCurrentState() {
 		return getInstance().getCurrentState();
 	}

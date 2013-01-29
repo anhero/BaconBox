@@ -31,6 +31,8 @@ namespace BaconBox {
 		
 		virtual State *getCurrentState();
 		
+		virtual State *getState(const std::string &name);
+
 		virtual unsigned int getMinFps();
 		
 		virtual double getUpdatesPerSecond();

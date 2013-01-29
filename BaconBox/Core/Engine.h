@@ -55,6 +55,9 @@ namespace BaconBox {
 		 */
 		static State *addState(State *newState);
 		
+		
+		static State *getState(const std::string &name);
+		
 		/**
 		 * Removes a state from the engine.
 		 * @param name Name of the state to remove from the engine.

@@ -53,6 +53,12 @@ namespace BaconBox {
 		return newState;
 	}
 	
+	State *BaseEngine:: getState(const std::string &name){
+	    std::map<std::string, State *>::iterator i = this->states.find(name);
+	    return i->second;
+	}
+
+	
 	void BaseEngine::removeState(const std::string &name) {
 		std::map<std::string, State *>::iterator toDelete = this->states.find(name);
 		
