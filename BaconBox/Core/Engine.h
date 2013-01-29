@@ -3,14 +3,18 @@
  * @ingroup StateMachine
  */
 
-#ifndef BB_RED_BOX_ENGINE_H
-#define BB_RED_BOX_ENGINE_H
+#ifndef BB_ENGINE_H
+#define BB_ENGINE_H
 
 #include <map>
 #include <string>
 #include <sigly.h>
+#include "BaconBox/PlatformFlagger.h"
 
 #include "BaconBox/Core/State.h"
+
+#include BB_ENGINE_INCLUDE
+
 namespace BaconBox {
 	class MainWindow;
 	class GraphicDriver;
@@ -210,83 +214,8 @@ namespace BaconBox {
 		 * Gets the engine singleton instance.
 		 * @return Reference to the engine's singleton.
 		 */
-		static Engine &getInstance();
+		static BB_ENGINE_IMPL &getInstance();
 		
-		/// A copy of argc
-		static int argc;
-		
-		/// A copy of argv
-		static char **argv;
-		
-		/**
-		 * Default constructor.
-		 */
-		Engine();
-		
-		/**
-		 * Destructor.
-		 */
-		~Engine();
-		
-		/// Map of states in the engine.
-		std::map<std::string, State *> states;
-		
-		/// Pointer to the current state being played.
-		State *currentState;
-		
-		/// Pointer to the next state.
-		State *nextState;
-		
-		/// Time at which the last update was called on the current state.
-		double lastUpdate;
-		
-		/// Time at which the last render was called on the current state.
-		double lastRender;
-		
-		/// Internal update count between each render.
-		unsigned int loops;
-		
-		/// Time at which the next update can be called.
-		double nextUpdate;
-		
-		/// Delay between each update called on the current state.
-		double updateDelay;
-		
-		/// Minimum renders that can be skipped between updates.
-		unsigned int minFps;
-		
-		/// Flag to set when the buffer needs to be swapped.
-		bool bufferSwapped;
-		
-		/// Flag to set when the application needs to exit.
-		bool needsExit;
-		
-		/// Exit code to use when exiting the application
-		int tmpExitCode;
-		
-		/**
-		 * Flag used to limit rendering so it doesn't render more times than
-		 * it updates.
-		 */
-		bool renderedSinceLastUpdate;
-		
-		/// Path to the current application binary.
-		std::string applicationPath;
-		
-		/// Name of the application.
-		std::string applicationName;
-		
-		/// Pointer to the main window.
-		MainWindow *mainWindow;
-		
-		/// Pointer to the graphic driver.
-		GraphicDriver *graphicDriver;
-		
-		/// Pointer to the sound engine instance.
-		SoundEngine *soundEngine;
-		
-		/// Pointer to the music engine instance.
-		MusicEngine *musicEngine;
 	};
 }
 
