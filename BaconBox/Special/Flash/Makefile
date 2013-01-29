@@ -250,11 +250,11 @@ $(addprefix $(PROJECT_ROOT)/,$(LUA_SWIG_SOURCES)): $(PROJECT_ROOT)/BaconBox/Spec
 
 %.o: %.c
 	@echo "-------- BUILD C FILE--------"
-	$(CXX) $< -c $(BASE_CFLAGS) $(DEFINE_FLAG) -I$(PROJECT_ROOT) -I$(CUSTOM_LIB_PATH)/include -o $@
+	$(CXX) $< -c $(BASE_CFLAGS) -emit-swf $(DEFINE_FLAG) -I$(PROJECT_ROOT) -I$(CUSTOM_LIB_PATH)/include -o $@
 
 %.o: %.cpp
 	@echo "-------- BUILD CPP FILE--------"
-	$(CXX) $< -c $(BASE_CFLAGS) $(DEFINE_FLAG) -I$(PROJECT_ROOT) -I$(CUSTOM_LIB_PATH)/include -o $@
+	$(CXX) $< -c $(BASE_CFLAGS) -emit-swf $(DEFINE_FLAG) -I$(PROJECT_ROOT) -I$(CUSTOM_LIB_PATH)/include -o $@
 
 $(BUILD_PATH)/build:
 	@echo "-------- creating build path --------"
