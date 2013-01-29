@@ -14,7 +14,7 @@ namespace BaconBox {
 
 	
 	class FlashMainWindow : public MainWindow {
-		friend class Engine;
+		friend class BaseEngine;
 	public:
 
 
@@ -54,8 +54,6 @@ namespace BaconBox {
 		void setContextSize(float newContextWidth,
 		                    float newContextHeight);
 	private:
-
-		AS3::local::var stage;
 
 		FlashMainWindow();
 
