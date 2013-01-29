@@ -63,7 +63,9 @@ BaconBox/Core/Component.o \
 BaconBox/Core/Engine.o \
 BaconBox/Core/Entity.o \
 BaconBox/Core/IDManager.o \
-BaconBox/Core/State.o
+BaconBox/Core/State.o \
+BaconBox/Core/BaseEngine.o \
+BaconBox/Core/Flash/FlashEngine.o
 
 DISPLAY_SOURCES= \
 BaconBox/Display/Camera.o \
