@@ -4,9 +4,10 @@
 #ifdef BB_FLASH_PLATEFORM	
 	#include <AS3/AS3.h>
 	#include <AS3/AS3++.h>
+	#include "BaconBox/Helper/Flash/FlashHelper.h"
+
 #endif	
 
-#include "BaconBox/Helper/Flash/FlashHelper.h"
 
 
 namespace BaconBox {
