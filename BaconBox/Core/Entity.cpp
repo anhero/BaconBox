@@ -1,13 +1,13 @@
 #include "Entity.h"
 
 namespace BaconBox {
+	int Entity::ID = IDManager::getID();
+	int Entity::BROADCAST = IDManager::getID();
 
-	int Entity::BROADCAST = -1;
-
-	Entity::Entity() : name(), components(), children(), parent(NULL) {
+	Entity::Entity() : name(), components(), parent(NULL) {
 	}
 
-	Entity::Entity(const Entity &src) : name(src.name), components(), children(), parent(NULL) {
+	Entity::Entity(const Entity &src) : name(src.name), components(), parent(NULL) {
 		this->copyFrom(src);
 	}
 
@@ -78,18 +78,10 @@ namespace BaconBox {
 		for (std::vector<Component *>::iterator i = this->components.begin(); i != this->components.end(); ++i) {
 			(*i)->update();
 		}
-
-		for (std::vector<Entity *>::iterator i = this->children.begin(); i != this->children.end(); ++i) {
-			(*i)->update();
-		}
 	}
 
 	void Entity::render() {
 		for (std::vector<Component *>::iterator i = this->components.begin(); i != this->components.end(); ++i) {
-			(*i)->render();
-		}
-
-		for (std::vector<Entity *>::iterator i = this->children.begin(); i != this->children.end(); ++i) {
 			(*i)->render();
 		}
 	}
@@ -146,55 +138,20 @@ namespace BaconBox {
 		}
 	}
 
-	const std::vector<Entity *> &Entity::getChildren() const {
-		return this->children;
-	}
-
-	void Entity::addChild(Entity *newChild) {
-		this->children.push_back(newChild);
-		newChild->parent = this;
-	}
-
-	void Entity::removeChildAt(std::vector<Entity *>::size_type index) {
-		this->children[index]->parent = NULL;
-		this->children.erase(this->children.begin() + index);
-	}
-
-	void Entity::removeChild(Entity *child) {
-		std::vector<Entity *>::iterator i = this->children.begin();
-
-		while (i != this->children.end()) {
-			if (*i == child) {
-				(*i)->parent = NULL;
-				this->children.erase(i);
-
-				return;
-
-			} else {
-				++i;
-			}
-		}
-	}
 
 	void Entity::clear() {
 		free();
 		this->components.clear();
-		this->children.clear();
 	}
 
 	void Entity::free() {
 		for (std::vector<Component *>::iterator i = this->components.begin(); i != this->components.end(); ++i) {
 			delete *i;
 		}
-
-		for (std::vector<Entity *>::iterator i = this->children.begin(); i != this->children.end(); ++i) {
-			delete *i;
-		}
 	}
 
 	void Entity::copyFrom(const Entity &src) {
 		this->components.reserve(src.components.size());
-		this->children.reserve(src.children.size());
 
 		Component *tmpComponent;
 
@@ -202,14 +159,6 @@ namespace BaconBox {
 			tmpComponent = (*i)->clone();
 			tmpComponent->entity = this;
 			this->components.push_back(tmpComponent);
-		}
-
-		Entity *tmpEntity;
-
-		for (std::vector<Entity *>::const_iterator i = src.children.begin(); i != src.children.end(); ++i) {
-			tmpEntity = (*i)->clone();
-			tmpEntity->parent = this;
-			this->children.push_back(tmpEntity);
 		}
 	}
 }
