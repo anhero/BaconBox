@@ -2,7 +2,12 @@
 
 #include "BaconBox/Display/Camera.h"
 #include "BaconBox/Components/EntityManager.h"
+#include "BaconBox/Core/IDManager.h"
+#include "BaconBox/PlatformFlagger.h"
 
+#ifdef BB_FLASH_PLATEFORM
+#include "BaconBox/Components/Flash/FlashEntityManager.h"
+#endif
 namespace BaconBox {
 	const std::string State::DEFAULT_NAME = "State";
 	const int State::MESSAGE_ADDED_ENTITY = IDManager::getID();
@@ -12,10 +17,14 @@ namespace BaconBox {
 	int State::ID = IDManager::getID();
 
 
-	State::State(const std::string &newName) : setName(newName), camera(new Camera()) {
+	State::State(const std::string &newName) : camera(new Camera()) {
 		this->add(this->camera);
-		
+		setName(newName);
 		addComponent(new EntityManager());
+		
+		#ifdef BB_FLASH_PLATEFORM
+		addComponent(new FlashEntityManager());
+		#endif
 	}
 
 	State::~State() {
