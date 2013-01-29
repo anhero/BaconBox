@@ -56,7 +56,10 @@ COMPONENTS_SOURCES = \
 BaconBox/Components/CameraDriverRenderer.o \
 BaconBox/Components/Mesh.o \
 BaconBox/Components/Transform.o \
-BaconBox/Components/Flash/MovieClipHolder.o
+BaconBox/Components/EntityManager.o \
+BaconBox/Components/Flash/MovieClipHolder.o \
+BaconBox/Components/Flash/FlashEntityManager.o
+
 
 CORE_SOURCES= \
 BaconBox/Core/Component.o \
