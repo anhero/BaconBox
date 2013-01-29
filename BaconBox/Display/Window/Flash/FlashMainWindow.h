@@ -55,7 +55,7 @@ namespace BaconBox {
 		                    float newContextHeight);
 	private:
 
-		AS3::ui::var stage;
+		AS3::local::var stage;
 
 		FlashMainWindow();
 
