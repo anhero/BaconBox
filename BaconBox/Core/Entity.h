@@ -15,6 +15,7 @@ namespace BaconBox {
 	class Entity {
 	public:
                 static int BROADCAST;
+		static int ID;
                 
 		Entity();
 
@@ -42,11 +43,6 @@ namespace BaconBox {
 		void removeComponent(Component *component);
 		void removeComponents(int id);
 
-		const std::vector<Entity *> &getChildren() const;
-		void addChild(Entity *newChild);
-		void removeChildAt(std::vector<Entity *>::size_type index);
-		void removeChild(Entity *child);
-
 		void clear();
 		
 		Component * getComponent(const std::string &componentName) const ;
@@ -58,7 +54,6 @@ namespace BaconBox {
 
 		std::string name;
 		std::vector<Component *> components;
-		std::vector<Entity *> children;
 		Entity *parent;
 	};
 }
