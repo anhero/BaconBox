@@ -71,8 +71,15 @@ end
   #include "BaconBox/Core/State.h"
 
   #include "BaconBox/Core/Engine.h"
+#if defined(BB_LUA)
+  #include "BaconBox/Components/Lua/LuaState.h"
+#endif
 
 
+
+///////////////////////
+// Helper functions
+///////////////////////
 #if defined(BB_LUA)
 	swig_type_info * getTypeByName(lua_State* L, const char * name){
 		swig_module_info* module=SWIG_GetModule(L);
@@ -84,6 +91,7 @@ end
 		}
 		return NULL;
 	}
+
 
 	int luacast(lua_State*L){
 		void * myDataPtr;
@@ -118,13 +126,26 @@ end
 
 
 
-
 %}
 
 
 
 #if defined(BB_LUA)
 		%include "std_string.i"
+
+    %typemap(arginit) (lua_State*) %{
+      SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_BaconBox__LuaState,0);
+     
+    #ifdef IMPOSSIBLE_MACRO_JUST_TO_SKIP_SWIG_ARG_COUNT_CHECK_I_SHOULD_REALLY_FIND_A_FIX_IN_THE_NEAR_FUTURE
+    %}
+    
+
+    %typemap(in) (lua_State*) %{ 
+   #endif //IMPOSSIBLE_MACRO_JUST_TO_SKIP_SWIG_ARG_COUNT_CHECK_I_SHOULD_REALLY_FIND_A_FIX_IN_THE_NEAR_FUTURE
+        
+    arg2 = L;
+    %}
+
 #endif
 
 
@@ -150,6 +171,8 @@ end
 
 
 #endif
+
+
 
 
 %include "BaconBox/Core/Component.h"
@@ -184,3 +207,8 @@ namespace BaconBox{
 #endif
 %include "BaconBox/Core/State.h"
 %include "BaconBox/Core/Engine.h"
+
+
+#if defined(BB_LUA)
+%include "BaconBox/Components/Lua/LuaState.h"
+#endif
