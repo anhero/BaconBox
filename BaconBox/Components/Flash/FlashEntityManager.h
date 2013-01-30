@@ -18,7 +18,7 @@ namespace BaconBox {
 		void add(Entity *newEntity);
 		void remove(Entity *newEntity);
 
-		AS3::local::var getMovieCLip();
+		AS3::local::var getMovieClip();
 						
 		virtual int getID() const;
 		

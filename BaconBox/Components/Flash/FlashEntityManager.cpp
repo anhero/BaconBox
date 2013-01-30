@@ -12,11 +12,10 @@ namespace BaconBox {
 	FlashEntityManager::FlashEntityManager() : Component() {
 	    setName("FlashEntityManager");
 	    movieClipManager = FlashHelper::construct("flash.display.MovieClip");
-	   	AS3::local::internal::trace(movieClipManager);
 
 	}
 
-	AS3::local::var FlashEntityManager::getMovieCLip(){
+	AS3::local::var FlashEntityManager::getMovieClip(){
 		return movieClipManager;
 	}
 
@@ -25,7 +24,7 @@ namespace BaconBox {
 		
 	void FlashEntityManager::add(Entity *newEntity) {
 	    if(newEntity){
-	    	AS3::local::var mc = reinterpret_cast<MovieClipHolder*>(newEntity->getComponent(MovieClipHolder::ID))->getMovieCLip();
+	    	AS3::local::var mc = reinterpret_cast<MovieClipHolder*>(newEntity->getComponent(MovieClipHolder::ID))->getMovieClip();
 	    	AS3::local::var args[1] = {mc};
 	    	FlashHelper::callMethod(movieClipManager, "addChild", 1, args);
 	    }
@@ -33,7 +32,7 @@ namespace BaconBox {
 	
 	void FlashEntityManager::remove(Entity *newEntity) {
 		if (newEntity) {
-			AS3::local::var mc = reinterpret_cast<MovieClipHolder*>(newEntity->getComponent(MovieClipHolder::ID))->getMovieCLip();
+			AS3::local::var mc = reinterpret_cast<MovieClipHolder*>(newEntity->getComponent(MovieClipHolder::ID))->getMovieClip();
 	    	AS3::local::var args[1] = {mc};
 	    	FlashHelper::callMethod(movieClipManager, "removeChild", 1, args);
 		}
@@ -48,10 +47,10 @@ namespace BaconBox {
 		if(senderID != State::ID)return;
 		
 		if(message == State::MESSAGE_ADDED_ENTITY){
-		    add(static_cast<Entity*>(data));
+		    add(reinterpret_cast<Entity*>(data));
 		}
 		else if(message == State::MESSAGE_REMOVED_ENTITY){
-			remove(static_cast<Entity*>(data));
+			remove(reinterpret_cast<Entity*>(data));
 		}
 		
 
