@@ -1,5 +1,6 @@
 #include "Entity.h"
 #include "BaconBox/Core/IDManager.h"
+#include <iostream>
 namespace BaconBox {
 	int Entity::ID = IDManager::getID();
 	int Entity::BROADCAST = IDManager::getID();
@@ -46,7 +47,7 @@ namespace BaconBox {
 				i++;
 			}
 		}
-
+		if(!result)std::cout << "Can't find the requested component in the given entity" << std::endl;
 		return result;
 	}
 
@@ -64,7 +65,7 @@ namespace BaconBox {
 				i++;
 			}
 		}
-
+		if(!result)std::cout << "Can't find the requested component in the given entity. Maybe you haven't defined the getID method in your component." << std::endl;
 		return result;
 	}
 
