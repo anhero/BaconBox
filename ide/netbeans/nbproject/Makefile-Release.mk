@@ -63,6 +63,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/_ext/1086840298/JsonBoxSerializer.o \
 	${OBJECTDIR}/_ext/1343313265/MusicEngine.o \
 	${OBJECTDIR}/_ext/1619289542/IDManager.o \
+	${OBJECTDIR}/_ext/1357070339/MeshDriverRenderer.o \
 	${OBJECTDIR}/_ext/1343313265/SoundParameters.o \
 	${OBJECTDIR}/_ext/1492834325/Base64.o \
 	${OBJECTDIR}/_ext/1774422509/NullKeyboard.o \
@@ -133,7 +134,6 @@ OBJECTFILES= \
 	${OBJECTDIR}/_ext/100836037/Camera.o \
 	${OBJECTDIR}/_ext/1492834325/MathHelper.o \
 	${OBJECTDIR}/_ext/1492834325/TimeHelper.o \
-	${OBJECTDIR}/_ext/1188383521/OpenGLMeshRenderer.o \
 	${OBJECTDIR}/_ext/1766768538/SignalAnalyzerManager.o \
 	${OBJECTDIR}/_ext/100836037/PixMap.o \
 	${OBJECTDIR}/_ext/1619289542/Engine.o
@@ -304,6 +304,11 @@ ${OBJECTDIR}/_ext/1619289542/IDManager.o: ../../BaconBox/Core/IDManager.cpp
 	${MKDIR} -p ${OBJECTDIR}/_ext/1619289542
 	${RM} $@.d
 	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/1619289542/IDManager.o ../../BaconBox/Core/IDManager.cpp
+
+${OBJECTDIR}/_ext/1357070339/MeshDriverRenderer.o: ../../BaconBox/Components/MeshDriverRenderer.cpp 
+	${MKDIR} -p ${OBJECTDIR}/_ext/1357070339
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/1357070339/MeshDriverRenderer.o ../../BaconBox/Components/MeshDriverRenderer.cpp
 
 ${OBJECTDIR}/_ext/1343313265/SoundParameters.o: ../../BaconBox/Audio/SoundParameters.cpp 
 	${MKDIR} -p ${OBJECTDIR}/_ext/1343313265
@@ -654,11 +659,6 @@ ${OBJECTDIR}/_ext/1492834325/TimeHelper.o: ../../BaconBox/Helper/TimeHelper.cpp
 	${MKDIR} -p ${OBJECTDIR}/_ext/1492834325
 	${RM} $@.d
 	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/1492834325/TimeHelper.o ../../BaconBox/Helper/TimeHelper.cpp
-
-${OBJECTDIR}/_ext/1188383521/OpenGLMeshRenderer.o: ../../BaconBox/Components/OpenGL/OpenGLMeshRenderer.cpp 
-	${MKDIR} -p ${OBJECTDIR}/_ext/1188383521
-	${RM} $@.d
-	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/1188383521/OpenGLMeshRenderer.o ../../BaconBox/Components/OpenGL/OpenGLMeshRenderer.cpp
 
 ${OBJECTDIR}/_ext/1766768538/SignalAnalyzerManager.o: ../../BaconBox/SignalSlots/SignalAnalyzerManager.cpp 
 	${MKDIR} -p ${OBJECTDIR}/_ext/1766768538

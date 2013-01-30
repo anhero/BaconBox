@@ -35,7 +35,8 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
-	${OBJECTDIR}/_ext/58131762/main.o
+	${OBJECTDIR}/_ext/31560488/PlayState.o \
+	${OBJECTDIR}/_ext/31560488/main.o
 
 
 # C Compiler Flags
@@ -64,10 +65,15 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/maintest.exe: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	g++.exe -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/maintest ${OBJECTFILES} ${LDLIBSOPTIONS} 
 
-${OBJECTDIR}/_ext/58131762/main.o: /C/Workspace/EntityBB/Test/MainTest/main.cpp 
-	${MKDIR} -p ${OBJECTDIR}/_ext/58131762
+${OBJECTDIR}/_ext/31560488/PlayState.o: ../../../Main/PlayState.cpp 
+	${MKDIR} -p ${OBJECTDIR}/_ext/31560488
 	${RM} $@.d
-	$(COMPILE.cc) -g -DSDL -DTINYXML_USE_STL -DTIXML_USE_STL -I../../../.. -I../../../../libraries/MINGW32_NT-6.1/i686/include -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/58131762/main.o /C/Workspace/EntityBB/Test/MainTest/main.cpp
+	$(COMPILE.cc) -g -DSDL -DTINYXML_USE_STL -DTIXML_USE_STL -I../../../.. -I../../../../libraries/MINGW32_NT-6.1/i686/include -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/31560488/PlayState.o ../../../Main/PlayState.cpp
+
+${OBJECTDIR}/_ext/31560488/main.o: ../../../Main/main.cpp 
+	${MKDIR} -p ${OBJECTDIR}/_ext/31560488
+	${RM} $@.d
+	$(COMPILE.cc) -g -DSDL -DTINYXML_USE_STL -DTIXML_USE_STL -I../../../.. -I../../../../libraries/MINGW32_NT-6.1/i686/include -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/31560488/main.o ../../../Main/main.cpp
 
 # Subprojects
 .build-subprojects:

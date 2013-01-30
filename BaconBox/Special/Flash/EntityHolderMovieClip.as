@@ -6,7 +6,8 @@ public class EntityHolderMovieClip  extends MovieClip {
 	private var _entity:MovieClipEntity;
     public function EntityHolderMovieClip() {
     	super();
-    	_entity = MovieClipEntity.create(this);
+    	_entity = MovieClipEntity.create();
+        _entity.setMovieClip(this);
     }
 
     public function get entity():MovieClipEntity {
@@ -16,13 +17,6 @@ public class EntityHolderMovieClip  extends MovieClip {
     public function set entity(value:MovieClipEntity):void {
         _entity = value;
     }
-
-    public function tick():void{
-        _entity.tick();
-    }
-
-
-
 
 }
 }

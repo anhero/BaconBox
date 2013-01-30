@@ -1,15 +1,15 @@
 #include <iostream>
 
-#include <Core/Engine.h>
-#include <Core/State.h>
-#include <Helper/Serialization/DefaultSerializer.h>
-#include <Helper/Serialization/JsonSerializer.h>
+#include <BaconBox/Core/Engine.h>
+#include <BaconBox/Core/State.h>
+#include <BaconBox/Helper/Serialization/DefaultSerializer.h>
+#include <BaconBox/Helper/Serialization/JsonSerializer.h>
 
 #include "PlayState.h"
 
 int main(int argc, char *argv[]) {
 	// Initialize BaconBox
-	BaconBox::Engine::application(argc, argv, "PyramidQuest");
+	BaconBox::Engine::application(argc, argv, "test");
 	
 	// We set the number of updates per second to be executed.
 	BaconBox::Engine::setUpdatesPerSecond(48);

@@ -6,11 +6,11 @@
             <name>MainTest</name>
             <c-extensions/>
             <cpp-extensions>cpp</cpp-extensions>
-            <header-extensions/>
+            <header-extensions>h</header-extensions>
             <sourceEncoding>UTF-8</sourceEncoding>
             <make-dep-projects/>
             <sourceRootList>
-                <sourceRootElem>../../../MainTest</sourceRootElem>
+                <sourceRootElem>../../../Main</sourceRootElem>
             </sourceRootList>
             <confList>
                 <confElem>

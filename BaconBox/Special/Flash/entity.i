@@ -3,7 +3,7 @@
 
 %{
 	
-	#include "../../MovieClipEntity/MovieClipEntity.h"
+	#include "BaconBox/MovieClipEntity/MovieClipEntity.h"
 	#include <AS3/AS3.h>
 	#include <AS3/AS3++.h>
 
@@ -22,8 +22,7 @@
 
 		class MovieClipEntity { 
     	public:
-    		MovieClipEntity(AS3::local::var aMC);
+    		MovieClipEntity();
 			void setMovieClip(AS3::local::var aMC);
-			void tick();
 		};
 	}

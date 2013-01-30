@@ -1,7 +1,7 @@
 #ifndef BB_PLAY_STATE_H
 #define BB_PLAY_STATE_H
 
-#include <Core/State.h>
+#include <BaconBox/Core/State.h>
 
 namespace BaconBox {
 	class PlayState : public State {

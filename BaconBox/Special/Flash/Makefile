@@ -9,6 +9,19 @@ PROJECT_ROOT=../../..
 CUSTOM_LIB_PATH=$(wildcard $(PROJECT_ROOT)/libraries/FreeBSD/i686 $(PROJECT_ROOT)/libraries/FreeBSD/x86_64)
 LINK_FLAG=-lpng -lz -lAS3++ -lJsonBox -ltinyxml -lfreetype
 
+
+
+ifdef partialSwig
+SWIG_INTERFACE=entity.i
+SWIG_OUTPUT=EntityWrapper
+SWIG_MODULE=EntityWrapper
+else
+SWIG_INTERFACE=../Swig/BaconBox.i
+SWIG_OUTPUT=BaconBox
+SWIG_MODULE=BaconBox
+endif
+
+
 #VPATH = $PROJECT_ROOT
 vpath %.c $(PROJECT_ROOT)
 vpath %.cpp $(PROJECT_ROOT)
@@ -117,7 +130,7 @@ BaconBox/SignalSlots/SignalAnalyzerManager.o \
 BaconBox/SignalSlots/SignalData.o
 
 FLASCC_SOURCES = \
-BaconBox/Special/Flash/Entity_wrapper.o \
+BaconBox/Special/Flash/$(addsuffix .o,$(SWIG_OUTPUT)) \
 BaconBox/Special/Flash/main.o
 
 
@@ -141,23 +154,34 @@ FLASCC_FILE_PATH=BaconBox/Special/Flash
 
 
 
+
+
+
+
+
+
+
 all: check $(BUILD_PATH)/BaconBox.swc
 
 
 swf: check $(BUILD_PATH)/BaconBox.swf
 
 
-$(BUILD_PATH)/BaconBox.swf: EntityWrapper.abc EntityHolderMovieClip.abc $(addprefix $(BUILD_PATH)/,$(ALL_SOURCES)) $(addprefix $(BUILD_PATH)/,$(FLASCC_SOURCES))
+.PHONY : clean all swf partialSwig
+
+
+
+$(BUILD_PATH)/BaconBox.swf: $(addsuffix .abc,$(SWIG_OUTPUT)) EntityHolderMovieClip.abc $(addprefix $(BUILD_PATH)/,$(ALL_SOURCES)) $(addprefix $(BUILD_PATH)/,$(FLASCC_SOURCES))
 
 	@echo "-------- BaconBox.swf--------"
-	"$(FLASCC)/usr/bin/g++" $(BASE_CFLAGS) -I$(PROJECT_ROOT) -I$(CUSTOM_LIB_PATH)/include -DBB_FLASH_PLATEFORM EntityWrapper.abc EntityHolderMovieClip.abc \
+	"$(FLASCC)/usr/bin/g++" $(BASE_CFLAGS) -I$(PROJECT_ROOT) -I$(CUSTOM_LIB_PATH)/include -DBB_FLASH_PLATEFORM $(addsuffix .abc,$(SWIG_OUTPUT)) EntityHolderMovieClip.abc \
 	$(addprefix $(BUILD_PATH)/, $(ALL_SOURCES)) $(addprefix $(BUILD_PATH)/, $(FLASCC_SOURCES)) -emit-swf -o $(BUILD_PATH)/BaconBox.swf \
 	-L$(CUSTOM_LIB_PATH)/lib $(LINK_FLAG)
 
-$(BUILD_PATH)/BaconBox.swc: EntityWrapper.abc EntityHolderMovieClip.abc $(addprefix $(BUILD_PATH)/,$(ALL_SOURCES)) $(addprefix $(BUILD_PATH)/,$(FLASCC_SOURCES))
+$(BUILD_PATH)/BaconBox.swc: $(addsuffix .abc,$(SWIG_OUTPUT)) EntityHolderMovieClip.abc $(addprefix $(BUILD_PATH)/,$(ALL_SOURCES)) $(addprefix $(BUILD_PATH)/,$(FLASCC_SOURCES))
 
 	@echo "-------- BaconBox.swc --------"
-	"$(FLASCC)/usr/bin/g++" $(BASE_CFLAGS) -I$(PROJECT_ROOT) -I$(CUSTOM_LIB_PATH)/include -DBB_FLASH_PLATEFORM EntityWrapper.abc EntityHolderMovieClip.abc \
+	"$(FLASCC)/usr/bin/g++" $(BASE_CFLAGS) -I$(PROJECT_ROOT) -I$(CUSTOM_LIB_PATH)/include -DBB_FLASH_PLATEFORM $(addsuffix .abc,$(SWIG_OUTPUT)) EntityHolderMovieClip.abc \
 	$(addprefix $(BUILD_PATH)/, $(ALL_SOURCES)) $(addprefix $(BUILD_PATH)/, $(FLASCC_SOURCES)) -emit-swc=BaconBox -o $(BUILD_PATH)/BaconBox.swc \
 	-L$(CUSTOM_LIB_PATH)/lib $(LINK_FLAG)
 
@@ -177,24 +201,22 @@ else
 endif
 
 
-EntityWrapper.as3 Entity_wrapper.cpp: $(BUILD_PATH)/build entity.i
+$(addsuffix .as3,$(SWIG_OUTPUT)) $(addsuffix .cpp,$(SWIG_OUTPUT)): $(BUILD_PATH)/build $(SWIG_INTERFACE)
 	@echo "-------- SWIG wrappers --------"
-	"$(FLASCC)/usr/bin/swig" -as3 -c++ -module EntityWrapper -outdir . -includeall -ignoremissing -o Entity_wrapper.cpp entity.i
+	"$(FLASCC)/usr/bin/swig" -as3 -c++ -module $(SWIG_MODULE) -outdir . -includeall -ignoremissing -I$(PROJECT_ROOT) -DBB_FLASH_PLATEFORM -o $(addsuffix .cpp,$(SWIG_OUTPUT)) $(SWIG_INTERFACE)
 #	cp Entity_wrapper.cpp $(BUILD_PATH)/BaconBox/Special/Flash/
-	mv EntityWrapper.as EntityWrapper.as3
+	mv $(addsuffix .as,$(SWIG_OUTPUT)) $(addsuffix .as3,$(SWIG_OUTPUT))
 
-	"$(FLASCC)/usr/bin/swig" -as3 -c++ -module BaconBox -outdir . -includeall -ignoremissing -o BaconBox.cpp ../Swig/BaconBox.i
-
-EntityWrapper.abc: EntityWrapper.as3
+$(addsuffix .abc,$(SWIG_OUTPUT)): $(addsuffix .as3,$(SWIG_OUTPUT))
 	@echo "-------- Compile the SWIG wrapper to ABC --------"
-	mv EntityWrapper.as3 EntityWrapper.as
-	$(AS3COMPILERARGS) -abcfuture -AS3 -import $(call nativepath,$(FLASCC)/usr/lib/builtin.abc) -import $(call nativepath,$(FLASCC)/usr/lib/playerglobal.abc) EntityWrapper.as 
+	mv $(addsuffix .as3,$(SWIG_OUTPUT)) $(addsuffix .as,$(SWIG_OUTPUT))
+	$(AS3COMPILERARGS) -abcfuture -AS3 -import $(call nativepath,$(FLASCC)/usr/lib/builtin.abc) -import $(call nativepath,$(FLASCC)/usr/lib/playerglobal.abc) $(addsuffix .as,$(SWIG_OUTPUT)) 
 	# rename the output so the compiler doesn't accidentally use both this .as file along with the .abc file we just produced
-	mv EntityWrapper.as EntityWrapper.as3
+	mv $(addsuffix .as,$(SWIG_OUTPUT)) $(addsuffix .as3,$(SWIG_OUTPUT))
 
-EntityHolderMovieClip.abc: EntityWrapper.abc EntityHolderMovieClip.as
+EntityHolderMovieClip.abc: $(addsuffix .abc,$(SWIG_OUTPUT)) EntityHolderMovieClip.as
 	@echo "-------- Compile the EntityHolderMovieClip to ABC --------"
-	$(AS3COMPILERARGS) -abcfuture -AS3 -import $(call nativepath,$(FLASCC)/usr/lib/builtin.abc) -import $(call nativepath,$(FLASCC)/usr/lib/playerglobal.abc) -import $(call nativepath,./EntityWrapper.abc) EntityHolderMovieClip.as 
+	$(AS3COMPILERARGS) -abcfuture -AS3 -import $(call nativepath,$(FLASCC)/usr/lib/builtin.abc) -import $(call nativepath,$(FLASCC)/usr/lib/playerglobal.abc) -import $(call nativepath,./$(addsuffix .abc,$(SWIG_OUTPUT))) EntityHolderMovieClip.as 
 
 
 #Entity_wrapper.o main.o: Entity_wrapper.cpp main.cpp

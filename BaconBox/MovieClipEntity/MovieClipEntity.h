@@ -5,37 +5,27 @@
 #define BB_MOVIECLIPENTITY_H
 
 #include "BaconBox/Core/Entity.h"
-
 #include "BaconBox/PlatformFlagger.h"
 
 #ifdef BB_FLASH_PLATEFORM
-#include "BaconBox/ComponentS/Flash/MovieClipHolder.h"
-#else
-#include "BaconBox/Components/Mesh.h"
+#include <AS3/AS3.h>
+#include <AS3/AS3++.h>
 #endif
+
 namespace BaconBox {
 	/**
 	 * 
 	 */
 	class MovieClipEntity : public Entity { 
     public:
-#ifdef BB_FLASH_PLATEFORM
-		MovieClipEntity(AS3::local::var aMC);
-		void setMovieClip(AS3::local::var aMC);
-		
-		void tick();
-#else
-		MovieClipEntity();
-#endif
-		
-
+	MovieClipEntity();
 	
-    private:
-#ifndef BB_FLASH_PLATEFORM
-		Mesh * mesh;
-		
+#ifdef BB_FLASH_PLATEFORM
+		void setMovieClip(AS3::local::var aMC);
 #endif
-		int bob;
+		
+    private:
+
 		
 	};
 }
