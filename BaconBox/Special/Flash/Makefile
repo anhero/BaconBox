@@ -153,10 +153,6 @@ FLASCC_SOURCES = \
 BaconBox/Special/Flash/$(addsuffix .o,$(SWIG_OUTPUT)) \
 BaconBox/Special/Flash/main.o
 
-SCRIPT_SOURCES = \
-BaconBox/Script/Lua/LuaManager.o
-
-
 ALL_SOURCES= \
 $(AUDIO_SOURCES) \
 $(COMPONENTS_SOURCES) \
@@ -177,7 +173,9 @@ BaconBox/VertexArray.o
 FLASCC_FILE_PATH=BaconBox/Special/Flash
 
 ifdef lua
-ALL_SOURCES+= $(SCRIPT_SOURCES) $(LUA_SWIG_SOURCES)
+ALL_SOURCES+= BaconBox/Script/Lua/LuaManager.o \
+$(LUA_SWIG_SOURCES) \
+BaconBox/Components/Lua/LuaState.o
 endif
 
 
