@@ -16,10 +16,12 @@ namespace BaconBox {
 	class MovieClipHolder  : public Component{
     public:
     	static int ID;
+
+    	virtual int getID() const;
     	
         MovieClipHolder(AS3::local::var aMC);
 		void setMovieClip(AS3::local::var aMC);
-		AS3::local::var getMovieCLip();
+		AS3::local::var getMovieClip();
 
 		void setProperty(const std::string & propertyName, AS3::local::var arg);
 

@@ -19,12 +19,16 @@ namespace BaconBox {
 		AS3::local::var args[1] = {AS3::local::internal::new_int(1)};
 		callMethod("gotoAndStop", 1, args);
 	}
+
+	int MovieClipHolder::getID() const {
+		return MovieClipHolder::ID;
+	}
 	
 	void MovieClipHolder::setMovieClip(AS3::local::var aMC){
 		mc = aMC;
 	}
 	
-	AS3::local::var MovieClipHolder::getMovieCLip(){
+	AS3::local::var MovieClipHolder::getMovieClip(){
 		return mc;
 	}
 
