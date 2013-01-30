@@ -11,8 +11,6 @@
 
 
 namespace BaconBox {
-	EntityFactory::EntityFactory(){
-	}
 	
 	Entity * EntityFactory::getEntity(const std::string & key){
 		#ifdef BB_FLASH_PLATEFORM	
