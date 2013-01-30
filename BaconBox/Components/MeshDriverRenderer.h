@@ -8,12 +8,10 @@ namespace BaconBox {
 	
 	class MeshDriverRenderer : public Component {
 	public:
-		static int ID;
+		BB_ID_HEADER;
 		
 		MeshDriverRenderer();
-		
-		virtual int getID() const;
-		
+				
 		virtual void render();
 	private:
 		Mesh *mesh;

@@ -9,7 +9,8 @@
 namespace BaconBox {
 	class FlashEntityManager : public Component {
 	public:
-		static int ID;
+
+		BB_ID_HEADER;
 		
 		FlashEntityManager();
 				
@@ -20,7 +21,6 @@ namespace BaconBox {
 
 		AS3::local::var getMovieClip();
 						
-		virtual int getID() const;
 		
 		virtual void receiveMessage(int senderID, int destID, int message, void *data);
 

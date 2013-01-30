@@ -6,7 +6,7 @@
 #include "BaconBox/Core/IDManager.h"
 
 namespace BaconBox {
-	int CameraDriverRenderer::ID = IDManager::getID();
+	BB_ID_IMPL(CameraDriverRenderer);
 	
 	CameraDriverRenderer::CameraDriverRenderer() : Component() {
 	}
@@ -25,10 +25,6 @@ namespace BaconBox {
 	
 	CameraDriverRenderer *CameraDriverRenderer::clone() const {
 		return new CameraDriverRenderer(*this);
-	}
-	
-	int CameraDriverRenderer::getID() const {
-		return CameraDriverRenderer::ID;
 	}
 	
 	void CameraDriverRenderer::receiveMessage(int id, int message, void *data) {

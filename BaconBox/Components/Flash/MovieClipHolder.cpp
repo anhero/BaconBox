@@ -8,8 +8,9 @@
 
 
 namespace BaconBox {
+
+	BB_ID_IMPL(MovieClipHolder);
 	
-	int MovieClipHolder::ID = IDManager::getID();
 
 	MovieClipHolder::MovieClipHolder(AS3::local::var aMC) : Component(){
 
@@ -20,10 +21,6 @@ namespace BaconBox {
 		callMethod("gotoAndStop", 1, args);
 	}
 
-	int MovieClipHolder::getID() const {
-		return MovieClipHolder::ID;
-	}
-	
 	void MovieClipHolder::setMovieClip(AS3::local::var aMC){
 		mc = aMC;
 	}

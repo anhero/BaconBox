@@ -7,8 +7,9 @@
 #include "BaconBox/Helper/Flash/FlashHelper.h"
 
 namespace BaconBox {
-	int FlashEntityManager::ID = IDManager::getID();
 	
+	BB_COMPONENT_ID_IMPL(FlashEntityManager);
+
 	FlashEntityManager::FlashEntityManager() : Component() {
 	    setName("FlashEntityManager");
 	    movieClipManager = FlashHelper::construct("flash.display.MovieClip");
@@ -39,9 +40,7 @@ namespace BaconBox {
 	}
 	
 
-	int FlashEntityManager::getID() const {
-		return FlashEntityManager::ID;
-	}
+	
 
 	void FlashEntityManager::receiveMessage(int senderID, int destID, int message, void *data) {
 		if(senderID != State::ID)return;
