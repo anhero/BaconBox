@@ -8,7 +8,7 @@
 
 namespace BaconBox {
 	
-	BB_COMPONENT_ID_IMPL(FlashEntityManager);
+	BB_ID_IMPL(FlashEntityManager);
 
 	FlashEntityManager::FlashEntityManager() : Component() {
 	    setName("FlashEntityManager");
