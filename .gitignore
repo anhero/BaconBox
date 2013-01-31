@@ -46,15 +46,17 @@ Release
 .svn
 
 *.abc
+*.o
 
 libraries/*
 !libraries/*.desc
 BaconBox/Special/Flash/BaconBox.swc
-BaconBox/Special/Flash/EntityWrapper.as3
-BaconBox/Special/Flash/EntityWrapper.as
-BaconBox/Special/Flash/EntityWrapper.cpp
+BaconBox/Special/Flash/BaconBoxAS3.as3
+BaconBox/Special/Flash/BaconBoxAS3.as
+BaconBox/Special/Flash/BaconBoxAS3.cpp
 BaconBox/Special/Flash/temp.swc
 dist
 BaconBox/Special/Flash/BaconBox.as
 BaconBox/Special/Flash/BaconBox.as3
 BaconBox/Special/Flash/BaconBox.cpp
+BaconBoxLua.cpp

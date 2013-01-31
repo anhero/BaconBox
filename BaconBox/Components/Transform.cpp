@@ -1,12 +1,11 @@
 #include "Transform.h"
 
-#include "BaconBox/Core/IDManager.h"
 #include "BaconBox/Core/Entity.h"
 #include "BaconBox/Helper/Vector2ChangedData.h"
 
 namespace BaconBox {
-	int Transform::ID = IDManager::getID();
-
+	 BB_ID_IMPL(Transform);
+	
 	Transform::Transform() : Component(), position(), rotation(0.0f), scale() {
 		setName("Transform");
 	}
@@ -31,11 +30,7 @@ namespace BaconBox {
 	Transform *Transform::clone() const {
 		return new Transform(*this);
 	}
-
-	int Transform::getID() const {
-		return Transform::ID;
-	}
-
+	
 	void Transform::receiveMessage(int senderID, int destID, int message, void *data) {
 		if (destID != Transform::ID) {
 			return;

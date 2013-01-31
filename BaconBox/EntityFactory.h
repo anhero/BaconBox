@@ -6,9 +6,10 @@ namespace BaconBox {
 
 	class EntityFactory {
 	public:
-	    EntityFactory();
-	    Entity * getEntity(std::string & key);
+	   
+	    static Entity * getEntity(const std::string & key);
 	private:
+		    
 		
 	};
 

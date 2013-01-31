@@ -7,13 +7,9 @@
 #include "BaconBox/Core/Engine.h"
 
 namespace BaconBox {
-	int MeshDriverRenderer::ID = IDManager::getID();
+	BB_ID_IMPL(MeshDriverRenderer);
 
 	MeshDriverRenderer::MeshDriverRenderer() : Component(), mesh(NULL) {
-	}
-
-	int MeshDriverRenderer::getID() const {
-		return MeshDriverRenderer::ID;
 	}
 
 	void MeshDriverRenderer::render() {

@@ -5,7 +5,7 @@
 #include "BaconBox/Helper/Vector2ChangedData.h"
 
 namespace BaconBox {
-	int Mesh::ID = IDManager::getID();
+	BB_ID_IMPL(Mesh);
 
 	Mesh::Mesh() : Component() {
 
@@ -29,10 +29,6 @@ namespace BaconBox {
 		} else {
 			return StandardVertexArray();
 		}
-	}
-
-	int Mesh::getID() const {
-		return Mesh::ID;
 	}
 
 	void Mesh::receiveMessage(int senderID, int destID, int message, void *data) {

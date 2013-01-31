@@ -7,7 +7,8 @@
 namespace BaconBox {
 	class Transform : public Component {
 	public:
-		static int ID;
+		BB_ID_HEADER;
+		
 		
 		static const int MESSAGE_GET_POSITION = 0;
 		static const int MESSAGE_GET_ROTATION = 1;
@@ -29,7 +30,7 @@ namespace BaconBox {
 		
 		virtual Transform *clone() const;
 		
-		virtual int getID() const;
+		
 		
 		virtual void receiveMessage(int senderID, int destID, int message, void *data);
 		

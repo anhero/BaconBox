@@ -13,12 +13,10 @@
 namespace BaconBox {
 	class Camera;
 	
-
 	class State : public Entity {
-		friend class Engine;
+		friend class BaseEngine;
 	public:
-	    
-		static int ID;
+		BB_ID_HEADER;
 	    
 		static const int MESSAGE_ADDED_ENTITY;
 		static const int MESSAGE_REMOVED_ENTITY;

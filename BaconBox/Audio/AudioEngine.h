@@ -19,7 +19,7 @@ namespace BaconBox {
 	 */
 	class AudioEngine {
 		friend class ResourceManager;
-		friend class Engine;
+		friend class BaseEngine;
 	public:
 		/**
 		 * Gets the sound engine.
