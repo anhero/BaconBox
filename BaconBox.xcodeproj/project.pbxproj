@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		244214FA16BA24A2005B1ED9 /* EntityManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 244214F816BA24A2005B1ED9 /* EntityManager.cpp */; };
+		244214FB16BA24A2005B1ED9 /* EntityManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 244214F916BA24A2005B1ED9 /* EntityManager.h */; };
 		246274CA16AC8AB4006C7FFF /* MeshDriverRenderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 246274C816AC8AB3006C7FFF /* MeshDriverRenderer.cpp */; };
 		246274CB16AC8AB4006C7FFF /* MeshDriverRenderer.h in Headers */ = {isa = PBXBuildFile; fileRef = 246274C916AC8AB4006C7FFF /* MeshDriverRenderer.h */; };
 		2478740816360C7F006D4A59 /* libSDL2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2478740616360C7F006D4A59 /* libSDL2.a */; };
@@ -258,6 +260,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		244214F816BA24A2005B1ED9 /* EntityManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EntityManager.cpp; sourceTree = "<group>"; };
+		244214F916BA24A2005B1ED9 /* EntityManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EntityManager.h; sourceTree = "<group>"; };
 		245C1B6616ACD2EB00C74B67 /* Vector2ChangedData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Vector2ChangedData.h; sourceTree = "<group>"; };
 		245C1B6816ACD35B00C74B67 /* ValueChangedData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ValueChangedData.h; sourceTree = "<group>"; };
 		246274C816AC8AB3006C7FFF /* MeshDriverRenderer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MeshDriverRenderer.cpp; sourceTree = "<group>"; };
@@ -626,6 +630,8 @@
 		51E516BD1697529200F6D446 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				244214F816BA24A2005B1ED9 /* EntityManager.cpp */,
+				244214F916BA24A2005B1ED9 /* EntityManager.h */,
 				51E516BE1697529200F6D446 /* Mesh.cpp */,
 				51E516BF1697529200F6D446 /* Mesh.h */,
 				51E516C31697529200F6D446 /* Transform.cpp */,
@@ -1188,6 +1194,7 @@
 				5153CD221699282300431A19 /* CameraDriverRenderer.h in Headers */,
 				51B374D616A4F04D0052740F /* Vector2.h in Headers */,
 				246274CB16AC8AB4006C7FFF /* MeshDriverRenderer.h in Headers */,
+				244214FB16BA24A2005B1ED9 /* EntityManager.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1344,6 +1351,7 @@
 				5153CD211699282300431A19 /* CameraDriverRenderer.cpp in Sources */,
 				51B374D516A4F04D0052740F /* Vector2.cpp in Sources */,
 				246274CA16AC8AB4006C7FFF /* MeshDriverRenderer.cpp in Sources */,
+				244214FA16BA24A2005B1ED9 /* EntityManager.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
