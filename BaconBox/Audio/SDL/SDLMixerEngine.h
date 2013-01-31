@@ -27,7 +27,7 @@ namespace BaconBox {
 	 * @ingroup Audio
 	 */
 	class SDLMixerEngine : public SoundEngine, public MusicEngine {
-		friend class Engine;
+		friend class BaseEngine;
 	public:
 		/**
 		 * Gets the singleton instance.

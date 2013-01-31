@@ -2,6 +2,7 @@
 #define BB_COMPONENT_H
 
 #include <string>
+#include "BaconBox/Core/IDManager.h"
 
 namespace BaconBox {
 	class Entity;
@@ -9,7 +10,7 @@ namespace BaconBox {
 	class Component {
 		friend class Entity;
 	public:
-		static int ID;
+		BB_ID_HEADER;
 		
 		Component();
 		
@@ -20,9 +21,7 @@ namespace BaconBox {
 		Component &operator=(const Component &src);
 		
 		virtual Component *clone() const;
-		
-		virtual int getID() const;
-		
+				
 		void sendMessage(int destID, int message, void *data);
 		virtual void receiveMessage(int senderID, int destID, int message, void *data);
 		

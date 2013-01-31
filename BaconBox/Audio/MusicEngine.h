@@ -22,7 +22,7 @@ namespace BaconBox {
 	class MusicEngine : public virtual AudioEngine {
 		friend class ResourceManager;
 		friend class AudioEngine;
-		friend class Engine;
+		friend class BaseEngine;
 	public:
 		/**
 		 * Constructs a background music. Gets the music's data associated with

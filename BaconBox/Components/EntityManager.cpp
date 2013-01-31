@@ -2,9 +2,9 @@
 #include "BaconBox/Core/IDManager.h"
 #include "BaconBox/core/Component.h"
 #include "BaconBox/Components/EntityManager.h"
-#include "Core/State.h"
+#include "BaconBox/Core/State.h"
 namespace BaconBox {
-	int EntityManager::ID = IDManager::getID();
+	BB_ID_IMPL(EntityManager);
 	
 	EntityManager::EntityManager() : Component(), entities(), toAdd(), toRemove() {
 	    setName("EntityManager");
@@ -64,10 +64,6 @@ namespace BaconBox {
 	    for (std::vector<Entity *>::iterator i = this->entities.begin(); i != this->entities.end(); ++i) {
 			(*i)->render();
 		}
-	}
-
-	int EntityManager::getID() const {
-		return EntityManager::ID;
 	}
 
 	void EntityManager::receiveMessage(int senderID, int destID, int message, void *data) {

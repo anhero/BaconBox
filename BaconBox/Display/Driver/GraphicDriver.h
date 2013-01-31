@@ -23,7 +23,7 @@ namespace BaconBox {
 	 * @ingroup Driver
 	 */
 	class GraphicDriver {
-		friend class Engine;
+		friend class BaseEngine;
 	public:
 		/**
 		 * Gets the graphic driver instance.

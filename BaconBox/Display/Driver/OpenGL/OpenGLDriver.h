@@ -15,7 +15,7 @@ namespace BaconBox {
 	 * @ingroup GraphicDrivers
 	 */
 	class OpenGLDriver : public GraphicDriver {
-		friend class Engine;
+		friend class BaseEngine;
 	public:
 		/**
 		 * Draw a colored and textured shape with the given vertices, texture

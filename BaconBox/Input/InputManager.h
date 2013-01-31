@@ -19,7 +19,7 @@ namespace BaconBox {
 	 * @ingroup Input
 	 */
 	class InputManager {
-		friend class Engine;
+		friend class BaseEngine;
 		friend class Accelerometer;
 		friend class GamePad;
 		friend class Keyboard;

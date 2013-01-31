@@ -13,7 +13,7 @@ namespace BaconBox {
 	 */
 	class CameraDriverRenderer  : public Component {
     public:
-		static int ID;
+		BB_ID_HEADER;
 		
 		CameraDriverRenderer();
 		
@@ -25,7 +25,6 @@ namespace BaconBox {
 		
 		virtual CameraDriverRenderer *clone() const;
 		
-		virtual int getID() const;
 		
 		virtual void receiveMessage(int id, int message, void *data);
 		

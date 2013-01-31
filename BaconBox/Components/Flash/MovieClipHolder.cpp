@@ -4,12 +4,13 @@
 #include "BaconBox/Core/IDManager.h"
 
 
-
+#include "BaconBox/Helper/Flash/FlashHelper.h"
 
 
 namespace BaconBox {
+
+	BB_ID_IMPL(MovieClipHolder);
 	
-	int MovieClipHolder::ID = IDManager::getID();
 
 	MovieClipHolder::MovieClipHolder(AS3::local::var aMC) : Component(){
 
@@ -17,32 +18,28 @@ namespace BaconBox {
 		setName("MovieClipHolder");
 		setMovieClip(aMC);
 		AS3::local::var args[1] = {AS3::local::internal::new_int(1)};
-		callFunction("gotoAndStop", 1, args);
+		callMethod("gotoAndStop", 1, args);
 	}
-	
+
 	void MovieClipHolder::setMovieClip(AS3::local::var aMC){
 		mc = aMC;
 	}
 	
-	AS3::local::var MovieClipHolder::getMovieCLip(){
+	AS3::local::var MovieClipHolder::getMovieClip(){
 		return mc;
 	}
 
 
 	void MovieClipHolder::setProperty(const std::string & propertyName, AS3::local::var arg){
-		AS3::local::var propertyNameAS = AS3::local::internal::new_String(propertyName.c_str());
-		AS3::local::internal::setproperty(mc, propertyNameAS, arg);
+		FlashHelper::setProperty(mc, propertyName, arg);
 	}
 
 	AS3::local::var MovieClipHolder::getProperty(const std::string & propertyName){
-		AS3::local::var propertyNameAS = AS3::local::internal::new_String(propertyName.c_str());
-		return  AS3::local::internal::getproperty(mc, propertyNameAS);
+		return FlashHelper::getProperty(mc, propertyName);
 	}
 
-	AS3::local::var MovieClipHolder::callFunction(const std::string & functionName, int argCount, AS3::local::var *args){
-		AS3::local::var functionNameAS = AS3::local::internal::new_String(functionName.c_str());
-		AS3::local::var functionAS = AS3::local::internal::getproperty(mc, functionNameAS);
-		return AS3::local::internal::call(functionAS, AS3::local::internal::_null, argCount, args);
+	AS3::local::var MovieClipHolder::callMethod(const std::string & functionName, int argCount, AS3::local::var *args){
+		return FlashHelper::callMethod(mc, functionName, argCount, args);
 	} 
 
 	void MovieClipHolder::receiveMessage(int senderID, int destID, int message, void *data){

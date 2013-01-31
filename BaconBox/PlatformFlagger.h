@@ -18,6 +18,13 @@
         #define BB_FLASH_PLATEFORM
         #define BB_TIME_HELPER_IMPL BaconBox::LibcTimeHelper
 	#define BB_TIME_HELPER_INCLUDE "BaconBox/Helper/libc/LibcTimeHelper.h"
+
+	#define BB_MAIN_WINDOW_IMPL new BaconBox::FlashMainWindow()
+	#define BB_MAIN_WINDOW_INCLUDE "BaconBox/Display/Window/Flash/FlashMainWindow.h"
+
+
+	#define BB_ENGINE_IMPL FlashEngine
+	#define BB_ENGINE_INCLUDE "BaconBox/Core/Flash/FlashEngine.h"
 #endif
 
 
@@ -123,7 +130,6 @@
 
 	#define BB_INPUT_MANAGER_IMPL BaconBox::SDLInputManager
 	#define BB_INPUT_MANAGER_INCLUDE "BaconBox/Input/SDL/SDLInputManager.h"
-
 	#define BB_MAIN_WINDOW_IMPL new SDLMainWindow()
 	#define BB_MAIN_WINDOW_INCLUDE "BaconBox/Display/Window/SDL/SDLMainWindow.h"
 
@@ -217,6 +223,12 @@
 	#define BB_MAIN_WINDOW_IMPL new NullMainWindow()
 	#define BB_MAIN_WINDOW_INCLUDE "BaconBox/Display/Window/NullMainWindow.h"
 #endif
+
+#ifndef BB_ENGINE_IMPL
+	#define BB_ENGINE_IMPL BaseEngine
+	#define BB_ENGINE_INCLUDE "BaconBox/Core/BaseEngine.h"
+#endif
+
 
 // For NULL sound engine
 #ifndef BB_SOUND_ENGINE_IMPL

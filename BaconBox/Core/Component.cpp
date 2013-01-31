@@ -1,10 +1,10 @@
 #include "Component.h"
 
-#include "IDManager.h"
 #include "Entity.h"
 
 namespace BaconBox {
-	int Component::ID = IDManager::getID();
+    
+	BB_ID_IMPL(Component);
 	
 	Component::Component() : name(), entity(NULL) {
 	}
@@ -26,10 +26,6 @@ namespace BaconBox {
 	
 	Component *Component::clone() const {
 		return new Component(*this);
-	}
-	
-	int Component::getID() const {
-		return Component::ID;
 	}
 	
 	void Component::sendMessage(int destID, int message, void *data) {

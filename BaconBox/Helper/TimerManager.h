@@ -16,7 +16,7 @@ namespace BaconBox {
 	 */
 	class TimerManager {
 		friend class Timer;
-		friend class Engine;
+		friend class BaseEngine;
 	private:
 		/// Set containing pointers to the timers that need updating.
 		static std::set<Timer*> timers;

@@ -14,12 +14,11 @@ namespace BaconBox {
 	 */
 	class Mesh  : public Component {
     public:
-		static int ID;
+		BB_ID_HEADER;
+		
 		Mesh();
 		StandardVertexArray &getVertices();
-		
-		virtual int getID() const;
-		
+				
 		virtual void receiveMessage(int senderID, int destID, int message, void *data);
     private:
 		StandardVertexArray vertices;

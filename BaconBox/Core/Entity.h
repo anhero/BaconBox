@@ -15,7 +15,7 @@ namespace BaconBox {
 	class Entity {
 	public:
                 static int BROADCAST;
-		static int ID;
+		BB_ID_HEADER;
                 
 		Entity();
 

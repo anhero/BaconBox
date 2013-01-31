@@ -11,7 +11,7 @@ namespace BaconBox {
 	 * @ingroup Helper
 	 */
 	class TimeHelper {
-		friend class Engine;
+		friend class BaseEngine;
 	public:
 		enum TimeType {
 			SCALABLE_PAUSABLE,
