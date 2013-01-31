@@ -21,8 +21,8 @@ namespace BaconBox {
 
 	State::State(const std::string &newName) : Entity(), camera(new Camera()) {
 		this->setName(newName);
-		this->add(this->camera);
 		addComponent(new EntityManager());
+		this->add(this->camera);
 		
 		#ifdef BB_FLASH_PLATEFORM
 		addComponent(new FlashEntityManager());
