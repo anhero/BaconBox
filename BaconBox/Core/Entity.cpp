@@ -1,5 +1,7 @@
 #include "Entity.h"
 
+#include "BaconBox/Core/IDManager.h"
+
 namespace BaconBox {
 	int Entity::ID = IDManager::getID();
 	int Entity::BROADCAST = IDManager::getID();

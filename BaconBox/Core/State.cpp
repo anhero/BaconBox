@@ -2,6 +2,7 @@
 
 #include "BaconBox/Display/Camera.h"
 #include "BaconBox/Components/EntityManager.h"
+#include "BaconBox/Core/IDManager.h"
 
 namespace BaconBox {
 	const std::string State::DEFAULT_NAME = "State";
@@ -12,7 +13,8 @@ namespace BaconBox {
 	int State::ID = IDManager::getID();
 
 
-	State::State(const std::string &newName) : setName(newName), camera(new Camera()) {
+	State::State(const std::string &newName) : Entity(), camera(new Camera()) {
+		this->setName(newName);
 		this->add(this->camera);
 		
 		addComponent(new EntityManager());
