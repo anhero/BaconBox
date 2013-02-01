@@ -139,7 +139,8 @@ BaconBox/Input/Pointer/NullPointer.o \
 BaconBox/Input/Pointer/Pointer.o \
 BaconBox/Input/Pointer/PointerButtonSignalData.o \
 BaconBox/Input/Pointer/PointerSignalData.o \
-BaconBox/Input/Pointer/PointerState.o
+BaconBox/Input/Pointer/PointerState.o \
+BaconBox/Input/Pointer/Flash/FlashPointer.o
 
 MOVIECLIP_SOURCES= \
 BaconBox/MovieClipEntity/MovieClipEntity.o
