@@ -8,8 +8,7 @@ namespace BaconBox {
 		this->MainWindow::setResolution(resolutionWidth, resolutionHeight);
 		this->MainWindow::setContextSize(contextWidth, contextHeight);
 
-		
-		InputManager::getInstance().setNbKeyboards(1);
+		//InputManager::getInstance().setNbKeyboards(1);
 		InputManager::getInstance().setNbPointers(1);
 
 	}
