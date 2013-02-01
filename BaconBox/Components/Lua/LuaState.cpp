@@ -8,22 +8,24 @@
 namespace BaconBox {
 	 BB_ID_IMPL(LuaState);
 	
-	LuaState::LuaState() : Component(), table_index(-1) {
+	 int LuaState::EMPTY_LUA_REF = -1;
+	 
+	LuaState::LuaState() : Component(), table_index(EMPTY_LUA_REF), update_index(EMPTY_LUA_REF) {
 		setName("LuaState");
 	}
 	LuaState::~LuaState(){
 		if(L){
-			if(table_index){
+			if(table_index != EMPTY_LUA_REF){
 				luaL_unref(L, LUA_REGISTRYINDEX, table_index);
 			}
-			if(update_index){
+			if(update_index != EMPTY_LUA_REF){
 				luaL_unref(L, LUA_REGISTRYINDEX, update_index);
 			}
 		}
 	}
 
 	void LuaState::update(){
-	    if(update_index == -1)return;
+	    if(update_index == EMPTY_LUA_REF)return;
 		lua_rawgeti(L, LUA_REGISTRYINDEX,update_index);
 		lua_rawgeti(L, LUA_REGISTRYINDEX,table_index);
 		int ret = lua_pcall(L, 1, 0, 0);

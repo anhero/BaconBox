@@ -21,6 +21,8 @@ namespace BaconBox {
 		virtual void receiveMessage(int senderID, int destID, int message, void *data);
 		
 	private:
+		static int EMPTY_LUA_REF;
+	    
 		int table_index;
 		int update_index;
 		lua_State * L;
