@@ -1,6 +1,5 @@
 #include "Transform.h"
-
-#include "BaconBox/Core/Entity.h"
+#include "BaconBox/Console.h"
 namespace BaconBox {
 	 BB_ID_IMPL(Transform);
 	
@@ -88,4 +87,38 @@ namespace BaconBox {
 		this->scale = newScale;
                 sendMessage(Entity::BROADCAST, MESSAGE_SCALE_CHANGED, &(this->scale));
 	}
+	
+	
+	TransformProxy::TransformProxy(Entity* entity, bool mustAddComponent): entity(entity){
+	    if(mustAddComponent){
+		transform= new Transform();
+		entity->addComponent(transform);
+	    }
+	}
+	    
+	    
+	const Vector2 &TransformProxy::getPosition() const{
+	    return transform->getPosition();
+	}
+
+	void TransformProxy::setPosition(const Vector2 &newPosition){
+	    transform->setPosition(newPosition);
+	}
+
+	float TransformProxy::getRotation() const{
+	    return transform->getRotation();
+	}
+
+	void TransformProxy::setRotation(float newRotation){
+	    transform->setRotation(newRotation);
+	}
+
+	const Vector2 &TransformProxy::getScale() const{
+	    return transform->getScale();
+	}
+
+	void TransformProxy::setScale(const Vector2 &newScale){
+	    transform->setScale(newScale);
+	}
+	
 }
