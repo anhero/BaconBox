@@ -3,6 +3,7 @@
 #include "BaconBox/Components/Flash/FlashEntityManager.h"
 
 namespace BaconBox {
+AS3::local::var FlashEngine::stage;
 
 			package_as3("#package BaconBox\n"
 				"import flash.events.Event; \n"
@@ -21,6 +22,10 @@ namespace BaconBox {
 			AS3_GetVarxxFromVar(stage, theStage);	
 
 		}
+
+		AS3::local::var FlashEngine::getStage(){
+			return stage;
+		} 
 
 		State *FlashEngine::addState(State *newState){
 			BaseEngine::addState(newState);

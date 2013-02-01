@@ -15,9 +15,10 @@ namespace BaconBox {
 
 		State *addState(State *newState);
 		void removeState(const std::string &name);
+		static AS3::local::var getStage(); 
 	private:
 		FlashEngine();
-		AS3::local::var stage;
+		static AS3::local::var stage;
 	};
 }
 
