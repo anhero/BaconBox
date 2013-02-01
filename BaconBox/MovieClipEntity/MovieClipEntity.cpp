@@ -1,5 +1,4 @@
 #include "MovieClipEntity.h"
-#include "BaconBox/Components/Transform.h"
 #include <string>
 
 
@@ -11,11 +10,11 @@
 #endif
 
 namespace BaconBox {
-	MovieClipEntity::MovieClipEntity(): Entity() {
-	    
-		Transform *transform = new Transform();
-		addComponent(transform);
-
+    
+    BB_ID_IMPL(MovieClipEntity);
+    
+	MovieClipEntity::MovieClipEntity(): Entity(), TransformProxy(this) {
+	  
 		#ifdef BB_FLASH_PLATEFORM
 
 		#else
@@ -26,7 +25,6 @@ namespace BaconBox {
 		    this->addComponent(new MeshDriverRenderer());
 		
 		#endif
-
 
 	}
 	

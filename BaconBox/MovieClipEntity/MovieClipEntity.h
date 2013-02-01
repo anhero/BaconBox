@@ -7,6 +7,9 @@
 #include "BaconBox/Core/Entity.h"
 #include "BaconBox/PlatformFlagger.h"
 
+#include "BaconBox/Components/Transform.h"
+
+
 #ifdef BB_FLASH_PLATEFORM
 #include <AS3/AS3.h>
 #include <AS3/AS3++.h>
@@ -16,8 +19,10 @@ namespace BaconBox {
 	/**
 	 * 
 	 */
-	class MovieClipEntity : public Entity { 
+	class MovieClipEntity : public Entity, public TransformProxy  { 
     public:
+	BB_ID_HEADER;
+	
 	MovieClipEntity();
 	
 #ifdef BB_FLASH_PLATEFORM
