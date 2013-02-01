@@ -11,9 +11,19 @@ namespace BaconBox {
 	LuaState::LuaState() : Component(), table_index(-1) {
 		setName("LuaState");
 	}
+	LuaState::~LuaState(){
+		if(L){
+			if(table_index){
+				luaL_unref(L, LUA_REGISTRYINDEX, table_index);
+			}
+			if(update_index){
+				luaL_unref(L, LUA_REGISTRYINDEX, update_index);
+			}
+		}
+	}
 
 	void LuaState::update(){
-	    if(table_index == -1)return;
+	    if(update_index == -1)return;
 		lua_rawgeti(L, LUA_REGISTRYINDEX,update_index);
 		lua_rawgeti(L, LUA_REGISTRYINDEX,table_index);
 		int ret = lua_pcall(L, 1, 0, 0);

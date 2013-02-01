@@ -12,7 +12,7 @@ namespace BaconBox {
 		BB_ID_HEADER;
 		
 		LuaState();
-
+		~LuaState();
 		void setLuaClass(lua_State * L);
 
 		void update();
