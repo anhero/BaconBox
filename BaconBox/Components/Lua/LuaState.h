@@ -2,6 +2,7 @@
 #define BB_LUASTATE_H
 
 #include "BaconBox/Core/Component.h"
+#include "BaconBox/Core/Entity.h"
 
 struct lua_State;
 
@@ -23,6 +24,18 @@ namespace BaconBox {
 		int table_index;
 		int update_index;
 		lua_State * L;
+	};
+
+
+	class LuaStateProxy {
+	public:
+		LuaStateProxy(Entity* entity, bool mustAddComponent = true);
+		void setLuaClass(lua_State * L);
+	private:
+		LuaState * luaState;
+		Entity* entity;
+		
+
 	};
 }
 
