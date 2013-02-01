@@ -56,7 +56,7 @@ namespace BaconBox {
 		Component *result = NULL;
 		bool notFound = true;
 		std::vector<Component *>::const_iterator i = this->components.begin();
-
+		
 		while (notFound && i != this->components.end()) {
 			if ((*i)->getID() == id) {
 				result = (*i);
@@ -101,9 +101,10 @@ namespace BaconBox {
 	}
 
 
-	void Entity::addComponent(Component *newComponent) {
+	Component * Entity::addComponent(Component *newComponent) {
 		components.push_back(newComponent);
 		newComponent->entity = this;
+		return newComponent;
 	}
 
 	void Entity::removeComponentAt(std::vector<Component *>::size_type index) {

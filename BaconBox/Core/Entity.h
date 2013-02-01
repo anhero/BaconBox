@@ -38,7 +38,7 @@ namespace BaconBox {
 
 
 		const std::vector<Component *> &getComponents() const;
-		void addComponent(Component *newComponent);
+		Component * addComponent(Component *newComponent);
 		void removeComponentAt(std::vector<Component *>::size_type index);
 		void removeComponent(Component *component);
 		void removeComponents(int id);
