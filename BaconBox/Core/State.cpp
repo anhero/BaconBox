@@ -17,8 +17,12 @@ namespace BaconBox {
 	const int State::MESSAGE_GET_FOCUS = IDManager::getID();
 	const int State::MESSAGE_LOSE_FOCUS = IDManager::getID();	
 
+	State::State(const std::string &newName) : camera(new Camera())
+	#ifdef BB_LUA
+	, LuaStateProxy(this) 
+	#endif //BB_LUA
+	{
 
-	State::State(const std::string &newName) : camera(new Camera()) {
 		this->add(this->camera);
 		setName(newName);
 		addComponent(new EntityManager());
@@ -73,6 +77,7 @@ namespace BaconBox {
 		this->render();
 	}
 
+	
 	void State::internalOnGetFocus() {
 		onGetFocus();
 		sendMessage(State::ID, Entity::BROADCAST, State::MESSAGE_GET_FOCUS,  NULL);

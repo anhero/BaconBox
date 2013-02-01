@@ -9,11 +9,19 @@
 #include <set>
 #include <list>
 #include "Entity.h"
+#ifdef BB_LUA
+#include "BaconBox/Components/Lua/LuaState.h"
+#endif
+
 
 namespace BaconBox {
 	class Camera;
 	
-	class State : public Entity {
+	class State : public Entity
+#ifdef BB_LUA
+	, public LuaStateProxy
+#endif //BB_LUA
+{
 		friend class BaseEngine;
 	public:
 		BB_ID_HEADER;
