@@ -30,6 +30,7 @@
 #define Console__print(a)    Console::_print(__FILE__, __LINE__, a);
 #define Console__printf(...) Console::_printf(__FILE__, __LINE__, __VA_ARGS__);
 #define Console__log(a)      Console::_log(__FILE__, __LINE__, #a, a);
+#define Console__error(a)    std::cerr << "Error: " << a << std::endl;
 
 #define PRLN(a) Console::println(a)
 
