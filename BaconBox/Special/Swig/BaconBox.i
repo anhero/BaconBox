@@ -53,12 +53,14 @@ end
 #endif
 
 %{
+
 	#include "BaconBox/PlatformFlagger.h"
-	#ifdef BB_FLASH_PLATEFORM
+	#include "BaconBox/Core/IDManager.h"
+  #ifdef BB_FLASH_PLATEFORM
 	#include <AS3/AS3.h>
 	#include <AS3/AS3++.h>
 	#include "BaconBox/Components/Flash/MovieClipHolder.h" 
-	#endif
+	#endif //BB_FLASH_PLATEFORM
 
 	#include "BaconBox/Core/Component.h"
 	#include "BaconBox/Core/Entity.h"
@@ -76,7 +78,6 @@ end
 #endif
 
 
-
 ///////////////////////
 // Helper functions
 ///////////////////////
@@ -92,7 +93,6 @@ end
 		return NULL;
 	}
 
-
 	int luacast(lua_State*L){
 		void * myDataPtr;
         void ** ptrToPtr = &myDataPtr;
@@ -100,9 +100,8 @@ end
         const char * type_name = luaL_checkstring(L, 2);
         swig_type_info * type = getTypeByName(L, type_name);
 
-
         SWIG_ConvertPtr(L, 1, ptrToPtr, NULL, 0);
-    
+
 
         // Search the SWIG module for a swig_type_info that contains the data
         // type string that was passed as the second parameter
@@ -124,18 +123,23 @@ end
 	#endif
 
 
-
-
 %}
+
+%include "BaconBox/Core/IDManager.h"
+
 
 
 
 #if defined(BB_LUA)
 		%include "std_string.i"
 
-    %typemap(arginit) (lua_State*) %{
-      SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_BaconBox__LuaState,0);
-     
+
+%typemap(arginit) SWIGTYPE *self %{
+  swig_type_info * selfType = $descriptor;
+%}
+
+  %typemap(arginit) lua_State* %{
+    SWIG_ConvertPtr(L,1,(void**)&arg1,selfType,0);
     #ifdef IMPOSSIBLE_MACRO_JUST_TO_SKIP_SWIG_ARG_COUNT_CHECK_I_SHOULD_REALLY_FIND_A_FIX_IN_THE_NEAR_FUTURE
     %}
     
@@ -181,7 +185,6 @@ end
 
 //%include "BaconBox/Vector2.h"
 
-
 namespace BaconBox{
 	class Vector2{
 		public:
@@ -202,13 +205,12 @@ namespace BaconBox{
 
 %include "BaconBox/EntityFactory.h" 
 
-#ifdef BB_FLASH_PLATEFORM
-%include "BaconBox/Components/Flash/MovieClipHolder.h"
-#endif
-%include "BaconBox/Core/State.h"
-%include "BaconBox/Core/Engine.h"
-
 
 #if defined(BB_LUA)
 %include "BaconBox/Components/Lua/LuaState.h"
 #endif
+
+%include "BaconBox/Core/State.h"
+%include "BaconBox/Core/Engine.h"
+
+
