@@ -31,9 +31,12 @@
 #define Console__printf(...) Console::_printf(__FILE__, __LINE__, __VA_ARGS__);
 #define Console__log(a)      Console::_log(__FILE__, __LINE__, #a, a);
 
+#define PRLN(a) Console::println(a)
+
 #ifdef BB_ANDROID
 #define PV(x) ;
 #else
+
 #define PV(x) std::cout << #x << ": " << x << std::endl
 #endif
 
