@@ -25,6 +25,10 @@
 
 	#define BB_ENGINE_IMPL FlashEngine
 	#define BB_ENGINE_INCLUDE "BaconBox/Core/Flash/FlashEngine.h"
+
+
+	#define BB_POINTER_IMPL new FlashPointer()
+	#define BB_POINTER_INCLUDE "BaconBox/Input/Pointer/Flash/FlashPointer.h"
 #endif
 
 
