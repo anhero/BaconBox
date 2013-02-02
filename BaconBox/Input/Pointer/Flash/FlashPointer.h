@@ -28,18 +28,9 @@ namespace BaconBox {
 
 	private:
 
-		AS3::local::var mouseUpFun;
-		void pointerUpCallBack(AS3::local::var event);
-		static AS3::local::var mouseUpEventListener(void *arg, AS3::local::var as3Args);
-
-		AS3::local::var mouseDownFun;
-		void pointerDownCallBack(AS3::local::var event);
-		static AS3::local::var mouseDownEventListener(void *arg, AS3::local::var as3Args);
-
-		AS3::local::var mouseMoveFun;
-		void pointerMoveCallBack(AS3::local::var event);
-		static AS3::local::var mouseMoveEventListener(void *arg, AS3::local::var as3Args);
-
+		AS3::local::var mouseFun;
+		static AS3::local::var mouseEventListener(void *arg, AS3::local::var as3Args);
+		
 		struct{
 			Vector2 pos;
 			bool leftButton;
