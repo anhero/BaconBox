@@ -62,14 +62,30 @@ end
 	#include "BaconBox/Components/Flash/MovieClipHolder.h" 
 	#endif //BB_FLASH_PLATEFORM
 
+
+  #include "BaconBox/Input/InputState.h"
+  #include "BaconBox/Input/InputSignalData.h"
+  #include "BaconBox/Input/Pointer/CursorButton.h"
+
+  #include "BaconBox/SignalSlots/SignalData.h"
+  #include "BaconBox/Input/Pointer/CursorState.h"
+  #include "BaconBox/Input/Pointer/PointerState.h"
+  #include "BaconBox/Input/Pointer/PointerSignalData.h"
+  #include "BaconBox/Input/Pointer/PointerButtonSignalData.h"
+
 	#include "BaconBox/Core/Component.h"
 	#include "BaconBox/Core/Entity.h"
+
+
+  #include "BaconBox/Components/HasName.h"
+
 
 	#include "BaconBox/Vector2.h"
 	#include "BaconBox/Components/Transform.h"
 
 	#include "BaconBox/MovieClipEntity/MovieClipEntity.h"
 	#include "BaconBox/EntityFactory.h"
+  #include "BaconBox/Components/HasName.h"
   #include "BaconBox/Core/State.h"
 
   #include "BaconBox/Core/Engine.h"
@@ -127,7 +143,7 @@ end
 
 %include "BaconBox/Core/IDManager.h"
 
-
+%ignore onPointerMove(PointerButtonSignalData);
 
 
 #if defined(BB_LUA)
@@ -177,9 +193,10 @@ end
 #endif
 
 
-
-
 %include "BaconBox/Core/Component.h"
+
+%include "BaconBox/Components/HasName.h"
+
 
 %include "BaconBox/Core/Entity.h"
 
@@ -197,7 +214,15 @@ namespace BaconBox{
 		float y;
 	};
 }
+%include "BaconBox/Input/InputState.h"
+%include "BaconBox/SignalSlots/SignalData.h"
+%include "BaconBox/Input/Pointer/CursorButton.h"
 
+%include "BaconBox/Input/InputSignalData.h"
+%include "BaconBox/Input/Pointer/CursorState.h"
+%include "BaconBox/Input/Pointer/PointerState.h"
+%include "BaconBox/Input/Pointer/PointerSignalData.h"
+%include "BaconBox/Input/Pointer/PointerButtonSignalData.h"
 
 %include "BaconBox/Components/Transform.h"
 
