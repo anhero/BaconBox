@@ -13,9 +13,6 @@ namespace BaconBox {
 	
 
 	MovieClipHolder::MovieClipHolder(AS3::local::var aMC) : Component(){
-
-
-		setName("MovieClipHolder");
 		setMovieClip(aMC);
 		AS3::local::var args[1] = {AS3::local::internal::new_int(1)};
 		callMethod("gotoAndStop", 1, args);
