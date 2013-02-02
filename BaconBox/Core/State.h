@@ -12,14 +12,16 @@
 #ifdef BB_LUA
 #include "BaconBox/Components/Lua/LuaState.h"
 #endif
+#include "BaconBox/Components/HasName.h"
 
-
+#include "BaconBox/Input/Pointer/Pointer.h"
 namespace BaconBox {
 	class Camera;
 	
-	class State : public Entity
+	class State : public Entity, 
+		public HasNameProxy
 #ifdef BB_LUA
-	, public LuaStateProxy
+, public LuaStateProxy
 #endif //BB_LUA
 {
 		friend class BaseEngine;
@@ -34,7 +36,7 @@ namespace BaconBox {
 		static const std::string DEFAULT_NAME;
 
 		State(const std::string &newName = DEFAULT_NAME);
-
+		
 		virtual ~State();
 
 		virtual void update();
@@ -48,6 +50,7 @@ namespace BaconBox {
 		Camera &getCamera();
 		
 		const Camera &getCamera() const;
+		
 	protected:
 		virtual void onGetFocus();
 

@@ -8,28 +8,31 @@
 #ifdef BB_FLASH_PLATEFORM
 #include "BaconBox/Components/Flash/FlashEntityManager.h"
 #endif
+
+#include "BaconBox/Console.h"
+
 namespace BaconBox {
 	BB_ID_IMPL(State);
 	
 	const std::string State::DEFAULT_NAME = "State";
-	const int State::MESSAGE_ADDED_ENTITY = IDManager::getID();
-	const int State::MESSAGE_REMOVED_ENTITY = IDManager::getID();
-	const int State::MESSAGE_GET_FOCUS = IDManager::getID();
-	const int State::MESSAGE_LOSE_FOCUS = IDManager::getID();	
+	const int State::MESSAGE_ADDED_ENTITY = IDManager::generatetID("State::MESSAGE_ADDED_ENTITY");
+	const int State::MESSAGE_REMOVED_ENTITY = IDManager::generatetID("State::MESSAGE_REMOVED_ENTITY");
+	const int State::MESSAGE_GET_FOCUS = IDManager::generatetID("State::MESSAGE_GET_FOCUS");
+	const int State::MESSAGE_LOSE_FOCUS = IDManager::generatetID("State::MESSAGE_LOSE_FOCUS");	
 
-	State::State(const std::string &newName) : camera(new Camera())
+	State::State(const std::string &newName) : camera(new Camera()), HasNameProxy(this, newName)
 	#ifdef BB_LUA
 	, LuaStateProxy(this) 
 	#endif //BB_LUA
 	{
-
-		this->add(this->camera);
-		setName(newName);
 		addComponent(new EntityManager());
+		
+		this->add(this->camera);
 		
 		#ifdef BB_FLASH_PLATEFORM
 		addComponent(new FlashEntityManager());
 		#endif
+
 	}
 
 	State::~State() {
