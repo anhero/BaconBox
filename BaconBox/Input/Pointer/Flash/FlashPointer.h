@@ -40,6 +40,11 @@ namespace BaconBox {
 		void pointerMoveCallBack(AS3::local::var event);
 		static AS3::local::var mouseMoveEventListener(void *arg, AS3::local::var as3Args);
 
+		struct{
+			Vector2 pos;
+			bool leftButton;
+		} mouseState;
+
 	};
 }
 

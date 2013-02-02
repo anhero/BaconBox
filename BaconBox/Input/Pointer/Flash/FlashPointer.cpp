@@ -19,12 +19,12 @@ FlashPointer::FlashPointer() : Pointer() {
 
 	AS3_GetVarxxFromVar(eventType, MouseEvent.MOUSE_DOWN);
 	args[0] = eventType;
-	mouseDownFun = args[1] = AS3::local::internal::new_Function(mouseDownEventListener, reinterpret_cast<void*>(this));;
+	mouseDownFun = args[1] = AS3::local::internal::new_Function(mouseUpEventListener, reinterpret_cast<void*>(this));;
 	FlashHelper::callMethod(stage, "addEventListener", 2, args);
 
 	AS3_GetVarxxFromVar(eventType, MouseEvent.MOUSE_MOVE);
 	args[0] = eventType;
-	mouseMoveFun = args[1] = AS3::local::internal::new_Function(mouseMoveEventListener, reinterpret_cast<void*>(this));
+	mouseMoveFun = args[1] = AS3::local::internal::new_Function(mouseUpEventListener, reinterpret_cast<void*>(this));
 	FlashHelper::callMethod(stage, "addEventListener", 2, args);
 
 
@@ -58,13 +58,10 @@ FlashPointer::~FlashPointer() {
 
 
 void FlashPointer::pointerUpCallBack(AS3::local::var event){
-	getCursorPreviousButtons(0) = getCursorButtons(0);
-	getCursorPreviousPosition(0) = getCursorPosition(0);
-
 	int x = AS3::local::internal::int_valueOf(FlashHelper::getProperty(event, "stageX"));
 	int y = AS3::local::internal::int_valueOf(FlashHelper::getProperty(event, "stageY"));
-	getCursorPosition(0) = Vector2(static_cast<float>(x), static_cast<float>(y));
-	getCursorButtons(0)[CursorButton::LEFT] = false;
+	mouseState.pos = Vector2(static_cast<float>(x), static_cast<float>(y));
+	mouseState.leftButton = AS3::local::internal::bool_valueOf(FlashHelper::getProperty(event, "buttonDown"));
 }
 
 AS3::local::var FlashPointer::mouseUpEventListener(void *arg, AS3::local::var as3Args){
@@ -102,6 +99,12 @@ AS3::local::var FlashPointer::mouseMoveEventListener(void *arg, AS3::local::var 
 }
 
 void FlashPointer::updateDevice() {
+	getCursorPreviousButtons(0) = getCursorButtons(0);
+	getCursorPreviousPosition(0) = getCursorPosition(0);
+
+	getCursorButtons(0)[CursorButton::LEFT] = mouseState.leftButton;
+	getCursorPosition(0) = mouseState.pos;
+
 		if(isButtonPressed(0)) {
 			buttonPress(PointerButtonSignalData(state, 0, 0));
 		} else if(isButtonHeld(0)) {
