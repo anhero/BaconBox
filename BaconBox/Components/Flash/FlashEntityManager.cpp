@@ -11,7 +11,6 @@ namespace BaconBox {
 	BB_ID_IMPL(FlashEntityManager);
 
 	FlashEntityManager::FlashEntityManager() : Component() {
-	    setName("FlashEntityManager");
 	    movieClipManager = FlashHelper::construct("flash.display.MovieClip");
 
 	}
