@@ -109,6 +109,10 @@ end
 		return NULL;
 	}
 
+  void pushLuaWrapperBySwigType(lua_State* L,void* ptr,swig_type_info *type,int own){
+    SWIG_NewPointerObj(L, ptr, type, own);
+  }
+
 	int luacast(lua_State*L){
 		void * myDataPtr;
         void ** ptrToPtr = &myDataPtr;
@@ -210,10 +214,46 @@ namespace BaconBox{
 		Vector2(float x, float y);
 		#endif
 
+    Vector2 operator+(const Vector2 &other) const;
+    Vector2 operator+(float delta) const;
+
+    Vector2 operator-(const Vector2 &other) const;
+    Vector2 operator-(float delta) const;
+
+
+    float operator*(const Vector2 &other) const;
+    Vector2 operator*(float delta) const;
+
+    Vector2 operator/(float delta) const;
+
+
+  
+    float getLength() const;
+    void setLength(float newLength);
+    float getSquaredLength() const;
+    float getDotProduct(const Vector2 &other) const;
+    Vector2 getNormalized() const;
+    void normalize();
+    Vector2 &coordinatesMultiply(const Vector2 &other);
+    Vector2 getCoordinatesMultiplication(const Vector2 &other) const;
+    Vector2 &coordinatesDivide(const Vector2 &other);
+    Vector2 getCoordinatesDivision(const Vector2 &other) const;
+    float getAngle() const;
+    float getAngleBetween(const Vector2 &other) const;
+    void setAngle(float newAngle);
+    Vector2 getRotated(float angle) const;
+    void rotate(float angle);
+    Vector2 getProjection(const Vector2 &direction) const;
+    void project(const Vector2 &direction);
+    Vector2 getReflected(const Vector2 &mirror) const;
+    void reflect(const Vector2 &mirror);
+
+
 		float x;
 		float y;
 	};
 }
+
 %include "BaconBox/Input/InputState.h"
 %include "BaconBox/SignalSlots/SignalData.h"
 %include "BaconBox/Input/Pointer/CursorButton.h"
