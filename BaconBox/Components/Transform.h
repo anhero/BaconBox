@@ -4,6 +4,7 @@
 #include "BaconBox/Core/Component.h"
 #include "BaconBox/Vector2.h"
 #include "BaconBox/Core/Entity.h"
+#include "BaconBox/Input/Pointer/Pointer.h"
 
 namespace BaconBox {
 	class Transform : public Component {
@@ -43,6 +44,7 @@ namespace BaconBox {
 		
 		const Vector2 &getScale() const;
 		void setScale(const Vector2 &newScale);
+		
 	private:
 		Vector2 position;
 		float rotation;
@@ -50,7 +52,7 @@ namespace BaconBox {
 	};
 	
 	
-	class TransformProxy {
+	class TransformProxy : public ComponentProxy {
 	public:
 		TransformProxy(Entity* entity, bool mustAddComponent = true);
 		
@@ -65,8 +67,6 @@ namespace BaconBox {
 		
 		
 	private:
-		Transform * transform;
-		Entity* entity;
 
 	};
 }
