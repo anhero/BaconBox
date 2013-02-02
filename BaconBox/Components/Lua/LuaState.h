@@ -14,6 +14,7 @@ namespace BaconBox {
 		LuaState();
 		~LuaState();
 		void setLuaClass(lua_State * L);
+		void reloadLuaClass();
 
 		void update();
 		void render();
@@ -25,18 +26,17 @@ namespace BaconBox {
 	    
 		int table_index;
 		int update_index;
+		int userData_index;
 		lua_State * L;
 	};
 
 
-	class LuaStateProxy {
+	class LuaStateProxy : public ComponentProxy{
 	public:
 		LuaStateProxy(Entity* entity, bool mustAddComponent = true);
+		void reloadLuaClass();
 		void setLuaClass(lua_State * L);
-	private:
-		LuaState * luaState;
-		Entity* entity;
-		
+	private:		
 
 	};
 }
