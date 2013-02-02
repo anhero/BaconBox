@@ -5,10 +5,7 @@ namespace BaconBox {
 	Camera::Camera() : Entity() {
 		addComponent(new CameraDriverRenderer());
 	}
-	
-	Camera::Camera(const Camera &src) : Entity(src) {
-	}
-	
+
 	Camera::~Camera() {
 	}
 	

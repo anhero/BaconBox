@@ -6,6 +6,7 @@
 
 
 #include "BaconBox/Core/Entity.h"
+#include "BaconBox/Components/Transform.h"
 
 
 namespace BaconBox {
@@ -16,9 +17,7 @@ namespace BaconBox {
 	class Camera  : public Entity {
     public:
 		Camera();
-		
-		Camera(const Camera &src);
-		
+				
 		virtual ~Camera();
 		
 		Camera &operator=(const Camera &src);
