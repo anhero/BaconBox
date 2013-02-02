@@ -1,7 +1,8 @@
 #ifndef BB_ID_MANAGER_H
 #define BB_ID_MANAGER_H
 
-
+#include <string>
+#include <map>
 #define BB_ID_HEADER \
 static int ID; \
 virtual int getID() const
@@ -10,18 +11,23 @@ virtual int getID() const
 int ClassName::getID() const {		\
 	return ClassName::ID;		\
 }					\
-int ClassName::ID = IDManager::getID()
+int ClassName::ID = IDManager::generatetID(#ClassName)
 
 namespace BaconBox {
 	class IDManager {
 	public:
-		static int getID();
+		static int generatetID();
+		static int generatetID(const std::string & name);
+		static int getID(const std::string & name);
+		static std::string getName(int id);
 	private:
 		static IDManager &getInstance();
 		
 		IDManager();
 		
 		int counter;
+		
+		std::map<std::string, int> ids; 
 	};
 }
 

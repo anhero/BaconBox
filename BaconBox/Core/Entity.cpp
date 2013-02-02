@@ -4,7 +4,7 @@
 namespace BaconBox {
 	BB_ID_IMPL(Entity);
 	
-	int Entity::BROADCAST = IDManager::getID();
+	int Entity::BROADCAST = IDManager::generatetID();
 
 	Entity::Entity() : name(), components(), parent(NULL) {
 	}
@@ -66,7 +66,9 @@ namespace BaconBox {
 				i++;
 			}
 		}
-		if(!result)Console::error("Can't find the requested component in the given entity. Maybe you haven't implemented BB_ID_HEADER and BB_ID_IMPL.");
+		if(!result){
+		    Console__error("Can't find the requested component in the given entity.: ID" << id << " name: " << IDManager::getName(id));
+		}
 		return result;
 	}
 
