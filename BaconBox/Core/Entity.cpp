@@ -6,10 +6,10 @@ namespace BaconBox {
 	
 	int Entity::BROADCAST = IDManager::generatetID();
 
-	Entity::Entity() : name(), components(), parent(NULL) {
+	Entity::Entity() : components(), parent(NULL), sigly::HasSlots<>() {
 	}
 
-	Entity::Entity(const Entity &src) : name(src.name), components(), parent(NULL) {
+	Entity::Entity(const Entity &src) : components(), parent(NULL) {
 		this->copyFrom(src);
 	}
 
@@ -19,8 +19,6 @@ namespace BaconBox {
 
 	Entity &Entity::operator=(const Entity &src) {
 		if (this != &src) {
-			this->name = src.name;
-
 			this->clear();
 
 			this->copyFrom(src);
@@ -35,21 +33,8 @@ namespace BaconBox {
 
 
 	Component *Entity::getComponent(const std::string &componentName) const {
-		Component *result = NULL;
-		bool notFound = true;
-		std::vector<Component *>::const_iterator i = this->components.begin();
-
-		while (notFound && i != this->components.end()) {
-			if ((*i)->getName() == componentName) {
-				result = (*i);
-				notFound = false;
-
-			} else {
-				i++;
-			}
-		}
-		if(!result)Console::error("Can't find the requested component in the given entity");
-		return result;
+		int id = IDManager::getID(componentName);
+		return getComponent(id);
 	}
 
 	Component *Entity::getComponent(int id) const {
@@ -90,16 +75,19 @@ namespace BaconBox {
 		}
 	}
 
-	const std::string &Entity::getName() const {
-		return this->name;
+	std::string Entity::getEntityName() const {
+		return IDManager::getName(this->getID());
 	}
 
-	void Entity::setName(const std::string &newName) {
-		this->name = newName;
-	}
 
 	const std::vector<Component *> &Entity::getComponents() const {
 		return components;
+	}
+	
+	void Entity::printComponentsName(){
+	    for(std::vector<Component *>::iterator i = components.begin(); i != components.end(); i++){
+		std::cout << " Entity: " << IDManager::getName(this->getID()) << " Component: " << IDManager::getName((*i)->getID()) << std::endl;
+	    }
 	}
 
 
