@@ -9,10 +9,12 @@ namespace BaconBox {
 	public:
 		BB_ID_HEADER;
 		
-		static const int MESSAGE_GET_COLOR = 0;
-		static const int MESSAGE_SET_COLOR = 1;
+		static int MESSAGE_GET_COLOR;
+		static int MESSAGE_SET_COLOR;
 		
 		ColorFilter();
+		
+		ColorFilter(const Color &newColor);
 		
 		ColorFilter(const ColorFilter &src);
 		

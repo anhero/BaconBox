@@ -1,9 +1,17 @@
 #include "ColorFilter.h"
 
+#include "BaconBox/Core/IDManager.h"
+
 namespace BaconBox {
 	BB_ID_IMPL(ColorFilter);
+	
+	int ColorFilter::MESSAGE_GET_COLOR = IDManager::generatetID();
+	int ColorFilter::MESSAGE_SET_COLOR = IDManager::generatetID();
 
-	ColorFilter::ColorFilter() : Component(), color(Color::BLACK) {
+	ColorFilter::ColorFilter() : Component(), color(Color::WHITE) {
+	}
+	
+	ColorFilter::ColorFilter(const Color &newColor) : Component(), color(newColor) {
 	}
 
 	ColorFilter::ColorFilter(const ColorFilter &src) : Component(src), color(src.color) {
@@ -28,18 +36,19 @@ namespace BaconBox {
 		if (destID != ColorFilter::ID) {
 			return;
 		}
-
-		switch (message) {
-		case ColorFilter::MESSAGE_GET_COLOR:
+		
+		if (message == ColorFilter::MESSAGE_GET_COLOR) {
 			*reinterpret_cast<Color *>(data) = this->getColor();
-			break;
-
-		case ColorFilter::MESSAGE_SET_COLOR:
+		} else if (message == ColorFilter::MESSAGE_SET_COLOR) {
 			this->setColor(*reinterpret_cast<Color *>(data));
-			break;
-
-		default:
-			break;
 		}
+	}
+	
+	const Color &ColorFilter::getColor() const {
+		return this->color;
+	}
+	
+	void ColorFilter::setColor(const Color &newColor) {
+		this->color = newColor;
 	}
 }
