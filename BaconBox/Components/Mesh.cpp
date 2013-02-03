@@ -31,10 +31,6 @@ namespace BaconBox {
 			return StandardVertexArray();
 		}
 	}
-	
-	void Mesh::move(const Vector2 &delta) {
-		this->vertices.move(delta.x, delta.y);
-	}
 
 	void Mesh::receiveMessage(int senderID, int destID, int message, void *data) {
 		if (senderID == Transform::ID && destID == Entity::BROADCAST) {
