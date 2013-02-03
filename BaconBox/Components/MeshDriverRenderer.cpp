@@ -18,6 +18,7 @@ namespace BaconBox {
 		}
 		
 		if (this->mesh != NULL) {
+			
 		}
 	}
 }

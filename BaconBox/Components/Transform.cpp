@@ -10,7 +10,7 @@ namespace BaconBox {
 	Transform::Transform() : Component(), position(), rotation(0.0f), scale() {
 	}
 
-	Transform::Transform(const Transform &src) : Component(), position(src.position), rotation(src.rotation), scale(src.scale) {
+	Transform::Transform(const Transform &src) : Component(src), position(src.position), rotation(src.rotation), scale(src.scale) {
 	}
 
 	Transform::~Transform() {
