@@ -23,6 +23,10 @@
 		24B0364A16BEAF4500117510 /* ColorFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = 24B0364816BEAF4500117510 /* ColorFilter.h */; };
 		24CD5A9916347EE9001EB407 /* libJsonBox.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 24CD5A9716347EE8001EB407 /* libJsonBox.a */; };
 		24CD5A9A16347EE9001EB407 /* libtinyxml.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 24CD5A9816347EE8001EB407 /* libtinyxml.a */; };
+		24F9A04E16BF007800FCA53B /* EntityFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 24F9A04C16BF007700FCA53B /* EntityFactory.cpp */; };
+		24F9A04F16BF007800FCA53B /* EntityFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = 24F9A04D16BF007700FCA53B /* EntityFactory.h */; };
+		24F9A05316BF01A100FCA53B /* ResourcePointer.h in Headers */ = {isa = PBXBuildFile; fileRef = 24F9A05016BF019700FCA53B /* ResourcePointer.h */; };
+		24F9A05516BF01BF00FCA53B /* TexturePointer.h in Headers */ = {isa = PBXBuildFile; fileRef = 24F9A05416BF01BF00FCA53B /* TexturePointer.h */; };
 		5153CCE01698A80A00431A19 /* libfreetype.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5153CCDF1698A80A00431A19 /* libfreetype.a */; };
 		5153CCE31698A82A00431A19 /* libpng.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5153CCE21698A82A00431A19 /* libpng.a */; };
 		5153CCE81698A86E00431A19 /* libogg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5153CCE61698A86E00431A19 /* libogg.a */; };
@@ -287,6 +291,10 @@
 		24CD5A9716347EE8001EB407 /* libJsonBox.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libJsonBox.a; path = libraries/Darwin/x86_64/lib/libJsonBox.a; sourceTree = "<group>"; };
 		24CD5A9816347EE8001EB407 /* libtinyxml.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libtinyxml.a; path = libraries/Darwin/x86_64/lib/libtinyxml.a; sourceTree = "<group>"; };
 		24F9A04916BEDDC300FCA53B /* RenderMode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RenderMode.h; sourceTree = "<group>"; };
+		24F9A04C16BF007700FCA53B /* EntityFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EntityFactory.cpp; sourceTree = "<group>"; };
+		24F9A04D16BF007700FCA53B /* EntityFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EntityFactory.h; sourceTree = "<group>"; };
+		24F9A05016BF019700FCA53B /* ResourcePointer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResourcePointer.h; sourceTree = "<group>"; };
+		24F9A05416BF01BF00FCA53B /* TexturePointer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TexturePointer.h; sourceTree = "<group>"; };
 		5153CCDF1698A80A00431A19 /* libfreetype.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libfreetype.a; path = libraries/Darwin/x86_64/lib/libfreetype.a; sourceTree = "<group>"; };
 		5153CCE21698A82A00431A19 /* libpng.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpng.a; path = libraries/Darwin/x86_64/lib/libpng.a; sourceTree = SOURCE_ROOT; };
 		5153CCE61698A86E00431A19 /* libogg.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libogg.a; path = libraries/Darwin/x86_64/lib/libogg.a; sourceTree = "<group>"; };
@@ -618,6 +626,9 @@
 		51E516BA1697529200F6D446 /* BaconBox */ = {
 			isa = PBXGroup;
 			children = (
+				24F9A05016BF019700FCA53B /* ResourcePointer.h */,
+				24F9A04C16BF007700FCA53B /* EntityFactory.cpp */,
+				24F9A04D16BF007700FCA53B /* EntityFactory.h */,
 				51B374D316A4F04D0052740F /* Vector2.cpp */,
 				51B374D416A4F04D0052740F /* Vector2.h */,
 				51E519E5169764E200F6D446 /* SignalSlots */,
@@ -862,6 +873,7 @@
 		51E518FE16975B4300F6D446 /* Display */ = {
 			isa = PBXGroup;
 			children = (
+				24F9A05416BF01BF00FCA53B /* TexturePointer.h */,
 				5153CCF41698AA3300431A19 /* Text */,
 				51E518FF16975B4400F6D446 /* Color.cpp */,
 				51E5190016975B4400F6D446 /* Color.h */,
@@ -1225,6 +1237,9 @@
 				24B0364616BEA39300117510 /* HasName.h in Headers */,
 				24B0364A16BEAF4500117510 /* ColorFilter.h in Headers */,
 				24AF672B16BED58F004AA3D0 /* Texture.h in Headers */,
+				24F9A04F16BF007800FCA53B /* EntityFactory.h in Headers */,
+				24F9A05316BF01A100FCA53B /* ResourcePointer.h in Headers */,
+				24F9A05516BF01BF00FCA53B /* TexturePointer.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1386,6 +1401,7 @@
 				24B0364516BEA39300117510 /* HasName.cpp in Sources */,
 				24B0364916BEAF4500117510 /* ColorFilter.cpp in Sources */,
 				24AF672A16BED58F004AA3D0 /* Texture.cpp in Sources */,
+				24F9A04E16BF007800FCA53B /* EntityFactory.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

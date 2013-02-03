@@ -3,6 +3,7 @@
 
 #include "BaconBox/Core/Entity.h"
 #include "BaconBox/MovieClipEntity/MovieClipEntity.h"
+#include "BaconBox/Display/TexturePointer.h"
 
 namespace BaconBox {
 
@@ -10,6 +11,8 @@ namespace BaconBox {
 	public:
 	   
 	    static MovieClipEntity * getMovieClipEntity(const std::string & key);
+		
+		static Entity *getTexturedEntity(TexturePointer texture);
 	private:
 		    
 		
