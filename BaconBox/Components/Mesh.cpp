@@ -3,6 +3,7 @@
 #include "BaconBox/Components/Transform.h"
 #include "BaconBox/Core/Entity.h"
 #include "BaconBox/Helper/Vector2ChangedData.h"
+#include "BaconBox/Helper/ValueChangedData.h"
 
 namespace BaconBox {
 	BB_ID_IMPL(Mesh);
@@ -30,6 +31,10 @@ namespace BaconBox {
 			return StandardVertexArray();
 		}
 	}
+	
+	void Mesh::move(const Vector2 &delta) {
+		this->vertices.move(delta.x, delta.y);
+	}
 
 	void Mesh::receiveMessage(int senderID, int destID, int message, void *data) {
 		if (senderID == Transform::ID && destID == Entity::BROADCAST) {
@@ -42,16 +47,24 @@ namespace BaconBox {
 			}
 
 			case Transform::MESSAGE_ROTATION_CHANGED: {
-				float newRotation = *reinterpret_cast<float *>(data);
+				ValueChangedData<float> newRotation(*reinterpret_cast<ValueChangedData<float> *>(data));
 
-				// TODO: change the vertices' rotation.
+				Transform *transform = reinterpret_cast<Transform*>(this->getEntity()->getComponent(Transform::ID));
+				
+				if (transform) {
+					this->vertices.rotateFromPoint(newRotation.newValue - newRotation.oldValue, transform->getPosition());
+				}
 				break;
 			}
 
 			case Transform::MESSAGE_SCALE_CHANGED: {
-				Vector2 newScale(*reinterpret_cast<Vector2 *>(data));
-
-				// TODO: change the vertices' scaling.
+				Vector2ChangedData newScale(*reinterpret_cast<Vector2ChangedData *>(data));
+				
+				Transform *transform = reinterpret_cast<Transform*>(this->getEntity()->getComponent(Transform::ID));
+				
+				if (transform) {
+					this->vertices.scaleFromPoint(newScale.newValue.x / newScale.oldValue.x, newScale.newValue.y / newScale.oldValue.y, transform->getPosition());
+				}
 				break;
 			}
 

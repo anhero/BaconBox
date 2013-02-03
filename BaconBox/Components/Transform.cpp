@@ -7,7 +7,7 @@
 namespace BaconBox {
 	 BB_ID_IMPL(Transform);
 	
-	Transform::Transform() : Component(), position(), rotation(0.0f), scale() {
+	Transform::Transform() : Component(), position(), rotation(0.0f), scale(1.0f, 1.0f) {
 	}
 
 	Transform::Transform(const Transform &src) : Component(src), position(src.position), rotation(src.rotation), scale(src.scale) {
@@ -81,8 +81,9 @@ namespace BaconBox {
 	}
 
 	void Transform::setRotation(float newRotation) {
+		ValueChangedData<float> data(this->rotation, newRotation);
 		this->rotation = newRotation;
-		sendMessage(Entity::BROADCAST, MESSAGE_ROTATION_CHANGED, &(this->rotation));
+		sendMessage(Entity::BROADCAST, MESSAGE_ROTATION_CHANGED, &(data));
 	}
 
 	const Vector2 &Transform::getScale() const {
@@ -90,8 +91,9 @@ namespace BaconBox {
 	}
 
 	void Transform::setScale(const Vector2 &newScale) {
+		Vector2ChangedData data(this->scale, newScale);
 		this->scale = newScale;
-		sendMessage(Entity::BROADCAST, MESSAGE_SCALE_CHANGED, &(this->scale));
+		sendMessage(Entity::BROADCAST, MESSAGE_SCALE_CHANGED, &(data));
 	}
 	
 	

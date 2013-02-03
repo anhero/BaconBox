@@ -32,8 +32,6 @@ namespace BaconBox {
 		
 		virtual Transform *clone() const;
 		
-		
-		
 		virtual void receiveMessage(int senderID, int destID, int message, void *data);
 		
 		const Vector2 &getPosition() const;

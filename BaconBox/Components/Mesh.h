@@ -27,6 +27,8 @@ namespace BaconBox {
 		 */
 		const StandardVertexArray getRelativeVertices() const;
 		
+		void move(const Vector2 &delta);
+		
 		virtual void receiveMessage(int senderID, int destID, int message, void *data);
     private:
 		StandardVertexArray vertices;
