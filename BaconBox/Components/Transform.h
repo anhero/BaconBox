@@ -44,6 +44,10 @@ namespace BaconBox {
 		void setScale(const Vector2 &newScale);
 		
 	private:
+		/**
+		 * Entity's position. All rotations and scaling are applied from this
+		 * point.
+		 */
 		Vector2 position;
 		float rotation;
 		Vector2 scale;

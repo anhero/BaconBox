@@ -10,7 +10,7 @@
 
 namespace BaconBox {
 	/**
-	 * 
+	 * Contains the entity's vertices.
 	 */
 	class Mesh  : public Component {
     public:
@@ -18,6 +18,10 @@ namespace BaconBox {
 		
 		Mesh();
 		
+		/**
+		 * Gets the vertices defining the shape of the mesh.
+		 * @return Array of vertices defining the shape of the mesh.
+		 */
 		StandardVertexArray &getVertices();
 		
 		/**
