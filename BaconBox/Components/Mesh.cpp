@@ -36,8 +36,8 @@ namespace BaconBox {
 			switch (message) {
 			case Transform::MESSAGE_POSITION_CHANGED: {
 				Vector2ChangedData newPosition(*reinterpret_cast<Vector2ChangedData *>(data));
-
-				// TODO: change the vertices' position.
+				
+				this->vertices.move(newPosition.newValue.x - newPosition.oldValue.x, newPosition.newValue.y - newPosition.oldValue.y);
 				break;
 			}
 
