@@ -1,6 +1,8 @@
 #include "Entity.h"
+
 #include "BaconBox/Core/IDManager.h"
 #include "BaconBox/Console.h"
+
 namespace BaconBox {
 	BB_ID_IMPL(Entity);
 	

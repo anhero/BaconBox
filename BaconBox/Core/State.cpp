@@ -26,6 +26,7 @@ namespace BaconBox {
 	#endif //BB_LUA
 	{
 		addComponent(new EntityManager());
+		this->add(this->camera);
 		
 		this->add(this->camera);
 		
