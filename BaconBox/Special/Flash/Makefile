@@ -5,7 +5,7 @@ BUILD_PATH=$(PROJECT_ROOT)/build
 CXX="$(FLASCC)/usr/bin/g++"
 
 AS3COMPILER:=asc2.jar
-BASE_CFLAGS=-Werror -Wno-write-strings -Wno-trigraphs
+BASE_CFLAGS=-Werror -Wno-write-strings -Wno-trigraphs 
 DEFINE_FLAG=-DTIXML_USE_STL -DTINYXML_USE_STL
 PROJECT_ROOT=../../..
 CUSTOM_LIB_PATH=$(wildcard $(PROJECT_ROOT)/libraries/FreeBSD/i686 $(PROJECT_ROOT)/libraries/FreeBSD/x86_64)
@@ -56,9 +56,11 @@ COMPONENTS_SOURCES = \
 BaconBox/Components/CameraDriverRenderer.o \
 BaconBox/Components/Mesh.o \
 BaconBox/Components/Transform.o \
+BaconBox/Components/HasName.o \
 BaconBox/Components/EntityManager.o \
 BaconBox/Components/Flash/MovieClipHolder.o \
-BaconBox/Components/Flash/FlashEntityManager.o
+BaconBox/Components/Flash/FlashEntityManager.o 
+
 
 
 CORE_SOURCES= \
@@ -139,7 +141,8 @@ BaconBox/Input/Pointer/NullPointer.o \
 BaconBox/Input/Pointer/Pointer.o \
 BaconBox/Input/Pointer/PointerButtonSignalData.o \
 BaconBox/Input/Pointer/PointerSignalData.o \
-BaconBox/Input/Pointer/PointerState.o
+BaconBox/Input/Pointer/PointerState.o \
+BaconBox/Input/Pointer/Flash/FlashPointer.o
 
 MOVIECLIP_SOURCES= \
 BaconBox/MovieClipEntity/MovieClipEntity.o
@@ -191,7 +194,6 @@ swf: check $(BUILD_PATH)/BaconBox.swf
 
 
 $(BUILD_PATH)/BaconBox.swf: $(addsuffix .abc,$(SWIG_OUTPUT)) EntityHolderMovieClip.abc $(addprefix $(PROJECT_ROOT)/,$(ALL_SOURCES)) $(addprefix $(PROJECT_ROOT)/,$(FLASCC_SOURCES))
-
 	@echo "-------- BaconBox.swf--------"
 	"$(FLASCC)/usr/bin/g++" $(BASE_CFLAGS) $(DEFINE_FLAG) -I$(PROJECT_ROOT) -I$(CUSTOM_LIB_PATH)/include $(addsuffix .abc,$(SWIG_OUTPUT)) EntityHolderMovieClip.abc \
 	$(addprefix $(PROJECT_ROOT)/, $(ALL_SOURCES)) $(addprefix $(PROJECT_ROOT)/, $(FLASCC_SOURCES)) -emit-swf -o $(BUILD_PATH)/BaconBox.swf \
@@ -253,11 +255,11 @@ $(addprefix $(PROJECT_ROOT)/,$(LUA_SWIG_SOURCES)): $(PROJECT_ROOT)/BaconBox/Spec
 
 %.o: %.c
 	@echo "-------- BUILD C FILE--------"
-	$(CXX) $< -c $(BASE_CFLAGS) -emit-swc=BaconBox $(DEFINE_FLAG) -I$(PROJECT_ROOT) -I$(CUSTOM_LIB_PATH)/include -o $@
+	$(CXX) $< -c $(BASE_CFLAGS) -emit-swf $(DEFINE_FLAG) -I$(PROJECT_ROOT) -I$(CUSTOM_LIB_PATH)/include -o $@
 
 %.o: %.cpp
 	@echo "-------- BUILD CPP FILE--------"
-	$(CXX) $< -c $(BASE_CFLAGS) -emit-swc=BaconBox $(DEFINE_FLAG) -I$(PROJECT_ROOT) -I$(CUSTOM_LIB_PATH)/include -o $@
+	$(CXX) $< -c $(BASE_CFLAGS) -emit-swf $(DEFINE_FLAG) -I$(PROJECT_ROOT) -I$(CUSTOM_LIB_PATH)/include -o $@
 
 $(BUILD_PATH)/build:
 	@echo "-------- creating build path --------"

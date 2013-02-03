@@ -7,7 +7,6 @@ namespace BaconBox {
 	BB_ID_IMPL(EntityManager);
 	
 	EntityManager::EntityManager() : Component(), entities(), toAdd(), toRemove() {
-	    setName("EntityManager");
 	}
 
 	EntityManager::~EntityManager() {

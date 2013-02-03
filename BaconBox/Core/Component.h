@@ -4,10 +4,18 @@
 #include <string>
 #include "BaconBox/Core/IDManager.h"
 
+#include <sigly.h>
+
+
+//To use this macro, your Proxy must take these two parameters NAMES ARE IMPORTANT (Entity* entity, bool mustAddComponent)
+#define BB_PROXY_CONSTRUCTOR(componentConstructor) ComponentProxy(entity, (mustAddComponent ? componentConstructor : NULL))
+
+
+
 namespace BaconBox {
 	class Entity;
 	
-	class Component {
+	class Component : public sigly::HasSlots<> {
 		friend class Entity;
 	public:
 		BB_ID_HEADER;
@@ -28,13 +36,20 @@ namespace BaconBox {
 		virtual void update();
 		virtual void render();
 		
-		const std::string &getName() const;
-		void setName(const std::string& newName);
+		std::string getComponentName() const;
+		
 		
 		Entity *getEntity() const;
 	private:
-		std::string name;
 		Entity *entity;
+	};
+	
+	
+	class ComponentProxy {
+	protected:
+	    ComponentProxy(Entity* entity, Component * component);
+	    Component * component;
+	    Entity* entity;
 	};
 }
 

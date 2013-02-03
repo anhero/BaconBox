@@ -6,21 +6,16 @@ namespace BaconBox {
     
 	BB_ID_IMPL(Component);
 	
-	Component::Component() : name(), entity(NULL) {
+	Component::Component() : entity(NULL), sigly::HasSlots<>() {
 	}
 	
-	Component::Component(const Component &src) : name(src.name), entity(NULL) {
+	Component::Component(const Component &src) : entity(NULL) {
 	}
 	
 	Component::~Component() {
 	}
 	
 	Component &Component::operator=(const Component &src) {
-		if (this != &src)
-		{
-			this->name = src.name;
-		}
-		
 		return *this;
 	}
 	
@@ -43,15 +38,20 @@ namespace BaconBox {
 	void Component::render() {
 	}
 
-	const std::string &Component::getName() const {
-		return this->name;
-	}
-	
-	void Component::setName(const std::string &newName) {
-		this->name = newName;
+	std::string Component::getComponentName() const {
+		return IDManager::getName(this->getID());
 	}
 	
 	Entity *Component::getEntity() const {
 		return this->entity;
 	}
+	
+	ComponentProxy::ComponentProxy(Entity* entity, Component * component){
+	    this->entity = entity;
+	    if(component){
+		this->component = component;
+		entity->addComponent(component);
+	    }
+	}
+	
 }

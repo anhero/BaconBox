@@ -53,28 +53,45 @@ end
 #endif
 
 %{
+
 	#include "BaconBox/PlatformFlagger.h"
-	#ifdef BB_FLASH_PLATEFORM
+	#include "BaconBox/Core/IDManager.h"
+  #ifdef BB_FLASH_PLATEFORM
 	#include <AS3/AS3.h>
 	#include <AS3/AS3++.h>
 	#include "BaconBox/Components/Flash/MovieClipHolder.h" 
-	#endif
+	#endif //BB_FLASH_PLATEFORM
+
+
+  #include "BaconBox/Input/InputState.h"
+  #include "BaconBox/Input/InputSignalData.h"
+  #include "BaconBox/Input/Pointer/CursorButton.h"
+
+  #include "BaconBox/SignalSlots/SignalData.h"
+  #include "BaconBox/Input/Pointer/CursorState.h"
+  #include "BaconBox/Input/Pointer/PointerState.h"
+  #include "BaconBox/Input/Pointer/PointerSignalData.h"
+  #include "BaconBox/Input/Pointer/PointerButtonSignalData.h"
 
 	#include "BaconBox/Core/Component.h"
 	#include "BaconBox/Core/Entity.h"
+
+
+  #include "BaconBox/Components/HasName.h"
+
 
 	#include "BaconBox/Vector2.h"
 	#include "BaconBox/Components/Transform.h"
 
 	#include "BaconBox/MovieClipEntity/MovieClipEntity.h"
 	#include "BaconBox/EntityFactory.h"
+  #include "BaconBox/Components/HasName.h"
   #include "BaconBox/Core/State.h"
 
   #include "BaconBox/Core/Engine.h"
 #if defined(BB_LUA)
   #include "BaconBox/Components/Lua/LuaState.h"
 #endif
-
 
 
 ///////////////////////
@@ -92,6 +109,9 @@ end
 		return NULL;
 	}
 
+  void pushLuaWrapperBySwigType(lua_State* L,void* ptr,swig_type_info *type,int own){
+    SWIG_NewPointerObj(L, ptr, type, own);
+  }
 
 	int luacast(lua_State*L){
 		void * myDataPtr;
@@ -100,9 +120,8 @@ end
         const char * type_name = luaL_checkstring(L, 2);
         swig_type_info * type = getTypeByName(L, type_name);
 
-
         SWIG_ConvertPtr(L, 1, ptrToPtr, NULL, 0);
-    
+
 
         // Search the SWIG module for a swig_type_info that contains the data
         // type string that was passed as the second parameter
@@ -124,18 +143,23 @@ end
 	#endif
 
 
-
-
 %}
 
+%include "BaconBox/Core/IDManager.h"
+
+%ignore onPointerMove(PointerButtonSignalData);
 
 
 #if defined(BB_LUA)
 		%include "std_string.i"
 
-    %typemap(arginit) (lua_State*) %{
-      SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_BaconBox__LuaState,0);
-     
+
+%typemap(arginit) SWIGTYPE *self %{
+  swig_type_info * selfType = $descriptor;
+%}
+
+  %typemap(arginit) lua_State* %{
+    SWIG_ConvertPtr(L,1,(void**)&arg1,selfType,0);
     #ifdef IMPOSSIBLE_MACRO_JUST_TO_SKIP_SWIG_ARG_COUNT_CHECK_I_SHOULD_REALLY_FIND_A_FIX_IN_THE_NEAR_FUTURE
     %}
     
@@ -173,14 +197,14 @@ end
 #endif
 
 
-
-
 %include "BaconBox/Core/Component.h"
+
+%include "BaconBox/Components/HasName.h"
+
 
 %include "BaconBox/Core/Entity.h"
 
 //%include "BaconBox/Vector2.h"
-
 
 namespace BaconBox{
 	class Vector2{
@@ -190,11 +214,55 @@ namespace BaconBox{
 		Vector2(float x, float y);
 		#endif
 
+    Vector2 operator+(const Vector2 &other) const;
+    Vector2 operator+(float delta) const;
+
+    Vector2 operator-(const Vector2 &other) const;
+    Vector2 operator-(float delta) const;
+
+
+    float operator*(const Vector2 &other) const;
+    Vector2 operator*(float delta) const;
+
+    Vector2 operator/(float delta) const;
+
+
+  
+    float getLength() const;
+    void setLength(float newLength);
+    float getSquaredLength() const;
+    float getDotProduct(const Vector2 &other) const;
+    Vector2 getNormalized() const;
+    void normalize();
+    Vector2 &coordinatesMultiply(const Vector2 &other);
+    Vector2 getCoordinatesMultiplication(const Vector2 &other) const;
+    Vector2 &coordinatesDivide(const Vector2 &other);
+    Vector2 getCoordinatesDivision(const Vector2 &other) const;
+    float getAngle() const;
+    float getAngleBetween(const Vector2 &other) const;
+    void setAngle(float newAngle);
+    Vector2 getRotated(float angle) const;
+    void rotate(float angle);
+    Vector2 getProjection(const Vector2 &direction) const;
+    void project(const Vector2 &direction);
+    Vector2 getReflected(const Vector2 &mirror) const;
+    void reflect(const Vector2 &mirror);
+
+
 		float x;
 		float y;
 	};
 }
 
+%include "BaconBox/Input/InputState.h"
+%include "BaconBox/SignalSlots/SignalData.h"
+%include "BaconBox/Input/Pointer/CursorButton.h"
+
+%include "BaconBox/Input/InputSignalData.h"
+%include "BaconBox/Input/Pointer/CursorState.h"
+%include "BaconBox/Input/Pointer/PointerState.h"
+%include "BaconBox/Input/Pointer/PointerSignalData.h"
+%include "BaconBox/Input/Pointer/PointerButtonSignalData.h"
 
 %include "BaconBox/Components/Transform.h"
 
@@ -202,13 +270,12 @@ namespace BaconBox{
 
 %include "BaconBox/EntityFactory.h" 
 
-#ifdef BB_FLASH_PLATEFORM
-%include "BaconBox/Components/Flash/MovieClipHolder.h"
-#endif
-%include "BaconBox/Core/State.h"
-%include "BaconBox/Core/Engine.h"
-
 
 #if defined(BB_LUA)
 %include "BaconBox/Components/Lua/LuaState.h"
 #endif
+
+%include "BaconBox/Core/State.h"
+%include "BaconBox/Core/Engine.h"
+
+

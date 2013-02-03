@@ -2,12 +2,14 @@
 #define BB_ENTITY_FACTORY_H
 
 #include "BaconBox/Core/Entity.h"
+#include "BaconBox/MovieClipEntity/MovieClipEntity.h"
+
 namespace BaconBox {
 
 	class EntityFactory {
 	public:
 	   
-	    static Entity * getEntity(const std::string & key);
+	    static MovieClipEntity * getMovieClipEntity(const std::string & key);
 	private:
 		    
 		

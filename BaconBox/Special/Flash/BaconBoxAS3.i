@@ -6,6 +6,7 @@
 	#include "BaconBox/MovieClipEntity/MovieClipEntity.h"
 	#include <AS3/AS3.h>
 	#include <AS3/AS3++.h>
+	#include "BaconBox/Core/Engine.h"
 
 	#ifdef BB_LUA
 		#include "BaconBox/Script/Lua/LuaManager.h"
@@ -41,7 +42,15 @@
     		MovieClipEntity();
 			void setMovieClip(AS3::local::var aMC);
 		};
+
+		class Engine {
+			public:
+			static void pulse();
+
+		};
 	}
+
+
 
 #ifdef BB_LUA
 	%include "BaconBox/Script/Lua/LuaManager.h"

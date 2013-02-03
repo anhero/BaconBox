@@ -6,13 +6,16 @@
 
 #include "Component.h"
 
+#include <sigly.h>
+
+
 namespace BaconBox {
 	class Component;
 
 	/**
 	 * Represents an entity that has components and can contain other entities.
 	 */
-	class Entity {
+	class Entity : public sigly::HasSlots<> {
 	public:
                 static int BROADCAST;
 		BB_ID_HEADER;
@@ -32,13 +35,11 @@ namespace BaconBox {
 		void update();
 		void render();
 
-		const std::string &getName() const;
-		void setName(const std::string &newName);
+		std::string getEntityName() const;
 
-
-
+		void printComponentsName();
 		const std::vector<Component *> &getComponents() const;
-		void addComponent(Component *newComponent);
+		Component * addComponent(Component *newComponent);
 		void removeComponentAt(std::vector<Component *>::size_type index);
 		void removeComponent(Component *component);
 		void removeComponents(int id);
@@ -52,7 +53,6 @@ namespace BaconBox {
 		void free();
 		void copyFrom(const Entity &src);
 
-		std::string name;
 		std::vector<Component *> components;
 		Entity *parent;
 	};

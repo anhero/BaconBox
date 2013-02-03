@@ -12,12 +12,12 @@
 
 namespace BaconBox {
 	
-	Entity * EntityFactory::getEntity(const std::string & key){
+	MovieClipEntity * EntityFactory::getMovieClipEntity(const std::string & key){
 		#ifdef BB_FLASH_PLATEFORM	
 			AS3::local::var mc =  FlashHelper::construct(key);
 			AS3::local::var entity = FlashHelper::getProperty(mc, "entity");
 			AS3::local::var entityPointerAS3 = FlashHelper::getProperty(entity, "swigCPtr");
-			Entity * entityPointer = (Entity*)int_valueOf(entityPointerAS3);
+			MovieClipEntity * entityPointer = (MovieClipEntity*)int_valueOf(entityPointerAS3);
 			return entityPointer;
 		#endif	  
 	}

@@ -3,16 +3,29 @@
 #include "BaconBox/Components/Flash/FlashEntityManager.h"
 
 namespace BaconBox {
+AS3::local::var FlashEngine::stage;
+
+			package_as3("#package BaconBox\n"
+				"import flash.events.Event; \n"
+				"function EnginePulseEventListener(event:flash.events.Event):void {BaconBox.Engine.pulse();}\n");
 
 		FlashEngine::FlashEngine():BaseEngine(){
 			AS3::local::var activeConsole;
 			inline_as3("import flash.display.DisplayObject;\n"
 						"import flash.display.Stage;\n"
+						"import BaconBox.EnginePulseEventListener;\n"
+						"import flash.events.Event; \n"
 						"var activeConsole:DisplayObject = (CModule.activeConsole as DisplayObject);\n"
 						"var theStage:Stage = activeConsole.stage;\n"
+						"activeConsole.addEventListener(flash.events.Event.ENTER_FRAME, EnginePulseEventListener)"
 						::);
-			AS3_GetVarxxFromVar(stage, theStage);			
+			AS3_GetVarxxFromVar(stage, theStage);	
+
 		}
+
+		AS3::local::var FlashEngine::getStage(){
+			return stage;
+		} 
 
 		State *FlashEngine::addState(State *newState){
 			BaseEngine::addState(newState);
