@@ -199,10 +199,10 @@ $(BUILD_PATH)/BaconBox.swf: $(addsuffix .abc,$(SWIG_OUTPUT)) EntityHolderMovieCl
 	$(addprefix $(PROJECT_ROOT)/, $(ALL_SOURCES)) $(addprefix $(PROJECT_ROOT)/, $(FLASCC_SOURCES)) -emit-swf -o $(BUILD_PATH)/BaconBox.swf \
 	-L$(CUSTOM_LIB_PATH)/lib $(LINK_FLAG)
 
-$(BUILD_PATH)/BaconBox.swc: $(addsuffix .abc,$(SWIG_OUTPUT)) EntityHolderMovieClip.abc $(addprefix $(PROJECT_ROOT)/,$(ALL_SOURCES)) $(addprefix $(PROJECT_ROOT)/,$(FLASCC_SOURCES))
+$(BUILD_PATH)/BaconBox.swc: $(addsuffix .abc,$(SWIG_OUTPUT)) VFS.abc EntityHolderMovieClip.abc $(addprefix $(PROJECT_ROOT)/,$(ALL_SOURCES)) $(addprefix $(PROJECT_ROOT)/,$(FLASCC_SOURCES))
 	@echo "-------- BaconBox.swc --------"
 	"$(FLASCC)/usr/bin/g++" $(BASE_CFLAGS) $(DEFINE_FLAG) -I$(PROJECT_ROOT) -I$(CUSTOM_LIB_PATH)/include $(addsuffix .abc,$(SWIG_OUTPUT)) EntityHolderMovieClip.abc \
-	$(addprefix $(PROJECT_ROOT)/, $(ALL_SOURCES)) $(addprefix $(PROJECT_ROOT)/, $(FLASCC_SOURCES)) -emit-swc=BaconBox -o $(BUILD_PATH)/BaconBox.swc \
+	VFS.abc $(addprefix $(PROJECT_ROOT)/, $(ALL_SOURCES)) $(addprefix $(PROJECT_ROOT)/, $(FLASCC_SOURCES)) -emit-swc=BaconBox -o $(BUILD_PATH)/BaconBox.swc \
 	-L$(CUSTOM_LIB_PATH)/lib $(LINK_FLAG)
 
 $?UNAME=$(shell uname -s)
@@ -220,6 +220,22 @@ else
 	echo "ASC is no longer supported" ; exit 1 ;
 endif
 
+
+
+LSOBackingStore.as:
+	cp "$(FLASCC)/usr/share/LSOBackingStore.as" .
+
+
+VFS.abc: LSOBackingStore.as URLLoaderVFS.as
+	$(AS3COMPILERARGS)	-import $(call nativepath,$(FLASCC)/usr/lib/builtin.abc) \
+			-import $(call nativepath,$(FLASCC)/usr/lib/playerglobal.abc) \
+			-import $(call nativepath,$(FLASCC)/usr/lib/BinaryData.abc) \
+			-import $(call nativepath,$(FLASCC)/usr/lib/ISpecialFile.abc) \
+			-import $(call nativepath,$(FLASCC)/usr/lib/IBackingStore.abc) \
+			-import $(call nativepath,$(FLASCC)/usr/lib/IVFS.abc) \
+			-import $(call nativepath,$(FLASCC)/usr/lib/InMemoryBackingStore.abc) \
+			-import $(call nativepath,$(FLASCC)/usr/lib/PlayerKernel.abc) \
+			URLLoaderVFS.as LSOBackingStore.as -outdir . -out VFS
 
 $(addsuffix .as3,$(SWIG_OUTPUT)) $(addsuffix .cpp,$(SWIG_OUTPUT)): $(BUILD_PATH)/build $(SWIG_INTERFACE)
 	@echo "-------- SWIG wrappers --------"
@@ -280,7 +296,7 @@ check:
 	fi
 
 clean:
-	rm -rf BaconBoxAS3.cpp BaconBox.cpp BaconBoxLua.cpp *.swf *.swc *.as3 *.abc *.o $(BUILD_PATH) $(addprefix $(PROJECT_ROOT)/,$(ALL_SOURCES)) $(addprefix $(PROJECT_ROOT)/,$(FLASCC_SOURCES))
+	rm -rf BaconBoxAS3.cpp BaconBox.cpp BaconBoxLua.cpp *.swf *.swc *.as3 *.abc *.o $(BUILD_PATH) LSOBackingStore.as $(addprefix $(PROJECT_ROOT)/,$(ALL_SOURCES)) $(addprefix $(PROJECT_ROOT)/,$(FLASCC_SOURCES))
 
 
 
