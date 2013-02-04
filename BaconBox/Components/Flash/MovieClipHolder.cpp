@@ -5,7 +5,8 @@
 
 
 #include "BaconBox/Helper/Flash/FlashHelper.h"
-
+#include "BaconBox/Console.h"
+#include "BaconBox/Helper/Vector2ChangedData.h"
 
 namespace BaconBox {
 
@@ -44,19 +45,19 @@ namespace BaconBox {
 
 		 if(senderID == Transform::ID){
 		 	if(message == Transform::MESSAGE_POSITION_CHANGED)	{
-				Vector2 * pos = (reinterpret_cast<Vector2 *>(data));
-				setProperty("x", AS3::local::internal::new_int(pos->x));
-				setProperty("y", AS3::local::internal::new_int(pos->y));
+				Vector2ChangedData * pos = (reinterpret_cast<Vector2ChangedData *>(data));
+				setProperty("x", AS3::local::internal::new_int(pos->newValue.x));
+				setProperty("y", AS3::local::internal::new_int(pos->newValue.y));
 		 	}	
 		 	else if(message == Transform::MESSAGE_ROTATION_CHANGED){
-		 		float rotation = *reinterpret_cast<float*>(data);
-		 		setProperty("rotation", AS3::local::internal::new_Number(rotation));
+		 		ValueChangedData<float>* rotation= reinterpret_cast<ValueChangedData<float>*>(data);
+		 		setProperty("rotation", AS3::local::internal::new_Number(rotation->newValue));
 
 		 	}
 		 	else if(message == Transform::MESSAGE_SCALE_CHANGED){
-		 		Vector2 * scale = (reinterpret_cast<Vector2 *>(data));
-		 		setProperty("scaleX", AS3::local::internal::new_Number(scale->x));
-				setProperty("scaleY", AS3::local::internal::new_Number(scale->y));
+		 		Vector2ChangedData * scale = (reinterpret_cast<Vector2ChangedData *>(data));
+		 		setProperty("scaleX", AS3::local::internal::new_Number(scale->newValue.x));
+				setProperty("scaleY", AS3::local::internal::new_Number(scale->newValue.y));
 		 	}	
 		 }
 
