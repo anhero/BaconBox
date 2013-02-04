@@ -14,8 +14,13 @@
 	#define BB_SDL
 #endif
 
+#if defined(BB_FLASH_PLATEFORM )
+#undef BB_FLASH_PLATEFORM
+#define __FLASHPLAYER__
+#endif
+
 #if defined(__FLASHPLAYER__)
-        #define BB_FLASH_PLATEFORM
+        #define BB_FLASH_PLATEFORM 1
         #define BB_TIME_HELPER_IMPL BaconBox::LibcTimeHelper
 	#define BB_TIME_HELPER_INCLUDE "BaconBox/Helper/libc/LibcTimeHelper.h"
 
