@@ -52,6 +52,7 @@ end
 }
 #endif
 
+
 %{
 
 	#include "BaconBox/PlatformFlagger.h"
@@ -102,7 +103,7 @@ end
 		swig_module_info* module=SWIG_GetModule(L);
 		for (int i =0; i < module->size; i++){
 			swig_lua_class* luaclass = (swig_lua_class*) module->types[i]->clientdata;
-			if(strcmp(luaclass->name, name) ==0){
+			if(luaclass&& strcmp(luaclass->name, name) ==0){
 				return module->types[i];
 			}
 		}
@@ -145,9 +146,12 @@ end
 
 %}
 
+
 %include "BaconBox/Core/IDManager.h"
 
 %ignore onPointerMove(PointerButtonSignalData);
+
+
 
 
 #if defined(BB_LUA)
@@ -174,7 +178,10 @@ end
 
 
 
-#ifdef BB_FLASH_PLATEFORM
+
+
+
+#ifdef BB_AS3_SWIG
 
 
 %typemap(astype) (AS3::local::var) "*";
@@ -252,8 +259,12 @@ namespace BaconBox{
 		float x;
 		float y;
 	};
+
+
 }
 
+
+%include "BaconBox/PlatformFlagger.h"
 %include "BaconBox/Input/InputState.h"
 %include "BaconBox/SignalSlots/SignalData.h"
 %include "BaconBox/Input/Pointer/CursorButton.h"
