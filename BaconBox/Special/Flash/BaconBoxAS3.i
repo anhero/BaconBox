@@ -47,6 +47,12 @@
 			public:
 			static void pulse();
 
+			static void initializeEngine(unsigned int resolutionWidth,
+		                             unsigned int resolutionHeight);
+
+
+		    static void application(int argc, char *argv[]);
+
 		};
 	}
 
