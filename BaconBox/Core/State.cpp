@@ -53,7 +53,7 @@ namespace BaconBox {
 	
 	void State::remove(Entity *newEntity) {
 	    if (newEntity && newEntity != this->camera) {
-		sendMessage(State::ID, Entity::BROADCAST, State::MESSAGE_ADDED_ENTITY,  newEntity);
+		sendMessage(State::ID, Entity::BROADCAST, State::MESSAGE_REMOVED_ENTITY,  newEntity);
 	    }
 	}
 	
