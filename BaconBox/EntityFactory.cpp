@@ -30,6 +30,8 @@ namespace BaconBox {
 		#endif	  
 	}
 	
+#if ! defined(BB_FLASH_PLATEFORM)
+
 	Entity *EntityFactory::getTexturedEntity(TexturePointer texture) {
 		Entity *result = NULL;
 		
@@ -69,4 +71,6 @@ namespace BaconBox {
 		}
 		return result;
 	}
+#endif //! defined(BB_FLASH_PLATEFORM)
+
 }

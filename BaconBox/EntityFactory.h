@@ -11,8 +11,9 @@ namespace BaconBox {
 	public:
 	   
 	    static MovieClipEntity * getMovieClipEntity(const std::string & key);
-		
+	#if ! defined(BB_FLASH_PLATEFORM)
 		static Entity *getTexturedEntity(TexturePointer texture);
+	#endif //! defined(BB_FLASH_PLATEFORM)
 	private:
 		    
 		
