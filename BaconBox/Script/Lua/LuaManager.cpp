@@ -8,11 +8,7 @@ extern "C" int luaopen_BaconBox(lua_State* L);
 namespace BaconBox {
 	LuaManager::LuaManager(){
 		L=luaL_newstate();
-	 	luaopen_base(L);
-        luaopen_table(L);
-        luaopen_io(L);
-        luaopen_string(L);
-        luaopen_math(L);
+		luaL_openlibs(L);
 	luaopen_BaconBox(L);
 	}
 	
