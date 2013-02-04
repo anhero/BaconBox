@@ -1,8 +1,8 @@
 /**
  * @file
  */
-#ifndef RB_TEXTURE_POINTER_H
-#define RB_TEXTURE_POINTER_H
+#ifndef BB_TEXTURE_POINTER_H
+#define BB_TEXTURE_POINTER_H
 
 #include "BaconBox/ResourcePointer.h"
 #include "BaconBox/ResourceManager.h"
