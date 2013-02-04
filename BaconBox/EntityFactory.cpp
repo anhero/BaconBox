@@ -27,19 +27,14 @@ namespace BaconBox {
 			AS3::local::var entityPointerAS3 = FlashHelper::getProperty(entity, "swigCPtr");
 			MovieClipEntity * entityPointer = (MovieClipEntity*)int_valueOf(entityPointerAS3);
 			return entityPointer;
-		#endif	  
-	}
-	
-#if ! defined(BB_FLASH_PLATEFORM)
-
-	Entity *EntityFactory::getTexturedEntity(TexturePointer texture) {
-		Entity *result = NULL;
+			
+		#else
+			 TexturePointer texture(key);
+		MovieClipEntity *result = NULL;
 		
 		if (texture.pointer) {
-			result = new Entity();
-			
-			result->addComponent(new Transform());
-			
+			result = new MovieClipEntity();
+						
 			Vector2 size(static_cast<float>(texture.pointer->imageWidth), static_cast<float>(texture.pointer->imageHeight));
 			
 			Vector2 poweredSize(static_cast<float>(texture.pointer->poweredWidth), static_cast<float>(texture.pointer->poweredHeight));
@@ -70,7 +65,10 @@ namespace BaconBox {
 			result->addComponent(new MeshDriverRenderer(RenderMode::SHAPE | RenderMode::COLOR | RenderMode::TEXTURE));
 		}
 		return result;
+			
+			
+		#endif	  
 	}
-#endif //! defined(BB_FLASH_PLATEFORM)
+	
 
 }
