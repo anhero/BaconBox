@@ -26,6 +26,11 @@
 #include <SDL2/SDL_mixer.h>
 #endif
 
+#ifdef BB_FLASH_PLATEFORM
+#include <AS3/AS3.h>
+#include <AS3/AS3++.h>
+#endif
+
 #include <string>
 
 namespace BaconBox {
@@ -41,6 +46,11 @@ namespace BaconBox {
 #ifdef BB_SDL
 		/// Pointer to SDL's sound data.
 		Mix_Chunk* data;
+#endif
+		
+		
+#ifdef BB_FLASH_PLATEFORM
+		AS3::local::var sound;
 #endif
 	};
 }
