@@ -34,6 +34,12 @@
 
 	#define BB_POINTER_IMPL new FlashPointer()
 	#define BB_POINTER_INCLUDE "BaconBox/Input/Pointer/Flash/FlashPointer.h"
+
+
+	#define BB_SOUND_ENGINE_IMPL new FlashAudioEngine()
+	#define BB_SOUND_ENGINE_INCLUDE "BaconBox/Audio/Flash/FlashAudioEngine.h"
+	#define BB_MUSIC_ENGINE_IMPL new FlashAudioEngine()
+	#define BB_MUSIC_ENGINE_INCLUDE "BaconBox/Audio/Flash/FlashAudioEngine.h"
 #endif
 
 
@@ -116,9 +122,15 @@
  ******************************************************************************/
 
 //SDL platform
+#ifdef SDL 
+#ifdef BB_SDL
+#undef BB_SDL
+#endif
+#define BB_SDL 1
+#endif
 #ifdef BB_SDL
 	//Graphics engine for SDL
-	#define BB_OPENGL
+	#define BB_OPENGL 1
 
 	//Sound engine for SDL
 	#define BB_SOUND_ENGINE_IMPL new SDLMixerEngine()
