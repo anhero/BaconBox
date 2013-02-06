@@ -1,13 +1,3 @@
-////////////////////////////////////////////////////////////////////////////////
-//
-//  ADOBE SYSTEMS INCORPORATED
-//  Copyright 2011 Adobe Systems Incorporated
-//  All Rights Reserved.
-//
-//  NOTICE: Adobe permits you to use, modify, and distribute this file
-//  in accordance with the terms of the license agreement accompanying it.
-//
-////////////////////////////////////////////////////////////////////////////////
 
 package com.adobe.flascc.vfs
 {
@@ -27,8 +17,7 @@ import flash.utils.Endian;
 
 public class URLLoaderVFS extends InMemoryBackingStore
 {
-	// The genfs program generates an as file that
-	// defines some of the data needed by this script
+
 
 	private var bytesLoaded:uint
 	private var percentComplete:uint
@@ -54,7 +43,6 @@ public class URLLoaderVFS extends InMemoryBackingStore
 
 
 	private function onManifestLoaded(e:Event):void {
-//		var lineArray:Array = e.target.data.split(/\n/);
 		vfsFiles =  e.target.data.split(/\n/);
 		startNewFile();
 	}
@@ -103,11 +91,9 @@ public class URLLoaderVFS extends InMemoryBackingStore
 	{
 		var url:String = currentUrls.shift()
 		if(url == null) {
-			// we're done with this file, put it in the VFS
-			//currentContents.uncompress()
+
 			addFile(currentVPath, currentContents);
 
-			// start a new file download
 			currentVPath = null
 			startNewFile()
 			return
@@ -127,11 +113,6 @@ public class URLLoaderVFS extends InMemoryBackingStore
 		bytesLoaded += currentLoader.data.length
 		currentContents.writeBytes(currentLoader.data)
 
-		//var pe:ProgressEvent = new ProgressEvent(ProgressEvent.PROGRESS)
-		//pe.bytesLoaded = bytesLoaded
-		//pe.bytesTotal = vfsTotalSize
-		//this.dispatchEvent(pe)
-
 		startNewDownload()
 	}
 
@@ -142,10 +123,7 @@ public class URLLoaderVFS extends InMemoryBackingStore
 
 	private function onProgress(e:Event):void
 	{
-		//var pe:ProgressEvent = new ProgressEvent(ProgressEvent.PROGRESS)
-		//pe.bytesLoaded = bytesLoaded + e.target.bytesLoaded
-		//pe.bytesTotal = vfsTotalSize
-		//this.dispatchEvent(pe)
+		
 	}
 }
 }
