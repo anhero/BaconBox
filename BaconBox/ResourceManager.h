@@ -23,6 +23,9 @@ namespace BaconBox {
 #ifndef BB_ANDROID
 	class Font;
 #endif
+	
+
+	
 	/**
 	 * Class that manages resources like textures and audio.
 	 * @ingroup Display
@@ -194,6 +197,14 @@ namespace BaconBox {
 		 * failed.
 		 */
 		static SoundInfo *loadSound(const SoundParameters &info,
+		                            bool overwrite = false);
+		
+		static SoundInfo *loadSoundFromBundle(const std::string &key,
+		                            const std::string &bundleKey,
+		                            bool overwrite = false);
+		
+		static MusicInfo *loadMusicFromBundle(const std::string &key,
+		                            const std::string &bundleKey,
 		                            bool overwrite = false);
 
 		/**
