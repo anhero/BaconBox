@@ -50,7 +50,10 @@ BaconBox/Audio/Sound.o \
 BaconBox/Audio/SoundFX.o \
 BaconBox/Audio/SoundEngine.o \
 BaconBox/Audio/SoundInfo.o \
-BaconBox/Audio/SoundParameters.o
+BaconBox/Audio/SoundParameters.o \
+BaconBox/Audio/Flash/FlashAudioEngine.o \
+BaconBox/Audio/Flash/FlashAudio.o
+
 
 COMPONENTS_SOURCES = \
 BaconBox/Components/CameraDriverRenderer.o \
