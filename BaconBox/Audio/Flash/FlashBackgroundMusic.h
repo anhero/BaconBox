@@ -2,8 +2,8 @@
  * @file
  * @ingroup Audio
  */
-#ifndef BB_FLASH_AUDIO_H
-#define BB_FLASH_AUDIO_H
+#ifndef BB_FLASH_BACKGROUNDMUSIC_H
+#define BB_FLASH_BACKGROUNDMUSIC_H
 
 #include "BaconBox/Audio/BackgroundMusic.h"
 #include "BaconBox/Audio/SoundFX.h"
@@ -13,7 +13,8 @@
 
 namespace BaconBox {
 
-	class FlashAudio : public BackgroundMusic, public SoundFX {
+	class FlashBackgroundMusic : public BackgroundMusic{
+		friend class AudioEngine;
 		friend class FlashAudioEngine;
 	public:
 		void play(int nbTimes);
@@ -36,9 +37,9 @@ namespace BaconBox {
 
 		void resume(double fadeIn);
 
-		virtual ~FlashAudio();
+		virtual ~FlashBackgroundMusic();
 
-		FlashAudio();
+		FlashBackgroundMusic();
 
 	private:
 		AS3::local::var sound;

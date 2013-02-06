@@ -14,7 +14,8 @@
 #include <AS3/AS3++.h>
 
 namespace BaconBox {
-	class FlashAudio;
+	class FlashBackgroundMusic;
+	class FlashSoundFX;
 
 	class FlashAudioEngine : public SoundEngine, public MusicEngine {
 		friend class AudioEngine;
@@ -29,7 +30,9 @@ namespace BaconBox {
 		BackgroundMusic* getBackgroundMusic(const std::string& key,
 		                                    bool survive = true);
 	private:
-		std::list<FlashAudio*> audios;
+		std::list<FlashSoundFX*> sounds;
+		std::list<FlashBackgroundMusic*> musics;
+
 
 		FlashAudioEngine();
 

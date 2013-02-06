@@ -4,7 +4,9 @@
 
 #include "BaconBox/Audio/SoundInfo.h"
 #include "BaconBox/Audio/MusicInfo.h"
-#include "BaconBox/Audio/Flash/FlashAudio.h"
+#include "BaconBox/Audio/Flash/FlashBackgroundMusic.h"
+#include "BaconBox/Audio/Flash/FlashSoundFX.h"
+
 #include "BaconBox/ResourceManager.h"
 #include "BaconBox/Helper/Flash/FlashHelper.h"
 
@@ -16,12 +18,14 @@ FlashAudioEngine& FlashAudioEngine::getInstance() {
 }
 
 SoundFX* FlashAudioEngine::getSoundFX(const std::string& key, bool survive) {
-	FlashAudio* result = new FlashAudio();
+	FlashSoundFX* result = new FlashSoundFX();
 
 	if(result) {
 		SoundInfo* info = ResourceManager::getSound(key);
 
 		if(info) {
+			AS3::local::internal::trace(result->sound);
+			AS3::local::internal::trace(info->sound);
 			result->sound = info->sound;
 		} else {
 			delete result;
@@ -32,7 +36,7 @@ SoundFX* FlashAudioEngine::getSoundFX(const std::string& key, bool survive) {
 		}
 
 		if(!survive) {
-			audios.push_back(result);
+			sounds.push_back(result);
 		}
 	} else {
 		Console::println("Failed to allocate memory for the new sound effect: " +
@@ -48,13 +52,16 @@ SoundFX* FlashAudioEngine::getSoundFX(const std::string& key, bool survive) {
 
 BackgroundMusic* FlashAudioEngine::getBackgroundMusic(const std::string& key,
 													 bool survive) {
-	FlashAudio* result = new FlashAudio();
+	FlashBackgroundMusic* result = new FlashBackgroundMusic();
 
 	if(result) {
 		SoundInfo* info = ResourceManager::getSound(key);
 
 		if(info) {
+			AS3::local::internal::trace(result->sound);
+						AS3::local::internal::trace(info->sound);
 			result->sound = info->sound;
+
 		} else {
 			delete result;
 			result = NULL;
@@ -63,7 +70,7 @@ BackgroundMusic* FlashAudioEngine::getBackgroundMusic(const std::string& key,
 		}
 
 		if(!survive) {
-			audios.push_back(result);
+			musics.push_back(result);
 		}
 	} else {
 		Console::println("Failed to allocate memory for the new music: " + key);
@@ -73,7 +80,7 @@ BackgroundMusic* FlashAudioEngine::getBackgroundMusic(const std::string& key,
 	return result;
 }
 
-FlashAudioEngine::FlashAudioEngine() : SoundEngine(), MusicEngine() {
+FlashAudioEngine::FlashAudioEngine() : SoundEngine(),MusicEngine(){
 	Console::println("FlashAudioEngine::FlashAudioEngine()");
 }
 
@@ -83,22 +90,22 @@ FlashAudioEngine::~FlashAudioEngine() {
 
 void FlashAudioEngine::update() {
 	// For each sound (music or sound effect).
-	std::list<FlashAudio*>::iterator i = audios.begin();
-	while(i != audios.end()) {
-		// We make sure the pointer is valid.
-		if(*i) {
-			if((*i)->getCurrentState() == AudioState::STOPPED) {
-				delete *i;
-				i = audios.erase(i);
-			} else {
-				++i;
-			}
-		} else {
-			// If the pointer is invalid (which should not happen), we remove
-			// it from the list.
-			i = audios.erase(i);
-		}
-	}
+	// std::list<FlashAudio*>::iterator i = audios.begin();
+	// while(i != audios.end()) {
+	// 	// We make sure the pointer is valid.
+	// 	if(*i) {
+	// 		if((*i)->getCurrentState() == AudioState::STOPPED) {
+	// 			delete *i;
+	// 			i = audios.erase(i);
+	// 		} else {
+	// 			++i;
+	// 		}
+	// 	} else {
+	// 		// If the pointer is invalid (which should not happen), we remove
+	// 		// it from the list.
+	// 		i = audios.erase(i);
+	// 	}
+	// }
 }
 
 SoundInfo* FlashAudioEngine::loadSound(const std::string& filePath) {

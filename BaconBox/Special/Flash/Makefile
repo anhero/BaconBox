@@ -52,7 +52,8 @@ BaconBox/Audio/SoundEngine.o \
 BaconBox/Audio/SoundInfo.o \
 BaconBox/Audio/SoundParameters.o \
 BaconBox/Audio/Flash/FlashAudioEngine.o \
-BaconBox/Audio/Flash/FlashAudio.o
+BaconBox/Audio/Flash/FlashBackgroundMusic.o \
+BaconBox/Audio/Flash/FlashSoundFX.o
 
 
 COMPONENTS_SOURCES = \
