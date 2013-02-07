@@ -55,6 +55,7 @@ end
 
 %{
 
+  #include "BaconBox/Helper/SafeEnum.h"
 	#include "BaconBox/PlatformFlagger.h"
 	#include "BaconBox/Core/IDManager.h"
   #ifdef BB_FLASH_PLATEFORM
@@ -90,6 +91,9 @@ end
   #include "BaconBox/Core/State.h"
 
   #include "BaconBox/Core/Engine.h"
+
+  #include "BaconBox/ResourceManager.h"
+
 #if defined(BB_LUA)
   #include "BaconBox/Components/Lua/LuaState.h"
 #endif
@@ -143,6 +147,16 @@ end
 	}
 	#endif
 
+class SoundInfo;
+#include "BaconBox/Audio/AudioState.h"
+#include "BaconBox/Audio/AudioEngine.h"
+#include "BaconBox/Audio/SoundEngine.h"
+#include "BaconBox/Audio/Sound.h"
+
+#include "BaconBox/Audio/SoundFX.h"
+
+#include "BaconBox/Audio/MusicEngine.h"
+#include "BaconBox/Audio/BackgroundMusic.h"
 
 %}
 
@@ -202,6 +216,10 @@ end
 
 
 #endif
+
+
+%include "BaconBox/Helper/SafeEnum.h"
+
 
 
 %include "BaconBox/Core/Component.h"
@@ -289,4 +307,50 @@ namespace BaconBox{
 %include "BaconBox/Core/State.h"
 %include "BaconBox/Core/Engine.h"
 
+%include "BaconBox/Audio/AudioState.h"
+%include "BaconBox/Audio/Sound.h"
 
+%include "BaconBox/Audio/AudioEngine.h"
+%include "BaconBox/Audio/SoundEngine.h"
+%include "BaconBox/Audio/SoundFX.h"
+
+%include "BaconBox/Audio/MusicEngine.h"
+%include "BaconBox/Audio/BackgroundMusic.h"
+
+namespace BaconBox{
+  class ResourceManager{
+    public:
+
+    static SoundInfo *loadSound(const std::string &key,
+                                const std::string &filePath,
+                                bool overwrite = false);
+
+    static SoundInfo *loadSoundRelativePath(const std::string &key,
+                const std::string &relativePath,
+                bool overwrite = false);
+
+    static SoundInfo *loadSoundFromBundle(const std::string &key,
+                                const std::string &bundleKey,
+                                bool overwrite = false);
+
+    static MusicInfo *loadMusicFromBundle(const std::string &key,
+                                const std::string &bundleKey,
+                                bool overwrite = false);          
+                                
+
+     static MusicInfo *loadMusic(const std::string &key,
+                                const std::string &filePath,
+                                bool overwrite = false);
+                                
+
+     static MusicInfo *loadMusicRelativePath(const std::string &key,
+                                            const std::string &relativePath,
+                                            bool overwrite = false);                                                                        
+
+    static SoundInfo *getSound(const std::string &key);
+
+    static MusicInfo *getMusic(const std::string &key);
+  };
+
+
+}
