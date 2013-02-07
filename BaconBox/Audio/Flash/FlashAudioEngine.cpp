@@ -4,8 +4,7 @@
 
 #include "BaconBox/Audio/SoundInfo.h"
 #include "BaconBox/Audio/MusicInfo.h"
-#include "BaconBox/Audio/Flash/FlashBackgroundMusic.h"
-#include "BaconBox/Audio/Flash/FlashSoundFX.h"
+#include "BaconBox/Audio/Flash/FlashAudio.h"
 
 #include "BaconBox/ResourceManager.h"
 #include "BaconBox/Helper/Flash/FlashHelper.h"
@@ -18,14 +17,12 @@ FlashAudioEngine& FlashAudioEngine::getInstance() {
 }
 
 SoundFX* FlashAudioEngine::getSoundFX(const std::string& key, bool survive) {
-	FlashSoundFX* result = new FlashSoundFX();
+	FlashAudio* result = new FlashAudio();
 
 	if(result) {
 		SoundInfo* info = ResourceManager::getSound(key);
 
 		if(info) {
-			AS3::local::internal::trace(result->sound);
-			AS3::local::internal::trace(info->sound);
 			result->sound = info->sound;
 		} else {
 			delete result;
@@ -36,7 +33,7 @@ SoundFX* FlashAudioEngine::getSoundFX(const std::string& key, bool survive) {
 		}
 
 		if(!survive) {
-			sounds.push_back(result);
+			audio.push_back(result);
 		}
 	} else {
 		Console::println("Failed to allocate memory for the new sound effect: " +
@@ -52,14 +49,15 @@ SoundFX* FlashAudioEngine::getSoundFX(const std::string& key, bool survive) {
 
 BackgroundMusic* FlashAudioEngine::getBackgroundMusic(const std::string& key,
 													 bool survive) {
-	FlashBackgroundMusic* result = new FlashBackgroundMusic();
+		PV(key);
+	FlashAudio* result = new FlashAudio();
+		PV(result);
 
 	if(result) {
-		SoundInfo* info = ResourceManager::getSound(key);
+		MusicInfo* info = ResourceManager::getMusic(key);
+		PV(info);
 
 		if(info) {
-			AS3::local::internal::trace(result->sound);
-						AS3::local::internal::trace(info->sound);
 			result->sound = info->sound;
 
 		} else {
@@ -70,7 +68,7 @@ BackgroundMusic* FlashAudioEngine::getBackgroundMusic(const std::string& key,
 		}
 
 		if(!survive) {
-			musics.push_back(result);
+			audio.push_back(result);
 		}
 	} else {
 		Console::println("Failed to allocate memory for the new music: " + key);

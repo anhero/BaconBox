@@ -15,7 +15,7 @@
 
 namespace BaconBox {
 	class FlashBackgroundMusic;
-	class FlashSoundFX;
+	class FlashAudio;
 
 	class FlashAudioEngine : public SoundEngine, public MusicEngine {
 		friend class AudioEngine;
@@ -25,13 +25,14 @@ namespace BaconBox {
 
 		static FlashAudioEngine& getInstance();
 
-		SoundFX* getSoundFX(const std::string& key, bool survive = true);
-
 		BackgroundMusic* getBackgroundMusic(const std::string& key,
 		                                    bool survive = true);
+
+		SoundFX* getSoundFX(const std::string& key, bool survive = true);
+
+		
 	private:
-		std::list<FlashSoundFX*> sounds;
-		std::list<FlashBackgroundMusic*> musics;
+		std::list<FlashAudio*> audio;
 
 
 		FlashAudioEngine();

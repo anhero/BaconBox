@@ -196,7 +196,7 @@ MusicInfo *newBgm = NULL;
 				}
 
 				// We load the music and we overwrite the existing music.
-				newBgm = musics[key] = reinterpret_cast<FlashAudioEngine*>(&FlashAudioEngine::getMusicEngine())->loadMusicFromBundle(bundleKey);
+				newBgm = musics[key] = reinterpret_cast<FlashAudioEngine*>(&AudioEngine::getMusicEngine())->loadMusicFromBundle(bundleKey);
 				Console::println("Overwrote the existing music named " + key +
 				                 ".");
 
@@ -209,7 +209,7 @@ MusicInfo *newBgm = NULL;
 
 		} else {
 			// We load the music.
-			newBgm = reinterpret_cast<FlashAudioEngine*>(&FlashAudioEngine::getMusicEngine())->loadMusicFromBundle(bundleKey);
+			newBgm = reinterpret_cast<FlashAudioEngine*>(&AudioEngine::getMusicEngine())->loadMusicFromBundle(bundleKey);
 
 			// If it was loaded correctly.
 			if (newBgm) {

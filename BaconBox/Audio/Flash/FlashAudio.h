@@ -13,7 +13,7 @@
 
 namespace BaconBox {
 
-	class FlashSoundFX : public SoundFX  {
+	class FlashAudio : public SoundFX, public BackgroundMusic {
 		friend class AudioEngine;
 		friend class FlashAudioEngine;
 	public:
@@ -37,13 +37,23 @@ namespace BaconBox {
 
 		void resume(double fadeIn);
 
-		virtual ~FlashSoundFX();
+		virtual ~FlashAudio();
 
-		FlashSoundFX();
+		FlashAudio();
 
 	private:
+		int nbTimes;
 		AS3::local::var sound;
 		AS3::local::var soundChannel;
+		AS3::local::var loopEventListenerAS3;
+		static const int LOOPING = -1;
+		static AS3::local::var loopEventListener(void *arg, AS3::local::var as3Args);
+
+		AudioState currentState;
+
+		AS3::local::var position;
+
+		void resetPosition();
 	};
 }
 
