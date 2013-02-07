@@ -36,10 +36,11 @@
 	#define BB_POINTER_INCLUDE "BaconBox/Input/Pointer/Flash/FlashPointer.h"
 
 
-	#define BB_SOUND_ENGINE_IMPL new FlashAudioEngine()
-	#define BB_SOUND_ENGINE_INCLUDE "BaconBox/Audio/Flash/FlashAudioEngine.h"
-	#define BB_MUSIC_ENGINE_IMPL new FlashAudioEngine()
-	#define BB_MUSIC_ENGINE_INCLUDE "BaconBox/Audio/Flash/FlashAudioEngine.h"
+	#define BB_SOUND_ENGINE_IMPL new FlashSoundEngine()
+	#define BB_SOUND_ENGINE_INCLUDE "BaconBox/Audio/Flash/FlashSoundEngine.h"
+	#define BB_MUSIC_ENGINE_IMPL new FlashMusicEngine()
+	#define BB_MUSIC_ENGINE_INCLUDE "BaconBox/Audio/Flash/FlashMusicEngine.h"
+
 #endif
 
 

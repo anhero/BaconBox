@@ -15,39 +15,28 @@
 
 namespace BaconBox {
 	class FlashBackgroundMusic;
-	class FlashAudio;
+	class FlashBackgroundMusic;
 
-	class FlashAudioEngine : public SoundEngine, public MusicEngine {
+	class FlashMusicEngine : public MusicEngine {
 		friend class AudioEngine;
                 friend class BaseEngine;
                 friend class ResourceManager;
 	public:
 
-		static FlashAudioEngine& getInstance();
+		static FlashMusicEngine& getInstance();
+
 
 		BackgroundMusic* getBackgroundMusic(const std::string& key,
 		                                    bool survive = true);
-
-		SoundFX* getSoundFX(const std::string& key, bool survive = true);
-
-		
 	private:
-		std::list<FlashAudio*> audio;
+		std::list<FlashBackgroundMusic*> audios;
 
 
-		FlashAudioEngine();
+		FlashMusicEngine();
 
-		~FlashAudioEngine();
+		~FlashMusicEngine();
 
 		void update();
-
-		SoundInfo* loadSoundFromBundle(const std::string& bundleKey);
-
-		SoundInfo* loadSound(const std::string& filePath);
-
-		SoundInfo* loadSound(const SoundParameters& params);
-
-		bool unloadSound(SoundInfo* sound);
 
 		MusicInfo* loadMusic(const std::string& filePath);
 

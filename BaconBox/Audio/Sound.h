@@ -82,9 +82,12 @@ namespace BaconBox {
 		 * Default constructor. Can only be called by the audio engine.
 		 */
 		Sound();
-	private:
+		
 		/// Value between 0 and 100 for the volume level. 100 is the maximum.
 		int volume;
+		
+	private:
+		
 	};
 }
 

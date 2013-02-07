@@ -19,7 +19,9 @@
 #endif
 
 #if defined(BB_FLASH_PLATEFORM)
-#include "BaconBox/Audio/Flash/FlashAudioEngine.h"
+#include "BaconBox/Audio/Flash/FlashSoundEngine.h"
+#include "BaconBox/Audio/Flash/FlashMusicEngine.h"
+
 #endif
 
 
@@ -196,7 +198,7 @@ MusicInfo *newBgm = NULL;
 				}
 
 				// We load the music and we overwrite the existing music.
-				newBgm = musics[key] = reinterpret_cast<FlashAudioEngine*>(&AudioEngine::getMusicEngine())->loadMusicFromBundle(bundleKey);
+				newBgm = musics[key] = reinterpret_cast<FlashMusicEngine*>(&AudioEngine::getMusicEngine())->loadMusicFromBundle(bundleKey);
 				Console::println("Overwrote the existing music named " + key +
 				                 ".");
 
@@ -209,7 +211,7 @@ MusicInfo *newBgm = NULL;
 
 		} else {
 			// We load the music.
-			newBgm = reinterpret_cast<FlashAudioEngine*>(&AudioEngine::getMusicEngine())->loadMusicFromBundle(bundleKey);
+			newBgm = reinterpret_cast<FlashMusicEngine*>(&AudioEngine::getMusicEngine())->loadMusicFromBundle(bundleKey);
 
 			// If it was loaded correctly.
 			if (newBgm) {
@@ -243,7 +245,7 @@ SoundInfo * ResourceManager::loadSoundFromBundle(const std::string &key,
 
 				// We load the sound effect and we overwrite the existing sound
 				// effect.
-				newSnd = sounds[key] = reinterpret_cast<FlashAudioEngine*>(&FlashAudioEngine::getSoundEngine())->loadSoundFromBundle(bundleKey);
+				newSnd = sounds[key] = reinterpret_cast<FlashSoundEngine*>(&FlashSoundEngine::getSoundEngine())->loadSoundFromBundle(bundleKey);
 				Console::println("Overwrote the existing sound effect named " + key +
 				                 ".");
 
@@ -256,7 +258,7 @@ SoundInfo * ResourceManager::loadSoundFromBundle(const std::string &key,
 
 		} else {
 			// We load the sound effect.
-			newSnd = reinterpret_cast<FlashAudioEngine*>(&FlashAudioEngine::getSoundEngine())->loadSoundFromBundle(bundleKey);
+			newSnd = reinterpret_cast<FlashSoundEngine*>(&FlashSoundEngine::getSoundEngine())->loadSoundFromBundle(bundleKey);
 
 			// If it was loaded correctly.
 			if (newSnd) {
