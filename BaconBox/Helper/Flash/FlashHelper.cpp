@@ -53,6 +53,8 @@ void FlashHelper::setProperty(const AS3::local::var & var, const std::string & p
 		Console__error("Error calling setProperty " << propertyName << " on an AS3 object in FlashHelper. (See trace)");
 		AS3_Trace("SetProperty was called on:");
 		AS3::local::internal::trace(var);
+		AS3_Trace("with arg:");
+		AS3::local::internal::trace(arg);
 		throw;
 		}
 	#endif
