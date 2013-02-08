@@ -24,7 +24,7 @@ inline_as3("import flash.events.Event; \n");
 
 void FlashSoundFX::setVolume(int newVolume){
 	SoundFX::setVolume(newVolume);
-	FlashHelper::setProperty(soundTransform, "volume", AS3::local::internal::new_Number((float)newVolume/MAX_VOLUME));
+	FlashHelper::setProperty(soundTransform, "volume", AS3::local::internal::new_Number((float)this->volume/MAX_VOLUME));
 	FlashHelper::setProperty(soundChannel, "soundTransform", soundTransform);
 }
 

@@ -9,8 +9,11 @@
 
 #include <AS3/AS3.h>
 #include <AS3/AS3++.h>
+#include "BaconBox/Helper/Tween/Tween.h"
+
 
 namespace BaconBox {
+
 
 	class FlashBackgroundMusic : public BackgroundMusic {
 		friend class AudioEngine;
@@ -39,14 +42,19 @@ namespace BaconBox {
 		void setVolume(int newVolume);
 
 
+		void update();
+
+
 		virtual ~FlashBackgroundMusic();
 
 		FlashBackgroundMusic();
 
 	private:
+		void resetPosition();
+
 		int nbTimes;
 		AS3::local::var sound;
-		AS3::local::var soundChannel;
+		AS3::local::var playPosition;
 		AS3::local::var soundTransform;
 		AS3::local::var loopEventListenerAS3;
 		static const int LOOPING = -1;
@@ -54,9 +62,10 @@ namespace BaconBox {
 
 		AudioState currentState;
 
-		AS3::local::var position;
+		AS3::local::var soundChannel;
+		bool isStopping;
+		Tween<int> fadeTween;
 
-		void resetPosition();
 	};
 }
 

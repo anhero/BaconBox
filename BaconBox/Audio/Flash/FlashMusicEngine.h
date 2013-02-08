@@ -5,8 +5,8 @@
 #ifndef BB_FLASH_AUDIO_ENGINE_H
 #define BB_FLASH_AUDIO_ENGINE_H
 
+#include <set>
 #include <list>
-
 #include "BaconBox/Audio/SoundEngine.h"
 #include "BaconBox/Audio/MusicEngine.h"
 
@@ -29,8 +29,8 @@ namespace BaconBox {
 		BackgroundMusic* getBackgroundMusic(const std::string& key,
 		                                    bool survive = true);
 	private:
-		std::list<FlashBackgroundMusic*> audios;
-
+		std::set<FlashBackgroundMusic*> audios;
+		std::list<FlashBackgroundMusic*> audiosToBeDeleted;
 
 		FlashMusicEngine();
 

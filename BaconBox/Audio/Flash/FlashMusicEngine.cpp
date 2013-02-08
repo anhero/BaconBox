@@ -33,9 +33,9 @@ BackgroundMusic* FlashMusicEngine::getBackgroundMusic(const std::string& key,
 			Console::println("Tried to get a music from an invalid key: " + key);
 			Console::printTrace();
 		}
-
+			audios.insert(result);
 		if(!survive) {
-			audios.push_back(result);
+			audiosToBeDeleted.push_back(result);
 		}
 	} else {
 		Console::println("Failed to allocate memory for the new music: " + key);
@@ -54,23 +54,30 @@ FlashMusicEngine::~FlashMusicEngine() {
 }
 
 void FlashMusicEngine::update() {
-	// For each sound (music or sound effect).
-	std::list<FlashBackgroundMusic*>::iterator i = audios.begin();
-	while(i != audios.end()) {
+	std::set<FlashBackgroundMusic*>::iterator j = audios.begin();
+	while(j != audios.end()) {
+		(*j)->update();
+		++j;
+		
+	}	
+
+	 std::list<FlashBackgroundMusic*>::iterator i = audiosToBeDeleted.begin();
+	while(i != audiosToBeDeleted.end()) {
 		// We make sure the pointer is valid.
 		if(*i) {
 			if((*i)->getCurrentState() == AudioState::STOPPED) {
+				audios.erase(*i);
 				delete *i;
-				i = audios.erase(i);
+				i = audiosToBeDeleted.erase(i);
 			} else {
 				++i;
 			}
 		} else {
 			// If the pointer is invalid (which should not happen), we remove
-			// it from the list.
-			i = audios.erase(i);
+			// it from the set.
+			i = audiosToBeDeleted.erase(i);
 		}
-	}
+	 }
 }
 
 

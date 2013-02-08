@@ -4,14 +4,16 @@
 
 #include "BaconBox/Helper/Flash/FlashHelper.h"
 
+#include "BaconBox/Helper/Ease.h"
+
 using namespace BaconBox;
 
 void FlashBackgroundMusic::play(int nbTimes) {
 inline_as3("import flash.events.Event; \n");
 	if(nbTimes == 0) return;
 	this->resetPosition();
-	currentState = AudioState::PLAYING;
 	this->nbTimes = nbTimes;
+	currentState = AudioState::PLAYING;
 	soundChannel = FlashHelper::callMethod(sound, "play", 0, NULL);
 	FlashHelper::setProperty(soundChannel, "soundTransform", soundTransform);
 	if(this->nbTimes != 0 ){
@@ -43,8 +45,7 @@ inline_as3("import flash.events.Event; \n");
 }
 
 void FlashBackgroundMusic::resetPosition(){
-	PRLN("CACA");
-	position = AS3::local::internal::new_Number(0);
+	playPosition = AS3::local::internal::new_Number(0);
 }
 
 void FlashBackgroundMusic::stop() {
@@ -55,6 +56,29 @@ void FlashBackgroundMusic::stop() {
 	currentState = AudioState::STOPPED;
 }
 
+void FlashBackgroundMusic::update(){
+	if(currentState == AudioState::FADING_IN){
+		if(fadeTween.isDone()){
+			currentState = AudioState::PLAYING;
+		}
+		setVolume(fadeTween.getValue());
+	}
+	else if(currentState == AudioState::FADING_OUT){
+		if(fadeTween.isDone()){
+			if(isStopping){
+				stop();
+				isStopping = false;
+			}
+			else{
+				pause();
+			}
+		}
+		setVolume(fadeTween.getValue());
+	}
+	
+}
+
+
 void FlashBackgroundMusic::pause() {
  	inline_as3("import flash.events.Event; \n");
 	if(currentState != AudioState::PLAYING) return;
@@ -64,7 +88,7 @@ void FlashBackgroundMusic::pause() {
 	args[1] = this->loopEventListenerAS3;
 	FlashHelper::callMethod(soundChannel, "removeEventListener", 2, args);
 
-	position = FlashHelper::getProperty(soundChannel, "position");
+	playPosition = FlashHelper::getProperty(soundChannel, "position");
 	FlashHelper::callMethod(soundChannel, "stop", 0, NULL);
 	currentState = AudioState::PAUSED;
 }
@@ -72,7 +96,7 @@ void FlashBackgroundMusic::pause() {
 
 void FlashBackgroundMusic::setVolume(int newVolume){
 	BackgroundMusic::setVolume(newVolume);
-	FlashHelper::setProperty(soundTransform, "volume", AS3::local::internal::new_Number((float)newVolume/MAX_VOLUME));
+	FlashHelper::setProperty(soundTransform, "volume", AS3::local::internal::new_Number((float)this->volume/MAX_VOLUME));
 	FlashHelper::setProperty(soundChannel, "soundTransform", soundTransform);
 }
 
@@ -82,7 +106,7 @@ void FlashBackgroundMusic::resume() {
 		if(nbTimes == 0) return;
 			currentState = AudioState::PLAYING;
 			AS3::local::var args[2];
-			args[0] = position;
+			args[0] = playPosition;
 			soundChannel = FlashHelper::callMethod(sound, "play", 1, args);
 			FlashHelper::setProperty(soundChannel, "soundTransform", soundTransform);
 			AS3_GetVarxxFromVar(args[0], Event.SOUND_COMPLETE);
@@ -97,27 +121,37 @@ bool FlashBackgroundMusic::isLooping() {
 
 AudioState FlashBackgroundMusic::getCurrentState() const {
 	Console::println("Getting a FlashBackgroundMusic object's audio state, returning STOPPED");
-	return AudioState::STOPPED;
+	return currentState;
 }
 
 void FlashBackgroundMusic::play(int nbTimes, double fadeIn) {
-	Console::println("Playing a FlashBackgroundMusic object " + Console::toString(nbTimes) + " times with a " +
-			Console::toString(fadeIn) + " second(s) fade in.");
+	fadeTween = Tween<int>(0, this->volume, fadeIn, Ease::LINEAR);
+	play(nbTimes);
+	setVolume(0);
+	currentState = AudioState::FADING_IN;
+	fadeTween.start();
 }
 
 void FlashBackgroundMusic::stop(double fadeOut) {
-	Console::println("Stopping a FlashBackgroundMusic object with a " + Console::toString(fadeOut) +
-			" second(s) fade out.");
+	fadeTween = Tween<int>(this->volume, 0, fadeOut, Ease::LINEAR);
+	isStopping = true;
+	currentState = AudioState::FADING_OUT;
+	fadeTween.start();
 }
 
 void FlashBackgroundMusic::pause(double fadeOut) {
-	Console::println("Pausing a FlashBackgroundMusic object with a " + Console::toString(fadeOut) +
-			" second(s) fade out.");
+	fadeTween = Tween<int>(this->volume, 0, fadeOut, Ease::LINEAR);
+	isStopping = false;
+	currentState = AudioState::FADING_OUT;
+	fadeTween.start();
 }
 
 void FlashBackgroundMusic::resume(double fadeIn) {
-	Console::println("Resuming a FlashBackgroundMusic object with a " + Console::toString(fadeIn) +
-			" second(s) fade in.");
+	fadeTween = Tween<int>(0, this->volume, fadeIn, Ease::LINEAR);
+	resume(nbTimes);
+	setVolume(0);
+	currentState = AudioState::FADING_IN;
+	fadeTween.start();
 }
 
 FlashBackgroundMusic::~FlashBackgroundMusic() {
