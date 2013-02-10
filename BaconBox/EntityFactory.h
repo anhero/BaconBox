@@ -9,11 +9,10 @@ namespace BaconBox {
 
 	class EntityFactory {
 	public:
-	   
-	    static MovieClipEntity * getMovieClipEntity(const std::string & key);
+		static MovieClipEntity *getMovieClipEntity(const std::string &key);
 	private:
-		    
-		
+
+
 	};
 
 }

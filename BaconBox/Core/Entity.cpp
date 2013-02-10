@@ -1,5 +1,7 @@
 #include "Entity.h"
 
+#include <algorithm>
+
 #include "BaconBox/Core/IDManager.h"
 #include "BaconBox/Console.h"
 
@@ -77,7 +79,7 @@ namespace BaconBox {
 		}
 	}
 
-	std::string Entity::getEntityName() const {
+	const std::string &Entity::getEntityName() const {
 		return IDManager::getName(this->getID());
 	}
 
@@ -100,22 +102,18 @@ namespace BaconBox {
 	}
 
 	void Entity::removeComponentAt(std::vector<Component *>::size_type index) {
-		components[index]->entity = NULL;
-		components.erase(components.begin() + index);
+		if (index < components.size()) {
+			delete components[index];
+			components.erase(components.begin() + index);
+		}
 	}
 
 	void Entity::removeComponent(Component *component) {
-		std::vector<Component *>::iterator i = this->components.begin();
+		std::vector<Component *>::iterator found = std::find(this->components.begin(), this->components.end(), component);
 
-		while (i != this->components.end()) {
-			if ((*i) == component) {
-				(*i)->entity = NULL;
-				this->components.erase(i);
-				return;
-
-			} else {
-				++i;
-			}
+		if (found != this->components.end()) {
+			delete *found;
+			this->components.erase(found);
 		}
 	}
 
@@ -124,7 +122,7 @@ namespace BaconBox {
 
 		while (i < this->components.size()) {
 			if (this->components[i]->getID() == id) {
-				this->components[i]->entity = NULL;
+				delete this->components[i];
 				this->components.erase(this->components.begin() + i);
 
 			} else {
@@ -132,7 +130,6 @@ namespace BaconBox {
 			}
 		}
 	}
-
 
 	void Entity::clear() {
 		free();

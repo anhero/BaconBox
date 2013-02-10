@@ -71,8 +71,6 @@ namespace BaconBox {
 		if(message == State::MESSAGE_ADDED_ENTITY){
 		    add(static_cast<Entity*>(data));
 		}
-		
-
 	}
 	
 }

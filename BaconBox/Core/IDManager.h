@@ -19,7 +19,7 @@ namespace BaconBox {
 		static int generatetID();
 		static int generatetID(const std::string & name);
 		static int getID(const std::string & name);
-		static std::string getName(int id);
+		static const std::string &getName(int id);
 	private:
 		static IDManager &getInstance();
 		

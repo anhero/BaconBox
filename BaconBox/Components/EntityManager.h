@@ -25,7 +25,7 @@ namespace BaconBox {
 
 	private:
 	    
-	    	std::vector<Entity *> entities;
+		std::vector<Entity *> entities;
 		
 		std::list<Entity *> toAdd;
 		

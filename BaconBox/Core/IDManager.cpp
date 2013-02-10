@@ -27,7 +27,7 @@ namespace BaconBox {
 	    }
 	}
 	
-	std::string IDManager::getName(int id){
+	const std::string &IDManager::getName(int id){
 		for(std::map<std::string, int>::iterator i = getInstance().ids.begin(); i !=getInstance().ids.end(); i++){
 			if(i->second == id){
 				 return i->first;
