@@ -38,7 +38,7 @@ namespace BaconBox {
 	void Component::render() {
 	}
 
-	std::string Component::getComponentName() const {
+	const std::string &Component::getComponentName() const {
 		return IDManager::getName(this->getID());
 	}
 	

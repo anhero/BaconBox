@@ -7,6 +7,9 @@
 namespace BaconBox {
 	struct TextureInformation;
 	
+	/**
+	 * Contains the information about an entity's texture.
+	 */
 	class Texture : public Component {
 	public:
 		static int MESSAGE_GET_TEXTURE;
@@ -34,7 +37,10 @@ namespace BaconBox {
 		TextureCoordinates &getTextureCoordinates();
 		void setTextureCoordinates(TextureCoordinates &newTextureCoordinates);
 	private:
+		/// Pointer to the entity's texture information.
 		TextureInformation *texture;
+		
+		/// Contains the entity's texture coordinates.
 		TextureCoordinates textureCoordinates;
 	};
 }

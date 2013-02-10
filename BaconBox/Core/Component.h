@@ -36,8 +36,7 @@ namespace BaconBox {
 		virtual void update();
 		virtual void render();
 		
-		std::string getComponentName() const;
-		
+		const std::string &getComponentName() const;
 		
 		Entity *getEntity() const;
 	private:
