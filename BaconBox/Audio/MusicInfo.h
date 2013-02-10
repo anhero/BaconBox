@@ -17,6 +17,11 @@
 
 #endif
 
+#ifdef BB_FLASH_PLATEFORM
+#include <AS3/AS3.h>
+#include <AS3/AS3++.h>
+#endif
+
 namespace BaconBox {
 	/**
 	 * Contains the data about a sound that can be played. Contains platform-
@@ -30,6 +35,10 @@ namespace BaconBox {
 #endif
 #ifdef BB_SDL
 		Mix_Music* music;
+#endif
+		
+#ifdef BB_FLASH_PLATEFORM
+AS3::local::var sound;
 #endif
 	};
 }

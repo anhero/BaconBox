@@ -12,7 +12,7 @@ FlashPointer::FlashPointer() : Pointer() {
 	AS3::local::var eventType;
 	AS3::local::var args[2];
 
-	mouseFun = args[1] = AS3::local::internal::new_Function(mouseEventListener, reinterpret_cast<void*>(this));;
+	mouseFun = args[1] = AS3::local::internal::new_Function(mouseEventListener, reinterpret_cast<void*>(this));
 
 
 	AS3_GetVarxxFromVar(args[0], MouseEvent.MOUSE_UP);

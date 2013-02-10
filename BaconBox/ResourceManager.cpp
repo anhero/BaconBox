@@ -18,6 +18,13 @@
 #include "BaconBox/Display/Text/Font.h"
 #endif
 
+#if defined(BB_FLASH_PLATEFORM)
+#include "BaconBox/Audio/Flash/FlashSoundEngine.h"
+#include "BaconBox/Audio/Flash/FlashMusicEngine.h"
+
+#endif
+
+
 //For LibPNG
 #include <stdio.h>
 #include <stdlib.h>
@@ -172,6 +179,99 @@ namespace BaconBox {
 		}
 
 		return newSnd;
+	}
+	
+	
+	MusicInfo *ResourceManager::loadMusicFromBundle(const std::string &key,
+		                            const std::string &bundleKey,
+		                            bool overwrite){
+#if defined(BB_FLASH_PLATEFORM)
+MusicInfo *newBgm = NULL;
+
+		if (musics.find(key) != musics.end()) {
+			if (overwrite) {
+				// We delete the existing music.
+				newBgm = musics[key];
+
+				if (newBgm) {
+					delete newBgm;
+				}
+
+				// We load the music and we overwrite the existing music.
+				newBgm = musics[key] = reinterpret_cast<FlashMusicEngine*>(&AudioEngine::getMusicEngine())->loadMusicFromBundle(bundleKey);
+				Console::println("Overwrote the existing music named " + key +
+				                 ".");
+
+			} else {
+				Console::println("Couldn't load the music named " + key +
+				                 " with bundle key " + bundleKey +
+				                 " because a music with that name already exists.");
+				newBgm = musics[key];
+			}
+
+		} else {
+			// We load the music.
+			newBgm = reinterpret_cast<FlashMusicEngine*>(&AudioEngine::getMusicEngine())->loadMusicFromBundle(bundleKey);
+
+			// If it was loaded correctly.
+			if (newBgm) {
+				// We insert it into the map of musics with its corresponding
+				// key.
+				musics.insert(std::pair<std::string, MusicInfo *>(key, newBgm));
+			}
+		}
+
+		return newBgm;
+#endif	    
+	}
+	
+	
+	
+SoundInfo * ResourceManager::loadSoundFromBundle(const std::string &key,
+		                            const std::string &bundleKey,
+		                            bool overwrite){
+	    
+#if defined(BB_FLASH_PLATEFORM)
+		SoundInfo *newSnd = NULL;
+
+		if (sounds.find(key) != sounds.end()) {
+			if (overwrite) {
+				// We delete the existing sound effect.
+				newSnd = sounds[key];
+
+				if (newSnd) {
+					delete newSnd;
+				}
+
+				// We load the sound effect and we overwrite the existing sound
+				// effect.
+				newSnd = sounds[key] = reinterpret_cast<FlashSoundEngine*>(&FlashSoundEngine::getSoundEngine())->loadSoundFromBundle(bundleKey);
+				Console::println("Overwrote the existing sound effect named " + key +
+				                 ".");
+
+			} else {
+				Console::println("Couldn't load the sound effect named " + key +
+				                 " with bundle key " + bundleKey +
+				                 " because a sound with that name already exists.");
+				newSnd = sounds[key];
+			}
+
+		} else {
+			// We load the sound effect.
+			newSnd = reinterpret_cast<FlashSoundEngine*>(&FlashSoundEngine::getSoundEngine())->loadSoundFromBundle(bundleKey);
+
+			// If it was loaded correctly.
+			if (newSnd) {
+				// We insert it into the map of sound effects with its
+				// corresponding key.
+				sounds.insert(std::pair<std::string, SoundInfo *>(key, newSnd));
+			}
+		}
+
+		return newSnd;
+#else
+		return NULL;
+#endif	    
 	}
 
 	SoundInfo *ResourceManager::loadSoundRelativePath(const std::string &key,
