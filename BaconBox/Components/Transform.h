@@ -7,20 +7,32 @@
 #include "BaconBox/Input/Pointer/Pointer.h"
 
 namespace BaconBox {
+	/**
+	 * Component that manages the entity's position, orientation and scaling
+	 * values.
+	 */
 	class Transform : public Component {
 	public:
 		BB_ID_HEADER;
 		
-		
-		static const int MESSAGE_GET_POSITION = 0;
-		static const int MESSAGE_GET_ROTATION = 1;
-		static const int MESSAGE_GET_SCALE = 2;
-		static const int MESSAGE_SET_POSITION = 3;
-		static const int MESSAGE_SET_ROTATION = 4;
-		static const int MESSAGE_SET_SCALE = 5;
-		static const int MESSAGE_POSITION_CHANGED = 6;
-		static const int MESSAGE_ROTATION_CHANGED = 7;
-		static const int MESSAGE_SCALE_CHANGED = 8;
+		/// Message ID to use when requesting the entity's position.
+		static int MESSAGE_GET_POSITION;
+		/// Message ID to use when requesting the entity's rotation angle.
+		static int MESSAGE_GET_ROTATION;
+		/// Message ID to use when requesting the entity's scale values.
+		static int MESSAGE_GET_SCALE;
+		/// Message ID to use when setting the entity's position.
+		static int MESSAGE_SET_POSITION;
+		/// Message ID to use when setting the entity's rotation angle.
+		static int MESSAGE_SET_ROTATION;
+		/// Message ID to use when setting the entity's scale values.
+		static int MESSAGE_SET_SCALE;
+		/// Message ID the component sends when its entity's position has changed.
+		static int MESSAGE_POSITION_CHANGED;
+		/// Message ID the component sends when its entity's rotation angle has changed.
+		static int MESSAGE_ROTATION_CHANGED;
+		/// Message ID the component sends when its entity's scale values have changed.
+		static int MESSAGE_SCALE_CHANGED;
 		
 		Transform();
 		

@@ -6,6 +6,15 @@
 
 namespace BaconBox {
 	 BB_ID_IMPL(Transform);
+	int Transform::MESSAGE_GET_POSITION = IDManager::generatetID();
+	int Transform::MESSAGE_GET_ROTATION = IDManager::generatetID();
+	int Transform::MESSAGE_GET_SCALE = IDManager::generatetID();
+	int Transform::MESSAGE_SET_POSITION = IDManager::generatetID();
+	int Transform::MESSAGE_SET_ROTATION = IDManager::generatetID();
+	int Transform::MESSAGE_SET_SCALE = IDManager::generatetID();
+	int Transform::MESSAGE_POSITION_CHANGED = IDManager::generatetID();
+	int Transform::MESSAGE_ROTATION_CHANGED = IDManager::generatetID();
+	int Transform::MESSAGE_SCALE_CHANGED = IDManager::generatetID();
 	
 	Transform::Transform() : Component(), position(), rotation(0.0f), scale(1.0f, 1.0f) {
 	}
@@ -34,34 +43,19 @@ namespace BaconBox {
 		if (destID != Transform::ID) {
 			return;
 		}
-
-		switch (message) {
-		case Transform::MESSAGE_GET_POSITION:
+		
+		if (message == Transform::MESSAGE_GET_POSITION) {
 			*reinterpret_cast<Vector2 *>(data) = this->getPosition();
-			break;
-
-		case Transform::MESSAGE_GET_ROTATION:
+		} else if (message == Transform::MESSAGE_GET_ROTATION) {
 			*reinterpret_cast<float *>(data) = this->getRotation();
-			break;
-
-		case Transform::MESSAGE_GET_SCALE:
+		} else if (message == Transform::MESSAGE_GET_SCALE) {
 			*reinterpret_cast<Vector2 *>(data) = this->getScale();
-			break;
-
-		case Transform::MESSAGE_SET_POSITION:
+		} else if (message == Transform::MESSAGE_SET_POSITION) {
 			this->setPosition(*reinterpret_cast<Vector2 *>(data));
-			break;
-
-		case Transform::MESSAGE_SET_ROTATION:
+		} else if (message == Transform::MESSAGE_SET_ROTATION) {
 			this->setRotation(*reinterpret_cast<float *>(data));
-			break;
-
-		case Transform::MESSAGE_SET_SCALE:
+		} else if (message == Transform::MESSAGE_SET_SCALE) {
 			this->setScale(*reinterpret_cast<Vector2 *>(data));
-			break;
-
-		default:
-			break;
 		}
 	}
 
