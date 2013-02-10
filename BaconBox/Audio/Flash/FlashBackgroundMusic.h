@@ -50,6 +50,8 @@ namespace BaconBox {
 		FlashBackgroundMusic();
 
 	private:
+		void setFlashVolume(int volume);
+
 		void resetPosition();
 
 		int nbTimes;

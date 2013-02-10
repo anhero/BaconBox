@@ -61,7 +61,7 @@ void FlashBackgroundMusic::update(){
 		if(fadeTween.isDone()){
 			currentState = AudioState::PLAYING;
 		}
-		setVolume(fadeTween.getValue());
+		setFlashVolume(fadeTween.getValue());
 	}
 	else if(currentState == AudioState::FADING_OUT){
 		if(fadeTween.isDone()){
@@ -73,7 +73,7 @@ void FlashBackgroundMusic::update(){
 				pause();
 			}
 		}
-		setVolume(fadeTween.getValue());
+		setFlashVolume(fadeTween.getValue());
 	}
 	
 }
@@ -96,9 +96,14 @@ void FlashBackgroundMusic::pause() {
 
 void FlashBackgroundMusic::setVolume(int newVolume){
 	BackgroundMusic::setVolume(newVolume);
-	FlashHelper::setProperty(soundTransform, "volume", AS3::local::internal::new_Number((float)this->volume/MAX_VOLUME));
+	setFlashVolume(this->volume);
+}
+
+void FlashBackgroundMusic::setFlashVolume(int newVolume){
+	FlashHelper::setProperty(soundTransform, "volume", AS3::local::internal::new_Number((float)newVolume/MAX_VOLUME));
 	FlashHelper::setProperty(soundChannel, "soundTransform", soundTransform);
 }
+
 
 void FlashBackgroundMusic::resume() {
  	inline_as3("import flash.events.Event; \n");
@@ -127,7 +132,7 @@ AudioState FlashBackgroundMusic::getCurrentState() const {
 void FlashBackgroundMusic::play(int nbTimes, double fadeIn) {
 	fadeTween = Tween<int>(0, this->volume, fadeIn, Ease::LINEAR);
 	play(nbTimes);
-	setVolume(0);
+	setFlashVolume(0);
 	currentState = AudioState::FADING_IN;
 	fadeTween.start();
 }
@@ -148,8 +153,7 @@ void FlashBackgroundMusic::pause(double fadeOut) {
 
 void FlashBackgroundMusic::resume(double fadeIn) {
 	fadeTween = Tween<int>(0, this->volume, fadeIn, Ease::LINEAR);
-	resume(nbTimes);
-	setVolume(0);
+	setFlashVolume(0);
 	currentState = AudioState::FADING_IN;
 	fadeTween.start();
 }
