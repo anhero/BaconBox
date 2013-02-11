@@ -29,10 +29,18 @@ AS3::local::var FlashEngine::stage;
 
 		State *FlashEngine::addState(State *newState){
 			BaseEngine::addState(newState);
-			AS3::local::var mc= reinterpret_cast<FlashEntityManager*>(newState->getComponent(FlashEntityManager::ID))->getMovieClip();
-			AS3::local::var args[1] = {mc};
-			FlashHelper::callMethod(stage, "addChild", 1, args);
+		}
 
+		void FlashEngine::swapActiveMovieClip(AS3::local::var newMovieClip){
+			AS3::local::var args[1];
+
+			if(currentStateMovieClip != AS3::local::internal::_null){
+				args[0]  = currentStateMovieClip;
+				FlashHelper::callMethod(stage, "removeChild", 1, args);
+				
+			}
+			currentStateMovieClip = args[0] = newMovieClip;
+			FlashHelper::callMethod(stage, "addChild", 1, args);
 		}
 
 		void FlashEngine::removeState(const std::string &name){

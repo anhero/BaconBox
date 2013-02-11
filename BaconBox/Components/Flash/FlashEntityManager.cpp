@@ -5,7 +5,9 @@
 #include "BaconBox/Components/Flash/FlashEntityManager.h"
 #include "BaconBox/Core/State.h"
 #include "BaconBox/Helper/Flash/FlashHelper.h"
-
+#include "BaconBox/Core/Engine.h"
+#include "BaconBox/Core/Flash/FlashEngine.h"
+#include "BaconBox/Console.h"
 namespace BaconBox {
 	
 	BB_ID_IMPL(FlashEntityManager);
@@ -43,8 +45,10 @@ namespace BaconBox {
 
 	void FlashEntityManager::receiveMessage(int senderID, int destID, int message, void *data) {
 		if(senderID != State::ID)return;
-		
-		if(message == State::MESSAGE_ADDED_ENTITY){
+		if(message == State::MESSAGE_GET_FOCUS){
+		   Engine::getInstance().swapActiveMovieClip(movieClipManager);
+		}		
+		else if(message == State::MESSAGE_ADDED_ENTITY){
 		    add(reinterpret_cast<Entity*>(data));
 		}
 		else if(message == State::MESSAGE_REMOVED_ENTITY){

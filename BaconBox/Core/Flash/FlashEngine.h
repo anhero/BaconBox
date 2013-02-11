@@ -11,6 +11,7 @@ namespace BaconBox {
 
 	class FlashEngine : public BaseEngine {
 		friend class Engine;
+		friend class FlashEntityManager;
 	public:
 
 		State *addState(State *newState);
@@ -19,6 +20,9 @@ namespace BaconBox {
 	private:
 		FlashEngine();
 		static AS3::local::var stage;
+		AS3::local::var currentStateMovieClip;
+
+		void swapActiveMovieClip(AS3::local::var newMovieClip);
 	};
 }
 

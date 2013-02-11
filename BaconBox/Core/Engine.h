@@ -211,13 +211,15 @@ namespace BaconBox {
 		 * @return Reference to the music engine.
 		 */
 		static MusicEngine &getMusicEngine();
-	private:
 		
 		/**
 		 * Gets the engine singleton instance.
 		 * @return Reference to the engine's singleton.
 		 */
 		static BB_ENGINE_IMPL &getInstance();
+	private:
+		
+
 		
 	};
 }
