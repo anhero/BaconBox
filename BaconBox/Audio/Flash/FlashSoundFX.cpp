@@ -13,6 +13,9 @@ inline_as3("import flash.events.Event; \n");
 	currentState = AudioState::PLAYING;
 	this->nbTimes = nbTimes;
 	soundChannel = FlashHelper::callMethod(sound, "play", 0, NULL);
+	if(soundChannel == AS3::local::internal::_null){
+		soundChannel = FlashHelper::construct("flash.media.SoundChannel");
+	}
 	FlashHelper::setProperty(soundChannel, "soundTransform", soundTransform);
 	if(this->nbTimes != 0 ){
 		AS3::local::var args[2];
@@ -84,7 +87,10 @@ void FlashSoundFX::resume() {
 			AS3::local::var args[2];
 			args[0] = position;
 			soundChannel = FlashHelper::callMethod(sound, "play", 1, args);
-			//FlashHelper::setProperty(soundChannel, "soundTransform", soundTransform);
+			if(soundChannel == AS3::local::internal::_null){
+				soundChannel = FlashHelper::construct("flash.media.SoundChannel");
+			}
+			FlashHelper::setProperty(soundChannel, "soundTransform", soundTransform);
 			AS3_GetVarxxFromVar(args[0], Event.SOUND_COMPLETE);
 			args[1] = loopEventListenerAS3;
 			FlashHelper::callMethod(soundChannel, "addEventListener", 2, args);
