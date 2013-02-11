@@ -34,7 +34,9 @@ namespace BaconBox {
 			}
 		}
 		Console__error("Can't find the name associated with this id: " << id);
-		return "";
+		
+		 static std::string EMPTY; 
+		 return EMPTY; 
 	}
 		
 	IDManager::IDManager() : counter(0) {
