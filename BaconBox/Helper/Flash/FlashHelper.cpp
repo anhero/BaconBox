@@ -19,6 +19,12 @@ AS3::local::var FlashHelper::callMethod(const AS3::local::var & var, const std::
 		Console__error("Error calling method " << functionName << " on an AS3 object in FlashHelper. (See trace)");
 		AS3_Trace("Method was called on:");
 		AS3::local::internal::trace(var);
+		if(argCount){
+			AS3_Trace("Args were:");
+			for(int i = 0; i< argCount; i++){
+				AS3::local::internal::trace(args[i]);
+			}
+		}
 		throw;
 		}
 	#endif
@@ -89,6 +95,12 @@ AS3::local::var FlashHelper::construct(const std::string & className){
 		}
 		catch(...){
 		Console__error("Error constructing an as3 object " << className << " in FlashHelper.");
+		if(argCount){
+			AS3_Trace("Args were:");
+			for(int i = 0; i< argCount; i++){
+				AS3::local::internal::trace(args[i]);
+			}
+		}
 		throw;
 		}
 	#endif
