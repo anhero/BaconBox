@@ -1,7 +1,7 @@
 #include "LuaState.h"
 
 
-
+#include "BaconBox/Core/State.h"
 #include "lua.hpp"
 #include "BaconBox/Console.h"
 
@@ -107,6 +107,7 @@ namespace BaconBox {
 	}
 	
 	void LuaState::reloadLuaClass(){
+	    if(table_index == EMPTY_LUA_REF || userData_index == EMPTY_LUA_REF) return;
 		lua_rawgeti(L, LUA_REGISTRYINDEX,table_index);
 		lua_getfield(L, -1, "update");
 		if(lua_isnil(L, -1)){
@@ -127,6 +128,7 @@ namespace BaconBox {
 				onPointerButtonPress_index = EMPTY_LUA_REF;
 		}
 		else{
+			
 		    onPointerButtonPress_index = luaL_ref(L, LUA_REGISTRYINDEX);
 			Pointer::connectButtonPress(this, &LuaState::onPointerButtonPress);
 		}
@@ -189,8 +191,21 @@ namespace BaconBox {
 	}
 
 	void LuaState::receiveMessage(int senderID, int destID, int message, void *data) {
-	}
 
+	    if(senderID == State::ID){
+		if(message == State::MESSAGE_LOSE_FOCUS){
+		    Pointer::getDefault()->buttonPress.disconnect(this);
+		    Pointer::getDefault()->buttonHold.disconnect(this);
+		    Pointer::getDefault()->buttonRelease.disconnect(this);
+		    Pointer::getDefault()->move.disconnect(this);
+		}
+		else if(message == State::MESSAGE_GET_FOCUS){
+		    reloadLuaClass();
+		}
+
+	    }
+	}
+	
 	LuaStateProxy::LuaStateProxy(Entity * entity, bool mustAddComponent): BB_PROXY_CONSTRUCTOR(new LuaState()){
 	}
 
