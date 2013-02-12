@@ -35,9 +35,7 @@ namespace BaconBox {
 	std::map<std::string, TextureInformation *> ResourceManager::textures = std::map<std::string, TextureInformation *>();
 	std::map<std::string, SoundInfo *> ResourceManager::sounds = std::map<std::string, SoundInfo *>();
 	std::map<std::string, MusicInfo *> ResourceManager::musics = std::map<std::string, MusicInfo *>();
-#ifndef BB_ANDROID
 	std::map<std::string, Font *> ResourceManager::fonts = std::map<std::string, Font *>();
-#endif
 
 	TextureInformation *ResourceManager::addTexture(const std::string &key, PixMap *aPixmap,
 	                                                bool overwrite) {
@@ -456,36 +454,35 @@ SoundInfo * ResourceManager::loadSoundFromBundle(const std::string &key,
 			Console::println("The music named " + key + " could not be removed because it doesn't exist.");
 		}
 	}
-#ifndef BB_ANDROID
 	Font *ResourceManager::loadFont(const std::string &key, const std::string &path, bool overwrite) {
 		Font *aFont = NULL;
-
-		// We check if there is already a font with this name.
-		if (fonts.find(key) != fonts.end()) {
-			// We check if we overwrite the existing font or not.
-			if (overwrite) {
-				// We free the allocated memory.
-				aFont = fonts[key];
-
-				if (aFont) {
-					delete aFont;
-				}
-
-				// We load the new font.
-				aFont = fonts[key] = new Font(key, path);
-				Console::println("Overwrote the existing font named " + key + ".");
-
-			} else {
-				Console::println("Can't load font with key: " + key +
-				                 " font is already loaded");
-				aFont = fonts[key];
-			}
-
-		} else {
-			// We load the new texture and add it to the map.
-			aFont = new Font(key, path);
-			fonts.insert(std::pair<std::string, Font *>(key, aFont));
-		}
+//
+//		// We check if there is already a font with this name.
+//		if (fonts.find(key) != fonts.end()) {
+//			// We check if we overwrite the existing font or not.
+//			if (overwrite) {
+//				// We free the allocated memory.
+//				aFont = fonts[key];
+//
+//				if (aFont) {
+//					delete aFont;
+//				}
+//
+//				// We load the new font.
+//				aFont = fonts[key] = new Font();
+//				Console::println("Overwrote the existing font named " + key + ".");
+//
+//			} else {
+//				Console::println("Can't load font with key: " + key +
+//				                 " font is already loaded");
+//				aFont = fonts[key];
+//			}
+//
+//		} else {
+//			// We load the new texture and add it to the map.
+//			aFont = new Font(key, path);
+//			fonts.insert(std::pair<std::string, Font *>(key, aFont));
+//		}
 
 		return aFont;
 	}
@@ -510,7 +507,6 @@ SoundInfo * ResourceManager::loadSoundFromBundle(const std::string &key,
 
 		fonts.erase(i);
 	}
-#endif
 	void ResourceManager::unloadAll() {
 		// We unload the textures.
 		for (std::map<std::string, TextureInformation *>::iterator i = textures.begin();

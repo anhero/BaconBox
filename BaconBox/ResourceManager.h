@@ -261,7 +261,6 @@ namespace BaconBox {
 		 */
 		static void removeMusic(const std::string &key);
 
-#ifndef BB_ANDROID
 		/**
 		 * Loads the font at the specified path and put it in the fonts' map.
 		 * @param key Name of the font, it will be the key of the fonts' map.
@@ -301,7 +300,6 @@ namespace BaconBox {
 		 * @param key Key of the font to remove.
 		 */
 		static void removeFont(const std::string &key);
-#endif
 		
 		/// Create a PixMap from an image file at the given path.
 		static PixMap *loadPixMap(const std::string &filePath, ColorFormat colorFormat);
