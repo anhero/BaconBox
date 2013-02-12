@@ -86,7 +86,6 @@ BaconBox/Display/Driver/GraphicDriver.o \
 BaconBox/Display/Driver/NullGraphicDriver.o \
 BaconBox/Display/Text/Font.o \
 BaconBox/Display/Text/GlyphInformation.o \
-BaconBox/Display/Text/FreetypeImplementation/FontImplementation.o \
 BaconBox/Display/Window/MainWindow.o \
 BaconBox/Display/Window/NullMainWindow.o \
 BaconBox/Display/Window/Flash/FlashMainWindow.o
