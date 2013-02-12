@@ -2,10 +2,11 @@
  * @file
  * @ingroup TextDisplay
  */
-#ifndef RB_GLYPH_INFORMATION_H
-#define RB_GLYPH_INFORMATION_H
+#ifndef BB_GLYPH_INFORMATION_H
+#define BB_GLYPH_INFORMATION_H
 
 #include "BaconBox/Vector2.h"
+
 
 namespace BaconBox {
 	/**
@@ -13,7 +14,7 @@ namespace BaconBox {
 	 * @ingroup TextDisplay
 	 */
 	struct TextureInformation;
-	struct GlyphInformation {
+	struct TextureGlyphInformation {
 	public:
 		/**
 		 * Amount of pixels we need to add to the current horizontal and
@@ -44,7 +45,7 @@ namespace BaconBox {
 		/**
 		 * Default constructor.
 		 */
-		GlyphInformation();
+		TextureGlyphInformation();
 
 		/**
 		 * Parameterized constructor.
@@ -54,7 +55,7 @@ namespace BaconBox {
 		 * @param newTextureInformation Pointer to the glyph's texture
 		 * information.
 		 */
-		GlyphInformation(const Vector2 &newAdvance,
+		TextureGlyphInformation(const Vector2 &newAdvance,
 		                 const Vector2 &newHorizontalBearing,
 		                 const Vector2 &newSize,
 		                 TextureInformation *newTextureInformation);
@@ -63,16 +64,16 @@ namespace BaconBox {
 		 * Copy constructor.
 		 * @param src GlyphInformation to make a copy of.
 		 */
-		GlyphInformation(const GlyphInformation &src);
+		TextureGlyphInformation(const TextureGlyphInformation &src);
 
 		/**
 		 * Assignment operator.
 		 * @param src GlyphInformation to make a copy of.
 		 * @return Reference to the modified GlyphInformation.
 		 */
-		GlyphInformation &operator=(const GlyphInformation &src);
+		TextureGlyphInformation &operator=(const TextureGlyphInformation &src);
 	};
 
 }
 
-#endif // RB_GLYPH_INFORMATION_H
+#endif // BB_GLYPH_INFORMATION_H
