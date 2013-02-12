@@ -37,6 +37,8 @@ namespace BaconBox {
 		 * @return Full document path.
 		 */
 		static std::string getDocumentPath();
+		
+		static std::string getPathFromFilename(std::string filename);
 
 		/**
 		 * Creates the folder hierarchy in the document folder.
