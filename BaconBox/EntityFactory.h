@@ -10,6 +10,7 @@ namespace BaconBox {
 	class EntityFactory {
 	public:
 		static MovieClipEntity *getMovieClipEntity(const std::string &key);
+		static MovieClipEntity *getMovieClipEntityFromSubTexture(SubTextureInfo* subTex);
 	private:
 
 

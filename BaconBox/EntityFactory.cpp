@@ -8,6 +8,7 @@
 #include "BaconBox/Components/Texture.h"
 #include "BaconBox/ResourceManager.h"
 #include "BaconBox/Display/TextureInformation.h"
+#include "BaconBox/Console.h"
 
 #ifdef BB_FLASH_PLATEFORM
 #include <AS3/AS3.h>
@@ -29,23 +30,28 @@ namespace BaconBox {
 		return entityPointer;
 
 #else
-		TexturePointer texture(key);
-		MovieClipEntity *result = NULL;
+		SubTextureInfo* subTex = ResourceManager::getSubTexture(key);
+		
 
-		if (texture.pointer) {
+		return getMovieClipEntityFromSubTexture(subTex);
+
+
+#endif
+	}
+	
+	MovieClipEntity *EntityFactory::getMovieClipEntityFromSubTexture(SubTextureInfo* subTex){
+	    MovieClipEntity *result = NULL;
+
+		if (subTex) {
 			result = new MovieClipEntity();
-
-			Vector2 size(static_cast<float>(texture.pointer->imageWidth), static_cast<float>(texture.pointer->imageHeight));
-
-			Vector2 poweredSize(static_cast<float>(texture.pointer->poweredWidth), static_cast<float>(texture.pointer->poweredHeight));
 
 			Mesh *mesh = new Mesh();
 
 			mesh->getVertices().resize(4);
-
-			mesh->getVertices()[1].x = size.x;
-			mesh->getVertices()[2].y = size.y;
-			mesh->getVertices()[3] = size;
+			
+			mesh->getVertices()[1].x = subTex->size.x;
+			mesh->getVertices()[2].y = subTex->size.y;
+			mesh->getVertices()[3] = subTex->size;
 
 			result->addComponent(mesh);
 
@@ -53,22 +59,21 @@ namespace BaconBox {
 
 			Texture *textureComponent = new Texture();
 
-			textureComponent->setTexture(texture.pointer);
+			textureComponent->setTexture(subTex->textureInfo);
 
 			textureComponent->getTextureCoordinates().resize(4);
-			textureComponent->getTextureCoordinates()[1].x = size.x / poweredSize.x;
-			textureComponent->getTextureCoordinates()[2].y = size.y / poweredSize.y;
-			textureComponent->getTextureCoordinates()[3] = size.getCoordinatesDivision(poweredSize);
-
+			textureComponent->getTextureCoordinates()[0]= subTex->position;
+			textureComponent->getTextureCoordinates()[1].x = (subTex->position.x + subTex->size.x)/subTex->textureInfo->poweredWidth;
+			textureComponent->getTextureCoordinates()[1].y = (subTex->position.y)/subTex->textureInfo->poweredHeight;
+			textureComponent->getTextureCoordinates()[2].x = (subTex->position.x)/subTex->textureInfo->poweredWidth;
+			textureComponent->getTextureCoordinates()[2].y = (subTex->position.y + subTex->size.y)/subTex->textureInfo->poweredHeight;
+			textureComponent->getTextureCoordinates()[3].x = (subTex->position.x + subTex->size.x)/subTex->textureInfo->poweredWidth;
+			textureComponent->getTextureCoordinates()[3].y = (subTex->position.y + subTex->size.y)/subTex->textureInfo->poweredHeight;
 			result->addComponent(textureComponent);
 
 			result->addComponent(new MeshDriverRenderer(RenderMode::SHAPE | RenderMode::COLOR | RenderMode::TEXTURE));
+			return result;
 		}
-
-		return result;
-
-
-#endif
 	}
 
 
