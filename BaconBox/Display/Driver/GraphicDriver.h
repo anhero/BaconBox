@@ -100,8 +100,8 @@ namespace BaconBox {
 		                          const Color &backgroundColor) = 0;
 
 
-		virtual void initializeGraphicDriver() = 0;
-
+		virtual void initializeGraphicDriver();
+		virtual bool isInitialized();
 		/**
 		 * Pushes the current matrix on the stack.
 		 */
@@ -127,13 +127,15 @@ namespace BaconBox {
 		 * Load a texture into graphic memory.
 		 * @param pixMap A pixmap object containing the buffer the driver must load.
 		 */
-		virtual TextureInformation *loadTexture(PixMap *pixMap) = 0;
+		virtual TextureInformation *loadTexture(PixMap *pixMap);
         
         /**
          *  Remove a texture from graphic memory
          */
         virtual void deleteTexture(TextureInformation * textureInfo) = 0;
 	protected:
+	    
+		 bool initialized;
 		/**
 		 * Default constructor.
 		 */
