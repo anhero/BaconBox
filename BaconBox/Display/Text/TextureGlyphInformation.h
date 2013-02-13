@@ -6,7 +6,7 @@
 #define BB_GLYPH_INFORMATION_H
 
 #include "BaconBox/Vector2.h"
-
+#include "BaconBox/Display/SubTextureInfo.h"
 
 namespace BaconBox {
 	/**
@@ -25,22 +25,11 @@ namespace BaconBox {
 		 */
 		Vector2 advance;
 
-		/**
-		 * Amount in pixels we must add to the current cursor position before
-		 * rendering the current glyph in horizontal layout. (It's the space
-		 * between each character)
-		 * Amount in pixel we must add to the vertical position
-		 * before rendering the glyph in horizontal layout.
-		 * (We need this value because character are not all drawn
-		 * at the same height EX. 'y' go below the baseline)
-		 */
-		Vector2 horizontalBearing;
+		Vector2 offset;
 
-		/// Glyph's size.
-		Vector2 size;
 
 		/// Pointer to the texture handle and texture size.
-		TextureInformation *textureInformation;
+		SubTextureInfo *subTextureInfo;
 
 		/**
 		 * Default constructor.
@@ -56,9 +45,8 @@ namespace BaconBox {
 		 * information.
 		 */
 		TextureGlyphInformation(const Vector2 &newAdvance,
-		                 const Vector2 &newHorizontalBearing,
-		                 const Vector2 &newSize,
-		                 TextureInformation *newTextureInformation);
+		                 const Vector2 &newOffset,
+		                 SubTextureInfo  *newsubTextureInfo);
 
 		/**
 		 * Copy constructor.
