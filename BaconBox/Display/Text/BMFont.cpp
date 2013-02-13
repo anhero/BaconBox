@@ -6,20 +6,30 @@
 #include "BaconBox/Helper/Serialization/XmlSerializer.h"
 #include "BaconBox/Helper/ResourcePathHandler.h"
 #include "BaconBox/ResourceManager.h"
+#include "../TextureInformation.h"
+#include "Display/SubTextureInfo.h"
 namespace BaconBox {
-		BMFont::BMFont(){}
+		BMFont::BMFont():TextureFont(){}
 		BMFont::BMFont(const std::string &newName):TextureFont(newName){}
 		
 		
 		
 		int BMFont::getKerning(Char32 leftUnicodeValue, Char32 rightUnicodeValue){
-		    
+		    std::map<std::pair<Char32, Char32>, int>::iterator i =kerningMap.find(std::pair<Char32,Char32>(leftUnicodeValue, rightUnicodeValue));
+		    if(i == kerningMap.end()){
+			return 0;
+		    }
+		    return i->second;
 		}
 
 		
 	
 		const TextureGlyphInformation * BMFont::getGlyphInformation(Char32 unicodeValue){
-		    
+		    std::map<int, TextureGlyphInformation*>::iterator i =charsMap.find(unicodeValue);
+		    if(i == charsMap.end()){
+			return NULL;
+		    }
+		    return i->second;
 		}
 
 	
@@ -43,20 +53,52 @@ namespace BaconBox {
 			XmlSerializer xmlReader;
 			if(xmlReader.readFromStream(f, font)){
 			     std::string path = ResourcePathHandler::getPathFromFilename(filename);
-
+			     std::string textureFilename;
+			     std::vector<TextureInformation*> textureInfos;
+			     if(font["pages"]["page"].isObject()){
+				    textureFilename = font["pages"]["page"]["file"].getString();
+				    textureFilename.insert(0, 1, '/');
+				    textureFilename.insert(0, path);
+				    textureInfos.push_back(ResourceManager::loadTexture(font["pages"]["page"]["file"].getString(),textureFilename));
+			     }
+			     else{
 			     //if there is more than one texture for the font.
-			    Array pages = font["pages"]["page"].getArray();
-			  for(Array::iterator i = pages.begin(); i != pages.end(); i++){
-			      std::string textureFilename = (*i)["file"].getString();
-			      PV(textureFilename);
-			      textureFilename.insert(0, 1, '/');
-				textureFilename.insert(0, path);
-				PV(textureFilename);
-				BaconBox::ResourceManager::loadTexture("test.nope", textureFilename);
-					
-			  } 
-			   
-			    
+				Array pages = font["pages"]["page"].getArray();
+				for(Array::iterator i = pages.begin(); i != pages.end(); i++){
+				    textureFilename = (*i)["file"].getString();
+				    textureFilename.insert(0, 1, '/');
+				      textureFilename.insert(0, path);
+				    textureInfos.push_back(ResourceManager::loadTexture((*i)["file"].getString(),textureFilename));
+				}  
+			     }
+			     
+	
+
+				 Value charValue = font["chars"]["char"];
+			     if(charValue.isObject()){
+				SubTextureInfo * subTex = new SubTextureInfo(textureInfos[charValue["page"].getInt()], Vector2(charValue["x"].getInt(), charValue["y"].getInt()), Vector2(charValue["width"].getInt(), charValue["height"].getInt()));
+				 charsMap[charValue["id"].getInt()] = new TextureGlyphInformation(Vector2(charValue["xadvance"].getInt(), 0), Vector2(charValue["xoffset"].getInt(), charValue["yoffset"].getInt()), subTex);
+			     }
+			     else{
+				Array chars = charValue.getArray();
+				for(Array::iterator i = chars.begin(); i != chars.end(); i++){
+					SubTextureInfo * subTex = new SubTextureInfo(textureInfos[(*i)["page"].getInt()], Vector2((*i)["x"].getInt(), (*i)["y"].getInt()), Vector2((*i)["width"].getInt(), (*i)["height"].getInt()));
+					charsMap[(*i)["id"].getInt()] = new TextureGlyphInformation(Vector2((*i)["xadvance"].getInt(), 0), Vector2((*i)["xoffset"].getInt(), (*i)["yoffset"].getInt()), subTex);
+				}  
+			     }
+			     
+			     Value kerning = font["kernings"]["kerning"];
+			     if(kerning.isObject()){
+				 kerningMap[std::pair<Char32, Char32>(kerning["first"].getInt(), kerning["second"].getInt())] = kerning["amount"].getInt();
+			     }
+			     else{
+				Array kernings = kerning.getArray();
+				for(Array::iterator i = kernings.begin(); i != kernings.end(); i++){
+					 kerningMap[std::pair<Char32, Char32>((*i)["first"].getInt(), (*i)["second"].getInt())] = (*i)["amount"].getInt();
+				}  
+			     }
+			     
+			     
 			}
 			else{
 			    Console__error("Failed to load a fond : " << filename);
