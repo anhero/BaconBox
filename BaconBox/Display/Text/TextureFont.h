@@ -27,7 +27,8 @@ namespace BaconBox {
 
 
 	protected:
-
+		std::map<std::pair<Char32, Char32>, int> kerningMap;
+		std::map<int, TextureGlyphInformation*> charsMap;
 	};
 }
 
