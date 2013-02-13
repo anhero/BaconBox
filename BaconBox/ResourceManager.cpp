@@ -33,9 +33,43 @@
 
 namespace BaconBox {
 	std::map<std::string, TextureInformation *> ResourceManager::textures = std::map<std::string, TextureInformation *>();
+	std::map<std::string, SubTextureInfo *> ResourceManager::subTextures = std::map<std::string, SubTextureInfo *>();
 	std::map<std::string, SoundInfo *> ResourceManager::sounds = std::map<std::string, SoundInfo *>();
 	std::map<std::string, MusicInfo *> ResourceManager::musics = std::map<std::string, MusicInfo *>();
 	std::map<std::string, Font *> ResourceManager::fonts = std::map<std::string, Font *>();
+	
+	
+	SubTextureInfo *ResourceManager::addSubTexture(const std::string &key, SubTextureInfo *subTextureInfo, bool overwrite){
+	    SubTextureInfo *subTexInfo = NULL;
+
+		// We check if there is already a texture with this name.
+		if (subTextures.find(key) != subTextures.end()) {
+			// We check if we overwrite the existing texture or not.
+			if (overwrite) {
+				// We free the allocated memory.
+				subTexInfo = subTextures[key];
+
+				if (subTexInfo) {
+					delete subTexInfo;
+				}
+
+				// We load the new texture.
+				subTextures[key] = subTextureInfo;
+				Console::println("Overwrote the existing texture named " + key + ".");
+
+			} else {
+				Console::println("Can't load texture with key: " + key +
+				                 " texture is already loaded");
+				subTexInfo = subTextures[key];
+			}
+
+		} else {
+			// We load the new texture and add it to the map.
+			subTextures.insert(std::pair<std::string, SubTextureInfo *>(key, subTextureInfo));
+		}
+
+		return subTexInfo;
+	}
 
 	TextureInformation *ResourceManager::addTexture(const std::string &key, PixMap *aPixmap,
 	                                                bool overwrite) {
@@ -54,6 +88,7 @@ namespace BaconBox {
 
 				// We load the new texture.
 				texInfo = textures[key] = GraphicDriver::getInstance().loadTexture(aPixmap);
+				ResourceManager::addSubTexture(key, new SubTextureInfo(texInfo, Vector2(),Vector2(texInfo->imageWidth, texInfo->imageHeight)));
 				Console::println("Overwrote the existing texture named " + key + ".");
 
 			} else {
@@ -66,8 +101,10 @@ namespace BaconBox {
 			// We load the new texture and add it to the map.
 			texInfo = GraphicDriver::getInstance().loadTexture(aPixmap);
 			textures.insert(std::pair<std::string, TextureInformation *>(key, texInfo));
+			ResourceManager::addSubTexture(key, new SubTextureInfo(texInfo, Vector2(),Vector2(texInfo->imageWidth, texInfo->imageHeight)));
 		}
-
+		
+		
 		return texInfo;
 	}
 
@@ -120,6 +157,12 @@ namespace BaconBox {
 		return loadTextureWithColorKey(key,
 		                               ResourcePathHandler::getResourcePathFor(relativePath),
 		                               transparentColor, overwrite);
+	}
+
+	
+	SubTextureInfo *ResourceManager::getSubTexture(const std::string &key){
+	    std::map<std::string, SubTextureInfo *>::iterator itr = subTextures.find(key);
+		return (itr != subTextures.end()) ? (itr->second) : (NULL);
 	}
 
 	TextureInformation *ResourceManager::getTexture(const std::string &key) {

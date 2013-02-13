@@ -12,6 +12,7 @@
 #include "BaconBox/Audio/SoundParameters.h"
 #include "BaconBox/Audio/MusicParameters.h"
 #include "BaconBox/Display/PixMap.h"
+#include "Display/SubTextureInfo.h"
 
 namespace BaconBox {
 	class SoundFX;
@@ -34,6 +35,11 @@ namespace BaconBox {
 	class ResourceManager {
 		friend class BaseEngine;
 	public:
+	    
+	    
+		static SubTextureInfo *addSubTexture(const std::string &key, SubTextureInfo *textureInfo,
+		                                      bool overwrite = false);
+	    
 		/**
 		 * Add a texture already loaded as a pixmap into the graphic memory and
 		 * resource manager.
@@ -140,7 +146,7 @@ namespace BaconBox {
 		 * associated with the given key.
 		 */
 		static TextureInformation *getTexture(const std::string &key);
-
+		static SubTextureInfo *getSubTexture(const std::string &key);
 		/**
 		 * Gets a pointer to the asked sound effect.
 		 * @param key Name of the sound effect to get a pointer of.
@@ -337,16 +343,17 @@ namespace BaconBox {
 
 		/// Map associating the textures' keys and their information.
 		static std::map<std::string, TextureInformation *> textures;
+		static std::map<std::string, SubTextureInfo *> subTextures;
+
+		
 
 		/// Map associating the sound effects' names and their information.
 		static std::map<std::string, SoundInfo *> sounds;
 
 		/// Map associating the musics' names and their information.
 		static std::map<std::string, MusicInfo *> musics;
-#ifndef BB_ANDROID
 		/// Map  associating the fonts' names and their information.
 		static std::map<std::string, Font *> fonts;
-#endif
 	};
 }
 
