@@ -85,6 +85,8 @@ BaconBox/Display/TextureInformation.o \
 BaconBox/Display/Driver/GraphicDriver.o \
 BaconBox/Display/Driver/NullGraphicDriver.o \
 BaconBox/Display/Text/Font.o \
+BaconBox/Display/Text/FontFormat.o \
+BaconBox/Display/Text/TextEntity.o \
 BaconBox/Display/Text/GlyphInformation.o \
 BaconBox/Display/Window/MainWindow.o \
 BaconBox/Display/Window/NullMainWindow.o \
