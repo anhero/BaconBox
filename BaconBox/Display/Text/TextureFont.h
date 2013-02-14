@@ -22,8 +22,7 @@ namespace BaconBox {
 		 * The size of the font should be set before calling
 		 * this function.
 		 */
-		virtual const TextureGlyphInformation *getGlyphInformation(Char32 unicodeValue) =0;
-
+		virtual TextureGlyphInformation *getGlyphInformation(Char32 unicodeValue) =0;
 
 
 	protected:

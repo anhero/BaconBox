@@ -13,6 +13,7 @@
 #include "BaconBox/Audio/MusicParameters.h"
 #include "BaconBox/Display/PixMap.h"
 #include "Display/SubTextureInfo.h"
+#include "Display/Text/FontFormat.h"
 
 namespace BaconBox {
 	class SoundFX;
@@ -326,6 +327,13 @@ namespace BaconBox {
 		static void savePixMap(const PixMap &pixMap,
 							   const std::string &filePath);
 	private:
+	    
+		static Font *initFontFromPath(const std::string &key,
+		                      const std::string &path);
+		
+		static Font *initFontFromPathAndFormat(const std::string &key,
+		                      const std::string &path, const FontFormat & format);
+	    
 		/**
 		 * Unloads everything in the ResourceManager.
 		 */

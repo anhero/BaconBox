@@ -24,7 +24,7 @@ namespace BaconBox {
 
 		
 	
-		const TextureGlyphInformation * BMFont::getGlyphInformation(Char32 unicodeValue){
+		TextureGlyphInformation * BMFont::getGlyphInformation(Char32 unicodeValue){
 		    std::map<int, TextureGlyphInformation*>::iterator i =charsMap.find(unicodeValue);
 		    if(i == charsMap.end()){
 			return NULL;
@@ -59,7 +59,7 @@ namespace BaconBox {
 				    textureFilename = font["pages"]["page"]["file"].getString();
 				    textureFilename.insert(0, 1, '/');
 				    textureFilename.insert(0, path);
-				    textureInfos.push_back(ResourceManager::loadTexture(font["pages"]["page"]["file"].getString(),textureFilename));
+				    textureInfos.push_back(ResourceManager::loadTexture(font["pages"]["page"]["file"].getString(),textureFilename, ColorFormat::ALPHA));
 			     }
 			     else{
 			     //if there is more than one texture for the font.
@@ -68,7 +68,7 @@ namespace BaconBox {
 				    textureFilename = (*i)["file"].getString();
 				    textureFilename.insert(0, 1, '/');
 				      textureFilename.insert(0, path);
-				    textureInfos.push_back(ResourceManager::loadTexture((*i)["file"].getString(),textureFilename));
+				    textureInfos.push_back(ResourceManager::loadTexture((*i)["file"].getString(),textureFilename, ColorFormat::ALPHA));
 				}  
 			     }
 			     
@@ -77,13 +77,13 @@ namespace BaconBox {
 				 Value charValue = font["chars"]["char"];
 			     if(charValue.isObject()){
 				SubTextureInfo * subTex = new SubTextureInfo(textureInfos[charValue["page"].getInt()], Vector2(charValue["x"].getInt(), charValue["y"].getInt()), Vector2(charValue["width"].getInt(), charValue["height"].getInt()));
-				 charsMap[charValue["id"].getInt()] = new TextureGlyphInformation(Vector2(charValue["xadvance"].getInt(), 0), Vector2(charValue["xoffset"].getInt(), charValue["yoffset"].getInt()), subTex);
+				charsMap[charValue["id"].getInt()] = new TextureGlyphInformation(Vector2(charValue["xadvance"].getInt(), 0), Vector2(charValue["xoffset"].getInt(), charValue["yoffset"].getInt()), charValue["id"].getInt(), subTex);
 			     }
 			     else{
 				Array chars = charValue.getArray();
 				for(Array::iterator i = chars.begin(); i != chars.end(); i++){
 					SubTextureInfo * subTex = new SubTextureInfo(textureInfos[(*i)["page"].getInt()], Vector2((*i)["x"].getInt(), (*i)["y"].getInt()), Vector2((*i)["width"].getInt(), (*i)["height"].getInt()));
-					charsMap[(*i)["id"].getInt()] = new TextureGlyphInformation(Vector2((*i)["xadvance"].getInt(), 0), Vector2((*i)["xoffset"].getInt(), (*i)["yoffset"].getInt()), subTex);
+					charsMap[(*i)["id"].getInt()] = new TextureGlyphInformation(Vector2((*i)["xadvance"].getInt(), 0), Vector2((*i)["xoffset"].getInt(), (*i)["yoffset"].getInt()), charValue["id"].getInt(), subTex);
 				}  
 			     }
 			     

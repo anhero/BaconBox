@@ -16,6 +16,7 @@
 
 #ifndef BB_ANDROID
 #include "BaconBox/Display/Text/Font.h"
+#include "Display/Text/BMFont.h"
 #endif
 
 #if defined(BB_FLASH_PLATEFORM)
@@ -497,35 +498,58 @@ SoundInfo * ResourceManager::loadSoundFromBundle(const std::string &key,
 			Console::println("The music named " + key + " could not be removed because it doesn't exist.");
 		}
 	}
+	
+	Font *ResourceManager::initFontFromPath(const std::string &key,
+		                      const std::string &path){
+	    
+	    if(path.substr(path.find_last_of(".") + 1) == "fnt") {
+		return initFontFromPathAndFormat(key, path, FontFormat::BMFONT);
+	    } 
+	    Console__error("Error initializing font " << key);
+	    return NULL;
+	}
+	
+	Font *ResourceManager::initFontFromPathAndFormat(const std::string &key,
+		                      const std::string &path, const FontFormat & format){
+	    if(format == FontFormat::BMFONT){
+		BMFont* font = new BMFont(key);
+		font->format = format;
+		font->loadFontFile(path);
+		return font;
+		
+	    }
+	}
+	    
+	
 	Font *ResourceManager::loadFont(const std::string &key, const std::string &path, bool overwrite) {
 		Font *aFont = NULL;
-//
-//		// We check if there is already a font with this name.
-//		if (fonts.find(key) != fonts.end()) {
-//			// We check if we overwrite the existing font or not.
-//			if (overwrite) {
-//				// We free the allocated memory.
-//				aFont = fonts[key];
-//
-//				if (aFont) {
-//					delete aFont;
-//				}
-//
-//				// We load the new font.
-//				aFont = fonts[key] = new Font();
-//				Console::println("Overwrote the existing font named " + key + ".");
-//
-//			} else {
-//				Console::println("Can't load font with key: " + key +
-//				                 " font is already loaded");
-//				aFont = fonts[key];
-//			}
-//
-//		} else {
-//			// We load the new texture and add it to the map.
-//			aFont = new Font(key, path);
-//			fonts.insert(std::pair<std::string, Font *>(key, aFont));
-//		}
+
+		// We check if there is already a font with this name.
+		if (fonts.find(key) != fonts.end()) {
+			// We check if we overwrite the existing font or not.
+			if (overwrite) {
+				// We free the allocated memory.
+				aFont = fonts[key];
+
+				if (aFont) {
+					delete aFont;
+				}
+
+				// We load the new font.
+				aFont = fonts[key] = initFontFromPath(key, path);
+				Console::println("Overwrote the existing font named " + key + ".");
+
+			} else {
+				Console::println("Can't load font with key: " + key +
+				                 " font is already loaded");
+				aFont = fonts[key];
+			}
+
+		} else {
+			// We load the new texture and add it to the map.
+			aFont = initFontFromPath(key, path);
+			fonts.insert(std::pair<std::string, Font *>(key, aFont));
+		}
 
 		return aFont;
 	}

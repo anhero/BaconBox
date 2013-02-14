@@ -6,12 +6,15 @@
 #define BB_FONT_H
 
 #include <string>
+#include "BaconBox/Display/Text/TextEntity.h"
 #include "BaconBox/Display/Text/TextureGlyphInformation.h"
 #include "BaconBox/Helper/String32.h"
+#include "FontFormat.h"
 
 namespace BaconBox {
-
+    class TextEntity;
 	class Font {
+	    friend class ResourceManager;
 	public:
 		Font();
 		Font(const std::string &newName);
@@ -28,9 +31,13 @@ namespace BaconBox {
 		 */
 		virtual void setPixelSize(int pixelSize);
 		int getPixelSize();
-
+		
+		virtual TextEntity * getTextEntity();
+		
+		FontFormat getFormat();
 
 	protected:
+	    FontFormat format;
 	    std::string name;
 	    int pixelSize;
 	};

@@ -8,20 +8,21 @@
 #include "BaconBox/PlatformFlagger.h"
 
 #include "BaconBox/Components/Transform.h"
-#include "BaconBox/Components/TextRenderer.h"
-#include "TextureFont.h"
+#include "BaconBox/Components/TextComponent.h"
 
 
 
 namespace BaconBox {
-	/**
+    class Font;
+    
+    /**
 	 * 
 	 */
-	class TextEntity : public Entity, public TransformProxy, public TextRendererProxy  { 
+	class TextEntity : public Entity, public TransformProxy, public TextComponentProxy { 
     public:
 	BB_ID_HEADER;
 	
-	TextEntity(TextureFont * font);
+	TextEntity(Font * font);
 	
 
 		

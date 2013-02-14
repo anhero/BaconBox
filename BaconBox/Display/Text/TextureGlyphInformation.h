@@ -7,6 +7,7 @@
 
 #include "BaconBox/Vector2.h"
 #include "BaconBox/Display/SubTextureInfo.h"
+#include "BaconBox/Helper/String32.h"
 
 namespace BaconBox {
 	/**
@@ -26,6 +27,8 @@ namespace BaconBox {
 		Vector2 advance;
 
 		Vector2 offset;
+		
+		Char32 charCode;
 
 
 		/// Pointer to the texture handle and texture size.
@@ -46,6 +49,7 @@ namespace BaconBox {
 		 */
 		TextureGlyphInformation(const Vector2 &newAdvance,
 		                 const Vector2 &newOffset,
+				 Char32 charCode,
 		                 SubTextureInfo  *newsubTextureInfo);
 
 		/**
