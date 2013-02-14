@@ -62,7 +62,8 @@ namespace BaconBox {
 			textureComponent->setTexture(subTex->textureInfo);
 
 			textureComponent->getTextureCoordinates().resize(4);
-			textureComponent->getTextureCoordinates()[0]= subTex->position;
+			textureComponent->getTextureCoordinates()[0].x= subTex->position.x/subTex->textureInfo->poweredWidth;
+			textureComponent->getTextureCoordinates()[0].y= subTex->position.y/subTex->textureInfo->poweredHeight;
 			textureComponent->getTextureCoordinates()[1].x = (subTex->position.x + subTex->size.x)/subTex->textureInfo->poweredWidth;
 			textureComponent->getTextureCoordinates()[1].y = (subTex->position.y)/subTex->textureInfo->poweredHeight;
 			textureComponent->getTextureCoordinates()[2].x = (subTex->position.x)/subTex->textureInfo->poweredWidth;
