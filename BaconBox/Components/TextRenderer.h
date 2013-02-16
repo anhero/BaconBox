@@ -6,6 +6,9 @@
 #include "BaconBox/Core/Entity.h"
 
 #include "BaconBox/MovieClipEntity/MovieClipEntity.h"
+#include "BaconBox/Display/Text/TextAlignment.h"
+#include "TextComponent.h"
+#include "BaconBox/Helper/String32.h"
 namespace BaconBox {
     class TextureFont;
     struct CharSprite;
@@ -28,10 +31,13 @@ namespace BaconBox {
 	
 		virtual void receiveMessage(int senderID, int destID, int message, void *data);
 	private:
-		std::list<CharSprite> charSprites;
+		std::list<std::list<std::list<CharSprite> > > charSpritesLines;
 		void resetPosition();
 		TextureFont * font;
-	    
+		TextAlignment alignment;
+		TextComponent* textComponent;
+		bool isWordJump(Char32 charCode);
+		void lineJump (Vector2 & newLineJump, Vector2 & advance, std::list<CharSprite> &charSpritesForAlignmentAdjust);
 	};
 
 }

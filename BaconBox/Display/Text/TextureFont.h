@@ -24,10 +24,12 @@ namespace BaconBox {
 		 */
 		virtual TextureGlyphInformation *getGlyphInformation(Char32 unicodeValue) =0;
 
+		int getLineHeight();
 
 	protected:
 		std::map<std::pair<Char32, Char32>, int> kerningMap;
 		std::map<int, TextureGlyphInformation*> charsMap;
+		int lineHeight;
 	};
 }
 

@@ -83,9 +83,13 @@ namespace BaconBox {
 				Array chars = charValue.getArray();
 				for(Array::iterator i = chars.begin(); i != chars.end(); i++){
 					SubTextureInfo * subTex = new SubTextureInfo(textureInfos[(*i)["page"].getInt()], Vector2((*i)["x"].getInt(), (*i)["y"].getInt()), Vector2((*i)["width"].getInt(), (*i)["height"].getInt()));
-					charsMap[(*i)["id"].getInt()] = new TextureGlyphInformation(Vector2((*i)["xadvance"].getInt(), 0), Vector2((*i)["xoffset"].getInt(), (*i)["yoffset"].getInt()), charValue["id"].getInt(), subTex);
+					charsMap[(*i)["id"].getInt()] = new TextureGlyphInformation(Vector2((*i)["xadvance"].getInt(), 0), Vector2((*i)["xoffset"].getInt(), (*i)["yoffset"].getInt()), (*i)["id"].getInt(), subTex);
 				}  
 			     }
+				 
+			    TextureGlyphInformation* textureInfo = new TextureGlyphInformation();
+			    textureInfo->charCode = '\n';
+			     charsMap[textureInfo->charCode] = textureInfo;
 			     
 			     Value kerning = font["kernings"]["kerning"];
 			     if(kerning.isObject()){
@@ -98,6 +102,8 @@ namespace BaconBox {
 				}  
 			     }
 			     
+			     
+			     lineHeight = font["common"]["lineHeight"].getInt();
 			     
 			}
 			else{
