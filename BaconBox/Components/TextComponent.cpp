@@ -2,8 +2,8 @@
 
 #include "BaconBox/Core/Entity.h"
 #include "BaconBox/Console.h"
-#include "Helper/StringHelper.h"
-#include "Helper/UTFConvert.h"
+#include "BaconBox/Helper/StringHelper.h"
+#include "BaconBox/Helper/UTFConvert.h"
 #include "EntityFactory.h"
 #include "Mesh.h"
 #include "BaconBox/Display/Text/Font.h"

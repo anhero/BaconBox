@@ -1,5 +1,5 @@
 #include "BaconBox/Display/Text/TextureFont.h"
-#include "Components/TextRenderer.h"
+#include "BaconBox/Components/TextRenderer.h"
 
 namespace BaconBox {
 		TextureFont::TextureFont():charsMap(), kerningMap(), lineHeight(0){}

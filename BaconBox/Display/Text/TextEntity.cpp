@@ -3,7 +3,7 @@
 #include "Font.h"
 #if ! defined(BB_FLASH_PLATEFORM)
 #include "TextureFont.h"
-#include "Components/TextRenderer.h"
+#include "BaconBox/Components/TextRenderer.h"
 #endif
 
 namespace BaconBox {

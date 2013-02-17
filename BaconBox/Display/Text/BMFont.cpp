@@ -7,7 +7,7 @@
 #include "BaconBox/Helper/ResourcePathHandler.h"
 #include "BaconBox/ResourceManager.h"
 #include "../TextureInformation.h"
-#include "Display/SubTextureInfo.h"
+#include "BaconBox/Display/SubTextureInfo.h"
 namespace BaconBox {
 		BMFont::BMFont():TextureFont(){}
 		BMFont::BMFont(const std::string &newName):TextureFont(newName){}
