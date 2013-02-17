@@ -4,6 +4,10 @@
 #include "BaconBox/VertexArray.h"
 
 namespace BaconBox {
+	
+	/**
+	 * Interface for the different batch manager implementations.
+	 */
 	class BatchManager {
 	public:
 		BatchManager();
@@ -13,6 +17,8 @@ namespace BaconBox {
 		virtual ~BatchManager();
 		
 		BatchManager &operator=(const BatchManager &src);
+		
+		
 	private:
 	};
 }
