@@ -2,9 +2,9 @@
 
 #include "BaconBox/Core/Entity.h"
 #include "BaconBox/Console.h"
-#include "Helper/StringHelper.h"
-#include "Helper/UTFConvert.h"
-#include "Display/Text/TextureFont.h"
+#include "BaconBox/Helper/StringHelper.h"
+#include "BaconBox/Helper/UTFConvert.h"
+#include "BaconBox/Display/Text/TextureFont.h"
 #include "EntityFactory.h"
 #include "Mesh.h"
 #include "BaconBox/Display/Text/TextureFont.h"
@@ -19,7 +19,7 @@ namespace BaconBox {
 	
 	BB_ID_IMPL(TextRenderer);
 	
-	TextRenderer::TextRenderer(TextureFont * font) : Component(), font(font), alignment(TextAlignment::LEFT) {
+	TextRenderer::TextRenderer(TextureFont * font) : Component(), font(font), needPositionReset(false), alignment(TextAlignment::LEFT) {
 	   
 	}
 
@@ -27,6 +27,10 @@ namespace BaconBox {
 	}
 	
 	void TextRenderer::render(){
+		if(needPositionReset){
+			internalResetPosition();
+			needPositionReset =false;
+		}
 	    for(std::list<std::list<std::list<CharSprite> > >::iterator i = charSpritesLines.begin(); i != charSpritesLines.end(); i++){
 		      for(std::list<std::list<CharSprite> >::iterator j = i->begin(); j != i->end(); j++){
 			  for(std::list<CharSprite>::iterator k = j->begin(); k != j->end(); k++){
@@ -66,14 +70,26 @@ namespace BaconBox {
 	}
 
 	void TextRenderer::lineJump(Vector2 & newLineJump, Vector2 & advance,  std::list<CharSprite> &charSpritesForAlignmentAdjust){
-	    int spaceAdvance = font->getGlyphInformation(' ')->advance.x;
-	    if(alignment == TextAlignment::RIGHT){
-			    Vector2 alignmentAdjust(textComponent->getSize().x - (advance.x - spaceAdvance), 0);
-				for(std::list<CharSprite>::iterator k = charSpritesForAlignmentAdjust.begin(); k != charSpritesForAlignmentAdjust.end(); k++){
-					    MovieClipEntity * sprite = k->sprite;
-					    Mesh* mesh = reinterpret_cast<Mesh*>(sprite->getComponent(Mesh::ID));
-					    mesh->getVertices().move(alignmentAdjust.x, alignmentAdjust.y);
-				}
+		if(charSpritesForAlignmentAdjust.size() != 0 && charSpritesForAlignmentAdjust.back().glyph->charCode == ' ') advance -= charSpritesForAlignmentAdjust.back().glyph->advance;
+		Vector2 alignmentAdjust;
+		
+		if(alignment == TextAlignment::RIGHT){
+			alignmentAdjust.x = (textComponent->getSize().x - (advance.x));
+			
+		}
+		else if(alignment == TextAlignment::CENTER){
+			alignmentAdjust.x = (textComponent->getSize().x - (advance.x))/2;
+		}
+		if(true || alignment != TextAlignment::LEFT){
+			for(std::list<CharSprite>::iterator k = charSpritesForAlignmentAdjust.begin(); k != charSpritesForAlignmentAdjust.end(); k++){
+				MovieClipEntity * sprite = k->sprite;
+				Mesh* mesh = reinterpret_cast<Mesh*>(sprite->getComponent(Mesh::ID));
+				Transform* transform = reinterpret_cast<Transform*>(sprite->getComponent(Transform::ID));
+				Transform transformBackup = *transform;
+				(*transform) = Transform();
+				mesh->getVertices().move(alignmentAdjust.x, alignmentAdjust.y);
+				(*transform) = transformBackup;
+			}
 		}
 	    	charSpritesForAlignmentAdjust.clear();
 		newLineJump.y += font->getLineHeight();
@@ -81,6 +97,18 @@ namespace BaconBox {
 	}
 	
 	void TextRenderer::resetPosition(){
+		needPositionReset = true;
+	}
+	
+	void TextRenderer::update(){
+		if(needPositionReset){
+			internalResetPosition();
+			needPositionReset =false;
+		}
+	}
+
+	
+	void TextRenderer::internalResetPosition(){
 	    Vector2 advance;
 	    Vector2 tempAdvance;
 	    Vector2 newLineJump;
@@ -90,35 +118,37 @@ namespace BaconBox {
 	    
 	    Transform* stringTransform = reinterpret_cast<Transform*>(getEntity()->getComponent(Transform::ID));
 	    for(std::list<std::list<std::list<CharSprite> > >::iterator i = charSpritesLines.begin(); i != charSpritesLines.end(); i++){
-		for(std::list<std::list<CharSprite> >::iterator j = i->begin(); j != i->end(); j++){
-		    Vector2 wordTempAdvances;
-		    for(std::list<CharSprite>::iterator k = j->begin(); k != j->end(); k++){
-			TextureGlyphInformation * glyphInfo = k->glyph;		    
-			wordTempAdvances += glyphInfo->advance;
-		    }
-		    tempAdvance += wordTempAdvances;
-		    if(tempAdvance.x > textComponent->getSize().x){
-			tempAdvance = wordTempAdvances;
+			for(std::list<std::list<CharSprite> >::iterator j = i->begin(); j != i->end(); j++){
+				Vector2 wordTempAdvances;
+				for(std::list<CharSprite>::iterator k = j->begin(); k != j->end(); k++){
+					TextureGlyphInformation * glyphInfo = k->glyph;
+					wordTempAdvances += glyphInfo->advance;
+				}
+				tempAdvance += wordTempAdvances;
+				
+				if(tempAdvance.x > textComponent->getSize().x){
+					tempAdvance = wordTempAdvances;
+					lineJump(newLineJump, advance, charSpritesForAlignmentAdjust);
+				}
+				
+				for(std::list<CharSprite>::iterator k = j->begin(); k != j->end(); k++){
+					TextureGlyphInformation * glyphInfo = k->glyph;
+					MovieClipEntity * sprite = k->sprite;
+					Transform* transform = reinterpret_cast<Transform*>(sprite->getComponent(Transform::ID));
+					Mesh* mesh = reinterpret_cast<Mesh*>(sprite->getComponent(Mesh::ID));
+					Vector2 glypRelativePosition = transform->getPosition() +advance+ glyphInfo->offset + Vector2(font->getKerning(previousChar, k->glyph->charCode),0) + newLineJump;
+					Vector2 neededMove = glypRelativePosition - k->currentPos;
+					if(neededMove.x || neededMove.y)mesh->getVertices().move(neededMove.x, neededMove.y);
+					(*transform) = (*stringTransform);
+					k->currentPos = glypRelativePosition;
+					advance += glyphInfo->advance;
+					previousChar = glyphInfo->charCode;
+					charSpritesForAlignmentAdjust.push_back(*k);
+				}
+				
+			}
+			
 			lineJump(newLineJump, advance, charSpritesForAlignmentAdjust);
-		    }
-		    for(std::list<CharSprite>::iterator k = j->begin(); k != j->end(); k++){
-			TextureGlyphInformation * glyphInfo = k->glyph;
-			MovieClipEntity * sprite = k->sprite;
-			Transform* transform = reinterpret_cast<Transform*>(sprite->getComponent(Transform::ID));
-			Mesh* mesh = reinterpret_cast<Mesh*>(sprite->getComponent(Mesh::ID));
-			Vector2 glypRelativePosition = transform->getPosition() +advance+ glyphInfo->offset + Vector2(font->getKerning(previousChar, k->glyph->charCode),0) + newLineJump;
-			Vector2 neededMove = glypRelativePosition - k->currentPos;
-			if(neededMove.x || neededMove.y)mesh->getVertices().move(neededMove.x, neededMove.y);
-			(*transform) = (*stringTransform);
-			k->currentPos = glypRelativePosition;
-			advance += glyphInfo->advance;
-			previousChar = glyphInfo->charCode;
-			charSpritesForAlignmentAdjust.push_back(*k);
-		    }
-		    
-		}
-		
-		lineJump(newLineJump, advance, charSpritesForAlignmentAdjust);
 	    }
 		lineJump(newLineJump, advance, charSpritesForAlignmentAdjust);
 	}
@@ -140,9 +170,8 @@ namespace BaconBox {
 	    charSpritesLines.back().resize(1);
 	    
 	    for(String32::iterator i = text32.begin(); i != text32.end(); i++ ){
-		std::list<CharSprite> & word = charSpritesLines.back().back();
 		std::list<std::list<CharSprite> >  & line = charSpritesLines.back();
-		
+			std::list<CharSprite> & word = line.back();
 		TextureGlyphInformation * glyphInfo = font->getGlyphInformation(*i);
 		if(glyphInfo == NULL){
 		     glyphInfo = font->getGlyphInformation(-1);
@@ -156,8 +185,9 @@ namespace BaconBox {
 			charSpritesLines.back().resize(1);
 		}
 		else if(glyphInfo->charCode == ' '){
+			line.resize(line.size() +1);
 			MovieClipEntity * sprite = EntityFactory::getMovieClipEntityFromSubTexture(glyphInfo->subTextureInfo);
-			word.push_back(CharSprite(sprite, glyphInfo));
+			line.back().push_back(CharSprite(sprite, glyphInfo));
 			line.resize(line.size() +1);
 		}
 		else{

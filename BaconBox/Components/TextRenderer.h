@@ -22,7 +22,7 @@ namespace BaconBox {
 		TextRenderer(TextureFont * font);
 		
 		virtual void render();
-
+		void update();
 	
 		virtual ~TextRenderer();
 		
@@ -33,11 +33,13 @@ namespace BaconBox {
 	private:
 		std::list<std::list<std::list<CharSprite> > > charSpritesLines;
 		void resetPosition();
+		void internalResetPosition();
 		TextureFont * font;
 		TextAlignment alignment;
 		TextComponent* textComponent;
 		bool isWordJump(Char32 charCode);
 		void lineJump (Vector2 & newLineJump, Vector2 & advance, std::list<CharSprite> &charSpritesForAlignmentAdjust);
+		bool needPositionReset;
 	};
 
 }
