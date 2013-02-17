@@ -11,6 +11,10 @@
 		24396B5516BA2BD6005AEDD8 /* BaseEngine.h in Headers */ = {isa = PBXBuildFile; fileRef = 24396B5316BA2BD5005AEDD8 /* BaseEngine.h */; };
 		244214FA16BA24A2005B1ED9 /* EntityManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 244214F816BA24A2005B1ED9 /* EntityManager.cpp */; };
 		244214FB16BA24A2005B1ED9 /* EntityManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 244214F916BA24A2005B1ED9 /* EntityManager.h */; };
+		2444BBAE16D163E000221A71 /* BatchManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2444BBAC16D163E000221A71 /* BatchManager.cpp */; };
+		2444BBAF16D163E000221A71 /* BatchManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 2444BBAD16D163E000221A71 /* BatchManager.h */; };
+		2444BBB216D164C100221A71 /* BatchedVertexArray.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2444BBB016D164C100221A71 /* BatchedVertexArray.cpp */; };
+		2444BBB316D164C100221A71 /* BatchedVertexArray.h in Headers */ = {isa = PBXBuildFile; fileRef = 2444BBB116D164C100221A71 /* BatchedVertexArray.h */; };
 		246274CA16AC8AB4006C7FFF /* MeshDriverRenderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 246274C816AC8AB3006C7FFF /* MeshDriverRenderer.cpp */; };
 		246274CB16AC8AB4006C7FFF /* MeshDriverRenderer.h in Headers */ = {isa = PBXBuildFile; fileRef = 246274C916AC8AB4006C7FFF /* MeshDriverRenderer.h */; };
 		2478740816360C7F006D4A59 /* libSDL2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2478740616360C7F006D4A59 /* libSDL2.a */; };
@@ -276,6 +280,10 @@
 		24396B5316BA2BD5005AEDD8 /* BaseEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseEngine.h; sourceTree = "<group>"; };
 		244214F816BA24A2005B1ED9 /* EntityManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EntityManager.cpp; sourceTree = "<group>"; };
 		244214F916BA24A2005B1ED9 /* EntityManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EntityManager.h; sourceTree = "<group>"; };
+		2444BBAC16D163E000221A71 /* BatchManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BatchManager.cpp; sourceTree = "<group>"; };
+		2444BBAD16D163E000221A71 /* BatchManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BatchManager.h; sourceTree = "<group>"; };
+		2444BBB016D164C100221A71 /* BatchedVertexArray.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BatchedVertexArray.cpp; sourceTree = "<group>"; };
+		2444BBB116D164C100221A71 /* BatchedVertexArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BatchedVertexArray.h; sourceTree = "<group>"; };
 		245C1B6616ACD2EB00C74B67 /* Vector2ChangedData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Vector2ChangedData.h; sourceTree = "<group>"; };
 		245C1B6816ACD35B00C74B67 /* ValueChangedData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ValueChangedData.h; sourceTree = "<group>"; };
 		246274C816AC8AB3006C7FFF /* MeshDriverRenderer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MeshDriverRenderer.cpp; sourceTree = "<group>"; };
@@ -752,6 +760,10 @@
 				51E5172B1697529200F6D446 /* Windows */,
 				245C1B6616ACD2EB00C74B67 /* Vector2ChangedData.h */,
 				245C1B6816ACD35B00C74B67 /* ValueChangedData.h */,
+				2444BBAC16D163E000221A71 /* BatchManager.cpp */,
+				2444BBAD16D163E000221A71 /* BatchManager.h */,
+				2444BBB016D164C100221A71 /* BatchedVertexArray.cpp */,
+				2444BBB116D164C100221A71 /* BatchedVertexArray.h */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -1240,6 +1252,8 @@
 				24F9A04F16BF007800FCA53B /* EntityFactory.h in Headers */,
 				24F9A05316BF01A100FCA53B /* ResourcePointer.h in Headers */,
 				24F9A05516BF01BF00FCA53B /* TexturePointer.h in Headers */,
+				2444BBAF16D163E000221A71 /* BatchManager.h in Headers */,
+				2444BBB316D164C100221A71 /* BatchedVertexArray.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1402,6 +1416,8 @@
 				24B0364916BEAF4500117510 /* ColorFilter.cpp in Sources */,
 				24AF672A16BED58F004AA3D0 /* Texture.cpp in Sources */,
 				24F9A04E16BF007800FCA53B /* EntityFactory.cpp in Sources */,
+				2444BBAE16D163E000221A71 /* BatchManager.cpp in Sources */,
+				2444BBB216D164C100221A71 /* BatchedVertexArray.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
