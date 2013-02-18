@@ -6,6 +6,15 @@ namespace BaconBox {
 		void Font::setPixelSize(int pixelSize){
 		    this->pixelSize = pixelSize;
 		}
+		
+		const std::string &Font::getName() const{
+		    return name;
+		}
+		
+		void Font::setName(const std::string &newName){
+		    name = newName;
+		}
+		
     		int Font::getPixelSize(){
 		    return pixelSize;
 		}
