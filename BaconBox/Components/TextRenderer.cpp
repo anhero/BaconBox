@@ -70,7 +70,10 @@ namespace BaconBox {
 	}
 
 	void TextRenderer::lineJump(Vector2 & newLineJump, Vector2 & advance,  std::list<CharSprite> &charSpritesForAlignmentAdjust){
-		if(charSpritesForAlignmentAdjust.size() != 0 && charSpritesForAlignmentAdjust.back().glyph->charCode == ' ') advance -= charSpritesForAlignmentAdjust.back().glyph->advance;
+		while (charSpritesForAlignmentAdjust.size() != 0 && charSpritesForAlignmentAdjust.back().glyph->charCode == ' ') {
+			advance -= charSpritesForAlignmentAdjust.back().glyph->advance;
+			charSpritesForAlignmentAdjust.pop_back();
+		}
 		Vector2 alignmentAdjust;
 		
 		if(alignment == TextAlignment::RIGHT){
