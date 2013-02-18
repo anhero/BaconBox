@@ -1,4 +1,4 @@
-#include "BatchedVertexArray.h"
+#include "BaconBox/Helper/BatchedVertexArray.h"
 
 namespace BaconBox {
 	BatchedVertexArray::BatchedVertexArray() : VertexArray() {
