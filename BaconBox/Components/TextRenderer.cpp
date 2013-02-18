@@ -147,6 +147,7 @@ namespace BaconBox {
 				}
 				
 			}
+			tempAdvance = Vector2();
 			
 			lineJump(newLineJump, advance, charSpritesForAlignmentAdjust);
 	    }
