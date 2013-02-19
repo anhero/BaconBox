@@ -11,10 +11,6 @@
 		24396B5516BA2BD6005AEDD8 /* BaseEngine.h in Headers */ = {isa = PBXBuildFile; fileRef = 24396B5316BA2BD5005AEDD8 /* BaseEngine.h */; };
 		244214FA16BA24A2005B1ED9 /* EntityManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 244214F816BA24A2005B1ED9 /* EntityManager.cpp */; };
 		244214FB16BA24A2005B1ED9 /* EntityManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 244214F916BA24A2005B1ED9 /* EntityManager.h */; };
-		2444BBAE16D163E000221A71 /* BatchManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2444BBAC16D163E000221A71 /* BatchManager.cpp */; };
-		2444BBAF16D163E000221A71 /* BatchManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 2444BBAD16D163E000221A71 /* BatchManager.h */; };
-		2444BBB216D164C100221A71 /* BatchedVertexArray.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2444BBB016D164C100221A71 /* BatchedVertexArray.cpp */; };
-		2444BBB316D164C100221A71 /* BatchedVertexArray.h in Headers */ = {isa = PBXBuildFile; fileRef = 2444BBB116D164C100221A71 /* BatchedVertexArray.h */; };
 		246274CA16AC8AB4006C7FFF /* MeshDriverRenderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 246274C816AC8AB3006C7FFF /* MeshDriverRenderer.cpp */; };
 		246274CB16AC8AB4006C7FFF /* MeshDriverRenderer.h in Headers */ = {isa = PBXBuildFile; fileRef = 246274C916AC8AB4006C7FFF /* MeshDriverRenderer.h */; };
 		2478740816360C7F006D4A59 /* libSDL2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2478740616360C7F006D4A59 /* libSDL2.a */; };
@@ -31,6 +27,10 @@
 		24F9A04F16BF007800FCA53B /* EntityFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = 24F9A04D16BF007700FCA53B /* EntityFactory.h */; };
 		24F9A05316BF01A100FCA53B /* ResourcePointer.h in Headers */ = {isa = PBXBuildFile; fileRef = 24F9A05016BF019700FCA53B /* ResourcePointer.h */; };
 		24F9A05516BF01BF00FCA53B /* TexturePointer.h in Headers */ = {isa = PBXBuildFile; fileRef = 24F9A05416BF01BF00FCA53B /* TexturePointer.h */; };
+		24FE79C916D33D6F00A670F6 /* BatchedVertexArray.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 24FE79C516D33D6F00A670F6 /* BatchedVertexArray.cpp */; };
+		24FE79CA16D33D6F00A670F6 /* BatchedVertexArray.h in Headers */ = {isa = PBXBuildFile; fileRef = 24FE79C616D33D6F00A670F6 /* BatchedVertexArray.h */; };
+		24FE79CB16D33D6F00A670F6 /* BatchManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 24FE79C716D33D6F00A670F6 /* BatchManager.cpp */; };
+		24FE79CC16D33D6F00A670F6 /* BatchManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 24FE79C816D33D6F00A670F6 /* BatchManager.h */; };
 		5153CCE01698A80A00431A19 /* libfreetype.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5153CCDF1698A80A00431A19 /* libfreetype.a */; };
 		5153CCE31698A82A00431A19 /* libpng.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5153CCE21698A82A00431A19 /* libpng.a */; };
 		5153CCE81698A86E00431A19 /* libogg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5153CCE61698A86E00431A19 /* libogg.a */; };
@@ -280,10 +280,6 @@
 		24396B5316BA2BD5005AEDD8 /* BaseEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseEngine.h; sourceTree = "<group>"; };
 		244214F816BA24A2005B1ED9 /* EntityManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EntityManager.cpp; sourceTree = "<group>"; };
 		244214F916BA24A2005B1ED9 /* EntityManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EntityManager.h; sourceTree = "<group>"; };
-		2444BBAC16D163E000221A71 /* BatchManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BatchManager.cpp; sourceTree = "<group>"; };
-		2444BBAD16D163E000221A71 /* BatchManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BatchManager.h; sourceTree = "<group>"; };
-		2444BBB016D164C100221A71 /* BatchedVertexArray.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BatchedVertexArray.cpp; sourceTree = "<group>"; };
-		2444BBB116D164C100221A71 /* BatchedVertexArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BatchedVertexArray.h; sourceTree = "<group>"; };
 		245C1B6616ACD2EB00C74B67 /* Vector2ChangedData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Vector2ChangedData.h; sourceTree = "<group>"; };
 		245C1B6816ACD35B00C74B67 /* ValueChangedData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ValueChangedData.h; sourceTree = "<group>"; };
 		246274C816AC8AB3006C7FFF /* MeshDriverRenderer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MeshDriverRenderer.cpp; sourceTree = "<group>"; };
@@ -303,6 +299,10 @@
 		24F9A04D16BF007700FCA53B /* EntityFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EntityFactory.h; sourceTree = "<group>"; };
 		24F9A05016BF019700FCA53B /* ResourcePointer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResourcePointer.h; sourceTree = "<group>"; };
 		24F9A05416BF01BF00FCA53B /* TexturePointer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TexturePointer.h; sourceTree = "<group>"; };
+		24FE79C516D33D6F00A670F6 /* BatchedVertexArray.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BatchedVertexArray.cpp; sourceTree = "<group>"; };
+		24FE79C616D33D6F00A670F6 /* BatchedVertexArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BatchedVertexArray.h; sourceTree = "<group>"; };
+		24FE79C716D33D6F00A670F6 /* BatchManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BatchManager.cpp; sourceTree = "<group>"; };
+		24FE79C816D33D6F00A670F6 /* BatchManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BatchManager.h; sourceTree = "<group>"; };
 		5153CCDF1698A80A00431A19 /* libfreetype.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libfreetype.a; path = libraries/Darwin/x86_64/lib/libfreetype.a; sourceTree = "<group>"; };
 		5153CCE21698A82A00431A19 /* libpng.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpng.a; path = libraries/Darwin/x86_64/lib/libpng.a; sourceTree = SOURCE_ROOT; };
 		5153CCE61698A86E00431A19 /* libogg.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libogg.a; path = libraries/Darwin/x86_64/lib/libogg.a; sourceTree = "<group>"; };
@@ -760,10 +760,6 @@
 				51E5172B1697529200F6D446 /* Windows */,
 				245C1B6616ACD2EB00C74B67 /* Vector2ChangedData.h */,
 				245C1B6816ACD35B00C74B67 /* ValueChangedData.h */,
-				2444BBAC16D163E000221A71 /* BatchManager.cpp */,
-				2444BBAD16D163E000221A71 /* BatchManager.h */,
-				2444BBB016D164C100221A71 /* BatchedVertexArray.cpp */,
-				2444BBB116D164C100221A71 /* BatchedVertexArray.h */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -885,6 +881,10 @@
 		51E518FE16975B4300F6D446 /* Display */ = {
 			isa = PBXGroup;
 			children = (
+				24FE79C516D33D6F00A670F6 /* BatchedVertexArray.cpp */,
+				24FE79C616D33D6F00A670F6 /* BatchedVertexArray.h */,
+				24FE79C716D33D6F00A670F6 /* BatchManager.cpp */,
+				24FE79C816D33D6F00A670F6 /* BatchManager.h */,
 				24F9A05416BF01BF00FCA53B /* TexturePointer.h */,
 				5153CCF41698AA3300431A19 /* Text */,
 				51E518FF16975B4400F6D446 /* Color.cpp */,
@@ -1252,8 +1252,8 @@
 				24F9A04F16BF007800FCA53B /* EntityFactory.h in Headers */,
 				24F9A05316BF01A100FCA53B /* ResourcePointer.h in Headers */,
 				24F9A05516BF01BF00FCA53B /* TexturePointer.h in Headers */,
-				2444BBAF16D163E000221A71 /* BatchManager.h in Headers */,
-				2444BBB316D164C100221A71 /* BatchedVertexArray.h in Headers */,
+				24FE79CA16D33D6F00A670F6 /* BatchedVertexArray.h in Headers */,
+				24FE79CC16D33D6F00A670F6 /* BatchManager.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1416,8 +1416,8 @@
 				24B0364916BEAF4500117510 /* ColorFilter.cpp in Sources */,
 				24AF672A16BED58F004AA3D0 /* Texture.cpp in Sources */,
 				24F9A04E16BF007800FCA53B /* EntityFactory.cpp in Sources */,
-				2444BBAE16D163E000221A71 /* BatchManager.cpp in Sources */,
-				2444BBB216D164C100221A71 /* BatchedVertexArray.cpp in Sources */,
+				24FE79C916D33D6F00A670F6 /* BatchedVertexArray.cpp in Sources */,
+				24FE79CB16D33D6F00A670F6 /* BatchManager.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
