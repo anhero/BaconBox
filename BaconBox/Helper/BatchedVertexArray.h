@@ -204,6 +204,8 @@ namespace BaconBox {
 		 */
 		void resize(SizeType count, ConstReference value = ValueType());
 	private:
+		void removeFromBatch();
+		
 		/**
 		 * Pointer to the current instance's vertices. Used only if the current
 		 * instance does not have a batch. Set to NULL when the array has a
