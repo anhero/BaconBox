@@ -511,6 +511,7 @@ SoundInfo * ResourceManager::loadSoundFromBundle(const std::string &key,
 	
 	Font *ResourceManager::initFontFromPathAndFormat(const std::string &key,
 		                      const std::string &path, const FontFormat & format){
+#if ! defined (BB_FLASH_PLATEFORM)
 	    if(format == FontFormat::BMFONT){
 		BMFont* font = new BMFont(key);
 		font->format = format;
@@ -518,6 +519,9 @@ SoundInfo * ResourceManager::loadSoundFromBundle(const std::string &key,
 		return font;
 		
 	    }
+#endif
+	    Console__error("No font fit the given format");
+	    return NULL;
 	}
 	    
 	
