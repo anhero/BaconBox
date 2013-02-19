@@ -1,8 +1,8 @@
-#include "BaconBox/Helper/BatchedVertexArray.h"
+#include "BaconBox/Display/BatchedVertexArray.h"
 
 #include <algorithm>
 
-#include "BaconBox/Helper/BatchManager.h"
+#include "BaconBox/Display/BatchManager.h"
 
 namespace BaconBox {
 	BatchedVertexArray::BatchedVertexArray() : VertexArray(), vertices(new ContainerType()), batch(NULL), identifier(BatchManager::INVALID_ID) {

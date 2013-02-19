@@ -1,4 +1,4 @@
-#include "BaconBox/Helper/BatchManager.h"
+#include "BaconBox/Display/BatchManager.h"
 
 namespace BaconBox {
 	BatchManager::BatchManager() {
