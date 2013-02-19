@@ -92,7 +92,6 @@ end
 	#include "BaconBox/EntityFactory.h"
   #include "BaconBox/Components/HasName.h"
   #include "BaconBox/Core/State.h"
-//  #include "BaconBox/Core/BaseEngine.h
   #include "BaconBox/Core/Engine.h"
   #include "BaconBox/Display/Text/FontFormat.h"
 
@@ -101,12 +100,16 @@ end
 #include "BaconBox/Display/Text/TextAlignment.h"
 #include "BaconBox/Components/TextComponent.h"
 #include "BaconBox/Display/Text/TextEntity.h"
+
 #if defined(BB_LUA)
   #include "BaconBox/Components/Lua/LuaState.h"
 #endif
 
 namespace BaconBox{
 class BaseEngine;
+#ifdef BB_FLASH_PLATEFORM
+class FlashEngine;
+#endif
 }
 
 ///////////////////////
@@ -171,6 +174,11 @@ class SoundInfo;
 %}
 namespace BaconBox{
 class BaseEngine;
+
+#ifdef BB_FLASH_PLATEFORM
+class FlashEngine;
+#endif
+
 }
 
 %include "BaconBox/Core/IDManager.h"
@@ -314,7 +322,6 @@ namespace BaconBox{
 %include "BaconBox/Display/SubTextureInfo.h"
 %include "BaconBox/MovieClipEntity/MovieClipEntity.h"
 
-%include "BaconBox/EntityFactory.h" 
 
 
 #if defined(BB_LUA)
@@ -322,7 +329,6 @@ namespace BaconBox{
 #endif
 
 %include "BaconBox/Core/State.h"
-//%include "BaconBox/Core/BaseEngine.h
 
 %include "BaconBox/Core/Engine.h"
 
@@ -340,9 +346,9 @@ namespace BaconBox{
 %include "BaconBox/Display/Text/Font.h"
 
 %include "BaconBox/Display/Text/TextAlignment.h"
-%template(TextAlignment) BaconBox::SafeEnum<TextAlignmentDef>;
 %include "BaconBox/Components/TextComponent.h"
 %include "BaconBox/Display/Text/TextEntity.h"
+%include "BaconBox/EntityFactory.h" 
 namespace BaconBox{
 
   class ResourceManager{
