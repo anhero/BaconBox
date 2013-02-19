@@ -83,6 +83,142 @@ namespace BaconBox {
 		return this->identifier;
 	}
 	
+	VertexArray::Iterator BatchedVertexArray::getBegin() {
+		if (this->batch) {
+			return this->batch->getBegin(this->identifier);
+		} else {
+			return this->vertices->begin();
+		}
+	}
+	
+	VertexArray::ConstIterator BatchedVertexArray::getBegin() const {
+		if (this->batch) {
+			return this->batch->getConstBegin(this->identifier);
+		} else {
+			return this->vertices->begin();
+		}
+	}
+	
+	VertexArray::Iterator BatchedVertexArray::getEnd() {
+		if (this->batch) {
+			return this->batch->getEnd(this->identifier);
+		} else {
+			return this->vertices->end();
+		}
+	}
+	
+	VertexArray::ConstIterator BatchedVertexArray::getEnd() const {
+		if (this->batch) {
+			return this->batch->getConstEnd(this->identifier);
+		} else {
+			return this->vertices->end();
+		}
+	}
+	
+	VertexArray::ReverseIterator BatchedVertexArray::getReverseBegin() {
+		if (this->batch) {
+			return this->batch->getReverseBegin(this->identifier);
+		} else {
+			return this->vertices->rbegin();
+		}
+	}
+	
+	VertexArray::ConstReverseIterator BatchedVertexArray::getReverseBegin() const {
+		if (this->batch) {
+			return this->batch->getConstReverseBegin(this->identifier);
+		} else {
+			return this->vertices->rbegin();
+		}
+	}
+	
+	VertexArray::ReverseIterator BatchedVertexArray::getReverseEnd() {
+		if (this->batch) {
+			return this->batch->getReverseEnd(this->identifier);
+		} else {
+			return this->vertices->rend();
+		}
+	}
+	
+	VertexArray::ConstReverseIterator BatchedVertexArray::getReverseEnd() const {
+		if (this->batch) {
+			return this->batch->getConstReverseEnd(this->identifier);
+		} else {
+			return this->vertices->rend();
+		}
+	}
+	
+	bool BatchedVertexArray::isEmpty() const {
+		if (this->batch) {
+			return this->batch->isEmpty(this->identifier);
+		} else {
+			return this->vertices->empty();
+		}
+	}
+	
+	VertexArray::SizeType BatchedVertexArray::getNbVertices() const {
+		if (this->batch) {
+			return this->batch->getNbVertices(this->identifier);
+		} else {
+			return this->vertices->size();
+		}
+	}
+	
+	void BatchedVertexArray::clear() {
+		if (this->batch) {
+			this->batch->clear(this->identifier);
+		} else {
+			this->vertices->clear();
+		}
+	}
+	
+	VertexArray::Iterator BatchedVertexArray::insert(Iterator position, ConstReference value) {
+		if (this->batch) {
+			return this->batch->insert(this->identifier, position, value);
+		} else {
+			return this->vertices->insert(position, value);
+		}
+	}
+	
+	void BatchedVertexArray::insert(Iterator position, SizeType count, ConstReference value) {
+		if (this->batch) {
+			this->batch->insert(this->identifier, position, count, value);
+		} else {
+			this->vertices->insert(position, count, value);
+		}
+	}
+	
+	VertexArray::Iterator BatchedVertexArray::erase(Iterator position) {
+		if (this->batch) {
+			return this->batch->erase(this->identifier, position);
+		} else {
+			return this->vertices->erase(position);
+		}
+	}
+	
+	VertexArray::Iterator BatchedVertexArray::erase(Iterator first, Iterator last) {
+		if (this->batch) {
+			return this->batch->erase(this->identifier, first, last);
+		} else {
+			return this->vertices->erase(first, last);
+		}
+	}
+	
+	void BatchedVertexArray::pushBack(ConstReference newVertex) {
+		if (this->batch) {
+			this->batch->pushBack(this->identifier, newVertex);
+		} else {
+			this->vertices->push_back(newVertex);
+		}
+	}
+	
+	void BatchedVertexArray::popBack() {
+		if (this->batch) {
+			this->batch->popBack(this->identifier);
+		} else {
+			this->vertices->pop_back();
+		}
+	}
+	
 	void BatchedVertexArray::removeFromBatch() {
 		this->batch->removeVertexArray(this->identifier);
 		this->batch = NULL;
