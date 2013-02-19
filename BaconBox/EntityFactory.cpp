@@ -22,6 +22,9 @@
 namespace BaconBox {
 
 	MovieClipEntity *EntityFactory::getMovieClipEntity(const std::string &key) {
+#ifdef BB_DEBUG
+    try{
+#endif
 #ifdef BB_FLASH_PLATEFORM
 		AS3::local::var mc =  FlashHelper::construct(key);
 		AS3::local::var entity = FlashHelper::getProperty(mc, "entity");
@@ -37,8 +40,25 @@ namespace BaconBox {
 
 
 #endif
+		
+#ifdef BB_DEBUG
+    }
+    catch(...){
+    Console__error("Error in EntityFactory::getMovieClipEntity with key: " << key);
+    throw;
+    }
+#endif		
 	}
 	
+#if  defined(BB_FLASH_PLATEFORM)
+TextEntity * EntityFactory::getTextEntity(const std::string &key){
+		AS3::local::var mc =  FlashHelper::construct(key);
+		AS3::local::var entity = FlashHelper::getProperty(mc, "entity");
+		AS3::local::var entityPointerAS3 = FlashHelper::getProperty(entity, "swigCPtr");
+		TextEntity *entityPointer = (TextEntity *)int_valueOf(entityPointerAS3);
+		return entityPointer;
+}
+#else
 	MovieClipEntity *EntityFactory::getMovieClipEntityFromSubTexture(SubTextureInfo* subTex){
 	    MovieClipEntity *result = NULL;
 
@@ -76,6 +96,6 @@ namespace BaconBox {
 			return result;
 		}
 	}
-
+#endif
 
 }
