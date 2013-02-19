@@ -35,7 +35,7 @@ namespace BaconBox {
 		void resetPosition();
 		void internalResetPosition();
 		TextureFont * font;
-		TextAlignment alignment;
+		TextAlignment::type alignment;
 		TextComponent* textComponent;
 		bool isWordJump(Char32 charCode);
 		void lineJump (Vector2 & newLineJump, Vector2 & advance, std::list<CharSprite> &charSpritesForAlignmentAdjust);

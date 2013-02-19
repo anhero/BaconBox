@@ -52,7 +52,7 @@ namespace BaconBox {
 			setText(*reinterpret_cast<std::string*>(data));
 			}
 			else if(message == TextComponent::MESSAGE_ALIGNMENT_CHANGED ){
-			    alignment = *reinterpret_cast<TextAlignment*>(data);
+			    alignment = *reinterpret_cast<TextAlignment::type*>(data);
 			    resetPosition();
 			}
 			else if(message == TextComponent::MESSAGE_SIZE_CHANGED){

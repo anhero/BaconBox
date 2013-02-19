@@ -23,7 +23,7 @@ namespace BaconBox {
 		TextComponent();
 
 		virtual ~TextComponent();
-		void setAlignment(TextAlignment alignment);
+		void setAlignment(TextAlignment::type alignment);
 		void setText(const std::string & text);
 		void setSize(Vector2 size);
 		Vector2 getSize();
@@ -31,7 +31,7 @@ namespace BaconBox {
 		virtual void receiveMessage(int senderID, int destID, int message, void *data);
 	private:
 		Font * font;
-		TextAlignment alignment;
+		TextAlignment::type alignment;
 		AxisAlignedBoundingBox boundingBox;
 	};
 
@@ -42,7 +42,7 @@ namespace BaconBox {
 		Font * getFont();
 		void setSize(Vector2 size);
 		Vector2 getSize();
-		void setAlignment(TextAlignment alignment);
+		void setAlignment(TextAlignment::type alignment);
 		void setText(const std::string & text);
 	private:
 

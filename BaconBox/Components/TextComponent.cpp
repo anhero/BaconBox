@@ -4,7 +4,7 @@
 #include "BaconBox/Console.h"
 #include "BaconBox/Helper/StringHelper.h"
 #include "BaconBox/Helper/UTFConvert.h"
-#include "EntityFactory.h"
+#include "BaconBox/EntityFactory.h"
 #include "Mesh.h"
 #include "BaconBox/Display/Text/Font.h"
 #include "BaconBox/Core/Engine.h"
@@ -33,7 +33,7 @@ namespace BaconBox {
 		}
 	    }
 	}
-	void TextComponent::setAlignment(TextAlignment alignment){
+	void TextComponent::setAlignment(TextAlignment::type alignment){
 	    this->alignment = alignment;
 	    sendMessage(Entity::BROADCAST, TextComponent::MESSAGE_ALIGNMENT_CHANGED, reinterpret_cast<void*>(&alignment));
 	}	
@@ -60,7 +60,7 @@ namespace BaconBox {
 	TextComponentProxy::TextComponentProxy(Entity* entity, Font * font, bool mustAddComponent): BB_PROXY_CONSTRUCTOR(new TextComponent())  {
 	    reinterpret_cast<TextComponent*>(component)->font = font;
 	}
-	void TextComponentProxy::setAlignment(TextAlignment alignment){
+	void TextComponentProxy::setAlignment(TextAlignment::type alignment){
 	    reinterpret_cast<TextComponent*>(component)->setAlignment(alignment);
 	}
 	
