@@ -10,8 +10,10 @@
 #include "BaconBox/Components/Transform.h"
 #include "BaconBox/Components/TextComponent.h"
 
-
-
+#ifdef BB_FLASH_PLATEFORM
+#include <AS3/AS3.h>
+#include <AS3/AS3++.h>
+#endif
 namespace BaconBox {
     class Font;
     
@@ -23,6 +25,10 @@ namespace BaconBox {
 	BB_ID_HEADER;
 	
 	TextEntity(Font * font);
+
+	#ifdef BB_FLASH_PLATEFORM
+		void setMovieClip(AS3::local::var aMC);
+	#endif
 	
 
 		
