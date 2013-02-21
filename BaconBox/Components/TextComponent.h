@@ -14,6 +14,7 @@ namespace BaconBox {
 	    friend class TextComponentProxy;
 	public:
 		static int MESSAGE_TEXT_CHANGED;
+		static int MESSAGE_FONT_CHANGED;
 		static int MESSAGE_ALIGNMENT_CHANGED;
 		static int MESSAGE_SIZE_CHANGED;
 		BB_ID_HEADER;
@@ -27,9 +28,12 @@ namespace BaconBox {
 		void setText(const std::string & text);
 		void setSize(Vector2 size);
 		Vector2 getSize();
+		void setFont(Font * font);
 		Font * getFont();
+
 		virtual void receiveMessage(int senderID, int destID, int message, void *data);
 	private:
+		std::string text;
 		Font * font;
 		TextAlignment::type alignment;
 		AxisAlignedBoundingBox boundingBox;
@@ -40,6 +44,7 @@ namespace BaconBox {
 	public:
 		TextComponentProxy(Entity *entity, Font * font, bool mustAddComponent = true);
 		Font * getFont();
+		void setFont(Font * font);
 		void setSize(Vector2 size);
 		Vector2 getSize();
 		void setAlignment(TextAlignment::type alignment);
