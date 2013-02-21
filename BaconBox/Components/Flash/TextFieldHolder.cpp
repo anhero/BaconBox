@@ -2,6 +2,7 @@
 #include "BaconBox/Core/Entity.h"
 #include "BaconBox/Components/Transform.h"
 #include "BaconBox/Core/IDManager.h"
+#include "BaconBox/Components/TextComponent.h"
 
 
 #include "BaconBox/Helper/Flash/FlashHelper.h"
@@ -19,7 +20,14 @@ namespace BaconBox {
 
 	void TextFieldHolder::setMovieClip(AS3::local::var aMC){
 		mc = aMC;
+		AS3::local::var args[1] = {AS3::local::internal::new_String("text")};
+		textField = FlashHelper::callMethod(mc, "getChildByName", 1, args);
 	}
+
+	void TextFieldHolder::setText(const std::string & text){
+		FlashHelper::setProperty(textField, "text", AS3::local::internal::new_String(text.c_str()));
+	}
+
 	
 	AS3::local::var TextFieldHolder::getMovieClip(){
 		return mc;
@@ -40,6 +48,11 @@ namespace BaconBox {
 		 		Vector2ChangedData * scale = (reinterpret_cast<Vector2ChangedData *>(data));
 		 	}	
 		 }
+		 else if(senderID == TextComponent::ID){
+			if(message == TextComponent::MESSAGE_TEXT_CHANGED ){
+				setText(*reinterpret_cast<std::string*>(data));
+			}
+		}
 
 	}
     

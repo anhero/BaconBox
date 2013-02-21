@@ -20,6 +20,7 @@ namespace BaconBox {
     	
         TextFieldHolder(AS3::local::var aMC);
 		void setMovieClip(AS3::local::var aMC);
+		void setText(const std::string & text);
 		AS3::local::var getMovieClip();
 		virtual void receiveMessage(int senderID, int destID, int message, void *data);
 		
