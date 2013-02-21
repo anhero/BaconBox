@@ -46,7 +46,7 @@
 
 		class TextEntity { 
     	public:
-    		TextEntity(Font * font);
+    		TextEntity();
 			void setMovieClip(AS3::local::var aMC);
 		};
 
