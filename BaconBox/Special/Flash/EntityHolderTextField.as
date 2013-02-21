@@ -1,4 +1,4 @@
-package BaconBox {
+ package BaconBox {
 import flash.display.MovieClip;
 import flash.text.TextField;
  import BaconBox.TextEntity;
@@ -8,7 +8,7 @@ public class EntityHolderTextField  extends MovieClip {
 	private var _customFontID:String = "";
     public function EntityHolderTextField() {
     	super();
-    	_entity = TextEntity.create(FlashFont.create());
+    	_entity = TextEntity.create();
         _entity.setMovieClip(this);
     }
 
