@@ -23,7 +23,7 @@ namespace BaconBox {
 	class TextEntity : public Entity, public TransformProxy, public TextComponentProxy { 
     public:
 	BB_ID_HEADER;
-	
+	TextEntity();
 	TextEntity(Font * font);
 
 	#ifdef BB_FLASH_PLATEFORM
