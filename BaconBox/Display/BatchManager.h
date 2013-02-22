@@ -2,6 +2,7 @@
 #define BB_BATCH_MANAGER_H
 
 #include "BaconBox/VertexArray.h"
+#include "BaconBox/TextureCoordinates.h"
 
 namespace BaconBox {
 	/**
@@ -21,6 +22,16 @@ namespace BaconBox {
 		BatchManager &operator=(const BatchManager &src);
 		
 	protected:
+		/**
+		 * Sets the texture coordinates for a given vertex array.
+		 * @param src Texture coordinates to copy. There must be as many texture
+		 * coordinates as there are vertices. The number of texture
+		 * coordinates copied is equal to
+		 * min(src.size(), getNbVertices(identifier)).
+		 * @param identifier Unique identifier of the vertex array.
+		 */
+		virtual void applyTextureCoordinates(const TextureCoordinates &src, int identifier) = 0;
+		
 		/**
 		 * Adds a new batched vertex array.
 		 * @param nbVertices Number of vertices to add to the batch.
