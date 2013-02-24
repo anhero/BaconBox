@@ -95,7 +95,11 @@ namespace BaconBox {
 	}
 	
 	void BatchedVertexArray::setIdentifier(size_t newIdentifier) {
-		if (this->batch && this->batch->containsVertexArray(newIdentifier)) {
+		if (this->batch && this->identifier != newIdentifier && this->batch->containsVertexArray(newIdentifier)) {
+			this->batch->resize(newIdentifier, this->getNbVertices());
+			
+			std::copy(this->getBegin(), this->getEnd(), this->batch->getBegin(newIdentifier));
+			
 			this->identifier = newIdentifier;
 		}
 	}
@@ -234,6 +238,27 @@ namespace BaconBox {
 		} else {
 			this->vertices->pop_back();
 		}
+	}
+	
+	void BatchedVertexArray::reset(size_t newIdentifier, BatchManager *newBatch) {
+		if (this->vertices) {
+			delete this->vertices;
+			this->vertices = NULL;
+		}
+		
+		this->batch = newBatch;
+		this->identifier = newIdentifier;
+	}
+	
+	void BatchedVertexArray::reset(SizeType nbVertices, ConstReference defaultValue) {
+		if (this->vertices) {
+			delete this->vertices;
+		}
+		
+		this->batch = NULL;
+		this->identifier = BatchManager::INVALID_ID;
+		
+		this->vertices = new ContainerType(nbVertices, defaultValue);
 	}
 	
 	void BatchedVertexArray::removeFromBatch() {

@@ -229,6 +229,23 @@ namespace BaconBox {
 		 * @param value Value to insert if the new size is bigger.
 		 */
 		void resize(SizeType count, ConstReference value = ValueType());
+		
+		/**
+		 * Sets a new unique idenfier and a new batch without copying the
+		 * current instance's vertices.
+		 * @param newIdentifier New unique idenfier to use.
+		 * @param newBatch Pointer to the new batch manager to use.
+		 */
+		void reset(size_t newIdentifier, BatchManager *newBatch);
+		
+		/**
+		 * Unlinks the current instance from a batch (if linked) or clears
+		 * the current instance's vertices if not linked with any batches and
+		 * initializes a new vertex array with the given parameters.
+		 * @param nbVertices Number of vertices.
+		 * @param defaultValue Value to use to initialize the vertices.
+		 */
+		void reset(SizeType nbVertices, ConstReference defaultValue = ValueType());
 	private:
 		void removeFromBatch();
 		
