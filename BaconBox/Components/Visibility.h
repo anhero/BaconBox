@@ -11,6 +11,13 @@ namespace BaconBox {
 	public:
 		BB_ID_HEADER;
 		
+		/// Message ID to use when requesting the entity's visibility.
+		static int MESSAGE_IS_VISIBLE;
+		/// Message ID to use when setting the entity's visibility.
+		static int MESSAGE_SET_VISIBLE;
+		/// Message ID the component sends when its entity's visibility has changed.
+		static int MESSAGE_VISIBILITY_CHANGED;
+		
 		Visibility();
 		
 		Visibility(const Visibility &src);
@@ -20,6 +27,8 @@ namespace BaconBox {
 		Visibility &operator=(const Visibility &src);
 		
 		virtual Visibility *clone() const;
+		
+		virtual void receiveMessage(int senderID, int destID, int message, void *data);
 		
 		bool isVisible() const;
 		
