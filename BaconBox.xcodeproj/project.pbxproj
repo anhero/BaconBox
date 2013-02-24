@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		24396B5416BA2BD6005AEDD8 /* BaseEngine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 24396B5216BA2BD5005AEDD8 /* BaseEngine.cpp */; };
 		24396B5516BA2BD6005AEDD8 /* BaseEngine.h in Headers */ = {isa = PBXBuildFile; fileRef = 24396B5316BA2BD5005AEDD8 /* BaseEngine.h */; };
+		24409B0716DAA02D0001206F /* Visibility.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 24409B0516DAA02D0001206F /* Visibility.cpp */; };
+		24409B0816DAA02D0001206F /* Visibility.h in Headers */ = {isa = PBXBuildFile; fileRef = 24409B0616DAA02D0001206F /* Visibility.h */; };
 		244214FA16BA24A2005B1ED9 /* EntityManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 244214F816BA24A2005B1ED9 /* EntityManager.cpp */; };
 		244214FB16BA24A2005B1ED9 /* EntityManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 244214F916BA24A2005B1ED9 /* EntityManager.h */; };
 		246274CA16AC8AB4006C7FFF /* MeshDriverRenderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 246274C816AC8AB3006C7FFF /* MeshDriverRenderer.cpp */; };
@@ -274,6 +276,8 @@
 /* Begin PBXFileReference section */
 		24396B5216BA2BD5005AEDD8 /* BaseEngine.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BaseEngine.cpp; sourceTree = "<group>"; };
 		24396B5316BA2BD5005AEDD8 /* BaseEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseEngine.h; sourceTree = "<group>"; };
+		24409B0516DAA02D0001206F /* Visibility.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Visibility.cpp; sourceTree = "<group>"; };
+		24409B0616DAA02D0001206F /* Visibility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Visibility.h; sourceTree = "<group>"; };
 		244214F816BA24A2005B1ED9 /* EntityManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EntityManager.cpp; sourceTree = "<group>"; };
 		244214F916BA24A2005B1ED9 /* EntityManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EntityManager.h; sourceTree = "<group>"; };
 		245C1B6616ACD2EB00C74B67 /* Vector2ChangedData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Vector2ChangedData.h; sourceTree = "<group>"; };
@@ -674,6 +678,8 @@
 				24B0364816BEAF4500117510 /* ColorFilter.h */,
 				24AF672816BED58F004AA3D0 /* Texture.cpp */,
 				24AF672916BED58F004AA3D0 /* Texture.h */,
+				24409B0516DAA02D0001206F /* Visibility.cpp */,
+				24409B0616DAA02D0001206F /* Visibility.h */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -1240,6 +1246,7 @@
 				24F9A04F16BF007800FCA53B /* EntityFactory.h in Headers */,
 				24F9A05316BF01A100FCA53B /* ResourcePointer.h in Headers */,
 				24F9A05516BF01BF00FCA53B /* TexturePointer.h in Headers */,
+				24409B0816DAA02D0001206F /* Visibility.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1402,6 +1409,7 @@
 				24B0364916BEAF4500117510 /* ColorFilter.cpp in Sources */,
 				24AF672A16BED58F004AA3D0 /* Texture.cpp in Sources */,
 				24F9A04E16BF007800FCA53B /* EntityFactory.cpp in Sources */,
+				24409B0716DAA02D0001206F /* Visibility.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
