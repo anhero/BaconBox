@@ -37,6 +37,14 @@ namespace BaconBox {
 		explicit BatchedVertexArray(SizeType nbVertices, ConstReference defaultValue = ValueType());
 		
 		/**
+		 * Initializes a new BatchedVertexArray with the given identifier and 
+		 * BatchManager.
+		 * @param newIdentifier Existing identifier to use.
+		 * @param newBatch Pointer to the batch that manages this array.
+		 */
+		BatchedVertexArray(size_t newIdentifier, BatchManager *newBatch);
+		
+		/**
 		 * Initializes a copy of another batched vertex array. The
 		 * copy does not have any parent batch.
 		 * @param src BatchedVertexArray to create a copy of.
@@ -73,12 +81,30 @@ namespace BaconBox {
 		void setBatch(BatchManager *newBatch);
 
 		/**
+		 * Sets the batch the current instance will be managed by.
+		 * @param newBatch Pointer to the current instance's new batch.
+		 * @param newIdentifier Existing unique identifier to use. If the
+		 * value contains BaconBox::BatchManager::INVALID_ID, asks the
+		 * batch for a new identifier.
+		 * @see BaconBox::BatchedVertexArray::batch
+		 * @see BaconBox::BatchedVertexArray::identifier
+		 */
+		void setBatch(BatchManager *newBatch, size_t newIdentifier);
+
+		/**
 		 * Gets the unique identifier used by the current instance's batch.
 		 * @return Unique identifier used to identify the vertex array in the
 		 * batch if it has one; otherwise -1.
 		 * @see BaconBox::BatchedVertexArray::identifier
 		 */
-		int getIdentifier() const;
+		size_t getIdentifier() const;
+		
+		/**
+		 * Sets the unique identifier. The instance must be associated with a
+		 * batch and the unique identifier must exist, otherwise nothing is done.
+		 * @param newIdentifier New unique idenfier to use.
+		 */
+		void setIdentifier(size_t newIdentifier);
 		
 		/**
 		 * Gets the iterator pointing to the first vertex.
@@ -223,7 +249,7 @@ namespace BaconBox {
 		 * Unique identifier used to identify the array in its batch. -1 if the
 		 * array isn't managed by any batch.
 		 */
-		int identifier;
+		size_t identifier;
 	};
 }
 

@@ -13,7 +13,6 @@ namespace BaconBox {
 	 * Base class for all batch manager implementations.
 	 */
 	class BatchManager {
-		friend class BatchedVertexArray;
 	public:
 		static const size_t INVALID_ID;
 		
@@ -25,7 +24,6 @@ namespace BaconBox {
 		
 		BatchManager &operator=(const BatchManager &src);
 		
-	protected:
 		/**
 		 * Sets the color for a given vertex array.
 		 * @param color Color to set to all of the vertex array's vertices.
@@ -62,7 +60,15 @@ namespace BaconBox {
 		 * Removes a vertex array from the batch.
 		 * @param identifier Unique identifier of the vertex array to remove.
 		 */
-		virtual bool removeVertexArray(size_t identifier);
+		virtual bool removeVertexArray(size_t identifier) = 0;
+		
+		/**
+		 * Checks whether or not the batch contains an array with the given
+		 * identifier.
+		 * *param identifier Unique identifier of the vertex array to check
+		 * the existence of.
+		 */
+		virtual bool containsVertexArray(size_t identifier) = 0;
 		
 		/**
 		 * Gets the iterator pointing to the first vertex.

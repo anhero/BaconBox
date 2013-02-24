@@ -3,6 +3,7 @@
 #include <algorithm>
 
 #include "BaconBox/Display/BatchManager.h"
+#include "BaconBox/Console.h"
 
 namespace BaconBox {
 	BatchedVertexArray::BatchedVertexArray() : VertexArray(), vertices(new ContainerType()), batch(NULL), identifier(BatchManager::INVALID_ID) {
@@ -14,6 +15,9 @@ namespace BaconBox {
 	BatchedVertexArray::BatchedVertexArray(SizeType nbVertices, ConstReference defaultValue) : VertexArray(), vertices(new ContainerType(nbVertices, defaultValue)), batch(NULL), identifier(BatchManager::INVALID_ID) {
 	}
 	
+	BatchedVertexArray::BatchedVertexArray(size_t newIdentifier, BatchManager *newBatch) : VertexArray(), vertices(NULL), batch(newBatch), identifier(newIdentifier) {
+	}
+	
 	BatchedVertexArray::BatchedVertexArray(const BatchedVertexArray &src) : VertexArray(src), vertices(new ContainerType(src.getNbVertices())), batch(NULL), identifier(BatchManager::INVALID_ID) {
 		std::copy(src.getBegin(), src.getEnd(), this->getBegin());
 	}
@@ -23,10 +27,6 @@ namespace BaconBox {
 		if (this->vertices) {
 			delete this->vertices;
 			this->vertices = NULL;
-		} else if (this->batch) {
-			// The vertex array is managed by a batch, we tell the batch to
-			// remove the current instance's vertex array.
-			this->removeFromBatch();
 		}
 	}
 	
@@ -44,27 +44,38 @@ namespace BaconBox {
 	}
 	
 	void BatchedVertexArray::setBatch(BatchManager *newBatch) {
+		this->setBatch(newBatch, BatchManager::INVALID_ID);
+	}
+	
+	void BatchedVertexArray::setBatch(BatchManager *newBatch, size_t newIdentifier) {
 		// We make sure the pointer we received is valid.
 		if (newBatch) {
 			// We make sure the new batch is different.
 			if (newBatch != this->batch) {
-				// We create a vertex array in the new batch.
-				int newIdentifier = newBatch->addNewVertexArray(this->getNbVertices());
-				
-				// We copy the current instance's contents to the new vertex
-				// array.
-				std::copy(this->getBegin(), this->getEnd(), newBatch->getBegin(newIdentifier));
-				
-				// If the current instance is not attached to another batch, we
-				// delete the vertices.
-				if (this->vertices) {
-					delete this->vertices;
-					this->vertices = NULL;
+				// We create a vertex array in the new batch if needed.
+				if (newIdentifier == BatchManager::INVALID_ID) {
+					newIdentifier = newBatch->addNewVertexArray(this->getNbVertices());
 				}
 				
-				// We set the new batch.
-				this->batch = newBatch;
-				this->identifier = newIdentifier;
+				if (newBatch->containsVertexArray(newIdentifier)) {
+					// We copy the current instance's contents to the new vertex
+					// array.
+					std::copy(this->getBegin(), this->getEnd(), newBatch->getBegin(newIdentifier));
+					
+					// If the current instance is not attached to another batch, we
+					// delete the vertices.
+					if (this->vertices) {
+						delete this->vertices;
+						this->vertices = NULL;
+					}
+					
+					// We set the new batch.
+					this->batch = newBatch;
+					this->identifier = newIdentifier;
+				} else {
+					Console::print("Unable to set the batch with the following idenfier: ");
+					Console::println(newIdentifier);
+				}
 			}
 		} else if (this->batch) {
 			// If the pointer we received is null, we make sure the vertex
@@ -79,8 +90,14 @@ namespace BaconBox {
 		}
 	}
 	
-	int BatchedVertexArray::getIdentifier() const {
+	size_t BatchedVertexArray::getIdentifier() const {
 		return this->identifier;
+	}
+	
+	void BatchedVertexArray::setIdentifier(size_t newIdentifier) {
+		if (this->batch && this->batch->containsVertexArray(newIdentifier)) {
+			this->identifier = newIdentifier;
+		}
 	}
 	
 	VertexArray::Iterator BatchedVertexArray::getBegin() {
