@@ -1,6 +1,10 @@
 #include "BaconBox/Display/BatchManager.h"
 
+#include <limits>
+
 namespace BaconBox {
+	const size_t BatchManager::INVALID_ID = std::numeric_limits<size_t>::max();
+	
 	BatchManager::BatchManager() {
 	}
 	
