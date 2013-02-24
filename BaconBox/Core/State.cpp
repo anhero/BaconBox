@@ -15,10 +15,10 @@ namespace BaconBox {
 	BB_ID_IMPL(State);
 	
 	const std::string State::DEFAULT_NAME = "State";
-	const int State::MESSAGE_ADDED_ENTITY = IDManager::generatetID("State::MESSAGE_ADDED_ENTITY");
-	const int State::MESSAGE_REMOVED_ENTITY = IDManager::generatetID("State::MESSAGE_REMOVED_ENTITY");
-	const int State::MESSAGE_GET_FOCUS = IDManager::generatetID("State::MESSAGE_GET_FOCUS");
-	const int State::MESSAGE_LOSE_FOCUS = IDManager::generatetID("State::MESSAGE_LOSE_FOCUS");	
+	const int State::MESSAGE_ADDED_ENTITY = IDManager::generateID("State::MESSAGE_ADDED_ENTITY");
+	const int State::MESSAGE_REMOVED_ENTITY = IDManager::generateID("State::MESSAGE_REMOVED_ENTITY");
+	const int State::MESSAGE_GET_FOCUS = IDManager::generateID("State::MESSAGE_GET_FOCUS");
+	const int State::MESSAGE_LOSE_FOCUS = IDManager::generateID("State::MESSAGE_LOSE_FOCUS");	
 
 	State::State(const std::string &newName) : camera(new Camera()), HasNameProxy(this, newName)
 	#ifdef BB_LUA

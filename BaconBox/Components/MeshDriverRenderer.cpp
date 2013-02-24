@@ -11,8 +11,8 @@
 namespace BaconBox {
 	BB_ID_IMPL(MeshDriverRenderer);
 
-	int MeshDriverRenderer::MESSAGE_GET_RENDER_MODE = IDManager::generatetID();
-	int MeshDriverRenderer::MESSAGE_SET_RENDER_MODE = IDManager::generatetID();
+	int MeshDriverRenderer::MESSAGE_GET_RENDER_MODE = IDManager::generateID();
+	int MeshDriverRenderer::MESSAGE_SET_RENDER_MODE = IDManager::generateID();
 
 	MeshDriverRenderer::MeshDriverRenderer(int newRenderMode) : Component(), mesh(NULL), texture(NULL), colorFilter(NULL), renderMode(newRenderMode) {
 	}

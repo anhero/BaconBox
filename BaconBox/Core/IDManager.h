@@ -11,13 +11,13 @@ virtual int getID() const
 int ClassName::getID() const {		\
 	return ClassName::ID;		\
 }					\
-int ClassName::ID = IDManager::generatetID(#ClassName)
+int ClassName::ID = IDManager::generateID(#ClassName)
 
 namespace BaconBox {
 	class IDManager {
 	public:
-		static int generatetID();
-		static int generatetID(const std::string & name);
+		static int generateID();
+		static int generateID(const std::string & name);
 		static int getID(const std::string & name);
 		static const std::string &getName(int id);
 	private:

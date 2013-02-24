@@ -8,7 +8,7 @@
 namespace BaconBox {
 	BB_ID_IMPL(Entity);
 	
-	int Entity::BROADCAST = IDManager::generatetID();
+	int Entity::BROADCAST = IDManager::generateID();
 
 	Entity::Entity() : components(), parent(NULL), sigly::HasSlots<>() {
 	}

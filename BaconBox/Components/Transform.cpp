@@ -6,15 +6,15 @@
 
 namespace BaconBox {
 	 BB_ID_IMPL(Transform);
-	int Transform::MESSAGE_GET_POSITION = IDManager::generatetID();
-	int Transform::MESSAGE_GET_ROTATION = IDManager::generatetID();
-	int Transform::MESSAGE_GET_SCALE = IDManager::generatetID();
-	int Transform::MESSAGE_SET_POSITION = IDManager::generatetID();
-	int Transform::MESSAGE_SET_ROTATION = IDManager::generatetID();
-	int Transform::MESSAGE_SET_SCALE = IDManager::generatetID();
-	int Transform::MESSAGE_POSITION_CHANGED = IDManager::generatetID();
-	int Transform::MESSAGE_ROTATION_CHANGED = IDManager::generatetID();
-	int Transform::MESSAGE_SCALE_CHANGED = IDManager::generatetID();
+	int Transform::MESSAGE_GET_POSITION = IDManager::generateID();
+	int Transform::MESSAGE_GET_ROTATION = IDManager::generateID();
+	int Transform::MESSAGE_GET_SCALE = IDManager::generateID();
+	int Transform::MESSAGE_SET_POSITION = IDManager::generateID();
+	int Transform::MESSAGE_SET_ROTATION = IDManager::generateID();
+	int Transform::MESSAGE_SET_SCALE = IDManager::generateID();
+	int Transform::MESSAGE_POSITION_CHANGED = IDManager::generateID();
+	int Transform::MESSAGE_ROTATION_CHANGED = IDManager::generateID();
+	int Transform::MESSAGE_SCALE_CHANGED = IDManager::generateID();
 	
 	Transform::Transform() : Component(), position(), rotation(0.0f), scale(1.0f, 1.0f) {
 	}
