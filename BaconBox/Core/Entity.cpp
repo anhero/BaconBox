@@ -35,32 +35,6 @@ namespace BaconBox {
 		return new Entity(*this);
 	}
 
-
-	Component *Entity::getComponent(const std::string &componentName) const {
-		int id = IDManager::getID(componentName);
-		return getComponent(id);
-	}
-
-	Component *Entity::getComponent(int id) const {
-		Component *result = NULL;
-		bool notFound = true;
-		std::vector<Component *>::const_iterator i = this->components.begin();
-		
-		while (notFound && i != this->components.end()) {
-			if ((*i)->getID() == id) {
-				result = (*i);
-				notFound = false;
-
-			} else {
-				i++;
-			}
-		}
-		if(!result){
-		    Console__error("Can't find the requested component in the given entity.: ID" << id << " name: " << IDManager::getName(id));
-		}
-		return result;
-	}
-
 	void Entity::sendMessage(int senderID, int destID, int message, void *data) {
 		for (std::vector<Component *>::iterator i = this->components.begin(); i != this->components.end(); ++i) {
 			(*i)->receiveMessage(senderID, destID, message, data);
@@ -134,6 +108,39 @@ namespace BaconBox {
 	void Entity::clear() {
 		free();
 		this->components.clear();
+	}
+	
+	Component *Entity::getComponent(const std::string &componentName) const {
+		int id = IDManager::getID(componentName);
+		return getComponent(id);
+	}
+	
+	Component *Entity::getComponent(int id) const {
+		Component *result = NULL;
+		bool notFound = true;
+		std::vector<Component *>::const_iterator i = this->components.begin();
+		
+		while (notFound && i != this->components.end()) {
+			if ((*i)->getID() == id) {
+				result = (*i);
+				notFound = false;
+				
+			} else {
+				i++;
+			}
+		}
+		if(!result){
+		    Console__error("Can't find the requested component in the given entity.: ID" << id << " name: " << IDManager::getName(id));
+		}
+		return result;
+	}
+	
+	const Entity *Entity::getParent() const {
+		return this->parent;
+	}
+	
+	Entity *Entity::getParent() {
+		return this->parent;
 	}
 
 	void Entity::free() {

@@ -121,8 +121,21 @@ namespace BaconBox {
 		 * Gets the component of the type of the given ID.
 		 * @param id ID of the type of the component to find.
 		 */
-		Component *getComponent(int id) const ;
+		Component *getComponent(int id) const;
 	
+		/**
+		 * Gets the entity's parent entity.
+		 * @return Pointer to the parent entity.
+		 * @see BaconBox::Entity::parent
+		 */
+		const Entity *getParent() const;
+		
+		/**
+		 * Gets the entity's parent entity.
+		 * @return Pointer to the parent entity.
+		 * @see BaconBox::Entity::parent
+		 */
+		Entity *getParent();
 	private:
 		/**
 		 * Frees all dynamically alocated memory.
