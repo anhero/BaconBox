@@ -3,10 +3,10 @@
 #include "BaconBox/Core/IDManager.h"
 
 namespace BaconBox {
-	int Texture::MESSAGE_GET_TEXTURE = IDManager::generatetID();
-	int Texture::MESSAGE_SET_TEXTURE = IDManager::generatetID();
-	int Texture::MESSAGE_GET_TEXTURE_COORDINATES = IDManager::generatetID();
-	int Texture::MESSAGE_SET_TEXTURE_COORDINATES = IDManager::generatetID();
+	int Texture::MESSAGE_GET_TEXTURE = IDManager::generateID();
+	int Texture::MESSAGE_SET_TEXTURE = IDManager::generateID();
+	int Texture::MESSAGE_GET_TEXTURE_COORDINATES = IDManager::generateID();
+	int Texture::MESSAGE_SET_TEXTURE_COORDINATES = IDManager::generateID();
 	
 	Texture::Texture() : Component(), texture(NULL), textureCoordinates() {
 	}

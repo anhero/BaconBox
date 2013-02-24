@@ -6,11 +6,11 @@ namespace BaconBox {
 		return instance;
 	}
 	
-	int IDManager::generatetID() {
+	int IDManager::generateID() {
 	    return getInstance().counter++;
 	}
 	
-	int IDManager::generatetID(const std::string & name) {
+	int IDManager::generateID(const std::string & name) {
 	    int id = getInstance().counter++;
 	    getInstance().ids[name] = id;
 	    return id;
