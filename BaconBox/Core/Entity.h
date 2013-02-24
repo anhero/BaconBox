@@ -21,7 +21,10 @@ namespace BaconBox {
 		static int BROADCAST;
 		
 		BB_ID_HEADER;
-
+		
+		static int MESSAGE_ADD_COMPONENT;
+		static int MESSAGE_REMOVE_COMPONENT;
+		
 		/**
 		 * Default constructor. Initializes an entity without any components.
 		 */

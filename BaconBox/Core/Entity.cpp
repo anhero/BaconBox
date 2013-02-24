@@ -9,6 +9,9 @@ namespace BaconBox {
 	BB_ID_IMPL(Entity);
 	
 	int Entity::BROADCAST = IDManager::generatetID();
+	
+	int Entity::MESSAGE_ADD_COMPONENT = IDManager::generatetID();
+	int Entity::MESSAGE_REMOVE_COMPONENT = IDManager::generatetID();
 
 	Entity::Entity() : components(), parent(NULL), sigly::HasSlots<>() {
 	}
@@ -69,16 +72,24 @@ namespace BaconBox {
 	}
 
 
-	Component * Entity::addComponent(Component *newComponent) {
+	Component *Entity::addComponent(Component *newComponent) {
 		components.push_back(newComponent);
 		newComponent->entity = this;
+		
+		this->sendMessage(Entity::ID, BROADCAST, MESSAGE_ADD_COMPONENT, newComponent);
+		
 		return newComponent;
 	}
 
 	void Entity::removeComponentAt(std::vector<Component *>::size_type index) {
 		if (index < components.size()) {
-			delete components[index];
-			components.erase(components.begin() + index);
+			Component *toRemove = this->components[index];
+			
+			this->components.erase(components.begin() + index);
+			
+			this->sendMessage(Entity::ID, BROADCAST, MESSAGE_REMOVE_COMPONENT, toRemove);
+			
+			delete toRemove;
 		}
 	}
 
@@ -86,8 +97,13 @@ namespace BaconBox {
 		std::vector<Component *>::iterator found = std::find(this->components.begin(), this->components.end(), component);
 
 		if (found != this->components.end()) {
-			delete *found;
+			Component *toRemove = *found;
+			
 			this->components.erase(found);
+			
+			this->sendMessage(Entity::ID, BROADCAST, MESSAGE_REMOVE_COMPONENT, toRemove);
+			
+			delete toRemove;
 		}
 	}
 
@@ -96,9 +112,12 @@ namespace BaconBox {
 
 		while (i < this->components.size()) {
 			if (this->components[i]->getID() == id) {
-				delete this->components[i];
+				Component *toRemove = this->components[i];
 				this->components.erase(this->components.begin() + i);
-
+				
+				this->sendMessage(Entity::ID, BROADCAST, MESSAGE_REMOVE_COMPONENT, toRemove);
+				
+				delete toRemove;
 			} else {
 				++i;
 			}
