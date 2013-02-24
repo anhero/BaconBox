@@ -1,6 +1,10 @@
 #include "Component.h"
 
-#include "Entity.h"
+#include <algorithm>
+
+#include "BaconBox/Core/Entity.h"
+#include "BaconBox/Helper/DeleteHelper.h"
+#include "BaconBox/Helper/IComponentConnection.h"
 
 namespace BaconBox {
     
@@ -13,6 +17,7 @@ namespace BaconBox {
 	}
 	
 	Component::~Component() {
+		std::for_each(this->connections.begin(), this->connections.end(), DeletePointerDirect());
 	}
 	
 	Component &Component::operator=(const Component &src) {
@@ -30,6 +35,9 @@ namespace BaconBox {
 	}
 
 	void Component::receiveMessage(int senderID, int destID, int message, void *data) {
+		for (std::vector<IComponentConnection *>::iterator i = this->connections.begin(); i != this->connections.end(); ++i) {
+			(*i)->receiveMessage(message, data);
+		}
 	}
 	
 	void Component::update() {
@@ -44,6 +52,10 @@ namespace BaconBox {
 	
 	Entity *Component::getEntity() const {
 		return this->entity;
+	}
+	
+	void Component::addConnection(IComponentConnection *newConnection) {
+		this->connections.push_back(newConnection);
 	}
 	
 	ComponentProxy::ComponentProxy(Entity* entity, Component * component){

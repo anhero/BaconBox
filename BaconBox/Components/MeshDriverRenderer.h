@@ -34,10 +34,12 @@ namespace BaconBox {
 		
 		void setRenderMode(int newRenderMode);
 	private:
+		void initializeConnections();
+		
 		Mesh *mesh;
 		Texture *texture;
 		ColorFilter *colorFilter;
-		
+
 		int renderMode;
 	};
 }

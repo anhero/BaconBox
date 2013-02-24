@@ -11,6 +11,7 @@
 		24396B5516BA2BD6005AEDD8 /* BaseEngine.h in Headers */ = {isa = PBXBuildFile; fileRef = 24396B5316BA2BD5005AEDD8 /* BaseEngine.h */; };
 		24409B0716DAA02D0001206F /* Visibility.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 24409B0516DAA02D0001206F /* Visibility.cpp */; };
 		24409B0816DAA02D0001206F /* Visibility.h in Headers */ = {isa = PBXBuildFile; fileRef = 24409B0616DAA02D0001206F /* Visibility.h */; };
+		24409B0C16DABC940001206F /* ComponentConnection.h in Headers */ = {isa = PBXBuildFile; fileRef = 24409B0A16DABC940001206F /* ComponentConnection.h */; };
 		244214FA16BA24A2005B1ED9 /* EntityManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 244214F816BA24A2005B1ED9 /* EntityManager.cpp */; };
 		244214FB16BA24A2005B1ED9 /* EntityManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 244214F916BA24A2005B1ED9 /* EntityManager.h */; };
 		246274CA16AC8AB4006C7FFF /* MeshDriverRenderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 246274C816AC8AB3006C7FFF /* MeshDriverRenderer.cpp */; };
@@ -278,6 +279,8 @@
 		24396B5316BA2BD5005AEDD8 /* BaseEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseEngine.h; sourceTree = "<group>"; };
 		24409B0516DAA02D0001206F /* Visibility.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Visibility.cpp; sourceTree = "<group>"; };
 		24409B0616DAA02D0001206F /* Visibility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Visibility.h; sourceTree = "<group>"; };
+		24409B0A16DABC940001206F /* ComponentConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ComponentConnection.h; sourceTree = "<group>"; };
+		24409B0D16DAC4E80001206F /* IComponentConnection.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IComponentConnection.h; sourceTree = "<group>"; };
 		244214F816BA24A2005B1ED9 /* EntityManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EntityManager.cpp; sourceTree = "<group>"; };
 		244214F916BA24A2005B1ED9 /* EntityManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EntityManager.h; sourceTree = "<group>"; };
 		245C1B6616ACD2EB00C74B67 /* Vector2ChangedData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Vector2ChangedData.h; sourceTree = "<group>"; };
@@ -758,6 +761,8 @@
 				51E5172B1697529200F6D446 /* Windows */,
 				245C1B6616ACD2EB00C74B67 /* Vector2ChangedData.h */,
 				245C1B6816ACD35B00C74B67 /* ValueChangedData.h */,
+				24409B0A16DABC940001206F /* ComponentConnection.h */,
+				24409B0D16DAC4E80001206F /* IComponentConnection.h */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -1247,6 +1252,7 @@
 				24F9A05316BF01A100FCA53B /* ResourcePointer.h in Headers */,
 				24F9A05516BF01BF00FCA53B /* TexturePointer.h in Headers */,
 				24409B0816DAA02D0001206F /* Visibility.h in Headers */,
+				24409B0C16DABC940001206F /* ComponentConnection.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -7,6 +7,7 @@
 #include "BaconBox/Core/Engine.h"
 #include "BaconBox/Components/ColorFilter.h"
 #include "BaconBox/Components/Texture.h"
+#include "BaconBox/Helper/ComponentConnection.h"
 
 namespace BaconBox {
 	BB_ID_IMPL(MeshDriverRenderer);
@@ -15,9 +16,11 @@ namespace BaconBox {
 	int MeshDriverRenderer::MESSAGE_SET_RENDER_MODE = IDManager::generateID();
 
 	MeshDriverRenderer::MeshDriverRenderer(int newRenderMode) : Component(), mesh(NULL), texture(NULL), colorFilter(NULL), renderMode(newRenderMode) {
+		this->initializeConnections();
 	}
 
 	MeshDriverRenderer::MeshDriverRenderer(const MeshDriverRenderer &src) : Component(src), mesh(NULL), texture(NULL), colorFilter(NULL), renderMode(src.renderMode) {
+		this->initializeConnections();
 	}
 
 	MeshDriverRenderer::~MeshDriverRenderer() {
@@ -40,15 +43,17 @@ namespace BaconBox {
 	}
 
 	void MeshDriverRenderer::receiveMessage(int senderID, int destID, int message, void *data) {
+		// We make sure to call the parent receiveMessage so the connections are
+		// always updated.
+		this->Component::receiveMessage(senderID, destID, message, data);
+		
 		if (destID == MeshDriverRenderer::ID) {
-			return;
-		}
-
-		if (message == MeshDriverRenderer::MESSAGE_GET_RENDER_MODE) {
-			*reinterpret_cast<int *>(data) = this->getRenderMode();
-
-		} else if (message == MeshDriverRenderer::MESSAGE_SET_RENDER_MODE) {
-			this->setRenderMode(*reinterpret_cast<int *>(data));
+			if (message == MeshDriverRenderer::MESSAGE_GET_RENDER_MODE) {
+				*reinterpret_cast<int *>(data) = this->getRenderMode();
+				
+			} else if (message == MeshDriverRenderer::MESSAGE_SET_RENDER_MODE) {
+				this->setRenderMode(*reinterpret_cast<int *>(data));
+			}
 		}
 	}
 
@@ -58,19 +63,10 @@ namespace BaconBox {
 			// We make sure we are attached to an entity.
 			Entity *entity = this->getEntity();
 			if (entity) {
-				// We make sure we have vertices.
-				if (!this->mesh) {
-					this->mesh = reinterpret_cast<Mesh *>(entity->getComponent(Mesh::ID));
-				}
-				
 				if (this->mesh) {
 					Color color = Color::WHITE;
 					// We check if we have a color (if not, it will be defaulted to white).
 					if (this->renderMode & RenderMode::COLOR) {
-						if (!this->colorFilter) {
-							this->colorFilter = reinterpret_cast<ColorFilter *>(entity->getComponent(ColorFilter::ID));
-						}
-						
 						if (this->colorFilter) {
 							color = this->colorFilter->getColor();
 						}
@@ -78,10 +74,6 @@ namespace BaconBox {
 					
 					// We check if we have to render a texture on the shape.
 					if (this->renderMode & RenderMode::TEXTURE) {
-						if (!this->texture) {
-							this->texture = reinterpret_cast<Texture *>(entity->getComponent(Texture::ID));
-						}
-						
 						if (this->texture) {
 							// We render with the texture.
 							GraphicDriver::getInstance().drawShapeWithTextureAndColor(this->mesh->getVertices(), this->texture->getTexture(), this->texture->getTextureCoordinates(), color);
@@ -104,5 +96,11 @@ namespace BaconBox {
 
 	void MeshDriverRenderer::setRenderMode(int newRenderMode) {
 		this->renderMode = newRenderMode;
+	}
+	
+	void MeshDriverRenderer::initializeConnections() {
+		this->addConnection(new ComponentConnection<Mesh>(&this->mesh));
+		this->addConnection(new ComponentConnection<Texture>(&this->texture));
+		this->addConnection(new ComponentConnection<ColorFilter>(&this->colorFilter));
 	}
 }
