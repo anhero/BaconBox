@@ -99,7 +99,7 @@ namespace BaconBox {
 	Component * Entity::addComponent(Component *newComponent) {
 		components.push_back(newComponent);
 		newComponent->entity = this;
-		sendMessage(this->getID(), newComponent->getID(), Entity::MESSAGE_ADDING_COMPONENT, NULL);
+		sendMessage(this->getID(), newComponent->getID(), Entity::MESSAGE_ADDING_COMPONENT, reinterpret_cast<void*>(this));
 		return newComponent;
 	}
 
