@@ -1,8 +1,9 @@
 #ifndef BB_COMPONENT_CONNECTION_H
 #define BB_COMPONENT_CONNECTION_H
 
-#include "BaconBox/Helper/IComponentConnection.h"
+#include "BaconBox/Components/IComponentConnection.h"
 #include "BaconBox/Core/Entity.h"
+#include "BaconBox/Components/ComponentAddedData.h"
 
 namespace BaconBox {
 	template <typename TComponent>
@@ -11,11 +12,15 @@ namespace BaconBox {
 		ComponentConnection(TComponent **newComponent) : component(newComponent) {
 		}
 		
-		void receiveMessage(int message, void *data) {
-			if (message == Entity::MESSAGE_ADD_COMPONENT) {
-				*component = reinterpret_cast<TComponent *>(data);
-			} else if (message == Entity::MESSAGE_REMOVE_COMPONENT) {
+		void componentRemoved(int id) {
+			if (id == TComponent::ID) {
 				*component = NULL;
+			}
+		}
+		
+		void componentAdded(const ComponentAddedData &data) {
+			if (data.id == TComponent::ID) {
+				*component = reinterpret_cast<TComponent *>(data.component);
 			}
 		}
 	private:

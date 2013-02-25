@@ -4,6 +4,7 @@
 
 #include "BaconBox/Core/IDManager.h"
 #include "BaconBox/Console.h"
+#include "BaconBox/Components/ComponentAddedData.h"
 
 namespace BaconBox {
 	BB_ID_IMPL(Entity);
@@ -76,7 +77,9 @@ namespace BaconBox {
 		components.push_back(newComponent);
 		newComponent->entity = this;
 		
-		this->sendMessage(Entity::ID, BROADCAST, MESSAGE_ADD_COMPONENT, newComponent);
+		ComponentAddedData data(newComponent->getID(), newComponent);
+		
+		this->sendMessage(Entity::ID, BROADCAST, MESSAGE_ADD_COMPONENT, &data);
 		
 		return newComponent;
 	}
@@ -87,7 +90,9 @@ namespace BaconBox {
 			
 			this->components.erase(components.begin() + index);
 			
-			this->sendMessage(Entity::ID, BROADCAST, MESSAGE_REMOVE_COMPONENT, toRemove);
+			int componentId = toRemove->getID();
+			
+			this->sendMessage(Entity::ID, BROADCAST, MESSAGE_REMOVE_COMPONENT, &componentId);
 			
 			delete toRemove;
 		}
@@ -101,7 +106,9 @@ namespace BaconBox {
 			
 			this->components.erase(found);
 			
-			this->sendMessage(Entity::ID, BROADCAST, MESSAGE_REMOVE_COMPONENT, toRemove);
+			int componentId = toRemove->getID();
+			
+			this->sendMessage(Entity::ID, BROADCAST, MESSAGE_REMOVE_COMPONENT, &componentId);
 			
 			delete toRemove;
 		}
@@ -113,9 +120,12 @@ namespace BaconBox {
 		while (i < this->components.size()) {
 			if (this->components[i]->getID() == id) {
 				Component *toRemove = this->components[i];
+				
 				this->components.erase(this->components.begin() + i);
 				
-				this->sendMessage(Entity::ID, BROADCAST, MESSAGE_REMOVE_COMPONENT, toRemove);
+				int componentId = toRemove->getID();
+				
+				this->sendMessage(Entity::ID, BROADCAST, MESSAGE_REMOVE_COMPONENT, &componentId);
 				
 				delete toRemove;
 			} else {

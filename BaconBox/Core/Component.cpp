@@ -4,7 +4,8 @@
 
 #include "BaconBox/Core/Entity.h"
 #include "BaconBox/Helper/DeleteHelper.h"
-#include "BaconBox/Helper/IComponentConnection.h"
+#include "BaconBox/Components/IComponentConnection.h"
+#include "BaconBox/Components/ComponentAddedData.h"
 
 namespace BaconBox {
     
@@ -33,10 +34,18 @@ namespace BaconBox {
 			entity->sendMessage(this->getID(), destID, message, data);
 		}
 	}
-
+	
 	void Component::receiveMessage(int senderID, int destID, int message, void *data) {
-		for (std::vector<IComponentConnection *>::iterator i = this->connections.begin(); i != this->connections.end(); ++i) {
-			(*i)->receiveMessage(message, data);
+		if (destID == Entity::BROADCAST) {
+			if (message == Entity::MESSAGE_ADD_COMPONENT) {
+				for (std::vector<IComponentConnection *>::iterator i = this->connections.begin(); i != this->connections.end(); ++i) {
+					(*i)->componentAdded(*reinterpret_cast<ComponentAddedData *>(data));
+				}
+			} else if (message == Entity::MESSAGE_REMOVE_COMPONENT) {
+				for (std::vector<IComponentConnection *>::iterator i = this->connections.begin(); i != this->connections.end(); ++i) {
+					(*i)->componentRemoved(*reinterpret_cast<int*>(data));
+				}
+			}
 		}
 	}
 	
@@ -45,7 +54,7 @@ namespace BaconBox {
 	
 	void Component::render() {
 	}
-
+	
 	const std::string &Component::getComponentName() const {
 		return IDManager::getName(this->getID());
 	}
@@ -66,11 +75,11 @@ namespace BaconBox {
 	void Component::updateConnections() {
 	}
 	
-	ComponentProxy::ComponentProxy(Entity* entity, Component * component){
+	ComponentProxy::ComponentProxy(Entity* entity, Component * component) {
 	    this->entity = entity;
-	    if(component){
-		this->component = component;
-		entity->addComponent(component);
+	    if (component) {
+			this->component = component;
+			entity->addComponent(component);
 	    }
 	}
 	

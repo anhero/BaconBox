@@ -7,7 +7,7 @@
 #include "BaconBox/Core/Engine.h"
 #include "BaconBox/Components/ColorFilter.h"
 #include "BaconBox/Components/Texture.h"
-#include "BaconBox/Helper/ComponentConnection.h"
+#include "BaconBox/Components/ComponentConnection.h"
 #include "Baconbox/Components/Visibility.h"
 
 namespace BaconBox {
@@ -114,6 +114,7 @@ namespace BaconBox {
 	
 	void MeshDriverRenderer::updateConnections() {
 		Entity *entity = this->getEntity();
+		
 		if (entity) {
 			this->mesh = reinterpret_cast<Mesh *>(entity->getComponent(Mesh::ID));
 			this->texture = reinterpret_cast<Texture *>(entity->getComponent(Texture::ID));
