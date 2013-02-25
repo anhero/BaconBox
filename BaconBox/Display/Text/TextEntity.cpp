@@ -12,7 +12,7 @@
 namespace BaconBox {
     
     BB_ID_IMPL(TextEntity);
-	TextEntity::TextEntity(Font * font): Entity(), TransformProxy(this), TextComponentProxy(this, font)
+	TextEntity::TextEntity(Font * font): Entity(), TransformProxy(this), TextComponentProxy(this, font), ColorFilterProxy(this)
 	{
 	    
 #if ! defined(BB_FLASH_PLATEFORM)
@@ -22,7 +22,7 @@ namespace BaconBox {
 #endif
 	}
 	
-	TextEntity::TextEntity(): Entity(), TransformProxy(this), TextComponentProxy(this, NULL)
+	TextEntity::TextEntity(): Entity(), TransformProxy(this), TextComponentProxy(this, NULL), ColorFilterProxy(this)
 	{
 		
 	}
@@ -30,8 +30,7 @@ namespace BaconBox {
 	#ifdef BB_FLASH_PLATEFORM
 	void TextEntity::setMovieClip(AS3::local::var aMC) {
 		TextFieldHolder *tfHolder = new TextFieldHolder(aMC);
-		addComponent(tfHolder);    
-//		setFont(new FlashFont());
+		addComponent(tfHolder);   
 		
 	}
 	#endif
