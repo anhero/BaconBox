@@ -8,7 +8,7 @@ public class EntityHolderTextField  extends MovieClip {
 	private var _customFontID:String = "";
     public function EntityHolderTextField() {
     	super();
-    	_entity = TextEntity.create();
+    	_entity = TextEntity.create(0);
         _entity.setMovieClip(this);
     }
 
