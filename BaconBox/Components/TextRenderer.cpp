@@ -40,6 +40,16 @@ namespace BaconBox {
 		}
 		}
 
+	void TextRenderer::setColor(const Color &newColor){
+	    color = newColor;
+	    for(std::list<std::list<std::list<CharSprite> > >::iterator i = charSpritesLines.begin(); i != charSpritesLines.end(); i++){
+		      for(std::list<std::list<CharSprite> >::iterator j = i->begin(); j != i->end(); j++){
+			  for(std::list<CharSprite>::iterator k = j->begin(); k != j->end(); k++){
+			      k->sprite->setColor(color);
+			  }	
+		    }
+		}
+	}
 
 	void TextRenderer::receiveMessage(int senderID, int destID, int message, void *data) {
 	    if(senderID == Transform::ID){
@@ -61,6 +71,11 @@ namespace BaconBox {
 		}
 		else if(destID == TextRenderer::ID && message == Entity::MESSAGE_ADDING_COMPONENT){
 		    textComponent = reinterpret_cast<TextComponent*>(getEntity()->getComponent(TextComponent::ID));
+		}
+		else if(senderID == ColorFilter::ID){
+			if(message == ColorFilter::MESSAGE_COLOR_CHANGED ){
+				setColor(*reinterpret_cast<Color*>(data));
+			}
 		}
 	}
 	
@@ -203,6 +218,8 @@ namespace BaconBox {
 	    }
 	    
 	    resetPosition();
+	    setColor(color);
+	    
 	}
 
 	

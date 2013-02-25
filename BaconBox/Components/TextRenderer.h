@@ -27,10 +27,11 @@ namespace BaconBox {
 		virtual ~TextRenderer();
 		
 		void setText(const std::string & text);
-
+		void setColor(const Color &newColor);
 	
 		virtual void receiveMessage(int senderID, int destID, int message, void *data);
 	private:
+		Color color;
 		std::list<std::list<std::list<CharSprite> > > charSpritesLines;
 		void resetPosition();
 		void internalResetPosition();
