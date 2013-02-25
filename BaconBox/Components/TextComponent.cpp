@@ -10,7 +10,9 @@
 #include "BaconBox/Core/Engine.h"
 #include "BaconBox/Display/Text/TextAlignment.h"
 #include "BaconBox/Helper/Vector2ChangedData.h"
-
+#ifdef BB_FLASH_PLATEFORM	
+#include "BaconBox/Components/Flash/TextFieldHolder.h"
+#endif	
 namespace BaconBox {
     
 	int TextComponent::MESSAGE_TEXT_CHANGED = IDManager::generatetID();
@@ -60,6 +62,9 @@ namespace BaconBox {
 	}
 
 	Font * TextComponent::getFont(){
+#ifdef BB_FLASH_PLATEFORM	
+	    if(font == NULL) reinterpret_cast<TextFieldHolder*>(getEntity()->getComponent(TextFieldHolder::ID))->createFontFromTextField();
+#endif	
 	    return font;
 	}
 	
