@@ -77,8 +77,8 @@ end
 
 	#include "BaconBox/Core/Component.h"
 	#include "BaconBox/Core/Entity.h"
-
-
+  #include "BaconBox/Display/Color.h"
+  #include "BaconBox/Components/ColorFilter.h"
   #include "BaconBox/Components/HasName.h"
 
 
@@ -86,6 +86,8 @@ end
 	#include "BaconBox/Components/Transform.h"
   #include "BaconBox/Display/ColorFormat.h"
   #include "BaconBox/Display/TextureInformation.h"
+
+
 
   #include "BaconBox/Display/SubTextureInfo.h"
 	#include "BaconBox/MovieClipEntity/MovieClipEntity.h"
@@ -237,7 +239,6 @@ class FlashEngine;
 
 #endif
 
-
 %include "BaconBox/Helper/SafeEnum.h"
 
 
@@ -248,7 +249,8 @@ class FlashEngine;
 
 
 %include "BaconBox/Core/Entity.h"
-
+%include "BaconBox/Display/Color.h"
+%include "BaconBox/Components/ColorFilter.h" 
 //%include "BaconBox/Vector2.h"
 
 namespace BaconBox{
