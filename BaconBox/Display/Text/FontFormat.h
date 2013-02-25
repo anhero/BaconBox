@@ -17,7 +17,8 @@ namespace BaconBox {
 	struct FontFormatDef {
 		enum type {
 		    NONE,
-		    BMFONT
+		    BMFONT,
+		    FLASH
 		};
 	};
 	typedef SafeEnum<FontFormatDef> FontFormat;
