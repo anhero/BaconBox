@@ -14,6 +14,7 @@ namespace BaconBox {
 		
 		static int MESSAGE_GET_COLOR;
 		static int MESSAGE_SET_COLOR;
+		static int MESSAGE_COLOR_CHANGED;
 		
 		ColorFilter();
 		
@@ -43,6 +44,18 @@ namespace BaconBox {
 	private:
 		/// Color to apply to the component's entity.
 		Color color;
+	};
+
+	class ColorFilterProxy : public ComponentProxy {
+	public:
+		ColorFilterProxy(Entity *entity, bool mustAddComponent = true);
+
+		
+		const Color &getColor() const;
+		void setColor(const Color &newColor);
+
+	private:
+
 	};
 }
 
