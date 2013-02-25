@@ -27,6 +27,8 @@
 		24C0E73E16DAE4D800325858 /* ComponentAddedData.h in Headers */ = {isa = PBXBuildFile; fileRef = 24C0E73C16DAE4D800325858 /* ComponentAddedData.h */; };
 		24C0E74116DAE64500325858 /* ComponentConnection.h in Headers */ = {isa = PBXBuildFile; fileRef = 24C0E73F16DAE64500325858 /* ComponentConnection.h */; };
 		24C0E74216DAE64500325858 /* IComponentConnection.h in Headers */ = {isa = PBXBuildFile; fileRef = 24C0E74016DAE64500325858 /* IComponentConnection.h */; };
+		24C0E74916DAF60300325858 /* TimelineEntityManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 24C0E74716DAF60300325858 /* TimelineEntityManager.cpp */; };
+		24C0E74A16DAF60300325858 /* TimelineEntityManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 24C0E74816DAF60300325858 /* TimelineEntityManager.h */; };
 		24CD5A9916347EE9001EB407 /* libJsonBox.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 24CD5A9716347EE8001EB407 /* libJsonBox.a */; };
 		24CD5A9A16347EE9001EB407 /* libtinyxml.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 24CD5A9816347EE8001EB407 /* libtinyxml.a */; };
 		24F9A04E16BF007800FCA53B /* EntityFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 24F9A04C16BF007700FCA53B /* EntityFactory.cpp */; };
@@ -300,6 +302,8 @@
 		24C0E73C16DAE4D800325858 /* ComponentAddedData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ComponentAddedData.h; sourceTree = "<group>"; };
 		24C0E73F16DAE64500325858 /* ComponentConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ComponentConnection.h; sourceTree = "<group>"; };
 		24C0E74016DAE64500325858 /* IComponentConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IComponentConnection.h; sourceTree = "<group>"; };
+		24C0E74716DAF60300325858 /* TimelineEntityManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TimelineEntityManager.cpp; sourceTree = "<group>"; };
+		24C0E74816DAF60300325858 /* TimelineEntityManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimelineEntityManager.h; sourceTree = "<group>"; };
 		24CD5A9716347EE8001EB407 /* libJsonBox.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libJsonBox.a; path = libraries/Darwin/x86_64/lib/libJsonBox.a; sourceTree = "<group>"; };
 		24CD5A9816347EE8001EB407 /* libtinyxml.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libtinyxml.a; path = libraries/Darwin/x86_64/lib/libtinyxml.a; sourceTree = "<group>"; };
 		24F9A04916BEDDC300FCA53B /* RenderMode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RenderMode.h; sourceTree = "<group>"; };
@@ -692,6 +696,8 @@
 				24409B0616DAA02D0001206F /* Visibility.h */,
 				24C0E73B16DAE4D800325858 /* ComponentAddedData.cpp */,
 				24C0E73C16DAE4D800325858 /* ComponentAddedData.h */,
+				24C0E74716DAF60300325858 /* TimelineEntityManager.cpp */,
+				24C0E74816DAF60300325858 /* TimelineEntityManager.h */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -1262,6 +1268,7 @@
 				24C0E73E16DAE4D800325858 /* ComponentAddedData.h in Headers */,
 				24C0E74116DAE64500325858 /* ComponentConnection.h in Headers */,
 				24C0E74216DAE64500325858 /* IComponentConnection.h in Headers */,
+				24C0E74A16DAF60300325858 /* TimelineEntityManager.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1426,6 +1433,7 @@
 				24F9A04E16BF007800FCA53B /* EntityFactory.cpp in Sources */,
 				24409B0716DAA02D0001206F /* Visibility.cpp in Sources */,
 				24C0E73D16DAE4D800325858 /* ComponentAddedData.cpp in Sources */,
+				24C0E74916DAF60300325858 /* TimelineEntityManager.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

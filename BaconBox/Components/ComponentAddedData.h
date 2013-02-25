@@ -1,5 +1,5 @@
-#ifndef BB_ComponentAddedData_H
-#define BB_ComponentAddedData_H
+#ifndef BB_COMPONENT_ADDED_DATA_H
+#define BB_COMPONENT_ADDED_DATA_H
 
 namespace BaconBox {
 	class Component;
@@ -18,5 +18,5 @@ namespace BaconBox {
 	};
 }
 
-#endif /* defined(BB_ComponentAddedData_H) */
+#endif /* defined(BB_COMPONENT_ADDED_DATA_H) */
 
