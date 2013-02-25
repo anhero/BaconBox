@@ -54,8 +54,16 @@ namespace BaconBox {
 		return this->entity;
 	}
 	
+	void Component::setEntity(Entity *newEntity) {
+		this->entity = newEntity;
+		this->updateConnections();
+	}
+	
 	void Component::addConnection(IComponentConnection *newConnection) {
 		this->connections.push_back(newConnection);
+	}
+	
+	void Component::updateConnections() {
 	}
 	
 	ComponentProxy::ComponentProxy(Entity* entity, Component * component){

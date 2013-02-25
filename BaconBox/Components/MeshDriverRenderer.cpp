@@ -102,9 +102,23 @@ namespace BaconBox {
 	}
 	
 	void MeshDriverRenderer::initializeConnections() {
+		// We make sure we have the current components.
+		this->updateConnections();
+		
+		// We add the connections.
 		this->addConnection(new ComponentConnection<Mesh>(&this->mesh));
 		this->addConnection(new ComponentConnection<Texture>(&this->texture));
 		this->addConnection(new ComponentConnection<ColorFilter>(&this->colorFilter));
 		this->addConnection(new ComponentConnection<Visibility>(&this->visibility));
+	}
+	
+	void MeshDriverRenderer::updateConnections() {
+		Entity *entity = this->getEntity();
+		if (entity) {
+			this->mesh = reinterpret_cast<Mesh *>(entity->getComponent(Mesh::ID));
+			this->texture = reinterpret_cast<Texture *>(entity->getComponent(Texture::ID));
+			this->colorFilter = reinterpret_cast<ColorFilter *>(entity->getComponent(ColorFilter::ID));
+			this->visibility = reinterpret_cast<Visibility *>(entity->getComponent(Visibility::ID));
+		}
 	}
 }

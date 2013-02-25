@@ -43,7 +43,11 @@ namespace BaconBox {
 		Entity *getEntity() const;
 	protected:
 		void addConnection(IComponentConnection *newConnection);
+		
+		virtual void updateConnections();
 	private:
+		void setEntity(Entity *newEntity);
+		
 		Entity *entity;
 		
 		std::vector<IComponentConnection *> connections;
