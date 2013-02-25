@@ -74,9 +74,7 @@ TextEntity * EntityFactory::getTextEntity(const std::string &key){
 			mesh->getVertices()[3] = subTex->size;
 
 			result->addComponent(mesh);
-
-			result->addComponent(new ColorFilter(Color::WHITE));
-
+			
 			Texture *textureComponent = new Texture();
 
 			textureComponent->setTexture(subTex->textureInfo);
