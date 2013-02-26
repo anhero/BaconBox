@@ -25,6 +25,8 @@
 		24B0364A16BEAF4500117510 /* ColorFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = 24B0364816BEAF4500117510 /* ColorFilter.h */; };
 		24C04F0716DD704200CFBA7C /* Scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 24C04F0516DD704200CFBA7C /* Scene.cpp */; };
 		24C04F0816DD704200CFBA7C /* Scene.h in Headers */ = {isa = PBXBuildFile; fileRef = 24C04F0616DD704200CFBA7C /* Scene.h */; };
+		24C04F0F16DD734800CFBA7C /* DefaultTimelineEntityManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 24C04F0D16DD734800CFBA7C /* DefaultTimelineEntityManager.cpp */; };
+		24C04F1016DD734800CFBA7C /* DefaultTimelineEntityManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 24C04F0E16DD734800CFBA7C /* DefaultTimelineEntityManager.h */; };
 		24C0E73D16DAE4D800325858 /* ComponentAddedData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 24C0E73B16DAE4D800325858 /* ComponentAddedData.cpp */; };
 		24C0E73E16DAE4D800325858 /* ComponentAddedData.h in Headers */ = {isa = PBXBuildFile; fileRef = 24C0E73C16DAE4D800325858 /* ComponentAddedData.h */; };
 		24C0E74116DAE64500325858 /* ComponentConnection.h in Headers */ = {isa = PBXBuildFile; fileRef = 24C0E73F16DAE64500325858 /* ComponentConnection.h */; };
@@ -302,6 +304,8 @@
 		24B0364816BEAF4500117510 /* ColorFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorFilter.h; sourceTree = "<group>"; };
 		24C04F0516DD704200CFBA7C /* Scene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Scene.cpp; sourceTree = "<group>"; };
 		24C04F0616DD704200CFBA7C /* Scene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Scene.h; sourceTree = "<group>"; };
+		24C04F0D16DD734800CFBA7C /* DefaultTimelineEntityManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DefaultTimelineEntityManager.cpp; sourceTree = "<group>"; };
+		24C04F0E16DD734800CFBA7C /* DefaultTimelineEntityManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DefaultTimelineEntityManager.h; sourceTree = "<group>"; };
 		24C0E73B16DAE4D800325858 /* ComponentAddedData.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ComponentAddedData.cpp; sourceTree = "<group>"; };
 		24C0E73C16DAE4D800325858 /* ComponentAddedData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ComponentAddedData.h; sourceTree = "<group>"; };
 		24C0E73F16DAE64500325858 /* ComponentConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ComponentConnection.h; sourceTree = "<group>"; };
@@ -704,6 +708,8 @@
 				24C0E74816DAF60300325858 /* TimelineEntityManager.h */,
 				24C04F0516DD704200CFBA7C /* Scene.cpp */,
 				24C04F0616DD704200CFBA7C /* Scene.h */,
+				24C04F0D16DD734800CFBA7C /* DefaultTimelineEntityManager.cpp */,
+				24C04F0E16DD734800CFBA7C /* DefaultTimelineEntityManager.h */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -1276,6 +1282,7 @@
 				24C0E74216DAE64500325858 /* IComponentConnection.h in Headers */,
 				24C0E74A16DAF60300325858 /* TimelineEntityManager.h in Headers */,
 				24C04F0816DD704200CFBA7C /* Scene.h in Headers */,
+				24C04F1016DD734800CFBA7C /* DefaultTimelineEntityManager.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1442,6 +1449,7 @@
 				24C0E73D16DAE4D800325858 /* ComponentAddedData.cpp in Sources */,
 				24C0E74916DAF60300325858 /* TimelineEntityManager.cpp in Sources */,
 				24C04F0716DD704200CFBA7C /* Scene.cpp in Sources */,
+				24C04F0F16DD734800CFBA7C /* DefaultTimelineEntityManager.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

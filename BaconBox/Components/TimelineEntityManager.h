@@ -23,10 +23,6 @@ namespace BaconBox {
 		
 		virtual void receiveMessage(int senderID, int destID, int message, void *data);
 		
-		virtual void update();
-		
-		virtual void render();
-		
 		virtual void gotoAndPlay(int frame) = 0;
 		
 		virtual void gotoAndStop(int frame) = 0;
@@ -53,7 +49,7 @@ namespace BaconBox {
 		
 		virtual Scene getCurrentScene() const = 0;
 		
-		virtual std::vector<Scene> getScenes() const = 0;
+		virtual SceneArray getScenes() const = 0;
 		
 		virtual int getNbFramesLoaded() const = 0;
 		

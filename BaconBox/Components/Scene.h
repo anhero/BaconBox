@@ -21,6 +21,8 @@ namespace BaconBox {
 		
 		int nbFrames;
 	};
+	
+	typedef std::vector<Scene> SceneArray;
 }
 
 #endif /* defined(BB_Scene_H) */
