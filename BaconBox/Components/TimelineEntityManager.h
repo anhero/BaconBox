@@ -11,6 +11,8 @@
 namespace BaconBox {
 	class TimelineEntityManager : public Component {
 	public:
+		BB_ID_HEADER;
+		
 		TimelineEntityManager();
 		
 		TimelineEntityManager(const TimelineEntityManager &src);
