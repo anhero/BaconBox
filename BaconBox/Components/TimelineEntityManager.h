@@ -6,6 +6,7 @@
 #include <string>
 
 #include "BaconBox/Core/Component.h"
+#include "BaconBox/Components/Scene.h"
 
 namespace BaconBox {
 	class TimelineEntityManager : public Component {
@@ -47,6 +48,10 @@ namespace BaconBox {
 		virtual std::string getCurrentLabel() const = 0;
 		
 		virtual std::vector<std::pair<std::string, int> > getCurrentLabels() const = 0;
+		
+		virtual Scene getCurrentScene() const = 0;
+		
+		virtual std::vector<Scene> getScenes() const = 0;
 		
 		virtual int getNbFramesLoaded() const = 0;
 		
