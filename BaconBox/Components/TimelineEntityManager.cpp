@@ -17,10 +17,6 @@ namespace BaconBox {
 		return *this;
 	}
 	
-	TimelineEntityManager *TimelineEntityManager::clone() const {
-		return new TimelineEntityManager(*this);
-	}
-	
 	void TimelineEntityManager::receiveMessage(int senderID, int destID, int message, void *data) {
 	}
 }
