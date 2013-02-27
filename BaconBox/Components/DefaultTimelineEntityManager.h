@@ -31,25 +31,11 @@ namespace BaconBox {
 		
 		void prevFrame();
 		
-		void nextScene();
-		
-		void prevScene();
-		
 		void play();
 		
 		void stop();
 		
 		int getCurrentFrame() const;
-		
-		std::string getCurrentFrameLabel() const;
-		
-		std::string getCurrentLabel() const;
-		
-		std::vector<std::pair<std::string, int> > getCurrentLabels() const;
-		
-		Scene getCurrentScene() const;
-		
-		SceneArray getScenes() const;
 		
 		int getNbFramesLoaded() const;
 		
@@ -61,8 +47,7 @@ namespace BaconBox {
 		
 		ChildMap children;
 		
-		SceneArray scenes;
-		SceneArray::size_type currentScene;
+		int currentFrame;
 		
 		bool playing;
 		
