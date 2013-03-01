@@ -1,13 +1,18 @@
-#ifndef BB_DefaultEntityContainer_H
-#define BB_DefaultEntityContainer_H
+#ifndef BB_DEFAULT_ENTITY_CONTAINER_H
+#define BB_DEFAULT_ENTITY_CONTAINER_H
 
-#include "BaconBox/Core/Component.h"
+#include <vector>
+#include <map>
+#include <string>
+
+#include "BaconBox/Components/EntityContainer.h"
+#include "BaconBox/Helper/Range.h"
 
 namespace BaconBox {
-	class DefaultEntityContainer : public Component {
+	class Timeline;
+	
+	class DefaultEntityContainer : public EntityContainer {
 	public:
-		BB_ID_HEADER;
-		
 		DefaultEntityContainer();
 		
 		DefaultEntityContainer(const DefaultEntityContainer &src);
@@ -16,12 +21,53 @@ namespace BaconBox {
 		
 		DefaultEntityContainer &operator=(const DefaultEntityContainer &src);
 		
-		virtual DefaultEntityContainer *clone() const;
+		DefaultEntityContainer *clone() const;
 		
-		virtual void receiveMessage(int senderID, int destID, int message, void *data);
+		void receiveMessage(int senderID, int destID, int message, void *data);
+		
+		Entity *addChild(Entity *newChild);
+		
+		Entity *addChildAt(Entity *newChild, int index);
+		
+		bool contains(Entity *child) const;
+		
+		Entity *getChildAt(int index);
+		
+		const Entity *getChildAt(int index) const;
+		
+		Entity *getChildByName(const std::string &name);
+		
+		const Entity *getChildByName(const std::string &name) const;
+		
+		int getChildIndex(Entity *child) const;
+		
+		std::vector<Entity *> getObjectsUnderPoint(const Vector2 &point) const;
+		
+		Entity *removeChild(Entity *child);
+		
+		Entity *removeChildAt(int index);
+		
+		Entity *removeChildren(int beginIndex, int endIndex);
+		
+		void setChildIndex(Entity *child, int index);
+		
+		void swapChildren(Entity *child1, Entity *child2);
+		
+		void swapChildrenAt(int index1, int index2);
+		
+		int getNbChildren() const;
 	private:
+		void initializeConnections();
+		
+		void updateConnections();
+		
+		Timeline *timeline;
+		
+		std::map<std::string, Entity *> childrenByName;
+		
+		std::vector<std::map<Range<int>, Entity *, Range<int>::Comparator> > children;
 	};
 }
 
-#endif /* defined(BB_DefaultEntityContainer_H) */
+#endif /* defined(BB_DEFAULT_ENTITY_CONTAINER_H) */
 

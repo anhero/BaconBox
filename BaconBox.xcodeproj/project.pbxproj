@@ -11,6 +11,8 @@
 		24396B5516BA2BD6005AEDD8 /* BaseEngine.h in Headers */ = {isa = PBXBuildFile; fileRef = 24396B5316BA2BD5005AEDD8 /* BaseEngine.h */; };
 		24409B0716DAA02D0001206F /* Visibility.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 24409B0516DAA02D0001206F /* Visibility.cpp */; };
 		24409B0816DAA02D0001206F /* Visibility.h in Headers */ = {isa = PBXBuildFile; fileRef = 24409B0616DAA02D0001206F /* Visibility.h */; };
+		24412E3716E013810081897B /* DefaultEntityContainer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 24412E3516E013810081897B /* DefaultEntityContainer.cpp */; };
+		24412E3816E013810081897B /* DefaultEntityContainer.h in Headers */ = {isa = PBXBuildFile; fileRef = 24412E3616E013810081897B /* DefaultEntityContainer.h */; };
 		244214FA16BA24A2005B1ED9 /* EntityManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 244214F816BA24A2005B1ED9 /* EntityManager.cpp */; };
 		244214FB16BA24A2005B1ED9 /* EntityManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 244214F916BA24A2005B1ED9 /* EntityManager.h */; };
 		246274CA16AC8AB4006C7FFF /* MeshDriverRenderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 246274C816AC8AB3006C7FFF /* MeshDriverRenderer.cpp */; };
@@ -288,6 +290,8 @@
 		24396B5316BA2BD5005AEDD8 /* BaseEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseEngine.h; sourceTree = "<group>"; };
 		24409B0516DAA02D0001206F /* Visibility.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Visibility.cpp; sourceTree = "<group>"; };
 		24409B0616DAA02D0001206F /* Visibility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Visibility.h; sourceTree = "<group>"; };
+		24412E3516E013810081897B /* DefaultEntityContainer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DefaultEntityContainer.cpp; sourceTree = "<group>"; };
+		24412E3616E013810081897B /* DefaultEntityContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DefaultEntityContainer.h; sourceTree = "<group>"; };
 		244214F816BA24A2005B1ED9 /* EntityManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EntityManager.cpp; sourceTree = "<group>"; };
 		244214F916BA24A2005B1ED9 /* EntityManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EntityManager.h; sourceTree = "<group>"; };
 		245C1B6616ACD2EB00C74B67 /* Vector2ChangedData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Vector2ChangedData.h; sourceTree = "<group>"; };
@@ -710,6 +714,8 @@
 				24C119C716DF0F77001A8DE3 /* EntityContainer.h */,
 				24C119CA16DF1127001A8DE3 /* DefaultTimeline.cpp */,
 				24C119CB16DF1127001A8DE3 /* DefaultTimeline.h */,
+				24412E3516E013810081897B /* DefaultEntityContainer.cpp */,
+				24412E3616E013810081897B /* DefaultEntityContainer.h */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -1283,6 +1289,7 @@
 				24C119C516DF0E91001A8DE3 /* Timeline.h in Headers */,
 				24C119C916DF0F77001A8DE3 /* EntityContainer.h in Headers */,
 				24C119CD16DF1127001A8DE3 /* DefaultTimeline.h in Headers */,
+				24412E3816E013810081897B /* DefaultEntityContainer.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1450,6 +1457,7 @@
 				24C119C416DF0E91001A8DE3 /* Timeline.cpp in Sources */,
 				24C119C816DF0F77001A8DE3 /* EntityContainer.cpp in Sources */,
 				24C119CC16DF1127001A8DE3 /* DefaultTimeline.cpp in Sources */,
+				24412E3716E013810081897B /* DefaultEntityContainer.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -11,6 +11,8 @@ namespace BaconBox {
 	public:
 		BB_ID_HEADER;
 		
+		static int MESSAGE_NB_FRAMES_CHANGED;
+		
 		Timeline();
 		
 		Timeline(const Timeline &src);
