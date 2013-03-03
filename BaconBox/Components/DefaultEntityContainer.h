@@ -96,6 +96,49 @@ namespace BaconBox {
 		
 		ChildArray children;
 	};
+	
+	class DefaultEntityContainerProxy : public ComponentProxy {
+	public:
+		DefaultEntityContainerProxy(Entity *entity, bool mustAddComponent = true);
+		
+		Entity *addChild(Entity *newChild);
+		
+		void addChild(const DefaultEntityContainer::EntityByFrame &newChild);
+		
+		Entity *addChildAt(Entity *newChild, int index);
+		
+		void addChildAt(const DefaultEntityContainer::EntityByFrame &newChild, int index);
+		
+		bool contains(Entity *child) const;
+		
+		Entity *getChildAt(int index);
+		
+		const Entity *getChildAt(int index) const;
+		
+		Entity *getChildByName(const std::string &name);
+		
+		const Entity *getChildByName(const std::string &name) const;
+		
+		int getChildIndex(Entity *child) const;
+		
+		std::vector<Entity *> getObjectsUnderPoint(const Vector2 &point);
+		
+		std::vector<const Entity *> getObjectsUnderPoint(const Vector2 &point) const;
+		
+		Entity *removeChild(Entity *child);
+		
+		Entity *removeChildAt(int index);
+		
+		void removeChildren(int beginIndex, int endIndex);
+		
+		void setChildIndex(Entity *child, int index);
+		
+		void swapChildren(Entity *child1, Entity *child2);
+		
+		void swapChildrenAt(int index1, int index2);
+		
+		int getNbChildren() const;
+	};
 }
 
 #endif /* defined(BB_DEFAULT_ENTITY_CONTAINER_H) */
