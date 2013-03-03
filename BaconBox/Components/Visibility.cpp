@@ -5,6 +5,7 @@
 #include "BaconBox/Core/Entity.h"
 
 namespace BaconBox {
+	BB_ID_IMPL(Visibility);
 	int Visibility::MESSAGE_IS_VISIBLE = IDManager::generateID();
 	int Visibility::MESSAGE_SET_VISIBLE = IDManager::generateID();
 	int Visibility::MESSAGE_VISIBILITY_CHANGED = IDManager::generateID();

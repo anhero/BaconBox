@@ -37,8 +37,6 @@ namespace BaconBox {
 	private:
 		void initializeConnections();
 		
-		void updateConnections();
-		
 		Mesh *mesh;
 		Texture *texture;
 		ColorFilter *colorFilter;

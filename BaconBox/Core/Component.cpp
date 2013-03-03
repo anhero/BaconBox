@@ -65,14 +65,19 @@ namespace BaconBox {
 	
 	void Component::setEntity(Entity *newEntity) {
 		this->entity = newEntity;
-		this->updateConnections();
+		this->refreshConnections();
+	}
+	
+	void Component::refreshConnections() {
+		if (this->entity) {
+			for (std::vector<IComponentConnection *>::iterator i = this->connections.begin(); i != this->connections.end(); ++i) {
+				(*i)->refreshConnection(this->entity);
+			}
+		}
 	}
 	
 	void Component::addConnection(IComponentConnection *newConnection) {
 		this->connections.push_back(newConnection);
-	}
-	
-	void Component::updateConnections() {
 	}
 	
 	ComponentProxy::ComponentProxy(Entity* entity, Component * component) {

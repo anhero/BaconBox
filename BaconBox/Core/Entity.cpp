@@ -75,7 +75,9 @@ namespace BaconBox {
 
 	Component *Entity::addComponent(Component *newComponent) {
 		components.push_back(newComponent);
-		newComponent->entity = this;
+		newComponent->setEntity(this);
+		
+		newComponent->refreshConnections();
 		
 		ComponentAddedData data(newComponent->getID(), newComponent);
 		
@@ -185,7 +187,7 @@ namespace BaconBox {
 
 		for (std::vector<Component *>::const_iterator i = src.components.begin(); i != src.components.end(); ++i) {
 			tmpComponent = (*i)->clone();
-			tmpComponent->entity = this;
+			tmpComponent->setEntity(this);
 			this->components.push_back(tmpComponent);
 		}
 	}

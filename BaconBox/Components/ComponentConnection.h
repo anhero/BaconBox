@@ -23,6 +23,10 @@ namespace BaconBox {
 				*component = reinterpret_cast<TComponent *>(data.component);
 			}
 		}
+
+		void refreshConnection(Entity *parent) {
+			*component = reinterpret_cast<TComponent *>(parent->getComponent(TComponent::ID));
+		}
 	private:
 		TComponent ** const component;
 	};

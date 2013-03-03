@@ -42,9 +42,9 @@ namespace BaconBox {
 		
 		Entity *getEntity() const;
 	protected:
-		void addConnection(IComponentConnection *newConnection);
+		void refreshConnections();
 		
-		virtual void updateConnections();
+		void addConnection(IComponentConnection *newConnection);
 	private:
 		void setEntity(Entity *newEntity);
 		

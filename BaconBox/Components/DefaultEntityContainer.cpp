@@ -439,19 +439,10 @@ namespace BaconBox {
 	}
 	
 	void DefaultEntityContainer::initializeConnections() {
-		// We make sure we have the current components.
-		this->Component::updateConnections();
-		
 		// We add the connections.
 		this->addConnection(new ComponentConnection<Timeline>(&this->timeline));
-	}
-	
-	void DefaultEntityContainer::updateConnections() {
-		Entity *entity = this->getEntity();
 		
-		if (entity) {
-			this->timeline = reinterpret_cast<Timeline *>(entity->getComponent(Timeline::ID));
-		}
+		this->refreshConnections();
 	}
 	
 	void DefaultEntityContainer::setNbFrames(const ValueChangedData<int> &data) {
