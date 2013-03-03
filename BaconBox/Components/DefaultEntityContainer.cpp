@@ -16,7 +16,7 @@ namespace BaconBox {
 	
 	DefaultEntityContainer::DefaultEntityContainer(const DefaultEntityContainer &src) : EntityContainer(src), timeline(NULL), childrenByName(), children(src.children.size()) {
 		this->initializeConnections();
-
+		
 		Entity *newEntity;
 		
 		std::map<Entity *, Entity *> copyMap;
@@ -96,7 +96,7 @@ namespace BaconBox {
 	
 	void DefaultEntityContainer::receiveMessage(int senderID, int destID, int message, void *data) {
 		this->EntityContainer::receiveMessage(senderID, destID, message, data);
-
+		
 		if (destID == Entity::BROADCAST) {
 			if (senderID == Transform::ID) {
 				EntityContainerLooper::forEachChild(this, SendMessageChild(senderID, destID, message, data));
@@ -170,29 +170,23 @@ namespace BaconBox {
 				EntityByFrame::const_iterator last = newChild.end();
 				--last;
 				
-				// We calculate the max the last range should have.
-				int rangeEnd = (this->timeline) ? (std::max(this->timeline->getNbFrames() - 1, 0)) : 0;
+				// We calculate the iterator pointing to the new child's index.
+				ChildArray::iterator position = this->children.begin() + index;
 				
-				// We make sure the given map contains valid frame ranges.
-				if (newChild.begin()->first.min == 0 && last->first.max == rangeEnd) {
-					// We calculate the iterator pointing to the new child's index.
-					ChildArray::iterator position = this->children.begin() + index;
+				// We insert the new child entity.
+				position = this->children.insert(position, newChild);
+				
+				// We check if the new child entity has a name.
+				if (!last->second->getEntityName().empty()) {
+					// We take note of it.
+					std::pair<ChildMapByName::iterator, bool> result = this->childrenByName.insert(std::make_pair(last->second->getEntityName(), newChild));
 					
-					// We insert the new child entity.
-					position = this->children.insert(position, newChild);
-					
-					// We check if the new child entity has a name.
-					if (!last->second->getEntityName().empty()) {
-						// We take note of it.
-						std::pair<ChildMapByName::iterator, bool> result = this->childrenByName.insert(std::make_pair(last->second->getEntityName(), newChild));
-						
-						// If there is already a child entity with the same name,
-						// just too bad. (We at least write a message in the console)
-						if (!result.second) {
-							Console::print("A child entity with the same name already exists: ");
-							Console::println(last->second->getEntityName());
-							Console::printTrace();
-						}
+					// If there is already a child entity with the same name,
+					// just too bad. (We at least write a message in the console)
+					if (!result.second) {
+						Console::print("A child entity with the same name already exists: ");
+						Console::println(last->second->getEntityName());
+						Console::printTrace();
 					}
 				}
 			}
@@ -316,7 +310,7 @@ namespace BaconBox {
 		
 		return result;
 	}
-
+	
 	void DefaultEntityContainer::removeChildren(int beginIndex, int endIndex) {
 		Entity *lastRemoved;
 		
