@@ -1,6 +1,6 @@
 
 #include "BaconBox/Core/IDManager.h"
-#include "BaconBox/core/Component.h"
+#include "BaconBox/Core/Component.h"
 #include "BaconBox/Components/EntityManager.h"
 #include "BaconBox/Core/State.h"
 namespace BaconBox {
