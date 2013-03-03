@@ -15,6 +15,10 @@ namespace BaconBox {
 	class DefaultEntityContainer : public EntityContainer {
 		friend class EntityContainerLooper;
 	public:
+		typedef std::map<Range<int>, Entity *, Range<int>::Comparator> EntityByFrame;
+		typedef std::vector<EntityByFrame> ChildArray;
+		typedef std::map<std::string, EntityByFrame> ChildMapByName;
+		
 		DefaultEntityContainer();
 		
 		DefaultEntityContainer(const DefaultEntityContainer &src);
@@ -39,7 +43,11 @@ namespace BaconBox {
 		
 		Entity *addChild(Entity *newChild);
 		
+		void addChild(const EntityByFrame &newChild);
+		
 		Entity *addChildAt(Entity *newChild, int index);
+		
+		void addChildAt(const EntityByFrame &newChild, int index);
 		
 		bool contains(Entity *child) const;
 		
@@ -71,10 +79,6 @@ namespace BaconBox {
 		
 		int getNbChildren() const;
 	private:
-		typedef std::map<Range<int>, Entity *, Range<int>::Comparator> EntityByFrame;
-		typedef std::vector<EntityByFrame> ChildArray;
-		typedef std::map<std::string, EntityByFrame> ChildMapByName;
-
 		int getCurrentFrameIndex() const;
 		
 		ChildArray::iterator findChild(Entity *child);

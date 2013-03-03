@@ -137,7 +137,7 @@ namespace BaconBox {
 			if (index >= 0 && index <= this->children.size()) {
 				ChildArray::iterator position = this->children.begin() + index;
 				
-				int rangeEnd = (this->timeline) ? (std::max(this->timeline->getNbTotalFrames() - 1, 0)) : 1;
+				int rangeEnd = (this->timeline) ? (std::max(this->timeline->getNbTotalFrames() - 1, 0)) : 0;
 				
 				position = this->children.insert(position, EntityByFrame());
 				
@@ -160,6 +160,56 @@ namespace BaconBox {
 		}
 		
 		return newChild;
+	}
+	
+	void DefaultEntityContainer::addChildAt(const EntityByFrame &newChild, int index) {
+		// We make sure the given map's contents is valid.
+		if (!newChild.empty()) {
+			// We make sure all entities in the frame range map are valid.
+			bool allValid = true;
+			
+			EntityByFrame::const_iterator i = newChild.begin();
+			
+			while (allValid && i != newChild.end()) {
+				if (!i->second) {
+					allValid = false;
+				} else {
+					++i;
+				}
+			}
+			
+			if (allValid) {
+				// We get an iterator pointing to the last frame range's entity.
+				EntityByFrame::const_iterator last = newChild.end();
+				--last;
+				
+				// We calculate the max the last range should have.
+				int rangeEnd = (this->timeline) ? (std::max(this->timeline->getNbTotalFrames() - 1, 0)) : 0;
+				
+				// We make sure the given map contains valid frame ranges.
+				if (newChild.begin()->first.min == 0 && last->first.max == rangeEnd) {
+					// We calculate the iterator pointing to the new child's index.
+					ChildArray::iterator position = this->children.begin() + index;
+					
+					// We insert the new child entity.
+					position = this->children.insert(position, newChild);
+					
+					// We check if the new child entity has a name.
+					if (!last->second->getEntityName().empty()) {
+						// We take note of it.
+						std::pair<ChildMapByName::iterator, bool> result = this->childrenByName.insert(std::make_pair(last->second->getEntityName(), newChild));
+						
+						// If there is already a child entity with the same name,
+						// just too bad. (We at least write a message in the console)
+						if (!result.second) {
+							Console::print("A child entity with the same name already exists: ");
+							Console::println(last->second->getEntityName());
+							Console::printTrace();
+						}
+					}
+				}
+			}
+		}
 	}
 	
 	bool DefaultEntityContainer::contains(Entity *child) const {
