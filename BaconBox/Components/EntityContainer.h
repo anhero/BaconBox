@@ -35,13 +35,15 @@ namespace BaconBox {
 		
 		virtual int getChildIndex(Entity *child) const = 0;
 		
-		virtual std::vector<Entity *> getObjectsUnderPoint(const Vector2 &point) const = 0;
+		virtual std::vector<Entity *> getObjectsUnderPoint(const Vector2 &point) = 0;
+		
+		virtual std::vector<const Entity *> getObjectsUnderPoint(const Vector2 &point) const = 0;
 		
 		virtual Entity *removeChild(Entity *child) = 0;
 		
 		virtual Entity *removeChildAt(int index) = 0;
 		
-		virtual Entity *removeChildren(int beginIndex, int endIndex) = 0;
+		virtual void removeChildren(int beginIndex, int endIndex) = 0;
 		
 		virtual void setChildIndex(Entity *child, int index) = 0;
 		

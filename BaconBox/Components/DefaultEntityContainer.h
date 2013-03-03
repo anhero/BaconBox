@@ -10,8 +10,10 @@
 
 namespace BaconBox {
 	class Timeline;
+	class EntityContainerLooper;
 	
 	class DefaultEntityContainer : public EntityContainer {
+		friend class EntityContainerLooper;
 	public:
 		DefaultEntityContainer();
 		
@@ -24,6 +26,16 @@ namespace BaconBox {
 		DefaultEntityContainer *clone() const;
 		
 		void receiveMessage(int senderID, int destID, int message, void *data);
+		
+		/**
+		 * Updates all the child entities.
+		 */
+		void update();
+		
+		/**
+		 * Renders all the child entities.
+		 */
+		void render();
 		
 		Entity *addChild(Entity *newChild);
 		
@@ -41,13 +53,15 @@ namespace BaconBox {
 		
 		int getChildIndex(Entity *child) const;
 		
-		std::vector<Entity *> getObjectsUnderPoint(const Vector2 &point) const;
+		std::vector<Entity *> getObjectsUnderPoint(const Vector2 &point);
+		
+		std::vector<const Entity *> getObjectsUnderPoint(const Vector2 &point) const;
 		
 		Entity *removeChild(Entity *child);
 		
 		Entity *removeChildAt(int index);
 		
-		Entity *removeChildren(int beginIndex, int endIndex);
+		void removeChildren(int beginIndex, int endIndex);
 		
 		void setChildIndex(Entity *child, int index);
 		
@@ -57,15 +71,25 @@ namespace BaconBox {
 		
 		int getNbChildren() const;
 	private:
+		typedef std::map<Range<int>, Entity *, Range<int>::Comparator> EntityByFrame;
+		typedef std::vector<EntityByFrame> ChildArray;
+		typedef std::map<std::string, EntityByFrame> ChildMapByName;
+
+		int getCurrentFrameIndex() const;
+		
+		ChildArray::iterator findChild(Entity *child);
+		
+		ChildArray::const_iterator findChild(const Entity *child) const;
+		
 		void initializeConnections();
 		
 		void updateConnections();
 		
 		Timeline *timeline;
 		
-		std::map<std::string, Entity *> childrenByName;
+		ChildMapByName childrenByName;
 		
-		std::vector<std::map<Range<int>, Entity *, Range<int>::Comparator> > children;
+		ChildArray children;
 	};
 }
 

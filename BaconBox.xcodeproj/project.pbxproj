@@ -298,6 +298,7 @@
 		245C1B6816ACD35B00C74B67 /* ValueChangedData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ValueChangedData.h; sourceTree = "<group>"; };
 		246274C816AC8AB3006C7FFF /* MeshDriverRenderer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MeshDriverRenderer.cpp; sourceTree = "<group>"; };
 		246274C916AC8AB4006C7FFF /* MeshDriverRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeshDriverRenderer.h; sourceTree = "<group>"; };
+		24660B0F16E2C1C000C52ABF /* EntityContainerLooper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EntityContainerLooper.h; sourceTree = "<group>"; };
 		2478740616360C7F006D4A59 /* libSDL2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSDL2.a; path = libraries/Darwin/x86_64/lib/libSDL2.a; sourceTree = "<group>"; };
 		2478740716360C7F006D4A59 /* libSDL2main.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSDL2main.a; path = libraries/Darwin/x86_64/lib/libSDL2main.a; sourceTree = "<group>"; };
 		24AF672816BED58F004AA3D0 /* Texture.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Texture.cpp; sourceTree = "<group>"; };
@@ -716,6 +717,7 @@
 				24C119CB16DF1127001A8DE3 /* DefaultTimeline.h */,
 				24412E3516E013810081897B /* DefaultEntityContainer.cpp */,
 				24412E3616E013810081897B /* DefaultEntityContainer.h */,
+				24660B0F16E2C1C000C52ABF /* EntityContainerLooper.h */,
 			);
 			path = Components;
 			sourceTree = "<group>";
