@@ -104,4 +104,47 @@ namespace BaconBox {
 			Console::println(frame);
 		}
 	}
+	
+	DefaultTimelineProxy::DefaultTimelineProxy(Entity *entity, bool mustAddComponent) : BB_PROXY_CONSTRUCTOR(new DefaultTimeline()) {
+	}
+	
+	void DefaultTimelineProxy::gotoAndPlay(int frame) {
+		reinterpret_cast<DefaultTimeline*>(this->component)->gotoAndPlay(frame);
+	}
+	
+	void DefaultTimelineProxy::gotoAndStop(int frame) {
+		reinterpret_cast<DefaultTimeline*>(this->component)->gotoAndStop(frame);
+	}
+	
+	void DefaultTimelineProxy::nextFrame() {
+		reinterpret_cast<DefaultTimeline*>(this->component)->nextFrame();
+	}
+	
+	void DefaultTimelineProxy::prevFrame() {
+		reinterpret_cast<DefaultTimeline*>(this->component)->prevFrame();
+	}
+	
+	void DefaultTimelineProxy::play() {
+		reinterpret_cast<DefaultTimeline*>(this->component)->play();
+	}
+	
+	void DefaultTimelineProxy::stop() {
+		reinterpret_cast<DefaultTimeline*>(this->component)->stop();
+	}
+	
+	int DefaultTimelineProxy::getCurrentFrame() const {
+		return reinterpret_cast<DefaultTimeline*>(this->component)->getCurrentFrame();
+	}
+	
+	bool DefaultTimelineProxy::isPlaying() const {
+		return reinterpret_cast<DefaultTimeline*>(this->component)->isPlaying();
+	}
+	
+	int DefaultTimelineProxy::getNbFrames() const {
+		return reinterpret_cast<DefaultTimeline*>(this->component)->getNbFrames();
+	}
+	
+	void DefaultTimelineProxy::setNbFrames(int newNbFrames) {
+		reinterpret_cast<DefaultTimeline*>(this->component)->setNbFrames(newNbFrames);
+	}
 }
