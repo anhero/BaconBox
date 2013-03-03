@@ -77,8 +77,6 @@ namespace BaconBox {
 		components.push_back(newComponent);
 		newComponent->setEntity(this);
 		
-		newComponent->refreshConnections();
-		
 		ComponentAddedData data(newComponent->getID(), newComponent);
 		
 		this->sendMessage(Entity::ID, BROADCAST, MESSAGE_ADD_COMPONENT, &data);
