@@ -1,6 +1,8 @@
 #include "EntityContainer.h"
 
 namespace BaconBox {
+	BB_ID_IMPL(EntityContainer);
+	
 	EntityContainer::EntityContainer() : Component() {
 	}
 	

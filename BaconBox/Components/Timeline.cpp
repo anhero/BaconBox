@@ -1,6 +1,7 @@
 #include "Timeline.h"
 
 namespace BaconBox {
+	BB_ID_IMPL(Timeline);
 	int Timeline::MESSAGE_NB_FRAMES_CHANGED = IDManager::generateID();
 	
 	Timeline::Timeline() : Component() {
