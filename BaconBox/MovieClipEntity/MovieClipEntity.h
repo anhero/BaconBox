@@ -17,20 +17,22 @@
 
 namespace BaconBox {
 	/**
-	 * 
+	 *
 	 */
-	class MovieClipEntity : public Entity, public TransformProxy  { 
+	class MovieClipEntity : public Entity, public TransformProxy  {
     public:
-	BB_ID_HEADER;
-	
-	MovieClipEntity();
-	
+		BB_ID_HEADER;
+		
+		MovieClipEntity();
+		
 #ifdef BB_FLASH_PLATEFORM
 		void setMovieClip(AS3::local::var aMC);
 #endif
 		
+		
+		
     private:
-
+		
 		
 	};
 }

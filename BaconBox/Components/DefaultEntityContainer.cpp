@@ -112,7 +112,7 @@ namespace BaconBox {
 	void DefaultEntityContainer::update() {
 		this->EntityContainer::update();
 		
-		EntityContainerLooper::forEachChild(this, updateChild);
+		EntityContainerLooper::forEachChildCurrentFrame(this, updateChild);
 	}
 	
 	void updateChild(Entity *child) {
@@ -124,7 +124,7 @@ namespace BaconBox {
 	void DefaultEntityContainer::render() {
 		this->EntityContainer::render();
 		
-		EntityContainerLooper::forEachChild(this, renderChild);
+		EntityContainerLooper::forEachChildCurrentFrame(this, renderChild);
 	}
 	
 	void renderChild(Entity *child) {
@@ -135,34 +135,16 @@ namespace BaconBox {
 		return this->addChildAt(newChild, static_cast<int>(this->children.size()));
 	}
 	
+	void DefaultEntityContainer::addChild(const EntityByFrame &newChild) {
+		this->addChildAt(newChild, static_cast<int>(this->children.size()));
+	}
+	
 	Entity *DefaultEntityContainer::addChildAt(Entity *newChild, int index) {
-		// We make sure the given new child is valid.
-		if (newChild) {
-			// We make sure the given index is valid.
-			if (index >= 0 && index <= this->children.size()) {
-				ChildArray::iterator position = this->children.begin() + index;
-				
-				int rangeEnd = (this->timeline) ? (std::max(this->timeline->getNbFrames() - 1, 0)) : 0;
-				
-				position = this->children.insert(position, EntityByFrame());
-				
-				position->insert(std::make_pair(Range<int>(0, rangeEnd), newChild));
-				
-				// We check if the new child entity has a name.
-				if (!newChild->getEntityName().empty()) {
-					// We take note of it.
-					std::pair<ChildMapByName::iterator, bool> result = this->childrenByName.insert(std::make_pair(newChild->getEntityName(), *position));
-					
-					// If there is already a child entity with the same name, just
-					// too bad.
-					if (!result.second) {
-						Console::print("A child entity with the same name already exists: ");
-						Console::println(newChild->getEntityName());
-						Console::printTrace();
-					}
-				}
-			}
-		}
+		EntityByFrame newChildEntry;
+		
+		newChildEntry.insert(std::make_pair(Range<int>(0, ((this->timeline) ? (std::max(this->timeline->getNbFrames() - 1, 0)) : (0))), newChild));
+		
+		this->addChildAt(newChildEntry, index);
 		
 		return newChild;
 	}
