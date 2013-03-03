@@ -34,11 +34,11 @@ namespace BaconBox {
 		
 		int getCurrentFrame() const;
 		
-		int getNbFramesLoaded() const;
-		
 		bool isPlaying() const;
 		
-		int getNbTotalFrames() const;
+		int getNbFrames() const;
+		
+		void setNbFrames(int newNbFrames);
 	private:
 		void gotoAndSetState(int frame, bool newPlaying);
 		

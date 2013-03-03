@@ -1,6 +1,8 @@
 #include "DefaultTimeline.h"
 
 #include "BaconBox/Console.h"
+#include "BaconBox/Core/Entity.h"
+#include "BaconBox/Helper/ValueChangedData.h"
 
 namespace BaconBox {
 	DefaultTimeline::DefaultTimeline() : Timeline(), playing(false), nbFrames(0), currentFrame(0) {
@@ -73,17 +75,23 @@ namespace BaconBox {
 	int DefaultTimeline::getCurrentFrame() const {
 		return this->currentFrame;
 	}
-	
-	int DefaultTimeline::getNbFramesLoaded() const {
-		return this->nbFrames;
-	}
-	
+		
 	bool DefaultTimeline::isPlaying() const {
 		return this->playing;
 	}
 	
-	int DefaultTimeline::getNbTotalFrames() const {
+	int DefaultTimeline::getNbFrames() const {
 		return this->nbFrames;
+	}
+	
+	void DefaultTimeline::setNbFrames(int newNbFrames) {
+		if (newNbFrames >= 0 && newNbFrames != this->nbFrames) {
+			ValueChangedData<int> data(this->nbFrames, newNbFrames);
+			
+			this->nbFrames = newNbFrames;
+			
+			this->sendMessage(Entity::BROADCAST, Timeline::MESSAGE_NB_FRAMES_CHANGED, &data);
+		}
 	}
 	
 	void DefaultTimeline::gotoAndSetState(int frame, bool newPlaying) {

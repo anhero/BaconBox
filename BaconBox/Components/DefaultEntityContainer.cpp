@@ -96,9 +96,14 @@ namespace BaconBox {
 	
 	void DefaultEntityContainer::receiveMessage(int senderID, int destID, int message, void *data) {
 		this->EntityContainer::receiveMessage(senderID, destID, message, data);
-		
-		if (senderID == Transform::ID && destID == Entity::BROADCAST) {
-			EntityContainerLooper::forEachChild(this, SendMessageChild(senderID, destID, message, data));
+
+		if (destID == Entity::BROADCAST) {
+			if (senderID == Transform::ID) {
+				EntityContainerLooper::forEachChild(this, SendMessageChild(senderID, destID, message, data));
+			}
+			if (senderID == Timeline::ID && message == Timeline::MESSAGE_NB_FRAMES_CHANGED) {
+				this->setNbFrames(*reinterpret_cast<ValueChangedData<int> *>(data));
+			}
 		}
 	}
 	
@@ -137,7 +142,7 @@ namespace BaconBox {
 			if (index >= 0 && index <= this->children.size()) {
 				ChildArray::iterator position = this->children.begin() + index;
 				
-				int rangeEnd = (this->timeline) ? (std::max(this->timeline->getNbTotalFrames() - 1, 0)) : 0;
+				int rangeEnd = (this->timeline) ? (std::max(this->timeline->getNbFrames() - 1, 0)) : 0;
 				
 				position = this->children.insert(position, EntityByFrame());
 				
@@ -184,7 +189,7 @@ namespace BaconBox {
 				--last;
 				
 				// We calculate the max the last range should have.
-				int rangeEnd = (this->timeline) ? (std::max(this->timeline->getNbTotalFrames() - 1, 0)) : 0;
+				int rangeEnd = (this->timeline) ? (std::max(this->timeline->getNbFrames() - 1, 0)) : 0;
 				
 				// We make sure the given map contains valid frame ranges.
 				if (newChild.begin()->first.min == 0 && last->first.max == rangeEnd) {
@@ -446,6 +451,60 @@ namespace BaconBox {
 		
 		if (entity) {
 			this->timeline = reinterpret_cast<Timeline *>(entity->getComponent(Timeline::ID));
+		}
+	}
+	
+	void DefaultEntityContainer::setNbFrames(const ValueChangedData<int> &data) {
+		// If the number of frames decreased.
+		if (data.newValue == 0 || data.newValue < data.oldValue) {
+			// We decrease the frame range of all entities at the end of the
+			// timeline.
+			// If an entity's frame range is completely out, we delete the
+			// entity.
+			EntityByFrame::reverse_iterator j;
+			
+			for (ChildArray::iterator i = this->children.begin(); i != this->children.end(); ++i) {
+				j = i->rbegin();
+				
+				while (j != i->rend() && j->first.max >= data.newValue) {
+					if (j->first.min == 0 || j->first.min < data.newValue) {
+						std::pair<Range<int>, Entity *> tmp = *j;
+						
+						i->erase((++j).base());
+						
+						tmp.first.max = std::max(data.newValue - 1, 0);
+						
+						i->insert(tmp);
+					} else if (j->first.min >= data.newValue) {
+						delete j->second;
+						
+						i->erase((++j).base());
+					}
+					
+					j = i->rbegin();
+				}
+			}
+		} else if (data.newValue > data.oldValue) {
+			// The number of frames has increased.
+			
+			// We take all of the entities at the end of the timeline and expand
+			// their frame range.
+			EntityByFrame::reverse_iterator j;
+			
+			for (ChildArray::iterator i = this->children.begin(); i != this->children.end(); ++i) {
+				// We get the last entity in the timeline.
+				j = i->rbegin();
+				std::pair<Range<int>, Entity *> tmp = *j;
+				
+				// We remove it.
+				i->erase((++j).base());
+				
+				// We increase its frame range.
+				tmp.first.max = data.newValue - 1;
+				
+				// We re-insert it.
+				i->insert(tmp);
+			}
 		}
 	}
 }

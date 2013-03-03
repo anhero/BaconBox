@@ -35,11 +35,9 @@ namespace BaconBox {
 		
 		virtual int getCurrentFrame() const = 0;
 		
-		virtual int getNbFramesLoaded() const = 0;
-		
 		virtual bool isPlaying() const = 0;
 		
-		virtual int getNbTotalFrames() const = 0;
+		virtual int getNbFrames() const = 0;
 	};
 }
 

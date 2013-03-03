@@ -7,6 +7,7 @@
 
 #include "BaconBox/Components/EntityContainer.h"
 #include "BaconBox/Helper/Range.h"
+#include "BaconBox/Helper/ValueChangedData.h"
 
 namespace BaconBox {
 	class Timeline;
@@ -88,6 +89,8 @@ namespace BaconBox {
 		void initializeConnections();
 		
 		void updateConnections();
+		
+		void setNbFrames(const ValueChangedData<int> &data);
 		
 		Timeline *timeline;
 		
