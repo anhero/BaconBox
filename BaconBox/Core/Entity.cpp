@@ -9,7 +9,8 @@ namespace BaconBox {
 	BB_ID_IMPL(Entity);
 	
 	int Entity::BROADCAST = IDManager::generateID();
-
+	int Entity::MESSAGE_ADDING_COMPONENT = IDManager::generatetID();
+	
 	Entity::Entity() : components(), parent(NULL), sigly::HasSlots<>() {
 	}
 
@@ -98,6 +99,7 @@ namespace BaconBox {
 	Component * Entity::addComponent(Component *newComponent) {
 		components.push_back(newComponent);
 		newComponent->entity = this;
+		sendMessage(this->getID(), newComponent->getID(), Entity::MESSAGE_ADDING_COMPONENT, reinterpret_cast<void*>(this));
 		return newComponent;
 	}
 

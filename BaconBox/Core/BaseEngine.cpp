@@ -190,9 +190,6 @@ namespace BaconBox {
 		Engine::onInitialize.shoot(resolutionWidth, resolutionHeight, contextWidth, contextHeight);
 		
 		this->graphicDriver->initializeGraphicDriver();
-#ifndef BB_ANDROID
-		Font::initializeFontRenderer();
-#endif
 	}
 	
 	double BaseEngine::getSinceLastUpdate() {

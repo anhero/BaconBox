@@ -62,8 +62,11 @@ BaconBox/Components/CameraDriverRenderer.o \
 BaconBox/Components/Mesh.o \
 BaconBox/Components/Transform.o \
 BaconBox/Components/HasName.o \
+BaconBox/Components/TextComponent.o \
 BaconBox/Components/EntityManager.o \
+BaconBox/Components/ColorFilter.o \
 BaconBox/Components/Flash/MovieClipHolder.o \
+BaconBox/Components/Flash/TextFieldHolder.o \
 BaconBox/Components/Flash/FlashEntityManager.o 
 
 
@@ -82,11 +85,12 @@ BaconBox/Display/Camera.o \
 BaconBox/Display/Color.o \
 BaconBox/Display/PixMap.o \
 BaconBox/Display/TextureInformation.o \
+BaconBox/Display/SubTextureInfo.o \
 BaconBox/Display/Driver/GraphicDriver.o \
 BaconBox/Display/Driver/NullGraphicDriver.o \
 BaconBox/Display/Text/Font.o \
-BaconBox/Display/Text/GlyphInformation.o \
-BaconBox/Display/Text/FreetypeImplementation/FontImplementation.o \
+BaconBox/Display/Text/TextEntity.o \
+BaconBox/Display/Text/Flash/FlashFont.o \
 BaconBox/Display/Window/MainWindow.o \
 BaconBox/Display/Window/NullMainWindow.o \
 BaconBox/Display/Window/Flash/FlashMainWindow.o
@@ -198,15 +202,15 @@ swf: check $(BUILD_PATH)/BaconBox.swf
 
 
 
-$(BUILD_PATH)/BaconBox.swf: $(addsuffix .abc,$(SWIG_OUTPUT)) EntityHolderMovieClip.abc $(addprefix $(PROJECT_ROOT)/,$(ALL_SOURCES)) $(addprefix $(PROJECT_ROOT)/,$(FLASCC_SOURCES))
+$(BUILD_PATH)/BaconBox.swf: $(addsuffix .abc,$(SWIG_OUTPUT)) EntityHolderMovieClip.abc EntityHolderTextField.abc $(addprefix $(PROJECT_ROOT)/,$(ALL_SOURCES)) $(addprefix $(PROJECT_ROOT)/,$(FLASCC_SOURCES))
 	@echo "-------- BaconBox.swf--------"
-	"$(FLASCC)/usr/bin/g++" $(BASE_CFLAGS) $(DEFINE_FLAG) -I$(PROJECT_ROOT) -I$(CUSTOM_LIB_PATH)/include $(addsuffix .abc,$(SWIG_OUTPUT)) EntityHolderMovieClip.abc \
+	"$(FLASCC)/usr/bin/g++" $(BASE_CFLAGS) $(DEFINE_FLAG) -I$(PROJECT_ROOT) -I$(CUSTOM_LIB_PATH)/include $(addsuffix .abc,$(SWIG_OUTPUT)) EntityHolderMovieClip.abc EntityHolderTextField.abc \
 	$(addprefix $(PROJECT_ROOT)/, $(ALL_SOURCES)) $(addprefix $(PROJECT_ROOT)/, $(FLASCC_SOURCES)) -emit-swf -o $(BUILD_PATH)/BaconBox.swf \
 	-L$(CUSTOM_LIB_PATH)/lib $(LINK_FLAG)
 
-$(BUILD_PATH)/BaconBox.swc: VFS.abc $(addsuffix .abc,$(SWIG_OUTPUT))  EntityHolderMovieClip.abc $(addprefix $(PROJECT_ROOT)/,$(ALL_SOURCES)) $(addprefix $(PROJECT_ROOT)/,$(FLASCC_SOURCES))
+$(BUILD_PATH)/BaconBox.swc: VFS.abc $(addsuffix .abc,$(SWIG_OUTPUT))  EntityHolderMovieClip.abc EntityHolderTextField.abc $(addprefix $(PROJECT_ROOT)/,$(ALL_SOURCES)) $(addprefix $(PROJECT_ROOT)/,$(FLASCC_SOURCES))
 	@echo "-------- BaconBox.swc --------"
-	"$(FLASCC)/usr/bin/g++" $(BASE_CFLAGS) $(DEFINE_FLAG) -I$(PROJECT_ROOT) -I$(CUSTOM_LIB_PATH)/include $(addsuffix .abc,$(SWIG_OUTPUT)) EntityHolderMovieClip.abc \
+	"$(FLASCC)/usr/bin/g++" $(BASE_CFLAGS) $(DEFINE_FLAG) -I$(PROJECT_ROOT) -I$(CUSTOM_LIB_PATH)/include $(addsuffix .abc,$(SWIG_OUTPUT)) EntityHolderMovieClip.abc EntityHolderTextField.abc \
 	VFS.abc $(addprefix $(PROJECT_ROOT)/, $(ALL_SOURCES)) $(addprefix $(PROJECT_ROOT)/, $(FLASCC_SOURCES)) -emit-swc=BaconBox -o $(BUILD_PATH)/BaconBox.swc \
 	-L$(CUSTOM_LIB_PATH)/lib $(LINK_FLAG)
 
@@ -264,6 +268,11 @@ $(PROJECT_ROOT)/BaconBox/Special/Flash/$(addsuffix .cpp,$(LUA_SWIG_WRAPPER)): $(
 EntityHolderMovieClip.abc: $(addsuffix .abc,$(SWIG_OUTPUT)) EntityHolderMovieClip.as
 	@echo "-------- Compile the EntityHolderMovieClip to ABC --------"
 	$(AS3COMPILERARGS) -abcfuture -AS3 -import $(call nativepath,$(FLASCC)/usr/lib/builtin.abc) -import $(call nativepath,$(FLASCC)/usr/lib/playerglobal.abc) -import $(call nativepath,./$(addsuffix .abc,$(SWIG_OUTPUT))) EntityHolderMovieClip.as 
+
+EntityHolderTextField.abc: $(addsuffix .abc,$(SWIG_OUTPUT)) EntityHolderTextField.as
+	@echo "-------- Compile the EntityHolderTextField to ABC --------"
+	$(AS3COMPILERARGS) -abcfuture -AS3 -import $(call nativepath,$(FLASCC)/usr/lib/builtin.abc) -import $(call nativepath,$(FLASCC)/usr/lib/playerglobal.abc) -import $(call nativepath,./$(addsuffix .abc,$(SWIG_OUTPUT))) EntityHolderTextField.as 
+
 
 
 #Entity_wrapper.o main.o: Entity_wrapper.cpp main.cpp

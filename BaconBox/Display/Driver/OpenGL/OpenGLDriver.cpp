@@ -209,6 +209,7 @@ void OpenGLDriver::prepareScene(const Vector2 &position, float angle,
 	}
 
 void OpenGLDriver::initializeGraphicDriver() {
+		GraphicDriver::initializeGraphicDriver();
 		glShadeModel(GL_FLAT);
 
 		if (MainWindow::getInstance().getOrientation() == WindowOrientation::NORMAL ||
@@ -287,7 +288,7 @@ void OpenGLDriver::initializeGraphicDriver() {
     }
 
 	TextureInformation *OpenGLDriver::loadTexture(PixMap *pixMap) {
-
+	    GraphicDriver::loadTexture(pixMap);
 
 		TextureInformation *texInfo = new TextureInformation();
 		glGenTextures(1, &(texInfo->textureId));
