@@ -301,6 +301,7 @@
 		24660B0F16E2C1C000C52ABF /* EntityContainerLooper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EntityContainerLooper.h; sourceTree = "<group>"; };
 		2478740616360C7F006D4A59 /* libSDL2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSDL2.a; path = libraries/Darwin/x86_64/lib/libSDL2.a; sourceTree = "<group>"; };
 		2478740716360C7F006D4A59 /* libSDL2main.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSDL2main.a; path = libraries/Darwin/x86_64/lib/libSDL2main.a; sourceTree = "<group>"; };
+		249CF64016E6FD7A0018FD33 /* Vector3.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Vector3.h; sourceTree = "<group>"; };
 		24AF672816BED58F004AA3D0 /* Texture.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Texture.cpp; sourceTree = "<group>"; };
 		24AF672916BED58F004AA3D0 /* Texture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Texture.h; sourceTree = "<group>"; };
 		24B0364316BEA39300117510 /* HasName.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = HasName.cpp; sourceTree = "<group>"; };
@@ -660,6 +661,7 @@
 				24F9A04D16BF007700FCA53B /* EntityFactory.h */,
 				51B374D316A4F04D0052740F /* Vector2.cpp */,
 				51B374D416A4F04D0052740F /* Vector2.h */,
+				249CF64016E6FD7A0018FD33 /* Vector3.h */,
 				51E519E5169764E200F6D446 /* SignalSlots */,
 				51E5194E169763AA00F6D446 /* Input */,
 				51E5194616975C9300F6D446 /* TextureCoordinates.h */,
