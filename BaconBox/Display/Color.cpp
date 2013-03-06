@@ -82,6 +82,16 @@ namespace BaconBox {
 		result |= static_cast<uint32_t>(colors[A]);
 		return result;
 	}
+	
+	
+	unsigned int Color::getRGBA() const{
+	    return *this;
+	}
+	unsigned int Color::getRGB() const{
+	    unsigned int color = *this;
+	    color >>= 8;
+	    return color;
+	}
 
 	uint8_t Color::getRed() const {
 		return colors[R];

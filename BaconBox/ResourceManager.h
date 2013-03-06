@@ -12,6 +12,8 @@
 #include "BaconBox/Audio/SoundParameters.h"
 #include "BaconBox/Audio/MusicParameters.h"
 #include "BaconBox/Display/PixMap.h"
+#include "Display/SubTextureInfo.h"
+#include "Display/Text/FontFormat.h"
 
 namespace BaconBox {
 	class SoundFX;
@@ -34,6 +36,11 @@ namespace BaconBox {
 	class ResourceManager {
 		friend class BaseEngine;
 	public:
+	    
+	    
+		static SubTextureInfo *addSubTexture(const std::string &key, SubTextureInfo *textureInfo,
+		                                      bool overwrite = false);
+	    
 		/**
 		 * Add a texture already loaded as a pixmap into the graphic memory and
 		 * resource manager.
@@ -140,7 +147,7 @@ namespace BaconBox {
 		 * associated with the given key.
 		 */
 		static TextureInformation *getTexture(const std::string &key);
-
+		static SubTextureInfo *getSubTexture(const std::string &key);
 		/**
 		 * Gets a pointer to the asked sound effect.
 		 * @param key Name of the sound effect to get a pointer of.
@@ -261,7 +268,6 @@ namespace BaconBox {
 		 */
 		static void removeMusic(const std::string &key);
 
-#ifndef BB_ANDROID
 		/**
 		 * Loads the font at the specified path and put it in the fonts' map.
 		 * @param key Name of the font, it will be the key of the fonts' map.
@@ -301,7 +307,6 @@ namespace BaconBox {
 		 * @param key Key of the font to remove.
 		 */
 		static void removeFont(const std::string &key);
-#endif
 		
 		/// Create a PixMap from an image file at the given path.
 		static PixMap *loadPixMap(const std::string &filePath, ColorFormat colorFormat);
@@ -322,6 +327,13 @@ namespace BaconBox {
 		static void savePixMap(const PixMap &pixMap,
 							   const std::string &filePath);
 	private:
+	    
+		static Font *initFontFromPath(const std::string &key,
+		                      const std::string &path);
+		
+		static Font *initFontFromPathAndFormat(const std::string &key,
+		                      const std::string &path, const FontFormat & format);
+	    
 		/**
 		 * Unloads everything in the ResourceManager.
 		 */
@@ -339,16 +351,17 @@ namespace BaconBox {
 
 		/// Map associating the textures' keys and their information.
 		static std::map<std::string, TextureInformation *> textures;
+		static std::map<std::string, SubTextureInfo *> subTextures;
+
+		
 
 		/// Map associating the sound effects' names and their information.
 		static std::map<std::string, SoundInfo *> sounds;
 
 		/// Map associating the musics' names and their information.
 		static std::map<std::string, MusicInfo *> musics;
-#ifndef BB_ANDROID
 		/// Map  associating the fonts' names and their information.
 		static std::map<std::string, Font *> fonts;
-#endif
 	};
 }
 

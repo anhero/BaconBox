@@ -8,7 +8,7 @@
 #include "BaconBox/PlatformFlagger.h"
 
 #include "BaconBox/Components/Transform.h"
-
+#include "BaconBox/Components/ColorFilter.h"
 
 #ifdef BB_FLASH_PLATEFORM
 #include <AS3/AS3.h>
@@ -19,7 +19,7 @@ namespace BaconBox {
 	/**
 	 *
 	 */
-	class MovieClipEntity : public Entity, public TransformProxy  {
+	class MovieClipEntity : public Entity, public TransformProxy, public ColorFilterProxy  {
     public:
 		BB_ID_HEADER;
 		

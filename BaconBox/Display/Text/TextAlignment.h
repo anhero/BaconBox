@@ -8,18 +8,17 @@
 #include "BaconBox/Helper/SafeEnum.h"
 
 namespace BaconBox {
-	struct TextAlignmentDef {
+	struct TextAlignment {
 		enum type {
 			LEFT,
 			RIGHT,
 			CENTER
 		};
+			
+	private:
+	    TextAlignment();
 	};
-	/**
-	 * Different text alignments used for graphic strings.
-	 * @ingroup TextDisplay
-	 */
-	typedef SafeEnum<TextAlignmentDef> TextAlignment;
+
 }
 
 #endif

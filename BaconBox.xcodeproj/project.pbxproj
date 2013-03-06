@@ -19,6 +19,11 @@
 		246274CB16AC8AB4006C7FFF /* MeshDriverRenderer.h in Headers */ = {isa = PBXBuildFile; fileRef = 246274C916AC8AB4006C7FFF /* MeshDriverRenderer.h */; };
 		2478740816360C7F006D4A59 /* libSDL2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2478740616360C7F006D4A59 /* libSDL2.a */; };
 		2478740916360C7F006D4A59 /* libSDL2main.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2478740716360C7F006D4A59 /* libSDL2main.a */; };
+		249CF64216E706420018FD33 /* Vector3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 249CF64116E706420018FD33 /* Vector3.cpp */; };
+		249CF64916E709F70018FD33 /* TextureGlyphInformation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 249CF64716E709F70018FD33 /* TextureGlyphInformation.cpp */; };
+		249CF64A16E709F70018FD33 /* TextureGlyphInformation.h in Headers */ = {isa = PBXBuildFile; fileRef = 249CF64816E709F70018FD33 /* TextureGlyphInformation.h */; };
+		249CF64D16E70A120018FD33 /* SubTextureInfo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 249CF64B16E70A120018FD33 /* SubTextureInfo.cpp */; };
+		249CF64E16E70A120018FD33 /* SubTextureInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 249CF64C16E70A120018FD33 /* SubTextureInfo.h */; };
 		24AF672A16BED58F004AA3D0 /* Texture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 24AF672816BED58F004AA3D0 /* Texture.cpp */; };
 		24AF672B16BED58F004AA3D0 /* Texture.h in Headers */ = {isa = PBXBuildFile; fileRef = 24AF672916BED58F004AA3D0 /* Texture.h */; };
 		24B0364516BEA39300117510 /* HasName.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 24B0364316BEA39300117510 /* HasName.cpp */; };
@@ -54,8 +59,6 @@
 		5153CD031698AA3300431A19 /* FontPointer.h in Headers */ = {isa = PBXBuildFile; fileRef = 5153CCF71698AA3300431A19 /* FontPointer.h */; };
 		5153CD041698AA3300431A19 /* FontImplementation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5153CCF91698AA3300431A19 /* FontImplementation.cpp */; };
 		5153CD051698AA3300431A19 /* FontImplementation.h in Headers */ = {isa = PBXBuildFile; fileRef = 5153CCFA1698AA3300431A19 /* FontImplementation.h */; };
-		5153CD061698AA3300431A19 /* GlyphInformation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5153CCFB1698AA3300431A19 /* GlyphInformation.cpp */; };
-		5153CD071698AA3300431A19 /* GlyphInformation.h in Headers */ = {isa = PBXBuildFile; fileRef = 5153CCFC1698AA3300431A19 /* GlyphInformation.h */; };
 		5153CD0A1698AA3300431A19 /* TextAlignment.h in Headers */ = {isa = PBXBuildFile; fileRef = 5153CCFF1698AA3300431A19 /* TextAlignment.h */; };
 		5153CD0B1698AA3300431A19 /* TextDirection.h in Headers */ = {isa = PBXBuildFile; fileRef = 5153CD001698AA3300431A19 /* TextDirection.h */; };
 		5153CD1D169925E700431A19 /* Camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5153CD1B169925E700431A19 /* Camera.cpp */; };
@@ -301,6 +304,12 @@
 		24660B0F16E2C1C000C52ABF /* EntityContainerLooper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EntityContainerLooper.h; sourceTree = "<group>"; };
 		2478740616360C7F006D4A59 /* libSDL2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSDL2.a; path = libraries/Darwin/x86_64/lib/libSDL2.a; sourceTree = "<group>"; };
 		2478740716360C7F006D4A59 /* libSDL2main.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSDL2main.a; path = libraries/Darwin/x86_64/lib/libSDL2main.a; sourceTree = "<group>"; };
+		249CF64016E6FD7A0018FD33 /* Vector3.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Vector3.h; sourceTree = "<group>"; };
+		249CF64116E706420018FD33 /* Vector3.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Vector3.cpp; sourceTree = "<group>"; };
+		249CF64716E709F70018FD33 /* TextureGlyphInformation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TextureGlyphInformation.cpp; sourceTree = "<group>"; };
+		249CF64816E709F70018FD33 /* TextureGlyphInformation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextureGlyphInformation.h; sourceTree = "<group>"; };
+		249CF64B16E70A120018FD33 /* SubTextureInfo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SubTextureInfo.cpp; sourceTree = "<group>"; };
+		249CF64C16E70A120018FD33 /* SubTextureInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubTextureInfo.h; sourceTree = "<group>"; };
 		24AF672816BED58F004AA3D0 /* Texture.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Texture.cpp; sourceTree = "<group>"; };
 		24AF672916BED58F004AA3D0 /* Texture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Texture.h; sourceTree = "<group>"; };
 		24B0364316BEA39300117510 /* HasName.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = HasName.cpp; sourceTree = "<group>"; };
@@ -337,8 +346,6 @@
 		5153CCF71698AA3300431A19 /* FontPointer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FontPointer.h; sourceTree = "<group>"; };
 		5153CCF91698AA3300431A19 /* FontImplementation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FontImplementation.cpp; sourceTree = "<group>"; };
 		5153CCFA1698AA3300431A19 /* FontImplementation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FontImplementation.h; sourceTree = "<group>"; };
-		5153CCFB1698AA3300431A19 /* GlyphInformation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GlyphInformation.cpp; sourceTree = "<group>"; };
-		5153CCFC1698AA3300431A19 /* GlyphInformation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GlyphInformation.h; sourceTree = "<group>"; };
 		5153CCFF1698AA3300431A19 /* TextAlignment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextAlignment.h; sourceTree = "<group>"; };
 		5153CD001698AA3300431A19 /* TextDirection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextDirection.h; sourceTree = "<group>"; };
 		5153CD1B169925E700431A19 /* Camera.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Camera.cpp; sourceTree = "<group>"; };
@@ -614,12 +621,12 @@
 		5153CCF41698AA3300431A19 /* Text */ = {
 			isa = PBXGroup;
 			children = (
+				249CF64716E709F70018FD33 /* TextureGlyphInformation.cpp */,
+				249CF64816E709F70018FD33 /* TextureGlyphInformation.h */,
 				5153CCF51698AA3300431A19 /* Font.cpp */,
 				5153CCF61698AA3300431A19 /* Font.h */,
 				5153CCF71698AA3300431A19 /* FontPointer.h */,
 				5153CCF81698AA3300431A19 /* FreetypeImplementation */,
-				5153CCFB1698AA3300431A19 /* GlyphInformation.cpp */,
-				5153CCFC1698AA3300431A19 /* GlyphInformation.h */,
 				5153CCFF1698AA3300431A19 /* TextAlignment.h */,
 				5153CD001698AA3300431A19 /* TextDirection.h */,
 			);
@@ -660,6 +667,7 @@
 				24F9A04D16BF007700FCA53B /* EntityFactory.h */,
 				51B374D316A4F04D0052740F /* Vector2.cpp */,
 				51B374D416A4F04D0052740F /* Vector2.h */,
+				249CF64016E6FD7A0018FD33 /* Vector3.h */,
 				51E519E5169764E200F6D446 /* SignalSlots */,
 				51E5194E169763AA00F6D446 /* Input */,
 				51E5194616975C9300F6D446 /* TextureCoordinates.h */,
@@ -680,6 +688,7 @@
 				51E517481697529200F6D446 /* StandardVertexArray.h */,
 				51E517491697529200F6D446 /* VertexArray.cpp */,
 				51E5174A1697529200F6D446 /* VertexArray.h */,
+				249CF64116E706420018FD33 /* Vector3.cpp */,
 			);
 			path = BaconBox;
 			sourceTree = "<group>";
@@ -917,6 +926,8 @@
 		51E518FE16975B4300F6D446 /* Display */ = {
 			isa = PBXGroup;
 			children = (
+				249CF64B16E70A120018FD33 /* SubTextureInfo.cpp */,
+				249CF64C16E70A120018FD33 /* SubTextureInfo.h */,
 				24F9A05416BF01BF00FCA53B /* TexturePointer.h */,
 				5153CCF41698AA3300431A19 /* Text */,
 				51E518FF16975B4400F6D446 /* Color.cpp */,
@@ -1269,7 +1280,6 @@
 				5153CD021698AA3300431A19 /* Font.h in Headers */,
 				5153CD031698AA3300431A19 /* FontPointer.h in Headers */,
 				5153CD051698AA3300431A19 /* FontImplementation.h in Headers */,
-				5153CD071698AA3300431A19 /* GlyphInformation.h in Headers */,
 				5153CD0A1698AA3300431A19 /* TextAlignment.h in Headers */,
 				5153CD0B1698AA3300431A19 /* TextDirection.h in Headers */,
 				5153CD1E169925E700431A19 /* Camera.h in Headers */,
@@ -1292,6 +1302,8 @@
 				24C119C916DF0F77001A8DE3 /* EntityContainer.h in Headers */,
 				24C119CD16DF1127001A8DE3 /* DefaultTimeline.h in Headers */,
 				24412E3816E013810081897B /* DefaultEntityContainer.h in Headers */,
+				249CF64A16E709F70018FD33 /* TextureGlyphInformation.h in Headers */,
+				249CF64E16E70A120018FD33 /* SubTextureInfo.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1443,7 +1455,6 @@
 				51E519F51697652D00F6D446 /* LibcTimeHelper.cpp in Sources */,
 				5153CD011698AA3300431A19 /* Font.cpp in Sources */,
 				5153CD041698AA3300431A19 /* FontImplementation.cpp in Sources */,
-				5153CD061698AA3300431A19 /* GlyphInformation.cpp in Sources */,
 				5153CD1D169925E700431A19 /* Camera.cpp in Sources */,
 				5153CD211699282300431A19 /* CameraDriverRenderer.cpp in Sources */,
 				51B374D516A4F04D0052740F /* Vector2.cpp in Sources */,
@@ -1460,6 +1471,9 @@
 				24C119C816DF0F77001A8DE3 /* EntityContainer.cpp in Sources */,
 				24C119CC16DF1127001A8DE3 /* DefaultTimeline.cpp in Sources */,
 				24412E3716E013810081897B /* DefaultEntityContainer.cpp in Sources */,
+				249CF64216E706420018FD33 /* Vector3.cpp in Sources */,
+				249CF64916E709F70018FD33 /* TextureGlyphInformation.cpp in Sources */,
+				249CF64D16E70A120018FD33 /* SubTextureInfo.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

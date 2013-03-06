@@ -29,9 +29,10 @@ namespace BaconBox {
 
 	Transform &Transform::operator=(const Transform &src) {
 		if (this != &src) {
-			this->position = src.position;
-			this->rotation = src.rotation;
-			this->scale = src.scale;
+
+			setPosition(src.getPosition());
+			setRotation(src.getRotation());
+			setScale(src.getScale());
 			this->matrix = src.matrix;
 		}
 
@@ -76,10 +77,16 @@ namespace BaconBox {
 	}
 
 	float Transform::getRotation() const {
+		#if !defined(BB_FLASH_PLATEFORM)
+			return this->rotation * -1;
+		#endif
 		return this->rotation;
 	}
 
 	void Transform::setRotation(float newRotation) {
+		   #if !defined(BB_FLASH_PLATEFORM)
+			newRotation *= -1;
+		#endif
 		ValueChangedData<float> data(this->rotation, newRotation);
 		this->rotation = newRotation;
 		this->matrix.rotate(data.newValue - data.oldValue);

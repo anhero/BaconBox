@@ -19,7 +19,6 @@ namespace BaconBox {
 	public:
 		/// Message ID to use when broadcasting a message to all child components.
 		static int BROADCAST;
-		
 		BB_ID_HEADER;
 		
 		static int MESSAGE_ADD_COMPONENT;

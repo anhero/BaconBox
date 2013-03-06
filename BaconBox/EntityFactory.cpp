@@ -8,6 +8,7 @@
 #include "BaconBox/Components/Texture.h"
 #include "BaconBox/ResourceManager.h"
 #include "BaconBox/Display/TextureInformation.h"
+#include "BaconBox/Console.h"
 
 #ifdef BB_FLASH_PLATEFORM
 #include <AS3/AS3.h>
@@ -21,6 +22,9 @@
 namespace BaconBox {
 
 	MovieClipEntity *EntityFactory::getMovieClipEntity(const std::string &key) {
+#ifdef BB_DEBUG
+    try{
+#endif
 #ifdef BB_FLASH_PLATEFORM
 		AS3::local::var mc =  FlashHelper::construct(key);
 		AS3::local::var entity = FlashHelper::getProperty(mc, "entity");
@@ -29,47 +33,67 @@ namespace BaconBox {
 		return entityPointer;
 
 #else
-		TexturePointer texture(key);
-		MovieClipEntity *result = NULL;
+		SubTextureInfo* subTex = ResourceManager::getSubTexture(key);
+		
 
-		if (texture.pointer) {
+		return getMovieClipEntityFromSubTexture(subTex);
+
+
+#endif
+		
+#ifdef BB_DEBUG
+    }
+    catch(...){
+    Console__error("Error in EntityFactory::getMovieClipEntity with key: " << key);
+    throw;
+    }
+#endif		
+	}
+	
+#if  defined(BB_FLASH_PLATEFORM)
+TextEntity * EntityFactory::getTextEntity(const std::string &key){
+		AS3::local::var mc =  FlashHelper::construct(key);
+		AS3::local::var entity = FlashHelper::getProperty(mc, "entity");
+		AS3::local::var entityPointerAS3 = FlashHelper::getProperty(entity, "swigCPtr");
+		TextEntity *entityPointer = (TextEntity *)int_valueOf(entityPointerAS3);
+		return entityPointer;
+}
+#else
+	MovieClipEntity *EntityFactory::getMovieClipEntityFromSubTexture(SubTextureInfo* subTex){
+	    MovieClipEntity *result = NULL;
+
+		if (subTex) {
 			result = new MovieClipEntity();
-
-			Vector2 size(static_cast<float>(texture.pointer->imageWidth), static_cast<float>(texture.pointer->imageHeight));
-
-			Vector2 poweredSize(static_cast<float>(texture.pointer->poweredWidth), static_cast<float>(texture.pointer->poweredHeight));
 
 			Mesh *mesh = new Mesh();
 
 			mesh->getVertices().resize(4);
-
-			mesh->getVertices()[1].x = size.x;
-			mesh->getVertices()[2].y = size.y;
-			mesh->getVertices()[3] = size;
+			
+			mesh->getVertices()[1].x = subTex->size.x;
+			mesh->getVertices()[2].y = subTex->size.y;
+			mesh->getVertices()[3] = subTex->size;
 
 			result->addComponent(mesh);
-
-			result->addComponent(new ColorFilter(Color::WHITE));
-
+			
 			Texture *textureComponent = new Texture();
 
-			textureComponent->setTexture(texture.pointer);
+			textureComponent->setTexture(subTex->textureInfo);
 
 			textureComponent->getTextureCoordinates().resize(4);
-			textureComponent->getTextureCoordinates()[1].x = size.x / poweredSize.x;
-			textureComponent->getTextureCoordinates()[2].y = size.y / poweredSize.y;
-			textureComponent->getTextureCoordinates()[3] = size.getCoordinatesDivision(poweredSize);
-
+			textureComponent->getTextureCoordinates()[0].x= subTex->position.x/subTex->textureInfo->poweredWidth;
+			textureComponent->getTextureCoordinates()[0].y= subTex->position.y/subTex->textureInfo->poweredHeight;
+			textureComponent->getTextureCoordinates()[1].x = (subTex->position.x + subTex->size.x)/subTex->textureInfo->poweredWidth;
+			textureComponent->getTextureCoordinates()[1].y = (subTex->position.y)/subTex->textureInfo->poweredHeight;
+			textureComponent->getTextureCoordinates()[2].x = (subTex->position.x)/subTex->textureInfo->poweredWidth;
+			textureComponent->getTextureCoordinates()[2].y = (subTex->position.y + subTex->size.y)/subTex->textureInfo->poweredHeight;
+			textureComponent->getTextureCoordinates()[3].x = (subTex->position.x + subTex->size.x)/subTex->textureInfo->poweredWidth;
+			textureComponent->getTextureCoordinates()[3].y = (subTex->position.y + subTex->size.y)/subTex->textureInfo->poweredHeight;
 			result->addComponent(textureComponent);
 
 			result->addComponent(new MeshDriverRenderer(RenderMode::SHAPE | RenderMode::COLOR | RenderMode::TEXTURE));
+			return result;
 		}
-
-		return result;
-
-
-#endif
 	}
-
+#endif
 
 }

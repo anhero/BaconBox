@@ -7,6 +7,9 @@
 	#include <AS3/AS3.h>
 	#include <AS3/AS3++.h>
 	#include "BaconBox/Core/Engine.h"
+	#include "BaconBox/Display/Text/Font.h"
+
+	#include "BaconBox/Display/Text/Flash/FlashFont.h"
 
 	#ifdef BB_LUA
 		#include "BaconBox/Script/Lua/LuaManager.h"
@@ -35,7 +38,17 @@
 	
 	namespace BaconBox{
 
+		class Font;
+		class FlashFont : public Font{
+		public:
+		FlashFont(const std::string &newName = "");
+		};
 
+		class TextEntity { 
+    	public:
+    		TextEntity(Font * font);
+			void setMovieClip(AS3::local::var aMC);
+		};
 
 		class MovieClipEntity { 
     	public:

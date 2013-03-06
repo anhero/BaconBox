@@ -77,27 +77,42 @@ end
 
 	#include "BaconBox/Core/Component.h"
 	#include "BaconBox/Core/Entity.h"
-
-
+  #include "BaconBox/Display/Color.h"
+  #include "BaconBox/Components/ColorFilter.h"
   #include "BaconBox/Components/HasName.h"
 
 
 	#include "BaconBox/Vector2.h"
 	#include "BaconBox/Components/Transform.h"
+  #include "BaconBox/Display/ColorFormat.h"
+  #include "BaconBox/Display/TextureInformation.h"
 
+
+
+  #include "BaconBox/Display/SubTextureInfo.h"
 	#include "BaconBox/MovieClipEntity/MovieClipEntity.h"
 	#include "BaconBox/EntityFactory.h"
   #include "BaconBox/Components/HasName.h"
   #include "BaconBox/Core/State.h"
-
   #include "BaconBox/Core/Engine.h"
+  #include "BaconBox/Display/Text/FontFormat.h"
 
+  #include "BaconBox/Display/Text/Font.h"
   #include "BaconBox/ResourceManager.h"
+#include "BaconBox/Display/Text/TextAlignment.h"
+#include "BaconBox/Components/TextComponent.h"
+#include "BaconBox/Display/Text/TextEntity.h"
 
 #if defined(BB_LUA)
   #include "BaconBox/Components/Lua/LuaState.h"
 #endif
 
+namespace BaconBox{
+class BaseEngine;
+#ifdef BB_FLASH_PLATEFORM
+class FlashEngine;
+#endif
+}
 
 ///////////////////////
 // Helper functions
@@ -159,7 +174,14 @@ class SoundInfo;
 #include "BaconBox/Audio/BackgroundMusic.h"
 
 %}
+namespace BaconBox{
+class BaseEngine;
 
+#ifdef BB_FLASH_PLATEFORM
+class FlashEngine;
+#endif
+
+}
 
 %include "BaconBox/Core/IDManager.h"
 
@@ -217,7 +239,6 @@ class SoundInfo;
 
 #endif
 
-
 %include "BaconBox/Helper/SafeEnum.h"
 
 
@@ -228,7 +249,8 @@ class SoundInfo;
 
 
 %include "BaconBox/Core/Entity.h"
-
+%include "BaconBox/Display/Color.h"
+%include "BaconBox/Components/ColorFilter.h" 
 //%include "BaconBox/Vector2.h"
 
 namespace BaconBox{
@@ -278,7 +300,6 @@ namespace BaconBox{
 		float y;
 	};
 
-
 }
 
 
@@ -295,9 +316,14 @@ namespace BaconBox{
 
 %include "BaconBox/Components/Transform.h"
 
+
+%include "BaconBox/Display/ColorFormat.h"
+
+
+%include "BaconBox/Display/TextureInformation.h"
+%include "BaconBox/Display/SubTextureInfo.h"
 %include "BaconBox/MovieClipEntity/MovieClipEntity.h"
 
-%include "BaconBox/EntityFactory.h" 
 
 
 #if defined(BB_LUA)
@@ -305,6 +331,7 @@ namespace BaconBox{
 #endif
 
 %include "BaconBox/Core/State.h"
+
 %include "BaconBox/Core/Engine.h"
 
 %include "BaconBox/Audio/AudioState.h"
@@ -316,8 +343,16 @@ namespace BaconBox{
 
 %include "BaconBox/Audio/MusicEngine.h"
 %include "BaconBox/Audio/BackgroundMusic.h"
+%include "BaconBox/Display/Text/FontFormat.h"
 
+%include "BaconBox/Display/Text/Font.h"
+
+%include "BaconBox/Display/Text/TextAlignment.h"
+%include "BaconBox/Components/TextComponent.h"
+%include "BaconBox/Display/Text/TextEntity.h"
+%include "BaconBox/EntityFactory.h" 
 namespace BaconBox{
+
   class ResourceManager{
     public:
 
@@ -345,12 +380,34 @@ namespace BaconBox{
 
      static MusicInfo *loadMusicRelativePath(const std::string &key,
                                             const std::string &relativePath,
-                                            bool overwrite = false);                                                                        
+                                            bool overwrite = false);       
+
+
 
     static SoundInfo *getSound(const std::string &key);
 
     static MusicInfo *getMusic(const std::string &key);
+
+
+static Font *loadFont(const std::string &key,
+                          const std::string &path, bool overwrite = false);
+
+static Font *loadFontRelativePath(const std::string &key,
+                                      const std::string &relativePath,
+                                      bool overwrite = false);
+
+
+    static Font *getFont(const std::string &key);
+
+    static void removeFont(const std::string &key);
+
+        static void removeTexture(const std::string &key);
+
+    static void removeSound(const std::string &key);
+
+    static void removeMusic(const std::string &key);
   };
 
 
 }
+

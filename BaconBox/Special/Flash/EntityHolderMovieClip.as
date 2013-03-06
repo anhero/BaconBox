@@ -1,4 +1,4 @@
-package {
+package BaconBox {
 import flash.display.MovieClip;
 import BaconBox.MovieClipEntity;
 

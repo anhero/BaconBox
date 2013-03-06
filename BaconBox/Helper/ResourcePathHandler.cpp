@@ -177,6 +177,11 @@ namespace BaconBox {
 
 		return result;
 	}
+	
+	std::string ResourcePathHandler::getPathFromFilename(std::string filename){
+	    unsigned found = filename.find_last_of("/\\");
+	    return filename.substr(0,found);
+	}
 
 	bool ResourcePathHandler::isFileWritable(const std::string &filePath) {
 		// We try to open the file for writing.

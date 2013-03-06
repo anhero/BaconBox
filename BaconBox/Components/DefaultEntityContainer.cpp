@@ -7,6 +7,7 @@
 #include "BaconBox/Components/ComponentConnection.h"
 #include "BaconBox/Components/Transform.h"
 #include "BaconBox/Components/EntityContainerLooper.h"
+#include "BaconBox/Components/Visibility.h"
 #include "BaconBox/Console.h"
 
 namespace BaconBox {
@@ -100,9 +101,12 @@ namespace BaconBox {
 		if (destID == Entity::BROADCAST) {
 			if (senderID == Transform::ID) {
 				EntityContainerLooper::forEachChild(this, SendMessageChild(senderID, destID, message, data));
-			}
-			if (senderID == Timeline::ID && message == Timeline::MESSAGE_NB_FRAMES_CHANGED) {
-				this->setNbFrames(*reinterpret_cast<ValueChangedData<int> *>(data));
+			} else if (senderID == Visibility::ID) {
+				EntityContainerLooper::forEachChild(this, SendMessageChild(senderID, destID, message, data));
+			} else if (senderID == Timeline::ID) {
+				if (message == Timeline::MESSAGE_NB_FRAMES_CHANGED) {
+					this->setNbFrames(*reinterpret_cast<ValueChangedData<int> *>(data));
+				}
 			}
 		}
 	}
