@@ -300,6 +300,13 @@ namespace BaconBox {
 			i->y += yDelta;
 		}
 	}
+	
+	void VertexArray::multiplyWithMatrix(const Matrix2 & m){
+	   for (Iterator i = getBegin(); i != getEnd(); ++i) {
+		(*i) *= m;
+	   } 
+	}
+
 
 	void VertexArray::scaleFromPoint(float xScaling, float yScaling,
 	                                 const Vector2 &fromPoint) {
