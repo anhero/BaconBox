@@ -15,11 +15,13 @@ namespace BaconBox {
 	int Transform::MESSAGE_POSITION_CHANGED = IDManager::generateID();
 	int Transform::MESSAGE_ROTATION_CHANGED = IDManager::generateID();
 	int Transform::MESSAGE_SCALE_CHANGED = IDManager::generateID();
+	int Transform::MESSAGE_MATRIX_CHANGED = IDManager::generateID();
 	
-	Transform::Transform() : Component(), position(), rotation(0.0f), scale(1.0f, 1.0f) {
+	
+	Transform::Transform() : Component(), position(), rotation(0.0f), scale(1.0f, 1.0f), matrix() {
 	}
 
-	Transform::Transform(const Transform &src) : Component(src), position(src.position), rotation(src.rotation), scale(src.scale) {
+	Transform::Transform(const Transform &src) : Component(src), position(src.position), rotation(src.rotation), scale(src.scale), matrix(src.matrix) {
 	}
 
 	Transform::~Transform() {
@@ -30,6 +32,7 @@ namespace BaconBox {
 			this->position = src.position;
 			this->rotation = src.rotation;
 			this->scale = src.scale;
+			this->matrix = src.matrix;
 		}
 
 		return *this;
@@ -67,6 +70,8 @@ namespace BaconBox {
 	void Transform::setPosition(const Vector2 &newPosition) {
 		Vector2ChangedData data(this->position, newPosition);
 		this->position = newPosition;
+		Vector2 diff = data.newValue - data.oldValue;
+		this->matrix.translate(diff.x, diff.y);
 		sendMessage(Entity::BROADCAST, MESSAGE_POSITION_CHANGED, &(data));
 	}
 
@@ -77,6 +82,7 @@ namespace BaconBox {
 	void Transform::setRotation(float newRotation) {
 		ValueChangedData<float> data(this->rotation, newRotation);
 		this->rotation = newRotation;
+		this->matrix.rotate(data.newValue - data.oldValue);
 		sendMessage(Entity::BROADCAST, MESSAGE_ROTATION_CHANGED, &(data));
 	}
 
@@ -87,13 +93,39 @@ namespace BaconBox {
 	void Transform::setScale(const Vector2 &newScale) {
 		Vector2ChangedData data(this->scale, newScale);
 		this->scale = newScale;
+		Vector2 diff = Vector2(data.newValue.x / data.oldValue.x, data.newValue.y / data.oldValue.y);
+		this->matrix.scale(diff.x, diff.y);
 		sendMessage(Entity::BROADCAST, MESSAGE_SCALE_CHANGED, &(data));
 	}
 	
+	Matrix2 & Transform::getMatrix(){
+	    return matrix;
+	}
+	
+	void Transform::setMatrix(const Matrix2 & m){
+	    Vector2 origin = Vector2() * m;
+	    Vector2 endingX = Vector2(1,0) * m;
+	    Vector2 endingY = Vector2(0,1) * m;
+	    
+	    this->matrix = m;
+	    this->position = origin;
+	    this->rotation = (endingX - origin).getAngle();
+	    this->scale.x = (endingX - origin).getLength();
+	    this->scale.y = (endingY - origin).getLength();
+	    sendMessage(Entity::BROADCAST, MESSAGE_MATRIX_CHANGED, &(data));
+
+	}
 	
 	TransformProxy::TransformProxy(Entity* entity, bool mustAddComponent): BB_PROXY_CONSTRUCTOR(new Transform())  {
 	}
 	    
+	void TransformProxy::setMatrix(const Matrix2 & m){
+		reinterpret_cast<Transform*>(component)->setMatrix(m);
+	}
+			
+	Matrix2 & TransformProxy::getMatrix(){
+	    return reinterpret_cast<Transform*>(component)->getMatrix();
+	}
 	    
 	const Vector2 &TransformProxy::getPosition() const{
 	    return reinterpret_cast<Transform*>(component)->getPosition();

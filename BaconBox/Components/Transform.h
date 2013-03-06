@@ -5,7 +5,7 @@
 #include "BaconBox/Vector2.h"
 #include "BaconBox/Core/Entity.h"
 #include "BaconBox/Input/Pointer/Pointer.h"
-
+#include "BaconBox/Matrix.h"
 namespace BaconBox {
 	/**
 	 * Component that manages the entity's position, orientation and scaling
@@ -33,6 +33,8 @@ namespace BaconBox {
 		static int MESSAGE_ROTATION_CHANGED;
 		/// Message ID the component sends when its entity's scale values have changed.
 		static int MESSAGE_SCALE_CHANGED;
+		
+		static int MESSAGE_MATRIX_CHANGED;
 
 		/**
 		 * Default constructor.
@@ -106,6 +108,9 @@ namespace BaconBox {
 		 * @param newScale Vector2 containing the entity's new scale values.
 		 */
 		void setScale(const Vector2 &newScale);
+	
+		void setMatrix(const Matrix2 & m);
+		Matrix2 & getMatrix();
 
 	private:
 		/**
@@ -123,12 +128,17 @@ namespace BaconBox {
 		 * Entity's horizontal and vertical scale values.
 		 */
 		Vector2 scale;
+		
+		Matrix2 matrix;
 	};
 
 
 	class TransformProxy : public ComponentProxy {
 	public:
 		TransformProxy(Entity *entity, bool mustAddComponent = true);
+		
+		Matrix2 & getMatrix();
+		void setMatrix(const Matrix2 & m);
 
 		const Vector2 &getPosition() const;
 		void setPosition(const Vector2 &newPosition);
