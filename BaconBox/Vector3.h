@@ -21,6 +21,8 @@ namespace BaconBox {
 		static const Vector<ValueType, NB_DIMENSIONS> UP;
 		/// Value equal to zero.
 		static const ValueType ZERO;
+		/// Value equal to one.
+		static const ValueType ONE;
 		
 		/// Type of component, either on the X axis or Y axis.
 		enum ComponentType {
@@ -217,6 +219,8 @@ namespace BaconBox {
 		 * @param src Vector to make a copy of.
 		 */
 		Vector(const Vector3 &src);
+		
+		Vector(const Vector2 &src);
 		
 		/**
 		 * Assignment operator overload.
@@ -486,6 +490,8 @@ namespace BaconBox {
 	Vector<T, 3u>::Vector(XComponent newX, YComponent newY, ZComponent newZ) : x(newX.value), y(newY.value), z(newZ.value) {}
 	template <typename T>
 	Vector<T, 3u>::Vector(const Vector3 &src) : x(src.x), y(src.y), z(src.z) {}
+	template <typename T>
+	Vector<T, 3u>::Vector(const Vector2 &src) : x(src.x), y(src.y), z(ONE) {}
 	template <typename T>
 	typename Vector<T, 3u>::Vector3 &Vector<T, 3u>::operator=(const Vector3 &src) {
 		x = src.x;

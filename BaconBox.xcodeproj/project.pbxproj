@@ -19,6 +19,7 @@
 		246274CB16AC8AB4006C7FFF /* MeshDriverRenderer.h in Headers */ = {isa = PBXBuildFile; fileRef = 246274C916AC8AB4006C7FFF /* MeshDriverRenderer.h */; };
 		2478740816360C7F006D4A59 /* libSDL2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2478740616360C7F006D4A59 /* libSDL2.a */; };
 		2478740916360C7F006D4A59 /* libSDL2main.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2478740716360C7F006D4A59 /* libSDL2main.a */; };
+		249CF64216E706420018FD33 /* Vector3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 249CF64116E706420018FD33 /* Vector3.cpp */; };
 		24AF672A16BED58F004AA3D0 /* Texture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 24AF672816BED58F004AA3D0 /* Texture.cpp */; };
 		24AF672B16BED58F004AA3D0 /* Texture.h in Headers */ = {isa = PBXBuildFile; fileRef = 24AF672916BED58F004AA3D0 /* Texture.h */; };
 		24B0364516BEA39300117510 /* HasName.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 24B0364316BEA39300117510 /* HasName.cpp */; };
@@ -302,6 +303,7 @@
 		2478740616360C7F006D4A59 /* libSDL2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSDL2.a; path = libraries/Darwin/x86_64/lib/libSDL2.a; sourceTree = "<group>"; };
 		2478740716360C7F006D4A59 /* libSDL2main.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSDL2main.a; path = libraries/Darwin/x86_64/lib/libSDL2main.a; sourceTree = "<group>"; };
 		249CF64016E6FD7A0018FD33 /* Vector3.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Vector3.h; sourceTree = "<group>"; };
+		249CF64116E706420018FD33 /* Vector3.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Vector3.cpp; sourceTree = "<group>"; };
 		24AF672816BED58F004AA3D0 /* Texture.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Texture.cpp; sourceTree = "<group>"; };
 		24AF672916BED58F004AA3D0 /* Texture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Texture.h; sourceTree = "<group>"; };
 		24B0364316BEA39300117510 /* HasName.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = HasName.cpp; sourceTree = "<group>"; };
@@ -682,6 +684,7 @@
 				51E517481697529200F6D446 /* StandardVertexArray.h */,
 				51E517491697529200F6D446 /* VertexArray.cpp */,
 				51E5174A1697529200F6D446 /* VertexArray.h */,
+				249CF64116E706420018FD33 /* Vector3.cpp */,
 			);
 			path = BaconBox;
 			sourceTree = "<group>";
@@ -1462,6 +1465,7 @@
 				24C119C816DF0F77001A8DE3 /* EntityContainer.cpp in Sources */,
 				24C119CC16DF1127001A8DE3 /* DefaultTimeline.cpp in Sources */,
 				24412E3716E013810081897B /* DefaultEntityContainer.cpp in Sources */,
+				249CF64216E706420018FD33 /* Vector3.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
