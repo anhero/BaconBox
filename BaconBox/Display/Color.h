@@ -150,6 +150,8 @@ namespace BaconBox {
 		 */
 		operator uint32_t() const;
 
+		unsigned int getRGBA() const;
+		unsigned int getRGB() const;
 		/**
 		 * Gets the color's red component.
 		 * @return Red component
