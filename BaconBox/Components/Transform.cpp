@@ -1,8 +1,8 @@
 #include "Transform.h"
 
 #include "BaconBox/Core/Entity.h"
-#include "BaconBox/Helper/Vector2ChangedData.h"
 #include "BaconBox/Console.h"
+#include "BaconBox/Helper/MathHelper.h"
 
 namespace BaconBox {
 	 BB_ID_IMPL(Transform);
@@ -71,25 +71,18 @@ namespace BaconBox {
 	void Transform::setPosition(const Vector2 &newPosition) {
 		Vector2ChangedData data(this->position, newPosition);
 		this->position = newPosition;
-		Vector2 diff = data.newValue - data.oldValue;
-		this->matrix.translate(diff.x, diff.y);
+		updateMatrix(data, Vector2ChangedData(scale,scale), ValueChangedData<float>(rotation, rotation));
 		sendMessage(Entity::BROADCAST, MESSAGE_POSITION_CHANGED, &(data));
 	}
 
 	float Transform::getRotation() const {
-		#if !defined(BB_FLASH_PLATEFORM)
-			return this->rotation * -1;
-		#endif
 		return this->rotation;
 	}
 
 	void Transform::setRotation(float newRotation) {
-		   #if !defined(BB_FLASH_PLATEFORM)
-			newRotation *= -1;
-		#endif
 		ValueChangedData<float> data(this->rotation, newRotation);
 		this->rotation = newRotation;
-		this->matrix.rotate(data.newValue - data.oldValue);
+		updateMatrix(Vector2ChangedData(position,position), Vector2ChangedData(scale, scale), data);
 		sendMessage(Entity::BROADCAST, MESSAGE_ROTATION_CHANGED, &(data));
 	}
 
@@ -100,37 +93,72 @@ namespace BaconBox {
 	void Transform::setScale(const Vector2 &newScale) {
 		Vector2ChangedData data(this->scale, newScale);
 		this->scale = newScale;
-		Vector2 diff = Vector2(data.newValue.x / data.oldValue.x, data.newValue.y / data.oldValue.y);
-		this->matrix.scale(diff.x, diff.y);
+		updateMatrix(Vector2ChangedData(position,position), data, ValueChangedData<float>(rotation, rotation));
 		sendMessage(Entity::BROADCAST, MESSAGE_SCALE_CHANGED, &(data));
 	}
 	
-	Matrix2 & Transform::getMatrix(){
+	Matrix & Transform::getMatrix(){
 	    return matrix;
 	}
 	
-	void Transform::setMatrix(const Matrix2 & m){
-	    Vector2 origin = Vector2() * m;
-	    Vector2 endingX = Vector2(1,0) * m;
-	    Vector2 endingY = Vector2(0,1) * m;
-	    
+	
+	void Transform::updateMatrix(Vector2ChangedData position, Vector2ChangedData scale, ValueChangedData<float> angle){
+	    if(matrix.isSkewed()){
+		throw; // TODO IMPLEMENT ME! This branch of the condition is broken.
+		matrix.rotate(-angle.oldValue);
+		matrix.translate(-position.oldValue);
+		matrix.scale(Vector2(1/scale.oldValue.x, 1/scale.oldValue.y));
+		
+		Matrix temp;
+		temp.scale(scale.newValue);
+		temp.translate(position.newValue);
+		temp.rotate(angle.newValue);
+		matrix = matrix * temp;
+		
+	    }
+	    else{
+		float cos  = MathHelper::cos(-angle.newValue*MathHelper::AngleConvert<float>::DEGREES_TO_RADIANS);
+		matrix.a = scale.newValue.x * cos;
+		matrix.c = MathHelper::sin(-angle.newValue*MathHelper::AngleConvert<float>::DEGREES_TO_RADIANS);
+		matrix.b = -matrix.c;
+		matrix.d = scale.newValue.y * cos;
+		matrix.tx = position.newValue.x;
+		matrix.ty = position.newValue.y;
+	    }
+	}
+
+	
+	void Transform::setMatrix(const Matrix & m){
 	    this->matrix = m;
-	    this->position = origin;
-	    this->rotation = (endingX - origin).getAngle();
-	    this->scale.x = (endingX - origin).getLength();
-	    this->scale.y = (endingY - origin).getLength();
-	    sendMessage(Entity::BROADCAST, MESSAGE_MATRIX_CHANGED, &(data));
+	    if(!m.isSkewed()){
+		rotation = MathHelper::asin(m.b);
+		float cos = MathHelper::cos(rotation);
+		scale.x = m.a/cos;
+		scale.y = m.d/cos;
+		position.x = m.tx;
+		position.y = m.ty;
+		rotation *= MathHelper::AngleConvert<float>::RADIANS_TO_DEGREES; 
+	    }
+//	    Vector2 origin = m.multiplyWithVector(Vector2());
+//	    Vector2 endingX = m.multiplyWithVector(Vector2(1,0));
+//	    Vector2 endingY = m.multiplyWithVector(Vector2(0,1));
+//	    
+//	    setPosition(origin);
+//	    setScale(Vector2((endingX - origin).getLength(), (endingY - origin).getLength()));
+//	    setRotation((endingX - origin).getAngle()+90);
+
+	    sendMessage(Entity::BROADCAST, MESSAGE_MATRIX_CHANGED, &(this->matrix));
 
 	}
 	
 	TransformProxy::TransformProxy(Entity* entity, bool mustAddComponent): BB_PROXY_CONSTRUCTOR(new Transform())  {
 	}
 	    
-	void TransformProxy::setMatrix(const Matrix2 & m){
+	void TransformProxy::setMatrix(const Matrix & m){
 		reinterpret_cast<Transform*>(component)->setMatrix(m);
 	}
 			
-	Matrix2 & TransformProxy::getMatrix(){
+	Matrix & TransformProxy::getMatrix(){
 	    return reinterpret_cast<Transform*>(component)->getMatrix();
 	}
 	    

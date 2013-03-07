@@ -6,6 +6,8 @@
 #include "BaconBox/Core/Entity.h"
 #include "BaconBox/Input/Pointer/Pointer.h"
 #include "BaconBox/Matrix.h"
+#include "BaconBox/Helper/Vector2ChangedData.h"
+
 namespace BaconBox {
 	/**
 	 * Component that manages the entity's position, orientation and scaling
@@ -109,10 +111,13 @@ namespace BaconBox {
 		 */
 		void setScale(const Vector2 &newScale);
 	
-		void setMatrix(const Matrix2 & m);
-		Matrix2 & getMatrix();
+		void setMatrix(const Matrix & m);
+		Matrix & getMatrix();
 
 	private:
+	    
+	    
+		void updateMatrix(Vector2ChangedData position, Vector2ChangedData scale, ValueChangedData<float> angle);
 		/**
 		 * Entity's position. All rotations and scaling are applied from this
 		 * point.
@@ -129,7 +134,7 @@ namespace BaconBox {
 		 */
 		Vector2 scale;
 		
-		Matrix2 matrix;
+		Matrix matrix;
 	};
 
 
@@ -137,8 +142,8 @@ namespace BaconBox {
 	public:
 		TransformProxy(Entity *entity, bool mustAddComponent = true);
 		
-		Matrix2 & getMatrix();
-		void setMatrix(const Matrix2 & m);
+		Matrix & getMatrix();
+		void setMatrix(const Matrix & m);
 
 		const Vector2 &getPosition() const;
 		void setPosition(const Vector2 &newPosition);
