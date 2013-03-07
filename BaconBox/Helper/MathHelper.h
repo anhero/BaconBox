@@ -103,7 +103,10 @@ namespace BaconBox {
 		static bool sameSign(T x, T y) {
 			return ((x < T()) == (y < T()));
 		}
-
+		
+		static float cos(float x);
+		static float sin(float x);
+		static float asin(float x);
 		/**
          * Eases a value using a specific type of easing.
          * @param t Value to ease.

@@ -230,6 +230,18 @@ namespace BaconBox {
 
 		return angle;
 	}
+	
+	float MathHelper::cos(float x){
+	    return std::cos(x);
+	}
+	float MathHelper::sin(float x){
+	    return std::sin(x);
+	}
+
+
+	float MathHelper::asin(float x){
+	    return std::asin(x);
+	}
 
 	template <>
 	double MathHelper::clampAngle(double angle) {
