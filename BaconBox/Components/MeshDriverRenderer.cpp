@@ -78,14 +78,14 @@ namespace BaconBox {
 						if (this->renderMode & RenderMode::TEXTURE) {
 							if (this->texture) {
 								// We render with the texture.
-								GraphicDriver::getInstance().drawShapeWithTextureAndColor(this->mesh->getVertices(), this->texture->getTexture(), this->texture->getTextureCoordinates(), color);
+								GraphicDriver::getInstance().drawShapeWithTextureAndColor(this->mesh->getPostTransformVertices(), this->texture->getTexture(), this->texture->getTextureCoordinates(), color);
 							} else {
 								// We render without the texture.
-								GraphicDriver::getInstance().drawShapeWithColor(this->mesh->getVertices(), color);
+								GraphicDriver::getInstance().drawShapeWithColor(this->mesh->getPostTransformVertices(), color);
 							}
 						} else {
 							// We render the mesh with the given color.
-							GraphicDriver::getInstance().drawShapeWithColor(this->mesh->getVertices(), color);
+							GraphicDriver::getInstance().drawShapeWithColor(this->mesh->getPostTransformVertices(), color);
 						}
 					}
 				}

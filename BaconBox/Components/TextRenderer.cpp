@@ -69,7 +69,7 @@ namespace BaconBox {
 			    resetPosition();
 			}
 		}
-		else if(destID == TextRenderer::ID && message == Entity::MESSAGE_ADDING_COMPONENT){
+	    else if(destID == TextRenderer::ID && message == Entity::MESSAGE_ADD_COMPONENT){
 		    textComponent = reinterpret_cast<TextComponent*>(getEntity()->getComponent(TextComponent::ID));
 		}
 		else if(senderID == ColorFilter::ID){
@@ -105,7 +105,7 @@ namespace BaconBox {
 				Transform* transform = reinterpret_cast<Transform*>(sprite->getComponent(Transform::ID));
 				Transform transformBackup = *transform;
 				(*transform) = Transform();
-				mesh->getVertices().move(alignmentAdjust.x, alignmentAdjust.y);
+				mesh->getPreTransformVertices().move(alignmentAdjust.x, alignmentAdjust.y);
 				(*transform) = transformBackup;
 			}
 		}
@@ -156,7 +156,9 @@ namespace BaconBox {
 					Mesh* mesh = reinterpret_cast<Mesh*>(sprite->getComponent(Mesh::ID));
 					Vector2 glypRelativePosition = transform->getPosition() +advance+ glyphInfo->offset + Vector2(font->getKerning(previousChar, k->glyph->charCode),0) + newLineJump;
 					Vector2 neededMove = glypRelativePosition - k->currentPos;
-					if(neededMove.x || neededMove.y)mesh->getVertices().move(neededMove.x, neededMove.y);
+					if(neededMove.x || neededMove.y){
+					    mesh->getPreTransformVertices().move(neededMove.x, neededMove.y);
+					}
 					(*transform) = (*stringTransform);
 					k->currentPos = glypRelativePosition;
 					advance += glyphInfo->advance;

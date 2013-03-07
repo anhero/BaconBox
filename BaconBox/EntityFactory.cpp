@@ -67,11 +67,13 @@ TextEntity * EntityFactory::getTextEntity(const std::string &key){
 
 			Mesh *mesh = new Mesh();
 
-			mesh->getVertices().resize(4);
+			mesh->getPreTransformVertices().resize(4);
 			
-			mesh->getVertices()[1].x = subTex->size.x;
-			mesh->getVertices()[2].y = subTex->size.y;
-			mesh->getVertices()[3] = subTex->size;
+			mesh->getPreTransformVertices()[1].x = subTex->size.x;
+			mesh->getPreTransformVertices()[2].y = subTex->size.y;
+			mesh->getPreTransformVertices()[3] = subTex->size;
+			
+			mesh->syncMesh();
 
 			result->addComponent(mesh);
 			
