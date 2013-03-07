@@ -6,9 +6,9 @@
 namespace BaconBox {
 	BB_ID_IMPL(ColorFilter);
 	
-	int ColorFilter::MESSAGE_GET_COLOR = IDManager::generatetID();
-	int ColorFilter::MESSAGE_SET_COLOR = IDManager::generatetID();
-	int ColorFilter::MESSAGE_COLOR_CHANGED = IDManager::generatetID();
+	int ColorFilter::MESSAGE_GET_COLOR = IDManager::generateID();
+	int ColorFilter::MESSAGE_SET_COLOR = IDManager::generateID();
+	int ColorFilter::MESSAGE_COLOR_CHANGED = IDManager::generateID();
 	
 	ColorFilter::ColorFilter() : Component(), color(Color::WHITE) {
 	}
