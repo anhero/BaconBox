@@ -15,10 +15,10 @@
 #endif	
 namespace BaconBox {
     
-	int TextComponent::MESSAGE_TEXT_CHANGED = IDManager::generatetID();
-	int TextComponent::MESSAGE_FONT_CHANGED = IDManager::generatetID();
-	int TextComponent::MESSAGE_ALIGNMENT_CHANGED = IDManager::generatetID();
-	int TextComponent::MESSAGE_SIZE_CHANGED = IDManager::generatetID();
+	int TextComponent::MESSAGE_TEXT_CHANGED = IDManager::generateID();
+	int TextComponent::MESSAGE_FONT_CHANGED = IDManager::generateID();
+	int TextComponent::MESSAGE_ALIGNMENT_CHANGED = IDManager::generateID();
+	int TextComponent::MESSAGE_SIZE_CHANGED = IDManager::generateID();
 	BB_ID_IMPL(TextComponent);
 	
 	TextComponent::TextComponent() : Component(), alignment(TextAlignment::LEFT), boundingBox(Vector2(), Vector2(200,200)) {
