@@ -14,7 +14,7 @@
 #include "BaconBox/Helper/Serialization/Serializer.h"
 #include "BaconBox/Helper/Serialization/Array.h"
 #include "BaconBox/Helper/Serialization/Object.h"
-#include "BaconBox/Matrix.h"
+
 
 namespace BaconBox {
 #pragma pack(1)
@@ -261,7 +261,6 @@ namespace BaconBox {
 		Vector2 &operator*=(ValueType delta);
 		Vector2 &operator*=(XComponent xDelta);
 		Vector2 &operator*=(YComponent yDelta);
-		Vector2 &operator*=(const Matrix2 & m);
 		
 		
 
@@ -307,7 +306,6 @@ namespace BaconBox {
 		 */
 		ValueType operator*(const Vector2 &other) const;
 		
-		Vector2 operator*(const Matrix2 &m) const;
 
 		Vector2 operator*(ValueType delta) const;
 		friend Vector2 operator*(ValueType delta, const Vector2 &vector) {
@@ -635,16 +633,9 @@ namespace BaconBox {
 		y *= yDelta.value;
 		return *this;
 	}
-	template <typename T>
-	typename Vector<T, 2u>::Vector2 &Vector<T, 2u>::operator*=(const Matrix2& m){
-		(*this) = (*this) * m;
-		return (*this);
-	}
 	
-	template <typename T>
-	typename Vector<T, 2u>::Vector2 Vector<T, 2u>::operator*(const Matrix2 &m) const{
-	    return Vector2(m.a*x + m.c*y + m.tx, m.b*x + m.d*y + m.ty);
-	}
+	
+	
 
 	template <typename T>
 	typename Vector<T, 2u>::Vector2 &Vector<T, 2u>::operator/=(ValueType delta) {

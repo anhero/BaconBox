@@ -323,7 +323,7 @@ namespace BaconBox {
 		                     const Vector2 &rotationPoint);
 		
 		
-		void multiplyWithMatrix(const Matrix2 & m);
+		void multiplyWithMatrix(const Matrix & m);
 		
 		/**
 		 * Checks if a point is inside the polygon represented by the vertices.
