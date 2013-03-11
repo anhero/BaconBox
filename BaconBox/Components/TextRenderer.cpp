@@ -8,6 +8,8 @@
 #include "EntityFactory.h"
 #include "Mesh.h"
 #include "BaconBox/Display/Text/TextureFont.h"
+#include "BaconBox/Components/ComponentConnection.h"
+
 namespace BaconBox {
     
 	struct CharSprite{
@@ -19,12 +21,19 @@ namespace BaconBox {
 	
 	BB_ID_IMPL(TextRenderer);
 	
-	TextRenderer::TextRenderer(TextureFont * font) : Component(), font(font), needPositionReset(false), alignment(TextAlignment::LEFT) {
-	   
+	TextRenderer::TextRenderer(TextureFont * font) : Component(), font(font), needPositionReset(false), alignment(TextAlignment::LEFT), textComponent(NULL) {
+		this->initializeConnections();
 	}
 
 	TextRenderer::~TextRenderer() {
 	}
+	
+	void TextRenderer::initializeConnections() {
+		// We add the connections.
+		this->addConnection(new ComponentConnection<TextComponent>(&this->textComponent));
+		this->refreshConnections();
+	}
+	
 	
 	void TextRenderer::render(){
 		if(needPositionReset){
@@ -51,6 +60,11 @@ namespace BaconBox {
 		}
 	}
 
+	void TextRenderer::setEntity(Entity *newEntity){
+	    Component::setEntity(newEntity);
+	}
+
+	
 	void TextRenderer::receiveMessage(int senderID, int destID, int message, void *data) {
 	    if(senderID == Transform::ID){
 		if(message == Transform::MESSAGE_POSITION_CHANGED || message == Transform::MESSAGE_ROTATION_CHANGED || message == Transform::MESSAGE_SCALE_CHANGED){
@@ -68,9 +82,6 @@ namespace BaconBox {
 			else if(message == TextComponent::MESSAGE_SIZE_CHANGED){
 			    resetPosition();
 			}
-		}
-	    else if(destID == TextRenderer::ID && message == Entity::MESSAGE_ADD_COMPONENT){
-		    textComponent = reinterpret_cast<TextComponent*>(getEntity()->getComponent(TextComponent::ID));
 		}
 		else if(senderID == ColorFilter::ID){
 			if(message == ColorFilter::MESSAGE_COLOR_CHANGED ){
