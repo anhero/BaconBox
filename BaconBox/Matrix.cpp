@@ -44,13 +44,14 @@ namespace BaconBox {
 		return (*this);
 	}
 	
-	void Matrix::concat(const Matrix & m){
+	Matrix & Matrix::concat(const Matrix & m){
 	    (*this) = m * (*this);
+	    return (*this);
 	}
 	
-	bool Matrix::isSkewed() const{
-	    return !(-b == c);
-	}
+//	bool Matrix::isSkewed() const{
+//	    return !(-b == c);
+//	}
 
 	
 	
@@ -80,7 +81,7 @@ namespace BaconBox {
 	}
 	
 	void Matrix::rotate(float angle){
-	    angle *= -1 * MathHelper::AngleConvert<float>::DEGREES_TO_RADIANS; 
+	    angle *=  MathHelper::AngleConvert<float>::DEGREES_TO_RADIANS; 
 	    float cosValue = MathHelper::cos(angle);
 	    float sinValue = MathHelper::sin(angle);
 	    (*this) = (*this) * Matrix(cosValue, -sinValue, sinValue, cosValue,0,0);
