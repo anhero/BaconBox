@@ -52,7 +52,57 @@ namespace BaconBox {
 		virtual void swapChildrenAt(int index1, int index2) = 0;
 		
 		virtual int getNbChildren() const = 0;
+		
+		virtual Entity * getParent() const = 0;
+
 	private:
+	};
+	
+	
+	class EntityContainerProxy : public ComponentProxy {
+	public:
+		EntityContainerProxy(Entity *entity);
+
+		
+		Entity *addChild(Entity *newChild);
+				
+		Entity *addChildAt(Entity *newChild, int index);
+		
+		bool contains(Entity *child) const;
+		
+		Entity *getChildAt(int index);
+		
+		const Entity *getChildAt(int index) const;
+		
+		Entity *getChildByName(const std::string &name);
+		
+		const Entity *getChildByName(const std::string &name) const;
+		
+		int getChildIndex(Entity *child) const;
+		
+		std::vector<Entity *> getObjectsUnderPoint(const Vector2 &point);
+		
+		std::vector<const Entity *> getObjectsUnderPoint(const Vector2 &point) const;
+		
+		Entity *removeChild(Entity *child);
+		
+		Entity *removeChildAt(int index);
+		
+		void removeChildren(int beginIndex, int endIndex);
+		
+		void setChildIndex(Entity *child, int index);
+		
+		void swapChildren(Entity *child1, Entity *child2);
+		
+		void swapChildrenAt(int index1, int index2);
+		
+		int getNbChildren() const;
+		
+		 Entity * getParent() const;
+		
+	protected:
+	    	void setEntityContainer(EntityContainer * entityContainer);
+
 	};
 }
 

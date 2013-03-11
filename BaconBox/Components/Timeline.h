@@ -39,6 +39,33 @@ namespace BaconBox {
 		
 		virtual int getNbFrames() const = 0;
 	};
+	
+	
+	class TimelineProxy : public ComponentProxy {
+	public:
+		TimelineProxy(Entity *entity);
+		
+		void gotoAndPlay(int frame);
+		
+		void gotoAndStop(int frame);
+		
+		void nextFrame();
+		
+		void prevFrame();
+		
+		void play();
+		
+		void stop();
+		
+		int getCurrentFrame() const;
+		
+		bool isPlaying() const;
+		
+		int getNbFrames() const;
+		
+	protected:
+	    void setTimeline(Timeline * timeline);
+	};
 }
 
 #endif /* defined(BB_TIMELINE_H) */

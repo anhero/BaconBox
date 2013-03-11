@@ -11,7 +11,7 @@
 #include "BaconBox/Console.h"
 
 namespace BaconBox {
-	DefaultEntityContainer::DefaultEntityContainer() : EntityContainer(), timeline(NULL), childrenByName(), children() {
+	DefaultEntityContainer::DefaultEntityContainer() : EntityContainer(), timeline(NULL), childrenByName(), children(), parent(NULL) {
 		this->initializeConnections();
 	}
 	
@@ -170,20 +170,30 @@ namespace BaconBox {
 			}
 			
 			if (allValid) {
+				EntityByFrame newChildCopy = newChild;
+				while (i != newChildCopy.end()) {
+					DefaultEntityContainer * container =  reinterpret_cast<DefaultEntityContainer*>(i->second->getComponent(EntityContainer::ID));
+					container->parent = getEntity();
+					++i;
+				}
+				    
+
+			    
 				// We get an iterator pointing to the last frame range's entity.
-				EntityByFrame::const_iterator last = newChild.end();
+				EntityByFrame::const_iterator last = newChildCopy.end();
 				--last;
 				
 				// We calculate the iterator pointing to the new child's index.
 				ChildArray::iterator position = this->children.begin() + index;
 				
+				
 				// We insert the new child entity.
-				position = this->children.insert(position, newChild);
+				position = this->children.insert(position, newChildCopy);
 				
 				// We check if the new child entity has a name.
 				if (!last->second->getEntityName().empty()) {
 					// We take note of it.
-					std::pair<ChildMapByName::iterator, bool> result = this->childrenByName.insert(std::make_pair(last->second->getEntityName(), newChild));
+					std::pair<ChildMapByName::iterator, bool> result = this->childrenByName.insert(std::make_pair(last->second->getEntityName(), newChildCopy));
 					
 					// If there is already a child entity with the same name,
 					// just too bad. (We at least write a message in the console)
@@ -307,7 +317,8 @@ namespace BaconBox {
 			
 			this->children.erase(found);
 		}
-		
+		DefaultEntityContainer * container =  reinterpret_cast<DefaultEntityContainer*>(child->getComponent(EntityContainer::ID));
+		container->parent = NULL;
 		return child;
 	}
 	
@@ -322,6 +333,10 @@ namespace BaconBox {
 					delete i->second;
 				}
 			}
+		}
+		if(result){
+			DefaultEntityContainer * container =  reinterpret_cast<DefaultEntityContainer*>(result->getComponent(EntityContainer::ID));
+			container->parent = NULL;  
 		}
 		
 		return result;
@@ -385,6 +400,11 @@ namespace BaconBox {
 	int DefaultEntityContainer::getCurrentFrameIndex() const {
 		return this->timeline ? this->timeline->getCurrentFrame() : 0;
 	}
+	
+	Entity * DefaultEntityContainer::getParent() const{
+	    return parent;
+	}
+
 	
 	DefaultEntityContainer::ChildArray::iterator DefaultEntityContainer::findChild(Entity *child) {
 		ChildArray::iterator result = this->children.end();
@@ -491,82 +511,4 @@ namespace BaconBox {
 		}
 	}
 	
-	DefaultEntityContainerProxy::DefaultEntityContainerProxy(Entity *entity, bool mustAddComponent) : BB_PROXY_CONSTRUCTOR(new DefaultEntityContainer()) {
-	}
-	
-	Entity *DefaultEntityContainerProxy::addChild(Entity *newChild) {
-		return reinterpret_cast<DefaultEntityContainer*>(this->component)->addChild(newChild);
-	}
-	
-	void DefaultEntityContainerProxy::addChild(const DefaultEntityContainer::EntityByFrame &newChild) {
-		reinterpret_cast<DefaultEntityContainer*>(this->component)->addChild(newChild);
-	}
-	
-	Entity *DefaultEntityContainerProxy::addChildAt(Entity *newChild, int index) {
-		return reinterpret_cast<DefaultEntityContainer*>(this->component)->addChildAt(newChild, index);
-	}
-	
-	void DefaultEntityContainerProxy::addChildAt(const DefaultEntityContainer::EntityByFrame &newChild, int index) {
-		reinterpret_cast<DefaultEntityContainer*>(this->component)->addChildAt(newChild, index);
-	}
-	
-	bool DefaultEntityContainerProxy::contains(Entity *child) const {
-		return reinterpret_cast<const DefaultEntityContainer*>(this->component)->contains(child);
-	}
-	
-	Entity *DefaultEntityContainerProxy::getChildAt(int index) {
-		return reinterpret_cast<DefaultEntityContainer*>(this->component)->getChildAt(index);
-	}
-	
-	const Entity *DefaultEntityContainerProxy::getChildAt(int index) const {
-		return reinterpret_cast<const DefaultEntityContainer*>(this->component)->getChildAt(index);
-	}
-	
-	Entity *DefaultEntityContainerProxy::getChildByName(const std::string &name) {
-		return reinterpret_cast<DefaultEntityContainer*>(this->component)->getChildByName(name);
-	}
-	
-	const Entity *DefaultEntityContainerProxy::getChildByName(const std::string &name) const {
-		return reinterpret_cast<const DefaultEntityContainer*>(this->component)->getChildByName(name);
-	}
-	
-	int DefaultEntityContainerProxy::getChildIndex(Entity *child) const {
-		return reinterpret_cast<DefaultEntityContainer*>(this->component)->getChildIndex(child);
-	}
-	
-	std::vector<Entity *> DefaultEntityContainerProxy::getObjectsUnderPoint(const Vector2 &point) {
-		return reinterpret_cast<DefaultEntityContainer*>(this->component)->getObjectsUnderPoint(point);
-	}
-	
-	std::vector<const Entity *> DefaultEntityContainerProxy::getObjectsUnderPoint(const Vector2 &point) const {
-		return reinterpret_cast<const DefaultEntityContainer*>(this->component)->getObjectsUnderPoint(point);
-	}
-	
-	Entity *DefaultEntityContainerProxy::removeChild(Entity *child) {
-		return reinterpret_cast<DefaultEntityContainer*>(this->component)->removeChild(child);
-	}
-	
-	Entity *DefaultEntityContainerProxy::removeChildAt(int index) {
-		return reinterpret_cast<DefaultEntityContainer*>(this->component)->removeChildAt(index);
-	}
-	
-	void DefaultEntityContainerProxy::removeChildren(int beginIndex, int endIndex) {
-		reinterpret_cast<DefaultEntityContainer*>(this->component)->removeChildren(beginIndex, endIndex);
-	}
-	
-	void DefaultEntityContainerProxy::setChildIndex(Entity *child, int index) {
-		reinterpret_cast<DefaultEntityContainer*>(this->component)->setChildIndex(child, index);
-	}
-	
-	void DefaultEntityContainerProxy::swapChildren(Entity *child1, Entity *child2) {
-		reinterpret_cast<DefaultEntityContainer*>(this->component)->swapChildren(child1, child2);
-	}
-	
-	void DefaultEntityContainerProxy::swapChildrenAt(int index1, int index2) {
-		reinterpret_cast<DefaultEntityContainer*>(this->component)->swapChildrenAt(index1, index2);
-	}
-
-	int DefaultEntityContainerProxy::getNbChildren() const {
-		return reinterpret_cast<const DefaultEntityContainer*>(this->component)->getNbChildren();
-	}
 }
