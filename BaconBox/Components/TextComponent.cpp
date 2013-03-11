@@ -52,7 +52,7 @@ namespace BaconBox {
 	    sendMessage(Entity::BROADCAST, TextComponent::MESSAGE_TEXT_CHANGED, reinterpret_cast<void*>(&this->text));
 	}
 	
-	Vector2 TextComponent::getSize(){
+	const Vector2 & TextComponent::getSize(){
 	    return boundingBox.getSize();
 	}
 	
@@ -82,7 +82,7 @@ namespace BaconBox {
 	Font * TextComponentProxy::getFont(){
 	    return reinterpret_cast<TextComponent*>(component)->getFont();
 	}
-	Vector2 TextComponentProxy::getSize(){
+	const Vector2 &  TextComponentProxy::getSize(){
 	    return reinterpret_cast<TextComponent*>(component)->getSize();
 	}
 

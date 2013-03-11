@@ -27,7 +27,7 @@ namespace BaconBox {
 		void setAlignment(TextAlignment::type alignment);
 		void setText(const std::string & text);
 		void setSize(Vector2 size);
-		Vector2 getSize();
+		const Vector2 &  getSize();
 		void setFont(Font * font);
 		Font * getFont();
 
@@ -46,7 +46,7 @@ namespace BaconBox {
 		Font * getFont();
 		void setFont(Font * font);
 		void setSize(Vector2 size);
-		Vector2 getSize();
+		const Vector2 &  getSize();
 		void setAlignment(TextAlignment::type alignment);
 		void setText(const std::string & text);
 	private:
