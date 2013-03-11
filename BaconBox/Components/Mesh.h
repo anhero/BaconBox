@@ -8,6 +8,7 @@
 #include "BaconBox/Core/Component.h"
 #include "BaconBox/StandardVertexArray.h"
 #include "BaconBox/Components/Transform.h"
+#include "MatrixComponent.h"
 
 namespace BaconBox {
 	/**
@@ -36,7 +37,8 @@ namespace BaconBox {
 		void initializeConnections();
 
 		Transform * transform;
-
+		MatrixComponent * matrixComponent;
+		
 	};
 }
 
