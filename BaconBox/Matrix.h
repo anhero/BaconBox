@@ -31,11 +31,11 @@ namespace BaconBox {
 	Matrix &operator*=(const Matrix& m);
 	
 	
-	bool isSkewed() const;
+//	bool isSkewed() const;
 	
 	Vector2 multiplyWithVector(const Vector2 & v) const;
 	
-	void concat(const Matrix & m);
+	Matrix & concat(const Matrix & m);
 	
 	void translate(const Vector2 & v);
 	
