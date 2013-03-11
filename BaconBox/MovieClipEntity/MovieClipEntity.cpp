@@ -7,13 +7,17 @@
 #else
 #include "BaconBox/Components/Mesh.h"
 #include "BaconBox/Components/MeshDriverRenderer.h"
+#include "BaconBox/Components/DefaultMatrix.h"
+#include "Components/Timeline.h"
+#include "Components/DefaultEntityContainer.h"
+#include "Components/DefaultTimeline.h"
 #endif
 
 namespace BaconBox {
     
     BB_ID_IMPL(MovieClipEntity);
     
-	MovieClipEntity::MovieClipEntity(): Entity(), TransformProxy(this), ColorFilterProxy(this) {
+	MovieClipEntity::MovieClipEntity(): Entity(), TransformProxy(this), ColorFilterProxy(this), TimelineProxy(this), EntityContainerProxy(this), MatrixComponentProxy(this) {
 	  
 		#ifdef BB_FLASH_PLATEFORM
 
@@ -23,6 +27,9 @@ namespace BaconBox {
 //		    mesh->getVertices().resize(4);
 //		    addComponent(mesh);
 //		    this->addComponent(new MeshDriverRenderer());
+	    setTimeline(new DefaultTimeline());
+	    setEntityContainer(new DefaultEntityContainer());
+	    setMatrixComponent(new DefaultMatrix());
 		
 		#endif
 

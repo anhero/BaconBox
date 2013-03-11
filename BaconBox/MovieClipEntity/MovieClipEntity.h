@@ -9,7 +9,9 @@
 
 #include "BaconBox/Components/Transform.h"
 #include "BaconBox/Components/ColorFilter.h"
-
+#include "BaconBox/Components/Timeline.h"
+#include "BaconBox/Components/EntityContainer.h"
+#include "BaconBox/Components/MatrixComponent.h"
 #ifdef BB_FLASH_PLATEFORM
 #include <AS3/AS3.h>
 #include <AS3/AS3++.h>
@@ -19,7 +21,7 @@ namespace BaconBox {
 	/**
 	 *
 	 */
-	class MovieClipEntity : public Entity, public TransformProxy, public ColorFilterProxy  {
+	class MovieClipEntity : public Entity, public TransformProxy, public ColorFilterProxy, public TimelineProxy, public EntityContainerProxy, public MatrixComponentProxy  {
     public:
 		BB_ID_HEADER;
 		
