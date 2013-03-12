@@ -9,11 +9,16 @@ namespace BaconBox {
 	 
 
 	DefaultMatrix::DefaultMatrix() : MatrixComponent(), entityContainer(NULL), matrix() {
+	    initializeConnections();
 	}
 
-	
+	void DefaultMatrix::initializeConnections(){
+	    this->addConnection(new ComponentConnection<EntityContainer>(&this->entityContainer));
+	    MatrixComponent::initializeConnections();
+	}
 	
 	void DefaultMatrix::receiveMessage(int senderID, int destID, int message, void *data) {
+	    Component::receiveMessage(senderID, destID, message, data);
 	    if(senderID == Transform::ID){
 		if (message == Transform::MESSAGE_POSITION_CHANGED || message == Transform::MESSAGE_ROTATION_CHANGED || message == Transform::MESSAGE_SCALE_CHANGED) {
 		    updateMatrix(transform->getPosition(), transform->getScale(), transform->getRotation());
@@ -26,7 +31,15 @@ namespace BaconBox {
 	}
 	
 	Matrix & DefaultMatrix::getConcatMatrix(){
-	    return matrix;
+	    if(false &&entityContainer && entityContainer->getParent()){
+		MatrixComponent * matrixComponent  = reinterpret_cast<MatrixComponent*>(entityContainer->getParent()->getComponent(MatrixComponent::ID));
+		Matrix temp = matrix;
+		temp.concat(matrixComponent->getConcatMatrix());
+		return temp;
+	    }
+	    else{
+		return matrix;
+	    }
 	}
 
 	
@@ -48,9 +61,10 @@ namespace BaconBox {
 //	    else{
 		float angleInRadian = -angle*MathHelper::AngleConvert<float>::DEGREES_TO_RADIANS;
 		float cos  = MathHelper::cos(angleInRadian);
+		float sin = MathHelper::sin(angleInRadian);
 		matrix.a = scale.x * cos;
-		matrix.c = scale.y * MathHelper::sin(angleInRadian);
-		matrix.b = scale.x *-matrix.c;
+		matrix.c = scale.y * sin;
+		matrix.b = scale.x *-sin;
 		matrix.d = scale.y * cos;
 		matrix.tx = position.x;
 		matrix.ty = position.y;
@@ -59,21 +73,34 @@ namespace BaconBox {
 
 	
 	void DefaultMatrix::setMatrix(const Matrix & m){
-	    MatrixComponent::setMatrix(m);
-	    this->matrix = m;
-	    Vector2 scale = transform->getScale();
-	    Vector2 position = transform->getPosition();
-	    float rotation = transform->getRotation();
+	   MatrixComponent::setMatrix(m);
+	   matrix = m;
+	    Vector2 origin;
+	    Vector2 width(1,0);
+	    Vector2 height(0,1);
 	    
-		rotation = MathHelper::asin(m.b/scale.x);
-		float cos = MathHelper::cos(rotation);
-		scale.x = m.a/cos;
-		scale.y = m.d/cos;
-		position.x = m.tx;
-		position.y = m.ty;
-		rotation *= MathHelper::AngleConvert<float>::RADIANS_TO_DEGREES; 
-		transform->setPosition(position, false);
-		transform->setScale(scale, false);
-		transform->setRotation(rotation, false);
+	    
+	    origin = m.multiplyWithVector(origin);
+	    width = m.multiplyWithVector(width)- origin;
+	    height = m.multiplyWithVector(height)-origin;
+	    transform->setPosition(origin, false);
+	    transform->setScale(Vector2(width.getLength(), height.getLength()), false);
+	    transform->setRotation((width).getAngle()* -1 - 90, false);
+	    
+//	    this->matrix = m;
+//	    Vector2 scale = transform->getScale();
+//	    Vector2 position = transform->getPosition();
+//	    float rotation = transform->getRotation();
+//	    
+//		rotation = MathHelper::asin(m.b/scale.x);
+//		float cos = MathHelper::cos(rotation);
+//		scale.x = m.a/cos;
+//		scale.y = m.d/cos;
+//		position.x = m.tx;
+//		position.y = m.ty;
+//		rotation *= MathHelper::AngleConvert<float>::RADIANS_TO_DEGREES; 
+//		transform->setPosition(position, false);
+//		transform->setScale(scale, false);
+//		transform->setRotation(rotation, false);
 	}
 }

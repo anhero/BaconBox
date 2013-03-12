@@ -15,7 +15,6 @@ namespace BaconBox {
 
 	
 		DefaultMatrix();
-
 		
 
 		/**
@@ -31,7 +30,8 @@ namespace BaconBox {
 		void setMatrix(const Matrix & m);
 		Matrix & getMatrix();
 		Matrix & getConcatMatrix();
-
+	protected:
+		void initializeConnections();
 	private:
 		Matrix matrix;
 		EntityContainer * entityContainer;
