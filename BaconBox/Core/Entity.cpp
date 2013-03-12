@@ -14,10 +14,10 @@ namespace BaconBox {
 	int Entity::MESSAGE_ADD_COMPONENT = IDManager::generateID();
 	int Entity::MESSAGE_REMOVE_COMPONENT = IDManager::generateID();
 
-	Entity::Entity() : components(), parent(NULL), sigly::HasSlots<>() {
+	Entity::Entity() : components(), sigly::HasSlots<>() {
 	}
 
-	Entity::Entity(const Entity &src) : components(), parent(NULL) {
+	Entity::Entity(const Entity &src) : components() {
 		this->copyFrom(src);
 	}
 
@@ -164,13 +164,7 @@ namespace BaconBox {
 		return result;
 	}
 	
-	const Entity *Entity::getParent() const {
-		return this->parent;
-	}
-	
-	Entity *Entity::getParent() {
-		return this->parent;
-	}
+
 
 	void Entity::free() {
 		for (std::vector<Component *>::iterator i = this->components.begin(); i != this->components.end(); ++i) {
