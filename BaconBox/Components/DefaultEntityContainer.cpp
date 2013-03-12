@@ -171,10 +171,11 @@ namespace BaconBox {
 			
 			if (allValid) {
 				EntityByFrame newChildCopy = newChild;
-				while (i != newChildCopy.end()) {
-					DefaultEntityContainer * container =  reinterpret_cast<DefaultEntityContainer*>(i->second->getComponent(EntityContainer::ID));
+				EntityByFrame::iterator j = newChildCopy.begin();
+				while (j != newChildCopy.end()) {
+					DefaultEntityContainer * container =  reinterpret_cast<DefaultEntityContainer*>(j->second->getComponent(EntityContainer::ID));
 					container->parent = getEntity();
-					++i;
+					++j;
 				}
 				    
 
