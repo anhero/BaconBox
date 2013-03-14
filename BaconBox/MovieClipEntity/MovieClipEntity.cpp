@@ -17,7 +17,7 @@ namespace BaconBox {
     
     BB_ID_IMPL(MovieClipEntity);
     
-	MovieClipEntity::MovieClipEntity(): Entity(), TransformProxy(this), ColorFilterProxy(this), TimelineProxy(this), EntityContainerProxy(this), MatrixComponentProxy(this) {
+	MovieClipEntity::MovieClipEntity(): Entity(), TransformProxy(this), ColorFilterProxy(this), TimelineProxy(this), EntityContainerProxy(this), MatrixComponentProxy(this), SymbolComponentProxy(this) {
 	  
 		#ifdef BB_FLASH_PLATEFORM
 
