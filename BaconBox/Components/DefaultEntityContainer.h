@@ -8,6 +8,7 @@
 #include "BaconBox/Components/EntityContainer.h"
 #include "BaconBox/Helper/Range.h"
 #include "BaconBox/Helper/ValueChangedData.h"
+#include "DefaultTimeline.h"
 
 namespace BaconBox {
 	class Timeline;
@@ -82,7 +83,8 @@ namespace BaconBox {
 		
 		Entity * getParent() const;
 	private:
-	    
+		void renderChild(Entity *child);
+		void updateChild(Entity *child);
 		Entity * parent;
 		
 		
@@ -96,8 +98,8 @@ namespace BaconBox {
 		
 		void setNbFrames(const ValueChangedData<int> &data);
 		
-		Timeline *timeline;
-		
+		DefaultTimeline *timeline;
+		int previousFrame;
 		ChildMapByName childrenByName;
 		
 		ChildArray children;

@@ -11,7 +11,7 @@
 #include "BaconBox/Console.h"
 
 namespace BaconBox {
-	DefaultEntityContainer::DefaultEntityContainer() : EntityContainer(), timeline(NULL), childrenByName(), children(), parent(NULL) {
+	DefaultEntityContainer::DefaultEntityContainer() : EntityContainer(), timeline(NULL), childrenByName(), children(), parent(NULL), previousFrame(-1) {
 		this->initializeConnections();
 	}
 	
@@ -111,7 +111,6 @@ namespace BaconBox {
 		}
 	}
 	
-	void updateChild(Entity *child);
 	
 	void DefaultEntityContainer::update() {
 		this->EntityContainer::update();
@@ -119,11 +118,14 @@ namespace BaconBox {
 		EntityContainerLooper::forEachChildCurrentFrame(this, updateChild);
 	}
 	
-	void updateChild(Entity *child) {
+	void DefaultEntityContainer::updateChild(Entity *child) {
+	    if(previousFrame != timeline->getCurrentFrame()){
+		previousFrame = timeline->getCurrentFrame();
+		//DO YOUR MATRIX STUFF
+	    }
 		child->update();
 	}
 	
-	void renderChild(Entity *child);
 	
 	void DefaultEntityContainer::render() {
 		this->EntityContainer::render();
@@ -131,7 +133,7 @@ namespace BaconBox {
 		EntityContainerLooper::forEachChildCurrentFrame(this, renderChild);
 	}
 	
-	void renderChild(Entity *child) {
+	void DefaultEntityContainer::renderChild(Entity *child) {
 		child->render();
 	}
 	
@@ -453,7 +455,7 @@ namespace BaconBox {
 	
 	void DefaultEntityContainer::initializeConnections() {
 		// We add the connections.
-		this->addConnection(new ComponentConnection<Timeline>(&this->timeline));
+		this->addConnection(new ComponentConnection<DefaultTimeline>(&this->timeline));
 		
 		this->refreshConnections();
 	}
