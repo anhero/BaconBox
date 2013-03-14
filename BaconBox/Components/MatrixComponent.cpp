@@ -35,7 +35,7 @@ namespace BaconBox {
 		 return reinterpret_cast<MatrixComponent*>(component)->getMatrix();
 	    }
 
-	    Matrix & MatrixComponentProxy::getConcatMatrix(){
+	    Matrix MatrixComponentProxy::getConcatMatrix(){
 		 return reinterpret_cast<MatrixComponent*>(component)->getConcatMatrix();
 	    }
 	    

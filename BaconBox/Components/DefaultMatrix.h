@@ -29,7 +29,7 @@ namespace BaconBox {
 
 		void setMatrix(const Matrix & m);
 		Matrix & getMatrix();
-		Matrix & getConcatMatrix();
+		Matrix getConcatMatrix();
 	protected:
 		void initializeConnections();
 	private:

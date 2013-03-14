@@ -30,8 +30,8 @@ namespace BaconBox {
 	    return matrix;
 	}
 	
-	Matrix & DefaultMatrix::getConcatMatrix(){
-	    if(false &&entityContainer && entityContainer->getParent()){
+	Matrix DefaultMatrix::getConcatMatrix(){
+	    if(entityContainer && entityContainer->getParent()){
 		MatrixComponent * matrixComponent  = reinterpret_cast<MatrixComponent*>(entityContainer->getParent()->getComponent(MatrixComponent::ID));
 		Matrix temp = matrix;
 		temp.concat(matrixComponent->getConcatMatrix());

@@ -26,7 +26,7 @@ namespace BaconBox {
 
 		virtual void setMatrix(const Matrix & m);
 		virtual Matrix & getMatrix() = 0;
-		virtual Matrix & getConcatMatrix() = 0;
+		virtual Matrix getConcatMatrix() = 0;
 
 
 	protected:
@@ -41,7 +41,7 @@ namespace BaconBox {
 
 		void setMatrix(const Matrix & m);
 		Matrix & getMatrix();
-		Matrix & getConcatMatrix();
+		Matrix getConcatMatrix();
 		
 	protected:
 	    	void setMatrixComponent(MatrixComponent * matrixComponent);
