@@ -5,7 +5,7 @@
 #include "BaconBox/Helper/ValueChangedData.h"
 
 namespace BaconBox {
-	DefaultTimeline::DefaultTimeline() : Timeline(), playing(false), nbFrames(0), currentFrame(0) {
+	DefaultTimeline::DefaultTimeline() : Timeline(), playing(false), nbFrames(0), currentFrame(0), getPreviousFrame(-1), matrixComponent(NULL), symbolComponent(NULL) {
 	}
 	
 	DefaultTimeline::DefaultTimeline(const DefaultTimeline &src) : Timeline(src), playing(src.playing), nbFrames(src.nbFrames), currentFrame(src.currentFrame) {
@@ -49,18 +49,17 @@ namespace BaconBox {
 	}
 	
 	void DefaultTimeline::nextFrame() {
-		++this->currentFrame;
+		setFrame(this->currentFrame+1)
 		
 		if (this->currentFrame >= this->nbFrames) {
-			this->currentFrame = 0;
+			setFrame(0);
 		}
 	}
 	
 	void DefaultTimeline::prevFrame() {
-		--this->currentFrame;
-		
+		setFrame(this->currentFrame-1);
 		if (this->currentFrame < 0) {
-			this->currentFrame = this->nbFrames;
+			setFrame(this->nbFrames);
 		}
 	}
 	
@@ -75,13 +74,20 @@ namespace BaconBox {
 	int DefaultTimeline::getCurrentFrame() const {
 		return this->currentFrame;
 	}
+	
+
 		
+	
 	bool DefaultTimeline::isPlaying() const {
 		return this->playing;
 	}
 	
 	int DefaultTimeline::getNbFrames() const {
 		return this->nbFrames;
+	}
+	
+	void DefaultTimeline::setFrame(int frame){
+	    this->currentFrame = frame;
 	}
 	
 	void DefaultTimeline::setNbFrames(int newNbFrames) {
@@ -98,7 +104,7 @@ namespace BaconBox {
 		if (frame >= 0 && frame < this->nbFrames) {
 			this->playing = newPlaying;
 			
-			this->currentFrame = frame;
+			setFrame(frame);
 		} else {
 			Console::print("Trying to set a frame index out of range in gotoAndPlay(...): ");
 			Console::println(frame);

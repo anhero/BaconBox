@@ -2,6 +2,8 @@
 #define BB_DEFAULT_TIMELINE_H
 
 #include "BaconBox/Components/Timeline.h"
+#include "BaconBox/Components/MatrixComponent.h"
+#include"BaconBox/Components/SymbolComponent.h"
 
 namespace BaconBox {
 	class DefaultTimeline : public Timeline {
@@ -33,13 +35,13 @@ namespace BaconBox {
 		void stop();
 		
 		int getCurrentFrame() const;
-		
 		bool isPlaying() const;
 		
 		int getNbFrames() const;
 		
 		void setNbFrames(int newNbFrames);
 	private:
+		 void setFrame(int frame);
 		void gotoAndSetState(int frame, bool newPlaying);
 		
 		bool playing;
@@ -47,6 +49,9 @@ namespace BaconBox {
 		int nbFrames;
 		
 		int currentFrame;
+		MatrixComponent * matrixComponent;
+		SymbolComponent * symbolComponent;
+		
 	};
 	
 	
