@@ -6,7 +6,7 @@
 #define BB_TEXTURE_INFORMATION_H
 
 #include <iostream>
-
+#include <string>
 #include "BaconBox/PlatformFlagger.h"
 
 #include "BaconBox/Display/ColorFormat.h"
@@ -41,7 +41,8 @@ namespace BaconBox {
 		 */
 		TextureInformation(unsigned int newTextureId,
 		                   unsigned int newImageWidth,
-		                   unsigned int newImageHeight);
+		                   unsigned int newImageHeight, 
+				   const std::string & path);
 
 		/// OpenGL's texture's ID.
 		unsigned int textureId;
@@ -64,6 +65,8 @@ namespace BaconBox {
 
 		/// Texture's image height.
 		unsigned int imageHeight;
+		
+		std::string path;
 	};
 }
 #endif
