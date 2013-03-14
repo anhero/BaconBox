@@ -17,6 +17,9 @@
 #ifndef BB_ANDROID
 #include "BaconBox/Display/Text/Font.h"
 #include "Display/Text/BMFont.h"
+#include "Helper/Serialization/XmlSerializer.h"
+#include "Symbol.h"
+#include "SymbolPart.h"
 #endif
 
 #if defined(BB_FLASH_PLATEFORM)
@@ -38,7 +41,7 @@ namespace BaconBox {
 	std::map<std::string, SoundInfo *> ResourceManager::sounds = std::map<std::string, SoundInfo *>();
 	std::map<std::string, MusicInfo *> ResourceManager::musics = std::map<std::string, MusicInfo *>();
 	std::map<std::string, Font *> ResourceManager::fonts = std::map<std::string, Font *>();
-	
+	std::map<std::string, Symbol*> ResourceManager::symbols = std::map<std::string, Symbol*>();
 	
 	SubTextureInfo *ResourceManager::addSubTexture(const std::string &key, SubTextureInfo *subTextureInfo, bool overwrite){
 	    SubTextureInfo *subTexInfo = NULL;
@@ -56,7 +59,7 @@ namespace BaconBox {
 
 				// We load the new texture.
 				subTextures[key] = subTextureInfo;
-				Console::println("Overwrote the existing texture named " + key + ".");
+				Console::println("Overwrote the existing subtexture named " + key + ".");
 
 			} else {
 				Console::println("Can't load texture with key: " + key +
@@ -71,27 +74,48 @@ namespace BaconBox {
 
 		return subTexInfo;
 	}
+	
+	    TextureInformation *ResourceManager::addTextureWithPath(const std::string &key, PixMap *aPixmap, const std::string & path, bool overwrite){
+		    TextureInformation *texInfo = addTexture(key, aPixmap,overwrite);
+		    texInfo->path = path;
+		    return texInfo;
+	    }
+
 
 	TextureInformation *ResourceManager::addTexture(const std::string &key, PixMap *aPixmap,
 	                                                bool overwrite) {
 		TextureInformation *texInfo = NULL;
+		if(overwrite || !isExistingTexture(key)){
+		    		    texInfo = addTextureInfo(key, GraphicDriver::getInstance().loadTexture(aPixmap), overwrite);
+
+		}else {
+		    Console::println("Can't load texture with key: " + key +
+				                 " texture is already loaded");
+		} 	
+		return texInfo;
+	}
+	bool ResourceManager::isExistingTexture(const std::string & key){
+	    return textures.find(key) != textures.end() && textures[key] == NULL;
+	}
+	
+	
+	TextureInformation *ResourceManager::addTextureInfo(const std::string &key, TextureInformation *textureInfo,
+	                                                bool overwrite) {
+		TextureInformation *texInfo = NULL;
 
 		// We check if there is already a texture with this name.
-		if (textures.find(key) != textures.end()) {
+		if (isExistingTexture(key)) {
+		    	texInfo = textures[key];
 			// We check if we overwrite the existing texture or not.
-			if (overwrite) {
+			if (overwrite || textures[key] == NULL) {
 				// We free the allocated memory.
-				texInfo = textures[key];
 
 				if (texInfo) {
 					delete texInfo;
 				}
-
-				// We load the new texture.
-				texInfo = textures[key] = GraphicDriver::getInstance().loadTexture(aPixmap);
-				ResourceManager::addSubTexture(key, new SubTextureInfo(texInfo, Vector2(),Vector2(texInfo->imageWidth, texInfo->imageHeight)));
+				texInfo = textureInfo;
+				ResourceManager::addSubTexture(key, new SubTextureInfo(texInfo, Vector2(),Vector2(texInfo->imageWidth, texInfo->imageHeight)), overwrite);
 				Console::println("Overwrote the existing texture named " + key + ".");
-
 			} else {
 				Console::println("Can't load texture with key: " + key +
 				                 " texture is already loaded");
@@ -100,7 +124,7 @@ namespace BaconBox {
 
 		} else {
 			// We load the new texture and add it to the map.
-			texInfo = GraphicDriver::getInstance().loadTexture(aPixmap);
+			texInfo = textureInfo;
 			textures.insert(std::pair<std::string, TextureInformation *>(key, texInfo));
 			ResourceManager::addSubTexture(key, new SubTextureInfo(texInfo, Vector2(),Vector2(texInfo->imageWidth, texInfo->imageHeight)));
 		}
@@ -108,7 +132,23 @@ namespace BaconBox {
 		
 		return texInfo;
 	}
+			
+	
+	TextureInformation *ResourceManager::loadTexture(const std::string &key){
+	    TextureInformation * texture = textures[key];
+	    textures[key] = NULL;
+	    loadTexture(key, texture->path, texture->colorFormat, true);
+	}
 
+	void ResourceManager::registerTexture(const std::string &key,
+	                                                 const std::string &filePath,
+	                                                 ColorFormat colorFormat,
+	                                                 bool overwrite) {
+	    TextureInformation * textureInfo = new TextureInformation();
+	    textureInfo->path = filePath;
+	    textureInfo->colorFormat = colorFormat;
+	    addTextureInfo(key, textureInfo, overwrite);
+	}
 
 	TextureInformation *ResourceManager::loadTexture(const std::string &key,
 	                                                 const std::string &filePath,
@@ -117,7 +157,7 @@ namespace BaconBox {
 		PixMap *pixMap = loadPixMap(filePath, colorFormat);
 
 		if (pixMap) {
-			TextureInformation *result = addTexture(key, pixMap, overwrite);
+			TextureInformation *result = addTextureWithPath(key, pixMap, filePath, overwrite);
 			delete pixMap;
 			return result;
 
@@ -133,7 +173,7 @@ namespace BaconBox {
 		PixMap *pixMap = loadPixMap(filePath, transparentColor);
 
 		if (pixMap) {
-			TextureInformation *result = addTexture(key, pixMap, overwrite);
+			TextureInformation *result = addTextureWithPath(key, pixMap, filePath, overwrite);
 			delete pixMap;
 			return result;
 
@@ -451,11 +491,16 @@ SoundInfo * ResourceManager::loadSoundFromBundle(const std::string &key,
 	}
     
     void ResourceManager::removeTexture(const std::string &key){
-        GraphicDriver::getInstance().getInstance().deleteTexture(textures[key]);
+        unloadTexture(key);
         textures.erase(key);
     }
+    
+    void ResourceManager::unloadTexture(const std::string &key){
+	TextureInformation * textInfo = textures[key];
+        GraphicDriver::getInstance().getInstance().deleteTexture(textInfo);
+    }
 
-	void ResourceManager::removeSound(const std::string &key) {
+void ResourceManager::removeSound(const std::string &key) {
 		// We find the sound effect.
 		std::map<std::string, SoundInfo *>::iterator snd = sounds.find(key);
 
@@ -498,6 +543,71 @@ SoundInfo * ResourceManager::loadSoundFromBundle(const std::string &key,
 			Console::println("The music named " + key + " could not be removed because it doesn't exist.");
 		}
 	}
+	
+	void ResourceManager::loadGrapefruktXML(const std::string & xmlPath, const std::string & secondXMLPath){
+	    
+	    
+	    XmlSerializer serializer;
+
+	    if(secondXMLPath != ""){
+		std::string texturePath;
+
+		Value value;
+		Value animation;
+		Value textures;
+		serializer.readFromFile(xmlPath, value);
+		if(!value["Animations"].isNull()){
+		    animation = value;
+			serializer.readFromFile(secondXMLPath, textures);
+			texturePath = ResourcePathHandler::getPathFromFilename(secondXMLPath);
+		}
+		else{
+		    
+		    textures = value;
+			texturePath = ResourcePathHandler::getPathFromFilename(xmlPath);
+			serializer.readFromFile(secondXMLPath, animation);
+		}
+		loadGrapefruktSymbols(animation);
+		loadGrapefruktTextures(textures, texturePath);
+	    }
+	    else{
+		std::string dirPath = ResourcePathHandler::getPathFromFilename(xmlPath);
+		Value value;
+		serializer.readFromFile(xmlPath, value);
+		loadGrapefruktSymbols(value["Animations"]);
+		loadGrapefruktTextures(value["Textures"], dirPath);
+	    }
+	}
+
+	
+	void ResourceManager::loadGrapefruktSymbols(Value & node){
+	    
+	}
+		
+	void ResourceManager::loadGrapefruktTextures(Value & node, const std::string & dirPath){
+	    if(node["TextureSheet"].isObject()){
+		//node["Texture"];
+	    }
+	    else{
+	    //if there is more than one texture for the font.
+	       Array textures = node["TextureSheet"].getArray();
+	       for(Array::iterator i = textures.begin(); i != textures.end(); i++){
+		   std::string name =(*i)["Texture"]["name"].getString();
+		   std::string path = dirPath + '/' + (*i)["Texture"]["path"].getString();
+		   Symbol * symbol = new Symbol();
+		   symbol->name = name;
+		   Vector2 registrationPoint;
+		   if((*i)["Texture"]["registrationPointX"].isNumeric()) registrationPoint.x = (*i)["Texture"]["registrationPointX"].getFloat();
+		   if((*i)["Texture"]["registrationPointY"].isNumeric()) registrationPoint.y = (*i)["Texture"]["registrationPointY"].getFloat();
+		   symbol->registrationPoint = registrationPoint;
+		   symbols[name] = symbol;
+		   registerTexture (name, path);
+	       }  
+	    }
+	}
+
+	
+	
 	
 	Font *ResourceManager::initFontFromPath(const std::string &key,
 		                      const std::string &path){

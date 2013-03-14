@@ -15,8 +15,11 @@
 #include "Display/SubTextureInfo.h"
 #include "Display/Text/FontFormat.h"
 
+
+#include "BaconBox/Helper/Serialization/Value.h"
 namespace BaconBox {
 	class SoundFX;
+	class Symbol;
 	class BackgroundMusic;
 	struct SoundInfo;
 	struct MusicInfo;
@@ -54,7 +57,10 @@ namespace BaconBox {
 		 */
 		static TextureInformation *addTexture(const std::string &key, PixMap *aPixmap,
 		                                      bool overwrite = false);
+		
+		static TextureInformation * addTextureWithPath(const std::string &key, PixMap *aPixmap, const std::string & path, bool overwrite);
 
+		
 		/**
 		 * Loads a texture from a file and assigns a representative key to it.
 		 * @param key Key used to identify this new texture.
@@ -68,6 +74,14 @@ namespace BaconBox {
 		 * load.
 		 */
 		static TextureInformation *loadTexture(const std::string &key,
+		                                       const std::string &filePath,
+		                                       ColorFormat colorFormat = ColorFormat::RGBA,
+		                                       bool overwrite = false);
+		
+		static TextureInformation *loadTexture(const std::string &key);
+		
+		
+		static void registerTexture(const std::string &key,
 		                                       const std::string &filePath,
 		                                       ColorFormat colorFormat = ColorFormat::RGBA,
 		                                       bool overwrite = false);
@@ -134,10 +148,11 @@ namespace BaconBox {
         
         
         
-        /**
-         * Remove a texture  GraphicMemory.
-         */
-        static void removeTexture(const std::string &key);
+
+		static void removeTexture(const std::string &key);
+	
+	        static void unloadTexture(const std::string &key);
+
 
 		/**
 		 * Gets the information about the asked texture. Uses the texture's key
@@ -326,13 +341,29 @@ namespace BaconBox {
 		 */
 		static void savePixMap(const PixMap &pixMap,
 							   const std::string &filePath);
+		
+		static void loadGrapefruktXML(const std::string & xmlPath, const std::string & secondXMLPath = "");
+		
+		static void loadGrapefruktSymbols(Value & node);
+		
+		static void loadGrapefruktTextures(Value & node, const std::string & dirPath);
+
 	private:
+	    
+	    
+
 	    
 		static Font *initFontFromPath(const std::string &key,
 		                      const std::string &path);
 		
 		static Font *initFontFromPathAndFormat(const std::string &key,
 		                      const std::string &path, const FontFormat & format);
+		
+		
+		static bool isExistingTexture(const std::string & key);
+		
+		static TextureInformation *addTextureInfo(const std::string &key, TextureInformation *textureInfo,
+		                                      bool overwrite = false);
 	    
 		/**
 		 * Unloads everything in the ResourceManager.
@@ -362,6 +393,7 @@ namespace BaconBox {
 		static std::map<std::string, MusicInfo *> musics;
 		/// Map  associating the fonts' names and their information.
 		static std::map<std::string, Font *> fonts;
+		static std::map<std::string, Symbol*> symbols;
 	};
 }
 
