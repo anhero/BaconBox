@@ -285,6 +285,7 @@ void OpenGLDriver::initializeGraphicDriver() {
     
     void OpenGLDriver::deleteTexture(TextureInformation * textureInfo){
         glDeleteTextures(1, &(textureInfo->textureId));
+	textureInfo->textureId = -1;
     }
 
 	TextureInformation *OpenGLDriver::loadTexture(PixMap *pixMap) {
@@ -333,7 +334,7 @@ void OpenGLDriver::initializeGraphicDriver() {
 
 		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
+		
 		return texInfo;
 	}
 
