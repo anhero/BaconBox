@@ -15,6 +15,7 @@ namespace BaconBox {
 #if defined(BB_FLASH_PLATEFORM)
 		static TextEntity *getTextEntity(const std::string &key);
 #else
+		static MovieClipEntity *getMovieClipEntityFromSymbol(Symbol* symbol);
 		static MovieClipEntity *getMovieClipEntityFromSubTexture(SubTextureInfo* subTex);
 #endif
 	private:
