@@ -1,5 +1,5 @@
 #include "Symbol.h"
 
 namespace BaconBox {
-	Symbol::Symbol():isubTex(NULL), symbol(NULL){}
+	Symbol::Symbol():subTex(NULL), symbol(NULL), isTexture(false){}
 }

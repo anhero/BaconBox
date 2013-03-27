@@ -6,19 +6,18 @@
 #include "Display/SubTextureInfo.h"
 #include <map>
 #include <set>
-
+#include "BaconBox/Matrix.h"
 
 namespace BaconBox {
-    class Matrix;
     struct Symbol{
-	SymbolPart();
+	Symbol();
 	std::set<int> frame;
-	std::string name;
+	std::string key;
 	SubTextureInfo * subTex;
-	int index;
+	bool isTexture;
 	std::map<int, Matrix> frameMatrices;
 	Symbol * symbol;
-	std::map<int,Symbol*> parts;
+	std::vector<std::pair<std::string,Symbol*> > parts;
 
 	Vector2 registrationPoint;
     };
