@@ -12,7 +12,7 @@
 #include "BaconBox/Components/Timeline.h"
 #include "BaconBox/Components/EntityContainer.h"
 #include "BaconBox/Components/MatrixComponent.h"
-#include "BaconBox/Components/SymbolComponentProxy.h"
+#include "BaconBox/Components/SymbolComponent.h"
 #ifdef BB_FLASH_PLATEFORM
 #include <AS3/AS3.h>
 #include <AS3/AS3++.h>
