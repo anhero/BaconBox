@@ -111,6 +111,13 @@ namespace BaconBox {
 		}
 	}
 	
+	void updateChild(Entity *child) {
+		child->update();
+	}
+
+	void renderChild(Entity *child) {
+		child->render();
+	}
 	
 	void DefaultEntityContainer::update() {
 		this->EntityContainer::update();
@@ -118,13 +125,7 @@ namespace BaconBox {
 		EntityContainerLooper::forEachChildCurrentFrame(this, updateChild);
 	}
 	
-	void DefaultEntityContainer::updateChild(Entity *child) {
-	    if(previousFrame != timeline->getCurrentFrame()){
-		previousFrame = timeline->getCurrentFrame();
-		//DO YOUR MATRIX STUFF
-	    }
-		child->update();
-	}
+
 	
 	
 	void DefaultEntityContainer::render() {
@@ -133,9 +134,7 @@ namespace BaconBox {
 		EntityContainerLooper::forEachChildCurrentFrame(this, renderChild);
 	}
 	
-	void DefaultEntityContainer::renderChild(Entity *child) {
-		child->render();
-	}
+
 	
 	Entity *DefaultEntityContainer::addChild(Entity *newChild) {
 		return this->addChildAt(newChild, static_cast<int>(this->children.size()));
