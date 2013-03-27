@@ -9,9 +9,10 @@
 #include "BaconBox/Components/EntityContainerLooper.h"
 #include "BaconBox/Components/Visibility.h"
 #include "BaconBox/Console.h"
+#include "MovieClipEntity/MovieClipEntity.h"
 
 namespace BaconBox {
-	DefaultEntityContainer::DefaultEntityContainer() : EntityContainer(), timeline(NULL), childrenByName(), children(), parent(NULL), previousFrame(-1) {
+	DefaultEntityContainer::DefaultEntityContainer() : EntityContainer(), timeline(NULL), childrenByName(), children(), parent(NULL), previousFrame(-1), matrixComponent(NULL), symbolComponent(NULL) {
 		this->initializeConnections();
 	}
 	
@@ -147,7 +148,7 @@ namespace BaconBox {
 	Entity *DefaultEntityContainer::addChildAt(Entity *newChild, int index) {
 		EntityByFrame newChildEntry;
 		
-		newChildEntry.insert(std::make_pair(Range<int>(0, ((this->timeline) ? (std::max(this->timeline->getNbFrames() - 1, 0)) : (0))), newChild));
+		newChildEntry.insert(std::make_pair(Range<int>(0, ((this->timeline) ? (std::max(this->timeline->getNbFrames(), 0)) : (0))), newChild));
 		
 		this->addChildAt(newChildEntry, index);
 		
@@ -407,7 +408,18 @@ namespace BaconBox {
 	    return parent;
 	}
 
+	void setMatrixChild(Entity *child) {
+	    static_cast<MovieClipEntity*>(child)->setMatrixFromParentFrame();
+	} 
 	
+	void DefaultEntityContainer::setChildMatrices(){
+		EntityContainerLooper::forEachChildCurrentFrame(this, setMatrixChild);
+	}
+
+	
+	
+
+			
 	DefaultEntityContainer::ChildArray::iterator DefaultEntityContainer::findChild(Entity *child) {
 		ChildArray::iterator result = this->children.end();
 		
@@ -455,7 +467,8 @@ namespace BaconBox {
 	void DefaultEntityContainer::initializeConnections() {
 		// We add the connections.
 		this->addConnection(new ComponentConnection<DefaultTimeline>(&this->timeline));
-		
+		this->addConnection(new ComponentConnection<MatrixComponent>(&this->matrixComponent));
+		this->addConnection(new ComponentConnection<SymbolComponent>(&this->symbolComponent));
 		this->refreshConnections();
 	}
 	
