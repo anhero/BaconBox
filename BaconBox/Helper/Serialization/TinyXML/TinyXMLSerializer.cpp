@@ -274,7 +274,7 @@ namespace BaconBox {
 			int intValue;
 
 			// We check if the value is an integer or not.
-			if (!(ss >> intValue)) {
+			if (text.find('.') != std::string::npos || !(ss >> intValue)) {
 				// It's not an integer, so let's check if it's a double.
 				double doubleValue;
 
@@ -335,7 +335,7 @@ namespace BaconBox {
 					value.setDouble(doubleValue);
 				}
 
-			} else {
+			} else if ((ss >> intValue)){
 				// No errors? Therefore, it's an integer.
 				value.setInt(intValue);
 			}
