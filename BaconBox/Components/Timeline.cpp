@@ -14,6 +14,7 @@ namespace BaconBox {
 	}
 	
 	void Timeline::receiveMessage(int senderID, int destID, int message, void *data) {
+		this->Component::receiveMessage(senderID, destID, message, data);
 	}
 	
 	TimelineProxy::TimelineProxy(Entity *entity) : ComponentProxy(entity, NULL) {

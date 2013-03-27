@@ -6,11 +6,13 @@
 #include "BaconBox/Components/MatrixComponent.h"
 #include "BaconBox/Components/DefaultMatrix.h"
 #include "SymbolComponent.h"
-
+#include "MovieClipEntity/MovieClipEntity.h"
+#include "DefaultMatrix.h"
 namespace BaconBox {
 	 BB_ID_IMPL(SymbolComponent);
 	
-	SymbolComponent::SymbolComponent() :symbol(NULL){
+	SymbolComponent::SymbolComponent() : Component(), symbol(NULL), defaultMatrix(NULL), entityContainer(NULL), customMatrixSet(false){
+		this->initializeConnections();
 	}
 
 	
@@ -18,18 +20,25 @@ namespace BaconBox {
 	    return symbol;
 	}
 	
+	void SymbolComponent::setMatrixFromParentFrame(){
+	    if(customMatrixSet || !symbol)return;
+	    std::map<int, Matrix>::iterator i = symbol->frameMatrices.find(static_cast<MovieClipEntity*>(entityContainer->getParent())->getCurrentFrame());
+	    if(i != symbol->frameMatrices.end()){
+		defaultMatrix->setMatrixFromSymbol(i->second);
+	    }
+	}
+
+
+
+void SymbolComponent::initializeConnections() {
+		// We add the connections.
+		this->addConnection(new ComponentConnection<DefaultMatrix>(&this->defaultMatrix));
+		this->addConnection(new ComponentConnection<EntityContainer>(&this->entityContainer));
+		this->refreshConnections();
+	}
+	
 	void SymbolComponent::setSymbol(Symbol * symbol){
 	    this->symbol = symbol;
-	}
-		
-	const Matrix & SymbolComponent::getMatrixForFrame(int frame){
-	    std::map<int, Matrix>::iterator i = symbol->frameMatrices.find(frame);
-	    if(i == symbol->frameMatrices.end()){
-		return Matrix();
-	    }
-	    else{
-		return i->second;
-	    }
 	}
 
 	
@@ -40,6 +49,10 @@ namespace BaconBox {
 	    
 	Symbol * SymbolComponentProxy::getSymbol(){
 	    return reinterpret_cast<SymbolComponent*>(component)->getSymbol();
+	}
+	
+	void SymbolComponentProxy::setMatrixFromParentFrame(){
+	    reinterpret_cast<SymbolComponent*>(component)->setMatrixFromParentFrame();
 	}
 	void SymbolComponentProxy::setSymbol(Symbol * symbol){
 	    reinterpret_cast<SymbolComponent*>(component)->setSymbol(symbol);

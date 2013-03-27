@@ -1,11 +1,12 @@
 #include "DefaultTimeline.h"
-
+#include "BaconBox/Components/DefaultEntityContainer.h"
 #include "BaconBox/Console.h"
 #include "BaconBox/Core/Entity.h"
 #include "BaconBox/Helper/ValueChangedData.h"
 
 namespace BaconBox {
-	DefaultTimeline::DefaultTimeline() : Timeline(), playing(false), nbFrames(0), currentFrame(0), getPreviousFrame(-1), matrixComponent(NULL), symbolComponent(NULL) {
+	DefaultTimeline::DefaultTimeline() : Timeline(), playing(false), nbFrames(0), currentFrame(0), defaultEntityContainer(NULL) {
+	    initializeConnections();
 	}
 	
 	DefaultTimeline::DefaultTimeline(const DefaultTimeline &src) : Timeline(src), playing(src.playing), nbFrames(src.nbFrames), currentFrame(src.currentFrame) {
@@ -22,6 +23,12 @@ namespace BaconBox {
 		}
 		
 		return *this;
+	}
+	
+	void DefaultTimeline::initializeConnections() {
+		// We add the connections.
+		this->addConnection(new ComponentConnection<DefaultEntityContainer>(&this->defaultEntityContainer));
+		this->refreshConnections();
 	}
 	
 	DefaultTimeline *DefaultTimeline::clone() const {
@@ -49,7 +56,7 @@ namespace BaconBox {
 	}
 	
 	void DefaultTimeline::nextFrame() {
-		setFrame(this->currentFrame+1)
+		setFrame(this->currentFrame+1);
 		
 		if (this->currentFrame >= this->nbFrames) {
 			setFrame(0);
@@ -88,6 +95,7 @@ namespace BaconBox {
 	
 	void DefaultTimeline::setFrame(int frame){
 	    this->currentFrame = frame;
+	    defaultEntityContainer->setChildMatrices();
 	}
 	
 	void DefaultTimeline::setNbFrames(int newNbFrames) {
