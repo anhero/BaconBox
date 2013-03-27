@@ -6,6 +6,7 @@
 #include"BaconBox/Components/SymbolComponent.h"
 
 namespace BaconBox {
+	class DefaultEntityContainer;
 	class DefaultTimeline : public Timeline {
 	public:
 		DefaultTimeline();
@@ -44,13 +45,15 @@ namespace BaconBox {
 		 void setFrame(int frame);
 		void gotoAndSetState(int frame, bool newPlaying);
 		
+		void initializeConnections();
+		
 		bool playing;
 		
 		int nbFrames;
 		
 		int currentFrame;
-		MatrixComponent * matrixComponent;
-		SymbolComponent * symbolComponent;
+		DefaultEntityContainer * defaultEntityContainer;
+		
 		
 	};
 	

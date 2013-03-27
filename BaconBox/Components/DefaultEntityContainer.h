@@ -82,9 +82,11 @@ namespace BaconBox {
 		int getNbChildren() const;
 		
 		Entity * getParent() const;
+
+		void setChildMatrices();
+
 	private:
-		void renderChild(Entity *child);
-		void updateChild(Entity *child);
+
 		Entity * parent;
 		
 		
@@ -97,7 +99,8 @@ namespace BaconBox {
 		void initializeConnections();
 		
 		void setNbFrames(const ValueChangedData<int> &data);
-		
+		MatrixComponent * matrixComponent;
+		SymbolComponent * symbolComponent;
 		DefaultTimeline *timeline;
 		int previousFrame;
 		ChildMapByName childrenByName;

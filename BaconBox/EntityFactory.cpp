@@ -33,10 +33,17 @@ namespace BaconBox {
 		return entityPointer;
 
 #else
-		SubTextureInfo* subTex = ResourceManager::getSubTexture(key);
-		
-
-		return getMovieClipEntityFromSubTexture(subTex);
+		MovieClipEntity * entity;
+		Symbol * symbol = ResourceManager::getSymbol(key);
+		if(symbol){
+			entity = getMovieClipEntityFromSymbol(symbol);
+		}
+		else{
+		    entity = getMovieClipEntityFromSubTexture(ResourceManager::getSubTexture(key));
+		}
+		return entity;
+//		SubTextureInfo* subTex = ResourceManager::getSubTexture(key);
+//		return getMovieClipEntityFromSubTexture(subTex);
 
 
 #endif
@@ -59,6 +66,20 @@ TextEntity * EntityFactory::getTextEntity(const std::string &key){
 		return entityPointer;
 }
 #else
+
+	MovieClipEntity *EntityFactory::getMovieClipEntityFromSymbol(Symbol* symbol){
+	    if(symbol->isTexture){
+		if(!symbol->subTex){
+			ResourceManager::loadTexture(symbol->key);
+			symbol->subTex = ResourceManager::getSubTexture(symbol->key);
+		}
+		return getMovieClipEntityFromSubTexture(symbol->subTex);
+	    }
+	    else{
+		
+	    }
+	}
+	
 	MovieClipEntity *EntityFactory::getMovieClipEntityFromSubTexture(SubTextureInfo* subTex){
 	    MovieClipEntity *result = NULL;
 
