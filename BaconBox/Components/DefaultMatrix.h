@@ -10,6 +10,7 @@ namespace BaconBox {
 	 * values.
 	 */
 	class DefaultMatrix : public MatrixComponent {
+	    friend class SymbolComponent;
 	public:
 		
 
@@ -33,8 +34,11 @@ namespace BaconBox {
 	protected:
 		void initializeConnections();
 	private:
+void internalSetMatrix(const Matrix & m);
+void setMatrixFromSymbol(const Matrix & m);
 		Matrix matrix;
 		EntityContainer * entityContainer;
+		SymbolComponent * symbolComponent;
 		void updateMatrix(Vector2 position, Vector2 scale, float angle);
 		
 	};

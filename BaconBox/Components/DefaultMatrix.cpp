@@ -8,12 +8,13 @@ namespace BaconBox {
 	
 	 
 
-	DefaultMatrix::DefaultMatrix() : MatrixComponent(), entityContainer(NULL), matrix() {
+	DefaultMatrix::DefaultMatrix() : MatrixComponent(), entityContainer(NULL), matrix(), symbolComponent(NULL) {
 	    initializeConnections();
 	}
 
 	void DefaultMatrix::initializeConnections(){
 	    this->addConnection(new ComponentConnection<EntityContainer>(&this->entityContainer));
+	    this->addConnection(new ComponentConnection<SymbolComponent>(&this->symbolComponent));
 	    MatrixComponent::initializeConnections();
 	}
 	
@@ -68,11 +69,18 @@ namespace BaconBox {
 		matrix.d = scale.y * cos;
 		matrix.tx = position.x;
 		matrix.ty = position.y;
+		
+		symbolComponent->customMatrixSet = true;
 //	    }
 	}
 
-	
-	void DefaultMatrix::setMatrix(const Matrix & m){
+void DefaultMatrix::setMatrixFromSymbol(const Matrix & m){
+	   //matrix = m;
+	    internalSetMatrix(m);
+	   
+}
+
+void DefaultMatrix::internalSetMatrix(const Matrix & m){
 	   MatrixComponent::setMatrix(m);
 	   matrix = m;
 	    Vector2 origin;
@@ -102,5 +110,10 @@ namespace BaconBox {
 //		transform->setPosition(position, false);
 //		transform->setScale(scale, false);
 //		transform->setRotation(rotation, false);
+	}
+		    
+	void DefaultMatrix::setMatrix(const Matrix & m){
+	   internalSetMatrix(m);
+		symbolComponent->customMatrixSet = true;
 	}
 }
