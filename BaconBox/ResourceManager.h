@@ -17,6 +17,7 @@
 
 
 #include "BaconBox/Helper/Serialization/Value.h"
+#include "Symbol.h"
 namespace BaconBox {
 	class SoundFX;
 	class Symbol;
@@ -163,6 +164,7 @@ namespace BaconBox {
 		 */
 		static TextureInformation *getTexture(const std::string &key);
 		static SubTextureInfo *getSubTexture(const std::string &key);
+		static Symbol *getSymbol(const std::string &key);
 		/**
 		 * Gets a pointer to the asked sound effect.
 		 * @param key Name of the sound effect to get a pointer of.

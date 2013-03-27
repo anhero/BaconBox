@@ -14,13 +14,10 @@
 #include "BaconBox/Helper/ResourcePathHandler.h"
 #include "BaconBox/Display/Color.h"
 
-#ifndef BB_ANDROID
 #include "BaconBox/Display/Text/Font.h"
 #include "Display/Text/BMFont.h"
-#include "Helper/Serialization/XmlSerializer.h"
+#include "BaconBox/Helper/Serialization/XmlSerializer.h"
 #include "Symbol.h"
-#include "SymbolPart.h"
-#endif
 
 #if defined(BB_FLASH_PLATEFORM)
 #include "BaconBox/Audio/Flash/FlashSoundEngine.h"
@@ -68,6 +65,7 @@ namespace BaconBox {
 			}
 
 		} else {
+		    subTexInfo = subTextureInfo;
 			// We load the new texture and add it to the map.
 			subTextures.insert(std::pair<std::string, SubTextureInfo *>(key, subTextureInfo));
 		}
@@ -200,7 +198,10 @@ namespace BaconBox {
 		                               transparentColor, overwrite);
 	}
 
-	
+	Symbol *ResourceManager::getSymbol(const std::string &key){
+	    std::map<std::string, Symbol *>::iterator itr = symbols.find(key);
+		return (itr != symbols.end()) ? (itr->second) : (NULL);
+	}
 	SubTextureInfo *ResourceManager::getSubTexture(const std::string &key){
 	    std::map<std::string, SubTextureInfo *>::iterator itr = subTextures.find(key);
 		return (itr != subTextures.end()) ? (itr->second) : (NULL);
@@ -567,35 +568,65 @@ void ResourceManager::removeSound(const std::string &key) {
 			texturePath = ResourcePathHandler::getPathFromFilename(xmlPath);
 			serializer.readFromFile(secondXMLPath, animation);
 		}
-		loadGrapefruktSymbols(animation);
 		loadGrapefruktTextures(textures, texturePath);
+		loadGrapefruktSymbols(animation);
 	    }
 	    else{
 		std::string dirPath = ResourcePathHandler::getPathFromFilename(xmlPath);
 		Value value;
 		serializer.readFromFile(xmlPath, value);
-		loadGrapefruktSymbols(value["Animations"]);
 		loadGrapefruktTextures(value["Textures"], dirPath);
+		loadGrapefruktSymbols(value["Animations"]);
 	    }
 	}
 
 	
 	void ResourceManager::loadGrapefruktSymbols(Value & node){
+	   
+	    //if there is more than one texture for the font.
+	       Array animations = node["Animation"].getArray();
+	       for(Array::iterator i = animations.begin(); i != animations.end(); i++){
+		   Symbol * symbol = new Symbol();
+		   symbol->key = (*i)["className"].getString();
+		    symbols[symbol->key] = symbol;
+	       }  
+	       
+	       for(Array::iterator i = animations.begin(); i != animations.end(); i++){
+		   Array part = (*i)["Part"].getArray();
+		   Symbol * parent = symbols[(*i)["className"].getString()];
+		   for(Array::iterator j = part.begin(); j != part.end(); j++){
+			Symbol * child  = symbols[(*j)["className"].getString()];
+			//child->name = (*j)["name"].getString();
+			parent->parts.push_back(std::pair<std::string, Symbol*>((*j)["name"].getString(), child));
+			
+			Array frame = (*j)["Frame"].getArray();
+			for(Array::iterator k = frame.begin(); k != frame.end(); k++){
+			    int frameIndex = (*k)["index"].getInt();
+			    child->frame.insert(frameIndex);
+			    Matrix matrix;
+			    if((*k)["a"].isNumeric()) matrix.a = (*k)["a"].getFloat();
+			    if((*k)["b"].isNumeric()) matrix.b = (*k)["b"].getFloat();
+			    if((*k)["c"].isNumeric()) matrix.c = (*k)["c"].getFloat();
+			    if((*k)["d"].isNumeric()) matrix.d = (*k)["d"].getFloat();
+			    if((*k)["tx"].isNumeric()) matrix.tx = (*k)["tx"].getFloat();
+			    if((*k)["ty"].isNumeric()) matrix.ty = (*k)["ty"].getFloat();
+			    child->frameMatrices[frameIndex] = matrix;
+			}
+		    }  
+	       }
 	    
 	}
 		
 	void ResourceManager::loadGrapefruktTextures(Value & node, const std::string & dirPath){
-	    if(node["TextureSheet"].isObject()){
-		//node["Texture"];
-	    }
-	    else{
+	 
 	    //if there is more than one texture for the font.
 	       Array textures = node["TextureSheet"].getArray();
 	       for(Array::iterator i = textures.begin(); i != textures.end(); i++){
 		   std::string name =(*i)["Texture"]["name"].getString();
 		   std::string path = dirPath + '/' + (*i)["Texture"]["path"].getString();
 		   Symbol * symbol = new Symbol();
-		   symbol->name = name;
+		   symbol->isTexture = true;
+		   symbol->key = name;
 		   Vector2 registrationPoint;
 		   if((*i)["Texture"]["registrationPointX"].isNumeric()) registrationPoint.x = (*i)["Texture"]["registrationPointX"].getFloat();
 		   if((*i)["Texture"]["registrationPointY"].isNumeric()) registrationPoint.y = (*i)["Texture"]["registrationPointY"].getFloat();
@@ -603,7 +634,7 @@ void ResourceManager::removeSound(const std::string &key) {
 		   symbols[name] = symbol;
 		   registerTexture (name, path);
 	       }  
-	    }
+	    
 	}
 
 	
