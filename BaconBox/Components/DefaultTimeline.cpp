@@ -95,7 +95,7 @@ namespace BaconBox {
 	
 	void DefaultTimeline::setFrame(int frame){
 	    this->currentFrame = frame;
-	    defaultEntityContainer->setChildMatrices();
+	    defaultEntityContainer->setFrame(frame);
 	}
 	
 	void DefaultTimeline::setNbFrames(int newNbFrames) {

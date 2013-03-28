@@ -4,7 +4,7 @@
 #include <vector>
 #include <map>
 #include <string>
-
+#include <deque>
 #include "BaconBox/Components/EntityContainer.h"
 #include "BaconBox/Helper/Range.h"
 #include "BaconBox/Helper/ValueChangedData.h"
@@ -17,19 +17,18 @@ namespace BaconBox {
 	class DefaultEntityContainer : public EntityContainer {
 		friend class EntityContainerLooper;
 	public:
-		typedef std::map<Range<int>, Entity *, Range<int>::Comparator> EntityByFrame;
-		typedef std::vector<EntityByFrame> ChildArray;
-		typedef std::map<std::string, EntityByFrame> ChildMapByName;
+		typedef std::pair<std::set<int>, Entity*> EntityByFrame;
+		typedef std::map<int, std::deque<Entity*> > ChildArray;
 		
 		DefaultEntityContainer();
 		
-		DefaultEntityContainer(const DefaultEntityContainer &src);
+//		DefaultEntityContainer(const DefaultEntityContainer &src);
 		
 		virtual ~DefaultEntityContainer();
 		
-		DefaultEntityContainer &operator=(const DefaultEntityContainer &src);
-		
-		DefaultEntityContainer *clone() const;
+//		DefaultEntityContainer &operator=(const DefaultEntityContainer &src);
+//		
+//		DefaultEntityContainer *clone() const;
 		
 		void receiveMessage(int senderID, int destID, int message, void *data);
 		
@@ -77,33 +76,29 @@ namespace BaconBox {
 		
 		void swapChildren(Entity *child1, Entity *child2);
 		
-		void swapChildrenAt(int index1, int index2);
-		
+		void swapChildrenAt(int index1, int index2);	
+	
 		int getNbChildren() const;
 		
 		Entity * getParent() const;
 
-		void setChildMatrices();
+		void setFrame(int frame);
+		std::deque<Entity*> & getCurrentFrameChild();
 
 	private:
-
+		ChildArray::iterator frameIterator;		
 		Entity * parent;
-		
 		
 		int getCurrentFrameIndex() const;
 		
-		ChildArray::iterator findChild(Entity *child);
+		std::deque<Entity*>::iterator findChild(Entity *child);
 		
-		ChildArray::const_iterator findChild(const Entity *child) const;
+		std::deque<Entity*>::const_iterator findChild(const Entity *child) const;
 		
 		void initializeConnections();
 		
-		void setNbFrames(const ValueChangedData<int> &data);
-		MatrixComponent * matrixComponent;
-		SymbolComponent * symbolComponent;
 		DefaultTimeline *timeline;
 		int previousFrame;
-		ChildMapByName childrenByName;
 		
 		ChildArray children;
 	};
