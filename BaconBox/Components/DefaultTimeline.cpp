@@ -56,10 +56,12 @@ namespace BaconBox {
 	}
 	
 	void DefaultTimeline::nextFrame() {
-		setFrame(this->currentFrame+1);
 		
-		if (this->currentFrame >= this->nbFrames) {
+		if (this->currentFrame+1 >= this->nbFrames) {
 			setFrame(0);
+		}
+		else{
+		   setFrame(this->currentFrame+1);
 		}
 	}
 	

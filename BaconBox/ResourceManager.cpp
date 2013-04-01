@@ -586,16 +586,24 @@ void ResourceManager::removeSound(const std::string &key) {
 	    //if there is more than one texture for the font.
 	       Array animations = node["Animation"].getArray();
 	       for(Array::iterator i = animations.begin(); i != animations.end(); i++){
-		   Symbol * symbol = new Symbol();
-		   symbol->key = (*i)["className"].getString();
-		    symbols[symbol->key] = symbol;
+		   const std::string & className = (*i)["className"].getString();
+			Symbol * symbol = new Symbol();
+			symbol->key = (*i)["className"].getString();
+			
+			symbol->frameCount = (*i)["frameCount"].getInt();
+			symbols[symbol->key] = symbol;
 	       }  
 	       
 	       for(Array::iterator i = animations.begin(); i != animations.end(); i++){
 		   Array part = (*i)["Part"].getArray();
 		   Symbol * parent = symbols[(*i)["className"].getString()];
 		   for(Array::iterator j = part.begin(); j != part.end(); j++){
+		       std::map<std::string, Symbol*>::iterator found = symbols.find((*j)["className"].getString());
+		       if(found != symbols.end()){
 			Symbol * child  = symbols[(*j)["className"].getString()];
+			if(child == NULL){
+			    
+			}
 			//child->name = (*j)["name"].getString();
 			parent->parts.push_back(std::pair<std::string, Symbol*>((*j)["name"].getString(), child));
 			
@@ -613,7 +621,8 @@ void ResourceManager::removeSound(const std::string &key) {
 			    child->frameMatrices[frameIndex] = matrix;
 			}
 		    }  
-	       }
+		   }
+		}
 	    
 	}
 		

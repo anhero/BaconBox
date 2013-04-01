@@ -16,8 +16,9 @@
 namespace BaconBox {
 	DefaultEntityContainer::DefaultEntityContainer() : EntityContainer(), timeline(NULL), children(), parent(NULL), previousFrame(-1) {
 		this->initializeConnections();
+		children[0];
 		frameIterator = children.begin();
-
+		
 	}
 	
 	void DefaultEntityContainer::initializeConnections() {
@@ -128,9 +129,6 @@ namespace BaconBox {
 	
 	void DefaultEntityContainer::update() {
 		this->EntityContainer::update();
-		std::cout << "CACA" << std::endl;
-		PV("LOL");
-		PV(reinterpret_cast<MovieClipEntity*>(this->getEntity())->getName());
 		EntityContainerLooper::forEachChildCurrentFrame(this, updateChild);
 	}
 	
@@ -184,7 +182,10 @@ namespace BaconBox {
 			   position++; 
 			}
 		    }
+		    DefaultEntityContainer * container =  reinterpret_cast<DefaultEntityContainer*>(newChild.second->getComponent(EntityContainer::ID));
+		    container->parent = getEntity();
 		    children[*i].insert(j,  newChild.second);    
+		    
 	    }
 	}
 	

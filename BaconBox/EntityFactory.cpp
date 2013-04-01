@@ -5,10 +5,14 @@
 #include "BaconBox/Components/Mesh.h"
 #include "BaconBox/Components/ColorFilter.h"
 #include "BaconBox/Components/MeshDriverRenderer.h"
+#include "BaconBox/Components/DefaultEntityContainer.h"
+#include "BaconBox/Components/DefaultTimeline.h"
+
 #include "BaconBox/Components/Texture.h"
 #include "BaconBox/ResourceManager.h"
 #include "BaconBox/Display/TextureInformation.h"
 #include "BaconBox/Console.h"
+#include "Components/DefaultEntityContainer.h"
 
 #ifdef BB_FLASH_PLATEFORM
 #include <AS3/AS3.h>
@@ -68,19 +72,34 @@ TextEntity * EntityFactory::getTextEntity(const std::string &key){
 #else
 
 	MovieClipEntity *EntityFactory::getMovieClipEntityFromSymbol(Symbol* symbol){
+	MovieClipEntity * entity = NULL;
 	    if(symbol->isTexture){
 		if(!symbol->subTex){
 			ResourceManager::loadTexture(symbol->key);
 			symbol->subTex = ResourceManager::getSubTexture(symbol->key);
 		}
-		return getMovieClipEntityFromSubTexture(symbol->subTex);
+		entity = getMovieClipEntityFromSubTexture(symbol->subTex, symbol->registrationPoint);
 	    }
 	    else{
-		
+		entity = new MovieClipEntity();
+		DefaultEntityContainer * container = reinterpret_cast<DefaultEntityContainer*>(entity->getComponent(DefaultEntityContainer::ID));
+		DefaultTimeline * timeline = reinterpret_cast<DefaultTimeline*>(entity->getComponent(DefaultTimeline::ID));
+		timeline->setNbFrames(symbol->frameCount);
+		for(std::vector<std::pair<std::string,Symbol*> >::iterator i = symbol->parts.begin();
+			i != symbol->parts.end(); i++){
+		    	DefaultEntityContainer::EntityByFrame child;
+			MovieClipEntity * childEntity;
+			 child.second = childEntity = getMovieClipEntityFromSymbol(i->second);
+			childEntity->setName(i->first);
+			child.first = i->second->frame;
+			container->addChild(child);
+		}
 	    }
+	entity->setSymbol(symbol);
+	return entity;
 	}
 	
-	MovieClipEntity *EntityFactory::getMovieClipEntityFromSubTexture(SubTextureInfo* subTex){
+	MovieClipEntity *EntityFactory::getMovieClipEntityFromSubTexture(SubTextureInfo* subTex, const Vector2 & origin){
 	    MovieClipEntity *result = NULL;
 
 		if (subTex) {
@@ -93,7 +112,7 @@ TextEntity * EntityFactory::getTextEntity(const std::string &key){
 			mesh->getPreTransformVertices()[1].x = subTex->size.x;
 			mesh->getPreTransformVertices()[2].y = subTex->size.y;
 			mesh->getPreTransformVertices()[3] = subTex->size;
-			
+			mesh->getPreTransformVertices().move(-origin.x, -origin.y);
 			mesh->syncMesh();
 
 			result->addComponent(mesh);

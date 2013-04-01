@@ -81,7 +81,7 @@ void DefaultMatrix::setMatrixFromSymbol(const Matrix & m){
 }
 
 void DefaultMatrix::internalSetMatrix(const Matrix & m){
-	   MatrixComponent::setMatrix(m);
+	   
 	   matrix = m;
 	    Vector2 origin;
 	    Vector2 width(1,0);
@@ -113,6 +113,7 @@ void DefaultMatrix::internalSetMatrix(const Matrix & m){
 	}
 		    
 	void DefaultMatrix::setMatrix(const Matrix & m){
+	    MatrixComponent::setMatrix(m);
 	   internalSetMatrix(m);
 		symbolComponent->customMatrixSet = true;
 	}
