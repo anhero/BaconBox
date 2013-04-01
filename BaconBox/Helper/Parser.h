@@ -18,10 +18,15 @@ namespace BaconBox {
 	 */
 	class Parser {
 	public:
+		static bool isNumeric(const std::string& str);
+		static bool isInteger(const std::string& str);
 		/**
 		 * Parse the given string to an integer Ex: "123" would give 123.
 		 */
 		static int stringToInt(const std::string& str);
+		
+		static double stringToDouble(const std::string& str);
+
 		
 		/**
 		 * Create a string from the given integer. Ex: 123 would give "123".

@@ -14,6 +14,33 @@ int Parser::stringToInt(const std::string& str){
 	return i;
 }
 
+double Parser::stringToDouble(const std::string& str){
+	std::stringstream ss(str);
+	double i;
+	if((ss >> i).fail())
+	{ 
+		std::cout << "Impossible to parse " << str << " to double." << std::endl;
+	}
+	return i;
+}
+
+bool Parser::isNumeric(const std::string& str){
+    for(std::string::const_iterator i = str.begin(); i != str.end(); i++){
+	if((*i) != '-' && (*i) != '.'  && !std::isdigit(*i)){
+	    return false;
+	}
+    }
+    return true;
+}
+bool Parser::isInteger(const std::string& str){
+    for(std::string::const_iterator i = str.begin(); i != str.end(); i++){
+	if((*i) != '-' && !std::isdigit(*i)){
+	    return false;
+	}
+    }
+    return true;
+}
+
 
 std::string Parser::intToString(const int anInt){
 	std::stringstream ss;
