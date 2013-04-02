@@ -21,7 +21,7 @@ namespace BaconBox {
 	}
 	
 	StandardVertexArray &Mesh::getPostTransformVertices(){
-	    if(mustSync)syncMesh();
+	    if(true || mustSync)syncMesh();
 	    return postTransformVertices;
 	}
 	

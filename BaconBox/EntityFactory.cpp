@@ -13,6 +13,7 @@
 #include "BaconBox/Display/TextureInformation.h"
 #include "BaconBox/Console.h"
 #include "Components/DefaultEntityContainer.h"
+#include "Components/DefaultMatrix.h"
 
 #ifdef BB_FLASH_PLATEFORM
 #include <AS3/AS3.h>
@@ -85,13 +86,14 @@ TextEntity * EntityFactory::getTextEntity(const std::string &key){
 		DefaultEntityContainer * container = reinterpret_cast<DefaultEntityContainer*>(entity->getComponent(DefaultEntityContainer::ID));
 		DefaultTimeline * timeline = reinterpret_cast<DefaultTimeline*>(entity->getComponent(DefaultTimeline::ID));
 		timeline->setNbFrames(symbol->frameCount);
-		for(std::vector<std::pair<std::string,Symbol*> >::iterator i = symbol->parts.begin();
+		for(Symbol::Parts::iterator i = symbol->parts.begin();
 			i != symbol->parts.end(); i++){
 		    	DefaultEntityContainer::EntityByFrame child;
 			MovieClipEntity * childEntity;
-			 child.second = childEntity = getMovieClipEntityFromSymbol(i->second);
+			 child.second = childEntity = getMovieClipEntityFromSymbol(i->second.second);
 			childEntity->setName(i->first);
-			child.first = i->second->frame;
+			child.first = i->second.second->frame;
+			reinterpret_cast<DefaultMatrix*>(child.second->getComponent(DefaultMatrix::ID))->matrixByParentFrame = i->second.first;
 			container->addChild(child);
 		}
 	    }

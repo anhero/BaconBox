@@ -19,9 +19,7 @@ namespace BaconBox {
 		
 		Symbol * getSymbol();
 		void setSymbol(Symbol * symbol);
-		void setMatrixFromParentFrame();
 	private:
-		bool customMatrixSet;
 		void initializeConnections();
 		Symbol * symbol;
 		DefaultMatrix * defaultMatrix;
@@ -32,7 +30,6 @@ namespace BaconBox {
 	class SymbolComponentProxy : public ComponentProxy {
 	public:
 		SymbolComponentProxy(Entity *entity, bool mustAddComponent = true);
-		void setMatrixFromParentFrame();
 		Symbol * getSymbol();
 		void setSymbol(Symbol * symbol);
 

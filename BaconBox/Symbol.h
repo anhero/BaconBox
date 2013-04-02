@@ -1,5 +1,3 @@
-
-
 #ifndef BB_SYMBOL_H
 #define BB_SYMBOL_H
 
@@ -10,16 +8,17 @@
 
 namespace BaconBox {
     struct Symbol{
+	typedef std::map<int, Matrix> MatrixByFrame;
+	typedef std::pair<MatrixByFrame,Symbol*> SymbolPart;
+	typedef std::vector<std::pair<std::string, std::pair<std::set<int>, SymbolPart> > > Parts;
 	Symbol();
 	std::set<int> frame;
 	int frameCount;
 	std::string key;
 	SubTextureInfo * subTex;
 	bool isTexture;
-	std::map<int, Matrix> frameMatrices;
 	Symbol * symbol;
-	std::vector<std::pair<std::string,Symbol*> > parts;
-
+	Parts parts;
 	Vector2 registrationPoint;
     };
     
@@ -28,3 +27,5 @@ namespace BaconBox {
 }
 
 #endif
+
+

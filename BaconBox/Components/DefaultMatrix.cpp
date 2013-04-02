@@ -8,7 +8,7 @@ namespace BaconBox {
 	
 	 
 
-	DefaultMatrix::DefaultMatrix() : MatrixComponent(), entityContainer(NULL), matrix(), symbolComponent(NULL) {
+	DefaultMatrix::DefaultMatrix() : MatrixComponent(), entityContainer(NULL), matrix(), symbolComponent(NULL), hasCustomMatrix(false) {
 	    initializeConnections();
 	}
 
@@ -30,6 +30,12 @@ namespace BaconBox {
 	Matrix & DefaultMatrix::getMatrix(){
 	    return matrix;
 	}
+	
+		
+	void DefaultMatrix::setFrameMatrix(int frame){
+	    internalSetMatrix(matrixByParentFrame[frame]);
+	}
+
 	
 	Matrix DefaultMatrix::getConcatMatrix(){
 	    if(entityContainer && entityContainer->getParent()){
@@ -70,18 +76,12 @@ namespace BaconBox {
 		matrix.tx = position.x;
 		matrix.ty = position.y;
 		
-		symbolComponent->customMatrixSet = true;
+		hasCustomMatrix = true;
 //	    }
 	}
 
-void DefaultMatrix::setMatrixFromSymbol(const Matrix & m){
-	   //matrix = m;
-	    internalSetMatrix(m);
-	   
-}
-
 void DefaultMatrix::internalSetMatrix(const Matrix & m){
-	   
+	    MatrixComponent::setMatrix(m);
 	   matrix = m;
 	    Vector2 origin;
 	    Vector2 width(1,0);
@@ -113,8 +113,7 @@ void DefaultMatrix::internalSetMatrix(const Matrix & m){
 	}
 		    
 	void DefaultMatrix::setMatrix(const Matrix & m){
-	    MatrixComponent::setMatrix(m);
 	   internalSetMatrix(m);
-		symbolComponent->customMatrixSet = true;
+		hasCustomMatrix = true;
 	}
 }

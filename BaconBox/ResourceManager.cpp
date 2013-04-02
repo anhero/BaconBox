@@ -600,12 +600,10 @@ void ResourceManager::removeSound(const std::string &key) {
 		   for(Array::iterator j = part.begin(); j != part.end(); j++){
 		       std::map<std::string, Symbol*>::iterator found = symbols.find((*j)["className"].getString());
 		       if(found != symbols.end()){
-			Symbol * child  = symbols[(*j)["className"].getString()];
-			if(child == NULL){
-			    
-			}
+			std::pair<std::string, Symbol::SymbolPart> part;   
+			Symbol * child  = part.second.second = symbols[(*j)["className"].getString()];
+			part.first = (*j)["name"].getString();
 			//child->name = (*j)["name"].getString();
-			parent->parts.push_back(std::pair<std::string, Symbol*>((*j)["name"].getString(), child));
 			
 			Array frame = (*j)["Frame"].getArray();
 			for(Array::iterator k = frame.begin(); k != frame.end(); k++){
@@ -618,8 +616,10 @@ void ResourceManager::removeSound(const std::string &key) {
 			    if((*k)["d"].isNumeric()) matrix.d = (*k)["d"].getFloat();
 			    if((*k)["tx"].isNumeric()) matrix.tx = (*k)["tx"].getFloat();
 			    if((*k)["ty"].isNumeric()) matrix.ty = (*k)["ty"].getFloat();
-			    child->frameMatrices[frameIndex] = matrix;
+			    part.second.first[frameIndex] = matrix;
 			}
+			parent->parts.push_back(part);
+
 		    }  
 		   }
 		}

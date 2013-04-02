@@ -112,6 +112,11 @@ namespace BaconBox {
 		 */
 		void clear();
 		
+		template <typename T>
+		T *getComponent()  {
+			return reinterpret_cast<T*>(getComponent(T::ID));
+		}
+		
 		/**
 		 * Gets the component with the given name.
 		 * @param componentName Name of the type of the component to get.
