@@ -8,22 +8,25 @@
 
 namespace BaconBox {
     struct Symbol{
-	typedef std::map<int, Matrix> MatrixByFrame;
-	typedef std::pair<MatrixByFrame,Symbol*> SymbolPart;
-	typedef std::vector<std::pair<std::string, std::pair<std::set<int>, SymbolPart> > > Parts;
+	struct Part{
+	    Part();
+	    typedef std::map<int, Matrix> MatrixByFrame;
+	    std::string name;
+	    MatrixByFrame matrices;
+	    std::set<int> frames;
+	    Symbol * symbol;
+	};
 	Symbol();
-	std::set<int> frame;
 	int frameCount;
 	std::string key;
 	SubTextureInfo * subTex;
 	bool isTexture;
-	Symbol * symbol;
-	Parts parts;
+//	Symbol * symbol;
+	std::vector<Part> parts;
 	Vector2 registrationPoint;
-    };
-    
 	
-    
+	
+    };
 }
 
 #endif

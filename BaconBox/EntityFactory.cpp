@@ -86,15 +86,15 @@ TextEntity * EntityFactory::getTextEntity(const std::string &key){
 		DefaultEntityContainer * container = reinterpret_cast<DefaultEntityContainer*>(entity->getComponent(DefaultEntityContainer::ID));
 		DefaultTimeline * timeline = reinterpret_cast<DefaultTimeline*>(entity->getComponent(DefaultTimeline::ID));
 		timeline->setNbFrames(symbol->frameCount);
-		for(Symbol::Parts::iterator i = symbol->parts.begin();
+		for(std::vector<Symbol::Part>::iterator i = symbol->parts.begin();
 			i != symbol->parts.end(); i++){
 		    	DefaultEntityContainer::EntityByFrame child;
 			MovieClipEntity * childEntity;
-			 child.second = childEntity = getMovieClipEntityFromSymbol(i->second.second);
-			childEntity->setName(i->first);
-			child.first = i->second.second->frame;
-			reinterpret_cast<DefaultMatrix*>(child.second->getComponent(DefaultMatrix::ID))->matrixByParentFrame = i->second.first;
-			container->addChild(child);
+			 child.second = childEntity = getMovieClipEntityFromSymbol(i->symbol);
+			childEntity->setName(i->name);
+			child.first = i->frames;
+			reinterpret_cast<DefaultMatrix*>(child.second->getComponent(DefaultMatrix::ID))->matrixByParentFrame = i->matrices;
+			 container->addChild(child);
 		}
 	    }
 	entity->setSymbol(symbol);

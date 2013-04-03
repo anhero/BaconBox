@@ -137,7 +137,6 @@ namespace BaconBox {
 	
 	void DefaultEntityContainer::render() {
 		this->EntityContainer::render();
-		
 		EntityContainerLooper::forEachChildCurrentFrame(this, renderChild);
 	}
 	
@@ -338,10 +337,10 @@ namespace BaconBox {
 	}
 	
 	void DefaultEntityContainer::setFrame(int frame){
+	    frameIterator = children.find(frame);
 	  std::deque<Entity*> & currentChildren =  getCurrentFrameChild();
 	  for(std::deque<Entity*>::iterator i = currentChildren.begin(); i != currentChildren.end(); i++){
-	      DefaultMatrix* test =(*i)->getComponent<DefaultMatrix>();
-		test->setFrameMatrix(frame);
+		(*i)->getComponent<DefaultMatrix>()->setFrameMatrix(frame);
 	  }
 	}
 

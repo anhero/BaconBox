@@ -4,6 +4,9 @@
 #include "BaconBox/Console.h"
 #include "BaconBox/Helper/MathHelper.h"
 #include "BaconBox/Components/Transform.h"
+#include "BaconBox/Components/HasName.h"
+
+
 namespace BaconBox {
 	
 	 

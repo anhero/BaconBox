@@ -595,20 +595,18 @@ void ResourceManager::removeSound(const std::string &key) {
 	       }  
 	       
 	       for(Array::iterator i = animations.begin(); i != animations.end(); i++){
-		   Array part = (*i)["Part"].getArray();
+		   Array parts = (*i)["Part"].getArray();
 		   Symbol * parent = symbols[(*i)["className"].getString()];
-		   for(Array::iterator j = part.begin(); j != part.end(); j++){
+		   for(Array::iterator j = parts.begin(); j != parts.end(); j++){
 		       std::map<std::string, Symbol*>::iterator found = symbols.find((*j)["className"].getString());
 		       if(found != symbols.end()){
-			std::pair<std::string, Symbol::SymbolPart> part;   
-			Symbol * child  = part.second.second = symbols[(*j)["className"].getString()];
-			part.first = (*j)["name"].getString();
-			//child->name = (*j)["name"].getString();
-			
-			Array frame = (*j)["Frame"].getArray();
-			for(Array::iterator k = frame.begin(); k != frame.end(); k++){
+			Symbol::Part  part;
+			Symbol * child  = part.symbol = found->second;
+			part.name = (*j)["name"].getString();
+			Array frames = (*j)["Frame"].getArray();
+			for(Array::iterator k = frames.begin(); k != frames.end(); k++){
 			    int frameIndex = (*k)["index"].getInt();
-			    child->frame.insert(frameIndex);
+			    part.frames.insert(frameIndex);
 			    Matrix matrix;
 			    if((*k)["a"].isNumeric()) matrix.a = (*k)["a"].getFloat();
 			    if((*k)["b"].isNumeric()) matrix.b = (*k)["b"].getFloat();
@@ -616,7 +614,7 @@ void ResourceManager::removeSound(const std::string &key) {
 			    if((*k)["d"].isNumeric()) matrix.d = (*k)["d"].getFloat();
 			    if((*k)["tx"].isNumeric()) matrix.tx = (*k)["tx"].getFloat();
 			    if((*k)["ty"].isNumeric()) matrix.ty = (*k)["ty"].getFloat();
-			    part.second.first[frameIndex] = matrix;
+			    part.matrices[frameIndex] = matrix;
 			}
 			parent->parts.push_back(part);
 
