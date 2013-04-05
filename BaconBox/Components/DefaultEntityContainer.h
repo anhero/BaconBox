@@ -17,7 +17,6 @@ namespace BaconBox {
 	class DefaultEntityContainer : public EntityContainer {
 		friend class EntityContainerLooper;
 	public:
-		typedef std::pair<std::set<int>, Entity*> EntityByFrame;
 		typedef std::map<int, std::deque<Entity*> > ChildArray;
 		
 		DefaultEntityContainer();
@@ -42,13 +41,13 @@ namespace BaconBox {
 		 */
 		void render();
 		
-		Entity *addChild(Entity *newChild);
+		void addChild(Entity *newChild);
 		
-		void addChild(const EntityByFrame &newChild);
+		void addChild(Entity *newChild, int frame);
 		
-		Entity *addChildAt(Entity *newChild, int index);
+		void addChildAt(Entity *newChild, int index);
 		
-		void addChildAt(const EntityByFrame &newChild, int index);
+		void addChildAt(Entity *newChild, int index, int frame);
 		
 		bool contains(Entity *child) const;
 		
@@ -83,7 +82,7 @@ namespace BaconBox {
 		Entity * getParent() const;
 
 		void setFrame(int frame);
-		std::deque<Entity*> & getCurrentFrameChild();
+		std::deque<Entity*> * getCurrentFrameChildren();
 
 	private:
 		ChildArray::iterator frameIterator;		

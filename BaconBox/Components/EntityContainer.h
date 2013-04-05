@@ -19,9 +19,9 @@ namespace BaconBox {
 		
 		virtual void receiveMessage(int senderID, int destID, int message, void *data);
 		
-		virtual Entity *addChild(Entity *newChild) = 0;
+		virtual void addChild(Entity *newChild) = 0;
 		
-		virtual Entity *addChildAt(Entity *newChild, int index) = 0;
+		virtual void addChildAt(Entity *newChild, int index) = 0;
 		
 		virtual bool contains(Entity *child) const = 0;
 		
@@ -64,9 +64,9 @@ namespace BaconBox {
 		EntityContainerProxy(Entity *entity);
 
 		
-		Entity *addChild(Entity *newChild);
+		void addChild(Entity *newChild);
 				
-		Entity *addChildAt(Entity *newChild, int index);
+		void addChildAt(Entity *newChild, int index);
 		
 		bool contains(Entity *child) const;
 		

@@ -606,7 +606,7 @@ void ResourceManager::removeSound(const std::string &key) {
 			Array frames = (*j)["Frame"].getArray();
 			for(Array::iterator k = frames.begin(); k != frames.end(); k++){
 			    int frameIndex = (*k)["index"].getInt();
-			    part.frames.insert(frameIndex);
+			    part.indexByFrame[frameIndex] = (*k)["layerIndex"].getInt();
 			    Matrix matrix;
 			    if((*k)["a"].isNumeric()) matrix.a = (*k)["a"].getFloat();
 			    if((*k)["b"].isNumeric()) matrix.b = (*k)["b"].getFloat();
@@ -618,7 +618,7 @@ void ResourceManager::removeSound(const std::string &key) {
 			}
 			parent->parts.push_back(part);
 
-		    }  
+			}  
 		   }
 		}
 	    

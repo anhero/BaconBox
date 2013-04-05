@@ -14,6 +14,7 @@
 #include "BaconBox/Console.h"
 #include "Components/DefaultEntityContainer.h"
 #include "Components/DefaultMatrix.h"
+#include "Core/Engine.h"
 
 #ifdef BB_FLASH_PLATEFORM
 #include <AS3/AS3.h>
@@ -26,7 +27,7 @@
 
 namespace BaconBox {
 
-	MovieClipEntity *EntityFactory::getMovieClipEntity(const std::string &key) {
+	MovieClipEntity *EntityFactory::getMovieClipEntity(const std::string &key, bool autoPlay) {
 #ifdef BB_DEBUG
     try{
 #endif
@@ -41,7 +42,7 @@ namespace BaconBox {
 		MovieClipEntity * entity;
 		Symbol * symbol = ResourceManager::getSymbol(key);
 		if(symbol){
-			entity = getMovieClipEntityFromSymbol(symbol);
+			entity = getMovieClipEntityFromSymbol(symbol, autoPlay);
 		}
 		else{
 		    entity = getMovieClipEntityFromSubTexture(ResourceManager::getSubTexture(key));
@@ -72,7 +73,7 @@ TextEntity * EntityFactory::getTextEntity(const std::string &key){
 }
 #else
 
-	MovieClipEntity *EntityFactory::getMovieClipEntityFromSymbol(Symbol* symbol){
+	MovieClipEntity *EntityFactory::getMovieClipEntityFromSymbol(Symbol* symbol, bool autoPlay){
 	MovieClipEntity * entity = NULL;
 	    if(symbol->isTexture){
 		if(!symbol->subTex){
@@ -86,18 +87,33 @@ TextEntity * EntityFactory::getTextEntity(const std::string &key){
 		DefaultEntityContainer * container = reinterpret_cast<DefaultEntityContainer*>(entity->getComponent(DefaultEntityContainer::ID));
 		DefaultTimeline * timeline = reinterpret_cast<DefaultTimeline*>(entity->getComponent(DefaultTimeline::ID));
 		timeline->setNbFrames(symbol->frameCount);
-		for(std::vector<Symbol::Part>::iterator i = symbol->parts.begin();
+		std::map<int, std::map <int, Symbol::Part*> > orderedPart;
+		for(std::list<Symbol::Part>::iterator i = symbol->parts.begin();
 			i != symbol->parts.end(); i++){
-		    	DefaultEntityContainer::EntityByFrame child;
-			MovieClipEntity * childEntity;
-			 child.second = childEntity = getMovieClipEntityFromSymbol(i->symbol);
-			childEntity->setName(i->name);
-			child.first = i->frames;
-			reinterpret_cast<DefaultMatrix*>(child.second->getComponent(DefaultMatrix::ID))->matrixByParentFrame = i->matrices;
-			 container->addChild(child);
+			for(std::map<int,int>::iterator j = i->indexByFrame.begin(); j != i->indexByFrame.end(); j++){
+			    orderedPart[j->first][j->second] = &(*i);
+			}
 		}
+		
+		for(std::map<int, std::map <int, Symbol::Part*> >::iterator i = orderedPart.begin();
+			i != orderedPart.end(); i++){
+		    for(std::map <int, Symbol::Part*>::iterator j = i->second.begin(); j != i->second.end(); j++){
+			MovieClipEntity * childEntity;
+			childEntity = getMovieClipEntityFromSymbol(j->second->symbol, autoPlay);
+			childEntity->setName(j->second->name);
+			reinterpret_cast<DefaultMatrix*>(childEntity->getComponent(DefaultMatrix::ID))->matrixByParentFrame = j->second->matrices;
+			container->addChild(childEntity, i->first);
+		    }
+		}
+		    
 	    }
 	entity->setSymbol(symbol);
+	if(autoPlay){
+	    entity->gotoAndPlay(0);
+	}
+	else{
+	    entity->gotoAndStop(0);
+	}
 	return entity;
 	}
 	

@@ -26,12 +26,12 @@ namespace BaconBox {
 	}
 
 	
-	Entity *EntityContainerProxy::addChild(Entity *newChild) {
-		return reinterpret_cast<EntityContainer*>(this->component)->addChild(newChild);
+	void EntityContainerProxy::addChild(Entity *newChild) {
+		reinterpret_cast<EntityContainer*>(this->component)->addChild(newChild);
 	}
 	
-	Entity *EntityContainerProxy::addChildAt(Entity *newChild, int index) {
-		return reinterpret_cast<EntityContainer*>(this->component)->addChildAt(newChild, index);
+	void EntityContainerProxy::addChildAt(Entity *newChild, int index) {
+		reinterpret_cast<EntityContainer*>(this->component)->addChildAt(newChild, index);
 	}
 	
 	bool EntityContainerProxy::contains(Entity *child) const {

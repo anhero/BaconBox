@@ -19,10 +19,12 @@ namespace BaconBox {
 		
 		template <typename UnaryPredicate>
 		static void forEachChildCurrentFrame(DefaultEntityContainer *container, UnaryPredicate predicate) {
-		    
-			std::deque<Entity*>::iterator i;
-			for(i = container->getCurrentFrameChild().begin(); i != container->getCurrentFrameChild().end(); i++){
-				predicate(*i);
+			std::deque<Entity*> * currentChildren =  container->getCurrentFrameChildren();
+			if(currentChildren){
+			    std::deque<Entity*>::iterator i;
+			    for(i = currentChildren->begin(); i != currentChildren->end(); i++){
+				    predicate(*i);
+			    }
 			}
 		}
 	};
