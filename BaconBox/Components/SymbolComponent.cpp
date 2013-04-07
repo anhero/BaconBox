@@ -6,7 +6,7 @@
 #include "BaconBox/Components/MatrixComponent.h"
 #include "BaconBox/Components/DefaultMatrix.h"
 #include "SymbolComponent.h"
-#include "MovieClipEntity/MovieClipEntity.h"
+#include "BaconBox/MovieClipEntity/MovieClipEntity.h"
 #include "DefaultMatrix.h"
 namespace BaconBox {
 	 BB_ID_IMPL(SymbolComponent);

@@ -13,7 +13,7 @@
 #include "BaconBox/Helper/Serialization/Value.h"
 #include "BaconBox/Helper/Serialization/Array.h"
 #include "BaconBox/Helper/Serialization/Object.h"
-#include "Helper/Parser.h"
+#include "BaconBox/Helper/Parser.h"
 
 namespace BaconBox {
 	const std::string FALSE_STRING = std::string("false");

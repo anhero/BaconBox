@@ -1,5 +1,5 @@
 #include "EntityContainer.h"
-#include "Core/Entity.h"
+#include "BaconBox/Core/Entity.h"
 
 namespace BaconBox {
 	BB_ID_IMPL(EntityContainer);

@@ -9,9 +9,9 @@
 #include "BaconBox/Components/EntityContainerLooper.h"
 #include "BaconBox/Components/Visibility.h"
 #include "BaconBox/Console.h"
-#include "MovieClipEntity/MovieClipEntity.h"
+#include "BaconBox/MovieClipEntity/MovieClipEntity.h"
 #include "HasName.h"
-#include "Helper/TimeHelper.h"
+#include "BaconBox/Helper/TimeHelper.h"
 #include "BaconBox/Components/DefaultMatrix.h"
 namespace BaconBox {
 	DefaultEntityContainer::DefaultEntityContainer() : EntityContainer(), timeline(NULL), children(), parent(NULL), previousFrame(-1) {

@@ -19,6 +19,27 @@
 		246274CB16AC8AB4006C7FFF /* MeshDriverRenderer.h in Headers */ = {isa = PBXBuildFile; fileRef = 246274C916AC8AB4006C7FFF /* MeshDriverRenderer.h */; };
 		2478740816360C7F006D4A59 /* libSDL2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2478740616360C7F006D4A59 /* libSDL2.a */; };
 		2478740916360C7F006D4A59 /* libSDL2main.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2478740716360C7F006D4A59 /* libSDL2main.a */; };
+		2481350D1711A4E300283670 /* FontFormat.h in Headers */ = {isa = PBXBuildFile; fileRef = 248135081711A4E300283670 /* FontFormat.h */; };
+		2481350E1711A4E300283670 /* TextEntity.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 248135091711A4E300283670 /* TextEntity.cpp */; };
+		2481350F1711A4E300283670 /* TextEntity.h in Headers */ = {isa = PBXBuildFile; fileRef = 2481350A1711A4E300283670 /* TextEntity.h */; };
+		248135101711A4E300283670 /* TextureFont.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2481350B1711A4E300283670 /* TextureFont.cpp */; };
+		248135111711A4E300283670 /* TextureFont.h in Headers */ = {isa = PBXBuildFile; fileRef = 2481350C1711A4E300283670 /* TextureFont.h */; };
+		2481351C1711A51900283670 /* DefaultMatrix.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 248135121711A51900283670 /* DefaultMatrix.cpp */; };
+		2481351D1711A51900283670 /* DefaultMatrix.h in Headers */ = {isa = PBXBuildFile; fileRef = 248135131711A51900283670 /* DefaultMatrix.h */; };
+		2481351E1711A51900283670 /* MatrixComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 248135141711A51900283670 /* MatrixComponent.cpp */; };
+		2481351F1711A51900283670 /* MatrixComponent.h in Headers */ = {isa = PBXBuildFile; fileRef = 248135151711A51900283670 /* MatrixComponent.h */; };
+		248135201711A51900283670 /* SymbolComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 248135161711A51900283670 /* SymbolComponent.cpp */; };
+		248135211711A51900283670 /* SymbolComponent.h in Headers */ = {isa = PBXBuildFile; fileRef = 248135171711A51900283670 /* SymbolComponent.h */; };
+		248135221711A51900283670 /* TextComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 248135181711A51900283670 /* TextComponent.cpp */; };
+		248135231711A51900283670 /* TextComponent.h in Headers */ = {isa = PBXBuildFile; fileRef = 248135191711A51900283670 /* TextComponent.h */; };
+		248135241711A51900283670 /* TextRenderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2481351A1711A51900283670 /* TextRenderer.cpp */; };
+		248135251711A51900283670 /* TextRenderer.h in Headers */ = {isa = PBXBuildFile; fileRef = 2481351B1711A51900283670 /* TextRenderer.h */; };
+		248135281711A57A00283670 /* BMFont.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 248135261711A57A00283670 /* BMFont.cpp */; };
+		248135291711A57A00283670 /* BMFont.h in Headers */ = {isa = PBXBuildFile; fileRef = 248135271711A57A00283670 /* BMFont.h */; };
+		2481352E1711A59A00283670 /* Matrix.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2481352A1711A59900283670 /* Matrix.cpp */; };
+		2481352F1711A59A00283670 /* Matrix.h in Headers */ = {isa = PBXBuildFile; fileRef = 2481352B1711A59900283670 /* Matrix.h */; };
+		248135301711A59A00283670 /* Symbol.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2481352C1711A59A00283670 /* Symbol.cpp */; };
+		248135311711A59A00283670 /* Symbol.h in Headers */ = {isa = PBXBuildFile; fileRef = 2481352D1711A59A00283670 /* Symbol.h */; };
 		249CF64216E706420018FD33 /* Vector3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 249CF64116E706420018FD33 /* Vector3.cpp */; };
 		249CF64916E709F70018FD33 /* TextureGlyphInformation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 249CF64716E709F70018FD33 /* TextureGlyphInformation.cpp */; };
 		249CF64A16E709F70018FD33 /* TextureGlyphInformation.h in Headers */ = {isa = PBXBuildFile; fileRef = 249CF64816E709F70018FD33 /* TextureGlyphInformation.h */; };
@@ -57,8 +78,6 @@
 		5153CD011698AA3300431A19 /* Font.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5153CCF51698AA3300431A19 /* Font.cpp */; };
 		5153CD021698AA3300431A19 /* Font.h in Headers */ = {isa = PBXBuildFile; fileRef = 5153CCF61698AA3300431A19 /* Font.h */; };
 		5153CD031698AA3300431A19 /* FontPointer.h in Headers */ = {isa = PBXBuildFile; fileRef = 5153CCF71698AA3300431A19 /* FontPointer.h */; };
-		5153CD041698AA3300431A19 /* FontImplementation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5153CCF91698AA3300431A19 /* FontImplementation.cpp */; };
-		5153CD051698AA3300431A19 /* FontImplementation.h in Headers */ = {isa = PBXBuildFile; fileRef = 5153CCFA1698AA3300431A19 /* FontImplementation.h */; };
 		5153CD0A1698AA3300431A19 /* TextAlignment.h in Headers */ = {isa = PBXBuildFile; fileRef = 5153CCFF1698AA3300431A19 /* TextAlignment.h */; };
 		5153CD0B1698AA3300431A19 /* TextDirection.h in Headers */ = {isa = PBXBuildFile; fileRef = 5153CD001698AA3300431A19 /* TextDirection.h */; };
 		5153CD1D169925E700431A19 /* Camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5153CD1B169925E700431A19 /* Camera.cpp */; };
@@ -304,6 +323,27 @@
 		24660B0F16E2C1C000C52ABF /* EntityContainerLooper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EntityContainerLooper.h; sourceTree = "<group>"; };
 		2478740616360C7F006D4A59 /* libSDL2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSDL2.a; path = libraries/Darwin/x86_64/lib/libSDL2.a; sourceTree = "<group>"; };
 		2478740716360C7F006D4A59 /* libSDL2main.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSDL2main.a; path = libraries/Darwin/x86_64/lib/libSDL2main.a; sourceTree = "<group>"; };
+		248135081711A4E300283670 /* FontFormat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FontFormat.h; sourceTree = "<group>"; };
+		248135091711A4E300283670 /* TextEntity.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TextEntity.cpp; sourceTree = "<group>"; };
+		2481350A1711A4E300283670 /* TextEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextEntity.h; sourceTree = "<group>"; };
+		2481350B1711A4E300283670 /* TextureFont.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TextureFont.cpp; sourceTree = "<group>"; };
+		2481350C1711A4E300283670 /* TextureFont.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextureFont.h; sourceTree = "<group>"; };
+		248135121711A51900283670 /* DefaultMatrix.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DefaultMatrix.cpp; sourceTree = "<group>"; };
+		248135131711A51900283670 /* DefaultMatrix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DefaultMatrix.h; sourceTree = "<group>"; };
+		248135141711A51900283670 /* MatrixComponent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MatrixComponent.cpp; sourceTree = "<group>"; };
+		248135151711A51900283670 /* MatrixComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MatrixComponent.h; sourceTree = "<group>"; };
+		248135161711A51900283670 /* SymbolComponent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SymbolComponent.cpp; sourceTree = "<group>"; };
+		248135171711A51900283670 /* SymbolComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SymbolComponent.h; sourceTree = "<group>"; };
+		248135181711A51900283670 /* TextComponent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TextComponent.cpp; sourceTree = "<group>"; };
+		248135191711A51900283670 /* TextComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextComponent.h; sourceTree = "<group>"; };
+		2481351A1711A51900283670 /* TextRenderer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TextRenderer.cpp; sourceTree = "<group>"; };
+		2481351B1711A51900283670 /* TextRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextRenderer.h; sourceTree = "<group>"; };
+		248135261711A57A00283670 /* BMFont.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BMFont.cpp; sourceTree = "<group>"; };
+		248135271711A57A00283670 /* BMFont.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMFont.h; sourceTree = "<group>"; };
+		2481352A1711A59900283670 /* Matrix.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Matrix.cpp; sourceTree = "<group>"; };
+		2481352B1711A59900283670 /* Matrix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Matrix.h; sourceTree = "<group>"; };
+		2481352C1711A59A00283670 /* Symbol.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Symbol.cpp; sourceTree = "<group>"; };
+		2481352D1711A59A00283670 /* Symbol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Symbol.h; sourceTree = "<group>"; };
 		249CF64016E6FD7A0018FD33 /* Vector3.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Vector3.h; sourceTree = "<group>"; };
 		249CF64116E706420018FD33 /* Vector3.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Vector3.cpp; sourceTree = "<group>"; };
 		249CF64716E709F70018FD33 /* TextureGlyphInformation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TextureGlyphInformation.cpp; sourceTree = "<group>"; };
@@ -344,8 +384,6 @@
 		5153CCF51698AA3300431A19 /* Font.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Font.cpp; sourceTree = "<group>"; };
 		5153CCF61698AA3300431A19 /* Font.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Font.h; sourceTree = "<group>"; };
 		5153CCF71698AA3300431A19 /* FontPointer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FontPointer.h; sourceTree = "<group>"; };
-		5153CCF91698AA3300431A19 /* FontImplementation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FontImplementation.cpp; sourceTree = "<group>"; };
-		5153CCFA1698AA3300431A19 /* FontImplementation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FontImplementation.h; sourceTree = "<group>"; };
 		5153CCFF1698AA3300431A19 /* TextAlignment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextAlignment.h; sourceTree = "<group>"; };
 		5153CD001698AA3300431A19 /* TextDirection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextDirection.h; sourceTree = "<group>"; };
 		5153CD1B169925E700431A19 /* Camera.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Camera.cpp; sourceTree = "<group>"; };
@@ -621,25 +659,22 @@
 		5153CCF41698AA3300431A19 /* Text */ = {
 			isa = PBXGroup;
 			children = (
+				248135261711A57A00283670 /* BMFont.cpp */,
+				248135271711A57A00283670 /* BMFont.h */,
+				248135081711A4E300283670 /* FontFormat.h */,
+				248135091711A4E300283670 /* TextEntity.cpp */,
+				2481350A1711A4E300283670 /* TextEntity.h */,
+				2481350B1711A4E300283670 /* TextureFont.cpp */,
+				2481350C1711A4E300283670 /* TextureFont.h */,
 				249CF64716E709F70018FD33 /* TextureGlyphInformation.cpp */,
 				249CF64816E709F70018FD33 /* TextureGlyphInformation.h */,
 				5153CCF51698AA3300431A19 /* Font.cpp */,
 				5153CCF61698AA3300431A19 /* Font.h */,
 				5153CCF71698AA3300431A19 /* FontPointer.h */,
-				5153CCF81698AA3300431A19 /* FreetypeImplementation */,
 				5153CCFF1698AA3300431A19 /* TextAlignment.h */,
 				5153CD001698AA3300431A19 /* TextDirection.h */,
 			);
 			path = Text;
-			sourceTree = "<group>";
-		};
-		5153CCF81698AA3300431A19 /* FreetypeImplementation */ = {
-			isa = PBXGroup;
-			children = (
-				5153CCF91698AA3300431A19 /* FontImplementation.cpp */,
-				5153CCFA1698AA3300431A19 /* FontImplementation.h */,
-			);
-			path = FreetypeImplementation;
 			sourceTree = "<group>";
 		};
 		51B7424416345CFF00DB18E1 = {
@@ -662,6 +697,10 @@
 		51E516BA1697529200F6D446 /* BaconBox */ = {
 			isa = PBXGroup;
 			children = (
+				2481352A1711A59900283670 /* Matrix.cpp */,
+				2481352B1711A59900283670 /* Matrix.h */,
+				2481352C1711A59A00283670 /* Symbol.cpp */,
+				2481352D1711A59A00283670 /* Symbol.h */,
 				24F9A05016BF019700FCA53B /* ResourcePointer.h */,
 				24F9A04C16BF007700FCA53B /* EntityFactory.cpp */,
 				24F9A04D16BF007700FCA53B /* EntityFactory.h */,
@@ -696,6 +735,16 @@
 		51E516BD1697529200F6D446 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				248135121711A51900283670 /* DefaultMatrix.cpp */,
+				248135131711A51900283670 /* DefaultMatrix.h */,
+				248135141711A51900283670 /* MatrixComponent.cpp */,
+				248135151711A51900283670 /* MatrixComponent.h */,
+				248135161711A51900283670 /* SymbolComponent.cpp */,
+				248135171711A51900283670 /* SymbolComponent.h */,
+				248135181711A51900283670 /* TextComponent.cpp */,
+				248135191711A51900283670 /* TextComponent.h */,
+				2481351A1711A51900283670 /* TextRenderer.cpp */,
+				2481351B1711A51900283670 /* TextRenderer.h */,
 				24C0E73F16DAE64500325858 /* ComponentConnection.h */,
 				24C0E74016DAE64500325858 /* IComponentConnection.h */,
 				24B0364316BEA39300117510 /* HasName.cpp */,
@@ -1279,7 +1328,6 @@
 				51E519F61697652D00F6D446 /* LibcTimeHelper.h in Headers */,
 				5153CD021698AA3300431A19 /* Font.h in Headers */,
 				5153CD031698AA3300431A19 /* FontPointer.h in Headers */,
-				5153CD051698AA3300431A19 /* FontImplementation.h in Headers */,
 				5153CD0A1698AA3300431A19 /* TextAlignment.h in Headers */,
 				5153CD0B1698AA3300431A19 /* TextDirection.h in Headers */,
 				5153CD1E169925E700431A19 /* Camera.h in Headers */,
@@ -1304,6 +1352,17 @@
 				24412E3816E013810081897B /* DefaultEntityContainer.h in Headers */,
 				249CF64A16E709F70018FD33 /* TextureGlyphInformation.h in Headers */,
 				249CF64E16E70A120018FD33 /* SubTextureInfo.h in Headers */,
+				2481350D1711A4E300283670 /* FontFormat.h in Headers */,
+				2481350F1711A4E300283670 /* TextEntity.h in Headers */,
+				248135111711A4E300283670 /* TextureFont.h in Headers */,
+				2481351D1711A51900283670 /* DefaultMatrix.h in Headers */,
+				2481351F1711A51900283670 /* MatrixComponent.h in Headers */,
+				248135211711A51900283670 /* SymbolComponent.h in Headers */,
+				248135231711A51900283670 /* TextComponent.h in Headers */,
+				248135251711A51900283670 /* TextRenderer.h in Headers */,
+				248135291711A57A00283670 /* BMFont.h in Headers */,
+				2481352F1711A59A00283670 /* Matrix.h in Headers */,
+				248135311711A59A00283670 /* Symbol.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1454,7 +1513,6 @@
 				51E519F0169764E200F6D446 /* SignalData.cpp in Sources */,
 				51E519F51697652D00F6D446 /* LibcTimeHelper.cpp in Sources */,
 				5153CD011698AA3300431A19 /* Font.cpp in Sources */,
-				5153CD041698AA3300431A19 /* FontImplementation.cpp in Sources */,
 				5153CD1D169925E700431A19 /* Camera.cpp in Sources */,
 				5153CD211699282300431A19 /* CameraDriverRenderer.cpp in Sources */,
 				51B374D516A4F04D0052740F /* Vector2.cpp in Sources */,
@@ -1474,6 +1532,16 @@
 				249CF64216E706420018FD33 /* Vector3.cpp in Sources */,
 				249CF64916E709F70018FD33 /* TextureGlyphInformation.cpp in Sources */,
 				249CF64D16E70A120018FD33 /* SubTextureInfo.cpp in Sources */,
+				2481350E1711A4E300283670 /* TextEntity.cpp in Sources */,
+				248135101711A4E300283670 /* TextureFont.cpp in Sources */,
+				2481351C1711A51900283670 /* DefaultMatrix.cpp in Sources */,
+				2481351E1711A51900283670 /* MatrixComponent.cpp in Sources */,
+				248135201711A51900283670 /* SymbolComponent.cpp in Sources */,
+				248135221711A51900283670 /* TextComponent.cpp in Sources */,
+				248135241711A51900283670 /* TextRenderer.cpp in Sources */,
+				248135281711A57A00283670 /* BMFont.cpp in Sources */,
+				2481352E1711A59A00283670 /* Matrix.cpp in Sources */,
+				248135301711A59A00283670 /* Symbol.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

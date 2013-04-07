@@ -5,7 +5,7 @@
 #include "BaconBox/Helper/Vector2ChangedData.h"
 #include "BaconBox/Helper/ValueChangedData.h"
 #include "BaconBox/Components/ComponentConnection.h"
-#include "Display/Window/MainWindow.h"
+#include "BaconBox/Display/Window/MainWindow.h"
 namespace BaconBox {
 	BB_ID_IMPL(Mesh);
 

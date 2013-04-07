@@ -8,9 +8,9 @@
 #include "BaconBox/Components/Mesh.h"
 #include "BaconBox/Components/MeshDriverRenderer.h"
 #include "BaconBox/Components/DefaultMatrix.h"
-#include "Components/Timeline.h"
-#include "Components/DefaultEntityContainer.h"
-#include "Components/DefaultTimeline.h"
+#include "BaconBox/Components/Timeline.h"
+#include "BaconBox/Components/DefaultEntityContainer.h"
+#include "BaconBox/Components/DefaultTimeline.h"
 #endif
 
 namespace BaconBox {
