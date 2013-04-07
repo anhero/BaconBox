@@ -15,9 +15,6 @@ namespace BaconBox {
 	}
 	
 	BatchManager &BatchManager::operator=(const BatchManager &src) {
-		if (this != &src) {
-		}
-		
 		return *this;
 	}
 }

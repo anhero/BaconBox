@@ -60,7 +60,7 @@ namespace BaconBox {
 		 * Removes a vertex array from the batch.
 		 * @param identifier Unique identifier of the vertex array to remove.
 		 */
-		virtual bool removeVertexArray(size_t identifier) = 0;
+		virtual void removeVertexArray(size_t identifier) = 0;
 		
 		/**
 		 * Checks whether or not the batch contains an array with the given
@@ -68,7 +68,7 @@ namespace BaconBox {
 		 * *param identifier Unique identifier of the vertex array to check
 		 * the existence of.
 		 */
-		virtual bool containsVertexArray(size_t identifier) = 0;
+		virtual bool containsVertexArray(size_t identifier) const = 0;
 		
 		/**
 		 * Gets the iterator pointing to the first vertex.
