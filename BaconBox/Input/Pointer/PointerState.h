@@ -19,14 +19,14 @@ namespace BaconBox {
 		friend class Pointer;
 	public:
 		/// Default number of cursors a pointer's state has.
-		static const unsigned int DEFAULT_NB_CURSORS = 1;
+		static const size_t DEFAULT_NB_CURSORS = 1;
 
 		/**
 		 * Parameterizable default constructor.
 		 * @param nbCursors Number of cursors the pointing device(s) can
 		 * support.
 		 */
-		PointerState(unsigned int nbCursors = DEFAULT_NB_CURSORS);
+		PointerState(size_t nbCursors = DEFAULT_NB_CURSORS);
 
 		/**
 		 * Destructor.
@@ -37,7 +37,7 @@ namespace BaconBox {
 		 * Gets the state of a cursor.
 		 * @param index Index of the cursor's state to get.
 		 */
-		const CursorState& getCursorState(unsigned int index = 0) const;
+		const CursorState& getCursorState(size_t index = 0) const;
 	private:
 		/// Cursors' states.
 		std::vector<CursorState> cursors;
@@ -47,28 +47,28 @@ namespace BaconBox {
 		 * @param index Index of the cursor to get.
 		 * @return Reference to the cursor's position.
 		 */
-		Vector2& getCursorPosition(unsigned int index);
+		Vector2& getCursorPosition(size_t index);
 
 		/**
 		 * Gets a cursor's previous position.
 		 * @param index Index of the cursor to get.
 		 * @return Reference to the cursor's previous position.
 		 */
-		Vector2& getCursorPreviousPosition(unsigned int index);
+		Vector2& getCursorPreviousPosition(size_t index);
 
 		/**
 		 * Gets a cursor's buttons.
 		 * @param index Index of the cursor to get.
 		 * @return Reference to the cursor's buttons.
 		 */
-		std::vector<bool>& getCursorButtons(unsigned int index);
+		std::vector<bool>& getCursorButtons(size_t index);
 
 		/**
 		 * Gets a cursor's previous buttons.
 		 * @param index Index of the cursor to get.
 		 * @return Reference to the cursor's previous buttons.
 		 */
-		std::vector<bool>& getCursorPreviousButtons(unsigned int index);
+		std::vector<bool>& getCursorPreviousButtons(size_t index);
 	};
 }
 

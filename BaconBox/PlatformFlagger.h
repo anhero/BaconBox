@@ -127,11 +127,11 @@
 #ifdef BB_SDL
 #undef BB_SDL
 #endif
-#define BB_SDL 1
+#define BB_SDL
 #endif
 #ifdef BB_SDL
 	//Graphics engine for SDL
-	#define BB_OPENGL 1
+	#define BB_OPENGL
 
 	//Sound engine for SDL
 	#define BB_SOUND_ENGINE_IMPL new SDLMixerEngine()

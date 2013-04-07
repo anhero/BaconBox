@@ -54,7 +54,7 @@ namespace BaconBox {
 			glTexCoordPointer(2, GL_FLOAT, 0, GET_TEX_PTR(textureCoordinates));
 			glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 
-			glDrawArrays(GL_TRIANGLE_STRIP, 0, vertices.getNbVertices());
+			glDrawArrays(GL_TRIANGLE_STRIP, 0, static_cast<GLsizei>(vertices.getNbVertices()));
 
 			glDisableClientState(GL_VERTEX_ARRAY);
 			glDisableClientState(GL_TEXTURE_COORD_ARRAY);
@@ -80,7 +80,7 @@ namespace BaconBox {
 #endif
 			glEnableClientState(GL_VERTEX_ARRAY);
 
-			glDrawArrays(GL_TRIANGLE_STRIP, 0, vertices.getNbVertices());
+			glDrawArrays(GL_TRIANGLE_STRIP, 0, static_cast<GLsizei>(vertices.getNbVertices()));
 
 			glDisableClientState(GL_VERTEX_ARRAY);
 			glDisable(GL_BLEND);
@@ -122,10 +122,10 @@ namespace BaconBox {
 			glTexCoordPointer(2, GL_FLOAT, 0, GET_TEX_PTR_BATCH(textureCoordinates, i->first));
 
 			if (i == --indiceList.end()) {
-				glDrawElements(GL_TRIANGLE_STRIP, indices.size() - i->second, GL_UNSIGNED_SHORT, GET_TEX_PTR_BATCH(indices, i->second));
+				glDrawElements(GL_TRIANGLE_STRIP, static_cast<GLsizei>(indices.size() - i->second), GL_UNSIGNED_SHORT, GET_TEX_PTR_BATCH(indices, i->second));
 
 			} else {
-				glDrawElements(GL_TRIANGLE_STRIP, (++IndiceArrayList::const_iterator(i))->second - i->second, GL_UNSIGNED_SHORT, GET_TEX_PTR_BATCH(indices, i->second));
+				glDrawElements(GL_TRIANGLE_STRIP, static_cast<GLsizei>((++IndiceArrayList::const_iterator(i))->second - i->second), GL_UNSIGNED_SHORT, GET_TEX_PTR_BATCH(indices, i->second));
 			}
 
 			glDisable(GL_BLEND);
@@ -161,10 +161,10 @@ namespace BaconBox {
 			glTexCoordPointer(2, GL_FLOAT, 0, GET_TEX_PTR_BATCH(textureCoordinates, i->first));
 
 			if (i == --indiceList.end()) {
-				glDrawElements(GL_TRIANGLE_STRIP, indices.size() - i->second, GL_UNSIGNED_SHORT, GET_TEX_PTR_BATCH(indices, i->second));
+				glDrawElements(GL_TRIANGLE_STRIP, static_cast<GLsizei>(indices.size() - i->second), GL_UNSIGNED_SHORT, GET_TEX_PTR_BATCH(indices, i->second));
 
 			} else {
-				glDrawElements(GL_TRIANGLE_STRIP, (++IndiceArrayList::const_iterator(i))->second - i->second, GL_UNSIGNED_SHORT, GET_TEX_PTR_BATCH(indices, i->second));
+				glDrawElements(GL_TRIANGLE_STRIP, static_cast<GLsizei>((++IndiceArrayList::const_iterator(i))->second - i->second), GL_UNSIGNED_SHORT, GET_TEX_PTR_BATCH(indices, i->second));
 			}
 
 			glDisable(GL_BLEND);
@@ -243,7 +243,7 @@ void OpenGLDriver::initializeGraphicDriver() {
 			bottom = 0.0f;
 			top = static_cast<float>(MainWindow::getInstance().getContextWidth());
 
-		} else if (MainWindow::getInstance().getOrientation() == WindowOrientation::HORIZONTAL_RIGHT) {
+		} else { //if (MainWindow::getInstance().getOrientation() == WindowOrientation::HORIZONTAL_RIGHT)
 			left = static_cast<float>(MainWindow::getInstance().getContextHeight());
 			right = 0.0f;
 			bottom = 0.0f;
@@ -317,7 +317,7 @@ void OpenGLDriver::initializeGraphicDriver() {
 		if (pixMap->getColorFormat() == ColorFormat::RGBA) {
 			format = GL_RGBA;
 
-		} else if (pixMap->getColorFormat() == ColorFormat::ALPHA) {
+		} else { // if (pixMap->getColorFormat() == ColorFormat::ALPHA)
 			format = GL_ALPHA;
 		}
 

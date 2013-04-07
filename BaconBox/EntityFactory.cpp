@@ -151,8 +151,9 @@ TextEntity * EntityFactory::getTextEntity(const std::string &key){
 			result->addComponent(textureComponent);
 
 			result->addComponent(new MeshDriverRenderer(RenderMode::SHAPE | RenderMode::COLOR | RenderMode::TEXTURE));
-			return result;
 		}
+		
+		return result;
 	}
 #endif
 

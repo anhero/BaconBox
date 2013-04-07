@@ -36,7 +36,7 @@ namespace BaconBox {
 		 * if on a non-analog game pad, 1.0 is when it is simply pressed
 		 * (whatever the pressure applied on the button.
 		 */
-		float getButton(unsigned int buttonIndex) const;
+		float getButton(size_t buttonIndex) const;
 		/**
 		 * Gets a button's previous state.
 		 * @return Value representing the pressure applied on the button. 0.0
@@ -44,22 +44,22 @@ namespace BaconBox {
 		 * if on a non-analog game pad, 1.0 is when it is simply pressed
 		 * (whatever the pressure applied on the button.
 		 */
-		float getPreviousButton(unsigned int buttonIndex) const;
+		float getPreviousButton(size_t buttonIndex) const;
 		
 		/**
 		 * Gets a thumbstick's state.
 		 * @return 2-dimensional vector containing the horizontal and vertical
 		 * values of the thumbstick's position.
 		 */
-		const float getThumbstick(unsigned int thumbstickIndex) const;
+		const float getThumbstick(size_t thumbstickIndex) const;
         
-        void init(unsigned int nbOfButtons, unsigned int nbOfThumbstick);
+        void init(size_t nbOfButtons, size_t nbOfThumbstick);
 	private:
         
         
-        bool isButtonPressed(unsigned int buttonIndex) const;
-        bool isButtonHeld(unsigned int buttonIndex) const;
-        bool isButtonReleased(unsigned int buttonIndex) const;
+        bool isButtonPressed(size_t buttonIndex) const;
+        bool isButtonHeld(size_t buttonIndex) const;
+        bool isButtonReleased(size_t buttonIndex) const;
         
 		/**
 		 * Vector containing buttons' status. Values represent the pressure

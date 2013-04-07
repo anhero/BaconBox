@@ -106,10 +106,10 @@ namespace BaconBox {
      
 		bool isButtonReleased(unsigned int buttonIndex) const;
         
-        unsigned int getIndex();
+        size_t getIndex();
         
-        unsigned int getNbOfButton();
-        unsigned int getNbOfThumbstick();
+        size_t getNbOfButton();
+        size_t getNbOfThumbstick();
 
         
         
@@ -121,7 +121,7 @@ namespace BaconBox {
 		/**
 		 * Default constructor.
 		 */
-		GamePad(int index);
+		GamePad(size_t index);
 		
 		/**
 		 * Destructor.
@@ -138,10 +138,8 @@ namespace BaconBox {
 		std::vector<float>& getButtons();
         std::vector<float>& getThumbstick();
         std::vector<float>& getPreviousThumbstick();
-        
-        
-        unsigned int gamePadIndex;
-
+		
+        size_t gamePadIndex;
 	};
 }
 

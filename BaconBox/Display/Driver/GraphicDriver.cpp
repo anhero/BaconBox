@@ -7,25 +7,27 @@ namespace BaconBox {
 		return Engine::getGraphicDriver();
 	}
 
-	GraphicDriver::GraphicDriver():initialized(false) {
+	GraphicDriver::GraphicDriver(): initialized(false) {
 	}
 
 	GraphicDriver::~GraphicDriver() {
 	}
-	
-	void GraphicDriver::initializeGraphicDriver(){
-	    initialized = true;
+
+	void GraphicDriver::initializeGraphicDriver() {
+		initialized = true;
 	}
-	
-	bool GraphicDriver::isInitialized(){
-	    return initialized;
+
+	bool GraphicDriver::isInitialized() {
+		return initialized;
 	}
-	
-	
-	TextureInformation *GraphicDriver::loadTexture(PixMap *pixMap){
-	    if(!isInitialized()){
-		Console__error("You are trying to load a texture before the GraphicDriver initialization!");
-	    }
+
+
+	TextureInformation *GraphicDriver::loadTexture(PixMap *pixMap) {
+		if (!isInitialized()) {
+			Console__error("You are trying to load a texture before the GraphicDriver initialization!");
+		}
+
+		return NULL;
 	}
 
 }

@@ -1392,7 +1392,7 @@
 		51B7424616345CFF00DB18E1 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0450;
+				LastUpgradeCheck = 0460;
 				ORGANIZATIONNAME = Anhero;
 			};
 			buildConfigurationList = 51B7424916345CFF00DB18E1 /* Build configuration list for PBXProject "BaconBox" */;
@@ -1604,6 +1604,7 @@
 		51B7425416345CFF00DB18E1 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
 				EXECUTABLE_PREFIX = lib;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -1624,6 +1625,7 @@
 		51B7425516345CFF00DB18E1 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
 				EXECUTABLE_PREFIX = lib;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"TIXML_USE_STL=1",

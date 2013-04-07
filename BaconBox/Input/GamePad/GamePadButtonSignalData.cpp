@@ -3,7 +3,7 @@
 using namespace BaconBox;
 
 GamePadButtonSignalData::GamePadButtonSignalData(const GamePadState& newGamePadState,
-												 unsigned int newButtonIndex, unsigned gamePadIndex):
+												 size_t newButtonIndex, size_t gamePadIndex):
 GamePadSignalData(newGamePadState, gamePadIndex), buttonIndex(newButtonIndex) {
 }
 

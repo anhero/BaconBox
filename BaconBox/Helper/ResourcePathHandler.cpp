@@ -179,8 +179,8 @@ namespace BaconBox {
 	}
 	
 	std::string ResourcePathHandler::getPathFromFilename(std::string filename){
-	    unsigned found = filename.find_last_of("/\\");
-	    return filename.substr(0,found);
+		std::string::size_type found = filename.find_last_of("/\\");
+	    return filename.substr(0, found);
 	}
 
 	bool ResourcePathHandler::isFileWritable(const std::string &filePath) {

@@ -7,6 +7,7 @@ namespace BaconBox {
 	
 	class IComponentConnection {
 	public:
+		virtual ~IComponentConnection() {}
 		virtual void componentRemoved(int id) = 0;
 		virtual void componentAdded(const ComponentAddedData &data) = 0;
 		virtual void refreshConnection(Entity *parent) = 0;

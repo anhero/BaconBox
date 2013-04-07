@@ -79,7 +79,7 @@ namespace BaconBox {
 	
 		int getNbChildren() const;
 		
-		Entity * getParent() const;
+		Entity *getParent() const;
 
 		void setFrame(int frame);
 		std::deque<Entity*> * getCurrentFrameChildren();

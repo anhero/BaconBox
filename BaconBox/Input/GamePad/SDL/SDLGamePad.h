@@ -14,9 +14,7 @@ namespace BaconBox {
 	class SDLGamePad : GamePad {
         friend class InputManager;
 	protected:
-        
-        
-		SDLGamePad(int index);
+		SDLGamePad(size_t index);
 		
 		/**
 		 * Destructor.
@@ -29,15 +27,8 @@ namespace BaconBox {
 		 */
 		void updateDevice();
         
-    
-        
     private:
         SDL_Joystick *joystick;
-        
-        
-        
-        
-        
 	};
 }
 

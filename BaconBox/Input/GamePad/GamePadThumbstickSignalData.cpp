@@ -3,7 +3,7 @@
 using namespace BaconBox;
 
 GamePadThumbstickSignalData::GamePadThumbstickSignalData(const GamePadState& newGamePadState,
-														 unsigned int newThumbstickIndex, unsigned gamePadIndex):
+														 size_t newThumbstickIndex, size_t gamePadIndex):
 GamePadSignalData(newGamePadState, gamePadIndex), thumbstickIndex(newThumbstickIndex) {
 }
 

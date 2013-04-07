@@ -60,53 +60,53 @@ namespace BaconBox {
 		 * Gets the number of accelerometers initialized.
 		 * @return Number of accelerometers initialized.
 		 */
-		unsigned int getNbAccelerometers() const;
+		size_t getNbAccelerometers() const;
 		
 		/**
 		 * Gets the number of game pads initialized.
 		 * @return Number of game pads initialized.
 		 */
-		unsigned int getNbGamePads() const;
+		size_t getNbGamePads() const;
 		
 		/**
 		 * Gets the number of keyboards initialized.
 		 * @return Number of keyboards initialized.
 		 */
-		unsigned int getNbKeyboards() const;
+		size_t getNbKeyboards() const;
 		
 		/**
 		 * Gets the number of pointers initialized.
 		 * @return Number of pointers initialized.
 		 */
-		unsigned int getNbPointers() const;
+		size_t getNbPointers() const;
 		
 		/**
 		 * Sets the number of accelerometers to be initialized and ready to be
 		 * plugged and used.
 		 * @param nb Number of accelerometers to make sure to be loaded.
 		 */
-		void setNbAccelerometers(unsigned int nb);
+		void setNbAccelerometers(size_t nb);
 		
 		/**
 		 * Sets the number of game pads to be initialized and ready to be
 		 * plugged and used.
 		 * @param nb Number of game pads to make sure to be loaded.
 		 */
-		void setNbGamePads(unsigned int nb);
+		void setNbGamePads(size_t nb);
 		
 		/**
 		 * Sets the number of keyboards to be initialized and ready to be
 		 * plugged and used.
 		 * @param nb Number of keyboards to make sure to be loaded.
 		 */
-		void setNbKeyboards(unsigned int nb);
+		void setNbKeyboards(size_t nb);
 		
 		/**
 		 * Sets the number of pointers to be initialized and ready to be
 		 * plugged and used.
 		 * @param nb Number of pointers to make sure to be loaded.
 		 */
-		void setNbPointers(unsigned int nb);
+		void setNbPointers(size_t nb);
 		
 		/**
 		 * Gets an accelerometer.
@@ -114,28 +114,28 @@ namespace BaconBox {
 		 * @return Pointer to the accelerometer corresponding to the received
 		 * index.
 		 */
-		Accelerometer* getAccelerometer(unsigned int index = 0);
+		Accelerometer* getAccelerometer(size_t index = 0);
 		
 		/**
 		 * Gets a game pad.
 		 * @param index Index of the game pad to get.
 		 * @return Pointer to the game pad corresponding to the received index.
 		 */
-		GamePad* getGamePad(unsigned int index = 0);
+		GamePad* getGamePad(size_t index = 0);
 		
 		/**
 		 * Gets a keyboard.
 		 * @param index Index of the keyboard to get.
 		 * @return Pointer to the keyboard corresponding to the received index.
 		 */
-		Keyboard* getKeyboard(unsigned int index = 0);
+		Keyboard* getKeyboard(size_t index = 0);
 		
 		/**
 		 * Gets a pointer.
 		 * @param index Index of the pointer to get.
 		 * @return Pointer to the pointer corresponding to the received index.
 		 */
-		Pointer* getPointer(unsigned int index = 0);
+		Pointer* getPointer(size_t index = 0);
 		
 		/**
 		 * Specify to not delete the accelerometers when the input manager is
