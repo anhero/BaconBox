@@ -1,5 +1,5 @@
-#ifndef BB_OpenGLBatchManager_H
-#define BB_OpenGLBatchManager_H
+#ifndef BB_OPEN_GL_STATIC_BATCH_MANAGER_H
+#define BB_OPEN_GL_STATIC_BATCH_MANAGER_H
 
 #include <vector>
 #include <set>
@@ -11,15 +11,15 @@
 #include "BaconBox/Display/Driver/ColorArray.h"
 
 namespace BaconBox {
-	class OpenGLBatchManager : public BatchManager {
+	class OpenGLStaticBatchManager : public BatchManager {
 	public:
-		OpenGLBatchManager();
+		OpenGLStaticBatchManager();
 		
-		OpenGLBatchManager(const OpenGLBatchManager &src);
+		OpenGLStaticBatchManager(const OpenGLStaticBatchManager &src);
 		
-		~OpenGLBatchManager();
+		~OpenGLStaticBatchManager();
 		
-		OpenGLBatchManager &operator=(const OpenGLBatchManager &src);
+		OpenGLStaticBatchManager &operator=(const OpenGLStaticBatchManager &src);
 
 		void setColor(const Color &color, size_t identifier);
 		
@@ -102,4 +102,4 @@ namespace BaconBox {
 	};
 }
 
-#endif /* defined(BB_OpenGLBatchManager_H) */
+#endif /* defined(BB_OPEN_GL_STATIC_BATCH_MANAGER_H) */

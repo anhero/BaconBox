@@ -138,6 +138,14 @@ namespace BaconBox {
 		 * @param last Vertex after the last vertex to be inserted.
 		 */
 		void insert(Iterator position, Iterator first, Iterator last);
+		
+		/**
+		 * Inserts vertices to specified position in the vertex array.
+		 * @param position Vertex before which the content will be inserted.
+		 * @param first First vertex to be inserted.
+		 * @param last Vertex after the last vertex to be inserted.
+		 */
+		void insert(Iterator position, ConstIterator first, ConstIterator last);
 
 		/**
 		 * Erases the specified vertex.

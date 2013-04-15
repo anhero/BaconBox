@@ -1,4 +1,4 @@
-#include "BaconBox/Display/Driver/OpenGL/OpenGLBatchManager.h"
+#include "BaconBox/Display/Driver/OpenGL/OpenGLStaticBatchManager.h"
 
 #include <algorithm>
 #include <limits>
@@ -6,16 +6,16 @@
 namespace BaconBox {
 	static const VertexArray::SizeType INVALID_INDEX = std::numeric_limits<VertexArray::SizeType>::max();
 
-	OpenGLBatchManager::OpenGLBatchManager() : BatchManager(), firstAvailableIdentifier(0), availableIdentifiers(), indexes(), vertices(), textureCoordinates(), colors(), indices(), indiceList() {
+	OpenGLStaticBatchManager::OpenGLStaticBatchManager() : BatchManager(), firstAvailableIdentifier(0), availableIdentifiers(), indexes(), vertices(), textureCoordinates(), colors(), indices(), indiceList() {
 	}
 
-	OpenGLBatchManager::OpenGLBatchManager(const OpenGLBatchManager &src) : BatchManager(src), indexes(src.indexes), textureCoordinates(src.textureCoordinates), colors(src.colors), indices(src.indices), indiceList(src.indiceList) {
+	OpenGLStaticBatchManager::OpenGLStaticBatchManager(const OpenGLStaticBatchManager &src) : BatchManager(src), indexes(src.indexes), textureCoordinates(src.textureCoordinates), colors(src.colors), indices(src.indices), indiceList(src.indiceList) {
 	}
 
-	OpenGLBatchManager::~OpenGLBatchManager() {
+	OpenGLStaticBatchManager::~OpenGLStaticBatchManager() {
 	}
 
-	OpenGLBatchManager &OpenGLBatchManager::operator=(const OpenGLBatchManager &src) {
+	OpenGLStaticBatchManager &OpenGLStaticBatchManager::operator=(const OpenGLStaticBatchManager &src) {
 		if (this != &src) {
 			this->firstAvailableIdentifier = src.firstAvailableIdentifier;
 			this->availableIdentifiers = src.availableIdentifiers;
@@ -29,13 +29,13 @@ namespace BaconBox {
 		return *this;
 	}
 
-	void OpenGLBatchManager::setColor(const Color &color, size_t identifier) {
+	void OpenGLStaticBatchManager::setColor(const Color &color, size_t identifier) {
 		const VertexArrayInformation &info = this->indexes[identifier];
 
 		std::fill_n(this->colors.begin() + info.index, info.nbVertices, color);
 	}
 
-	void OpenGLBatchManager::setTextureCoordinates(const TextureCoordinates &textureCoordinates, size_t identifier) {
+	void OpenGLStaticBatchManager::setTextureCoordinates(const TextureCoordinates &textureCoordinates, size_t identifier) {
 		const VertexArrayInformation &info = this->indexes[identifier];
 
 		VertexArray::SizeType nbToCopy = std::min(textureCoordinates.size(), info.nbVertices);
@@ -43,7 +43,7 @@ namespace BaconBox {
 		std::copy(textureCoordinates.begin(), textureCoordinates.begin() + nbToCopy, this->textureCoordinates.begin() + info.index);
 	}
 
-	size_t OpenGLBatchManager::addNewVertexArray(VertexArray::SizeType nbVertices, VertexArray::ConstReference defaultValue) {
+	size_t OpenGLStaticBatchManager::addNewVertexArray(VertexArray::SizeType nbVertices, VertexArray::ConstReference defaultValue) {
 		size_t newIdentifier = this->getNewIdentifier();
 		this->indexes[newIdentifier].index = this->vertices.getNbVertices();
 		this->indexes[newIdentifier].nbVertices = nbVertices;
@@ -57,7 +57,7 @@ namespace BaconBox {
 		return newIdentifier;
 	}
 
-	size_t OpenGLBatchManager::addNewVertexArray(const VertexArray::ContainerType &newVertices) {
+	size_t OpenGLStaticBatchManager::addNewVertexArray(const VertexArray::ContainerType &newVertices) {
 		size_t newIdentifier = this->getNewIdentifier();
 		VertexArrayInformation &info = this->indexes[newIdentifier];
 		info.index = this->vertices.getNbVertices();
@@ -75,7 +75,7 @@ namespace BaconBox {
 
 	}
 
-	void OpenGLBatchManager::removeVertexArray(size_t identifier) {
+	void OpenGLStaticBatchManager::removeVertexArray(size_t identifier) {
 		const VertexArrayInformation &info = this->indexes[identifier];
 		
 		this->vertices.erase(this->vertices.getBegin() + info.index, this->vertices.getBegin() + info.index + info.nbVertices);
@@ -87,83 +87,83 @@ namespace BaconBox {
 		this->refreshIndices();
 	}
 
-	bool OpenGLBatchManager::containsVertexArray(size_t identifier) const {
+	bool OpenGLStaticBatchManager::containsVertexArray(size_t identifier) const {
 		return identifier < this->indexes.size();
 	}
 
-	VertexArray::Iterator OpenGLBatchManager::getBegin(size_t identifier) {
+	VertexArray::Iterator OpenGLStaticBatchManager::getBegin(size_t identifier) {
 		return this->vertices.getBegin() + this->indexes[identifier].index;
 	}
 
-	VertexArray::ConstIterator OpenGLBatchManager::getConstBegin(size_t identifier) const {
+	VertexArray::ConstIterator OpenGLStaticBatchManager::getConstBegin(size_t identifier) const {
 		return this->vertices.getBegin() + this->indexes[identifier].index;
 	}
 
-	VertexArray::Iterator OpenGLBatchManager::getEnd(size_t identifier) {
+	VertexArray::Iterator OpenGLStaticBatchManager::getEnd(size_t identifier) {
 		return this->vertices.getBegin() + (this->indexes[identifier].index + this->indexes[identifier].nbVertices);
 	}
 
-	VertexArray::ConstIterator OpenGLBatchManager::getConstEnd(size_t identifier) const {
+	VertexArray::ConstIterator OpenGLStaticBatchManager::getConstEnd(size_t identifier) const {
 		return this->vertices.getBegin() + (this->indexes[identifier].index + this->indexes[identifier].nbVertices);
 	}
 
-	VertexArray::ReverseIterator OpenGLBatchManager::getReverseBegin(size_t identifier) {
+	VertexArray::ReverseIterator OpenGLStaticBatchManager::getReverseBegin(size_t identifier) {
 		return VertexArray::ReverseIterator(this->getEnd(identifier));
 	}
 
-	VertexArray::ConstReverseIterator OpenGLBatchManager::getConstReverseBegin(size_t identifier) const {
+	VertexArray::ConstReverseIterator OpenGLStaticBatchManager::getConstReverseBegin(size_t identifier) const {
 		return VertexArray::ConstReverseIterator(this->getConstEnd(identifier));
 	}
 
-	VertexArray::ReverseIterator OpenGLBatchManager::getReverseEnd(size_t identifier) {
+	VertexArray::ReverseIterator OpenGLStaticBatchManager::getReverseEnd(size_t identifier) {
 		return VertexArray::ReverseIterator(this->getBegin(identifier));
 	}
 
-	VertexArray::ConstReverseIterator OpenGLBatchManager::getConstReverseEnd(size_t identifier) const {
+	VertexArray::ConstReverseIterator OpenGLStaticBatchManager::getConstReverseEnd(size_t identifier) const {
 		return VertexArray::ConstReverseIterator(this->getConstBegin(identifier));
 	}
 
-	bool OpenGLBatchManager::isEmpty(size_t identifier) const {
+	bool OpenGLStaticBatchManager::isEmpty(size_t identifier) const {
 		return this->indexes[identifier].nbVertices == 0;
 	}
 
-	VertexArray::SizeType OpenGLBatchManager::getNbVertices(size_t identifier) const {
+	VertexArray::SizeType OpenGLStaticBatchManager::getNbVertices(size_t identifier) const {
 		return this->indexes[identifier].nbVertices;
 	}
 
-	void OpenGLBatchManager::clear(size_t identifier) {
+	void OpenGLStaticBatchManager::clear(size_t identifier) {
 		// TODO
 	}
 
-	VertexArray::Iterator OpenGLBatchManager::insert(size_t identifier, VertexArray::Iterator position, VertexArray::ConstReference value) {
+	VertexArray::Iterator OpenGLStaticBatchManager::insert(size_t identifier, VertexArray::Iterator position, VertexArray::ConstReference value) {
 		// TODO
 	}
 
-	void OpenGLBatchManager::insert(size_t identifier, VertexArray::Iterator position, VertexArray::SizeType count, VertexArray::ConstReference value) {
+	void OpenGLStaticBatchManager::insert(size_t identifier, VertexArray::Iterator position, VertexArray::SizeType count, VertexArray::ConstReference value) {
 		// TODO
 	}
 
-	VertexArray::Iterator OpenGLBatchManager::erase(size_t identifier, VertexArray::Iterator position) {
+	VertexArray::Iterator OpenGLStaticBatchManager::erase(size_t identifier, VertexArray::Iterator position) {
 		// TODO
 	}
 
-	VertexArray::Iterator OpenGLBatchManager::erase(size_t identifier, VertexArray::Iterator first, VertexArray::Iterator last) {
+	VertexArray::Iterator OpenGLStaticBatchManager::erase(size_t identifier, VertexArray::Iterator first, VertexArray::Iterator last) {
 		// TODO
 	}
 
-	void OpenGLBatchManager::pushBack(size_t identifier, VertexArray::ConstReference newVertex) {
+	void OpenGLStaticBatchManager::pushBack(size_t identifier, VertexArray::ConstReference newVertex) {
 		// TODO
 	}
 
-	void OpenGLBatchManager::popBack(size_t identifier) {
+	void OpenGLStaticBatchManager::popBack(size_t identifier) {
 		// TODO
 	}
 
-	void OpenGLBatchManager::resize(size_t identifier, VertexArray::SizeType count, VertexArray::ConstReference value) {
+	void OpenGLStaticBatchManager::resize(size_t identifier, VertexArray::SizeType count, VertexArray::ConstReference value) {
 		// TODO
 	}
 
-	void OpenGLBatchManager::refreshIndices() {
+	void OpenGLStaticBatchManager::refreshIndices() {
 		static const StandardVertexArray::SizeType MAX_NB_INDICES = static_cast<StandardVertexArray::SizeType>(std::numeric_limits<IndiceArray::value_type>::max());
 
 		// We clear the current indices.
@@ -215,7 +215,7 @@ namespace BaconBox {
 		}
 	}
 
-	size_t OpenGLBatchManager::getNewIdentifier() {
+	size_t OpenGLStaticBatchManager::getNewIdentifier() {
 		size_t result;
 
 		if (this->availableIdentifiers.empty()) {
@@ -231,7 +231,7 @@ namespace BaconBox {
 		return result;
 	}
 
-	void OpenGLBatchManager::removeIdentifier(size_t toRemove) {
+	void OpenGLStaticBatchManager::removeIdentifier(size_t toRemove) {
 		if (!this->indexes.empty() && toRemove < this->indexes.size()) {
 			if (toRemove == this->indexes.size() - 1) {
 				this->indexes.pop_back();
@@ -242,19 +242,19 @@ namespace BaconBox {
 		}
 	}
 
-	OpenGLBatchManager::VertexArrayInformation::VertexArrayInformation() : index(0u), nbVertices(0u) {
+	OpenGLStaticBatchManager::VertexArrayInformation::VertexArrayInformation() : index(0u), nbVertices(0u) {
 		// TODO
 	}
 
-	OpenGLBatchManager::VertexArrayInformation::VertexArrayInformation(VertexArray::SizeType newIndex, VertexArray::SizeType newNbVertices) : index(newIndex), nbVertices(newNbVertices) {
+	OpenGLStaticBatchManager::VertexArrayInformation::VertexArrayInformation(VertexArray::SizeType newIndex, VertexArray::SizeType newNbVertices) : index(newIndex), nbVertices(newNbVertices) {
 		// TODO
 	}
 
-	OpenGLBatchManager::VertexArrayInformation::VertexArrayInformation(const VertexArrayInformation &src) : index(src.index), nbVertices(src.nbVertices) {
+	OpenGLStaticBatchManager::VertexArrayInformation::VertexArrayInformation(const VertexArrayInformation &src) : index(src.index), nbVertices(src.nbVertices) {
 		// TODO
 	}
 
-	OpenGLBatchManager::VertexArrayInformation &OpenGLBatchManager::VertexArrayInformation::operator=(const VertexArrayInformation &src) {
+	OpenGLStaticBatchManager::VertexArrayInformation &OpenGLStaticBatchManager::VertexArrayInformation::operator=(const VertexArrayInformation &src) {
 		if (this != &src) {
 			this->index = src.index;
 			this->nbVertices = src.nbVertices;
