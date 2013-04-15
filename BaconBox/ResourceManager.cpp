@@ -93,6 +93,12 @@ namespace BaconBox {
 
 		return texInfo;
 	}
+	
+	bool ResourceManager::isLoadedTexture(const std::string &key) {
+		std::map<std::string, TextureInformation *>::iterator i = textures.find(key);
+		return i != textures.end() && i->second != NULL && i->second->textureId > 0;
+	}
+	
 	bool ResourceManager::isExistingTexture(const std::string &key) {
 		std::map<std::string, TextureInformation *>::iterator i = textures.find(key);
 		return i != textures.end() && i->second != NULL;
@@ -127,7 +133,7 @@ namespace BaconBox {
 		} else {
 			// We load the new texture and add it to the map.
 			texInfo = textureInfo;
-			textures.insert(std::pair<std::string, TextureInformation *>(key, texInfo));
+			textures[key] = texInfo;
 			ResourceManager::addSubTexture(key, new SubTextureInfo(texInfo, Vector2(), Vector2(texInfo->imageWidth, texInfo->imageHeight)), overwrite);
 		}
 
@@ -139,7 +145,7 @@ namespace BaconBox {
 	TextureInformation *ResourceManager::loadTexture(const std::string &key) {
 		TextureInformation *texture = textures[key];
 		textures[key] = NULL;
-		loadTexture(key, texture->path, texture->colorFormat, true);
+		texture = loadTexture(key, texture->path, texture->colorFormat, true);
 		return texture;
 	}
 
@@ -564,7 +570,6 @@ namespace BaconBox {
 			Value animation;
 			Value textures;
 			serializer.readFromFile(xmlPath, value);
-
 			if (!value["Symbols"].isNull()) {
 				animation = value;
 				serializer.readFromFile(secondXMLPath, textures);
@@ -610,24 +615,31 @@ namespace BaconBox {
 			int frameIndex =0;
 			for (Array::iterator j = frames.begin(); j != frames.end(); j++) {
 				int index = 0;
+				
 				Array childrenPerFrame = (*j)["Child"].getArray();
 				for (Array::iterator k = childrenPerFrame.begin(); k != childrenPerFrame.end(); k++) {
+				    if(!(*k).isNull()){
 					std::string name = (*k)["name"].getString();
-					std::string className = (*k)["DancingDarwinArmLower"].getString();
+					std::string className = (*k)["className"].getString();
 					Symbol::Part * part;
 					std::map<std::string, Symbol::Part*>::iterator l = children.find(name);
 					if (l == children.end()) {
 						part = children[name] = new Symbol::Part();
 						part->name = name;
 						part->symbol = symbols[className];
+						if(! part->symbol){
+						    Console__error("Trying to add a NULL symbol part with key " << className << " to " << parent->key);
+						}
 					}
 					else{
 						part = l->second;
 					}
+					
 					part->indexByFrame.insert(std::pair<int, int>(frameIndex, index));
 					part->matrices.insert(std::pair<int, Matrix>(frameIndex, Matrix((*k)["a"].getDouble(), (*k)["b"].getDouble(), (*k)["c"].getDouble(), (*k)["d"].getDouble(), (*k)["tx"].getDouble(), (*k)["ty"].getDouble())));
 					
 					index++;
+				    }
 				}
 				frameIndex++;
 			}

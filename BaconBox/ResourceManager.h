@@ -349,7 +349,9 @@ namespace BaconBox {
 		static void loadFlashExporterSymbols(Value & node);
 		
 		static void loadFlashExporterTextures(Value & node, const std::string & dirPath);
-
+		
+		static bool isLoadedTexture(const std::string & key);
+		static bool isExistingTexture(const std::string & key);
 	private:
 	    
 	    
@@ -362,7 +364,6 @@ namespace BaconBox {
 		                      const std::string &path, const FontFormat & format);
 		
 		
-		static bool isExistingTexture(const std::string & key);
 		
 		static TextureInformation *addTextureInfo(const std::string &key, TextureInformation *textureInfo,
 		                                      bool overwrite = false);

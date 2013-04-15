@@ -41,11 +41,14 @@ namespace BaconBox {
 #else
 		MovieClipEntity * entity;
 		Symbol * symbol = ResourceManager::getSymbol(key);
-		if(symbol){
+ 		if(symbol){
 			entity = getMovieClipEntityFromSymbol(symbol, autoPlay);
 		}
 		else{
 		    entity = getMovieClipEntityFromSubTexture(ResourceManager::getSubTexture(key));
+		}
+		if(!entity){
+		    Console__error("EntityFactory::getMovieClipEntity can't return entity with key: " << key);
 		}
 		return entity;
 //		SubTextureInfo* subTex = ResourceManager::getSubTexture(key);
@@ -77,10 +80,16 @@ TextEntity * EntityFactory::getTextEntity(const std::string &key){
 	MovieClipEntity * entity = NULL;
 	    if(symbol->isTexture){
 		if(!symbol->subTex->textureInfo){
-			TextureInformation * textureInfo = ResourceManager::loadTexture(symbol->textureKey);
+		    std::string textureKey = symbol->textureKey;
+			TextureInformation * textureInfo = NULL;
+			if(ResourceManager::isLoadedTexture(textureKey)){
+				textureInfo = ResourceManager::getTexture(textureKey);
+			}
+			else{
+				textureInfo = ResourceManager::loadTexture(symbol->textureKey);
+			}
 			symbol->subTex = ResourceManager::getSubTexture(symbol->key);
 			symbol->subTex->textureInfo = textureInfo;
-			PV(symbol->subTex->textureInfo->textureId);
 		}
 		entity = getMovieClipEntityFromSubTexture(symbol->subTex, symbol->registrationPoint);
 	    }
@@ -107,15 +116,16 @@ TextEntity * EntityFactory::getTextEntity(const std::string &key){
 			container->addChild(childEntity, i->first);
 		    }
 		}
+		if(autoPlay){
+		    entity->gotoAndPlay(0);
+		}
+		else{
+		    entity->gotoAndStop(0);
+		}
 		    
 	    }
 	entity->setSymbol(symbol);
-	if(autoPlay){
-	    entity->gotoAndPlay(0);
-	}
-	else{
-	    entity->gotoAndStop(0);
-	}
+	
 	return entity;
 	}
 	
@@ -132,7 +142,7 @@ TextEntity * EntityFactory::getTextEntity(const std::string &key){
 			mesh->getPreTransformVertices()[1].x = subTex->size.x;
 			mesh->getPreTransformVertices()[2].y = subTex->size.y;
 			mesh->getPreTransformVertices()[3] = subTex->size;
-			mesh->getPreTransformVertices().move(-origin.x, -origin.y);
+			mesh->getPreTransformVertices().move(origin.x, origin.y);
 			mesh->syncMesh();
 
 			result->addComponent(mesh);
