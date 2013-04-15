@@ -76,9 +76,11 @@ TextEntity * EntityFactory::getTextEntity(const std::string &key){
 	MovieClipEntity *EntityFactory::getMovieClipEntityFromSymbol(Symbol* symbol, bool autoPlay){
 	MovieClipEntity * entity = NULL;
 	    if(symbol->isTexture){
-		if(!symbol->subTex){
-			ResourceManager::loadTexture(symbol->key);
+		if(!symbol->subTex->textureInfo){
+			TextureInformation * textureInfo = ResourceManager::loadTexture(symbol->textureKey);
 			symbol->subTex = ResourceManager::getSubTexture(symbol->key);
+			symbol->subTex->textureInfo = textureInfo;
+			PV(symbol->subTex->textureInfo->textureId);
 		}
 		entity = getMovieClipEntityFromSubTexture(symbol->subTex, symbol->registrationPoint);
 	    }

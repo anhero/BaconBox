@@ -33,6 +33,7 @@ namespace BaconBox {
 	Symbol();
 	int frameCount;
 	std::string key;
+	std::string textureKey;
 	SubTextureInfo * subTex;
 	bool isTexture;
 //	Symbol * symbol;

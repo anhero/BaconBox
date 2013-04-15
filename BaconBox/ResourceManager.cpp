@@ -83,7 +83,6 @@ namespace BaconBox {
 	TextureInformation *ResourceManager::addTexture(const std::string &key, PixMap *aPixmap,
 	                                                bool overwrite) {
 		TextureInformation *texInfo = NULL;
-
 		if (overwrite || !isExistingTexture(key)) {
 			texInfo = addTextureInfo(key, GraphicDriver::getInstance().loadTexture(aPixmap), overwrite);
 
@@ -95,7 +94,8 @@ namespace BaconBox {
 		return texInfo;
 	}
 	bool ResourceManager::isExistingTexture(const std::string &key) {
-		return textures.find(key) != textures.end() && textures[key] == NULL;
+		std::map<std::string, TextureInformation *>::iterator i = textures.find(key);
+		return i != textures.end() && i->second != NULL;
 	}
 
 
@@ -106,7 +106,6 @@ namespace BaconBox {
 		// We check if there is already a texture with this name.
 		if (isExistingTexture(key)) {
 			texInfo = textures[key];
-
 			// We check if we overwrite the existing texture or not.
 			if (overwrite || textures[key] == NULL) {
 				// We free the allocated memory.
@@ -129,7 +128,7 @@ namespace BaconBox {
 			// We load the new texture and add it to the map.
 			texInfo = textureInfo;
 			textures.insert(std::pair<std::string, TextureInformation *>(key, texInfo));
-			ResourceManager::addSubTexture(key, new SubTextureInfo(texInfo, Vector2(), Vector2(texInfo->imageWidth, texInfo->imageHeight)));
+			ResourceManager::addSubTexture(key, new SubTextureInfo(texInfo, Vector2(), Vector2(texInfo->imageWidth, texInfo->imageHeight)), overwrite);
 		}
 
 
@@ -553,7 +552,7 @@ namespace BaconBox {
 		}
 	}
 
-	void ResourceManager::loadGrapefruktXML(const std::string &xmlPath, const std::string &secondXMLPath) {
+	void ResourceManager::loadFlashExporterXML(const std::string &xmlPath, const std::string &secondXMLPath) {
 
 
 		XmlSerializer serializer;
@@ -566,7 +565,7 @@ namespace BaconBox {
 			Value textures;
 			serializer.readFromFile(xmlPath, value);
 
-			if (!value["Animations"].isNull()) {
+			if (!value["Symbols"].isNull()) {
 				animation = value;
 				serializer.readFromFile(secondXMLPath, textures);
 				texturePath = ResourcePathHandler::getPathFromFilename(secondXMLPath);
@@ -578,25 +577,25 @@ namespace BaconBox {
 				serializer.readFromFile(secondXMLPath, animation);
 			}
 
-			loadGrapefruktTextures(textures, texturePath);
-			loadGrapefruktSymbols(animation);
+			loadFlashExporterTextures(textures, texturePath);
+			loadFlashExporterSymbols(animation);
 
 		} else {
 			std::string dirPath = ResourcePathHandler::getPathFromFilename(xmlPath);
 			Value value;
 			serializer.readFromFile(xmlPath, value);
-			loadGrapefruktTextures(value["Textures"], dirPath);
-			loadGrapefruktSymbols(value["Animations"]);
+			loadFlashExporterTextures(value["Texture"], dirPath);
+			loadFlashExporterSymbols(value["Symbols"]);
 		}
 	}
 
 
-	void ResourceManager::loadGrapefruktSymbols(Value &node) {
+	void ResourceManager::loadFlashExporterSymbols(Value &node) {
 
 		//if there is more than one texture for the font.
-		Array animations = node["Animation"].getArray();
+		Array symbolsArray = node["Symbol"].getArray();
 
-		for (Array::iterator i = animations.begin(); i != animations.end(); i++) {
+		for (Array::iterator i = symbolsArray.begin(); i != symbolsArray.end(); i++) {
 			Symbol *symbol = new Symbol();
 			symbol->key = (*i)["className"].getString();
 
@@ -604,83 +603,71 @@ namespace BaconBox {
 			symbols[symbol->key] = symbol;
 		}
 
-		for (Array::iterator i = animations.begin(); i != animations.end(); i++) {
-			Array parts = (*i)["Part"].getArray();
-			Symbol *parent = symbols[(*i)["className"].getString()];
-
-			for (Array::iterator j = parts.begin(); j != parts.end(); j++) {
-				std::map<std::string, Symbol *>::iterator found = symbols.find((*j)["className"].getString());
-
-				if (found != symbols.end()) {
-					Symbol::Part  part;
-					part.symbol = found->second;
-					part.name = (*j)["name"].getString();
-					Array frames = (*j)["Frame"].getArray();
-
-					for (Array::iterator k = frames.begin(); k != frames.end(); k++) {
-						int frameIndex = (*k)["index"].getInt();
-						part.indexByFrame[frameIndex] = (*k)["layerIndex"].getInt();
-						Matrix matrix;
-
-						if ((*k)["a"].isNumeric()) {
-							matrix.a = (*k)["a"].getFloat();
-						}
-
-						if ((*k)["b"].isNumeric()) {
-							matrix.b = (*k)["b"].getFloat();
-						}
-
-						if ((*k)["c"].isNumeric()) {
-							matrix.c = (*k)["c"].getFloat();
-						}
-
-						if ((*k)["d"].isNumeric()) {
-							matrix.d = (*k)["d"].getFloat();
-						}
-
-						if ((*k)["tx"].isNumeric()) {
-							matrix.tx = (*k)["tx"].getFloat();
-						}
-
-						if ((*k)["ty"].isNumeric()) {
-							matrix.ty = (*k)["ty"].getFloat();
-						}
-
-						part.matrices[frameIndex] = matrix;
+		for (Array::iterator i = symbolsArray.begin(); i != symbolsArray.end(); i++) {
+			Symbol * parent =  symbols[(*i)["className"].getString()];
+			std::map<std::string, Symbol::Part*> children;
+			Array frames = (*i)["Frame"].getArray();
+			int frameIndex =0;
+			for (Array::iterator j = frames.begin(); j != frames.end(); j++) {
+				int index = 0;
+				Array childrenPerFrame = (*j)["Child"].getArray();
+				for (Array::iterator k = childrenPerFrame.begin(); k != childrenPerFrame.end(); k++) {
+					std::string name = (*k)["name"].getString();
+					std::string className = (*k)["DancingDarwinArmLower"].getString();
+					Symbol::Part * part;
+					std::map<std::string, Symbol::Part*>::iterator l = children.find(name);
+					if (l == children.end()) {
+						part = children[name] = new Symbol::Part();
+						part->name = name;
+						part->symbol = symbols[className];
 					}
-
-					parent->parts.push_back(part);
-
+					else{
+						part = l->second;
+					}
+					part->indexByFrame.insert(std::pair<int, int>(frameIndex, index));
+					part->matrices.insert(std::pair<int, Matrix>(frameIndex, Matrix((*k)["a"].getDouble(), (*k)["b"].getDouble(), (*k)["c"].getDouble(), (*k)["d"].getDouble(), (*k)["tx"].getDouble(), (*k)["ty"].getDouble())));
+					
+					index++;
 				}
+				frameIndex++;
+			}
+				
+			for(std::map<std::string, Symbol::Part*>::iterator j = children.begin(); j != children.end(); j++){
+				parent->parts.push_back(*(j->second));
 			}
 		}
 
 	}
 
-	void ResourceManager::loadGrapefruktTextures(Value &node, const std::string &dirPath) {
+	void ResourceManager::loadFlashExporterTextures(Value &node, const std::string &dirPath) {
+		std::string textureName = node["name"].getString();
+		registerTexture(textureName, dirPath + "/" + node["path"].getString());
 
-		//if there is more than one texture for the font.
-		Array textures = node["TextureSheet"].getArray();
+		Array subTextures = node["SubTexture"].getArray();
 
-		for (Array::iterator i = textures.begin(); i != textures.end(); i++) {
-			std::string name = (*i)["Texture"]["name"].getString();
-			std::string path = dirPath + '/' + (*i)["Texture"]["path"].getString();
+		for (Array::iterator i = subTextures.begin(); i != subTextures.end(); i++) {
+			std::string name = (*i)["name"].getString();
 			Symbol *symbol = new Symbol();
 			symbol->isTexture = true;
 			symbol->key = name;
+			symbol->textureKey = textureName;
 			Vector2 registrationPoint;
-
-			if ((*i)["Texture"]["registrationPointX"].isNumeric()) {
-				registrationPoint.x = (*i)["Texture"]["registrationPointX"].getFloat();
+			symbol->subTex = addSubTexture(name, new SubTextureInfo());
+	
+			symbol->subTex->position = Vector2((*i)["x"].getDouble(), (*i)["y"].getDouble());
+			symbol->subTex->size = Vector2((*i)["width"].getDouble(), (*i)["height"].getDouble());
+			symbol->subTex->textureInfo = NULL;
+			
+			if ((*i)["registrationPointX"].isNumeric()) {
+				registrationPoint.x = (*i)["registrationPointX"].getFloat();
 			}
 
-			if ((*i)["Texture"]["registrationPointY"].isNumeric()) {
-				registrationPoint.y = (*i)["Texture"]["registrationPointY"].getFloat();
+			if ((*i)["registrationPointY"].isNumeric()) {
+				registrationPoint.y = (*i)["registrationPointY"].getFloat();
 			}
 
 			symbol->registrationPoint = registrationPoint;
 			symbols[name] = symbol;
-			registerTexture(name, path);
 		}
 
 	}

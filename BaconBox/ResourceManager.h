@@ -344,11 +344,11 @@ namespace BaconBox {
 		static void savePixMap(const PixMap &pixMap,
 							   const std::string &filePath);
 		
-		static void loadGrapefruktXML(const std::string & xmlPath, const std::string & secondXMLPath = "");
+		static void loadFlashExporterXML(const std::string & xmlPath, const std::string & secondXMLPath = "");
 		
-		static void loadGrapefruktSymbols(Value & node);
+		static void loadFlashExporterSymbols(Value & node);
 		
-		static void loadGrapefruktTextures(Value & node, const std::string & dirPath);
+		static void loadFlashExporterTextures(Value & node, const std::string & dirPath);
 
 	private:
 	    

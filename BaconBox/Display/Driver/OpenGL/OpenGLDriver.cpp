@@ -296,7 +296,6 @@ void OpenGLDriver::initializeGraphicDriver() {
 		glBindTexture(GL_TEXTURE_2D, texInfo->textureId);
 
 
-
 		int widthPoweredToTwo = MathHelper::nextPowerOf2(pixMap->getWidth());
 		int heightPoweredToTwo = MathHelper::nextPowerOf2(pixMap->getHeight());
 
