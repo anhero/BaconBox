@@ -40,12 +40,21 @@ namespace BaconBox {
 		
 		const std::string &getComponentName() const;
 		
-		Entity *getEntity() const;
+		template <typename T>
+		    T * getEntity() const {
+		    return reinterpret_cast<T*>(this->entity);
+		}
+		
+		 Entity * getEntity() const ;
+	
+	
 	protected:
 		void refreshConnections();
 		
 		void addConnection(IComponentConnection *newConnection);
 		virtual void setEntity(Entity *newEntity);
+		
+		
 
 	private:
 		

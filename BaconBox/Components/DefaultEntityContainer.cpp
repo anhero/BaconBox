@@ -147,6 +147,7 @@ namespace BaconBox {
 	}
 	
 	void DefaultEntityContainer::addChildAt(Entity *newChild, int index) {
+	    if(this->timeline->getNbFrames() == 0)this->timeline->setNbFrames(1);
 		for(int i = 0; i < this->timeline->getNbFrames(); i++){
 		    addChildAt(newChild, index , i);
 		}
@@ -270,6 +271,11 @@ namespace BaconBox {
 		DefaultEntityContainer * container =  reinterpret_cast<DefaultEntityContainer*>(child->getComponent(EntityContainer::ID));
 		container->parent = NULL;
 		return child;
+	}
+	
+	
+	void DefaultEntityContainer::removeAllChildren(){
+	    children.clear();
 	}
 	
 	Entity *DefaultEntityContainer::removeChildAt(int index) {

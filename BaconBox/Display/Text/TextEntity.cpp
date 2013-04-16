@@ -4,6 +4,8 @@
 #if ! defined(BB_FLASH_PLATEFORM)
 #include "TextureFont.h"
 #include "BaconBox/Components/TextRenderer.h"
+#include "BaconBox/Components/DefaultEntityContainer.h"
+
 #else
 #include "BaconBox/Components/Flash/TextFieldHolder.h"
 
@@ -12,19 +14,26 @@
 namespace BaconBox {
     
     BB_ID_IMPL(TextEntity);
-	TextEntity::TextEntity(Font * font): Entity(), TransformProxy(this), TextComponentProxy(this, font), ColorFilterProxy(this)
+	TextEntity::TextEntity(Font * font): MovieClipEntity(), TextComponentProxy(this, font)
 	{
 	    
 #if ! defined(BB_FLASH_PLATEFORM)
 	    if(font->getFormat() == FontFormat::BMFONT){
 		addComponent(new TextRenderer(reinterpret_cast<TextureFont*>(font)));
 	    }
+#else
+
 #endif
+	    
+	    
 	}
 	
-	TextEntity::TextEntity(): Entity(), TransformProxy(this), TextComponentProxy(this, NULL), ColorFilterProxy(this)
+	TextEntity::TextEntity(): MovieClipEntity(), TextComponentProxy(this, NULL)
 	{
-		
+	#if ! defined(BB_FLASH_PLATEFORM)
+	#else
+
+	#endif	
 	}
 
 	#ifdef BB_FLASH_PLATEFORM

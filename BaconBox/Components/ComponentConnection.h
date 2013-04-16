@@ -25,7 +25,7 @@ namespace BaconBox {
 		}
 
 		void refreshConnection(Entity *parent) {
-			*component = reinterpret_cast<TComponent *>(parent->getComponent(TComponent::ID));
+			*component = reinterpret_cast<TComponent *>(parent->getComponent(TComponent::ID, true));
 		}
 	private:
 		TComponent ** const component;

@@ -144,7 +144,7 @@ namespace BaconBox {
 		return getComponent(id);
 	}
 	
-	Component *Entity::getComponent(int id) const {
+	Component *Entity::getComponent(int id,  bool noPrint) const {
 		Component *result = NULL;
 		bool notFound = true;
 		std::vector<Component *>::const_iterator i = this->components.begin();
@@ -158,7 +158,7 @@ namespace BaconBox {
 				i++;
 			}
 		}
-		if(!result){
+		if(!noPrint && !result){
 		    Console__error("Can't find the requested component in the given entity.: ID" << id << " name: " << IDManager::getName(id));
 		}
 		return result;

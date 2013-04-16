@@ -128,7 +128,7 @@ namespace BaconBox {
 		 * Gets the component of the type of the given ID.
 		 * @param id ID of the type of the component to find.
 		 */
-		Component *getComponent(int id) const;
+		Component *getComponent(int id, bool noPrint = false) const;
 	
 		
 	private:

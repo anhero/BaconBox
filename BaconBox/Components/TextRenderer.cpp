@@ -9,6 +9,7 @@
 #include "Mesh.h"
 #include "BaconBox/Display/Text/TextureFont.h"
 #include "BaconBox/Components/ComponentConnection.h"
+#include "DefaultEntityContainer.h"
 
 namespace BaconBox {
     
@@ -40,13 +41,13 @@ namespace BaconBox {
 			internalResetPosition();
 			needPositionReset =false;
 		}
-	    for(std::list<std::list<std::list<CharSprite> > >::iterator i = charSpritesLines.begin(); i != charSpritesLines.end(); i++){
-		      for(std::list<std::list<CharSprite> >::iterator j = i->begin(); j != i->end(); j++){
-			  for(std::list<CharSprite>::iterator k = j->begin(); k != j->end(); k++){
-			      k->sprite->render();
-			  }	
-		    }
-		}
+//	    for(std::list<std::list<std::list<CharSprite> > >::iterator i = charSpritesLines.begin(); i != charSpritesLines.end(); i++){
+//		      for(std::list<std::list<CharSprite> >::iterator j = i->begin(); j != i->end(); j++){
+//			  for(std::list<CharSprite>::iterator k = j->begin(); k != j->end(); k++){
+//			      k->sprite->render();
+//			  }	
+//		    }
+//		}
 		}
 
 	void TextRenderer::setColor(const Color &newColor){
@@ -185,6 +186,7 @@ namespace BaconBox {
 	}
 	
 	void TextRenderer::setText(const std::string & text){
+	    getEntity()->getComponent<DefaultEntityContainer>()->removeAllChildren();
 	    for(std::list<std::list<std::list<CharSprite> > >::iterator i = charSpritesLines.begin(); i != charSpritesLines.end(); i++ ){
 		for(std::list<std::list<CharSprite> >::iterator j = i->begin(); j != i->end(); j++){
 		    for(std::list<CharSprite>::iterator k = j->begin(); k != j->end(); k++){
@@ -192,6 +194,9 @@ namespace BaconBox {
 		    }
 		}
 	    }
+	    
+	    getEntity()->getComponent<DefaultTimeline>()->setNbFrames(1);
+
 	    
 	    charSpritesLines.clear();
 	    
@@ -210,24 +215,27 @@ namespace BaconBox {
 				glyphInfo = font->getGlyphInformation(32);
 			}
 		}
-		
+		MovieClipEntity * sprite = NULL;
 		if(glyphInfo->charCode == '\n'){
 			charSpritesLines.resize(charSpritesLines.size() +1 );
 			charSpritesLines.back().resize(1);
 		}
 		else if(glyphInfo->charCode == ' '){
 			line.resize(line.size() +1);
-			MovieClipEntity * sprite = EntityFactory::getMovieClipEntityFromSubTexture(glyphInfo->subTextureInfo);
+			sprite = EntityFactory::getMovieClipEntityFromSubTexture(glyphInfo->subTextureInfo);
 			line.back().push_back(CharSprite(sprite, glyphInfo));
 			line.resize(line.size() +1);
 		}
 		else{
-		    MovieClipEntity * sprite = EntityFactory::getMovieClipEntityFromSubTexture(glyphInfo->subTextureInfo);
+		    sprite = EntityFactory::getMovieClipEntityFromSubTexture(glyphInfo->subTextureInfo);
 		    word.push_back(CharSprite(sprite, glyphInfo));
 		}
-
+		if(sprite)getEntity()->getComponent<DefaultEntityContainer>()->addChild(sprite);
+		
 		
 	    }
+	    	    getEntity()->getComponent<DefaultTimeline>()->gotoAndStop(0);
+
 	    
 	    resetPosition();
 	    setColor(color);

@@ -67,6 +67,8 @@ namespace BaconBox {
 		
 		Entity *removeChild(Entity *child);
 		
+		void removeAllChildren();
+		
 		Entity *removeChildAt(int index);
 		
 		void removeChildren(int beginIndex, int endIndex);

@@ -59,8 +59,8 @@ namespace BaconBox {
 		return IDManager::getName(this->getID());
 	}
 	
-	Entity *Component::getEntity() const {
-		return this->entity;
+	Entity * Component::getEntity() const {
+	    return this->entity;
 	}
 	
 	void Component::setEntity(Entity *newEntity) {
