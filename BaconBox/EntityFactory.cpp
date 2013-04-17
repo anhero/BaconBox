@@ -23,11 +23,28 @@
 
 #endif
 
+#include <BaconBox/Console.h>
+
 
 
 namespace BaconBox {
+	
+	EntityFactory::EntityFactory():movieClipPool(0){
+
+
+	}
+
+	
+	void EntityFactory::initMovieClipPool(int size){
+		getInstance().movieClipPool.setNbAvailableObjects(size);
+	}
 
 	MovieClipEntity *EntityFactory::getMovieClipEntity(const std::string &key, bool autoPlay) {
+		return getInstance().internalGetMovieClipEntity(key, autoPlay);
+	}
+
+	
+	MovieClipEntity *EntityFactory::internalGetMovieClipEntity(const std::string &key, bool autoPlay) {
 #ifdef BB_DEBUG
     try{
 #endif
@@ -94,7 +111,7 @@ TextEntity * EntityFactory::getTextEntity(const std::string &key){
 		entity = getMovieClipEntityFromSubTexture(symbol->subTex, symbol->registrationPoint);
 	    }
 	    else{
-		entity = new MovieClipEntity();
+		entity = movieClipPool.create();
 		DefaultEntityContainer * container = reinterpret_cast<DefaultEntityContainer*>(entity->getComponent(DefaultEntityContainer::ID));
 		DefaultTimeline * timeline = reinterpret_cast<DefaultTimeline*>(entity->getComponent(DefaultTimeline::ID));
 		timeline->setNbFrames(symbol->frameCount);
@@ -105,15 +122,25 @@ TextEntity * EntityFactory::getTextEntity(const std::string &key){
 			    orderedPart[j->first][j->second] = &(*i);
 			}
 		}
+			std::map<std::string, MovieClipEntity*> childByName;
+			
 		
 		for(std::map<int, std::map <int, Symbol::Part*> >::iterator i = orderedPart.begin();
 			i != orderedPart.end(); i++){
+			entity->gotoAndStop(i->first);
 		    for(std::map <int, Symbol::Part*>::iterator j = i->second.begin(); j != i->second.end(); j++){
 			MovieClipEntity * childEntity;
-			childEntity = getMovieClipEntityFromSymbol(j->second->symbol, autoPlay);
+				std::multimap<std::string, MovieClipEntity*>::iterator currentMovieClip = childByName.find(j->second->name);
+				if(currentMovieClip == childByName.end()){
+					childEntity = getMovieClipEntityFromSymbol(j->second->symbol, autoPlay);
+					childByName[j->second->name] = childEntity;
+				}
+				else{
+					childEntity = currentMovieClip->second;
+				}
 			childEntity->setName(j->second->name);
 			reinterpret_cast<DefaultMatrix*>(childEntity->getComponent(DefaultMatrix::ID))->matrixByParentFrame = j->second->matrices;
-			container->addChild(childEntity, i->first);
+			container->addChildToCurrentFrame(childEntity);
 		    }
 		}
 		if(autoPlay){
@@ -129,11 +156,16 @@ TextEntity * EntityFactory::getTextEntity(const std::string &key){
 	return entity;
 	}
 	
+	EntityFactory &EntityFactory::getInstance(){
+		static EntityFactory instance;
+		return instance;
+	}
+	
 	MovieClipEntity *EntityFactory::getMovieClipEntityFromSubTexture(SubTextureInfo* subTex, const Vector2 & origin){
 	    MovieClipEntity *result = NULL;
 
 		if (subTex) {
-			result = new MovieClipEntity();
+			result = movieClipPool.create();
 
 			Mesh *mesh = new Mesh();
 

@@ -11,13 +11,12 @@ namespace BaconBox {
 	
 	 
 
-	DefaultMatrix::DefaultMatrix() : MatrixComponent(), entityContainer(NULL), matrix(), symbolComponent(NULL), hasCustomMatrix(false) {
+	DefaultMatrix::DefaultMatrix() : MatrixComponent(), entityContainer(NULL), matrix(), hasCustomMatrix(false) {
 	    initializeConnections();
 	}
 
 	void DefaultMatrix::initializeConnections(){
 	    this->addConnection(new ComponentConnection<EntityContainer>(&this->entityContainer));
-	    this->addConnection(new ComponentConnection<SymbolComponent>(&this->symbolComponent));
 	    MatrixComponent::initializeConnections();
 	}
 	

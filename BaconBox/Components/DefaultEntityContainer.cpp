@@ -16,7 +16,6 @@
 namespace BaconBox {
 	DefaultEntityContainer::DefaultEntityContainer() : EntityContainer(), timeline(NULL), children(), parent(NULL), previousFrame(-1) {
 		this->initializeConnections();
-		children[0];
 		frameIterator = children.begin();
 		
 	}
@@ -76,7 +75,7 @@ namespace BaconBox {
 	//
 	//					this->children[i].insert(std::make_pair(j->first, newEntity));
 	//				}
-	//			}
+	//			}π
 	//
 	//			this->childrenByName = src.childrenByName;
 	//
@@ -112,11 +111,16 @@ namespace BaconBox {
 		this->EntityContainer::receiveMessage(senderID, destID, message, data);
 		
 		if (destID == Entity::BROADCAST) {
-			if (senderID == Transform::ID) {
-				EntityContainerLooper::forEachChild(this, SendMessageChild(senderID, destID, message, data));
-			} else if (senderID == Visibility::ID) {
-				EntityContainerLooper::forEachChild(this, SendMessageChild(senderID, destID, message, data));
+			if(senderID == DefaultTimeline::ID && message == DefaultTimeline::MESSAGE_NB_FRAMES_CHANGED){
+				setNbFrame(reinterpret_cast<ValueChangedData<int>* >(data)->newValue);
 			}
+		}
+	}
+	
+	void DefaultEntityContainer::setNbFrame(int nbFrames){
+		ChildArray::iterator iterator = children.begin();
+		for(int i = 0; i < nbFrames; i++){
+			children.insert(iterator, std::make_pair(i, std::deque<Entity*>()));
 		}
 	}
 	
@@ -138,8 +142,17 @@ namespace BaconBox {
 		EntityContainerLooper::forEachChildCurrentFrame(this, renderChild);
 	}
 	
+	
+	void DefaultEntityContainer::addChildToCurrentFrame(Entity *newChild){
+		addChildAt(newChild, frameIterator->second.size(), frameIterator);
+	}
+
+	
+	
 	void DefaultEntityContainer::addChild(Entity *newChild) {
-		this->addChildAt(newChild, static_cast<int>(this->children.size()));
+		for(int i = 0; i < timeline->getNbFrames(); i++){
+			this->addChildAt(newChild, static_cast<int>(this->children[i].size()),  i);
+		}
 	}
 	
 	void DefaultEntityContainer::addChild(Entity *newChild, int frame) {
@@ -153,8 +166,8 @@ namespace BaconBox {
 		}
 	}
 	
-	void DefaultEntityContainer::addChildAt(Entity *newChild, int index, int frame) {
-		std::deque<Entity*> & frameChildren =  children[frame];
+	void DefaultEntityContainer::addChildAt(Entity *newChild, int index, ChildArray::iterator frameIterator){
+		std::deque<Entity*> & frameChildren =  frameIterator->second;
 		DefaultEntityContainer * container =  reinterpret_cast<DefaultEntityContainer*>(newChild->getComponent(EntityContainer::ID));
 		container->parent = getEntity();
 		if(index >= frameChildren.size()){
@@ -174,8 +187,12 @@ namespace BaconBox {
 		    }
 		    frameChildren.insert(i, newChild);
 		}
+	}
+
+	
+	void DefaultEntityContainer::addChildAt(Entity *newChild, int index, int frame) {
 		
-		
+		addChildAt(newChild, index, children.find(frame));
 	}
 	
 	bool DefaultEntityContainer::contains(Entity *child) const {
@@ -327,7 +344,7 @@ namespace BaconBox {
 	}
 	
 	int DefaultEntityContainer::getNbChildren() const {
-		return static_cast<int>(this->children.size());
+		return (children.size() == 0 ? 0 : getCurrentFrameChildren()->size());
 	}
 	
 	int DefaultEntityContainer::getCurrentFrameIndex() const {
@@ -336,6 +353,9 @@ namespace BaconBox {
 	
 	Entity * DefaultEntityContainer::getParent() const{
 	    return parent;
+	}
+	std::deque<Entity*> * DefaultEntityContainer::getCurrentFrameChildren() const {
+	    return (frameIterator != children.end() ? & frameIterator->second : NULL);
 	}
 	
 	std::deque<Entity*> * DefaultEntityContainer::getCurrentFrameChildren(){
@@ -349,6 +369,10 @@ namespace BaconBox {
 			for(std::deque<Entity*>::iterator i = currentChildren->begin(); i != currentChildren->end(); i++){
 				(*i)->getComponent<DefaultMatrix>()->setFrameMatrix(frame);
 			}
+		}
+		else {
+			children[frame];
+			frameIterator = children.find(frame);
 		}
 	}
 	

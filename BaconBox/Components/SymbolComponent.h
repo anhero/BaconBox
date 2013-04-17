@@ -22,8 +22,6 @@ namespace BaconBox {
 	private:
 		void initializeConnections();
 		Symbol * symbol;
-		DefaultMatrix * defaultMatrix;
-		EntityContainer * entityContainer;
 	};
 
 

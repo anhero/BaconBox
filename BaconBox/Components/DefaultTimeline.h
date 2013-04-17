@@ -3,7 +3,6 @@
 
 #include "BaconBox/Components/Timeline.h"
 #include "BaconBox/Components/MatrixComponent.h"
-#include"BaconBox/Components/SymbolComponent.h"
 
 namespace BaconBox {
 	class DefaultEntityContainer;

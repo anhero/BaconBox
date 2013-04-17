@@ -28,6 +28,7 @@ namespace BaconBox {
 		BB_ID_HEADER;
 		
 		MovieClipEntity();
+		MovieClipEntity(const MovieClipEntity& src);
 		
 #ifdef BB_FLASH_PLATEFORM
 		void setMovieClip(AS3::local::var aMC);

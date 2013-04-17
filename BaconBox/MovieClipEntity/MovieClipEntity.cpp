@@ -35,6 +35,23 @@ namespace BaconBox {
 
 	}
 	
+	MovieClipEntity::MovieClipEntity(const MovieClipEntity& src) : Entity(), HasNameProxy(this, ""), TransformProxy(this), ColorFilterProxy(this), TimelineProxy(this), EntityContainerProxy(this), MatrixComponentProxy(this), SymbolComponentProxy(this){
+#ifdef BB_FLASH_PLATEFORM
+		
+#else
+		
+		//		    Mesh *mesh  = new Mesh();
+		//		    mesh->getVertices().resize(4);
+		//		    addComponent(mesh);
+		//		    this->addComponent(new MeshDriverRenderer());
+	    setTimeline(new DefaultTimeline());
+	    setEntityContainer(new DefaultEntityContainer());
+	    setMatrixComponent(new DefaultMatrix());
+		
+#endif
+	}
+
+	
 #ifdef BB_FLASH_PLATEFORM
 	void MovieClipEntity::setMovieClip(AS3::local::var aMC) {
 		MovieClipHolder *mcHolder = new MovieClipHolder(aMC);

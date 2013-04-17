@@ -82,7 +82,7 @@ namespace BaconBox {
 		 * Gets all of the entity's components.
 		 * @return Vector containing all of the entity's components.
 		 */
-		const std::vector<Component *> &getComponents() const;
+		const std::list<Component *> &getComponents() const;
 		
 		/**
 		 * Adds a component to the entity.
@@ -90,12 +90,6 @@ namespace BaconBox {
 		 */
 		Component *addComponent(Component *newComponent);
 		
-		/**
-		 * Removes the component at the given index. Does nothing if the given
-		 * index out of bounds.
-		 * @param index Index of the component to remove.
-		 */
-		void removeComponentAt(std::vector<Component *>::size_type index);
 		
 		/**
 		 * Removes the given component.
@@ -144,7 +138,7 @@ namespace BaconBox {
 		void copyFrom(const Entity &src);
 
 		/// Contains all of the entity's components.
-		std::vector<Component *> components;
+		std::list<Component *> components;
 		
 	};
 }

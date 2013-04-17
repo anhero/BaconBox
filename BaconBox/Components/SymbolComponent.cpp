@@ -11,8 +11,7 @@
 namespace BaconBox {
 	 BB_ID_IMPL(SymbolComponent);
 	
-	SymbolComponent::SymbolComponent() : Component(), symbol(NULL), defaultMatrix(NULL), entityContainer(NULL){
-		this->initializeConnections();
+	SymbolComponent::SymbolComponent() : Component(), symbol(NULL){
 	}
 
 	
@@ -21,12 +20,7 @@ namespace BaconBox {
 	}
 
 
-void SymbolComponent::initializeConnections() {
-		// We add the connections.
-		this->addConnection(new ComponentConnection<DefaultMatrix>(&this->defaultMatrix));
-		this->addConnection(new ComponentConnection<EntityContainer>(&this->entityContainer));
-		this->refreshConnections();
-	}
+
 	
 	void SymbolComponent::setSymbol(Symbol * symbol){
 	    this->symbol = symbol;

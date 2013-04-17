@@ -43,6 +43,9 @@ namespace BaconBox {
 		
 		void addChild(Entity *newChild);
 		
+		void addChildToCurrentFrame(Entity *newChild);
+
+		
 		void addChild(Entity *newChild, int frame);
 		
 		void addChildAt(Entity *newChild, int index);
@@ -85,8 +88,13 @@ namespace BaconBox {
 
 		void setFrame(int frame);
 		std::deque<Entity*> * getCurrentFrameChildren();
+		std::deque<Entity*> * getCurrentFrameChildren() const;
+
 
 	private:
+		void addChildAt(Entity *newChild, int index, ChildArray::iterator frameIterator);
+		
+		void setNbFrame(int nbFrames);
 		ChildArray::iterator frameIterator;		
 		Entity * parent;
 		

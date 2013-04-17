@@ -222,12 +222,12 @@ namespace BaconBox {
 		}
 		else if(glyphInfo->charCode == ' '){
 			line.resize(line.size() +1);
-			sprite = EntityFactory::getMovieClipEntityFromSubTexture(glyphInfo->subTextureInfo);
+			sprite = EntityFactory::getInstance().getMovieClipEntityFromSubTexture(glyphInfo->subTextureInfo);
 			line.back().push_back(CharSprite(sprite, glyphInfo));
 			line.resize(line.size() +1);
 		}
 		else{
-		    sprite = EntityFactory::getMovieClipEntityFromSubTexture(glyphInfo->subTextureInfo);
+		    sprite = EntityFactory::getInstance().getMovieClipEntityFromSubTexture(glyphInfo->subTextureInfo);
 		    word.push_back(CharSprite(sprite, glyphInfo));
 		}
 		if(sprite)getEntity()->getComponent<DefaultEntityContainer>()->addChild(sprite);

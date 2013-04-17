@@ -40,19 +40,19 @@ namespace BaconBox {
 	}
 
 	void Entity::sendMessage(int senderID, int destID, int message, void *data) {
-		for (std::vector<Component *>::iterator i = this->components.begin(); i != this->components.end(); ++i) {
+		for (std::list<Component *>::iterator i = this->components.begin(); i != this->components.end(); ++i) {
 			(*i)->receiveMessage(senderID, destID, message, data);
 		}
 	}
 
 	void Entity::update() {
-		for (std::vector<Component *>::iterator i = this->components.begin(); i != this->components.end(); ++i) {
+		for (std::list<Component *>::iterator i = this->components.begin(); i != this->components.end(); ++i) {
 			(*i)->update();
 		}
 	}
 
 	void Entity::render() {
-		for (std::vector<Component *>::iterator i = this->components.begin(); i != this->components.end(); ++i) {
+		for (std::list<Component *>::iterator i = this->components.begin(); i != this->components.end(); ++i) {
 			(*i)->render();
 		}
 	}
@@ -62,12 +62,12 @@ namespace BaconBox {
 	}
 
 
-	const std::vector<Component *> &Entity::getComponents() const {
+	const std::list<Component *> &Entity::getComponents() const {
 		return components;
 	}
 	
 	void Entity::printComponentsName(){
-	    for(std::vector<Component *>::iterator i = components.begin(); i != components.end(); i++){
+	    for(std::list<Component *>::iterator i = components.begin(); i != components.end(); i++){
 		std::cout << " Entity: " << IDManager::getName(this->getID()) << " Component: " << IDManager::getName((*i)->getID()) << std::endl;
 	    }
 	}
@@ -84,22 +84,9 @@ namespace BaconBox {
 		return newComponent;
 	}
 
-	void Entity::removeComponentAt(std::vector<Component *>::size_type index) {
-		if (index < components.size()) {
-			Component *toRemove = this->components[index];
-			
-			this->components.erase(components.begin() + index);
-			
-			int componentId = toRemove->getID();
-			
-			this->sendMessage(Entity::ID, BROADCAST, MESSAGE_REMOVE_COMPONENT, &componentId);
-			
-			delete toRemove;
-		}
-	}
 
 	void Entity::removeComponent(Component *component) {
-		std::vector<Component *>::iterator found = std::find(this->components.begin(), this->components.end(), component);
+		std::list<Component *>::iterator found = std::find(this->components.begin(), this->components.end(), component);
 
 		if (found != this->components.end()) {
 			Component *toRemove = *found;
@@ -115,13 +102,13 @@ namespace BaconBox {
 	}
 
 	void Entity::removeComponents(int id) {
-		std::vector<Component *>::size_type i = 0;
+		std::list<Component *>::iterator i = this->components.begin();
 
-		while (i < this->components.size()) {
-			if (this->components[i]->getID() == id) {
-				Component *toRemove = this->components[i];
+		while (i != this->components.end()) {
+			if ((*i)->getID() == id) {
+				Component *toRemove = *i;
 				
-				this->components.erase(this->components.begin() + i);
+				this->components.erase(i);
 				
 				int componentId = toRemove->getID();
 				
@@ -147,7 +134,7 @@ namespace BaconBox {
 	Component *Entity::getComponent(int id,  bool noPrint) const {
 		Component *result = NULL;
 		bool notFound = true;
-		std::vector<Component *>::const_iterator i = this->components.begin();
+		std::list<Component *>::const_iterator i = this->components.begin();
 		
 		while (notFound && i != this->components.end()) {
 			if ((*i)->getID() == id) {
@@ -167,17 +154,16 @@ namespace BaconBox {
 
 
 	void Entity::free() {
-		for (std::vector<Component *>::iterator i = this->components.begin(); i != this->components.end(); ++i) {
+		for (std::list<Component *>::iterator i = this->components.begin(); i != this->components.end(); ++i) {
 			delete *i;
 		}
 	}
 
 	void Entity::copyFrom(const Entity &src) {
-		this->components.reserve(src.components.size());
 
 		Component *tmpComponent;
 
-		for (std::vector<Component *>::const_iterator i = src.components.begin(); i != src.components.end(); ++i) {
+		for (std::list<Component *>::const_iterator i = src.components.begin(); i != src.components.end(); ++i) {
 			tmpComponent = (*i)->clone();
 			tmpComponent->setEntity(this);
 			this->components.push_back(tmpComponent);

@@ -39,7 +39,6 @@ void internalSetMatrix(const Matrix & m);
 		Matrix matrix;
 		std::map<int, Matrix> matrixByParentFrame;
 		EntityContainer * entityContainer;
-		SymbolComponent * symbolComponent;
 		void updateMatrix(Vector2 position, Vector2 scale, float angle);
 		bool hasCustomMatrix;
 	};
