@@ -368,6 +368,7 @@
 		24C119CB16DF1127001A8DE3 /* DefaultTimeline.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DefaultTimeline.h; sourceTree = "<group>"; };
 		24CD5A9716347EE8001EB407 /* libJsonBox.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libJsonBox.a; path = libraries/Darwin/x86_64/lib/libJsonBox.a; sourceTree = "<group>"; };
 		24CD5A9816347EE8001EB407 /* libtinyxml.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libtinyxml.a; path = libraries/Darwin/x86_64/lib/libtinyxml.a; sourceTree = "<group>"; };
+		24D4DC99171F583E00D1F979 /* DynamicPool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DynamicPool.h; sourceTree = "<group>"; };
 		24F9A04916BEDDC300FCA53B /* RenderMode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RenderMode.h; sourceTree = "<group>"; };
 		24F9A04C16BF007700FCA53B /* EntityFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EntityFactory.cpp; sourceTree = "<group>"; };
 		24F9A04D16BF007700FCA53B /* EntityFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EntityFactory.h; sourceTree = "<group>"; };
@@ -854,6 +855,7 @@
 				51E5172B1697529200F6D446 /* Windows */,
 				245C1B6616ACD2EB00C74B67 /* Vector2ChangedData.h */,
 				245C1B6816ACD35B00C74B67 /* ValueChangedData.h */,
+				24D4DC99171F583E00D1F979 /* DynamicPool.h */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
