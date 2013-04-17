@@ -95,7 +95,7 @@ namespace BaconBox {
 				SizeType oldSize = this->objects.size();
 				this->objects.resize(newNbAvailableObjects);
 				
-				for (SizeType i = newNbAvailableObjects; i < this->objects.size(); ++i) {
+				for (SizeType i = oldSize; i < newNbAvailableObjects; ++i) {
 					this->objects[i] = new T();
 				}
 			} else if (newNbAvailableObjects < this->objects.size()) {
