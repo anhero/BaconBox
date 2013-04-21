@@ -6,7 +6,7 @@ namespace BaconBox {
 	}
 
 	StandardVertexArray::StandardVertexArray(SizeType newSize,
-	                                             ConstReference defaultValue) :
+	                                         ConstReference defaultValue) :
 		VertexArray(), vertices(newSize, defaultValue) {
 	}
 
@@ -70,16 +70,20 @@ namespace BaconBox {
 	}
 
 	StandardVertexArray::Iterator StandardVertexArray::insert(Iterator position,
-	                                                              ConstReference value) {
+	                                                          ConstReference value) {
 		return vertices.insert(position, value);
 	}
 
 	void StandardVertexArray::insert(Iterator position, SizeType count,
-	                                   ConstReference value) {
+	                                 ConstReference value) {
 		vertices.insert(position, count, value);
 	}
 
 	void StandardVertexArray::insert(Iterator position, Iterator first, Iterator last) {
+		vertices.insert(position, first, last);
+	}
+	
+	void StandardVertexArray::insert(Iterator position, ConstIterator first, ConstIterator last) {
 		vertices.insert(position, first, last);
 	}
 
@@ -88,7 +92,7 @@ namespace BaconBox {
 	}
 
 	StandardVertexArray::Iterator StandardVertexArray::erase(Iterator first,
-	                                                             Iterator last) {
+	                                                         Iterator last) {
 		return vertices.erase(first, last);
 	}
 
