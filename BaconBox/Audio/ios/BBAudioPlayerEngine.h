@@ -2,8 +2,8 @@
  * @file
  * @ingroup Audio
  */
-#ifndef RB_RB_AUDIO_PLAYER_ENGINE_H
-#define RB_RB_AUDIO_PLAYER_ENGINE_H
+#ifndef BB_AUDIO_PLAYER_ENGINE_H
+#define BB_AUDIO_PLAYER_ENGINE_H
 
 #include "BaconBox/PlatformFlagger.h"
 
@@ -15,13 +15,13 @@
 namespace BaconBox {
 	class BackgroundMusic;
 	struct MusicInfo;
-	class RBAudioPlayerMusic;
+	class BBAudioPlayerMusic;
 	/**
 	 * Music engine implementation for iOS.
 	 * @ingroup Audio
 	 */
-	class RBAudioPlayerEngine : public MusicEngine {
-		friend class Engine;
+	class BBAudioPlayerEngine : public MusicEngine {
+		friend class BaseEngine;
 	public:
 		/**
 		 * Constructs a background music. Gets the music's data associated with
@@ -55,11 +55,11 @@ namespace BaconBox {
 		/**
 		 * Default constructor.
 		 */
-		RBAudioPlayerEngine();
+		BBAudioPlayerEngine();
 		/**
 		 * Destructor.
 		 */
-		~RBAudioPlayerEngine();
+		~BBAudioPlayerEngine();
 		/**
 		 * Updates the necessary informations for the audio engine.
 		 */

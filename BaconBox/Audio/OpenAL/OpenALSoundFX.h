@@ -2,14 +2,14 @@
  * @file
  * @ingroup Audio
  */
-#ifndef RB_OPENAL_SOUNDFX_H
-#define RB_OPENAL_SOUNDFX_H
+#ifndef BB_OPENAL_SOUNDFX_H
+#define BB_OPENAL_SOUNDFX_H
 
 #include "BaconBox/PlatformFlagger.h"
 
 #include <vector>
 
-#include "BaconBox/Audio/OpenAL/RBOpenAL.h"
+#include "BaconBox/Audio/OpenAL/BBOpenAL.h"
 #include "BaconBox/Audio/SoundFX.h"
 
 namespace BaconBox {

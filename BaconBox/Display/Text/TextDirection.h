@@ -2,8 +2,8 @@
  * @file
  * @ingroup TextDisplay
  */
-#ifndef RB_TEXT_DIRECTION_H
-#define RB_TEXT_DIRECTION_H
+#ifndef BB_TEXT_DIRECTION_H
+#define BB_TEXT_DIRECTION_H
 
 #include "BaconBox/Helper/SafeEnum.h"
 

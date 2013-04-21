@@ -1,5 +1,5 @@
-#ifndef RB_AV_AUDIO_PLAYER_MUSIC_DELEGATE_H
-#define RB_AV_AUDIO_PLAYER_MUSIC_DELEGATE_H
+#ifndef BB_AV_AUDIO_PLAYER_MUSIC_DELEGATE_H
+#define BB_AV_AUDIO_PLAYER_MUSIC_DELEGATE_H
 
 #include "BaconBox/PlatformFlagger.h"
 
@@ -16,7 +16,7 @@ typedef enum {
 
 #define FADE_TICK_TIME 0.1f
 
-@interface RBAudioPlayerMusicDelegate : NSObject <AVAudioPlayerDelegate> {
+@interface BBAudioPlayerMusicDelegate : NSObject <AVAudioPlayerDelegate> {
 	@private
 	AVAudioPlayer* BGMusic;
 	float fadeDelta;

@@ -2,8 +2,8 @@
  * @file
  * @ingroup Input
  */
-#ifndef RB_IOS_POINTER_H
-#define RB_IOS_POINTER_H
+#ifndef BB_IOS_POINTER_H
+#define BB_IOS_POINTER_H
 
 #include <Foundation/Foundation.h>
 #include <UIKit/UITouch.h>
