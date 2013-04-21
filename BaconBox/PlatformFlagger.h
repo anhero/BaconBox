@@ -188,8 +188,8 @@
 
 	//Music engine for iOS
 	#define BB_AV_AUDIO_PLAYER
-	#define BB_MUSIC_ENGINE_IMPL new RBAudioPlayerEngine()
-	#define BB_MUSIC_ENGINE_INCLUDE "BaconBox/Audio/ios/RBAudioPlayerEngine.h"
+	#define BB_MUSIC_ENGINE_IMPL new BBAudioPlayerEngine()
+	#define BB_MUSIC_ENGINE_INCLUDE "BaconBox/Audio/ios/BBAudioPlayerEngine.h"
 
 
 	//Input engine for iOS
@@ -197,7 +197,7 @@
 	#define BB_POINTER_IMPL new IOSPointer()
 
 	#define BB_MAIN_WINDOW_IMPL new IOSMainWindow()
-	#define BB_MAIN_WINDOW_INCLUDE "BaconBox/Input/Pointer/ios/IOSMainWindow.h"
+	#define BB_MAIN_WINDOW_INCLUDE "BaconBox/Display/Window/ios/IOSMainWindow.h"
 #endif // BB_IPHONE_PLATFORM
 
 #if defined (BB_OPENGL) || defined (BB_OPENGLES)
@@ -212,8 +212,8 @@
 	#if defined(BB_QT)
 		#define BB_MUSIC_ENGINE_IMPL NULL
 	#else
-		#define BB_MUSIC_ENGINE_INCLUDE "RBAudioPlayerEngine.h"
-		#define BB_MUSIC_ENGINE_IMPL new RBAudioPlayerEngine()
+		#define BB_MUSIC_ENGINE_INCLUDE "BBAudioPlayerEngine.h"
+		#define BB_MUSIC_ENGINE_IMPL new BBAudioPlayerEngine()
 	#endif
 #endif
 */

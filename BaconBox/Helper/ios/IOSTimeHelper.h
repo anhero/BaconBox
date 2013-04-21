@@ -1,9 +1,9 @@
-#ifndef RB_IOS_TIME_HELPER_H
-#define RB_IOS_TIME_HELPER_H
+#ifndef BB_IOS_TIME_HELPER_H
+#define BB_IOS_TIME_HELPER_H
 
 #include "BaconBox/PlatformFlagger.h"
 
-#ifdef RB_IPHONE_PLATFORM
+#ifdef BB_IPHONE_PLATFORM
 
 #include "BaconBox/Helper/TimeHelper.h"
 

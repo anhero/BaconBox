@@ -2,8 +2,8 @@
  * @file
  * @ingroup Audio
  */
-#ifndef RB_OPENAL_ENGINE_H
-#define RB_OPENAL_ENGINE_H
+#ifndef BB_OPENAL_ENGINE_H
+#define BB_OPENAL_ENGINE_H
 
 #include "BaconBox/PlatformFlagger.h"
 
@@ -13,7 +13,7 @@
 #include <vector>
 #include <list>
 
-#include "BaconBox/Audio/OpenAL/RBOpenAL.h"
+#include "BaconBox/Audio/OpenAL/BBOpenAL.h"
 #include "BaconBox/Audio/SoundEngine.h"
 #include "BaconBox/Audio/SoundParameters.h"
 
@@ -27,7 +27,7 @@ namespace BaconBox {
 	 * @ingroup Audio
 	 */
 	class OpenALEngine: public SoundEngine {
-		friend class Engine;
+		friend class BaseEngine;
 	public:
 		/**
 		 * Converts the BaconBox volume to its OpenAL equivalent.

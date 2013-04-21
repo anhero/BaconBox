@@ -9,7 +9,7 @@
 
 #include "BaconBox/Console.h"
 
-#include "BaconBox/Audio/OpenAL/RBOpenAL.h"
+#include "BaconBox/Audio/OpenAL/BBOpenAL.h"
 
 #include "BaconBox/Helper/BitHelper.h"
 #include "BaconBox/Audio/OpenAL/WavHeader.h"

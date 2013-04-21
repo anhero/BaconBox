@@ -2,8 +2,8 @@
  * @file
  * @ingroup Audio
  */
-#ifndef RB_WAV_HEADER_H
-#define RB_WAV_HEADER_H
+#ifndef BB_WAV_HEADER_H
+#define BB_WAV_HEADER_H
 
 #include <iostream>
 

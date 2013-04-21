@@ -2,20 +2,20 @@
  * @file
  * @ingroup Audio
  */
-#ifndef RB_OPENAL_H
-#define RB_OPENAL_H
+#ifndef BB_OPENAL_H
+#define BB_OPENAL_H
 
 #include "BaconBox/PlatformFlagger.h"
 
-#ifdef RB_OPENAL
+#ifdef BB_OPENAL
 
-#ifdef RB_WIN32
+#ifdef BB_WIN32
 #include <al.h>
 #include <alc.h>
-#elif defined(RB_LINUX)
+#elif defined(BB_LINUX)
 #include <AL/al.h>
 #include <AL/alc.h>
-#elif defined(RB_APPLE_PLATFORM)
+#elif defined(BB_APPLE_PLATFORM)
 #include <OpenAL/al.h>
 #include <OpenAL/alc.h>
 #endif

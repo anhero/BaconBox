@@ -2,7 +2,7 @@
 
 #import "EAGLView.h"
 
-#include <BaconBox/IOSPointer.h>
+#include <BaconBox/Input/Pointer/ios/IOSPointer.h>
 
 @interface EAGLView (PrivateMethods)
 - (void)createFramebuffer;

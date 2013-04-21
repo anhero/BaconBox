@@ -3,8 +3,7 @@
 #import "EAGLView.h"
 
 #import "BaconBoxAppViewController.h"
-#include <BaconBox.h>
-#include <BaconBox/GraphicDriver.h>
+#include <BaconBox/Display/Driver/GraphicDriver.h>
 #include "MainWindow.h"
 static BaconBoxAppViewController *baconBoxViewController = nil;
 

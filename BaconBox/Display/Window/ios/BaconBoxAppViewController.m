@@ -2,9 +2,8 @@
 
 #import "BaconBoxAppViewController.h"
 #import "EAGLView.h"
-#include <BaconBox.h>
 
-
+#include <BaconBox/Core/Engine.h>
 @interface BaconBoxAppViewController ()
 @property (nonatomic, retain) EAGLContext *context;
 @property (nonatomic, assign) CADisplayLink *displayLink;

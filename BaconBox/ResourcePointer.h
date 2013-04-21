@@ -1,8 +1,8 @@
 /**
  * @file
  */
-#ifndef RB_RESOURCE_POINTER_H
-#define RB_RESOURCE_POINTER_H
+#ifndef BB_RESOURCE_POINTER_H
+#define BB_RESOURCE_POINTER_H
 
 #include <string>
 
@@ -76,4 +76,4 @@ namespace BaconBox {
 
 }
 
-#endif // RB_RESOURCE_POINTER_H
+#endif // BB_RESOURCE_POINTER_H

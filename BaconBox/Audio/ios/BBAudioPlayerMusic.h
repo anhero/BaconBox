@@ -2,14 +2,14 @@
  * @file
  * @ingroup Audio
  */
-#ifndef RB_AV_AUDIO_PLAYER_MUSIC_H
-#define RB_AV_AUDIO_PLAYER_MUSIC_H
+#ifndef BB_AV_AUDIO_PLAYER_MUSIC_H
+#define BB_AV_AUDIO_PLAYER_MUSIC_H
 
 #include "BaconBox/PlatformFlagger.h"
 
 #include <string>
 
-#include "BaconBox/Audio/ios/RBAudioPlayerMusicDelegate.h"
+#include "BaconBox/Audio/ios/BBAudioPlayerMusicDelegate.h"
 #include <Foundation/Foundation.h>
 
 #include "BaconBox/Audio/AudioState.h"
@@ -21,8 +21,8 @@ namespace BaconBox {
 	 * BackgroundMusic for iOS.
 	 * @ingroup Audio
 	 */
-	class RBAudioPlayerMusic : public BackgroundMusic {
-		friend class RBAudioPlayerEngine;
+	class BBAudioPlayerMusic : public BackgroundMusic {
+		friend class BBAudioPlayerEngine;
 	public:
 		/**
 		 * Plays the music a given number of times.
@@ -93,12 +93,12 @@ namespace BaconBox {
 		 * This is done to be able to have many musics playing the same
 		 * music without having it loaded many times in memory.
 		 */
-		~RBAudioPlayerMusic();
+		~BBAudioPlayerMusic();
 	private:
 		/// Pointer to the music being currently played.
-		static RBAudioPlayerMusic* currentMusic;
+		static BBAudioPlayerMusic* currentMusic;
 		/// Pointer to the objective-C background music.
-		RBAudioPlayerMusicDelegate* bgm;
+		BBAudioPlayerMusicDelegate* bgm;
 		/// Used to keep track if the music is at the INITIAL state.
 		bool playedOnce;
 		
@@ -109,7 +109,7 @@ namespace BaconBox {
 		/**
 		 * Default constructor. Can only be called by the audio engine.
 		 */
-		RBAudioPlayerMusic();
+		BBAudioPlayerMusic();
 		/**
 		 * Loads a background music.
 		 * @param filePath Path to the music file to load.
