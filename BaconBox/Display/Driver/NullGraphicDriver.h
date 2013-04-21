@@ -123,6 +123,11 @@ namespace BaconBox {
          */
         void deleteTexture(TextureInformation * textureInfo);
         
+		
+		/**
+		 * Finalizes all pending batches if there are any.
+		 */
+		void finalizeRender();
 	private:
 		/**
 		 * Default constructor.

@@ -163,6 +163,7 @@ namespace BaconBox {
 			
 			if (!this->renderedSinceLastUpdate) {
 				this->currentState->internalRender();
+				GraphicDriver::getInstance().finalizeRender();
 				this->renderedSinceLastUpdate = true;
 				this->bufferSwapped = false;
 				this->lastRender = TimeHelper::getInstance().getSinceStartComplete();

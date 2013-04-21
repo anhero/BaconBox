@@ -7,7 +7,7 @@
 
 #include "BaconBox/Display/Driver/GraphicDriver.h"
 #include "BaconBox/Display/Driver/OpenGL/BBOpenGL.h"
-
+#include "BaconBox/Display/DynamicBatch.h"
 
 namespace BaconBox {
 	/**
@@ -56,15 +56,15 @@ namespace BaconBox {
 		void drawBatchWithTextureAndColor(const VertexArray &vertices,
 		                                  const TextureInformation *textureInformation,
 		                                  const TextureCoordinates &textureCoordinates,
-										  const IndiceArray &indices,
-										  const IndiceArrayList &indiceList,
+		                                  const IndiceArray &indices,
+		                                  const IndiceArrayList &indiceList,
 		                                  const ColorArray &colors);
 
 		void drawBatchWithTexture(const VertexArray &vertices,
 		                          const TextureInformation *textureInformation,
 		                          const TextureCoordinates &textureCoordinates,
-								  const IndiceArray &indices,
-								  const IndiceArrayList &indiceList);
+		                          const IndiceArray &indices,
+		                          const IndiceArrayList &indiceList);
 
 
 
@@ -110,15 +110,27 @@ namespace BaconBox {
 		 * @param pixMap A pixmap object containing the buffer the driver must load.
 		 */
 		TextureInformation *loadTexture(PixMap *pixMap);
-        
-        /**
-         *  Remove a texture from graphic memory
-         */
-        void deleteTexture(TextureInformation * textureInfo);
+
+		/**
+		 *  Remove a texture from graphic memory
+		 */
+		void deleteTexture(TextureInformation *textureInfo);
+
+		/**
+		 * Finalizes all pending batches if there are any.
+		 */
+		void finalizeRender();
 	private:
 		static float clampColorComponent(unsigned short component);
 
-	
+		void internalDrawShapeWithTextureAndColor(const VertexArray &vertices,
+		                                          const TextureInformation *textureInformation,
+		                                          const TextureCoordinates &textureCoordinates,
+		                                          const Color &color);
+
+		DynamicBatch batch;
+
+		const TextureInformation *lastTexture;
 
 		/**
 		 * Default constructor.

@@ -21,16 +21,17 @@ namespace BaconBox {
 	                                                const TextureInformation *textureInformation,
 	                                                const TextureCoordinates &textureCoordinates,
 	                                                const Color &color) {
-		if (color.getAlpha() > 0u) {
-			glColor4ub(color.getRed(), color.getGreen(), color.getBlue(),
-			           color.getAlpha());
-
-			drawShapeWithTexture(vertices, textureInformation,
-			                     textureCoordinates);
-
-			glColor4ub(Color::WHITE.getRed(), Color::WHITE.getGreen(),
-			           Color::WHITE.getBlue(), Color::WHITE.getAlpha());
+		if (textureInformation != this->lastTexture && this->lastTexture != NULL) {
+			if (this->batch.isSingle()) {
+				this->internalDrawShapeWithTextureAndColor(this->batch.getVertices(), this->lastTexture, this->batch.getTextureCoordinates(), this->batch.getColor());
+			} else {
+				this->batch.render(this, this->lastTexture);
+				this->batch.prepareRender();
+				this->lastTexture = textureInformation;
+			}
 		}
+		
+		this->batch.addItem(vertices, color, textureCoordinates);
 	}
 
 	void OpenGLDriver::drawShapeWithTexture(const VertexArray &vertices,
@@ -174,7 +175,7 @@ namespace BaconBox {
 		}
 	}
 
-void OpenGLDriver::prepareScene(const Vector2 &position, float angle,
+	void OpenGLDriver::prepareScene(const Vector2 &position, float angle,
 	                                const Vector2 &zoom,
 	                                const Color &backgroundColor) {
 		glClearColor(clampColorComponent(backgroundColor.getRed()),
@@ -208,7 +209,7 @@ void OpenGLDriver::prepareScene(const Vector2 &position, float angle,
 
 	}
 
-void OpenGLDriver::initializeGraphicDriver() {
+	void OpenGLDriver::initializeGraphicDriver() {
 		GraphicDriver::initializeGraphicDriver();
 		glShadeModel(GL_FLAT);
 
@@ -262,7 +263,7 @@ void OpenGLDriver::initializeGraphicDriver() {
 
 
 		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-		
+
 		glClear(GL_COLOR_BUFFER_BIT);
 	}
 
@@ -281,15 +282,15 @@ void OpenGLDriver::initializeGraphicDriver() {
 	void OpenGLDriver::popMatrix() {
 		glPopMatrix();
 	}
-    
-    
-    void OpenGLDriver::deleteTexture(TextureInformation * textureInfo){
-        glDeleteTextures(1, &(textureInfo->textureId));
-	textureInfo->textureId = -1;
-    }
+
+
+	void OpenGLDriver::deleteTexture(TextureInformation *textureInfo) {
+		glDeleteTextures(1, &(textureInfo->textureId));
+		textureInfo->textureId = -1;
+	}
 
 	TextureInformation *OpenGLDriver::loadTexture(PixMap *pixMap) {
-	    GraphicDriver::loadTexture(pixMap);
+		GraphicDriver::loadTexture(pixMap);
 
 		TextureInformation *texInfo = new TextureInformation();
 		glGenTextures(1, &(texInfo->textureId));
@@ -333,18 +334,41 @@ void OpenGLDriver::initializeGraphicDriver() {
 
 		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-		
+
 		return texInfo;
+	}
+
+	void OpenGLDriver::finalizeRender() {
+		if (this->lastTexture) {
+			this->batch.render(this, this->lastTexture);
+			this->lastTexture = NULL;
+		}
 	}
 
 	float OpenGLDriver::clampColorComponent(unsigned short component) {
 		return static_cast<float>(component) / static_cast<float>(Color::MAX_COMPONENT_VALUE);
 	}
 
-	OpenGLDriver::OpenGLDriver() : GraphicDriver() {
+	void OpenGLDriver::internalDrawShapeWithTextureAndColor(const VertexArray &vertices,
+	                                                        const TextureInformation *textureInformation,
+	                                                        const TextureCoordinates &textureCoordinates,
+	                                                        const Color &color) {
+		if (color.getAlpha() > 0u) {
+			glColor4ub(color.getRed(), color.getGreen(), color.getBlue(),
+			           color.getAlpha());
+
+			drawShapeWithTexture(vertices, textureInformation,
+			                     textureCoordinates);
+
+			glColor4ub(Color::WHITE.getRed(), Color::WHITE.getGreen(),
+			           Color::WHITE.getBlue(), Color::WHITE.getAlpha());
+		}
+	}
+
+	OpenGLDriver::OpenGLDriver() : GraphicDriver(), batch(), lastTexture(NULL) {
 	}
 
 	OpenGLDriver::~OpenGLDriver() {
-		
+
 	}
 }

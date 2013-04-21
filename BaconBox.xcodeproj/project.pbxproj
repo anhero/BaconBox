@@ -19,10 +19,10 @@
 		245ABB1B16D33E8A00CFC4CB /* OpenGLStaticBatchManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 245ABB1916D33E8A00CFC4CB /* OpenGLStaticBatchManager.h */; };
 		246274CA16AC8AB4006C7FFF /* MeshDriverRenderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 246274C816AC8AB3006C7FFF /* MeshDriverRenderer.cpp */; };
 		246274CB16AC8AB4006C7FFF /* MeshDriverRenderer.h in Headers */ = {isa = PBXBuildFile; fileRef = 246274C916AC8AB4006C7FFF /* MeshDriverRenderer.h */; };
-		246C5A6B171B883E0028BC87 /* BatchRenderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 246C5A69171B883E0028BC87 /* BatchRenderer.cpp */; };
-		246C5A6C171B883E0028BC87 /* BatchRenderer.h in Headers */ = {isa = PBXBuildFile; fileRef = 246C5A6A171B883E0028BC87 /* BatchRenderer.h */; };
 		246C72D516DA6E1D006B8311 /* Batch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 246C72D316DA6E1D006B8311 /* Batch.cpp */; };
 		246C72D616DA6E1D006B8311 /* Batch.h in Headers */ = {isa = PBXBuildFile; fileRef = 246C72D416DA6E1D006B8311 /* Batch.h */; };
+		246EF60917243D0A0092E8F5 /* DynamicBatch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 246EF60717243D0A0092E8F5 /* DynamicBatch.cpp */; };
+		246EF60A17243D0A0092E8F5 /* DynamicBatch.h in Headers */ = {isa = PBXBuildFile; fileRef = 246EF60817243D0A0092E8F5 /* DynamicBatch.h */; };
 		2478740816360C7F006D4A59 /* libSDL2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2478740616360C7F006D4A59 /* libSDL2.a */; };
 		2478740916360C7F006D4A59 /* libSDL2main.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2478740716360C7F006D4A59 /* libSDL2main.a */; };
 		2481350D1711A4E300283670 /* FontFormat.h in Headers */ = {isa = PBXBuildFile; fileRef = 248135081711A4E300283670 /* FontFormat.h */; };
@@ -333,10 +333,10 @@
 		246274C816AC8AB3006C7FFF /* MeshDriverRenderer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MeshDriverRenderer.cpp; sourceTree = "<group>"; };
 		246274C916AC8AB4006C7FFF /* MeshDriverRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeshDriverRenderer.h; sourceTree = "<group>"; };
 		24660B0F16E2C1C000C52ABF /* EntityContainerLooper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EntityContainerLooper.h; sourceTree = "<group>"; };
-		246C5A69171B883E0028BC87 /* BatchRenderer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BatchRenderer.cpp; sourceTree = "<group>"; };
-		246C5A6A171B883E0028BC87 /* BatchRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BatchRenderer.h; sourceTree = "<group>"; };
 		246C72D316DA6E1D006B8311 /* Batch.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Batch.cpp; sourceTree = "<group>"; };
 		246C72D416DA6E1D006B8311 /* Batch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Batch.h; sourceTree = "<group>"; };
+		246EF60717243D0A0092E8F5 /* DynamicBatch.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DynamicBatch.cpp; sourceTree = "<group>"; };
+		246EF60817243D0A0092E8F5 /* DynamicBatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DynamicBatch.h; sourceTree = "<group>"; };
 		2478740616360C7F006D4A59 /* libSDL2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSDL2.a; path = libraries/Darwin/x86_64/lib/libSDL2.a; sourceTree = "<group>"; };
 		2478740716360C7F006D4A59 /* libSDL2main.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSDL2main.a; path = libraries/Darwin/x86_64/lib/libSDL2main.a; sourceTree = "<group>"; };
 		248135081711A4E300283670 /* FontFormat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FontFormat.h; sourceTree = "<group>"; };
@@ -799,8 +799,6 @@
 				24660B0F16E2C1C000C52ABF /* EntityContainerLooper.h */,
 				246C72D316DA6E1D006B8311 /* Batch.cpp */,
 				246C72D416DA6E1D006B8311 /* Batch.h */,
-				246C5A69171B883E0028BC87 /* BatchRenderer.cpp */,
-				246C5A6A171B883E0028BC87 /* BatchRenderer.h */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -1021,6 +1019,8 @@
 				5153CD1B169925E700431A19 /* Camera.cpp */,
 				5153CD1C169925E700431A19 /* Camera.h */,
 				24F9A04916BEDDC300FCA53B /* RenderMode.h */,
+				246EF60717243D0A0092E8F5 /* DynamicBatch.cpp */,
+				246EF60817243D0A0092E8F5 /* DynamicBatch.h */,
 			);
 			path = Display;
 			sourceTree = "<group>";
@@ -1399,7 +1399,7 @@
 				24FE79CC16D33D6F00A670F6 /* BatchManager.h in Headers */,
 				245ABB1B16D33E8A00CFC4CB /* OpenGLStaticBatchManager.h in Headers */,
 				246C72D616DA6E1D006B8311 /* Batch.h in Headers */,
-				246C5A6C171B883E0028BC87 /* BatchRenderer.h in Headers */,
+				246EF60A17243D0A0092E8F5 /* DynamicBatch.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1583,7 +1583,7 @@
 				24FE79CB16D33D6F00A670F6 /* BatchManager.cpp in Sources */,
 				245ABB1A16D33E8A00CFC4CB /* OpenGLStaticBatchManager.cpp in Sources */,
 				246C72D516DA6E1D006B8311 /* Batch.cpp in Sources */,
-				246C5A6B171B883E0028BC87 /* BatchRenderer.cpp in Sources */,
+				246EF60917243D0A0092E8F5 /* DynamicBatch.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

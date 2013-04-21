@@ -1,61 +1,31 @@
-#include "BatchRenderer.h"
+#include "DynamicBatch.h"
 
 #include "BaconBox/Console.h"
 #include "BaconBox/Display/Driver/GraphicDriver.h"
-#include "BaconBox/Components/Texture.h"
-#include "BaconBox/Components/ComponentConnection.h"
 
 namespace BaconBox {
-	BatchRenderer::BatchRenderer() : Component(), sizes(), vertices(), colors(), indices(), indiceList() {
-		this->initializeConnections();
+	DynamicBatch::DynamicBatch() {
+	}
+
+	DynamicBatch::~DynamicBatch() {
 	}
 	
-	BatchRenderer::BatchRenderer(const BatchRenderer &src) : Component(src), sizes(src.sizes), vertices(src.vertices), colors(src.colors), indices(src.indices), indiceList(src.indiceList) {
-		this->initializeConnections();
-	}
-	
-	BatchRenderer::~BatchRenderer() {
-	}
-	
-	BatchRenderer &BatchRenderer::operator=(const BatchRenderer &src) {
-		if (this != &src) {
-			this->sizes = src.sizes;
-			this->vertices = src.vertices;
-			this->colors = src.colors;
-			this->indices = src.indices;
-			this->indiceList = src.indiceList;
-		}
-		
-		return *this;
-	}
-	
-	BatchRenderer *BatchRenderer::clone() const {
-		return new BatchRenderer(*this);
-	}
-	
-	void BatchRenderer::receiveMessage(int senderID, int destID, int message, void *data) {
-	}
-	
-	void BatchRenderer::prepareRender() {
+	void DynamicBatch::prepareRender() {
 		this->sizes.clear();
 		this->vertices.clear();
+		this->textureCoordinates.clear();
+		this->colors.clear();
 		this->indices.clear();
 		this->indiceList.clear();
-		
-		if (this->texture) {
-			this->texture->getTextureCoordinates().clear();
-		}
 	}
 	
-	void BatchRenderer::addItem(const VertexArray &newVertices, const Color &newColor, const TextureCoordinates &newTextureCoordinates) {
+	void DynamicBatch::addItem(const VertexArray &newVertices, const Color &newColor, const TextureCoordinates &newTextureCoordinates) {
 		if (newVertices.getNbVertices() == newTextureCoordinates.size()) {
 			this->vertices.insert(this->vertices.getEnd(), newVertices.getBegin(), newVertices.getEnd());
 			this->colors.insert(this->colors.end(), newVertices.getNbVertices(), newColor);
 			this->sizes.push_back(newVertices.getNbVertices());
-			
-			if (this->texture) {
-				this->texture->getTextureCoordinates().insert(this->texture->getTextureCoordinates().begin(), newTextureCoordinates.begin(), newTextureCoordinates.end());
-			}
+			this->textureCoordinates.insert(this->textureCoordinates.begin(), newTextureCoordinates.begin(), newTextureCoordinates.end());
+
 		} else {
 			Console::println("Tried to add an item into an BatchRenderer that doesn't have the same number of vertices and texture coordinates: ");
 			Console::print(newVertices.getNbVertices());
@@ -65,15 +35,28 @@ namespace BaconBox {
 		}
 	}
 	
-	void BatchRenderer::renderBatch() {
+	void DynamicBatch::render(GraphicDriver *driver, const TextureInformation *textureInformation) {
 		this->refreshIndices();
-		
-		if (this->texture) {
-			GraphicDriver::getInstance().drawBatchWithTextureAndColor(this->vertices, this->texture->getTexture(), this->texture->getTextureCoordinates(), this->indices, this->indiceList, this->colors);
-		}
+		driver->drawBatchWithTextureAndColor(this->vertices, textureInformation, this->textureCoordinates, this->indices, this->indiceList, this->colors);
 	}
 	
-	void BatchRenderer::refreshIndices() {
+	bool DynamicBatch::isSingle() const {
+		return this->sizes.size() == 1;
+	}
+	
+	const StandardVertexArray &DynamicBatch::getVertices() const {
+		return this->vertices;
+	}
+	
+	const TextureCoordinates &DynamicBatch::getTextureCoordinates() const {
+		return this->textureCoordinates;
+	}
+	
+	const Color &DynamicBatch::getColor() const {
+		return this->colors.front();
+	}
+	
+	void DynamicBatch::refreshIndices() {
 		static const StandardVertexArray::SizeType MAX_NB_INDICES = static_cast<StandardVertexArray::SizeType>(std::numeric_limits<IndiceArray::value_type>::max());
 		
 		// We clear the current indices.
@@ -127,10 +110,5 @@ namespace BaconBox {
 			
 			currentIndex += *i;
 		}
-	}
-	
-	void BatchRenderer::initializeConnections() {
-		this->addConnection(new ComponentConnection<Texture>(&this->texture));
-		this->refreshConnections();
 	}
 }
