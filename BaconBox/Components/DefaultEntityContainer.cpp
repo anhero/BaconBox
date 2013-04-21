@@ -75,7 +75,7 @@ namespace BaconBox {
 	//
 	//					this->children[i].insert(std::make_pair(j->first, newEntity));
 	//				}
-	//			}π
+	//			}
 	//
 	//			this->childrenByName = src.childrenByName;
 	//
@@ -144,7 +144,7 @@ namespace BaconBox {
 	
 	
 	void DefaultEntityContainer::addChildToCurrentFrame(Entity *newChild){
-		addChildAt(newChild, frameIterator->second.size(), frameIterator);
+		addChildAt(newChild, static_cast<int>(frameIterator->second.size()), frameIterator);
 	}
 
 	
@@ -344,7 +344,7 @@ namespace BaconBox {
 	}
 	
 	int DefaultEntityContainer::getNbChildren() const {
-		return (children.size() == 0 ? 0 : getCurrentFrameChildren()->size());
+		return (children.size() == 0 ? 0 : static_cast<int>(getCurrentFrameChildren()->size()));
 	}
 	
 	int DefaultEntityContainer::getCurrentFrameIndex() const {
