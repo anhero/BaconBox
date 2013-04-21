@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		24EC9E7F1724609B00DF698E /* DynamicBatch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 24EC9E7D1724609B00DF698E /* DynamicBatch.cpp */; };
+		24EC9E93172477B600DF698E /* RapidXmlSerializer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 24EC9E91172477B600DF698E /* RapidXmlSerializer.cpp */; };
 		5161F0E9172037090044226C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5161F0E8172037090044226C /* Foundation.framework */; };
 		5161F307172037AB0044226C /* AudioEngine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5161F0F9172037A90044226C /* AudioEngine.cpp */; };
 		5161F309172037AB0044226C /* BackgroundMusic.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5161F0FD172037A90044226C /* BackgroundMusic.cpp */; };
@@ -86,7 +88,6 @@
 		5161F3A0172037AB0044226C /* Object.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5161F22A172037AA0044226C /* Object.cpp */; };
 		5161F3A2172037AB0044226C /* Serializable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5161F22D172037AA0044226C /* Serializable.cpp */; };
 		5161F3A4172037AB0044226C /* Serializer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5161F230172037AA0044226C /* Serializer.cpp */; };
-		5161F3A6172037AB0044226C /* TinyXMLSerializer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5161F234172037AA0044226C /* TinyXMLSerializer.cpp */; };
 		5161F3A8172037AB0044226C /* Value.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5161F237172037AA0044226C /* Value.cpp */; };
 		5161F3AA172037AB0044226C /* ShapeFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5161F23B172037AA0044226C /* ShapeFactory.cpp */; };
 		5161F3AC172037AB0044226C /* Stopwatch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5161F240172037AA0044226C /* Stopwatch.cpp */; };
@@ -166,6 +167,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		24EC9E7D1724609B00DF698E /* DynamicBatch.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DynamicBatch.cpp; sourceTree = "<group>"; };
+		24EC9E7E1724609B00DF698E /* DynamicBatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DynamicBatch.h; sourceTree = "<group>"; };
+		24EC9E91172477B600DF698E /* RapidXmlSerializer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = RapidXmlSerializer.cpp; path = RapidXml/RapidXmlSerializer.cpp; sourceTree = "<group>"; };
+		24EC9E92172477B600DF698E /* RapidXmlSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RapidXmlSerializer.h; path = RapidXml/RapidXmlSerializer.h; sourceTree = "<group>"; };
 		5161F0E5172037090044226C /* libBaconBox.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libBaconBox.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		5161F0E8172037090044226C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		5161F0F9172037A90044226C /* AudioEngine.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AudioEngine.cpp; sourceTree = "<group>"; };
@@ -354,8 +359,6 @@
 		5161F22E172037AA0044226C /* Serializable.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; fileEncoding = 4; path = Serializable.h; sourceTree = "<group>"; };
 		5161F230172037AA0044226C /* Serializer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Serializer.cpp; sourceTree = "<group>"; };
 		5161F231172037AA0044226C /* Serializer.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; fileEncoding = 4; path = Serializer.h; sourceTree = "<group>"; };
-		5161F234172037AA0044226C /* TinyXMLSerializer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TinyXMLSerializer.cpp; sourceTree = "<group>"; };
-		5161F235172037AA0044226C /* TinyXMLSerializer.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; fileEncoding = 4; path = TinyXMLSerializer.h; sourceTree = "<group>"; };
 		5161F237172037AA0044226C /* Value.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Value.cpp; sourceTree = "<group>"; };
 		5161F238172037AA0044226C /* Value.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; fileEncoding = 4; path = Value.h; sourceTree = "<group>"; };
 		5161F23A172037AA0044226C /* XmlSerializer.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; fileEncoding = 4; path = XmlSerializer.h; sourceTree = "<group>"; };
@@ -511,6 +514,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		24EC9E901724779C00DF698E /* RapidXml */ = {
+			isa = PBXGroup;
+			children = (
+				24EC9E91172477B600DF698E /* RapidXmlSerializer.cpp */,
+				24EC9E92172477B600DF698E /* RapidXmlSerializer.h */,
+			);
+			name = RapidXml;
+			sourceTree = "<group>";
+		};
 		5161F0DC172037090044226C = {
 			isa = PBXGroup;
 			children = (
@@ -716,6 +728,8 @@
 		5161F19A172037AA0044226C /* Display */ = {
 			isa = PBXGroup;
 			children = (
+				24EC9E7D1724609B00DF698E /* DynamicBatch.cpp */,
+				24EC9E7E1724609B00DF698E /* DynamicBatch.h */,
 				5161F19B172037AA0044226C /* Camera.cpp */,
 				5161F19C172037AA0044226C /* Camera.h */,
 				5161F19E172037AA0044226C /* Color.cpp */,
@@ -880,6 +894,7 @@
 		5161F21E172037AA0044226C /* Serialization */ = {
 			isa = PBXGroup;
 			children = (
+				24EC9E901724779C00DF698E /* RapidXml */,
 				5161F21F172037AA0044226C /* Array.cpp */,
 				5161F220172037AA0044226C /* Array.h */,
 				5161F222172037AA0044226C /* DefaultSerializer.cpp */,
@@ -892,7 +907,6 @@
 				5161F22E172037AA0044226C /* Serializable.h */,
 				5161F230172037AA0044226C /* Serializer.cpp */,
 				5161F231172037AA0044226C /* Serializer.h */,
-				5161F233172037AA0044226C /* TinyXML */,
 				5161F237172037AA0044226C /* Value.cpp */,
 				5161F238172037AA0044226C /* Value.h */,
 				5161F23A172037AA0044226C /* XmlSerializer.h */,
@@ -907,15 +921,6 @@
 				5161F227172037AA0044226C /* JsonBoxSerializer.h */,
 			);
 			path = JsonBox;
-			sourceTree = "<group>";
-		};
-		5161F233172037AA0044226C /* TinyXML */ = {
-			isa = PBXGroup;
-			children = (
-				5161F234172037AA0044226C /* TinyXMLSerializer.cpp */,
-				5161F235172037AA0044226C /* TinyXMLSerializer.h */,
-			);
-			path = TinyXML;
 			sourceTree = "<group>";
 		};
 		5161F250172037AA0044226C /* Tween */ = {
@@ -1213,7 +1218,6 @@
 				5161F3A0172037AB0044226C /* Object.cpp in Sources */,
 				5161F3A2172037AB0044226C /* Serializable.cpp in Sources */,
 				5161F3A4172037AB0044226C /* Serializer.cpp in Sources */,
-				5161F3A6172037AB0044226C /* TinyXMLSerializer.cpp in Sources */,
 				5161F3A8172037AB0044226C /* Value.cpp in Sources */,
 				5161F3AA172037AB0044226C /* ShapeFactory.cpp in Sources */,
 				5161F3AC172037AB0044226C /* Stopwatch.cpp in Sources */,
@@ -1265,6 +1269,8 @@
 				5161F439172065410044226C /* OpenALEngine.cpp in Sources */,
 				5161F43A172065410044226C /* OpenALSoundFX.cpp in Sources */,
 				5161F43B172065410044226C /* WavHeader.cpp in Sources */,
+				24EC9E7F1724609B00DF698E /* DynamicBatch.cpp in Sources */,
+				24EC9E93172477B600DF698E /* RapidXmlSerializer.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1330,10 +1336,7 @@
 				DSTROOT = /tmp/BaconBox.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"TIXML_USE_STL=1",
-					"$(inherited)",
-				);
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				HEADER_SEARCH_PATHS = (
 					"\"$(SRCROOT)/../../libraries/ios/universal/include\"",
 					"\"$(SRCROOT)/../..\"",
@@ -1354,10 +1357,7 @@
 				DSTROOT = /tmp/BaconBox.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"TIXML_USE_STL=1",
-					"$(inherited)",
-				);
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				HEADER_SEARCH_PATHS = (
 					"\"$(SRCROOT)/../../libraries/ios/universal/include\"",
 					"\"$(SRCROOT)/../..\"",

@@ -108,7 +108,6 @@ namespace BaconBox {
 			}
 		}
 
-
 		const TiXmlAttribute *attribute = element.FirstAttribute();
 
 		if (isArray) {

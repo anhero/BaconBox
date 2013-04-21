@@ -22,7 +22,7 @@ fi
 
 # Serialization libraries
 libraries+=( 'jsonbox' )
-libraries+=( 'tinyxml' )
+libraries+=( 'rapidxml' )
 
 libraries+=( 'sigly' )
 
