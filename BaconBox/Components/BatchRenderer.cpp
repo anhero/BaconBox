@@ -2,12 +2,16 @@
 
 #include "BaconBox/Console.h"
 #include "BaconBox/Display/Driver/GraphicDriver.h"
+#include "BaconBox/Components/Texture.h"
+#include "BaconBox/Components/ComponentConnection.h"
 
 namespace BaconBox {
-	BatchRenderer::BatchRenderer() : Component(), sizes(), vertices(), textureCoordinates(), colors(), indices(), indiceList() {
+	BatchRenderer::BatchRenderer() : Component(), sizes(), vertices(), colors(), indices(), indiceList() {
+		this->initializeConnections();
 	}
 	
-	BatchRenderer::BatchRenderer(const BatchRenderer &src) : Component(src), sizes(src.sizes), vertices(src.vertices), textureCoordinates(src.textureCoordinates), colors(src.colors), indices(src.indices), indiceList(src.indiceList) {
+	BatchRenderer::BatchRenderer(const BatchRenderer &src) : Component(src), sizes(src.sizes), vertices(src.vertices), colors(src.colors), indices(src.indices), indiceList(src.indiceList) {
+		this->initializeConnections();
 	}
 	
 	BatchRenderer::~BatchRenderer() {
@@ -17,7 +21,6 @@ namespace BaconBox {
 		if (this != &src) {
 			this->sizes = src.sizes;
 			this->vertices = src.vertices;
-			this->textureCoordinates = src.textureCoordinates;
 			this->colors = src.colors;
 			this->indices = src.indices;
 			this->indiceList = src.indiceList;
@@ -36,17 +39,23 @@ namespace BaconBox {
 	void BatchRenderer::prepareRender() {
 		this->sizes.clear();
 		this->vertices.clear();
-		this->textureCoordinates.clear();
 		this->indices.clear();
 		this->indiceList.clear();
+		
+		if (this->texture) {
+			this->texture->getTextureCoordinates().clear();
+		}
 	}
 	
 	void BatchRenderer::addItem(const VertexArray &newVertices, const Color &newColor, const TextureCoordinates &newTextureCoordinates) {
 		if (newVertices.getNbVertices() == newTextureCoordinates.size()) {
 			this->vertices.insert(this->vertices.getEnd(), newVertices.getBegin(), newVertices.getEnd());
 			this->colors.insert(this->colors.end(), newVertices.getNbVertices(), newColor);
-			this->textureCoordinates.insert(this->textureCoordinates.begin(), newTextureCoordinates.begin(), newTextureCoordinates.end());
 			this->sizes.push_back(newVertices.getNbVertices());
+			
+			if (this->texture) {
+				this->texture->getTextureCoordinates().insert(this->texture->getTextureCoordinates().begin(), newTextureCoordinates.begin(), newTextureCoordinates.end());
+			}
 		} else {
 			Console::println("Tried to add an item into an BatchRenderer that doesn't have the same number of vertices and texture coordinates: ");
 			Console::print(newVertices.getNbVertices());
@@ -59,7 +68,9 @@ namespace BaconBox {
 	void BatchRenderer::renderBatch() {
 		this->refreshIndices();
 		
-		GraphicDriver::getInstance().drawBatchWithTextureAndColor(this->vertices, NULL, this->textureCoordinates, this->indices, this->indiceList, this->colors);
+		if (this->texture) {
+			GraphicDriver::getInstance().drawBatchWithTextureAndColor(this->vertices, this->texture->getTexture(), this->texture->getTextureCoordinates(), this->indices, this->indiceList, this->colors);
+		}
 	}
 	
 	void BatchRenderer::refreshIndices() {
@@ -116,5 +127,10 @@ namespace BaconBox {
 			
 			currentIndex += *i;
 		}
+	}
+	
+	void BatchRenderer::initializeConnections() {
+		this->addConnection(new ComponentConnection<Texture>(&this->texture));
+		this->refreshConnections();
 	}
 }

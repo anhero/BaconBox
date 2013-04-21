@@ -11,6 +11,8 @@
 #include "BaconBox/Display/Driver/ColorArray.h"
 
 namespace BaconBox {
+	class Texture;
+	
 	class BatchRenderer : public Component {
 	public:
 		BB_ID_HEADER;
@@ -35,17 +37,19 @@ namespace BaconBox {
 	private:
 		void refreshIndices();
 		
+		void initializeConnections();
+		
 		std::vector<VertexArray::SizeType> sizes;
 		
 		StandardVertexArray vertices;
-		
-		TextureCoordinates textureCoordinates;
 		
 		ColorArray colors;
 		
 		IndiceArray indices;
 		
 		IndiceArrayList indiceList;
+		
+		Texture *texture;
 	};
 }
 
