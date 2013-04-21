@@ -21,14 +21,15 @@ namespace BaconBox {
 	                                                const TextureInformation *textureInformation,
 	                                                const TextureCoordinates &textureCoordinates,
 	                                                const Color &color) {
-		if (textureInformation != this->lastTexture && this->lastTexture != NULL) {
+		if (textureInformation != this->lastTexture) {
 			if (this->batch.isSingle()) {
 				this->internalDrawShapeWithTextureAndColor(this->batch.getVertices(), this->lastTexture, this->batch.getTextureCoordinates(), this->batch.getColor());
-			} else {
+			} else if (this->lastTexture) {
 				this->batch.render(this, this->lastTexture);
-				this->batch.prepareRender();
-				this->lastTexture = textureInformation;
 			}
+			
+			this->batch.prepareRender();
+			this->lastTexture = textureInformation;
 		}
 		
 		this->batch.addItem(vertices, color, textureCoordinates);

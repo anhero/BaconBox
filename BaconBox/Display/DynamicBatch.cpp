@@ -24,7 +24,7 @@ namespace BaconBox {
 			this->vertices.insert(this->vertices.getEnd(), newVertices.getBegin(), newVertices.getEnd());
 			this->colors.insert(this->colors.end(), newVertices.getNbVertices(), newColor);
 			this->sizes.push_back(newVertices.getNbVertices());
-			this->textureCoordinates.insert(this->textureCoordinates.begin(), newTextureCoordinates.begin(), newTextureCoordinates.end());
+			this->textureCoordinates.insert(this->textureCoordinates.end(), newTextureCoordinates.begin(), newTextureCoordinates.end());
 
 		} else {
 			Console::println("Tried to add an item into an BatchRenderer that doesn't have the same number of vertices and texture coordinates: ");
