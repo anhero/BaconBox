@@ -13,6 +13,11 @@ WGET_FLAGS="--no-check-certificate"
 
 load_base http.fetch
 
+function extract() {
+	cd "${lib_srcdir}"
+	do_unzip "${_archive}" "${lib_workdir}"
+}
+
 function build() {
 	echo -n 'Copying RapidXml... '
 	cd "${lib_workdir}/${_pkgdir}" || exit 1
