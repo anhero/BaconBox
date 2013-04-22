@@ -741,51 +741,39 @@ namespace BaconBox {
 									
 									part->indexByFrame.insert(std::pair<int, int>(frameIndex, index));
 									
-									double a, b, c, d, tx, ty;
+									Matrix matrix;
 									
 									found = frameChildObject.find("a");
 									if (found != frameChildObject.end()) {
-										a = found->second.getDouble();
-									} else {
-										a = 0.0;
+										matrix.a = found->second.getDouble();
 									}
 									
 									found = frameChildObject.find("b");
 									if (found != frameChildObject.end()) {
-										b = found->second.getDouble();
-									} else {
-										b = 0.0;
+										matrix.b = found->second.getDouble();
 									}
 									
 									found = frameChildObject.find("c");
 									if (found != frameChildObject.end()) {
-										c = found->second.getDouble();
-									} else {
-										c = 0.0;
+										matrix.c = found->second.getDouble();
 									}
 									
 									found = frameChildObject.find("d");
 									if (found != frameChildObject.end()) {
-										d = found->second.getDouble();
-									} else {
-										d = 0.0;
+										matrix.d = found->second.getDouble();
 									}
 									
 									found = frameChildObject.find("tx");
 									if (found != frameChildObject.end()) {
-										tx = found->second.getDouble();
-									} else {
-										tx = 0.0;
+										matrix.tx = found->second.getDouble();
 									}
 									
 									found = frameChildObject.find("ty");
 									if (found != frameChildObject.end()) {
-										ty = found->second.getDouble();
-									} else {
-										ty = 0.0;
+										matrix.ty = found->second.getDouble();
 									}
 									
-									part->matrices.insert(std::pair<int, Matrix>(frameIndex, Matrix(a, b, c, d, tx, ty)));
+									part->matrices.insert(std::pair<int, Matrix>(frameIndex, matrix));
 									
 									index++;
 								}
