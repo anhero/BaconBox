@@ -16,7 +16,11 @@ function build() {
 
 
 		cd "${lib_workdir}/${_pkgdir}"
-		make generic CC="${CC}" RANLIB="${RANLIB}" AR="${AR} rcu" && make generic install INSTALL_TOP=${libs_builddir}
+		if [[ ${libs_target-} == "ios" ]]; then
+			make generic CC="${CC}" RANLIB="${RANLIB}" AR="${AR} rcu" && make generic install INSTALL_TOP=${libs_builddir}
+		else
+		make generic && make generic install INSTALL_TOP=${libs_builddir}
+		fi
 }
 
 # vim: ft=sh

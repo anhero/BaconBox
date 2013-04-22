@@ -612,10 +612,63 @@ namespace BaconBox {
 				symbol->key = found->second.getString();
 			}
 			
-			found = tmpObject.find("frameCount");
+			found = tmpObject.find("textfield");
 			
 			if (found != tmpObject.end()) {
-				symbol->frameCount = found->second.getInt();
+				symbol->isTextField = found->second.getBool();
+			}
+			
+			if(symbol->isTextField) {
+				
+				found = tmpObject.find("text");
+				
+				if (found != tmpObject.end()) {
+					symbol->text = found->second.getString();
+				}
+				
+				found = tmpObject.find("font");
+				
+				if (found != tmpObject.end()) {
+					symbol->font = found->second.getString();
+				}
+				
+				symbol->frameCount  = 1;
+				
+				std::string alignment;
+				
+				found = tmpObject.find("alignment");
+				
+				if (found != tmpObject.end()) {
+					alignment = found->second.getString();
+				}
+				
+				if(alignment == "left"){
+					symbol->alignment = TextAlignment::LEFT;
+				}
+				else if(alignment == "center"){
+					symbol->alignment = TextAlignment::CENTER;
+				}
+				else if(alignment == "right"){
+					symbol->alignment = TextAlignment::RIGHT;
+				}
+				
+				found = tmpObject.find("width");
+				
+				if (found != tmpObject.end()) {
+					symbol->textFieldWidth = found->second.getInt();
+				}
+				
+				found = tmpObject.find("height");
+				
+				if (found != tmpObject.end()) {
+					symbol->textFieldHeight = found->second.getInt();
+				}
+			} else {
+				found = tmpObject.find("frameCount");
+				
+				if (found != tmpObject.end()) {
+					symbol->frameCount = found->second.getInt();
+				}
 			}
 			
 			symbols[symbol->key] = symbol;
@@ -743,7 +796,6 @@ namespace BaconBox {
 				}
 			}
 		}
-
 	}
 
 	void ResourceManager::loadFlashExporterTextures(Value &node, const std::string &dirPath) {
