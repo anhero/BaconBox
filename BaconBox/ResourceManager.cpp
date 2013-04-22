@@ -602,17 +602,50 @@ namespace BaconBox {
 	void ResourceManager::loadFlashExporterSymbols(Value &node) {
 
 		//if there is more than one texture for the font.
-		Array symbolsArray = node["Symbol"].getArray();
+		const Array &symbolsArray = node["Symbol"].getArray();
+		
+		Object::const_iterator found;
 
-		for (Array::iterator i = symbolsArray.begin(); i != symbolsArray.end(); i++) {
+		for (Array::const_iterator i = symbolsArray.begin(); i != symbolsArray.end(); i++) {
 			Symbol *symbol = new Symbol();
-			symbol->key = (*i)["className"].getString();
-			symbol->isTextField = ((*i)["textfield"].getBool());
-			if(symbol->isTextField){
-				symbol->text = (*i)["text"].getString();
-				symbol->font = (*i)["font"].getString();
+			const Object &tmpObject = i->getObject();
+			
+			found = tmpObject.find("className");
+			
+			if (found != tmpObject.end()) {
+				symbol->key = found->second.getString();
+			}
+			
+			found = tmpObject.find("textfield");
+			
+			if (found != tmpObject.end()) {
+				symbol->isTextField = found->second.getBool();
+			}
+			
+			if(symbol->isTextField) {
+				
+				found = tmpObject.find("text");
+				
+				if (found != tmpObject.end()) {
+					symbol->text = found->second.getString();
+				}
+				
+				found = tmpObject.find("font");
+				
+				if (found != tmpObject.end()) {
+					symbol->font = found->second.getString();
+				}
+				
 				symbol->frameCount  = 1;
-				std::string alignment = (*i)["alignment"].getString();
+				
+				std::string alignment;
+				
+				found = tmpObject.find("alignment");
+				
+				if (found != tmpObject.end()) {
+					alignment = found->second.getString();
+				}
+				
 				if(alignment == "left"){
 					symbol->alignment = TextAlignment::LEFT;
 				}
@@ -622,61 +655,151 @@ namespace BaconBox {
 				else if(alignment == "right"){
 					symbol->alignment = TextAlignment::RIGHT;
 				}
-					
-				symbol->textFieldWidth = (*i)["width"].getInt();
-				symbol->textFieldHeight = (*i)["height"].getInt();
 				
+				found = tmpObject.find("width");
 				
+				if (found != tmpObject.end()) {
+					symbol->textFieldWidth = found->second.getInt();
+				}
+				
+				found = tmpObject.find("height");
+				
+				if (found != tmpObject.end()) {
+					symbol->textFieldHeight = found->second.getInt();
+				}
+			} else {
+				found = tmpObject.find("frameCount");
+				
+				if (found != tmpObject.end()) {
+					symbol->frameCount = found->second.getInt();
+				}
 			}
-			else{
-				symbol->frameCount = (*i)["frameCount"].getInt();
-			}
+			
 			symbols[symbol->key] = symbol;
 		}
 
-		for (Array::iterator i = symbolsArray.begin(); i != symbolsArray.end(); i++) {
-			Symbol * parent =  symbols[(*i)["className"].getString()];
-			if(! parent->isTextField){
-			std::map<std::string, Symbol::Part*> children;
-			Array frames = (*i)["Frame"].getArray();
-			int frameIndex =0;
-			for (Array::iterator j = frames.begin(); j != frames.end(); j++) {
-				int index = 0;
+		for (Array::const_iterator i = symbolsArray.begin(); i != symbolsArray.end(); i++) {
+			const Object &tmpObject = i->getObject();
+			
+			found = tmpObject.find("className");
+			
+			if (found != tmpObject.end()) {
+				Symbol *parent = symbols[found->second.getString()];
 				
-				Array childrenPerFrame = (*j)["Child"].getArray();
-				for (Array::iterator k = childrenPerFrame.begin(); k != childrenPerFrame.end(); k++) {
-				    if(!(*k).isNull()){
-					std::string name = (*k)["name"].getString();
-					std::string className = (*k)["className"].getString();
-					Symbol::Part * part;
-					std::map<std::string, Symbol::Part*>::iterator l = children.find(name);
-					if (l == children.end()) {
-						part = children[name] = new Symbol::Part();
-						part->name = name;
-						part->symbol = symbols[className];
-						if(! part->symbol){
-						    Console__error("Trying to add a NULL symbol part with key " << className << " to " << parent->key);
+				found = tmpObject.find("Frame");
+				
+				if (found !=tmpObject.end()) {
+					std::map<std::string, Symbol::Part*> children;
+					
+					const Array &frames = found->second.getArray();
+					int frameIndex = 0;
+					
+					for (Array::const_iterator j = frames.begin(); j != frames.end(); j++) {
+						int index = 0;
+						
+						const Object &currentObject = j->getObject();
+						
+						found = currentObject.find("Child");
+						
+						if (found != currentObject.end()) {
+							
+							const Array &childrenPerFrame = found->second.getArray();
+							
+							for (Array::const_iterator k = childrenPerFrame.begin(); k != childrenPerFrame.end(); k++) {
+								if(!k->isNull()){
+									
+									const Object &frameChildObject = k->getObject();
+									
+									std::string name;
+									
+									found = frameChildObject.find("name");
+									
+									if (found != frameChildObject.end()) {
+										name = found->second.getString();
+									}
+									
+									std::string className;
+									
+									found = frameChildObject.find("className");
+									
+									if (found != frameChildObject.end()) {
+										className = found->second.getString();
+									}
+									Symbol::Part *part;
+									std::map<std::string, Symbol::Part*>::iterator l = children.find(name);
+									if (l == children.end()) {
+										part = children[name] = new Symbol::Part();
+										part->name = name;
+										part->symbol = symbols[className];
+										if(! part->symbol){
+											Console__error("Trying to add a NULL symbol part with key " << className << " to " << parent->key);
+										}
+									}
+									else{
+										part = l->second;
+									}
+									
+									part->indexByFrame.insert(std::pair<int, int>(frameIndex, index));
+									
+									double a, b, c, d, tx, ty;
+									
+									found = frameChildObject.find("a");
+									if (found != frameChildObject.end()) {
+										a = found->second.getDouble();
+									} else {
+										a = 0.0;
+									}
+									
+									found = frameChildObject.find("b");
+									if (found != frameChildObject.end()) {
+										b = found->second.getDouble();
+									} else {
+										b = 0.0;
+									}
+									
+									found = frameChildObject.find("c");
+									if (found != frameChildObject.end()) {
+										c = found->second.getDouble();
+									} else {
+										c = 0.0;
+									}
+									
+									found = frameChildObject.find("d");
+									if (found != frameChildObject.end()) {
+										d = found->second.getDouble();
+									} else {
+										d = 0.0;
+									}
+									
+									found = frameChildObject.find("tx");
+									if (found != frameChildObject.end()) {
+										tx = found->second.getDouble();
+									} else {
+										tx = 0.0;
+									}
+									
+									found = frameChildObject.find("ty");
+									if (found != frameChildObject.end()) {
+										ty = found->second.getDouble();
+									} else {
+										ty = 0.0;
+									}
+									
+									part->matrices.insert(std::pair<int, Matrix>(frameIndex, Matrix(a, b, c, d, tx, ty)));
+									
+									index++;
+								}
+							}
+							frameIndex++;
 						}
 					}
-					else{
-						part = l->second;
+					
+					for(std::map<std::string, Symbol::Part*>::iterator j = children.begin(); j != children.end(); j++){
+						parent->parts.push_back(*(j->second));
 					}
-					
-					part->indexByFrame.insert(std::pair<int, int>(frameIndex, index));
-					part->matrices.insert(std::pair<int, Matrix>(frameIndex, Matrix((*k)["a"].getDouble(), (*k)["b"].getDouble(), (*k)["c"].getDouble(), (*k)["d"].getDouble(), (*k)["tx"].getDouble(), (*k)["ty"].getDouble())));
-					
-					index++;
-				    }
 				}
-				frameIndex++;
-			}
-				
-			for(std::map<std::string, Symbol::Part*>::iterator j = children.begin(); j != children.end(); j++){
-				parent->parts.push_back(*(j->second));
-			}
 			}
 		}
-
 	}
 
 	void ResourceManager::loadFlashExporterTextures(Value &node, const std::string &dirPath) {
