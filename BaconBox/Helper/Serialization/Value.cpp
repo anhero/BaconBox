@@ -433,17 +433,14 @@ namespace BaconBox {
 	}
 
 	const Array &Value::getArray() const {
-		return (type == ARRAY) ? (*data.arrayValue) : (EMPTY_ARRAY);
-	}
-	
-	const Array &Value::getArray() {
 		if (type != ARRAY){
-		    Value temp = *this;
-		    pushBackArray(temp);   
+		    Value * nonConstThis = const_cast<Value*>(this);
+		    Value temp = *nonConstThis;
+		    nonConstThis->pushBackArray(temp);   
 		}
 		return (*data.arrayValue);
-
 	}
+
 	
 	void Value::setArray(const Array &newArray) {
 		if (type == ARRAY) {
