@@ -116,7 +116,12 @@ namespace BaconBox {
 			
 			setFrame(frame);
 		} else {
-			Console::print("Trying to set a frame index out of range in gotoAndPlay(...): ");
+			if(newPlaying){
+				Console::print("Trying to set a frame index out of range in gotoAndPlay(...): ");
+			}
+			else{
+				Console::print("Trying to set a frame index out of range in gotoAndStop(...): ");
+			}
 			Console::println(frame);
 		}
 	}

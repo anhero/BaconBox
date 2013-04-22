@@ -5,7 +5,7 @@
 #include "BaconBox/Helper/StringHelper.h"
 #include "BaconBox/Helper/UTFConvert.h"
 #include "BaconBox/Display/Text/TextureFont.h"
-#include "EntityFactory.h"
+#include "BaconBox/EntityFactory.h"
 #include "Mesh.h"
 #include "BaconBox/Display/Text/TextureFont.h"
 #include "BaconBox/Components/ComponentConnection.h"
@@ -145,7 +145,7 @@ namespace BaconBox {
 	    Char32 previousChar;
 	    std::list<CharSprite> charSpritesForAlignmentAdjust;
 	    
-	    Transform* stringTransform = reinterpret_cast<Transform*>(getEntity()->getComponent(Transform::ID));
+//	    Transform* stringTransform = reinterpret_cast<Transform*>(getEntity()->getComponent(Transform::ID));
 	    for(std::list<std::list<std::list<CharSprite> > >::iterator i = charSpritesLines.begin(); i != charSpritesLines.end(); i++){
 			for(std::list<std::list<CharSprite> >::iterator j = i->begin(); j != i->end(); j++){
 				Vector2 wordTempAdvances;
@@ -163,14 +163,16 @@ namespace BaconBox {
 				for(std::list<CharSprite>::iterator k = j->begin(); k != j->end(); k++){
 					TextureGlyphInformation * glyphInfo = k->glyph;
 					MovieClipEntity * sprite = k->sprite;
-					Transform* transform = reinterpret_cast<Transform*>(sprite->getComponent(Transform::ID));
+//					Transform* transform = reinterpret_cast<Transform*>(sprite->getComponent(Transform::ID));
 					Mesh* mesh = reinterpret_cast<Mesh*>(sprite->getComponent(Mesh::ID));
-					Vector2 glypRelativePosition = transform->getPosition() +advance+ glyphInfo->offset + Vector2(font->getKerning(previousChar, k->glyph->charCode),0) + newLineJump;
+					Vector2 glypRelativePosition = advance+ glyphInfo->offset + Vector2(font->getKerning(previousChar, k->glyph->charCode),0) + newLineJump;
+//					Vector2 glypRelativePosition = transform+ advance+ glyphInfo->offset + Vector2(font->getKerning(previousChar, k->glyph->charCode),0) + newLineJump;
+
 					Vector2 neededMove = glypRelativePosition - k->currentPos;
 					if(neededMove.x || neededMove.y){
 					    mesh->getPreTransformVertices().move(neededMove.x, neededMove.y);
 					}
-					(*transform) = (*stringTransform);
+//					(*transform) = (*stringTransform);
 					k->currentPos = glypRelativePosition;
 					advance += glyphInfo->advance;
 					previousChar = glyphInfo->charCode;

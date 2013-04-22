@@ -603,13 +603,36 @@ namespace BaconBox {
 		for (Array::iterator i = symbolsArray.begin(); i != symbolsArray.end(); i++) {
 			Symbol *symbol = new Symbol();
 			symbol->key = (*i)["className"].getString();
-
-			symbol->frameCount = (*i)["frameCount"].getInt();
+			symbol->isTextField = ((*i)["textfield"].getBool());
+			if(symbol->isTextField){
+				symbol->text = (*i)["text"].getString();
+				symbol->font = (*i)["font"].getString();
+				symbol->frameCount  = 1;
+				std::string alignment = (*i)["alignment"].getString();
+				if(alignment == "left"){
+					symbol->alignment = TextAlignment::LEFT;
+				}
+				else if(alignment == "center"){
+					symbol->alignment = TextAlignment::CENTER;
+				}
+				else if(alignment == "right"){
+					symbol->alignment = TextAlignment::RIGHT;
+				}
+					
+				symbol->textFieldWidth = (*i)["width"].getInt();
+				symbol->textFieldHeight = (*i)["height"].getInt();
+				
+				
+			}
+			else{
+				symbol->frameCount = (*i)["frameCount"].getInt();
+			}
 			symbols[symbol->key] = symbol;
 		}
 
 		for (Array::iterator i = symbolsArray.begin(); i != symbolsArray.end(); i++) {
 			Symbol * parent =  symbols[(*i)["className"].getString()];
+			if(! parent->isTextField){
 			std::map<std::string, Symbol::Part*> children;
 			Array frames = (*i)["Frame"].getArray();
 			int frameIndex =0;
@@ -646,6 +669,7 @@ namespace BaconBox {
 				
 			for(std::map<std::string, Symbol::Part*>::iterator j = children.begin(); j != children.end(); j++){
 				parent->parts.push_back(*(j->second));
+			}
 			}
 		}
 

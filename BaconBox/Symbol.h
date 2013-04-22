@@ -6,6 +6,7 @@
 #include <list>
 
 #include "BaconBox/Matrix.h"
+#include "BaconBox/Display/Text/TextAlignment.h"
 
 namespace BaconBox {
     struct Symbol{
@@ -36,6 +37,12 @@ namespace BaconBox {
 	std::string textureKey;
 	SubTextureInfo * subTex;
 	bool isTexture;
+	bool isTextField;
+		std::string font;
+		std::string text;
+		int textFieldWidth;
+		int textFieldHeight;
+		TextAlignment::type alignment;
 //	Symbol * symbol;
 	std::list<Part> parts;
 	Vector2 registrationPoint;

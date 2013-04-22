@@ -35,6 +35,7 @@ namespace BaconBox {
 	
 		
 	void DefaultMatrix::setFrameMatrix(int frame){
+		if(hasCustomMatrix) return;
 	    internalSetMatrix(matrixByParentFrame[frame]);
 	}
 

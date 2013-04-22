@@ -24,7 +24,7 @@
 #endif
 
 #include <BaconBox/Console.h>
-
+#include <BaconBox/Display/Text/Font.h>
 
 
 namespace BaconBox {
@@ -111,7 +111,17 @@ TextEntity * EntityFactory::getTextEntity(const std::string &key){
 		entity = getMovieClipEntityFromSubTexture(symbol->subTex, symbol->registrationPoint);
 	    }
 	    else{
-		entity = movieClipPool.create();
+			if(symbol->isTextField){
+				Font * font = ResourceManager::getFont(symbol->font);
+				TextEntity * tf = font->getTextEntity();
+				tf->setText(symbol->text);
+				tf->setAlignment(symbol->alignment);
+				tf->setSize(Vector2(symbol->textFieldWidth, symbol->textFieldHeight));
+				entity = tf;
+			}
+			else{
+				entity = movieClipPool.create();
+			}
 		DefaultEntityContainer * container = reinterpret_cast<DefaultEntityContainer*>(entity->getComponent(DefaultEntityContainer::ID));
 		DefaultTimeline * timeline = reinterpret_cast<DefaultTimeline*>(entity->getComponent(DefaultTimeline::ID));
 		timeline->setNbFrames(symbol->frameCount);
@@ -130,7 +140,7 @@ TextEntity * EntityFactory::getTextEntity(const std::string &key){
 			entity->gotoAndStop(i->first);
 		    for(std::map <int, Symbol::Part*>::iterator j = i->second.begin(); j != i->second.end(); j++){
 			MovieClipEntity * childEntity;
-				std::multimap<std::string, MovieClipEntity*>::iterator currentMovieClip = childByName.find(j->second->name);
+				std::map<std::string, MovieClipEntity*>::iterator currentMovieClip = childByName.find(j->second->name);
 				if(currentMovieClip == childByName.end()){
 					childEntity = getMovieClipEntityFromSymbol(j->second->symbol, autoPlay);
 					childByName[j->second->name] = childEntity;
