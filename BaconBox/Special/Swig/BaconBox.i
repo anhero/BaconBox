@@ -81,7 +81,6 @@ end
   #include "BaconBox/Components/ColorFilter.h"
   #include "BaconBox/Components/HasName.h"
 
-
 	#include "BaconBox/Vector2.h"
 	#include "BaconBox/Components/Transform.h"
   #include "BaconBox/Display/ColorFormat.h"

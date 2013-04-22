@@ -22,8 +22,10 @@ namespace BaconBox {
 
 		
 		MovieClipEntity *internalGetMovieClipEntity(const std::string &key, bool autoPlay = false);
+#if ! defined(BB_FLASH_PLATEFORM)
 		MovieClipEntity *getMovieClipEntityFromSymbol(Symbol* symbol, bool autoPlay = false);
 		MovieClipEntity *getMovieClipEntityFromSubTexture(SubTextureInfo* subTex, const Vector2 & origin = Vector2());
+#endif
 
 	private:
 		EntityFactory();

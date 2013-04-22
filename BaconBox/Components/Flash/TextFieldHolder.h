@@ -29,6 +29,9 @@ namespace BaconBox {
 		void setColor(const Color &newColor);
 		
     private:
+    	void setEntity(Entity *newEntity);
+    	void initializeConnections();
+
 		AS3::local::var mc;
 		AS3::local::var textField;
 		AS3::local::var textFormat;

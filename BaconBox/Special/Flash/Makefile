@@ -64,9 +64,16 @@ BaconBox/Components/Transform.o \
 BaconBox/Components/HasName.o \
 BaconBox/Components/TextComponent.o \
 BaconBox/Components/EntityManager.o \
+BaconBox/Components/ComponentAddedData.o \
 BaconBox/Components/ColorFilter.o \
+BaconBox/Components/Timeline.o \
+BaconBox/Components/EntityContainer.o \
+BaconBox/Components/SymbolComponent.o \
+BaconBox/Components/MatrixComponent.o \
 BaconBox/Components/Flash/MovieClipHolder.o \
 BaconBox/Components/Flash/TextFieldHolder.o \
+BaconBox/Components/Flash/FlashTimeline.o \
+BaconBox/Components/Flash/FlashEntityContainer.o \
 BaconBox/Components/Flash/FlashEntityManager.o 
 
 
@@ -120,7 +127,7 @@ BaconBox/Helper/Serialization/Serializable.o \
 BaconBox/Helper/Serialization/Serializer.o \
 BaconBox/Helper/Serialization/Value.o \
 BaconBox/Helper/Serialization/JsonBox/JsonBoxSerializer.o \
-BaconBox/Helper/Serialization/TinyXML/TinyXMLSerializer.o \
+BaconBox/Helper/Serialization/RapidXml/RapidXmlSerializer.o \
 BaconBox/Helper/Flash/FlashHelper.o
 
 INPUT_SOURCES= \
@@ -180,6 +187,8 @@ BaconBox/ResourceManager.o \
 BaconBox/StandardVertexArray.o \
 BaconBox/Vector2.o \
 BaconBox/EntityFactory.o \
+BaconBox/Symbol.o \
+BaconBox/Matrix.o \
 BaconBox/VertexArray.o
 
 FLASCC_FILE_PATH=BaconBox/Special/Flash

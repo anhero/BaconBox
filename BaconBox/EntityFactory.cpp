@@ -44,6 +44,12 @@ namespace BaconBox {
 	}
 
 	
+	
+	EntityFactory &EntityFactory::getInstance(){
+		static EntityFactory instance;
+		return instance;
+	}
+	
 	MovieClipEntity *EntityFactory::internalGetMovieClipEntity(const std::string &key, bool autoPlay) {
 #ifdef BB_DEBUG
     try{
@@ -164,11 +170,6 @@ TextEntity * EntityFactory::getTextEntity(const std::string &key){
 	entity->setSymbol(symbol);
 	
 	return entity;
-	}
-	
-	EntityFactory &EntityFactory::getInstance(){
-		static EntityFactory instance;
-		return instance;
 	}
 	
 	MovieClipEntity *EntityFactory::getMovieClipEntityFromSubTexture(SubTextureInfo* subTex, const Vector2 & origin){

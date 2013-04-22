@@ -48,7 +48,7 @@ namespace BaconBox {
 		unsigned int textureId;
 #else
 		TextureInformation(unsigned int newImageWidth,
-		                   unsigned int newImageHeight);
+		                   unsigned int newImageHeight, const std::string & path);
 #endif
 
 		/// Color format of the texture

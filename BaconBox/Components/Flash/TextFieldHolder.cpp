@@ -69,6 +69,12 @@ namespace BaconBox {
 		FlashHelper::setProperty(textField, "textColor", AS3::local::internal::new_uint(colorValue));
 	}
 
+	void TextFieldHolder::setEntity(Entity *newEntity){
+	    Component::setEntity(newEntity);
+	    setColor(reinterpret_cast<ColorFilter*>(getEntity()->getComponent(ColorFilter::ID))->getColor());
+
+	}
+
 	void TextFieldHolder::receiveMessage(int senderID, int destID, int message, void *data){
 		 if(destID != Entity::BROADCAST && destID != TextFieldHolder::ID ) return;
 
@@ -106,11 +112,5 @@ namespace BaconBox {
 				setColor(*reinterpret_cast<Color*>(data));
 			}
 		}
-		else if(senderID == TextEntity::ID){
-		if(message == Entity::MESSAGE_ADDING_COMPONENT){
-			setColor(reinterpret_cast<ColorFilter*>(getEntity()->getComponent(ColorFilter::ID))->getColor());
-		}
-	}
-	}
-    
+	}   
 }

@@ -95,8 +95,12 @@ namespace BaconBox {
 	}
 	
 	bool ResourceManager::isLoadedTexture(const std::string &key) {
+#ifdef BB_OPENGL
 		std::map<std::string, TextureInformation *>::iterator i = textures.find(key);
 		return i != textures.end() && i->second != NULL && i->second->textureId > 0;
+#else
+		return false;
+#endif
 	}
 	
 	bool ResourceManager::isExistingTexture(const std::string &key) {
