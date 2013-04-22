@@ -2,7 +2,7 @@
 
 #include "BaconBox/Console.h"
 #include "BaconBox/Display/Driver/GraphicDriver.h"
-
+#include <limits>
 namespace BaconBox {
 	DynamicBatch::DynamicBatch() {
 	}
