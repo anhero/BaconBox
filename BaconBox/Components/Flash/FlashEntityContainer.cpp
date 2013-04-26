@@ -1,13 +1,11 @@
 #include "FlashEntityContainer.h"
 #include "BaconBox/Core/Entity.h"
-
 namespace BaconBox {
-	BB_ID_IMPL(EntityContainer);
 	
-	FlashEntityContainer::FlashEntityContainer() : Component() {
+	FlashEntityContainer::FlashEntityContainer() : EntityContainer() {
 	}
 	
-	FlashEntityContainer::FlashEntityContainer(const FlashEntityContainer &src) : Component(src) {
+	FlashEntityContainer::FlashEntityContainer(const FlashEntityContainer &src) : EntityContainer(src) {
 	}
 	
 	FlashEntityContainer::~FlashEntityContainer() {
@@ -40,7 +38,7 @@ namespace BaconBox {
 
 	}
 	
-	const Entity *FlashEntityContainer::getChildByName(const std::string &name){
+	const Entity *FlashEntityContainer::getChildByName(const std::string &name) const{
 
 	}
 	

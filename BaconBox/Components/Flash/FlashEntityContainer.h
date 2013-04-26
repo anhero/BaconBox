@@ -2,20 +2,20 @@
 #define BB_FLASH_ENTITY_CONTAINER_H
 
 #include <vector>
-
 #include "BaconBox/Core/Component.h"
 #include "BaconBox/Vector2.h"
+#include "BaconBox/Components/EntityContainer.h"
+
 
 namespace BaconBox {
-	class FlashEntityContainer : public Component {
+	class FlashEntityContainer : public EntityContainer {
 	public:
-		BB_ID_HEADER;
 		
-		EntityContainer();
+		FlashEntityContainer();
 		
-		EntityContainer(const EntityContainer &src);
+		FlashEntityContainer(const FlashEntityContainer &src);
 		
-		virtual ~EntityContainer();
+		virtual ~FlashEntityContainer();
 		
 		virtual void receiveMessage(int senderID, int destID, int message, void *data);
 		
@@ -31,7 +31,7 @@ namespace BaconBox {
 		
 		Entity *getChildByName(const std::string &name);
 		
-		const Entity *getChildByName(const std::string &name);
+		const Entity *getChildByName(const std::string &name) const;
 		
 		int getChildIndex(Entity *child) const;
 		

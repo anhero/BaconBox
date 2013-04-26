@@ -1,66 +1,54 @@
-#include "Timeline.h"
+#include "FlashTimeline.h"
 #include "BaconBox/Core/Entity.h"
 namespace BaconBox {
-	BB_ID_IMPL(Timeline);
-	int Timeline::MESSAGE_NB_FRAMES_CHANGED = IDManager::generateID();
 	
-	Timeline::Timeline() : Component() {
+	FlashTimeline::FlashTimeline() : Timeline() {
 	}
 	
-	Timeline::Timeline(const Timeline &src) : Component(src) {
+	FlashTimeline::FlashTimeline(const FlashTimeline &src) : Timeline(src) {
 	}
 	
-	Timeline::~Timeline() {
+	FlashTimeline::~FlashTimeline() {
 	}
 	
-	void Timeline::receiveMessage(int senderID, int destID, int message, void *data) {
-		this->Component::receiveMessage(senderID, destID, message, data);
+	void FlashTimeline::receiveMessage(int senderID, int destID, int message, void *data) {
+		this->Timeline::receiveMessage(senderID, destID, message, data);
 	}
 	
-	TimelineProxy::TimelineProxy(Entity *entity) : ComponentProxy(entity, NULL) {
-	}
-	
-	void TimelineProxy::setTimeline(Timeline * timeline){
-	    component = timeline;
-	    entity->addComponent(timeline);
-	}
+		void FlashTimeline::gotoAndPlay(int frame){
 
-	
-	void TimelineProxy::gotoAndPlay(int frame) {
-		reinterpret_cast<Timeline*>(this->component)->gotoAndPlay(frame);
-	}
-	
-	void TimelineProxy::gotoAndStop(int frame) {
-		reinterpret_cast<Timeline*>(this->component)->gotoAndStop(frame);
-	}
-	
-	void TimelineProxy::nextFrame() {
-		reinterpret_cast<Timeline*>(this->component)->nextFrame();
-	}
-	
-	void TimelineProxy::prevFrame() {
-		reinterpret_cast<Timeline*>(this->component)->prevFrame();
-	}
-	
-	void TimelineProxy::play() {
-		reinterpret_cast<Timeline*>(this->component)->play();
-	}
-	
-	void TimelineProxy::stop() {
-		reinterpret_cast<Timeline*>(this->component)->stop();
-	}
-	
-	int TimelineProxy::getCurrentFrame() const {
-		return reinterpret_cast<Timeline*>(this->component)->getCurrentFrame();
-	}
-	
-	bool TimelineProxy::isPlaying() const {
-		return reinterpret_cast<Timeline*>(this->component)->isPlaying();
-	}
-	
-	int TimelineProxy::getNbFrames() const {
-		return reinterpret_cast<Timeline*>(this->component)->getNbFrames();
-	}
-	
+		}
+		
+		void FlashTimeline::gotoAndStop(int frame){
+
+		}
+		
+		void FlashTimeline::nextFrame(){
+
+		}
+		
+		void FlashTimeline::prevFrame(){
+
+		}
+		
+		void FlashTimeline::play(){
+
+		}
+		
+		void FlashTimeline::stop(){
+
+		}
+		
+		int FlashTimeline::getCurrentFrame() const{
+
+		}
+		
+		bool FlashTimeline::isPlaying() const{
+
+		}
+		
+		int FlashTimeline::getNbFrames() const{
+
+		}
 	
 }

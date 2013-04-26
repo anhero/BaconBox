@@ -1,49 +1,20 @@
-#ifndef BB_TIMELINE_H
-#define BB_TIMELINE_H
+#ifndef BB_FLASH_TIMELINE_H
+#define BB_FLASH_TIMELINE_H
 
 #include "BaconBox/Core/Component.h"
-
+#include "BaconBox/Components/Timeline.h"
 namespace BaconBox {
-	/**
-	 * Base class for components that manage the animations and its frames.
-	 */
-	class Timeline : public Component {
+	class FlashTimeline : public Timeline {
 	public:
-		BB_ID_HEADER;
 		
-		static int MESSAGE_NB_FRAMES_CHANGED;
 		
-		Timeline();
+		FlashTimeline();
 		
-		Timeline(const Timeline &src);
+		FlashTimeline(const FlashTimeline &src);
 		
-		virtual ~Timeline();
+		~FlashTimeline();
 		
-		virtual void receiveMessage(int senderID, int destID, int message, void *data);
-		
-		virtual void gotoAndPlay(int frame) = 0;
-		
-		virtual void gotoAndStop(int frame) = 0;
-		
-		virtual void nextFrame() = 0;
-		
-		virtual void prevFrame() = 0;
-		
-		virtual void play() = 0;
-		
-		virtual void stop() = 0;
-		
-		virtual int getCurrentFrame() const = 0;
-		
-		virtual bool isPlaying() const = 0;
-		
-		virtual int getNbFrames() const = 0;
-	};
-	
-	
-	class TimelineProxy : public ComponentProxy {
-	public:
-		TimelineProxy(Entity *entity);
+		void receiveMessage(int senderID, int destID, int message, void *data);
 		
 		void gotoAndPlay(int frame);
 		
@@ -62,11 +33,9 @@ namespace BaconBox {
 		bool isPlaying() const;
 		
 		int getNbFrames() const;
-		
-	protected:
-	    void setTimeline(Timeline * timeline);
 	};
+	
 }
 
-#endif /* defined(BB_TIMELINE_H) */
+#endif /* defined(BB_FLASH_TIMELINE_H) */
 
