@@ -372,12 +372,20 @@ namespace BaconBox {
 
 				} else {
 					char *format = reinterpret_cast<char *>(&wav.format);
-					Console::print("Unknown wav format : " + format[0] + format[1] + format[2] + format[3]);
+					Console::print("Unknown wav format : ");
+					Console::print(format[0]);
+					Console::print(format[1]);
+					Console::print(format[2]);
+					Console::print(format[3]);
 				}
 
 			} else {
 				char *chunkId = reinterpret_cast<char *>(&wav.chunkId);
-				Console::print("Unknown wav chunk ID : " + chunkId[0] + chunkId[1] + chunkId[2] + chunkId[3]);
+				Console::print("Unknown wav chunk ID : ");
+				Console::print(chunkId[0]);
+				Console::print(chunkId[1]);
+				Console::print(chunkId[2]);
+				Console::print(chunkId[3]);
 			}
 
 			// We close the file.

@@ -33,12 +33,14 @@ namespace BaconBox {
 	}
 
 	bool NullMainWindow::isFullScreen() const {
+		return false;
 	}
 
 	void NullMainWindow::setFullScreen(bool newFullScreen) {
 	}
 
 	bool NullMainWindow::isInputGrabbed() const {
+		return false;
 	}
 
 	void NullMainWindow::setInputGrabbed(bool newInputGrabbed) {
