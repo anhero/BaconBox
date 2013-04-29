@@ -55,8 +55,19 @@ namespace BaconBox {
     try{
 #endif
 #ifdef BB_FLASH_PLATEFORM
+		inline_as3("import BaconBox.MovieClipEntity;");
+
 		AS3::local::var mc =  FlashHelper::construct(key);
 		AS3::local::var entity = FlashHelper::getProperty(mc, "entity");
+		if( AS3::local::internal::equals(entity, AS3::local::internal::_undefined)){
+			AS3_DeclareVar(mcEntity, *);
+			inline_as3("mcEntity = BaconBox.MovieClipEntity.create();");
+			 AS3_GetVarxxFromVar(entity, mcEntity);
+			FlashHelper::setProperty(mc, "entity", entity);
+			AS3::local::var args[1] = {mc};
+			FlashHelper::callMethod(entity, "setMovieClip", 1, args);
+
+		}
 		AS3::local::var entityPointerAS3 = FlashHelper::getProperty(entity, "swigCPtr");
 		MovieClipEntity *entityPointer = (MovieClipEntity *)int_valueOf(entityPointerAS3);
 		return entityPointer;
@@ -91,8 +102,19 @@ namespace BaconBox {
 	
 #if  defined(BB_FLASH_PLATEFORM)
 TextEntity * EntityFactory::getTextEntity(const std::string &key){
+		inline_as3("import BaconBox.TextEntity;");
+
 		AS3::local::var mc =  FlashHelper::construct(key);
 		AS3::local::var entity = FlashHelper::getProperty(mc, "entity");
+		if( AS3::local::internal::equals(entity, AS3::local::internal::_undefined)){
+			AS3_DeclareVar(mcEntity, *);
+			inline_as3("mcEntity = BaconBox.TextEntity.create(0);");
+			 AS3_GetVarxxFromVar(entity, mcEntity);
+			FlashHelper::setProperty(mc, "entity", entity);
+			AS3::local::var args[1] = {mc};
+			FlashHelper::callMethod(entity, "setMovieClip", 1, args);
+
+		}
 		AS3::local::var entityPointerAS3 = FlashHelper::getProperty(entity, "swigCPtr");
 		TextEntity *entityPointer = (TextEntity *)int_valueOf(entityPointerAS3);
 		return entityPointer;

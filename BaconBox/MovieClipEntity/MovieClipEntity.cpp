@@ -56,6 +56,7 @@ namespace BaconBox {
 	void MovieClipEntity::setMovieClip(AS3::local::var aMC) {
 		MovieClipHolder *mcHolder = new MovieClipHolder(aMC);
 		addComponent(mcHolder);    
+
 	}
 #endif
 	

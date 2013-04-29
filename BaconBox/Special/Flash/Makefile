@@ -12,6 +12,8 @@ CUSTOM_LIB_PATH=$(wildcard $(PROJECT_ROOT)/libraries/FreeBSD/i686 $(PROJECT_ROOT
 LINK_FLAG=-lpng -lz -lAS3++ -lJsonBox -ltinyxml -lfreetype
 
 
+COMPC=$(FLEX)/bin/compc
+
 
 ifdef lua
 partialSwig=1
@@ -217,9 +219,9 @@ $(BUILD_PATH)/BaconBox.swf: $(addsuffix .abc,$(SWIG_OUTPUT)) EntityHolderMovieCl
 	$(addprefix $(PROJECT_ROOT)/, $(ALL_SOURCES)) $(addprefix $(PROJECT_ROOT)/, $(FLASCC_SOURCES)) -emit-swf -o $(BUILD_PATH)/BaconBox.swf \
 	-L$(CUSTOM_LIB_PATH)/lib $(LINK_FLAG)
 
-$(BUILD_PATH)/BaconBox.swc: VFS.abc $(addsuffix .abc,$(SWIG_OUTPUT))  EntityHolderMovieClip.abc EntityHolderTextField.abc $(addprefix $(PROJECT_ROOT)/,$(ALL_SOURCES)) $(addprefix $(PROJECT_ROOT)/,$(FLASCC_SOURCES))
+$(BUILD_PATH)/BaconBox.swc: VFS.abc $(addsuffix .abc,$(SWIG_OUTPUT)) $(BUILD_PATH)/EntityWrapper.swc $(addprefix $(PROJECT_ROOT)/,$(ALL_SOURCES)) $(addprefix $(PROJECT_ROOT)/,$(FLASCC_SOURCES))
 	@echo "-------- BaconBox.swc --------"
-	"$(FLASCC)/usr/bin/g++" $(BASE_CFLAGS) $(DEFINE_FLAG) -I$(PROJECT_ROOT) -I$(CUSTOM_LIB_PATH)/include $(addsuffix .abc,$(SWIG_OUTPUT)) EntityHolderMovieClip.abc EntityHolderTextField.abc \
+	"$(FLASCC)/usr/bin/g++" $(BASE_CFLAGS) $(DEFINE_FLAG) -I$(PROJECT_ROOT) -I$(CUSTOM_LIB_PATH)/include $(addsuffix .abc,$(SWIG_OUTPUT)) \
 	VFS.abc $(addprefix $(PROJECT_ROOT)/, $(ALL_SOURCES)) $(addprefix $(PROJECT_ROOT)/, $(FLASCC_SOURCES)) -emit-swc=BaconBox -o $(BUILD_PATH)/BaconBox.swc \
 	-L$(CUSTOM_LIB_PATH)/lib $(LINK_FLAG)
 
@@ -241,6 +243,7 @@ endif
 
 
 LSOBackingStore.as:
+	chmod 766 "$(FLASCC)/usr/share/LSOBackingStore.as"
 	cp "$(FLASCC)/usr/share/LSOBackingStore.as" .
 
 
@@ -274,15 +277,19 @@ $(PROJECT_ROOT)/BaconBox/Special/Flash/$(addsuffix .cpp,$(LUA_SWIG_WRAPPER)): $(
 	$(SWIG)/swig -lua -c++ -module BaconBox -outdir . -ignoremissing $(DEFINE_FLAG) -DBB_FLASH_PLATEFORM -DBB_LUA -I$(PROJECT_ROOT) -o $(addsuffix .cpp,$(LUA_SWIG_WRAPPER)) $(LUA_SWIG_INTERFACE)
 
 
-EntityHolderMovieClip.abc: $(addsuffix .abc,$(SWIG_OUTPUT)) EntityHolderMovieClip.as
+BaconBox/EntityWrapper/EntityHolderMovieClip.abc: BaconBox/EntityWrapper/EntityHolderMovieClip.as
 	@echo "-------- Compile the EntityHolderMovieClip to ABC --------"
-	$(AS3COMPILERARGS) -abcfuture -AS3 -import $(call nativepath,$(FLASCC)/usr/lib/builtin.abc) -import $(call nativepath,$(FLASCC)/usr/lib/playerglobal.abc) -import $(call nativepath,./$(addsuffix .abc,$(SWIG_OUTPUT))) EntityHolderMovieClip.as 
+	$(AS3COMPILERARGS) -abcfuture -AS3 -import $(call nativepath,$(FLASCC)/usr/lib/builtin.abc) -import $(call nativepath,$(FLASCC)/usr/lib/playerglobal.abc) BaconBox/EntityWrapper/EntityHolderMovieClip.as 
 
-EntityHolderTextField.abc: $(addsuffix .abc,$(SWIG_OUTPUT)) EntityHolderTextField.as
+BaconBox/EntityWrapper/EntityHolderTextField.abc: BaconBox/EntityWrapper/EntityHolderTextField.as
 	@echo "-------- Compile the EntityHolderTextField to ABC --------"
-	$(AS3COMPILERARGS) -abcfuture -AS3 -import $(call nativepath,$(FLASCC)/usr/lib/builtin.abc) -import $(call nativepath,$(FLASCC)/usr/lib/playerglobal.abc) -import $(call nativepath,./$(addsuffix .abc,$(SWIG_OUTPUT))) EntityHolderTextField.as 
+	$(AS3COMPILERARGS) -abcfuture -AS3 -import $(call nativepath,$(FLASCC)/usr/lib/builtin.abc) -import $(call nativepath,$(FLASCC)/usr/lib/playerglobal.abc) BaconBox/EntityWrapper/EntityHolderTextField.as 
 
 
+
+$(BUILD_PATH)/EntityWrapper.swc: BaconBox/EntityWrapper/EntityHolderTextField.abc BaconBox/EntityWrapper/EntityHolderMovieClip.abc
+	@echo "-------- Compile EntityWrapper.swc --------"
+	$(COMPC) -compiler.source-path . -include-classes BaconBox.EntityWrapper.EntityHolderTextField BaconBox.EntityWrapper.EntityHolderMovieClip -output $(BUILD_PATH)/EntityWrapper.swc
 
 #Entity_wrapper.o main.o: Entity_wrapper.cpp main.cpp
 #	echo $@ --------------------
@@ -319,7 +326,7 @@ check:
 	fi
 
 clean:
-	rm -rf BaconBoxAS3.cpp BaconBox.cpp BaconBoxLua.cpp *.swf *.swc *.as3 *.abc *.o $(BUILD_PATH) LSOBackingStore.as $(addprefix $(PROJECT_ROOT)/,$(ALL_SOURCES)) $(addprefix $(PROJECT_ROOT)/,$(FLASCC_SOURCES))
+	rm -rf BaconBoxAS3.cpp BaconBox.cpp BaconBoxLua.cpp *.swf *.swc *.as3 BaconBox/EntityWrapper/*.abc *.abc *.o $(BUILD_PATH) LSOBackingStore.as $(addprefix $(PROJECT_ROOT)/,$(ALL_SOURCES)) $(addprefix $(PROJECT_ROOT)/,$(FLASCC_SOURCES))
 
 
 
