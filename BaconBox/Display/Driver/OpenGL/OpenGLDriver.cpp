@@ -297,17 +297,11 @@ namespace BaconBox {
 		glGenTextures(1, &(texInfo->textureId));
 		glBindTexture(GL_TEXTURE_2D, texInfo->textureId);
 
-
-		int widthPoweredToTwo = MathHelper::nextPowerOf2(pixMap->getWidth());
-		int heightPoweredToTwo = MathHelper::nextPowerOf2(pixMap->getHeight());
-
-
-		PixMap poweredTo2Pixmap(widthPoweredToTwo, heightPoweredToTwo, pixMap->getColorFormat());
-		poweredTo2Pixmap.insertSubPixMap(*pixMap);
-
-
 		texInfo->imageWidth = pixMap->getWidth();
 		texInfo->imageHeight = pixMap->getHeight();
+		
+		int widthPoweredToTwo = MathHelper::nextPowerOf2(pixMap->getWidth());
+		int heightPoweredToTwo = MathHelper::nextPowerOf2(pixMap->getHeight());
 
 		texInfo->poweredWidth = widthPoweredToTwo;
 		texInfo->poweredHeight = heightPoweredToTwo;
@@ -321,17 +315,33 @@ namespace BaconBox {
 		} else { // if (pixMap->getColorFormat() == ColorFormat::ALPHA)
 			format = GL_ALPHA;
 		}
-
-		glTexImage2D(
-		    GL_TEXTURE_2D,
-		    0,
-		    format,
-		    widthPoweredToTwo,
-		    heightPoweredToTwo,
-		    0,
-		    format,
-		    GL_UNSIGNED_BYTE,
-		    poweredTo2Pixmap.getBuffer());
+		
+		if (widthPoweredToTwo == pixMap->getWidth() && heightPoweredToTwo == pixMap->getHeight()) {
+			glTexImage2D(
+						 GL_TEXTURE_2D,
+						 0,
+						 format,
+						 widthPoweredToTwo,
+						 heightPoweredToTwo,
+						 0,
+						 format,
+						 GL_UNSIGNED_BYTE,
+						 pixMap->getBuffer());
+		} else {
+			PixMap poweredTo2Pixmap(widthPoweredToTwo, heightPoweredToTwo, pixMap->getColorFormat());
+			poweredTo2Pixmap.insertSubPixMap(*pixMap);
+			
+			glTexImage2D(
+						 GL_TEXTURE_2D,
+						 0,
+						 format,
+						 widthPoweredToTwo,
+						 heightPoweredToTwo,
+						 0,
+						 format,
+						 GL_UNSIGNED_BYTE,
+						 poweredTo2Pixmap.getBuffer());
+		}
 
 		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);

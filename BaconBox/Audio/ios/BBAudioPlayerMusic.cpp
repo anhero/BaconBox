@@ -111,6 +111,6 @@ playedOnce(false) {
 void BBAudioPlayerMusic::load(std::string const& filePath) {
 	if(!bgm) {
 		const char* tmp = filePath.c_str();
-		bgm = [[BBAudioPlayerMusicDelegate alloc] initWithPath:[NSString stringWithCString:tmp]];
+		bgm = [[BBAudioPlayerMusicDelegate alloc] initWithPath:[NSString stringWithUTF8String:tmp]];
 	}
 }

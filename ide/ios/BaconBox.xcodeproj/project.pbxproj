@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2419ED8D172DAA1D00E8433A /* FlashExporterXmlReader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2419ED8B172DAA1D00E8433A /* FlashExporterXmlReader.cpp */; };
 		24EC9E7F1724609B00DF698E /* DynamicBatch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 24EC9E7D1724609B00DF698E /* DynamicBatch.cpp */; };
 		24EC9E93172477B600DF698E /* RapidXmlSerializer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 24EC9E91172477B600DF698E /* RapidXmlSerializer.cpp */; };
 		5161F0E9172037090044226C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5161F0E8172037090044226C /* Foundation.framework */; };
@@ -167,6 +168,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		2419ED8B172DAA1D00E8433A /* FlashExporterXmlReader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FlashExporterXmlReader.cpp; sourceTree = "<group>"; };
+		2419ED8C172DAA1D00E8433A /* FlashExporterXmlReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlashExporterXmlReader.h; sourceTree = "<group>"; };
 		24EC9E7D1724609B00DF698E /* DynamicBatch.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DynamicBatch.cpp; sourceTree = "<group>"; };
 		24EC9E7E1724609B00DF698E /* DynamicBatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DynamicBatch.h; sourceTree = "<group>"; };
 		24EC9E91172477B600DF698E /* RapidXmlSerializer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = RapidXmlSerializer.cpp; path = RapidXml/RapidXmlSerializer.cpp; sourceTree = "<group>"; };
@@ -878,6 +881,8 @@
 				5161F254172037AA0044226C /* UTFConvert.h */,
 				5161F256172037AA0044226C /* ValueChangedData.h */,
 				5161F257172037AA0044226C /* Vector2ChangedData.h */,
+				2419ED8B172DAA1D00E8433A /* FlashExporterXmlReader.cpp */,
+				2419ED8C172DAA1D00E8433A /* FlashExporterXmlReader.h */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -1271,6 +1276,7 @@
 				5161F43B172065410044226C /* WavHeader.cpp in Sources */,
 				24EC9E7F1724609B00DF698E /* DynamicBatch.cpp in Sources */,
 				24EC9E93172477B600DF698E /* RapidXmlSerializer.cpp in Sources */,
+				2419ED8D172DAA1D00E8433A /* FlashExporterXmlReader.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

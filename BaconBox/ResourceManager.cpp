@@ -563,11 +563,9 @@ namespace BaconBox {
 	}
 
 	void ResourceManager::loadFlashExporterXML(const std::string &xmlPath, const std::string &secondXMLPath) {
-
-
 		XmlSerializer serializer;
 
-		if (secondXMLPath != "") {
+		if (!secondXMLPath.empty()) {
 			std::string texturePath;
 
 			Value value;
