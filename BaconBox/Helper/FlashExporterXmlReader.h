@@ -21,6 +21,7 @@ namespace BaconBox {
 	private:
 		void loadSymbols(rapidxml::xml_node<> *node);
 		void loadSymbol(rapidxml::xml_node<> *node);
+		void loadSymbolChildren(rapidxml::xml_node<> *node);
 		void loadTextures(rapidxml::xml_node<> *node, const std::string &texturePath);
 		
 		std::map<std::string, TextureInformation *> &textures;
