@@ -3,7 +3,10 @@
 
 
 #ifdef BB_FLASH_PLATEFORM
-#include "BaconBox/ComponentS/Flash/MovieClipHolder.h"
+#include "BaconBox/Components/Flash/MovieClipHolder.h"
+#include "BaconBox/Components/Flash/FlashEntityContainer.h"
+#include "BaconBox/Components/Flash/FlashTimeline.h"
+#include "BaconBox/Components/Flash/FlashHasName.h"
 #else
 #include "BaconBox/Components/Mesh.h"
 #include "BaconBox/Components/MeshDriverRenderer.h"
@@ -17,12 +20,16 @@ namespace BaconBox {
     
     BB_ID_IMPL(MovieClipEntity);
     
-	MovieClipEntity::MovieClipEntity(): Entity(), HasNameProxy(this, ""), TransformProxy(this), ColorFilterProxy(this), TimelineProxy(this), EntityContainerProxy(this), MatrixComponentProxy(this), SymbolComponentProxy(this) {
+	MovieClipEntity::MovieClipEntity(): Entity(), HasNameProxy(this, "", false), TransformProxy(this), ColorFilterProxy(this), TimelineProxy(this), EntityContainerProxy(this), MatrixComponentProxy(this), SymbolComponentProxy(this) {
 	  
-		#ifdef BB_FLASH_PLATEFORM
-
-		#else
+#ifdef BB_FLASH_PLATEFORM
+	    setTimeline(new FlashTimeline());
+	    setEntityContainer(new FlashEntityContainer());
+	    setHasName(new FlashHasName());
+#else
 		
+	    	    setHasName(new HasName());
+
 //		    Mesh *mesh  = new Mesh();
 //		    mesh->getVertices().resize(4);
 //		    addComponent(mesh);

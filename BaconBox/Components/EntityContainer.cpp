@@ -14,6 +14,7 @@ namespace BaconBox {
 	}
 	
 	void EntityContainer::receiveMessage(int senderID, int destID, int message, void *data) {
+	    this->Component::receiveMessage(senderID, destID, message, data);
 	}
 	
 	
@@ -38,19 +39,19 @@ namespace BaconBox {
 		return reinterpret_cast<const EntityContainer*>(this->component)->contains(child);
 	}
 	
-	Entity *EntityContainerProxy::getChildAt(int index) {
+	MovieClipEntity *EntityContainerProxy::getChildAt(int index) {
 		return reinterpret_cast<EntityContainer*>(this->component)->getChildAt(index);
 	}
 	
-	const Entity *EntityContainerProxy::getChildAt(int index) const {
+	const MovieClipEntity *EntityContainerProxy::getChildAt(int index) const {
 		return reinterpret_cast<const EntityContainer*>(this->component)->getChildAt(index);
 	}
 	
-	Entity *EntityContainerProxy::getChildByName(const std::string &name) {
+	MovieClipEntity *EntityContainerProxy::getChildByName(const std::string &name) {
 		return reinterpret_cast<EntityContainer*>(this->component)->getChildByName(name);
 	}
 	
-	const Entity *EntityContainerProxy::getChildByName(const std::string &name) const {
+	const MovieClipEntity *EntityContainerProxy::getChildByName(const std::string &name) const {
 		return reinterpret_cast<const EntityContainer*>(this->component)->getChildByName(name);
 	}
 	
@@ -58,19 +59,19 @@ namespace BaconBox {
 		return reinterpret_cast<EntityContainer*>(this->component)->getChildIndex(child);
 	}
 	
-	std::vector<Entity *> EntityContainerProxy::getObjectsUnderPoint(const Vector2 &point) {
+	std::vector<MovieClipEntity *> EntityContainerProxy::getObjectsUnderPoint(const Vector2 &point) {
 		return reinterpret_cast<EntityContainer*>(this->component)->getObjectsUnderPoint(point);
 	}
 	
-	std::vector<const Entity *> EntityContainerProxy::getObjectsUnderPoint(const Vector2 &point) const {
+	std::vector<const MovieClipEntity *> EntityContainerProxy::getObjectsUnderPoint(const Vector2 &point) const {
 		return reinterpret_cast<const EntityContainer*>(this->component)->getObjectsUnderPoint(point);
 	}
 	
-	Entity *EntityContainerProxy::removeChild(Entity *child) {
+	MovieClipEntity *EntityContainerProxy::removeChild(Entity *child) {
 		return reinterpret_cast<EntityContainer*>(this->component)->removeChild(child);
 	}
 	
-	Entity *EntityContainerProxy::removeChildAt(int index) {
+	MovieClipEntity *EntityContainerProxy::removeChildAt(int index) {
 		return reinterpret_cast<EntityContainer*>(this->component)->removeChildAt(index);
 	}
 	
@@ -94,7 +95,7 @@ namespace BaconBox {
 		return reinterpret_cast<const EntityContainer*>(this->component)->getNbChildren();
 	}
 	
-	Entity * EntityContainerProxy::getParent() const{
+	MovieClipEntity * EntityContainerProxy::getParent() const{
 		return reinterpret_cast<const EntityContainer*>(this->component)->getParent();
 	}
 

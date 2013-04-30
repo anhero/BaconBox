@@ -3,6 +3,7 @@
 
 #include "BaconBox/Core/Component.h"
 #include "BaconBox/Components/Timeline.h"
+#include "MovieClipHolder.h"
 namespace BaconBox {
 	class FlashTimeline : public Timeline {
 	public:
@@ -33,6 +34,11 @@ namespace BaconBox {
 		bool isPlaying() const;
 		
 		int getNbFrames() const;
+	private:
+		MovieClipHolder * movieClipHolder;
+		bool isPlayingFlag;
+		void initializeConnections();
+
 	};
 	
 }

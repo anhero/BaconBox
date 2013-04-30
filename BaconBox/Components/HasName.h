@@ -12,10 +12,10 @@ namespace BaconBox {
 		
 		HasName(const std::string & name);
 		
-		const std::string &getName() const;
-		void setName(const std::string &newName);
+		virtual const std::string &getName() const;
+		virtual void setName(const std::string &newName);
 		
-	private:
+	protected:
 	    std::string name;
 	};
 	
@@ -26,6 +26,8 @@ namespace BaconBox {
 		
 		const std::string &getName() const;
 		void setName(const std::string &newName);
+	protected:
+	    void setHasName(HasName * hasName);
 	private:
 		
 	};

@@ -54,25 +54,25 @@ namespace BaconBox {
 		
 		bool contains(Entity *child) const;
 		
-		Entity *getChildAt(int index);
+		MovieClipEntity *getChildAt(int index);
 		
-		const Entity *getChildAt(int index) const;
+		const MovieClipEntity *getChildAt(int index) const;
 		
-		Entity *getChildByName(const std::string &name);
+		MovieClipEntity *getChildByName(const std::string &name);
 		
-		const Entity *getChildByName(const std::string &name) const;
+		const MovieClipEntity *getChildByName(const std::string &name) const;
 		
 		int getChildIndex(Entity *child) const;
 		
-		std::vector<Entity *> getObjectsUnderPoint(const Vector2 &point);
+		std::vector<MovieClipEntity *> getObjectsUnderPoint(const Vector2 &point);
 		
-		std::vector<const Entity *> getObjectsUnderPoint(const Vector2 &point) const;
+		std::vector<const MovieClipEntity *> getObjectsUnderPoint(const Vector2 &point) const;
 		
-		Entity *removeChild(Entity *child);
+		MovieClipEntity *removeChild(Entity *child);
 		
 		void removeAllChildren();
 		
-		Entity *removeChildAt(int index);
+		MovieClipEntity *removeChildAt(int index);
 		
 		void removeChildren(int beginIndex, int endIndex);
 		
@@ -84,7 +84,7 @@ namespace BaconBox {
 	
 		int getNbChildren() const;
 		
-		Entity *getParent() const;
+		MovieClipEntity *getParent() const;
 
 		void setFrame(int frame);
 		std::deque<Entity*> * getCurrentFrameChildren();

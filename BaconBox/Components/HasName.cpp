@@ -23,6 +23,12 @@ namespace BaconBox {
 	const std::string &HasNameProxy::getName() const {
 		return reinterpret_cast<HasName*>(component)->getName();;
 	}
+	
+	void HasNameProxy::setHasName(HasName * hasName){
+	    component = hasName;
+	    entity->addComponent(hasName);
+	}
+
 
 	void HasNameProxy::setName(const std::string &newName) {
 		reinterpret_cast<HasName*>(component)->setName(newName);

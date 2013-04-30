@@ -5,7 +5,7 @@
 #include "BaconBox/Core/Component.h"
 #include "BaconBox/Vector2.h"
 #include "BaconBox/Components/EntityContainer.h"
-
+#include "MovieClipHolder.h"
 
 namespace BaconBox {
 	class FlashEntityContainer : public EntityContainer {
@@ -17,7 +17,7 @@ namespace BaconBox {
 		
 		virtual ~FlashEntityContainer();
 		
-		virtual void receiveMessage(int senderID, int destID, int message, void *data);
+		void receiveMessage(int senderID, int destID, int message, void *data);
 		
 		void addChild(Entity *newChild);
 		
@@ -25,23 +25,23 @@ namespace BaconBox {
 		
 		bool contains(Entity *child) const;
 		
-		Entity *getChildAt(int index);
+		MovieClipEntity *getChildAt(int index);
 
-		const Entity *getChildAt(int index) const;
+		const MovieClipEntity *getChildAt(int index) const;
 		
-		Entity *getChildByName(const std::string &name);
+		MovieClipEntity *getChildByName(const std::string &name);
 		
-		const Entity *getChildByName(const std::string &name) const;
+		const MovieClipEntity *getChildByName(const std::string &name) const;
 		
 		int getChildIndex(Entity *child) const;
 		
-		std::vector<Entity *> getObjectsUnderPoint(const Vector2 &point);
+		std::vector<MovieClipEntity *> getObjectsUnderPoint(const Vector2 &point);
 		
-		std::vector<const Entity *> getObjectsUnderPoint(const Vector2 &point) const;
+		std::vector<const MovieClipEntity *> getObjectsUnderPoint(const Vector2 &point) const;
 		
-		Entity *removeChild(Entity *child);
+		MovieClipEntity *removeChild(Entity *child);
 		
-		Entity *removeChildAt(int index);
+		MovieClipEntity *removeChildAt(int index);
 		
 		void removeChildren(int beginIndex, int endIndex);
 		
@@ -53,9 +53,16 @@ namespace BaconBox {
 		
 		int getNbChildren() const;
 		
-		Entity * getParent() const;
+		MovieClipEntity * getParent() const;
 
 	private:
+		MovieClipHolder * movieClipHolder;
+		void initializeConnections();
+		MovieClipEntity *internalgetChildByName(const std::string &name) const;
+		MovieClipEntity *internalGetChildAt(int index) const;
+
+
+
 	};
 }
 

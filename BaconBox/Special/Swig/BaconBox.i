@@ -4,7 +4,6 @@
 #if defined(BB_LUA)
 	%native(cast) int luacast(lua_State*L);
 
-
 %luacode {
   function class(base, init)
    local c = {}    -- a new class instance
@@ -95,6 +94,8 @@ end
   #include "BaconBox/Core/State.h"
   #include "BaconBox/Core/Engine.h"
   #include "BaconBox/Display/Text/FontFormat.h"
+  #include "BaconBox/Components/Timeline.h"
+  #include "BaconBox/Components/EntityContainer.h"
 
   #include "BaconBox/Display/Text/Font.h"
   #include "BaconBox/ResourceManager.h"
@@ -321,6 +322,11 @@ namespace BaconBox{
 
 %include "BaconBox/Display/TextureInformation.h"
 %include "BaconBox/Display/SubTextureInfo.h"
+
+
+%include "BaconBox/Components/Timeline.h"
+%include "BaconBox/Components/EntityContainer.h"
+
 %include "BaconBox/MovieClipEntity/MovieClipEntity.h"
 
 
@@ -350,6 +356,8 @@ namespace BaconBox{
 %include "BaconBox/Components/TextComponent.h"
 %include "BaconBox/Display/Text/TextEntity.h"
 %include "BaconBox/EntityFactory.h" 
+
+
 namespace BaconBox{
 
   class ResourceManager{

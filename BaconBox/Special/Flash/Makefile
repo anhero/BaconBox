@@ -76,6 +76,7 @@ BaconBox/Components/Flash/MovieClipHolder.o \
 BaconBox/Components/Flash/TextFieldHolder.o \
 BaconBox/Components/Flash/FlashTimeline.o \
 BaconBox/Components/Flash/FlashEntityContainer.o \
+BaconBox/Components/Flash/FlashHasName.o \
 BaconBox/Components/Flash/FlashEntityManager.o 
 
 
@@ -202,7 +203,7 @@ BaconBox/Components/Lua/LuaState.o
 endif
 
 
-all: check $(BUILD_PATH)/BaconBox.swc
+all: check $(BUILD_PATH)/BaconBox.swc $(BUILD_PATH)/EntityWrapper.swc
 
 
 swf: check $(BUILD_PATH)/BaconBox.swf
@@ -219,7 +220,7 @@ $(BUILD_PATH)/BaconBox.swf: $(addsuffix .abc,$(SWIG_OUTPUT)) EntityHolderMovieCl
 	$(addprefix $(PROJECT_ROOT)/, $(ALL_SOURCES)) $(addprefix $(PROJECT_ROOT)/, $(FLASCC_SOURCES)) -emit-swf -o $(BUILD_PATH)/BaconBox.swf \
 	-L$(CUSTOM_LIB_PATH)/lib $(LINK_FLAG)
 
-$(BUILD_PATH)/BaconBox.swc: VFS.abc $(addsuffix .abc,$(SWIG_OUTPUT)) $(BUILD_PATH)/EntityWrapper.swc $(addprefix $(PROJECT_ROOT)/,$(ALL_SOURCES)) $(addprefix $(PROJECT_ROOT)/,$(FLASCC_SOURCES))
+$(BUILD_PATH)/BaconBox.swc: VFS.abc $(addsuffix .abc,$(SWIG_OUTPUT)) $(addprefix $(PROJECT_ROOT)/,$(ALL_SOURCES)) $(addprefix $(PROJECT_ROOT)/,$(FLASCC_SOURCES))
 	@echo "-------- BaconBox.swc --------"
 	"$(FLASCC)/usr/bin/g++" $(BASE_CFLAGS) $(DEFINE_FLAG) -I$(PROJECT_ROOT) -I$(CUSTOM_LIB_PATH)/include $(addsuffix .abc,$(SWIG_OUTPUT)) \
 	VFS.abc $(addprefix $(PROJECT_ROOT)/, $(ALL_SOURCES)) $(addprefix $(PROJECT_ROOT)/, $(FLASCC_SOURCES)) -emit-swc=BaconBox -o $(BUILD_PATH)/BaconBox.swc \

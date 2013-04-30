@@ -2,7 +2,7 @@
 import flash.display.MovieClip;
 import flash.text.TextField;
 public class EntityHolderTextField  extends MovieClip {
-	private var _entity:Object;
+	private var _entity:Object = null;
     public function EntityHolderTextField() {
     	super();
     }

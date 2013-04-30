@@ -7,6 +7,7 @@
 #include "BaconBox/Vector2.h"
 
 namespace BaconBox {
+    class MovieClipEntity;
 	class EntityContainer : public Component {
 	public:
 		BB_ID_HEADER;
@@ -25,23 +26,23 @@ namespace BaconBox {
 		
 		virtual bool contains(Entity *child) const = 0;
 		
-		virtual Entity *getChildAt(int index) = 0;
+		virtual MovieClipEntity *getChildAt(int index) = 0;
 		
-		virtual const Entity *getChildAt(int index) const = 0;
+		virtual const MovieClipEntity *getChildAt(int index) const = 0;
 		
-		virtual Entity *getChildByName(const std::string &name) = 0;
+		virtual MovieClipEntity *getChildByName(const std::string &name) = 0;
 		
-		virtual const Entity *getChildByName(const std::string &name) const = 0;
+		virtual const MovieClipEntity *getChildByName(const std::string &name) const = 0;
 		
 		virtual int getChildIndex(Entity *child) const = 0;
 		
-		virtual std::vector<Entity *> getObjectsUnderPoint(const Vector2 &point) = 0;
+		virtual std::vector<MovieClipEntity *> getObjectsUnderPoint(const Vector2 &point) = 0;
 		
-		virtual std::vector<const Entity *> getObjectsUnderPoint(const Vector2 &point) const = 0;
+		virtual std::vector<const MovieClipEntity *> getObjectsUnderPoint(const Vector2 &point) const = 0;
 		
-		virtual Entity *removeChild(Entity *child) = 0;
+		virtual MovieClipEntity *removeChild(Entity *child) = 0;
 		
-		virtual Entity *removeChildAt(int index) = 0;
+		virtual MovieClipEntity *removeChildAt(int index) = 0;
 		
 		virtual void removeChildren(int beginIndex, int endIndex) = 0;
 		
@@ -53,7 +54,7 @@ namespace BaconBox {
 		
 		virtual int getNbChildren() const = 0;
 		
-		virtual Entity * getParent() const = 0;
+		virtual MovieClipEntity * getParent() const = 0;
 
 	private:
 	};
@@ -70,23 +71,23 @@ namespace BaconBox {
 		
 		bool contains(Entity *child) const;
 		
-		Entity *getChildAt(int index);
+		MovieClipEntity *getChildAt(int index);
 		
-		const Entity *getChildAt(int index) const;
+		const MovieClipEntity *getChildAt(int index) const;
 		
-		Entity *getChildByName(const std::string &name);
+		MovieClipEntity *getChildByName(const std::string &name);
 		
-		const Entity *getChildByName(const std::string &name) const;
+		const MovieClipEntity *getChildByName(const std::string &name) const;
 		
 		int getChildIndex(Entity *child) const;
 		
-		std::vector<Entity *> getObjectsUnderPoint(const Vector2 &point);
+		std::vector<MovieClipEntity *> getObjectsUnderPoint(const Vector2 &point);
 		
-		std::vector<const Entity *> getObjectsUnderPoint(const Vector2 &point) const;
+		std::vector<const MovieClipEntity *> getObjectsUnderPoint(const Vector2 &point) const;
 		
-		Entity *removeChild(Entity *child);
+		MovieClipEntity *removeChild(Entity *child);
 		
-		Entity *removeChildAt(int index);
+		MovieClipEntity *removeChildAt(int index);
 		
 		void removeChildren(int beginIndex, int endIndex);
 		
@@ -98,7 +99,7 @@ namespace BaconBox {
 		
 		int getNbChildren() const;
 		
-		 Entity * getParent() const;
+		 MovieClipEntity * getParent() const;
 		
 	protected:
 	    	void setEntityContainer(EntityContainer * entityContainer);
