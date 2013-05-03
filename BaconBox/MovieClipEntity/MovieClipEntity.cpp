@@ -28,7 +28,7 @@ namespace BaconBox {
 	    setHasName(new FlashHasName());
 #else
 		
-	    	    setHasName(new HasName());
+	    	    setHasName(new HasName(""));
 
 //		    Mesh *mesh  = new Mesh();
 //		    mesh->getVertices().resize(4);

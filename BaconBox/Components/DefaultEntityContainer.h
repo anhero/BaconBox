@@ -17,7 +17,7 @@ namespace BaconBox {
 	class DefaultEntityContainer : public EntityContainer {
 		friend class EntityContainerLooper;
 	public:
-		typedef std::map<int, std::deque<Entity*> > ChildArray;
+		typedef std::map<int, std::deque<MovieClipEntity*> > ChildArray;
 		
 		DefaultEntityContainer();
 		
@@ -41,18 +41,18 @@ namespace BaconBox {
 		 */
 		void render();
 		
-		void addChild(Entity *newChild);
+		void addChild(MovieClipEntity *newChild);
 		
-		void addChildToCurrentFrame(Entity *newChild);
+		void addChildToCurrentFrame(MovieClipEntity *newChild);
 
 		
-		void addChild(Entity *newChild, int frame);
+		void addChild(MovieClipEntity *newChild, int frame);
 		
-		void addChildAt(Entity *newChild, int index);
+		void addChildAt(MovieClipEntity *newChild, int index);
 		
-		void addChildAt(Entity *newChild, int index, int frame);
+		void addChildAt(MovieClipEntity *newChild, int index, int frame);
 		
-		bool contains(Entity *child) const;
+		bool contains(MovieClipEntity *child) const;
 		
 		MovieClipEntity *getChildAt(int index);
 		
@@ -62,13 +62,13 @@ namespace BaconBox {
 		
 		const MovieClipEntity *getChildByName(const std::string &name) const;
 		
-		int getChildIndex(Entity *child) const;
+		int getChildIndex(MovieClipEntity *child) const;
 		
 		std::vector<MovieClipEntity *> getObjectsUnderPoint(const Vector2 &point);
 		
 		std::vector<const MovieClipEntity *> getObjectsUnderPoint(const Vector2 &point) const;
 		
-		MovieClipEntity *removeChild(Entity *child);
+		MovieClipEntity *removeChild(MovieClipEntity *child);
 		
 		void removeAllChildren();
 		
@@ -76,9 +76,9 @@ namespace BaconBox {
 		
 		void removeChildren(int beginIndex, int endIndex);
 		
-		void setChildIndex(Entity *child, int index);
+		void setChildIndex(MovieClipEntity *child, int index);
 		
-		void swapChildren(Entity *child1, Entity *child2);
+		void swapChildren(MovieClipEntity *child1, MovieClipEntity *child2);
 		
 		void swapChildrenAt(int index1, int index2);	
 	
@@ -87,22 +87,22 @@ namespace BaconBox {
 		MovieClipEntity *getParent() const;
 
 		void setFrame(int frame);
-		std::deque<Entity*> * getCurrentFrameChildren();
-		std::deque<Entity*> * getCurrentFrameChildren() const;
+		std::deque<MovieClipEntity*> * getCurrentFrameChildren();
+		std::deque<MovieClipEntity*> * getCurrentFrameChildren() const;
 
 
 	private:
-		void addChildAt(Entity *newChild, int index, ChildArray::iterator frameIterator);
+		void addChildAt(MovieClipEntity *newChild, int index, ChildArray::iterator frameIterator);
 		
 		void setNbFrame(int nbFrames);
 		ChildArray::iterator frameIterator;		
-		Entity * parent;
+		MovieClipEntity * parent;
 		
 		int getCurrentFrameIndex() const;
 		
-		std::deque<Entity*>::iterator findChild(Entity *child);
+		std::deque<MovieClipEntity*>::iterator findChild(MovieClipEntity *child);
 		
-		std::deque<Entity*>::const_iterator findChild(const Entity *child) const;
+		std::deque<MovieClipEntity*>::const_iterator findChild(const MovieClipEntity *child) const;
 		
 		void initializeConnections();
 		

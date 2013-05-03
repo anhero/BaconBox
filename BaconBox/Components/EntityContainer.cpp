@@ -1,6 +1,6 @@
 #include "EntityContainer.h"
 #include "BaconBox/Core/Entity.h"
-
+#include "BaconBox/MovieClipEntity/MovieClipEntity.h"
 namespace BaconBox {
 	BB_ID_IMPL(EntityContainer);
 	
@@ -18,7 +18,7 @@ namespace BaconBox {
 	}
 	
 	
-	EntityContainerProxy::EntityContainerProxy(Entity *entity) : ComponentProxy(entity, NULL) {
+	EntityContainerProxy::EntityContainerProxy(MovieClipEntity *entity) : ComponentProxy(entity, NULL) {
 	}
 	
 	void EntityContainerProxy::setEntityContainer(EntityContainer * entityContainer){
@@ -27,15 +27,15 @@ namespace BaconBox {
 	}
 
 	
-	void EntityContainerProxy::addChild(Entity *newChild) {
+	void EntityContainerProxy::addChild(MovieClipEntity *newChild) {
 		reinterpret_cast<EntityContainer*>(this->component)->addChild(newChild);
 	}
 	
-	void EntityContainerProxy::addChildAt(Entity *newChild, int index) {
+	void EntityContainerProxy::addChildAt(MovieClipEntity *newChild, int index) {
 		reinterpret_cast<EntityContainer*>(this->component)->addChildAt(newChild, index);
 	}
 	
-	bool EntityContainerProxy::contains(Entity *child) const {
+	bool EntityContainerProxy::contains(MovieClipEntity *child) const {
 		return reinterpret_cast<const EntityContainer*>(this->component)->contains(child);
 	}
 	
@@ -55,7 +55,7 @@ namespace BaconBox {
 		return reinterpret_cast<const EntityContainer*>(this->component)->getChildByName(name);
 	}
 	
-	int EntityContainerProxy::getChildIndex(Entity *child) const {
+	int EntityContainerProxy::getChildIndex(MovieClipEntity *child) const {
 		return reinterpret_cast<EntityContainer*>(this->component)->getChildIndex(child);
 	}
 	
@@ -67,7 +67,7 @@ namespace BaconBox {
 		return reinterpret_cast<const EntityContainer*>(this->component)->getObjectsUnderPoint(point);
 	}
 	
-	MovieClipEntity *EntityContainerProxy::removeChild(Entity *child) {
+	MovieClipEntity *EntityContainerProxy::removeChild(MovieClipEntity *child) {
 		return reinterpret_cast<EntityContainer*>(this->component)->removeChild(child);
 	}
 	
@@ -79,11 +79,11 @@ namespace BaconBox {
 		reinterpret_cast<EntityContainer*>(this->component)->removeChildren(beginIndex, endIndex);
 	}
 	
-	void EntityContainerProxy::setChildIndex(Entity *child, int index) {
+	void EntityContainerProxy::setChildIndex(MovieClipEntity *child, int index) {
 		reinterpret_cast<EntityContainer*>(this->component)->setChildIndex(child, index);
 	}
 	
-	void EntityContainerProxy::swapChildren(Entity *child1, Entity *child2) {
+	void EntityContainerProxy::swapChildren(MovieClipEntity *child1, MovieClipEntity *child2) {
 		reinterpret_cast<EntityContainer*>(this->component)->swapChildren(child1, child2);
 	}
 	

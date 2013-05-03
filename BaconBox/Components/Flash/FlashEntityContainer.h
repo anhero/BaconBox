@@ -19,11 +19,11 @@ namespace BaconBox {
 		
 		void receiveMessage(int senderID, int destID, int message, void *data);
 		
-		void addChild(Entity *newChild);
+		void addChild(MovieClipEntity *newChild);
 		
-		void addChildAt(Entity *newChild, int index);
+		void addChildAt(MovieClipEntity *newChild, int index);
 		
-		bool contains(Entity *child) const;
+		bool contains(MovieClipEntity *child) const;
 		
 		MovieClipEntity *getChildAt(int index);
 
@@ -33,21 +33,21 @@ namespace BaconBox {
 		
 		const MovieClipEntity *getChildByName(const std::string &name) const;
 		
-		int getChildIndex(Entity *child) const;
+		int getChildIndex(MovieClipEntity *child) const;
 		
 		std::vector<MovieClipEntity *> getObjectsUnderPoint(const Vector2 &point);
 		
 		std::vector<const MovieClipEntity *> getObjectsUnderPoint(const Vector2 &point) const;
 		
-		MovieClipEntity *removeChild(Entity *child);
+		MovieClipEntity *removeChild(MovieClipEntity *child);
 		
 		MovieClipEntity *removeChildAt(int index);
 		
 		void removeChildren(int beginIndex, int endIndex);
 		
-		void setChildIndex(Entity *child, int index);
+		void setChildIndex(MovieClipEntity *child, int index);
 		
-		void swapChildren(Entity *child1, Entity *child2);
+		void swapChildren(MovieClipEntity *child1, MovieClipEntity *child2);
 		
 		void swapChildrenAt(int index1, int index2);
 		

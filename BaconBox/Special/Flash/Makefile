@@ -161,6 +161,8 @@ BaconBox/Input/Pointer/Pointer.o \
 BaconBox/Input/Pointer/PointerButtonSignalData.o \
 BaconBox/Input/Pointer/PointerSignalData.o \
 BaconBox/Input/Pointer/PointerState.o \
+BaconBox/Input/Pointer/CursorButton.o \
+BaconBox/Input/Keyboard/Flash/FlashKeyboard.o \
 BaconBox/Input/Pointer/Flash/FlashPointer.o
 
 MOVIECLIP_SOURCES= \

@@ -68,7 +68,16 @@ end
   #include "BaconBox/Input/InputSignalData.h"
   #include "BaconBox/Input/Pointer/CursorButton.h"
 
+
   #include "BaconBox/SignalSlots/SignalData.h"
+
+  #include "BaconBox/Input/Keyboard/Key.h"
+  #include "BaconBox/Input/Keyboard/Keyboard.h"
+  #include "BaconBox/Input/Keyboard/KeyboardState.h"
+
+  #include "BaconBox/Input/Keyboard/KeySignalData.h"
+  #include "BaconBox/Input/Keyboard/KeyMaskSignalData.h"
+
   #include "BaconBox/Input/Pointer/CursorState.h"
   #include "BaconBox/Input/Pointer/PointerState.h"
   #include "BaconBox/Input/Pointer/PointerSignalData.h"
@@ -86,7 +95,6 @@ end
   #include "BaconBox/Display/TextureInformation.h"
 
 
-
   #include "BaconBox/Display/SubTextureInfo.h"
 	#include "BaconBox/MovieClipEntity/MovieClipEntity.h"
 	#include "BaconBox/EntityFactory.h"
@@ -102,6 +110,8 @@ end
 #include "BaconBox/Display/Text/TextAlignment.h"
 #include "BaconBox/Components/TextComponent.h"
 #include "BaconBox/Display/Text/TextEntity.h"
+
+#include "BaconBox/Symbol.h"
 
 #if defined(BB_LUA)
   #include "BaconBox/Components/Lua/LuaState.h"
@@ -306,6 +316,13 @@ namespace BaconBox{
 %include "BaconBox/PlatformFlagger.h"
 %include "BaconBox/Input/InputState.h"
 %include "BaconBox/SignalSlots/SignalData.h"
+
+%include "BaconBox/Input/Keyboard/Key.h"
+%include "BaconBox/Input/Keyboard/KeyboardState.h"
+%include "BaconBox/Input/Keyboard/KeySignalData.h"
+%include "BaconBox/Input/Keyboard/KeyMaskSignalData.h"
+%include "BaconBox/Input/Keyboard/Keyboard.h"
+
 %include "BaconBox/Input/Pointer/CursorButton.h"
 
 %include "BaconBox/Input/InputSignalData.h"
@@ -328,7 +345,6 @@ namespace BaconBox{
 %include "BaconBox/Components/EntityContainer.h"
 
 %include "BaconBox/MovieClipEntity/MovieClipEntity.h"
-
 
 
 #if defined(BB_LUA)
@@ -355,8 +371,10 @@ namespace BaconBox{
 %include "BaconBox/Display/Text/TextAlignment.h"
 %include "BaconBox/Components/TextComponent.h"
 %include "BaconBox/Display/Text/TextEntity.h"
-%include "BaconBox/EntityFactory.h" 
 
+
+%ignore getMovieClipEntityFromSymbol;
+%include "BaconBox/EntityFactory.h" 
 
 namespace BaconBox{
 
@@ -389,7 +407,7 @@ namespace BaconBox{
                                             const std::string &relativePath,
                                             bool overwrite = false);       
 
-
+  static void loadFlashExporterXML(const std::string & xmlPath, const std::string & secondXMLPath = "");
 
     static SoundInfo *getSound(const std::string &key);
 

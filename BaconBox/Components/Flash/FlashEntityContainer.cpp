@@ -26,19 +26,19 @@ namespace BaconBox {
 				this->EntityContainer::receiveMessage(senderID, destID, message, data);
 	}
 	
-	void FlashEntityContainer::addChild(Entity *newChild){
+	void FlashEntityContainer::addChild(MovieClipEntity *newChild){
 		AS3::local::var childMC = newChild->getComponent<MovieClipHolder>()->getMovieClip();
 		AS3::local::var args[1] = {childMC};
 		movieClipHolder->callMethod("addChild", 1,args);
 	}
 	
-	void FlashEntityContainer::addChildAt(Entity *newChild, int index){
+	void FlashEntityContainer::addChildAt(MovieClipEntity *newChild, int index){
 		AS3::local::var childMC = newChild->getComponent<MovieClipHolder>()->getMovieClip();
 		AS3::local::var args[2] = {childMC, AS3::local::internal::new_int(index)};
 		movieClipHolder->callMethod("addChildAt", 1, args);
 	}
 	
-	bool FlashEntityContainer::contains(Entity *child) const {
+	bool FlashEntityContainer::contains(MovieClipEntity *child) const {
 		AS3::local::var childMC = child->getComponent<MovieClipHolder>()->getMovieClip();
 		AS3::local::var args[1] = {childMC};
 		AS3::local::var result = movieClipHolder->callMethod("contains", 1, args);
@@ -75,7 +75,7 @@ namespace BaconBox {
 
 	
 	
-	int FlashEntityContainer::getChildIndex(Entity *child) const{
+	int FlashEntityContainer::getChildIndex(MovieClipEntity *child) const{
 		AS3::local::var args[1] = {child->getComponent<MovieClipHolder>()->getMovieClip()};
 		AS3::local::var index = movieClipHolder->callMethod("getChildIndex", 1, args);
 		return AS3::local::internal::int_valueOf(index);
@@ -89,7 +89,7 @@ namespace BaconBox {
 		throw "not implemented yet";
 	}
 	
-	MovieClipEntity *FlashEntityContainer::removeChild(Entity *child){
+	MovieClipEntity *FlashEntityContainer::removeChild(MovieClipEntity *child){
 		AS3::local::var args[1] = {child->getComponent<MovieClipHolder>()->getMovieClip()};
 		movieClipHolder->callMethod("removeChild", 1, args);
 	}
@@ -103,11 +103,11 @@ namespace BaconBox {
 		throw "not implemented yet";
 	}
 	
-	void FlashEntityContainer::setChildIndex(Entity *child, int index){
+	void FlashEntityContainer::setChildIndex(MovieClipEntity *child, int index){
 		throw "not implemented yet";
 	}
 	
-	void FlashEntityContainer::swapChildren(Entity *child1, Entity *child2){
+	void FlashEntityContainer::swapChildren(MovieClipEntity *child1, MovieClipEntity *child2){
 		AS3::local::var args[2] = {child1->getComponent<MovieClipHolder>()->getMovieClip(), child2->getComponent<MovieClipHolder>()->getMovieClip()};
 		movieClipHolder->callMethod("swapChildren", 1, args);
 	}

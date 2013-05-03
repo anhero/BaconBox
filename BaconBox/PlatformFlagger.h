@@ -35,6 +35,9 @@
 	#define BB_POINTER_IMPL new FlashPointer()
 	#define BB_POINTER_INCLUDE "BaconBox/Input/Pointer/Flash/FlashPointer.h"
 
+	#define BB_KEYBOARD_IMPL new FlashKeyboard()
+	#define BB_KEYBOARD_INCLUDE "BaconBox/Input/Keyboard/Flash/FlashKeyboard.h"
+
 
 	#define BB_SOUND_ENGINE_IMPL new FlashSoundEngine()
 	#define BB_SOUND_ENGINE_INCLUDE "BaconBox/Audio/Flash/FlashSoundEngine.h"

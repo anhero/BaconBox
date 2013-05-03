@@ -5,7 +5,7 @@
 #include "BaconBox/Helper/MathHelper.h"
 #include "BaconBox/Components/Transform.h"
 #include "BaconBox/Components/HasName.h"
-
+#include "BaconBox/MovieClipEntity/MovieClipEntity.h"
 
 namespace BaconBox {
 	

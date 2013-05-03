@@ -11,7 +11,7 @@ namespace BaconBox {
 		template <typename UnaryPredicate>
 		static void forEachChild(DefaultEntityContainer *container, UnaryPredicate predicate) {
 			for (DefaultEntityContainer::ChildArray::iterator i = container->children.begin(); i != container->children.end(); ++i) {
-				for (std::deque<Entity*>::iterator j = i->second.begin(); j != i->second.end(); ++j) {
+				for (std::deque<MovieClipEntity*>::iterator j = i->second.begin(); j != i->second.end(); ++j) {
 					predicate(*j);
 				}
 			}
@@ -19,9 +19,9 @@ namespace BaconBox {
 		
 		template <typename UnaryPredicate>
 		static void forEachChildCurrentFrame(DefaultEntityContainer *container, UnaryPredicate predicate) {
-			std::deque<Entity*> * currentChildren =  container->getCurrentFrameChildren();
+			std::deque<MovieClipEntity*> * currentChildren =  container->getCurrentFrameChildren();
 			if(currentChildren){
-			    std::deque<Entity*>::iterator i;
+			    std::deque<MovieClipEntity*>::iterator i;
 			    for(i = currentChildren->begin(); i != currentChildren->end(); i++){
 				    predicate(*i);
 			    }

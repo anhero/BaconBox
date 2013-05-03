@@ -62,13 +62,27 @@ namespace BaconBox {
 	void BaseEngine::removeState(const std::string &name) {
 		std::map<std::string, State *>::iterator toDelete = this->states.find(name);
 		
-		if (this->currentState != toDelete->second) {
+		if (this->nextState != toDelete->second) {
 			if (toDelete->second) {
 				delete toDelete->second;
 			}
 			
 			this->states.erase(toDelete);
 		}
+		this->currentState = NULL;
+	}
+	
+	void BaseEngine::removeAllStates() {
+	    std::list<std::string> statesNames;
+		for(std::map<std::string, State *>::iterator i= this->states.begin();
+			i!= this->states.end(); i++){
+		    statesNames.push_back(i->first);
+		}
+	    
+		for(std::list<std::string>::iterator i= statesNames.begin();
+			i!= statesNames.end(); i++){
+		    removeState(*i);
+		}	
 	}
 	
 	State *BaseEngine::playState(const std::string &name) {
@@ -114,6 +128,26 @@ namespace BaconBox {
 		}
 	}
 	
+	void BaseEngine::switchToNextState(){
+	    if (this->nextState) {
+					// If the next state is the first state the engine is
+					// playing, the current state will be set to NULL, so we
+					// call the onLoseFocus only if the currentState is valid.
+					if (this->currentState) {
+						this->currentState->internalOnLoseFocus();
+					}
+					
+					// We set the next state as the current state.
+					this->currentState = this->nextState;
+					// We call the onGetFocus method.
+					this->currentState->internalOnGetFocus();
+					
+					this->nextState = NULL;
+				}
+				
+	}
+
+	
 	void BaseEngine::pulse() {
 		// We make sure the pointer to the current state is valid.
 		if (this->currentState || this->nextState) {
@@ -132,22 +166,8 @@ namespace BaconBox {
 				TimeHelper::getInstance().refreshTime();
 				
 				// We call the focus methods if needed.
-				if (this->nextState) {
-					// If the next state is the first state the engine is
-					// playing, the current state will be set to NULL, so we
-					// call the onLoseFocus only if the currentState is valid.
-					if (this->currentState) {
-						this->currentState->internalOnLoseFocus();
-					}
+				switchToNextState();
 					
-					// We set the next state as the current state.
-					this->currentState = this->nextState;
-					// We call the onGetFocus method.
-					this->currentState->internalOnGetFocus();
-					
-					this->nextState = NULL;
-				}
-				
 				// We update the current state.
 				this->currentState->internalUpdate();
 				
@@ -162,6 +182,9 @@ namespace BaconBox {
 			}
 			
 			if (!this->renderedSinceLastUpdate) {
+			    if(! this->currentState && this->nextState){
+				switchToNextState();
+			    }
 				this->currentState->internalRender();
 				GraphicDriver::getInstance().finalizeRender();
 				this->renderedSinceLastUpdate = true;

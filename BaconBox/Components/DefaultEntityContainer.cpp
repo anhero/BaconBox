@@ -53,7 +53,7 @@ namespace BaconBox {
 	//
 	DefaultEntityContainer::~DefaultEntityContainer() {
 	    for(ChildArray::iterator i = children.begin(); i != children.end(); i++){
-			for(std::deque<Entity*>::iterator j = i->second.begin(); j != i->second.end(); j++){
+			for(std::deque<MovieClipEntity*>::iterator j = i->second.begin(); j != i->second.end(); j++){
 				throw; //This is wrong, some entity will get deleted more than once.
 				delete (*j);
 			}
@@ -120,7 +120,7 @@ namespace BaconBox {
 	void DefaultEntityContainer::setNbFrame(int nbFrames){
 		ChildArray::iterator iterator = children.begin();
 		for(int i = 0; i < nbFrames; i++){
-			children.insert(iterator, std::make_pair(i, std::deque<Entity*>()));
+			children.insert(iterator, std::make_pair(i, std::deque<MovieClipEntity*>()));
 		}
 	}
 	
@@ -143,33 +143,33 @@ namespace BaconBox {
 	}
 	
 	
-	void DefaultEntityContainer::addChildToCurrentFrame(Entity *newChild){
+	void DefaultEntityContainer::addChildToCurrentFrame(MovieClipEntity *newChild){
 		addChildAt(newChild, static_cast<int>(frameIterator->second.size()), frameIterator);
 	}
 
 	
 	
-	void DefaultEntityContainer::addChild(Entity *newChild) {
+	void DefaultEntityContainer::addChild(MovieClipEntity *newChild) {
 		for(int i = 0; i < timeline->getNbFrames(); i++){
 			this->addChildAt(newChild, static_cast<int>(this->children[i].size()),  i);
 		}
 	}
 	
-	void DefaultEntityContainer::addChild(Entity *newChild, int frame) {
+	void DefaultEntityContainer::addChild(MovieClipEntity *newChild, int frame) {
 		this->addChildAt(newChild, static_cast<int>(this->children[frame].size()),  frame);
 	}
 	
-	void DefaultEntityContainer::addChildAt(Entity *newChild, int index) {
+	void DefaultEntityContainer::addChildAt(MovieClipEntity *newChild, int index) {
 	    if(this->timeline->getNbFrames() == 0)this->timeline->setNbFrames(1);
 		for(int i = 0; i < this->timeline->getNbFrames(); i++){
 		    addChildAt(newChild, index , i);
 		}
 	}
 	
-	void DefaultEntityContainer::addChildAt(Entity *newChild, int index, ChildArray::iterator frameIterator){
-		std::deque<Entity*> & frameChildren =  frameIterator->second;
+	void DefaultEntityContainer::addChildAt(MovieClipEntity *newChild, int index, ChildArray::iterator frameIterator){
+		std::deque<MovieClipEntity*> & frameChildren =  frameIterator->second;
 		DefaultEntityContainer * container =  reinterpret_cast<DefaultEntityContainer*>(newChild->getComponent(EntityContainer::ID));
-		container->parent = getEntity();
+		container->parent = reinterpret_cast<MovieClipEntity*>(getEntity());
 		if(index >= frameChildren.size()){
 			frameChildren.push_back(newChild);
 		}
@@ -178,7 +178,7 @@ namespace BaconBox {
 		}
 		else{
 		    int position = 0;
-		    std::deque<Entity*>::iterator i;
+		    std::deque<MovieClipEntity*>::iterator i;
 		    for(i = frameChildren.begin(); i != frameChildren.end(); i++){
 				if(index == position){
 					break;
@@ -190,12 +190,12 @@ namespace BaconBox {
 	}
 
 	
-	void DefaultEntityContainer::addChildAt(Entity *newChild, int index, int frame) {
+	void DefaultEntityContainer::addChildAt(MovieClipEntity *newChild, int index, int frame) {
 		
 		addChildAt(newChild, index, children.find(frame));
 	}
 	
-	bool DefaultEntityContainer::contains(Entity *child) const {
+	bool DefaultEntityContainer::contains(MovieClipEntity *child) const {
 		return this->findChild(child) != frameIterator->second.end();
 	}
 	
@@ -204,7 +204,7 @@ namespace BaconBox {
 	}
 	
 	const MovieClipEntity *DefaultEntityContainer::getChildAt(int index) const {
-		const Entity *result = NULL;
+		const MovieClipEntity *result = NULL;
 		int position = 0;
 		bool found = false;
 		std::deque<MovieClipEntity*>::iterator i;
@@ -224,8 +224,8 @@ namespace BaconBox {
 	}
 	
 	MovieClipEntity *DefaultEntityContainer::getChildByName(const std::string &name) {
-		Entity *result = NULL;
-		std::deque<Entity*>::iterator i = frameIterator->second.begin();
+		MovieClipEntity *result = NULL;
+		std::deque<MovieClipEntity*>::iterator i = frameIterator->second.begin();
 		
 		while (result == NULL && i != frameIterator->second.end()) {
 		    if(static_cast<MovieClipEntity*>(*i)->getName() == name) {
@@ -238,9 +238,9 @@ namespace BaconBox {
 		return result;
 	}
 	
-	const Entity *DefaultEntityContainer::getChildByName(const std::string &name) const {
-		Entity *result = NULL;
-		std::deque<Entity*>::const_iterator i = frameIterator->second.begin();
+	const MovieClipEntity *DefaultEntityContainer::getChildByName(const std::string &name) const {
+		MovieClipEntity *result = NULL;
+		std::deque<MovieClipEntity*>::const_iterator i = frameIterator->second.begin();
 		
 		while (result == NULL && i != frameIterator->second.end()) {
 		    if(static_cast<MovieClipEntity*>(*i)->getName() == name) {
@@ -253,7 +253,7 @@ namespace BaconBox {
 		return result;
 	}
 	
-	int DefaultEntityContainer::getChildIndex(Entity *child) const {
+	int DefaultEntityContainer::getChildIndex(MovieClipEntity *child) const {
 		int result = static_cast<int>(this->findChild(child) - frameIterator->second.begin());
 		
 		if (result == this->children.size()) {
@@ -263,24 +263,24 @@ namespace BaconBox {
 		return result;
 	}
 	
-	std::vector<Entity *> DefaultEntityContainer::getObjectsUnderPoint(const Vector2 &point) {
-		std::vector<Entity *> result;
+	std::vector<MovieClipEntity *> DefaultEntityContainer::getObjectsUnderPoint(const Vector2 &point) {
+		std::vector<MovieClipEntity *> result;
 		
 		// TODO: collision detection.
 		
 		return result;
 	}
 	
-	std::vector<const Entity *> DefaultEntityContainer::getObjectsUnderPoint(const Vector2 &point) const {
-		std::vector<const Entity *> result;
+	std::vector<const MovieClipEntity *> DefaultEntityContainer::getObjectsUnderPoint(const Vector2 &point) const {
+		std::vector<const MovieClipEntity *> result;
 		
 		// TODO: collision detection.
 		
 		return result;
 	}
 	
-	Entity *DefaultEntityContainer::removeChild(Entity *child) {
-		std::deque<Entity*>::iterator found = this->findChild(child);
+	MovieClipEntity *DefaultEntityContainer::removeChild(MovieClipEntity *child) {
+		std::deque<MovieClipEntity*>::iterator found = this->findChild(child);
 		
 		if (found != frameIterator->second.end()) {
 			frameIterator->second.erase(found);
@@ -295,8 +295,8 @@ namespace BaconBox {
 	    children.clear();
 	}
 	
-	Entity *DefaultEntityContainer::removeChildAt(int index) {
-		Entity * entity = getChildAt(index);
+	MovieClipEntity *DefaultEntityContainer::removeChildAt(int index) {
+		MovieClipEntity * entity = getChildAt(index);
 		removeChild(entity);
 		return entity;
 	}
@@ -307,12 +307,12 @@ namespace BaconBox {
 	    }
 	}
 	
-	void DefaultEntityContainer::setChildIndex(Entity *child, int index) {
+	void DefaultEntityContainer::setChildIndex(MovieClipEntity *child, int index) {
 		if (index >= 0 && index < frameIterator->second.size()) {
-			std::deque<Entity*>::iterator found = this->findChild(child);
+			std::deque<MovieClipEntity*>::iterator found = this->findChild(child);
 			
 			if (found != frameIterator->second.end()) {
-				Entity* tmp = *found;
+				MovieClipEntity* tmp = *found;
 				
 				frameIterator->second.erase(found);
 				
@@ -321,14 +321,14 @@ namespace BaconBox {
 		}
 	}
 	
-	void DefaultEntityContainer::swapChildren(Entity *child1, Entity *child2) {
-		std::deque<Entity*>::iterator found1 = this->findChild(child1);
+	void DefaultEntityContainer::swapChildren(MovieClipEntity *child1, MovieClipEntity *child2) {
+		std::deque<MovieClipEntity*>::iterator found1 = this->findChild(child1);
 		
 		if (found1 != frameIterator->second.end()) {
-			std::deque<Entity*>::iterator found2 = this->findChild(child2);
+			std::deque<MovieClipEntity*>::iterator found2 = this->findChild(child2);
 			
 			if (found2 != frameIterator->second.end()) {
-				Entity* tmp = *found1;
+				MovieClipEntity* tmp = *found1;
 				*found1 = *found2;
 				*found2 = tmp;
 			}
@@ -337,8 +337,8 @@ namespace BaconBox {
 	
 	void DefaultEntityContainer::swapChildrenAt(int index1, int index2) {
 		if (index1 >= 0 && index1 < this->children.size() && index2 >= 0 && index2 < this->children.size()) {
-		    Entity * entity1 = getChildAt(index1);
-		    Entity * entity2 = getChildAt(index2);
+		    MovieClipEntity * entity1 = getChildAt(index1);
+		    MovieClipEntity * entity2 = getChildAt(index2);
 		    swapChildren(entity1, entity2);
 		}
 	}
@@ -351,22 +351,22 @@ namespace BaconBox {
 		return this->timeline ? this->timeline->getCurrentFrame() : 0;
 	}
 	
-	Entity * DefaultEntityContainer::getParent() const{
+	MovieClipEntity * DefaultEntityContainer::getParent() const{
 	    return parent;
 	}
-	std::deque<Entity*> * DefaultEntityContainer::getCurrentFrameChildren() const {
+	std::deque<MovieClipEntity*> * DefaultEntityContainer::getCurrentFrameChildren() const {
 	    return (frameIterator != children.end() ? & frameIterator->second : NULL);
 	}
 	
-	std::deque<Entity*> * DefaultEntityContainer::getCurrentFrameChildren(){
+	std::deque<MovieClipEntity*> * DefaultEntityContainer::getCurrentFrameChildren(){
 	    return (frameIterator != children.end() ? & frameIterator->second : NULL);
 	}
 	
 	void DefaultEntityContainer::setFrame(int frame){
 	    frameIterator = children.find(frame);
-		std::deque<Entity*> * currentChildren =  getCurrentFrameChildren();
+		std::deque<MovieClipEntity*> * currentChildren =  getCurrentFrameChildren();
 		if(currentChildren){
-			for(std::deque<Entity*>::iterator i = currentChildren->begin(); i != currentChildren->end(); i++){
+			for(std::deque<MovieClipEntity*>::iterator i = currentChildren->begin(); i != currentChildren->end(); i++){
 				(*i)->getComponent<DefaultMatrix>()->setFrameMatrix(frame);
 			}
 		}
@@ -376,8 +376,8 @@ namespace BaconBox {
 		}
 	}
 	
-	std::deque<Entity*>::iterator DefaultEntityContainer::findChild(Entity *child) {
-		std::deque<Entity*>::iterator i;
+	std::deque<MovieClipEntity*>::iterator DefaultEntityContainer::findChild(MovieClipEntity *child) {
+		std::deque<MovieClipEntity*>::iterator i;
 		for(i = frameIterator->second.begin(); i != frameIterator->second.end(); i++){
 		    if(*i == child){
 				return i;
@@ -386,8 +386,8 @@ namespace BaconBox {
 		return frameIterator->second.end();
 	}
 	
-	std::deque<Entity*>::const_iterator DefaultEntityContainer::findChild(const Entity *child) const {
-		std::deque<Entity*>::const_iterator i;
+	std::deque<MovieClipEntity*>::const_iterator DefaultEntityContainer::findChild(const MovieClipEntity *child) const {
+		std::deque<MovieClipEntity*>::const_iterator i;
 		for(i = frameIterator->second.begin(); i != frameIterator->second.end(); i++){
 		    if(*i == child){
 				return i;
