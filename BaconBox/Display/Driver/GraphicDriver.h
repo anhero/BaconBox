@@ -133,6 +133,11 @@ namespace BaconBox {
          *  Remove a texture from graphic memory
          */
         virtual void deleteTexture(TextureInformation * textureInfo) = 0;
+		
+		/**
+		 * Finalizes all pending batches if there are any.
+		 */
+		virtual void finalizeRender() = 0;
 	protected:
 	    
 		 bool initialized;

@@ -14,10 +14,10 @@
 #include "BaconBox/Helper/ResourcePathHandler.h"
 #include "BaconBox/Display/Color.h"
 
-#ifndef BB_ANDROID
 #include "BaconBox/Display/Text/Font.h"
 #include "Display/Text/BMFont.h"
-#endif
+#include "BaconBox/Helper/Serialization/XmlSerializer.h"
+#include "Symbol.h"
 
 #if defined(BB_FLASH_PLATEFORM)
 #include "BaconBox/Audio/Flash/FlashSoundEngine.h"
@@ -38,10 +38,10 @@ namespace BaconBox {
 	std::map<std::string, SoundInfo *> ResourceManager::sounds = std::map<std::string, SoundInfo *>();
 	std::map<std::string, MusicInfo *> ResourceManager::musics = std::map<std::string, MusicInfo *>();
 	std::map<std::string, Font *> ResourceManager::fonts = std::map<std::string, Font *>();
-	
-	
-	SubTextureInfo *ResourceManager::addSubTexture(const std::string &key, SubTextureInfo *subTextureInfo, bool overwrite){
-	    SubTextureInfo *subTexInfo = NULL;
+	std::map<std::string, Symbol *> ResourceManager::symbols = std::map<std::string, Symbol *>();
+
+	SubTextureInfo *ResourceManager::addSubTexture(const std::string &key, SubTextureInfo *subTextureInfo, bool overwrite) {
+		SubTextureInfo *subTexInfo = NULL;
 
 		// We check if there is already a texture with this name.
 		if (subTextures.find(key) != subTextures.end()) {
@@ -56,7 +56,7 @@ namespace BaconBox {
 
 				// We load the new texture.
 				subTextures[key] = subTextureInfo;
-				Console::println("Overwrote the existing texture named " + key + ".");
+				Console::println("Overwrote the existing subtexture named " + key + ".");
 
 			} else {
 				Console::println("Can't load texture with key: " + key +
@@ -65,6 +65,7 @@ namespace BaconBox {
 			}
 
 		} else {
+			subTexInfo = subTextureInfo;
 			// We load the new texture and add it to the map.
 			subTextures.insert(std::pair<std::string, SubTextureInfo *>(key, subTextureInfo));
 		}
@@ -72,24 +73,59 @@ namespace BaconBox {
 		return subTexInfo;
 	}
 
+	TextureInformation *ResourceManager::addTextureWithPath(const std::string &key, PixMap *aPixmap, const std::string &path, bool overwrite) {
+		TextureInformation *texInfo = addTexture(key, aPixmap, overwrite);
+		texInfo->path = path;
+		return texInfo;
+	}
+
+
 	TextureInformation *ResourceManager::addTexture(const std::string &key, PixMap *aPixmap,
 	                                                bool overwrite) {
 		TextureInformation *texInfo = NULL;
+		if (overwrite || !isExistingTexture(key)) {
+			texInfo = addTextureInfo(key, GraphicDriver::getInstance().loadTexture(aPixmap), overwrite);
+
+		} else {
+			Console::println("Can't load texture with key: " + key +
+			                 " texture is already loaded");
+		}
+
+		return texInfo;
+	}
+	
+	bool ResourceManager::isLoadedTexture(const std::string &key) {
+#ifdef BB_OPENGL
+		std::map<std::string, TextureInformation *>::iterator i = textures.find(key);
+		return i != textures.end() && i->second != NULL && i->second->textureId > 0;
+#else
+		return false;
+#endif
+	}
+	
+	bool ResourceManager::isExistingTexture(const std::string &key) {
+		std::map<std::string, TextureInformation *>::iterator i = textures.find(key);
+		return i != textures.end() && i->second != NULL;
+	}
+
+
+	TextureInformation *ResourceManager::addTextureInfo(const std::string &key, TextureInformation *textureInfo,
+	                                                    bool overwrite) {
+		TextureInformation *texInfo = NULL;
 
 		// We check if there is already a texture with this name.
-		if (textures.find(key) != textures.end()) {
+		if (isExistingTexture(key)) {
+			texInfo = textures[key];
 			// We check if we overwrite the existing texture or not.
-			if (overwrite) {
+			if (overwrite || textures[key] == NULL) {
 				// We free the allocated memory.
-				texInfo = textures[key];
 
 				if (texInfo) {
 					delete texInfo;
 				}
 
-				// We load the new texture.
-				texInfo = textures[key] = GraphicDriver::getInstance().loadTexture(aPixmap);
-				ResourceManager::addSubTexture(key, new SubTextureInfo(texInfo, Vector2(),Vector2(texInfo->imageWidth, texInfo->imageHeight)));
+				texInfo = textureInfo;
+				ResourceManager::addSubTexture(key, new SubTextureInfo(texInfo, Vector2(), Vector2(texInfo->imageWidth, texInfo->imageHeight)), overwrite);
 				Console::println("Overwrote the existing texture named " + key + ".");
 
 			} else {
@@ -100,15 +136,32 @@ namespace BaconBox {
 
 		} else {
 			// We load the new texture and add it to the map.
-			texInfo = GraphicDriver::getInstance().loadTexture(aPixmap);
-			textures.insert(std::pair<std::string, TextureInformation *>(key, texInfo));
-			ResourceManager::addSubTexture(key, new SubTextureInfo(texInfo, Vector2(),Vector2(texInfo->imageWidth, texInfo->imageHeight)));
+			texInfo = textureInfo;
+			textures[key] = texInfo;
+			ResourceManager::addSubTexture(key, new SubTextureInfo(texInfo, Vector2(), Vector2(texInfo->imageWidth, texInfo->imageHeight)), overwrite);
 		}
-		
-		
+
+
 		return texInfo;
 	}
 
+
+	TextureInformation *ResourceManager::loadTexture(const std::string &key) {
+		TextureInformation *texture = textures[key];
+		textures[key] = NULL;
+		texture = loadTexture(key, texture->path, texture->colorFormat, true);
+		return texture;
+	}
+
+	void ResourceManager::registerTexture(const std::string &key,
+	                                      const std::string &filePath,
+	                                      ColorFormat colorFormat,
+	                                      bool overwrite) {
+		TextureInformation *textureInfo = new TextureInformation();
+		textureInfo->path = filePath;
+		textureInfo->colorFormat = colorFormat;
+		addTextureInfo(key, textureInfo, overwrite);
+	}
 
 	TextureInformation *ResourceManager::loadTexture(const std::string &key,
 	                                                 const std::string &filePath,
@@ -117,7 +170,7 @@ namespace BaconBox {
 		PixMap *pixMap = loadPixMap(filePath, colorFormat);
 
 		if (pixMap) {
-			TextureInformation *result = addTexture(key, pixMap, overwrite);
+			TextureInformation *result = addTextureWithPath(key, pixMap, filePath, overwrite);
 			delete pixMap;
 			return result;
 
@@ -133,7 +186,7 @@ namespace BaconBox {
 		PixMap *pixMap = loadPixMap(filePath, transparentColor);
 
 		if (pixMap) {
-			TextureInformation *result = addTexture(key, pixMap, overwrite);
+			TextureInformation *result = addTextureWithPath(key, pixMap, filePath, overwrite);
 			delete pixMap;
 			return result;
 
@@ -160,9 +213,12 @@ namespace BaconBox {
 		                               transparentColor, overwrite);
 	}
 
-	
-	SubTextureInfo *ResourceManager::getSubTexture(const std::string &key){
-	    std::map<std::string, SubTextureInfo *>::iterator itr = subTextures.find(key);
+	Symbol *ResourceManager::getSymbol(const std::string &key) {
+		std::map<std::string, Symbol *>::iterator itr = symbols.find(key);
+		return (itr != symbols.end()) ? (itr->second) : (NULL);
+	}
+	SubTextureInfo *ResourceManager::getSubTexture(const std::string &key) {
+		std::map<std::string, SubTextureInfo *>::iterator itr = subTextures.find(key);
 		return (itr != subTextures.end()) ? (itr->second) : (NULL);
 	}
 
@@ -222,13 +278,13 @@ namespace BaconBox {
 
 		return newSnd;
 	}
-	
-	
+
+
 	MusicInfo *ResourceManager::loadMusicFromBundle(const std::string &key,
-		                            const std::string &bundleKey,
-		                            bool overwrite){
+	                                                const std::string &bundleKey,
+	                                                bool overwrite) {
 #if defined(BB_FLASH_PLATEFORM)
-MusicInfo *newBgm = NULL;
+		MusicInfo *newBgm = NULL;
 
 		if (musics.find(key) != musics.end()) {
 			if (overwrite) {
@@ -240,7 +296,7 @@ MusicInfo *newBgm = NULL;
 				}
 
 				// We load the music and we overwrite the existing music.
-				newBgm = musics[key] = reinterpret_cast<FlashMusicEngine*>(&AudioEngine::getMusicEngine())->loadMusicFromBundle(bundleKey);
+				newBgm = musics[key] = reinterpret_cast<FlashMusicEngine *>(&AudioEngine::getMusicEngine())->loadMusicFromBundle(bundleKey);
 				Console::println("Overwrote the existing music named " + key +
 				                 ".");
 
@@ -253,7 +309,7 @@ MusicInfo *newBgm = NULL;
 
 		} else {
 			// We load the music.
-			newBgm = reinterpret_cast<FlashMusicEngine*>(&AudioEngine::getMusicEngine())->loadMusicFromBundle(bundleKey);
+			newBgm = reinterpret_cast<FlashMusicEngine *>(&AudioEngine::getMusicEngine())->loadMusicFromBundle(bundleKey);
 
 			// If it was loaded correctly.
 			if (newBgm) {
@@ -264,15 +320,17 @@ MusicInfo *newBgm = NULL;
 		}
 
 		return newBgm;
-#endif	    
+#else
+		return NULL;
+#endif
 	}
-	
-	
-	
-SoundInfo * ResourceManager::loadSoundFromBundle(const std::string &key,
-		                            const std::string &bundleKey,
-		                            bool overwrite){
-	    
+
+
+
+	SoundInfo *ResourceManager::loadSoundFromBundle(const std::string &key,
+	                                                const std::string &bundleKey,
+	                                                bool overwrite) {
+
 #if defined(BB_FLASH_PLATEFORM)
 		SoundInfo *newSnd = NULL;
 
@@ -287,7 +345,7 @@ SoundInfo * ResourceManager::loadSoundFromBundle(const std::string &key,
 
 				// We load the sound effect and we overwrite the existing sound
 				// effect.
-				newSnd = sounds[key] = reinterpret_cast<FlashSoundEngine*>(&FlashSoundEngine::getSoundEngine())->loadSoundFromBundle(bundleKey);
+				newSnd = sounds[key] = reinterpret_cast<FlashSoundEngine *>(&FlashSoundEngine::getSoundEngine())->loadSoundFromBundle(bundleKey);
 				Console::println("Overwrote the existing sound effect named " + key +
 				                 ".");
 
@@ -300,7 +358,7 @@ SoundInfo * ResourceManager::loadSoundFromBundle(const std::string &key,
 
 		} else {
 			// We load the sound effect.
-			newSnd = reinterpret_cast<FlashSoundEngine*>(&FlashSoundEngine::getSoundEngine())->loadSoundFromBundle(bundleKey);
+			newSnd = reinterpret_cast<FlashSoundEngine *>(&FlashSoundEngine::getSoundEngine())->loadSoundFromBundle(bundleKey);
 
 			// If it was loaded correctly.
 			if (newSnd) {
@@ -313,7 +371,7 @@ SoundInfo * ResourceManager::loadSoundFromBundle(const std::string &key,
 		return newSnd;
 #else
 		return NULL;
-#endif	    
+#endif
 	}
 
 	SoundInfo *ResourceManager::loadSoundRelativePath(const std::string &key,
@@ -449,11 +507,16 @@ SoundInfo * ResourceManager::loadSoundFromBundle(const std::string &key,
 
 		return newBgm;
 	}
-    
-    void ResourceManager::removeTexture(const std::string &key){
-        GraphicDriver::getInstance().getInstance().deleteTexture(textures[key]);
-        textures.erase(key);
-    }
+
+	void ResourceManager::removeTexture(const std::string &key) {
+		unloadTexture(key);
+		textures.erase(key);
+	}
+
+	void ResourceManager::unloadTexture(const std::string &key) {
+		TextureInformation *textInfo = textures[key];
+		GraphicDriver::getInstance().getInstance().deleteTexture(textInfo);
+	}
 
 	void ResourceManager::removeSound(const std::string &key) {
 		// We find the sound effect.
@@ -498,33 +561,298 @@ SoundInfo * ResourceManager::loadSoundFromBundle(const std::string &key,
 			Console::println("The music named " + key + " could not be removed because it doesn't exist.");
 		}
 	}
-	
-	Font *ResourceManager::initFontFromPath(const std::string &key,
-		                      const std::string &path){
-	    
-	    if(path.substr(path.find_last_of(".") + 1) == "fnt") {
-		return initFontFromPathAndFormat(key, path, FontFormat::BMFONT);
-	    } 
-	    Console__error("Error initializing font " << key);
-	    return NULL;
+
+	void ResourceManager::loadFlashExporterXML(const std::string &xmlPath, const std::string &secondXMLPath) {
+		XmlSerializer serializer;
+
+		if (!secondXMLPath.empty()) {
+			std::string texturePath;
+
+			Value value;
+			Value animation;
+			Value textures;
+			serializer.readFromFile(xmlPath, value);
+			if (!value["Symbols"].isNull()) {
+				animation = value;
+				serializer.readFromFile(secondXMLPath, textures);
+				texturePath = ResourcePathHandler::getPathFromFilename(secondXMLPath);
+
+			} else {
+
+				textures = value;
+				texturePath = ResourcePathHandler::getPathFromFilename(xmlPath);
+				serializer.readFromFile(secondXMLPath, animation);
+			}
+
+			loadFlashExporterTextures(textures, texturePath);
+			loadFlashExporterSymbols(animation);
+
+		} else {
+			std::string dirPath = ResourcePathHandler::getPathFromFilename(xmlPath);
+			Value value;
+			serializer.readFromFile(xmlPath, value);
+			loadFlashExporterTextures(value["Texture"], dirPath);
+			loadFlashExporterSymbols(value["Symbols"]);
+		}
 	}
-	
-	Font *ResourceManager::initFontFromPathAndFormat(const std::string &key,
-		                      const std::string &path, const FontFormat & format){
-#if ! defined (BB_FLASH_PLATEFORM)
-	    if(format == FontFormat::BMFONT){
-		BMFont* font = new BMFont(key);
-		font->format = format;
-		font->loadFontFile(path);
-		return font;
+
+
+	void ResourceManager::loadFlashExporterSymbols(Value &node) {
+
+		//if there is more than one texture for the font.
+		const Array &symbolsArray = node["Symbol"].getArray();
 		
-	    }
-#endif
-	    Console__error("No font fit the given format");
-	    return NULL;
+		Object::const_iterator found;
+
+		for (Array::const_iterator i = symbolsArray.begin(); i != symbolsArray.end(); i++) {
+			Symbol *symbol = new Symbol();
+			const Object &tmpObject = i->getObject();
+			
+			found = tmpObject.find("className");
+			
+			if (found != tmpObject.end()) {
+				symbol->key = found->second.getString();
+			}
+			
+			found = tmpObject.find("textfield");
+			
+			if (found != tmpObject.end()) {
+				symbol->isTextField = found->second.getBool();
+			}
+			
+			if(symbol->isTextField) {
+				
+				found = tmpObject.find("text");
+				
+				if (found != tmpObject.end()) {
+					symbol->text = found->second.getString();
+				}
+				
+				found = tmpObject.find("font");
+				
+				if (found != tmpObject.end()) {
+					symbol->font = found->second.getString();
+				}
+				
+				symbol->frameCount  = 1;
+				
+				std::string alignment;
+				
+				found = tmpObject.find("alignment");
+				
+				if (found != tmpObject.end()) {
+					alignment = found->second.getString();
+				}
+				
+				if(alignment == "left"){
+					symbol->alignment = TextAlignment::LEFT;
+				}
+				else if(alignment == "center"){
+					symbol->alignment = TextAlignment::CENTER;
+				}
+				else if(alignment == "right"){
+					symbol->alignment = TextAlignment::RIGHT;
+				}
+				
+				found = tmpObject.find("width");
+				
+				if (found != tmpObject.end()) {
+					symbol->textFieldWidth = found->second.getInt();
+				}
+				
+				found = tmpObject.find("height");
+				
+				if (found != tmpObject.end()) {
+					symbol->textFieldHeight = found->second.getInt();
+				}
+			} else {
+				found = tmpObject.find("frameCount");
+				
+				if (found != tmpObject.end()) {
+					symbol->frameCount = found->second.getInt();
+				}
+			}
+			
+			symbols[symbol->key] = symbol;
+		}
+
+		for (Array::const_iterator i = symbolsArray.begin(); i != symbolsArray.end(); i++) {
+			const Object &tmpObject = i->getObject();
+			
+			found = tmpObject.find("className");
+			
+			if (found != tmpObject.end()) {
+				Symbol *parent = symbols[found->second.getString()];
+				
+				found = tmpObject.find("Frame");
+				
+				if (found !=tmpObject.end()) {
+					std::map<std::string, Symbol::Part*> children;
+					
+					const Array &frames = found->second.getArray();
+					int frameIndex = 0;
+					
+					for (Array::const_iterator j = frames.begin(); j != frames.end(); j++) {
+						int index = 0;
+						
+						const Object &currentObject = j->getObject();
+						
+						found = currentObject.find("Child");
+						
+						if (found != currentObject.end()) {
+							
+							const Array &childrenPerFrame = found->second.getArray();
+							
+							for (Array::const_iterator k = childrenPerFrame.begin(); k != childrenPerFrame.end(); k++) {
+								if(!k->isNull()){
+									
+									const Object &frameChildObject = k->getObject();
+									
+									std::string name;
+									
+									found = frameChildObject.find("name");
+									
+									if (found != frameChildObject.end()) {
+										name = found->second.getString();
+									}
+									
+									std::string className;
+									
+									found = frameChildObject.find("className");
+									
+									if (found != frameChildObject.end()) {
+										className = found->second.getString();
+									}
+									Symbol::Part *part;
+									std::map<std::string, Symbol::Part*>::iterator l = children.find(name);
+									if (l == children.end()) {
+										part = children[name] = new Symbol::Part();
+										part->name = name;
+										part->symbol = symbols[className];
+										if(! part->symbol){
+											Console__error("Trying to add a NULL symbol part with key " << className << " to " << parent->key);
+										}
+									}
+									else{
+										part = l->second;
+									}
+									
+									part->indexByFrame.insert(std::pair<int, int>(frameIndex, index));
+									
+									Matrix matrix;
+									
+									found = frameChildObject.find("a");
+									if (found != frameChildObject.end()) {
+										matrix.a = found->second.getDouble();
+									}
+									
+									found = frameChildObject.find("b");
+									if (found != frameChildObject.end()) {
+										matrix.b = found->second.getDouble();
+									}
+									
+									found = frameChildObject.find("c");
+									if (found != frameChildObject.end()) {
+										matrix.c = found->second.getDouble();
+									}
+									
+									found = frameChildObject.find("d");
+									if (found != frameChildObject.end()) {
+										matrix.d = found->second.getDouble();
+									}
+									
+									found = frameChildObject.find("tx");
+									if (found != frameChildObject.end()) {
+										matrix.tx = found->second.getDouble();
+									}
+									
+									found = frameChildObject.find("ty");
+									if (found != frameChildObject.end()) {
+										matrix.ty = found->second.getDouble();
+									}
+									
+									part->matrices.insert(std::pair<int, Matrix>(frameIndex, matrix));
+									
+									index++;
+								}
+							}
+							frameIndex++;
+						}
+					}
+					
+					for(std::map<std::string, Symbol::Part*>::iterator j = children.begin(); j != children.end(); j++){
+						parent->parts.push_back(*(j->second));
+					}
+				}
+			}
+		}
 	}
-	    
+
+	void ResourceManager::loadFlashExporterTextures(Value &node, const std::string &dirPath) {
+		std::string textureName = node["name"].getString();
+		registerTexture(textureName, dirPath + "/" + node["path"].getString());
+
+		Array subTextures = node["SubTexture"].getArray();
+
+		for (Array::iterator i = subTextures.begin(); i != subTextures.end(); i++) {
+			std::string name = (*i)["name"].getString();
+			Symbol *symbol = new Symbol();
+			symbol->isTexture = true;
+			symbol->key = name;
+			symbol->textureKey = textureName;
+			Vector2 registrationPoint;
+			symbol->subTex = addSubTexture(name, new SubTextureInfo());
 	
+			symbol->subTex->position = Vector2((*i)["x"].getDouble(), (*i)["y"].getDouble());
+			symbol->subTex->size = Vector2((*i)["width"].getDouble(), (*i)["height"].getDouble());
+			symbol->subTex->textureInfo = NULL;
+			
+			if ((*i)["registrationPointX"].isNumeric()) {
+				registrationPoint.x = (*i)["registrationPointX"].getFloat();
+			}
+
+			if ((*i)["registrationPointY"].isNumeric()) {
+				registrationPoint.y = (*i)["registrationPointY"].getFloat();
+			}
+
+			symbol->registrationPoint = registrationPoint;
+			symbols[name] = symbol;
+		}
+
+	}
+
+
+
+
+	Font *ResourceManager::initFontFromPath(const std::string &key,
+	                                        const std::string &path) {
+
+		if (path.substr(path.find_last_of(".") + 1) == "fnt") {
+			return initFontFromPathAndFormat(key, path, FontFormat::BMFONT);
+		}
+
+		Console__error("Error initializing font " << key);
+		return NULL;
+	}
+
+	Font *ResourceManager::initFontFromPathAndFormat(const std::string &key,
+	                                                 const std::string &path, const FontFormat &format) {
+#if ! defined (BB_FLASH_PLATEFORM)
+
+		if (format == FontFormat::BMFONT) {
+			BMFont *font = new BMFont(key);
+			font->format = format;
+			font->loadFontFile(path);
+			return font;
+
+		}
+
+#endif
+		Console__error("No font fit the given format");
+		return NULL;
+	}
+
+
 	Font *ResourceManager::loadFont(const std::string &key, const std::string &path, bool overwrite) {
 		Font *aFont = NULL;
 
@@ -636,9 +964,9 @@ SoundInfo * ResourceManager::loadSoundFromBundle(const std::string &key,
 
 		return result;
 	}
-	
+
 	void ResourceManager::savePixMap(const BaconBox::PixMap &pixMap,
-									 const std::string &filePath) {
+	                                 const std::string &filePath) {
 		savePixMapToPNG(pixMap, filePath);
 	}
 
@@ -736,74 +1064,80 @@ SoundInfo * ResourceManager::loadSoundFromBundle(const std::string &key,
 
 	void ResourceManager::savePixMapToPNG(const PixMap &pixMap, const std::string &filePath) {
 		FILE *fp = fopen(filePath.c_str(), "wb");
-		
+
 		if (fp) {
 			png_structp pngPointer = png_create_write_struct(PNG_LIBPNG_VER_STRING,
-															 NULL, NULL, NULL);
-			
+			                                                 NULL, NULL, NULL);
+
 			if (pngPointer) {
 				png_infop infoPointer = png_create_info_struct(pngPointer);
-				
+
 				if (infoPointer) {
-					
+
 					if (!setjmp(png_jmpbuf(pngPointer))) {
 						png_init_io(pngPointer, fp);
-						
+
 						if (!setjmp(png_jmpbuf(pngPointer))) {
 							png_set_IHDR(pngPointer,
-										 infoPointer,
-										 pixMap.getWidth(),
-										 pixMap.getHeight(),
-										 8,
-										 ((pixMap.getColorFormat() == ColorFormat::RGBA) ? (PNG_COLOR_TYPE_RGBA) : (PNG_COLOR_TYPE_GRAY)),
-										 PNG_INTERLACE_NONE,
-										 PNG_COMPRESSION_TYPE_DEFAULT,
-										 PNG_FILTER_TYPE_DEFAULT);
-							
+							             infoPointer,
+							             pixMap.getWidth(),
+							             pixMap.getHeight(),
+							             8,
+							             ((pixMap.getColorFormat() == ColorFormat::RGBA) ? (PNG_COLOR_TYPE_RGBA) : (PNG_COLOR_TYPE_GRAY)),
+							             PNG_INTERLACE_NONE,
+							             PNG_COMPRESSION_TYPE_DEFAULT,
+							             PNG_FILTER_TYPE_DEFAULT);
+
 							png_write_info(pngPointer, infoPointer);
-							
+
 							if (!setjmp(png_jmpbuf(pngPointer))) {
 								png_bytepp rows = new png_bytep[pixMap.getHeight()];
 								png_bytep tmpBuffer = const_cast<png_bytep>(pixMap.getBuffer());
 								unsigned int nbChannels = (pixMap.getColorFormat() == ColorFormat::RGBA) ? (4) : (1);
-								
+
 								for (unsigned int i = 0; i < pixMap.getHeight(); ++i) {
 									rows[i] = tmpBuffer + (i * nbChannels * pixMap.getWidth());
 								}
-								
+
 								png_write_image(pngPointer, rows);
 								delete [] rows;
 								rows = NULL;
-								
+
 								if (!setjmp(png_jmpbuf(pngPointer))) {
 									png_write_end(pngPointer, NULL);
+
 								} else {
 									Console::println("Error during end of write to PNG file.");
 									Console::printTrace();
 								}
+
 							} else {
 								Console::println("Error while writing bytes to PNG file.");
 								Console::printTrace();
 							}
-							
+
 						} else {
 							Console::println("Error while writing PNG header.");
 							Console::printTrace();
 						}
+
 					} else {
 						Console::println("Error during init_io.");
 						Console::printTrace();
 					}
-					
+
 				} else {
 					Console::println("png_create_info_struct failed.");
 					Console::printTrace();
 				}
+
 			} else {
 				Console::println("png_create_write_struct failed.");
 				Console::printTrace();
 			}
+
 			fclose(fp);
+
 		} else {
 			Console::print("Could not write the PixMap to the PNG file ");
 			Console::print(filePath);

@@ -1,6 +1,6 @@
 #include "BaconBox/PlatformFlagger.h"
 
-#ifdef RB_IPHONE_PLATFORM
+#ifdef BB_IPHONE_PLATFORM
 
 #include "BaconBox/Helper/ios/IOSTimeHelper.h"
 

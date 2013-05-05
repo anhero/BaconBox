@@ -137,6 +137,7 @@ namespace BaconBox {
 
 	VertexArray::Iterator OpenGLStaticBatchManager::insert(size_t identifier, VertexArray::Iterator position, VertexArray::ConstReference value) {
 		// TODO
+		return VertexArray::Iterator();
 	}
 
 	void OpenGLStaticBatchManager::insert(size_t identifier, VertexArray::Iterator position, VertexArray::SizeType count, VertexArray::ConstReference value) {
@@ -145,10 +146,12 @@ namespace BaconBox {
 
 	VertexArray::Iterator OpenGLStaticBatchManager::erase(size_t identifier, VertexArray::Iterator position) {
 		// TODO
+		return VertexArray::Iterator();
 	}
 
 	VertexArray::Iterator OpenGLStaticBatchManager::erase(size_t identifier, VertexArray::Iterator first, VertexArray::Iterator last) {
 		// TODO
+		return VertexArray::Iterator();
 	}
 
 	void OpenGLStaticBatchManager::pushBack(size_t identifier, VertexArray::ConstReference newVertex) {

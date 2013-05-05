@@ -21,16 +21,18 @@ namespace BaconBox {
 	                                                const TextureInformation *textureInformation,
 	                                                const TextureCoordinates &textureCoordinates,
 	                                                const Color &color) {
-		if (color.getAlpha() > 0u) {
-			glColor4ub(color.getRed(), color.getGreen(), color.getBlue(),
-			           color.getAlpha());
-
-			drawShapeWithTexture(vertices, textureInformation,
-			                     textureCoordinates);
-
-			glColor4ub(Color::WHITE.getRed(), Color::WHITE.getGreen(),
-			           Color::WHITE.getBlue(), Color::WHITE.getAlpha());
+		if (textureInformation != this->lastTexture) {
+			if (this->batch.isSingle()) {
+				this->internalDrawShapeWithTextureAndColor(this->batch.getVertices(), this->lastTexture, this->batch.getTextureCoordinates(), this->batch.getColor());
+			} else if (this->lastTexture) {
+				this->batch.render(this, this->lastTexture);
+			}
+			
+			this->batch.prepareRender();
+			this->lastTexture = textureInformation;
 		}
+		
+		this->batch.addItem(vertices, color, textureCoordinates);
 	}
 
 	void OpenGLDriver::drawShapeWithTexture(const VertexArray &vertices,
@@ -54,7 +56,7 @@ namespace BaconBox {
 			glTexCoordPointer(2, GL_FLOAT, 0, GET_TEX_PTR(textureCoordinates));
 			glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 
-			glDrawArrays(GL_TRIANGLE_STRIP, 0, vertices.getNbVertices());
+			glDrawArrays(GL_TRIANGLE_STRIP, 0, static_cast<GLsizei>(vertices.getNbVertices()));
 
 			glDisableClientState(GL_VERTEX_ARRAY);
 			glDisableClientState(GL_TEXTURE_COORD_ARRAY);
@@ -80,7 +82,7 @@ namespace BaconBox {
 #endif
 			glEnableClientState(GL_VERTEX_ARRAY);
 
-			glDrawArrays(GL_TRIANGLE_STRIP, 0, vertices.getNbVertices());
+			glDrawArrays(GL_TRIANGLE_STRIP, 0, static_cast<GLsizei>(vertices.getNbVertices()));
 
 			glDisableClientState(GL_VERTEX_ARRAY);
 			glDisable(GL_BLEND);
@@ -110,7 +112,7 @@ namespace BaconBox {
 			glEnable(GL_BLEND);
 
 #ifdef BB_OPENGLES
-			glBlendFuncSeparate(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 #else
 			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 #endif
@@ -122,10 +124,10 @@ namespace BaconBox {
 			glTexCoordPointer(2, GL_FLOAT, 0, GET_TEX_PTR_BATCH(textureCoordinates, i->first));
 
 			if (i == --indiceList.end()) {
-				glDrawElements(GL_TRIANGLE_STRIP, indices.size() - i->second, GL_UNSIGNED_SHORT, GET_TEX_PTR_BATCH(indices, i->second));
+				glDrawElements(GL_TRIANGLE_STRIP, static_cast<GLsizei>(indices.size() - i->second), GL_UNSIGNED_SHORT, GET_TEX_PTR_BATCH(indices, i->second));
 
 			} else {
-				glDrawElements(GL_TRIANGLE_STRIP, (++IndiceArrayList::const_iterator(i))->second - i->second, GL_UNSIGNED_SHORT, GET_TEX_PTR_BATCH(indices, i->second));
+				glDrawElements(GL_TRIANGLE_STRIP, static_cast<GLsizei>((++IndiceArrayList::const_iterator(i))->second - i->second), GL_UNSIGNED_SHORT, GET_TEX_PTR_BATCH(indices, i->second));
 			}
 
 			glDisable(GL_BLEND);
@@ -161,10 +163,10 @@ namespace BaconBox {
 			glTexCoordPointer(2, GL_FLOAT, 0, GET_TEX_PTR_BATCH(textureCoordinates, i->first));
 
 			if (i == --indiceList.end()) {
-				glDrawElements(GL_TRIANGLE_STRIP, indices.size() - i->second, GL_UNSIGNED_SHORT, GET_TEX_PTR_BATCH(indices, i->second));
+				glDrawElements(GL_TRIANGLE_STRIP, static_cast<GLsizei>(indices.size() - i->second), GL_UNSIGNED_SHORT, GET_TEX_PTR_BATCH(indices, i->second));
 
 			} else {
-				glDrawElements(GL_TRIANGLE_STRIP, (++IndiceArrayList::const_iterator(i))->second - i->second, GL_UNSIGNED_SHORT, GET_TEX_PTR_BATCH(indices, i->second));
+				glDrawElements(GL_TRIANGLE_STRIP, static_cast<GLsizei>((++IndiceArrayList::const_iterator(i))->second - i->second), GL_UNSIGNED_SHORT, GET_TEX_PTR_BATCH(indices, i->second));
 			}
 
 			glDisable(GL_BLEND);
@@ -174,7 +176,7 @@ namespace BaconBox {
 		}
 	}
 
-void OpenGLDriver::prepareScene(const Vector2 &position, float angle,
+	void OpenGLDriver::prepareScene(const Vector2 &position, float angle,
 	                                const Vector2 &zoom,
 	                                const Color &backgroundColor) {
 		glClearColor(clampColorComponent(backgroundColor.getRed()),
@@ -208,7 +210,7 @@ void OpenGLDriver::prepareScene(const Vector2 &position, float angle,
 
 	}
 
-void OpenGLDriver::initializeGraphicDriver() {
+	void OpenGLDriver::initializeGraphicDriver() {
 		GraphicDriver::initializeGraphicDriver();
 		glShadeModel(GL_FLAT);
 
@@ -243,7 +245,7 @@ void OpenGLDriver::initializeGraphicDriver() {
 			bottom = 0.0f;
 			top = static_cast<float>(MainWindow::getInstance().getContextWidth());
 
-		} else if (MainWindow::getInstance().getOrientation() == WindowOrientation::HORIZONTAL_RIGHT) {
+		} else { //if (MainWindow::getInstance().getOrientation() == WindowOrientation::HORIZONTAL_RIGHT)
 			left = static_cast<float>(MainWindow::getInstance().getContextHeight());
 			right = 0.0f;
 			bottom = 0.0f;
@@ -262,7 +264,7 @@ void OpenGLDriver::initializeGraphicDriver() {
 
 
 		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-		
+
 		glClear(GL_COLOR_BUFFER_BIT);
 	}
 
@@ -281,31 +283,25 @@ void OpenGLDriver::initializeGraphicDriver() {
 	void OpenGLDriver::popMatrix() {
 		glPopMatrix();
 	}
-    
-    
-    void OpenGLDriver::deleteTexture(TextureInformation * textureInfo){
-        glDeleteTextures(1, &(textureInfo->textureId));
-    }
+
+
+	void OpenGLDriver::deleteTexture(TextureInformation *textureInfo) {
+		glDeleteTextures(1, &(textureInfo->textureId));
+		textureInfo->textureId = -1;
+	}
 
 	TextureInformation *OpenGLDriver::loadTexture(PixMap *pixMap) {
-	    GraphicDriver::loadTexture(pixMap);
+		GraphicDriver::loadTexture(pixMap);
 
 		TextureInformation *texInfo = new TextureInformation();
 		glGenTextures(1, &(texInfo->textureId));
 		glBindTexture(GL_TEXTURE_2D, texInfo->textureId);
 
-
-
-		int widthPoweredToTwo = MathHelper::nextPowerOf2(pixMap->getWidth());
-		int heightPoweredToTwo = MathHelper::nextPowerOf2(pixMap->getHeight());
-
-
-		PixMap poweredTo2Pixmap(widthPoweredToTwo, heightPoweredToTwo, pixMap->getColorFormat());
-		poweredTo2Pixmap.insertSubPixMap(*pixMap);
-
-
 		texInfo->imageWidth = pixMap->getWidth();
 		texInfo->imageHeight = pixMap->getHeight();
+		
+		int widthPoweredToTwo = MathHelper::nextPowerOf2(pixMap->getWidth());
+		int heightPoweredToTwo = MathHelper::nextPowerOf2(pixMap->getHeight());
 
 		texInfo->poweredWidth = widthPoweredToTwo;
 		texInfo->poweredHeight = heightPoweredToTwo;
@@ -316,20 +312,36 @@ void OpenGLDriver::initializeGraphicDriver() {
 		if (pixMap->getColorFormat() == ColorFormat::RGBA) {
 			format = GL_RGBA;
 
-		} else if (pixMap->getColorFormat() == ColorFormat::ALPHA) {
+		} else { // if (pixMap->getColorFormat() == ColorFormat::ALPHA)
 			format = GL_ALPHA;
 		}
-
-		glTexImage2D(
-		    GL_TEXTURE_2D,
-		    0,
-		    format,
-		    widthPoweredToTwo,
-		    heightPoweredToTwo,
-		    0,
-		    format,
-		    GL_UNSIGNED_BYTE,
-		    poweredTo2Pixmap.getBuffer());
+		
+		if (widthPoweredToTwo == pixMap->getWidth() && heightPoweredToTwo == pixMap->getHeight()) {
+			glTexImage2D(
+						 GL_TEXTURE_2D,
+						 0,
+						 format,
+						 widthPoweredToTwo,
+						 heightPoweredToTwo,
+						 0,
+						 format,
+						 GL_UNSIGNED_BYTE,
+						 pixMap->getBuffer());
+		} else {
+			PixMap poweredTo2Pixmap(widthPoweredToTwo, heightPoweredToTwo, pixMap->getColorFormat());
+			poweredTo2Pixmap.insertSubPixMap(*pixMap);
+			
+			glTexImage2D(
+						 GL_TEXTURE_2D,
+						 0,
+						 format,
+						 widthPoweredToTwo,
+						 heightPoweredToTwo,
+						 0,
+						 format,
+						 GL_UNSIGNED_BYTE,
+						 poweredTo2Pixmap.getBuffer());
+		}
 
 		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
@@ -337,14 +349,37 @@ void OpenGLDriver::initializeGraphicDriver() {
 		return texInfo;
 	}
 
+	void OpenGLDriver::finalizeRender() {
+		if (this->lastTexture) {
+			this->batch.render(this, this->lastTexture);
+			this->lastTexture = NULL;
+		}
+	}
+
 	float OpenGLDriver::clampColorComponent(unsigned short component) {
 		return static_cast<float>(component) / static_cast<float>(Color::MAX_COMPONENT_VALUE);
 	}
 
-	OpenGLDriver::OpenGLDriver() : GraphicDriver() {
+	void OpenGLDriver::internalDrawShapeWithTextureAndColor(const VertexArray &vertices,
+	                                                        const TextureInformation *textureInformation,
+	                                                        const TextureCoordinates &textureCoordinates,
+	                                                        const Color &color) {
+		if (color.getAlpha() > 0u) {
+			glColor4ub(color.getRed(), color.getGreen(), color.getBlue(),
+			           color.getAlpha());
+
+			drawShapeWithTexture(vertices, textureInformation,
+			                     textureCoordinates);
+
+			glColor4ub(Color::WHITE.getRed(), Color::WHITE.getGreen(),
+			           Color::WHITE.getBlue(), Color::WHITE.getAlpha());
+		}
+	}
+
+	OpenGLDriver::OpenGLDriver() : GraphicDriver(), batch(), lastTexture(NULL) {
 	}
 
 	OpenGLDriver::~OpenGLDriver() {
-		
+
 	}
 }

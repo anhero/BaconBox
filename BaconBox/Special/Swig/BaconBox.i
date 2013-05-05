@@ -4,7 +4,6 @@
 #if defined(BB_LUA)
 	%native(cast) int luacast(lua_State*L);
 
-
 %luacode {
   function class(base, init)
    local c = {}    -- a new class instance
@@ -69,7 +68,16 @@ end
   #include "BaconBox/Input/InputSignalData.h"
   #include "BaconBox/Input/Pointer/CursorButton.h"
 
+
   #include "BaconBox/SignalSlots/SignalData.h"
+
+  #include "BaconBox/Input/Keyboard/Key.h"
+  #include "BaconBox/Input/Keyboard/Keyboard.h"
+  #include "BaconBox/Input/Keyboard/KeyboardState.h"
+
+  #include "BaconBox/Input/Keyboard/KeySignalData.h"
+  #include "BaconBox/Input/Keyboard/KeyMaskSignalData.h"
+
   #include "BaconBox/Input/Pointer/CursorState.h"
   #include "BaconBox/Input/Pointer/PointerState.h"
   #include "BaconBox/Input/Pointer/PointerSignalData.h"
@@ -81,12 +89,10 @@ end
   #include "BaconBox/Components/ColorFilter.h"
   #include "BaconBox/Components/HasName.h"
 
-
 	#include "BaconBox/Vector2.h"
 	#include "BaconBox/Components/Transform.h"
   #include "BaconBox/Display/ColorFormat.h"
   #include "BaconBox/Display/TextureInformation.h"
-
 
 
   #include "BaconBox/Display/SubTextureInfo.h"
@@ -96,12 +102,16 @@ end
   #include "BaconBox/Core/State.h"
   #include "BaconBox/Core/Engine.h"
   #include "BaconBox/Display/Text/FontFormat.h"
+  #include "BaconBox/Components/Timeline.h"
+  #include "BaconBox/Components/EntityContainer.h"
 
   #include "BaconBox/Display/Text/Font.h"
   #include "BaconBox/ResourceManager.h"
 #include "BaconBox/Display/Text/TextAlignment.h"
 #include "BaconBox/Components/TextComponent.h"
 #include "BaconBox/Display/Text/TextEntity.h"
+
+#include "BaconBox/Symbol.h"
 
 #if defined(BB_LUA)
   #include "BaconBox/Components/Lua/LuaState.h"
@@ -306,6 +316,13 @@ namespace BaconBox{
 %include "BaconBox/PlatformFlagger.h"
 %include "BaconBox/Input/InputState.h"
 %include "BaconBox/SignalSlots/SignalData.h"
+
+%include "BaconBox/Input/Keyboard/Key.h"
+%include "BaconBox/Input/Keyboard/KeyboardState.h"
+%include "BaconBox/Input/Keyboard/KeySignalData.h"
+%include "BaconBox/Input/Keyboard/KeyMaskSignalData.h"
+%include "BaconBox/Input/Keyboard/Keyboard.h"
+
 %include "BaconBox/Input/Pointer/CursorButton.h"
 
 %include "BaconBox/Input/InputSignalData.h"
@@ -322,8 +339,12 @@ namespace BaconBox{
 
 %include "BaconBox/Display/TextureInformation.h"
 %include "BaconBox/Display/SubTextureInfo.h"
-%include "BaconBox/MovieClipEntity/MovieClipEntity.h"
 
+
+%include "BaconBox/Components/Timeline.h"
+%include "BaconBox/Components/EntityContainer.h"
+
+%include "BaconBox/MovieClipEntity/MovieClipEntity.h"
 
 
 #if defined(BB_LUA)
@@ -350,7 +371,11 @@ namespace BaconBox{
 %include "BaconBox/Display/Text/TextAlignment.h"
 %include "BaconBox/Components/TextComponent.h"
 %include "BaconBox/Display/Text/TextEntity.h"
+
+
+%ignore getMovieClipEntityFromSymbol;
 %include "BaconBox/EntityFactory.h" 
+
 namespace BaconBox{
 
   class ResourceManager{
@@ -382,7 +407,7 @@ namespace BaconBox{
                                             const std::string &relativePath,
                                             bool overwrite = false);       
 
-
+  static void loadFlashExporterXML(const std::string & xmlPath, const std::string & secondXMLPath = "");
 
     static SoundInfo *getSound(const std::string &key);
 

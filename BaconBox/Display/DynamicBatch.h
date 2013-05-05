@@ -1,9 +1,6 @@
-#ifndef BB_BATCH_RENDERER_H
-#define BB_BATCH_RENDERER_H
+#ifndef BB_DYNAMIC_BATCH_H
+#define BB_DYNAMIC_BATCH_H
 
-#include <vector>
-
-#include "BaconBox/Core/Component.h"
 #include "BaconBox/StandardVertexArray.h"
 #include "BaconBox/Display/Color.h"
 #include "BaconBox/TextureCoordinates.h"
@@ -11,43 +8,44 @@
 #include "BaconBox/Display/Driver/ColorArray.h"
 
 namespace BaconBox {
-	class BatchRenderer : public Component {
+	class GraphicDriver;
+	struct TextureInformation;
+
+	class DynamicBatch {
 	public:
-		BB_ID_HEADER;
-		
-		BatchRenderer();
-		
-		BatchRenderer(const BatchRenderer &src);
-		
-		virtual ~BatchRenderer();
-		
-		BatchRenderer &operator=(const BatchRenderer &src);
-		
-		virtual BatchRenderer *clone() const;
-		
-		virtual void receiveMessage(int senderID, int destID, int message, void *data);
-		
+		DynamicBatch();
+
+		~DynamicBatch();
+
 		void prepareRender();
-		
+
 		void addItem(const VertexArray &newVertices, const Color &newColor, const TextureCoordinates &newTextureCoordinates);
+
+		void render(GraphicDriver *driver, const TextureInformation *textureInformation);
 		
-		void renderBatch();
+		bool isSingle() const;
+		
+		const StandardVertexArray &getVertices() const;
+		const TextureCoordinates &getTextureCoordinates() const;
+		const Color &getColor() const;
 	private:
 		void refreshIndices();
-		
+
+		void initializeConnections();
+
 		std::vector<VertexArray::SizeType> sizes;
-		
+
 		StandardVertexArray vertices;
-		
+
 		TextureCoordinates textureCoordinates;
-		
+
 		ColorArray colors;
-		
+
 		IndiceArray indices;
-		
+
 		IndiceArrayList indiceList;
 	};
 }
 
-#endif /* defined(BB_BATCH_RENDERER_H) */
+#endif /* defined(BB_DYNAMIC_BATCH_H) */
 

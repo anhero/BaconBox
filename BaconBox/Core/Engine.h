@@ -64,6 +64,8 @@ namespace BaconBox {
 		 */
 		static void removeState(const std::string &name);
 		
+		static void removeAllStates();
+		
 		/**
 		 * Changes the current state to the one asked for.
 		 * @param name Name of the state to become the current one.

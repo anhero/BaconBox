@@ -1,8 +1,10 @@
 #include "Transform.h"
 
 #include "BaconBox/Core/Entity.h"
-#include "BaconBox/Helper/Vector2ChangedData.h"
 #include "BaconBox/Console.h"
+#include "BaconBox/Helper/MathHelper.h"
+#include "BaconBox/Components/MatrixComponent.h"
+#include "BaconBox/Components/DefaultMatrix.h"
 
 namespace BaconBox {
 	 BB_ID_IMPL(Transform);
@@ -16,7 +18,7 @@ namespace BaconBox {
 	int Transform::MESSAGE_ROTATION_CHANGED = IDManager::generateID();
 	int Transform::MESSAGE_SCALE_CHANGED = IDManager::generateID();
 	
-	Transform::Transform() : Component(), position(), rotation(0.0f), scale(1.0f, 1.0f) {
+	Transform::Transform() : Component(), position(), rotation(0.0f), scale(1.0f, 1.0f){
 	}
 
 	Transform::Transform(const Transform &src) : Component(src), position(src.position), rotation(src.rotation), scale(src.scale) {
@@ -25,8 +27,10 @@ namespace BaconBox {
 	Transform::~Transform() {
 	}
 
+	
 	Transform &Transform::operator=(const Transform &src) {
 		if (this != &src) {
+
 			setPosition(src.getPosition());
 			setRotation(src.getRotation());
 			setScale(src.getScale());
@@ -35,11 +39,13 @@ namespace BaconBox {
 		return *this;
 	}
 
+	
 	Transform *Transform::clone() const {
 		return new Transform(*this);
 	}
 	
 	void Transform::receiveMessage(int senderID, int destID, int message, void *data) {
+	    Component::receiveMessage(senderID, destID, message, data);
 		if (destID != Transform::ID) {
 			return;
 		}
@@ -64,43 +70,48 @@ namespace BaconBox {
 		return this->position;
 	}
 
-	void Transform::setPosition(const Vector2 &newPosition) {
+	void Transform::setPosition(const Vector2 &newPosition, bool withMessage) {
 		Vector2ChangedData data(this->position, newPosition);
 		this->position = newPosition;
-		sendMessage(Entity::BROADCAST, MESSAGE_POSITION_CHANGED, &(data));
+		if(withMessage){
+			sendMessage(Entity::BROADCAST, MESSAGE_POSITION_CHANGED, &(data));
+		}
 	}
 
 	float Transform::getRotation() const {
-		#if !defined(BB_FLASH_PLATEFORM)
-			return this->rotation * -1;
-		#endif
 		return this->rotation;
 	}
 
-	void Transform::setRotation(float newRotation) {
-		   #if !defined(BB_FLASH_PLATEFORM)
-			newRotation *= -1;
-		#endif
+	void Transform::setRotation(float newRotation, bool withMessage) {
 		ValueChangedData<float> data(this->rotation, newRotation);
 		this->rotation = newRotation;
-
-		sendMessage(Entity::BROADCAST, MESSAGE_ROTATION_CHANGED, &(data));
+		if(withMessage){
+			sendMessage(Entity::BROADCAST, MESSAGE_ROTATION_CHANGED, &(data));
+		}
 	}
 
 	const Vector2 &Transform::getScale() const {
 		return this->scale;
 	}
 
-	void Transform::setScale(const Vector2 &newScale) {
+	void Transform::setScale(const Vector2 &newScale, bool withMessage) {
 		Vector2ChangedData data(this->scale, newScale);
 		this->scale = newScale;
-		sendMessage(Entity::BROADCAST, MESSAGE_SCALE_CHANGED, &(data));
+		if(withMessage){
+			sendMessage(Entity::BROADCAST, MESSAGE_SCALE_CHANGED, &(data));
+		}
 	}
 	
+	
+	
+
+	
+
 	
 	TransformProxy::TransformProxy(Entity* entity, bool mustAddComponent): BB_PROXY_CONSTRUCTOR(new Transform())  {
 	}
 	    
+
 	    
 	const Vector2 &TransformProxy::getPosition() const{
 	    return reinterpret_cast<Transform*>(component)->getPosition();

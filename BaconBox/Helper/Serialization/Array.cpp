@@ -123,14 +123,6 @@ namespace BaconBox {
 		return data.max_size();
 	}
 
-	void Array::reserve(size_type size) {
-		data.reserve(size);
-	}
-
-	Array::size_type Array::capacity() const {
-		return data.capacity();
-	}
-
 	void Array::clear() {
 		data.clear();
 	}

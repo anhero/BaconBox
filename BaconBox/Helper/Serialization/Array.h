@@ -5,14 +5,14 @@
 #ifndef BB_ARRAY_H
 #define BB_ARRAY_H
 
-#include <vector>
+#include <deque>
 
 #include "Value.h"
 
 namespace BaconBox {
 	class Array {
 	public:
-		typedef std::vector<Value> container;
+		typedef std::deque<Value> container;
 		typedef container::value_type value_type;
 		typedef container::allocator_type allocator_type;
 		typedef container::size_type size_type;
@@ -96,10 +96,6 @@ namespace BaconBox {
 		size_type size() const;
 
 		size_type max_size() const;
-
-		void reserve(size_type size);
-
-		size_type capacity() const;
 
 		void clear();
 

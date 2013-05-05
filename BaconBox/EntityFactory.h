@@ -5,20 +5,31 @@
 #include "BaconBox/MovieClipEntity/MovieClipEntity.h"
 #include "BaconBox/Display/TexturePointer.h"
 #include "BaconBox/Display/Text/TextEntity.h"
+#include "BaconBox/Helper/DynamicPool.h"
 
 namespace BaconBox {
 
 	class EntityFactory {
 	public:
-	    
-		static MovieClipEntity *getMovieClipEntity(const std::string &key);
+		
+	    static void initMovieClipPool(int size);
+		
+		static MovieClipEntity *getMovieClipEntity(const std::string &key, bool autoPlay = false);
 #if defined(BB_FLASH_PLATEFORM)
 		static TextEntity *getTextEntity(const std::string &key);
-#else
-		static MovieClipEntity *getMovieClipEntityFromSubTexture(SubTextureInfo* subTex);
 #endif
-	private:
+		static EntityFactory &getInstance();
 
+		
+		MovieClipEntity *internalGetMovieClipEntity(const std::string &key, bool autoPlay = false);
+#if ! defined(BB_FLASH_PLATEFORM)
+		MovieClipEntity *getMovieClipEntityFromSymbol(Symbol* symbol, bool autoPlay = false);
+		MovieClipEntity *getMovieClipEntityFromSubTexture(SubTextureInfo* subTex, const Vector2 & origin = Vector2());
+#endif
+
+	private:
+		EntityFactory();
+		DynamicPool<MovieClipEntity> movieClipPool;
 
 	};
 

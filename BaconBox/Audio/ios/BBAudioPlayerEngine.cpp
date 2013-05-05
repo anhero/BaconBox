@@ -1,8 +1,8 @@
 #include "BaconBox/PlatformFlagger.h"
 
-#include "BaconBox/Audio/ios/RBAudioPlayerEngine.h"
+#include "BaconBox/Audio/ios/BBAudioPlayerEngine.h"
 
-#include "BaconBox/Audio/ios/RBAudioPlayerMusic.h"
+#include "BaconBox/Audio/ios/BBAudioPlayerMusic.h"
 #include "BaconBox/Audio/MusicInfo.h"
 #include "BaconBox/ResourceManager.h"
 #include "BaconBox/Audio/AudioState.h"
@@ -11,11 +11,11 @@
 #include "BaconBox/Console.h"
 
 namespace BaconBox {
-	BackgroundMusic* RBAudioPlayerEngine::getBackgroundMusic(std::string const &key,
+	BackgroundMusic* BBAudioPlayerEngine::getBackgroundMusic(std::string const &key,
 															 bool survive) {
 		MusicInfo* bgmInfo = ResourceManager::getMusic(key);
 		if(bgmInfo) {
-			RBAudioPlayerMusic* bgm = new RBAudioPlayerMusic();
+			BBAudioPlayerMusic* bgm = new BBAudioPlayerMusic();
 			bgm->load(bgmInfo->filePath);
 			if (!survive) {
 				managedMusics.push_back(bgm);
@@ -30,18 +30,18 @@ namespace BaconBox {
 		}
 	}
 	
-	void RBAudioPlayerEngine::setMusicVolume(int newMusicVolume) {
+	void BBAudioPlayerEngine::setMusicVolume(int newMusicVolume) {
 		this->MusicEngine::setMusicVolume(newMusicVolume);
-		RBAudioPlayerMusic::refreshVolume();
+		BBAudioPlayerMusic::refreshVolume();
 	}
 	
-	RBAudioPlayerEngine::RBAudioPlayerEngine(): MusicEngine() {
+	BBAudioPlayerEngine::BBAudioPlayerEngine(): MusicEngine() {
 	}
 	
-	RBAudioPlayerEngine::~RBAudioPlayerEngine() {
+	BBAudioPlayerEngine::~BBAudioPlayerEngine() {
 	}
 	
-	void RBAudioPlayerEngine::update() {
+	void BBAudioPlayerEngine::update() {
 		for (std::list<BackgroundMusic*>::iterator i = managedMusics.begin();
 			 i != managedMusics.end(); i++) {
 			// If the music is at stopped, we delete it.
@@ -52,19 +52,19 @@ namespace BaconBox {
 		}
 	}
 	
-	MusicInfo* RBAudioPlayerEngine::loadMusic(const std::string& filePath) {
+	MusicInfo* BBAudioPlayerEngine::loadMusic(const std::string& filePath) {
 		MusicInfo* result = new MusicInfo();
 		result->filePath = filePath;
 		return result;
 	}
 	
-	MusicInfo* RBAudioPlayerEngine::loadMusic(const MusicParameters& params) {
+	MusicInfo* BBAudioPlayerEngine::loadMusic(const MusicParameters& params) {
 		MusicInfo* result = new MusicInfo();
 		result->filePath = params.filePath;
 		return result;
 	}
 	
-	bool RBAudioPlayerEngine::unloadMusic(MusicInfo* music) {
+	bool BBAudioPlayerEngine::unloadMusic(MusicInfo* music) {
 		return true;
 	}
 }

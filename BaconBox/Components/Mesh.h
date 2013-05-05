@@ -7,6 +7,8 @@
 #include "BaconBox/Vector2.h"
 #include "BaconBox/Core/Component.h"
 #include "BaconBox/StandardVertexArray.h"
+#include "BaconBox/Components/Transform.h"
+#include "MatrixComponent.h"
 
 namespace BaconBox {
 	/**
@@ -18,23 +20,25 @@ namespace BaconBox {
 		
 		Mesh();
 		
-		/**
-		 * Gets the vertices defining the shape of the mesh.
-		 * @return Array of vertices defining the shape of the mesh.
-		 */
-		StandardVertexArray &getVertices();
 		
-		/**
-		 * Gets the vertices relative to the entity's position.
-		 * @return Array of vertices with their positions relative to the 
-		 * entity's position.
-		 */
-		const StandardVertexArray getRelativeVertices() const;
+		StandardVertexArray &getPreTransformVertices();
+		StandardVertexArray &getPostTransformVertices();
+		void syncMesh();
+	
+//		const StandardVertexArray getRelativeVertices() const;
 		
 		virtual void receiveMessage(int senderID, int destID, int message, void *data);
     private:
 		/// Vertices defining the shape of the mesh.
-		StandardVertexArray vertices;
+		StandardVertexArray postTransformVertices;
+		StandardVertexArray preTransformVertices;
+		bool mustSync;
+		
+		void initializeConnections();
+
+		Transform * transform;
+		MatrixComponent * matrixComponent;
+		
 	};
 }
 

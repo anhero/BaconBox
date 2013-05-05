@@ -5,8 +5,10 @@
 #include "BaconBox/Vector2.h"
 #include "BaconBox/Core/Entity.h"
 #include "BaconBox/Input/Pointer/Pointer.h"
-
+#include "BaconBox/Matrix.h"
+#include "BaconBox/Helper/Vector2ChangedData.h"
 namespace BaconBox {
+	class MatrixComponent;
 	/**
 	 * Component that manages the entity's position, orientation and scaling
 	 * values.
@@ -14,6 +16,8 @@ namespace BaconBox {
 	class Transform : public Component {
 	public:
 		BB_ID_HEADER;
+		friend class MatrixComponent;
+		
 
 		/// Message ID to use when requesting the entity's position.
 		static int MESSAGE_GET_POSITION;
@@ -33,6 +37,8 @@ namespace BaconBox {
 		static int MESSAGE_ROTATION_CHANGED;
 		/// Message ID the component sends when its entity's scale values have changed.
 		static int MESSAGE_SCALE_CHANGED;
+		
+		
 
 		/**
 		 * Default constructor.
@@ -83,7 +89,7 @@ namespace BaconBox {
 		 * Sets the entity's position.
 		 * @param newPosition Vector2 containing the entity's new position.
 		 */
-		void setPosition(const Vector2 &newPosition);
+		void setPosition(const Vector2 &newPosition, bool withMessage = true);
 
 		/**
 		 * Gets the entity's rotation angle.
@@ -93,7 +99,7 @@ namespace BaconBox {
 		 * Sets the entity's rotation angle.
 		 * @param newRotation New rotation angle.
 		 */
-		void setRotation(float newRotation);
+		void setRotation(float newRotation, bool withMessage = true);
 
 		/**
 		 * Gets the entity's scale values.
@@ -105,10 +111,15 @@ namespace BaconBox {
 		 * Sets the entity's scale values.
 		 * @param newScale Vector2 containing the entity's new scale values.
 		 */
-		void setScale(const Vector2 &newScale);
+		void setScale(const Vector2 &newScale, bool withMessage = true);
+	
 
+		
 	private:
-		/**
+	    
+
+		    
+	    	/**
 		 * Entity's position. All rotations and scaling are applied from this
 		 * point.
 		 */
@@ -123,12 +134,15 @@ namespace BaconBox {
 		 * Entity's horizontal and vertical scale values.
 		 */
 		Vector2 scale;
+		
 	};
 
 
 	class TransformProxy : public ComponentProxy {
 	public:
 		TransformProxy(Entity *entity, bool mustAddComponent = true);
+		
+
 
 		const Vector2 &getPosition() const;
 		void setPosition(const Vector2 &newPosition);

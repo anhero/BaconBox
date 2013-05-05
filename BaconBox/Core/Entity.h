@@ -19,9 +19,11 @@ namespace BaconBox {
 	public:
 		/// Message ID to use when broadcasting a message to all child components.
 		static int BROADCAST;
-		static int MESSAGE_ADDING_COMPONENT;
 		BB_ID_HEADER;
-
+		
+		static int MESSAGE_ADD_COMPONENT;
+		static int MESSAGE_REMOVE_COMPONENT;
+		
 		/**
 		 * Default constructor. Initializes an entity without any components.
 		 */
@@ -80,7 +82,7 @@ namespace BaconBox {
 		 * Gets all of the entity's components.
 		 * @return Vector containing all of the entity's components.
 		 */
-		const std::vector<Component *> &getComponents() const;
+		const std::list<Component *> &getComponents() const;
 		
 		/**
 		 * Adds a component to the entity.
@@ -88,12 +90,6 @@ namespace BaconBox {
 		 */
 		Component *addComponent(Component *newComponent);
 		
-		/**
-		 * Removes the component at the given index. Does nothing if the given
-		 * index out of bounds.
-		 * @param index Index of the component to remove.
-		 */
-		void removeComponentAt(std::vector<Component *>::size_type index);
 		
 		/**
 		 * Removes the given component.
@@ -110,6 +106,11 @@ namespace BaconBox {
 		 */
 		void clear();
 		
+		template <typename T>
+		T *getComponent()  {
+			return reinterpret_cast<T*>(getComponent(T::ID));
+		}
+		
 		/**
 		 * Gets the component with the given name.
 		 * @param componentName Name of the type of the component to get.
@@ -121,8 +122,9 @@ namespace BaconBox {
 		 * Gets the component of the type of the given ID.
 		 * @param id ID of the type of the component to find.
 		 */
-		Component *getComponent(int id) const ;
+		Component *getComponent(int id, bool noPrint = false) const;
 	
+		
 	private:
 		/**
 		 * Frees all dynamically alocated memory.
@@ -136,10 +138,8 @@ namespace BaconBox {
 		void copyFrom(const Entity &src);
 
 		/// Contains all of the entity's components.
-		std::vector<Component *> components;
+		std::list<Component *> components;
 		
-		/// Pointer to the parent entity. Null if the entity has no parent.
-		Entity *parent;
 	};
 }
 

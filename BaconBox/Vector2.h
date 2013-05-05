@@ -15,6 +15,7 @@
 #include "BaconBox/Helper/Serialization/Array.h"
 #include "BaconBox/Helper/Serialization/Object.h"
 
+
 namespace BaconBox {
 #pragma pack(1)
 	template <typename T, unsigned int NB_DIMENSIONS = 2u> class Vector;
@@ -260,6 +261,8 @@ namespace BaconBox {
 		Vector2 &operator*=(ValueType delta);
 		Vector2 &operator*=(XComponent xDelta);
 		Vector2 &operator*=(YComponent yDelta);
+		
+		
 
 		Vector2 &operator/=(ValueType delta);
 		Vector2 &operator/=(XComponent xDelta);
@@ -302,6 +305,7 @@ namespace BaconBox {
 		 * @see BaconBox::Vector::getDotProduct()
 		 */
 		ValueType operator*(const Vector2 &other) const;
+		
 
 		Vector2 operator*(ValueType delta) const;
 		friend Vector2 operator*(ValueType delta, const Vector2 &vector) {
@@ -629,6 +633,9 @@ namespace BaconBox {
 		y *= yDelta.value;
 		return *this;
 	}
+	
+	
+	
 
 	template <typename T>
 	typename Vector<T, 2u>::Vector2 &Vector<T, 2u>::operator/=(ValueType delta) {
@@ -695,6 +702,8 @@ namespace BaconBox {
 	typename Vector<T, 2u>::Vector2 Vector<T, 2u>::operator*(ValueType delta) const {
 		return Vector2(*this) *= delta;
 	}
+	
+	
 	template <typename T>
 	typename Vector<T, 2u>::Vector2 Vector<T, 2u>::operator*(XComponent xDelta) const {
 		return Vector2(*this) *= xDelta;

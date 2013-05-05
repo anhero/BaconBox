@@ -27,6 +27,8 @@ namespace BaconBox {
 		
 		virtual void removeState(const std::string &name);
 		
+		void removeAllStates();
+		
 		virtual State *playState(const std::string &name);
 		
 		virtual State *getCurrentState();
@@ -80,7 +82,7 @@ namespace BaconBox {
 		
 		virtual MusicEngine &getMusicEngine();
 	protected:
-		
+		 void switchToNextState();
 	
 		
 		/// A copy of argc

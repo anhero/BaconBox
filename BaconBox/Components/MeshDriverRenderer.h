@@ -8,6 +8,7 @@ namespace BaconBox {
 	class Mesh;
 	class Texture;
 	class ColorFilter;
+	class Visibility;
 
 	class MeshDriverRenderer : public Component {
 	public:
@@ -34,10 +35,13 @@ namespace BaconBox {
 		
 		void setRenderMode(int newRenderMode);
 	private:
+		void initializeConnections();
+		
 		Mesh *mesh;
 		Texture *texture;
 		ColorFilter *colorFilter;
-		
+		Visibility *visibility;
+
 		int renderMode;
 	};
 }

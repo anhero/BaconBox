@@ -2,8 +2,8 @@
  * @file
  * @ingroup WindowDisplay
  */
-#ifndef RB_IOS_MAIN_WINDOW_H
-#define RB_IOS_MAIN_WINDOW_H
+#ifndef BB_IOS_MAIN_WINDOW_H
+#define BB_IOS_MAIN_WINDOW_H
 
 #include "BaconBox/Display/Window/MainWindow.h"
 
@@ -13,7 +13,7 @@ namespace BaconBox {
 	 * @ingroup WindowDisplay
 	 */
 	class IOSMainWindow : public MainWindow {
-		friend class Engine;
+		friend class BaseEngine;
 	public:
 		void onBaconBoxInit(unsigned int resolutionWidth, unsigned int resolutionHeight, float contextWidth, float contextHeight);
 		void show();

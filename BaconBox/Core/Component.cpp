@@ -1,6 +1,11 @@
 #include "Component.h"
 
-#include "Entity.h"
+#include <algorithm>
+
+#include "BaconBox/Core/Entity.h"
+#include "BaconBox/Helper/DeleteHelper.h"
+#include "BaconBox/Components/IComponentConnection.h"
+#include "BaconBox/Components/ComponentAddedData.h"
 
 namespace BaconBox {
     
@@ -13,6 +18,7 @@ namespace BaconBox {
 	}
 	
 	Component::~Component() {
+		std::for_each(this->connections.begin(), this->connections.end(), DeletePointerDirect());
 	}
 	
 	Component &Component::operator=(const Component &src) {
@@ -28,8 +34,19 @@ namespace BaconBox {
 			entity->sendMessage(this->getID(), destID, message, data);
 		}
 	}
-
+	
 	void Component::receiveMessage(int senderID, int destID, int message, void *data) {
+		if (destID == Entity::BROADCAST) {
+			if (message == Entity::MESSAGE_ADD_COMPONENT) {
+				for (std::vector<IComponentConnection *>::iterator i = this->connections.begin(); i != this->connections.end(); ++i) {
+					(*i)->componentAdded(*reinterpret_cast<ComponentAddedData *>(data));
+				}
+			} else if (message == Entity::MESSAGE_REMOVE_COMPONENT) {
+				for (std::vector<IComponentConnection *>::iterator i = this->connections.begin(); i != this->connections.end(); ++i) {
+					(*i)->componentRemoved(*reinterpret_cast<int*>(data));
+				}
+			}
+		}
 	}
 	
 	void Component::update() {
@@ -37,20 +54,37 @@ namespace BaconBox {
 	
 	void Component::render() {
 	}
-
+	
 	const std::string &Component::getComponentName() const {
 		return IDManager::getName(this->getID());
 	}
 	
-	Entity *Component::getEntity() const {
-		return this->entity;
+	Entity * Component::getEntity() const {
+	    return this->entity;
 	}
 	
-	ComponentProxy::ComponentProxy(Entity* entity, Component * component){
+	void Component::setEntity(Entity *newEntity) {
+		this->entity = newEntity;
+		this->refreshConnections();
+	}
+	
+	void Component::refreshConnections() {
+		if (this->entity) {
+			for (std::vector<IComponentConnection *>::iterator i = this->connections.begin(); i != this->connections.end(); ++i) {
+				(*i)->refreshConnection(this->entity);
+			}
+		}
+	}
+	
+	void Component::addConnection(IComponentConnection *newConnection) {
+		this->connections.push_back(newConnection);
+	}
+	
+	ComponentProxy::ComponentProxy(Entity* entity, Component * component) {
 	    this->entity = entity;
-	    if(component){
-		this->component = component;
-		entity->addComponent(component);
+	    if (component) {
+			this->component = component;
+			entity->addComponent(component);
 	    }
 	}
 	

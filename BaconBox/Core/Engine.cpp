@@ -18,6 +18,10 @@ namespace BaconBox {
 		getInstance().removeState(name);
 	}
 	
+	void Engine::removeAllStates() {
+		getInstance().removeAllStates();
+	}
+	
 	State *Engine::playState(const std::string &name) {
 		return getInstance().playState(name);
 	}

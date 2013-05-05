@@ -1,0 +1,27 @@
+#!/bin/bash
+
+_name="rapidxml"
+_license="MIT" 
+
+_version="1.13"
+_archive="${_name}-${_version}.zip"
+_archive_url="http://sourceforge.net/projects/rapidxml/files/rapidxml/rapidxml%201.13/${_archive}"
+
+_hash="7b4b42c9331c90aded23bb55dc725d6a" #tar.gz
+
+WGET_FLAGS="--no-check-certificate"
+
+load_base http.fetch
+
+function extract() {
+	cd "${lib_srcdir}"
+	do_unzip "${_archive}" "${lib_workdir}"
+}
+
+function build() {
+	echo -n 'Copying RapidXml... '
+	cd "${lib_workdir}/${_pkgdir}" || exit 1
+	mkdir -p "${libs_builddir}/include/"
+	mv *.hpp "${libs_builddir}/include/" || exit 1
+	echo done.
+}

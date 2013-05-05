@@ -10,12 +10,12 @@ namespace BaconBox {
 	public:
 		BB_ID_HEADER;
 		
-		HasName(const std::string & name);	
+		HasName(const std::string & name);
 		
-		const std::string &getName() const;
-		void setName(const std::string &newName);
-							
-	private:
+		virtual const std::string &getName() const;
+		virtual void setName(const std::string &newName);
+		
+	protected:
 	    std::string name;
 	};
 	
@@ -23,11 +23,13 @@ namespace BaconBox {
 	class HasNameProxy : public ComponentProxy{
 	public:
 		HasNameProxy(Entity* entity, const std::string & name = "", bool mustAddComponent = true);
-	
+		
 		const std::string &getName() const;
 		void setName(const std::string &newName);
+	protected:
+	    void setHasName(HasName * hasName);
 	private:
-
+		
 	};
 }
 

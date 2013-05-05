@@ -172,7 +172,7 @@ namespace BaconBox {
 			// storage array for stack trace address data
 			void* addrlist[max_frames + stackOffset];
 			// retrieve current stack addresses
-			int addrlen = backtrace(addrlist, sizeof(addrlist) / sizeof(void*));
+			int addrlen = backtrace(addrlist, static_cast<int>(sizeof(addrlist) / sizeof(void*)));
 
 			if(addrlen == 0) {
 				fprintf(out, "\t<empty, possibly corrupt>\n");

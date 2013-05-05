@@ -1,11 +1,11 @@
-#import "RBAudioPlayerMusicDelegate.h"
+#import "BBAudioPlayerMusicDelegate.h"
 
 #include "PlatformFlagger.h"
 
 #include "MusicEngine.h"
 #include "Sound.h"
 
-@implementation RBAudioPlayerMusicDelegate
+@implementation BBAudioPlayerMusicDelegate
 
 - (id)initWithPath:(NSString *)path{
 	[super init];

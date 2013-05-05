@@ -48,6 +48,6 @@ double Random::getRandomFloat(float min, float max) {
 }
 
 void Random::init() {
-	srand(time(NULL));
+	srand(static_cast<unsigned int>(time(NULL)));
 	initialized = true;
 }

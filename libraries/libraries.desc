@@ -1,7 +1,11 @@
 #!/bin/bash
 #Libraries to build
 
+
+if [[ ${libs_target-} != "ios" ]]; then
 libraries+=( 'zlib' )
+fi
+
 libraries+=( 'freetype' )
 libraries+=( 'libpng' )
 
@@ -12,18 +16,18 @@ if [[ ${libs_target-} != "ios" ]]; then
 fi
 
 # For ports which aren't using SDL
-#if [[ ${libs_target-} != "ios"     ]] &&
-#   [[ ${libs_target-} != "android" ]]; then
+if [[ ${libs_target-} != "ios"     ]] &&
+   [[ ${libs_target-} != "android" ]]; then
    	#libraries+=( 'sdl' )
 	#libraries+=( 'sdl_mixer' )
-#	libraries+=( 'sdl2' )
-#	libraries+=( 'sdl_mixer_SDL2' )
-#fi
+	libraries+=( 'sdl2' )
+	libraries+=( 'sdl_mixer_SDL2' )
+fi
 
 # Serialization libraries
 libraries+=( 'jsonbox' )
-libraries+=( 'tinyxml' )
-
+libraries+=( 'rapidxml' )
+libraries+=( 'lua' )
 libraries+=( 'sigly' )
 
 # vim: ft=sh

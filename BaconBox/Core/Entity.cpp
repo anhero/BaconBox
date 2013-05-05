@@ -4,17 +4,20 @@
 
 #include "BaconBox/Core/IDManager.h"
 #include "BaconBox/Console.h"
+#include "BaconBox/Components/ComponentAddedData.h"
 
 namespace BaconBox {
 	BB_ID_IMPL(Entity);
 	
 	int Entity::BROADCAST = IDManager::generateID();
-	int Entity::MESSAGE_ADDING_COMPONENT = IDManager::generatetID();
 	
-	Entity::Entity() : components(), parent(NULL), sigly::HasSlots<>() {
+	int Entity::MESSAGE_ADD_COMPONENT = IDManager::generateID();
+	int Entity::MESSAGE_REMOVE_COMPONENT = IDManager::generateID();
+
+	Entity::Entity() : components(), sigly::HasSlots<>() {
 	}
 
-	Entity::Entity(const Entity &src) : components(), parent(NULL) {
+	Entity::Entity(const Entity &src) : components() {
 		this->copyFrom(src);
 	}
 
@@ -36,46 +39,20 @@ namespace BaconBox {
 		return new Entity(*this);
 	}
 
-
-	Component *Entity::getComponent(const std::string &componentName) const {
-		int id = IDManager::getID(componentName);
-		return getComponent(id);
-	}
-
-	Component *Entity::getComponent(int id) const {
-		Component *result = NULL;
-		bool notFound = true;
-		std::vector<Component *>::const_iterator i = this->components.begin();
-		
-		while (notFound && i != this->components.end()) {
-			if ((*i)->getID() == id) {
-				result = (*i);
-				notFound = false;
-
-			} else {
-				i++;
-			}
-		}
-		if(!result){
-		    Console__error("Can't find the requested component in the given entity.: ID" << id << " name: " << IDManager::getName(id));
-		}
-		return result;
-	}
-
 	void Entity::sendMessage(int senderID, int destID, int message, void *data) {
-		for (std::vector<Component *>::iterator i = this->components.begin(); i != this->components.end(); ++i) {
+		for (std::list<Component *>::iterator i = this->components.begin(); i != this->components.end(); ++i) {
 			(*i)->receiveMessage(senderID, destID, message, data);
 		}
 	}
 
 	void Entity::update() {
-		for (std::vector<Component *>::iterator i = this->components.begin(); i != this->components.end(); ++i) {
+		for (std::list<Component *>::iterator i = this->components.begin(); i != this->components.end(); ++i) {
 			(*i)->update();
 		}
 	}
 
 	void Entity::render() {
-		for (std::vector<Component *>::iterator i = this->components.begin(); i != this->components.end(); ++i) {
+		for (std::list<Component *>::iterator i = this->components.begin(); i != this->components.end(); ++i) {
 			(*i)->render();
 		}
 	}
@@ -85,48 +62,59 @@ namespace BaconBox {
 	}
 
 
-	const std::vector<Component *> &Entity::getComponents() const {
+	const std::list<Component *> &Entity::getComponents() const {
 		return components;
 	}
 	
 	void Entity::printComponentsName(){
-	    for(std::vector<Component *>::iterator i = components.begin(); i != components.end(); i++){
+	    for(std::list<Component *>::iterator i = components.begin(); i != components.end(); i++){
 		std::cout << " Entity: " << IDManager::getName(this->getID()) << " Component: " << IDManager::getName((*i)->getID()) << std::endl;
 	    }
 	}
 
 
-	Component * Entity::addComponent(Component *newComponent) {
+	Component *Entity::addComponent(Component *newComponent) {
 		components.push_back(newComponent);
-		newComponent->entity = this;
-		sendMessage(this->getID(), newComponent->getID(), Entity::MESSAGE_ADDING_COMPONENT, reinterpret_cast<void*>(this));
+		newComponent->setEntity(this);
+		
+		ComponentAddedData data(newComponent->getID(), newComponent);
+		
+		this->sendMessage(Entity::ID, BROADCAST, MESSAGE_ADD_COMPONENT, &data);
+		
 		return newComponent;
 	}
 
-	void Entity::removeComponentAt(std::vector<Component *>::size_type index) {
-		if (index < components.size()) {
-			delete components[index];
-			components.erase(components.begin() + index);
-		}
-	}
 
 	void Entity::removeComponent(Component *component) {
-		std::vector<Component *>::iterator found = std::find(this->components.begin(), this->components.end(), component);
+		std::list<Component *>::iterator found = std::find(this->components.begin(), this->components.end(), component);
 
 		if (found != this->components.end()) {
-			delete *found;
+			Component *toRemove = *found;
+			
 			this->components.erase(found);
+			
+			int componentId = toRemove->getID();
+			
+			this->sendMessage(Entity::ID, BROADCAST, MESSAGE_REMOVE_COMPONENT, &componentId);
+			
+			delete toRemove;
 		}
 	}
 
 	void Entity::removeComponents(int id) {
-		std::vector<Component *>::size_type i = 0;
+		std::list<Component *>::iterator i = this->components.begin();
 
-		while (i < this->components.size()) {
-			if (this->components[i]->getID() == id) {
-				delete this->components[i];
-				this->components.erase(this->components.begin() + i);
-
+		while (i != this->components.end()) {
+			if ((*i)->getID() == id) {
+				Component *toRemove = *i;
+				
+				this->components.erase(i);
+				
+				int componentId = toRemove->getID();
+				
+				this->sendMessage(Entity::ID, BROADCAST, MESSAGE_REMOVE_COMPONENT, &componentId);
+				
+				delete toRemove;
 			} else {
 				++i;
 			}
@@ -137,21 +125,47 @@ namespace BaconBox {
 		free();
 		this->components.clear();
 	}
+	
+	Component *Entity::getComponent(const std::string &componentName) const {
+		int id = IDManager::getID(componentName);
+		return getComponent(id);
+	}
+	
+	Component *Entity::getComponent(int id,  bool noPrint) const {
+		Component *result = NULL;
+		bool notFound = true;
+		std::list<Component *>::const_iterator i = this->components.begin();
+		
+		while (notFound && i != this->components.end()) {
+			if ((*i)->getID() == id) {
+				result = (*i);
+				notFound = false;
+				
+			} else {
+				i++;
+			}
+		}
+		if(!noPrint && !result){
+		    Console__error("Can't find the requested component in the given entity.: ID" << id << " name: " << IDManager::getName(id));
+		}
+		return result;
+	}
+	
+
 
 	void Entity::free() {
-		for (std::vector<Component *>::iterator i = this->components.begin(); i != this->components.end(); ++i) {
+		for (std::list<Component *>::iterator i = this->components.begin(); i != this->components.end(); ++i) {
 			delete *i;
 		}
 	}
 
 	void Entity::copyFrom(const Entity &src) {
-		this->components.reserve(src.components.size());
 
 		Component *tmpComponent;
 
-		for (std::vector<Component *>::const_iterator i = src.components.begin(); i != src.components.end(); ++i) {
+		for (std::list<Component *>::const_iterator i = src.components.begin(); i != src.components.end(); ++i) {
 			tmpComponent = (*i)->clone();
-			tmpComponent->entity = this;
+			tmpComponent->setEntity(this);
 			this->components.push_back(tmpComponent);
 		}
 	}

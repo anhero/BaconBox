@@ -342,6 +342,7 @@ namespace BaconBox {
 		 */
 		const Array &getArray() const;
 
+
 		/**
 		 * Sets the value as a JSON array.
 		 * @param newArray New array value that the Value will contain. The

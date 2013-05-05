@@ -66,6 +66,9 @@ namespace BaconBox {
 	TextureInformation *NullGraphicDriver::loadTexture(PixMap *) {
 		return NULL;
 	}
+	
+	void NullGraphicDriver::finalizeRender() {
+	}
 
 	NullGraphicDriver::NullGraphicDriver() {
 	}

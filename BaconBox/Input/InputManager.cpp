@@ -45,31 +45,31 @@ Pointer* InputManager::getDefaultPointer() {
 	return InputManager::getInstance().getPointer();
 }
 
-unsigned int InputManager::getNbAccelerometers() const {
+size_t InputManager::getNbAccelerometers() const {
 	return accelerometers.size();
 }
 
-unsigned int InputManager::getNbGamePads() const {
+size_t InputManager::getNbGamePads() const {
 	return gamePads.size();
 }
 
-unsigned int InputManager::getNbKeyboards() const {
+size_t InputManager::getNbKeyboards() const {
 	return keyboards.size();
 }
 
-unsigned int InputManager::getNbPointers() const {
+size_t InputManager::getNbPointers() const {
 	return pointers.size();
 }
 
-void InputManager::setNbAccelerometers(unsigned int nb) {
+void InputManager::setNbAccelerometers(size_t nb) {
 	if (nb > accelerometers.size()) {
-		unsigned int oldSize = accelerometers.size();
+		size_t oldSize = accelerometers.size();
 		accelerometers.resize(nb, NULL);
-		for(unsigned int i = oldSize; i < nb; ++i) {
+		for(size_t i = oldSize; i < nb; ++i) {
 			accelerometers[i] = BB_ACCELEROMETER_IMPL;
 		}
 	} else if(nb < accelerometers.size()) {
-		for(unsigned int i = nb; i < accelerometers.size(); ++i) {
+		for(size_t i = nb; i < accelerometers.size(); ++i) {
 			if(accelerometers[i]) {
 				delete accelerometers[i];
 			}
@@ -78,15 +78,15 @@ void InputManager::setNbAccelerometers(unsigned int nb) {
 	}
 }
 
-void InputManager::setNbGamePads(unsigned int nb) {
+void InputManager::setNbGamePads(size_t nb) {
 	if (nb > gamePads.size()) {
-		unsigned int oldSize = gamePads.size();
+		std::vector<GamePad*>::size_type oldSize = gamePads.size();
 		gamePads.resize(nb, NULL);
-		for(unsigned int i = oldSize; i < nb; ++i) {
+		for(std::vector<GamePad*>::size_type i = oldSize; i < nb; ++i) {
 			gamePads[i] = BB_GAME_PAD_IMPL;
 		}
 	} else if(nb < gamePads.size()) {
-		for(unsigned int i = nb; i < gamePads.size(); ++i) {
+		for(size_t i = nb; i < gamePads.size(); ++i) {
 			if(gamePads[i]) {
 				delete gamePads[i];
 			}
@@ -95,15 +95,15 @@ void InputManager::setNbGamePads(unsigned int nb) {
 	}
 }
 
-void InputManager::setNbKeyboards(unsigned int nb) {
+void InputManager::setNbKeyboards(size_t nb) {
 	if (nb > keyboards.size()) {
-		unsigned int oldSize = keyboards.size();
+		size_t oldSize = keyboards.size();
 		keyboards.resize(nb, NULL);
-		for(unsigned int i = oldSize; i < nb; ++i) {
+		for(size_t i = oldSize; i < nb; ++i) {
 			keyboards[i] = BB_KEYBOARD_IMPL;
 		}
 	} else if(nb < keyboards.size()) {
-		for(unsigned int i = nb; i < keyboards.size(); ++i) {
+		for(size_t i = nb; i < keyboards.size(); ++i) {
 			if(keyboards[i]) {
 				delete keyboards[i];
 			}
@@ -112,15 +112,15 @@ void InputManager::setNbKeyboards(unsigned int nb) {
 	}
 }
 
-void InputManager::setNbPointers(unsigned int nb) {
+void InputManager::setNbPointers(size_t nb) {
 	if (nb > pointers.size()) {
-		unsigned int oldSize = pointers.size();
+		size_t oldSize = pointers.size();
 		pointers.resize(nb, NULL);
-		for(unsigned int i = oldSize; i < nb; ++i) {
+		for(size_t i = oldSize; i < nb; ++i) {
 			pointers[i] = BB_POINTER_IMPL;
 		}
 	} else if(nb < pointers.size()) {
-		for(unsigned int i = nb; i < pointers.size(); ++i) {
+		for(size_t i = nb; i < pointers.size(); ++i) {
 			if(pointers[i]) {
 				delete pointers[i];
 			}
@@ -129,7 +129,7 @@ void InputManager::setNbPointers(unsigned int nb) {
 	}
 }
 
-Accelerometer* InputManager::getAccelerometer(unsigned int index) {
+Accelerometer* InputManager::getAccelerometer(size_t index) {
 	if(index >= accelerometers.size()) {
 		return NULL;
 	} else {
@@ -137,7 +137,7 @@ Accelerometer* InputManager::getAccelerometer(unsigned int index) {
 	}
 }
 
-GamePad* InputManager::getGamePad(unsigned int index) {
+GamePad* InputManager::getGamePad(size_t index) {
 	if(index >= gamePads.size()) {
 		return NULL;
 	} else {
@@ -145,7 +145,7 @@ GamePad* InputManager::getGamePad(unsigned int index) {
 	}
 }
 
-Keyboard* InputManager::getKeyboard(unsigned int index) {
+Keyboard* InputManager::getKeyboard(size_t index) {
 	if(index >= keyboards.size()) {
 		return NULL;
 	} else {
@@ -153,7 +153,7 @@ Keyboard* InputManager::getKeyboard(unsigned int index) {
 	}
 }
 
-Pointer* InputManager::getPointer(unsigned int index) {
+Pointer* InputManager::getPointer(size_t index) {
 	if(index >= pointers.size()) {
 		return NULL;
 	} else {

@@ -110,9 +110,9 @@ namespace BaconBox {
 			zStream.zfree = Z_NULL;
 			zStream.opaque = Z_NULL;
 			zStream.next_in = reinterpret_cast<Bytef *>(const_cast<std::string::pointer>(&data[0]));
-			zStream.avail_in = data.size();
+			zStream.avail_in = static_cast<uInt>(data.size());
 			zStream.next_out = reinterpret_cast<Bytef *>(&result[0]);
-			zStream.avail_out = result.size();
+			zStream.avail_out = static_cast<uInt>(result.size());
 
 			const int windowBits = (compressionMethod == CompressionMethod::GZIP) ? (31) : (15);
 

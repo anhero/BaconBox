@@ -1,4 +1,4 @@
-#include "BaconBox/Audio/ios/RBAudioPlayerMusic.h"
+#include "BaconBox/Audio/ios/BBAudioPlayerMusic.h"
 
 #include "BaconBox/PlatformFlagger.h"
 
@@ -7,13 +7,13 @@
 
 using namespace BaconBox;
 
-RBAudioPlayerMusic* RBAudioPlayerMusic::currentMusic = NULL;
+BBAudioPlayerMusic* BBAudioPlayerMusic::currentMusic = NULL;
 
-void RBAudioPlayerMusic::play(int nbTimes) {
+void BBAudioPlayerMusic::play(int nbTimes) {
 	play(nbTimes, 0.0);
 }
 
-void RBAudioPlayerMusic::play(int nbTimes, double fadeIn) {
+void BBAudioPlayerMusic::play(int nbTimes, double fadeIn) {
 	assert(bgm);
 	if(nbTimes != 0) {
 		if (nbTimes > 0) {
@@ -30,11 +30,11 @@ void RBAudioPlayerMusic::play(int nbTimes, double fadeIn) {
 	}
 }
 
-void RBAudioPlayerMusic::stop() {
+void BBAudioPlayerMusic::stop() {
 	stop(0.0);
 }
 
-void RBAudioPlayerMusic::stop(double fadeOut) {
+void BBAudioPlayerMusic::stop(double fadeOut) {
 	assert(bgm);
 	if(fadeOut >= 0.0) {
 		[bgm fadeOutStop:static_cast<float>(fadeOut)];
@@ -45,11 +45,11 @@ void RBAudioPlayerMusic::stop(double fadeOut) {
 	}
 }
 
-void RBAudioPlayerMusic::pause() {
+void BBAudioPlayerMusic::pause() {
 	pause(0.0);
 }
 
-void RBAudioPlayerMusic::pause(double fadeOut) {
+void BBAudioPlayerMusic::pause(double fadeOut) {
 	assert(bgm);
 	if(fadeOut >= 0.0) {
 		[bgm fadeOutPause:static_cast<float>(fadeOut)];
@@ -59,11 +59,11 @@ void RBAudioPlayerMusic::pause(double fadeOut) {
 	}
 }
 
-void RBAudioPlayerMusic::resume() {
+void BBAudioPlayerMusic::resume() {
 	resume(0.0);
 }
 
-void RBAudioPlayerMusic::resume(double fadeIn) {
+void BBAudioPlayerMusic::resume(double fadeIn) {
 	assert(bgm);
 	if(fadeIn >= 0.0) {
 		[bgm fadeInResume:static_cast<float>(fadeIn)];
@@ -74,16 +74,16 @@ void RBAudioPlayerMusic::resume(double fadeIn) {
 	}
 }
 
-bool RBAudioPlayerMusic::isLooping() {
+bool BBAudioPlayerMusic::isLooping() {
 	return [bgm isLooping];
 }
 
-void RBAudioPlayerMusic::setVolume(int newVolume) {
+void BBAudioPlayerMusic::setVolume(int newVolume) {
 	this->Sound::setVolume(newVolume);
 	[bgm setVolume:(static_cast<float>(getVolume()) / static_cast<float>(Sound::MAX_VOLUME))];
 }
 
-AudioState RBAudioPlayerMusic::getCurrentState() const {
+AudioState BBAudioPlayerMusic::getCurrentState() const {
 	if(!playedOnce) {
 		return AudioState::INITIAL;
 	} else if([bgm isStopped]) {
@@ -95,22 +95,22 @@ AudioState RBAudioPlayerMusic::getCurrentState() const {
 	}
 }
 
-RBAudioPlayerMusic::~RBAudioPlayerMusic() {
+BBAudioPlayerMusic::~BBAudioPlayerMusic() {
 }
 
-void RBAudioPlayerMusic::refreshVolume() {
+void BBAudioPlayerMusic::refreshVolume() {
 	if(currentMusic) {
 		[currentMusic->bgm refreshVolume];
 	}
 }
 
-RBAudioPlayerMusic::RBAudioPlayerMusic(): BackgroundMusic(), bgm(NULL),
+BBAudioPlayerMusic::BBAudioPlayerMusic(): BackgroundMusic(), bgm(NULL),
 playedOnce(false) {
 }
 
-void RBAudioPlayerMusic::load(std::string const& filePath) {
+void BBAudioPlayerMusic::load(std::string const& filePath) {
 	if(!bgm) {
 		const char* tmp = filePath.c_str();
-		bgm = [[RBAudioPlayerMusicDelegate alloc] initWithPath:[NSString stringWithCString:tmp]];
+		bgm = [[BBAudioPlayerMusicDelegate alloc] initWithPath:[NSString stringWithUTF8String:tmp]];
 	}
 }

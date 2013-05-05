@@ -1,0 +1,26 @@
+#!/bin/bash
+
+_name="lua"
+_license="MIT license" 
+
+_version="5.2.2"
+_archive="${_name}-${_version}.tar.gz"
+_archive_url="http://www.lua.org/ftp/${_archive}"
+_hash="efbb645e897eae37cad4344ce8b0a614" #5.2.2
+
+
+
+load_base http.fetch
+
+function build() {
+
+
+		cd "${lib_workdir}/${_pkgdir}"
+		if [[ ${libs_target-} == "ios" ]]; then
+			make generic CC="${CC}" RANLIB="${RANLIB}" AR="${AR} rcu" && make generic install INSTALL_TOP=${libs_builddir}
+		else
+		make generic && make generic install INSTALL_TOP=${libs_builddir}
+		fi
+}
+
+# vim: ft=sh

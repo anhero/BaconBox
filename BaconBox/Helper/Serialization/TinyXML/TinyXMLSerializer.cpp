@@ -13,6 +13,7 @@
 #include "BaconBox/Helper/Serialization/Value.h"
 #include "BaconBox/Helper/Serialization/Array.h"
 #include "BaconBox/Helper/Serialization/Object.h"
+#include "BaconBox/Helper/Parser.h"
 
 namespace BaconBox {
 	const std::string FALSE_STRING = std::string("false");
@@ -106,7 +107,6 @@ namespace BaconBox {
 
 			}
 		}
-
 
 		const TiXmlAttribute *attribute = element.FirstAttribute();
 
@@ -264,23 +264,23 @@ namespace BaconBox {
 	}
 
 	void textToValue(const std::string &text, Value &value) {
-		if (text.empty()) {
+	    if (text.empty()) {
 			// If the text is empty, it's a null value.
 			value.setNull();
 
-		} else {
-			std::istringstream ss(text);
+		}
+	    else{
+		if(Parser::isNumeric(text)){
+		    if(Parser::isInteger(text)){
+				    // No errors? Therefore, it's an integer.
+				    value.setInt(Parser::stringToInt(text));
+		    }
+		    else{
+					    value.setDouble(Parser::stringToDouble(text));
+		    }
 
-			int intValue;
-
-			// We check if the value is an integer or not.
-			if (!(ss >> intValue)) {
-				// It's not an integer, so let's check if it's a double.
-				double doubleValue;
-
-				ss.str(text);
-
-				if (!(ss >> doubleValue)) {
+		}
+		else{
 					// It's neither an integer nor a floating point number, so let's
 					// check if it's a boolean value.
 					std::string tmpString(text);
@@ -331,14 +331,8 @@ namespace BaconBox {
 						value.setString(text);
 					}
 
-				} else {
-					value.setDouble(doubleValue);
 				}
-
-			} else {
-				// No errors? Therefore, it's an integer.
-				value.setInt(intValue);
-			}
-		}
+	    }
+	
 	}
 }

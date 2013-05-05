@@ -5,9 +5,12 @@
 #include "BaconBox/Helper/StringHelper.h"
 #include "BaconBox/Helper/UTFConvert.h"
 #include "BaconBox/Display/Text/TextureFont.h"
-#include "EntityFactory.h"
+#include "BaconBox/EntityFactory.h"
 #include "Mesh.h"
 #include "BaconBox/Display/Text/TextureFont.h"
+#include "BaconBox/Components/ComponentConnection.h"
+#include "DefaultEntityContainer.h"
+
 namespace BaconBox {
     
 	struct CharSprite{
@@ -19,25 +22,32 @@ namespace BaconBox {
 	
 	BB_ID_IMPL(TextRenderer);
 	
-	TextRenderer::TextRenderer(TextureFont * font) : Component(), font(font), needPositionReset(false), alignment(TextAlignment::LEFT) {
-	   
+	TextRenderer::TextRenderer(TextureFont * font) : Component(), font(font), needPositionReset(false), alignment(TextAlignment::LEFT), textComponent(NULL) {
+		this->initializeConnections();
 	}
 
 	TextRenderer::~TextRenderer() {
 	}
+	
+	void TextRenderer::initializeConnections() {
+		// We add the connections.
+		this->addConnection(new ComponentConnection<TextComponent>(&this->textComponent));
+		this->refreshConnections();
+	}
+	
 	
 	void TextRenderer::render(){
 		if(needPositionReset){
 			internalResetPosition();
 			needPositionReset =false;
 		}
-	    for(std::list<std::list<std::list<CharSprite> > >::iterator i = charSpritesLines.begin(); i != charSpritesLines.end(); i++){
-		      for(std::list<std::list<CharSprite> >::iterator j = i->begin(); j != i->end(); j++){
-			  for(std::list<CharSprite>::iterator k = j->begin(); k != j->end(); k++){
-			      k->sprite->render();
-			  }	
-		    }
-		}
+//	    for(std::list<std::list<std::list<CharSprite> > >::iterator i = charSpritesLines.begin(); i != charSpritesLines.end(); i++){
+//		      for(std::list<std::list<CharSprite> >::iterator j = i->begin(); j != i->end(); j++){
+//			  for(std::list<CharSprite>::iterator k = j->begin(); k != j->end(); k++){
+//			      k->sprite->render();
+//			  }	
+//		    }
+//		}
 		}
 
 	void TextRenderer::setColor(const Color &newColor){
@@ -51,6 +61,11 @@ namespace BaconBox {
 		}
 	}
 
+	void TextRenderer::setEntity(Entity *newEntity){
+	    Component::setEntity(newEntity);
+	}
+
+	
 	void TextRenderer::receiveMessage(int senderID, int destID, int message, void *data) {
 	    if(senderID == Transform::ID){
 		if(message == Transform::MESSAGE_POSITION_CHANGED || message == Transform::MESSAGE_ROTATION_CHANGED || message == Transform::MESSAGE_SCALE_CHANGED){
@@ -68,9 +83,6 @@ namespace BaconBox {
 			else if(message == TextComponent::MESSAGE_SIZE_CHANGED){
 			    resetPosition();
 			}
-		}
-		else if(destID == TextRenderer::ID && message == Entity::MESSAGE_ADDING_COMPONENT){
-		    textComponent = reinterpret_cast<TextComponent*>(getEntity()->getComponent(TextComponent::ID));
 		}
 		else if(senderID == ColorFilter::ID){
 			if(message == ColorFilter::MESSAGE_COLOR_CHANGED ){
@@ -105,7 +117,7 @@ namespace BaconBox {
 				Transform* transform = reinterpret_cast<Transform*>(sprite->getComponent(Transform::ID));
 				Transform transformBackup = *transform;
 				(*transform) = Transform();
-				mesh->getVertices().move(alignmentAdjust.x, alignmentAdjust.y);
+				mesh->getPreTransformVertices().move(alignmentAdjust.x, alignmentAdjust.y);
 				(*transform) = transformBackup;
 			}
 		}
@@ -131,10 +143,9 @@ namespace BaconBox {
 	    Vector2 tempAdvance;
 	    Vector2 newLineJump;
 	    Char32 previousChar;
-	    int widthLastChar = 0;
 	    std::list<CharSprite> charSpritesForAlignmentAdjust;
 	    
-	    Transform* stringTransform = reinterpret_cast<Transform*>(getEntity()->getComponent(Transform::ID));
+//	    Transform* stringTransform = reinterpret_cast<Transform*>(getEntity()->getComponent(Transform::ID));
 	    for(std::list<std::list<std::list<CharSprite> > >::iterator i = charSpritesLines.begin(); i != charSpritesLines.end(); i++){
 			for(std::list<std::list<CharSprite> >::iterator j = i->begin(); j != i->end(); j++){
 				Vector2 wordTempAdvances;
@@ -152,12 +163,16 @@ namespace BaconBox {
 				for(std::list<CharSprite>::iterator k = j->begin(); k != j->end(); k++){
 					TextureGlyphInformation * glyphInfo = k->glyph;
 					MovieClipEntity * sprite = k->sprite;
-					Transform* transform = reinterpret_cast<Transform*>(sprite->getComponent(Transform::ID));
+//					Transform* transform = reinterpret_cast<Transform*>(sprite->getComponent(Transform::ID));
 					Mesh* mesh = reinterpret_cast<Mesh*>(sprite->getComponent(Mesh::ID));
-					Vector2 glypRelativePosition = transform->getPosition() +advance+ glyphInfo->offset + Vector2(font->getKerning(previousChar, k->glyph->charCode),0) + newLineJump;
+					Vector2 glypRelativePosition = advance+ glyphInfo->offset + Vector2(font->getKerning(previousChar, k->glyph->charCode),0) + newLineJump;
+//					Vector2 glypRelativePosition = transform+ advance+ glyphInfo->offset + Vector2(font->getKerning(previousChar, k->glyph->charCode),0) + newLineJump;
+
 					Vector2 neededMove = glypRelativePosition - k->currentPos;
-					if(neededMove.x || neededMove.y)mesh->getVertices().move(neededMove.x, neededMove.y);
-					(*transform) = (*stringTransform);
+					if(neededMove.x || neededMove.y){
+					    mesh->getPreTransformVertices().move(neededMove.x, neededMove.y);
+					}
+//					(*transform) = (*stringTransform);
 					k->currentPos = glypRelativePosition;
 					advance += glyphInfo->advance;
 					previousChar = glyphInfo->charCode;
@@ -173,6 +188,7 @@ namespace BaconBox {
 	}
 	
 	void TextRenderer::setText(const std::string & text){
+	    getEntity()->getComponent<DefaultEntityContainer>()->removeAllChildren();
 	    for(std::list<std::list<std::list<CharSprite> > >::iterator i = charSpritesLines.begin(); i != charSpritesLines.end(); i++ ){
 		for(std::list<std::list<CharSprite> >::iterator j = i->begin(); j != i->end(); j++){
 		    for(std::list<CharSprite>::iterator k = j->begin(); k != j->end(); k++){
@@ -180,6 +196,9 @@ namespace BaconBox {
 		    }
 		}
 	    }
+	    
+	    getEntity()->getComponent<DefaultTimeline>()->setNbFrames(1);
+
 	    
 	    charSpritesLines.clear();
 	    
@@ -198,24 +217,27 @@ namespace BaconBox {
 				glyphInfo = font->getGlyphInformation(32);
 			}
 		}
-		
+		MovieClipEntity * sprite = NULL;
 		if(glyphInfo->charCode == '\n'){
 			charSpritesLines.resize(charSpritesLines.size() +1 );
 			charSpritesLines.back().resize(1);
 		}
 		else if(glyphInfo->charCode == ' '){
 			line.resize(line.size() +1);
-			MovieClipEntity * sprite = EntityFactory::getMovieClipEntityFromSubTexture(glyphInfo->subTextureInfo);
+			sprite = EntityFactory::getInstance().getMovieClipEntityFromSubTexture(glyphInfo->subTextureInfo);
 			line.back().push_back(CharSprite(sprite, glyphInfo));
 			line.resize(line.size() +1);
 		}
 		else{
-		    MovieClipEntity * sprite = EntityFactory::getMovieClipEntityFromSubTexture(glyphInfo->subTextureInfo);
+		    sprite = EntityFactory::getInstance().getMovieClipEntityFromSubTexture(glyphInfo->subTextureInfo);
 		    word.push_back(CharSprite(sprite, glyphInfo));
 		}
-
+		if(sprite)getEntity()->getComponent<DefaultEntityContainer>()->addChild(sprite);
+		
 		
 	    }
+	    	    getEntity()->getComponent<DefaultTimeline>()->gotoAndStop(0);
+
 	    
 	    resetPosition();
 	    setColor(color);

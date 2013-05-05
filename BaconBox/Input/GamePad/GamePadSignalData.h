@@ -22,7 +22,7 @@ namespace BaconBox {
 		 * @param gamePadIndex Index of the game pad.
 		 */
 		GamePadSignalData(const GamePadState &newGamePadState,
-		                  unsigned int gamePadIndex);
+		                  size_t gamePadIndex);
 
 		/**
 		 * Destructor.
@@ -33,7 +33,7 @@ namespace BaconBox {
 		const GamePadState &gamePadState;
 
 
-		const unsigned int gamePadIndex;
+		const size_t gamePadIndex;
 	};
 }
 

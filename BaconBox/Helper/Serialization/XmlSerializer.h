@@ -1,10 +1,10 @@
 #ifndef BB_XML_SERIALIZER_H
 #define BB_XML_SERIALIZER_H
 
-#include "TinyXML/TinyXMLSerializer.h"
+#include "BaconBox/Helper/Serialization/RapidXml/RapidXmlSerializer.h"
 
 namespace BaconBox {
-	typedef TinyXMLSerializer XmlSerializer;
+	typedef RapidXmlSerializer XmlSerializer;
 }
 
 #endif

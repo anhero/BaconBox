@@ -12,4 +12,4 @@ namespace BaconBox {
 	typedef ResourcePointer<TextureInformation, &ResourceManager::getTexture> TexturePointer;
 }
 
-#endif // RB_TEXTURE_POINTER_H
+#endif // BB_TEXTURE_POINTER_H

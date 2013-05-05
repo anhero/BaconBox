@@ -91,6 +91,7 @@ namespace BaconBox {
 
 	bool ResourcePathHandler::createFolder(const std::string &path) {
 #ifdef BB_IPHONE_PLATFORM
+		return false;
 #elif defined(BB_MAC_PLATFORM) || defined(BB_LINUX)
 
 		if (mkdir(path.c_str(), 0755)) {
@@ -155,6 +156,7 @@ namespace BaconBox {
 
 	bool ResourcePathHandler::folderExists(const std::string &path) {
 #ifdef BB_IPHONE_PLATFORM
+		return false;
 #elif defined(BB_MAC_PLATFORM) || defined(BB_LINUX)
 		struct stat st;
 		return stat(path.c_str(), &st) == 0;
@@ -179,8 +181,8 @@ namespace BaconBox {
 	}
 	
 	std::string ResourcePathHandler::getPathFromFilename(std::string filename){
-	    unsigned found = filename.find_last_of("/\\");
-	    return filename.substr(0,found);
+		std::string::size_type found = filename.find_last_of("/\\");
+	    return filename.substr(0, found);
 	}
 
 	bool ResourcePathHandler::isFileWritable(const std::string &filePath) {

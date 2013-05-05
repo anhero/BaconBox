@@ -36,8 +36,11 @@ AS3::local::var FlashEngine::stage;
 
 			if(currentStateMovieClip != AS3::local::internal::_null){
 				args[0]  = currentStateMovieClip;
+			AS3::local::var containsAS3 = FlashHelper::callMethod(stage, "contains", 1, args);
+			bool contains = AS3::local::internal::bool_valueOf(containsAS3);
+			if(contains){
 				FlashHelper::callMethod(stage, "removeChild", 1, args);
-				
+			}				
 			}
 			currentStateMovieClip = args[0] = newMovieClip;
 			FlashHelper::callMethod(stage, "addChild", 1, args);
@@ -47,7 +50,11 @@ AS3::local::var FlashEngine::stage;
 			State * aState = getState(name);
 			AS3::local::var mc= reinterpret_cast<FlashEntityManager*>(aState->getComponent(FlashEntityManager::ID))->getMovieClip();
 			AS3::local::var args[1] = {mc};
-			FlashHelper::callMethod(stage, "removeChild", 1, args);
+			AS3::local::var containsAS3 = FlashHelper::callMethod(stage, "contains", 1, args);
+			bool contains = AS3::local::internal::bool_valueOf(containsAS3);
+			if(contains){
+				FlashHelper::callMethod(stage, "removeChild", 1, args);
+			}
 			BaseEngine::removeState(name);
 
 		}
