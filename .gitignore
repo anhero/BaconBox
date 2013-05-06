@@ -61,3 +61,4 @@ BaconBox/Special/Flash/BaconBox.as3
 BaconBox/Special/Flash/BaconBox.cpp
 BaconBoxLua.cpp
 LSOBackingStore.as
+*.a
