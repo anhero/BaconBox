@@ -17,6 +17,7 @@ namespace BaconBox {
 		NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 		
 		InputManager::getInstance().setNbPointers(1);
+		InputManager::getInstance().setNbKeyboards(1);
 		
 		CGRect screenBounds = [[UIScreen mainScreen] bounds];
 		this->MainWindow::setResolution(screenBounds.size.width, screenBounds.size.height);
