@@ -1,6 +1,6 @@
 FLASCC:=X
 FLEX:=X
-SWIG:=X
+SWIG:=`which swig`
 BUILD_PATH=$(PROJECT_ROOT)/build
 CXX="$(FLASCC)/usr/bin/g++"
 
@@ -277,7 +277,7 @@ $(addsuffix .abc,$(SWIG_OUTPUT)): $(addsuffix .as3,$(SWIG_OUTPUT))
 
 $(PROJECT_ROOT)/BaconBox/Special/Flash/$(addsuffix .cpp,$(LUA_SWIG_WRAPPER)): $(LUA_SWIG_INTERFACE)
 	@echo "-------- lua SWIG wrappers --------"
-	$(SWIG)/swig -lua -c++ -module BaconBox -outdir . -ignoremissing $(DEFINE_FLAG) -DBB_FLASH_PLATEFORM -DBB_LUA -I$(PROJECT_ROOT) -o $(addsuffix .cpp,$(LUA_SWIG_WRAPPER)) $(LUA_SWIG_INTERFACE)
+	$(SWIG) -lua -c++ -module BaconBox -outdir . -ignoremissing $(DEFINE_FLAG) -DBB_FLASH_PLATEFORM -DBB_LUA -I$(PROJECT_ROOT) -o $(addsuffix .cpp,$(LUA_SWIG_WRAPPER)) $(LUA_SWIG_INTERFACE)
 
 
 BaconBox/EntityWrapper/EntityHolderMovieClip.abc: BaconBox/EntityWrapper/EntityHolderMovieClip.as
