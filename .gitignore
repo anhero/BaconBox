@@ -62,3 +62,5 @@ BaconBox/Special/Flash/BaconBox.cpp
 BaconBoxLua.cpp
 LSOBackingStore.as
 *.a
+ide/windows/CodeBlocks/BaconBox.depend
+ide/windows/CodeBlocks/BaconBox.layout
