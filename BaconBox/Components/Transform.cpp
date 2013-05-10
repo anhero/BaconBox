@@ -17,7 +17,7 @@ namespace BaconBox {
 	int Transform::MESSAGE_POSITION_CHANGED = IDManager::generateID();
 	int Transform::MESSAGE_ROTATION_CHANGED = IDManager::generateID();
 	int Transform::MESSAGE_SCALE_CHANGED = IDManager::generateID();
-	
+
 	Transform::Transform() : Component(), position(), rotation(0.0f), scale(1.0f, 1.0f){
 	}
 
@@ -27,7 +27,7 @@ namespace BaconBox {
 	Transform::~Transform() {
 	}
 
-	
+
 	Transform &Transform::operator=(const Transform &src) {
 		if (this != &src) {
 
@@ -39,17 +39,17 @@ namespace BaconBox {
 		return *this;
 	}
 
-	
+
 	Transform *Transform::clone() const {
 		return new Transform(*this);
 	}
-	
+
 	void Transform::receiveMessage(int senderID, int destID, int message, void *data) {
 	    Component::receiveMessage(senderID, destID, message, data);
 		if (destID != Transform::ID) {
 			return;
 		}
-		
+
 		if (message == Transform::MESSAGE_GET_POSITION) {
 			*reinterpret_cast<Vector2 *>(data) = this->getPosition();
 		} else if (message == Transform::MESSAGE_GET_ROTATION) {
@@ -68,6 +68,11 @@ namespace BaconBox {
 
 	const Vector2 &Transform::getPosition() const {
 		return this->position;
+	}
+
+
+	const Vector2 &Transform::getRealPosition() const {
+		return getPosition();
 	}
 
 	void Transform::setPosition(const Vector2 &newPosition, bool withMessage) {
@@ -101,20 +106,24 @@ namespace BaconBox {
 			sendMessage(Entity::BROADCAST, MESSAGE_SCALE_CHANGED, &(data));
 		}
 	}
-	
-	
-	
 
-	
 
-	
+
+
+
+
+
 	TransformProxy::TransformProxy(Entity* entity, bool mustAddComponent): BB_PROXY_CONSTRUCTOR(new Transform())  {
 	}
-	    
 
-	    
+
+
 	const Vector2 &TransformProxy::getPosition() const{
 	    return reinterpret_cast<Transform*>(component)->getPosition();
+	}
+
+    const Vector2 &TransformProxy::getRealPosition() const{
+	    return reinterpret_cast<Transform*>(component)->getRealPosition();
 	}
 
 	void TransformProxy::setPosition(const Vector2 &newPosition){
@@ -136,5 +145,11 @@ namespace BaconBox {
 	void TransformProxy::setScale(const Vector2 &newScale){
 	    reinterpret_cast<Transform*>(component)->setScale(newScale);
 	}
-	
+
+    void TransformProxy::setTransform(Transform * transform){
+        component = transform;
+	    entity->addComponent(transform);
+    }
+
+
 }
