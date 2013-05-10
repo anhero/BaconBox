@@ -13,7 +13,16 @@
 #include "BaconBox/Components/EntityContainer.h"
 #include "BaconBox/Components/MatrixComponent.h"
 #include "BaconBox/Components/SymbolComponent.h"
+#include "BaconBox/Components/SizeComponent.h"
+
+#include "BaconBox/Components/AABBHitBox.h"
+
 #include "BaconBox/Components/HasName.h"
+
+#ifdef BB_LUA
+#include "BaconBox/Components/Lua/LuaEntity.h"
+#endif
+
 #ifdef BB_FLASH_PLATEFORM
 #include <AS3/AS3.h>
 #include <AS3/AS3++.h>
@@ -23,22 +32,27 @@ namespace BaconBox {
 	/**
 	 *
 	 */
-	class MovieClipEntity : public Entity, public HasNameProxy, public TransformProxy, public ColorFilterProxy, public TimelineProxy, public EntityContainerProxy, public MatrixComponentProxy, public SymbolComponentProxy  {
+	class MovieClipEntity : public Entity, public HasNameProxy, public TransformProxy, public ColorFilterProxy, public TimelineProxy,
+	public EntityContainerProxy, public MatrixComponentProxy, public SymbolComponentProxy, public AABBHitBoxProxy, public SizeComponentProxy
+	#ifdef BB_LUA
+        , public LuaEntityProxy
+    #endif //BB_LUA
+    {
     public:
 		BB_ID_HEADER;
-		
+
 		MovieClipEntity();
 		MovieClipEntity(const MovieClipEntity& src);
-		
+
 #ifdef BB_FLASH_PLATEFORM
 		virtual void setMovieClip(AS3::local::var aMC);
 #endif
-		
-		
-		
+
+
+
     private:
-		
-		
+
+
 	};
 }
 
