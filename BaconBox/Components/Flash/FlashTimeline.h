@@ -18,9 +18,13 @@ namespace BaconBox {
 		void receiveMessage(int senderID, int destID, int message, void *data);
 		
 		void gotoAndPlay(int frame);
+
+		void gotoAndPlay(const std::string &labelName);
 		
 		void gotoAndStop(int frame);
-		
+
+		void gotoAndStop(const std::string &labelName);
+
 		void nextFrame();
 		
 		void prevFrame();

@@ -35,9 +35,22 @@ namespace BaconBox {
 			movieClipHolder->callMethod("gotoAndPlay", 1, args);
 			isPlayingFlag = true;
 		}
+
+		void FlashTimeline::gotoAndPlay(const std::string &labelName){
+			AS3::local::var args[1] = {AS3::local::internal::new_String(labelName.c_str())};
+			movieClipHolder->callMethod("gotoAndPlay", 1, args);
+			isPlayingFlag = true;
+		}
+
 		
 		void FlashTimeline::gotoAndStop(int frame){
 			AS3::local::var args[1] = {AS3::local::internal::new_int(frame+1)};
+			movieClipHolder->callMethod("gotoAndStop", 1, args);
+			isPlayingFlag = false;
+		}
+
+		void FlashTimeline::gotoAndStop(const std::string &labelName){
+			AS3::local::var args[1] = {AS3::local::internal::new_String(labelName.c_str())};
 			movieClipHolder->callMethod("gotoAndStop", 1, args);
 			isPlayingFlag = false;
 		}
@@ -62,7 +75,7 @@ namespace BaconBox {
 		
 		int FlashTimeline::getCurrentFrame() const{
 			AS3::local::var currentFrame = movieClipHolder->getProperty("currentFrame");
-			return AS3::local::internal::int_valueOf(currentFrame);
+			return AS3::local::internal::int_valueOf(currentFrame) - 1;
 		}
 		
 		bool FlashTimeline::isPlaying() const{
