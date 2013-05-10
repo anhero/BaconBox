@@ -12,7 +12,16 @@ namespace BaconBox {
 
 	BB_ID_IMPL(MovieClipHolder);
 	
+   	MovieClipHolder::~MovieClipHolder(){
 
+   		AS3_DeclareVar(mc, *);
+		///AS3::local::var mc = movieClipHolder->getMovieClip();
+		AS3_CopyVarxxToVar(mc, mc);
+		inline_as3(
+			"mc.entity = null; \n"
+			"mc.destroy() \n");
+   		 //AS3::local::internal::_delete(mc); 	
+	}
 	MovieClipHolder::MovieClipHolder(AS3::local::var aMC) : Component(){
 		setMovieClip(aMC);
 		//AS3::local::var args[1] = {AS3::local::internal::new_int(1)};

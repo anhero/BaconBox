@@ -19,6 +19,7 @@ namespace BaconBox {
     	BB_ID_HEADER;
     	
         MovieClipHolder(AS3::local::var aMC);
+       	~MovieClipHolder();
 		void setMovieClip(AS3::local::var aMC);
 		AS3::local::var getMovieClip();
 
