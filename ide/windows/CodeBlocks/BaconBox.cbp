@@ -77,6 +77,8 @@
 		<Unit filename="../../../BaconBox/Audio/SoundParameters.h" />
 		<Unit filename="../../../BaconBox/AxisAlignedBoundingBox.cpp" />
 		<Unit filename="../../../BaconBox/AxisAlignedBoundingBox.h" />
+		<Unit filename="../../../BaconBox/Components/AABBHitBox.cpp" />
+		<Unit filename="../../../BaconBox/Components/AABBHitBox.h" />
 		<Unit filename="../../../BaconBox/Components/Batch.cpp" />
 		<Unit filename="../../../BaconBox/Components/Batch.h" />
 		<Unit filename="../../../BaconBox/Components/CameraDriverRenderer.cpp" />
@@ -100,8 +102,8 @@
 		<Unit filename="../../../BaconBox/Components/HasName.cpp" />
 		<Unit filename="../../../BaconBox/Components/HasName.h" />
 		<Unit filename="../../../BaconBox/Components/IComponentConnection.h" />
-		<Unit filename="../../../BaconBox/Components/Lua/LuaState.cpp" />
-		<Unit filename="../../../BaconBox/Components/Lua/LuaState.h" />
+		<Unit filename="../../../BaconBox/Components/Lua/LuaEntity.cpp" />
+		<Unit filename="../../../BaconBox/Components/Lua/LuaEntity.h" />
 		<Unit filename="../../../BaconBox/Components/MatrixComponent.cpp" />
 		<Unit filename="../../../BaconBox/Components/MatrixComponent.h" />
 		<Unit filename="../../../BaconBox/Components/Mesh.cpp" />
