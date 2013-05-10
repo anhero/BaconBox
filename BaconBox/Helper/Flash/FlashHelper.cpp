@@ -5,6 +5,10 @@
 
 using namespace BaconBox;
 
+
+AS3::local::var FlashHelper::MOVIECLIP_CLASS = FlashHelper::getDefinitionByName("flash.display.MovieClip");
+
+
 AS3::local::var FlashHelper::callMethod(const AS3::local::var & var, const std::string & functionName, int argCount, AS3::local::var *args){
 
 	#ifdef BB_DEBUG
@@ -32,7 +36,7 @@ AS3::local::var FlashHelper::callMethod(const AS3::local::var & var, const std::
 
 
 MovieClipEntity * FlashHelper::getMCEntityFromMC(AS3::local::var mc){
-		if(AS3::local::internal::equals(mc, AS3::local::internal::_undefined)) return NULL;
+		if(AS3::local::internal::equals(mc, AS3::local::internal::_undefined) ||!AS3::local::internal::is(mc, MOVIECLIP_CLASS)) return NULL;
 		inline_as3("import BaconBox.MovieClipEntity;");
 		inline_as3("import BaconBox.TextEntity;");
 		AS3::local::var entity = FlashHelper::getProperty(mc, "entity");
@@ -117,6 +121,12 @@ AS3::local::var FlashHelper::callFunction(const std::string & functionName, cons
 		}
 	#endif
 }
+
+AS3::local::var FlashHelper::getDefinitionByName(const std::string & className){
+	AS3::local::var args[1] = {AS3::local::internal::new_String(className.c_str())};
+	return FlashHelper::callFunction("getDefinitionByName", "flash.utils", 1, args);
+}
+
 
 AS3::local::var FlashHelper::construct(const std::string & className){
 	#ifdef BB_DEBUG

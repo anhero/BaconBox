@@ -24,6 +24,8 @@ namespace BaconBox {
 
 		static AS3::local::var construct(const std::string & className);
 	private:
+		static AS3::local::var getDefinitionByName(const std::string & className);
+		static AS3::local::var MOVIECLIP_CLASS;
             
 	};
 	
