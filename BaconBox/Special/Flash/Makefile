@@ -72,11 +72,16 @@ BaconBox/Components/Timeline.o \
 BaconBox/Components/EntityContainer.o \
 BaconBox/Components/SymbolComponent.o \
 BaconBox/Components/MatrixComponent.o \
+BaconBox/Components/SizeComponent.o \
+BaconBox/Components/AABBHitBox.o \
 BaconBox/Components/Flash/MovieClipHolder.o \
 BaconBox/Components/Flash/TextFieldHolder.o \
 BaconBox/Components/Flash/FlashTimeline.o \
 BaconBox/Components/Flash/FlashEntityContainer.o \
 BaconBox/Components/Flash/FlashHasName.o \
+BaconBox/Components/Flash/FlashSizeComponent.o \
+BaconBox/Components/Flash/FlashTransform.o \
+BaconBox/Components/Flash/FlashAABBHitBox.o \
 BaconBox/Components/Flash/FlashEntityManager.o 
 
 
@@ -201,7 +206,7 @@ FLASCC_FILE_PATH=BaconBox/Special/Flash
 ifdef lua
 ALL_SOURCES+= BaconBox/Script/Lua/LuaManager.o \
 $(LUA_SWIG_SOURCES) \
-BaconBox/Components/Lua/LuaState.o
+BaconBox/Components/Lua/LuaEntity.o
 endif
 
 
@@ -282,7 +287,7 @@ $(PROJECT_ROOT)/BaconBox/Special/Flash/$(addsuffix .cpp,$(LUA_SWIG_WRAPPER)): $(
 
 BaconBox/EntityWrapper/EntityHolderMovieClip.abc: BaconBox/EntityWrapper/EntityHolderMovieClip.as
 	@echo "-------- Compile the EntityHolderMovieClip to ABC --------"
-	$(AS3COMPILERARGS) -abcfuture -AS3 -import $(call nativepath,$(FLASCC)/usr/lib/builtin.abc) -import $(call nativepath,$(FLASCC)/usr/lib/playerglobal.abc) BaconBox/EntityWrapper/EntityHolderMovieClip.as 
+	$(AS3COMPILERARGS) -abcfuture -AS3 -import $(call nativepath,$(FLASCC)/usr/lib/builtin.abc) -import $(call nativepath,$(FLASCC)/usr/lib/playerglobal.abc) BaconBox/EntityWrapper/EntityHolderTextField.as BaconBox/EntityWrapper/EntityHolderMovieClip.as 
 
 BaconBox/EntityWrapper/EntityHolderTextField.abc: BaconBox/EntityWrapper/EntityHolderTextField.as
 	@echo "-------- Compile the EntityHolderTextField to ABC --------"
@@ -290,7 +295,7 @@ BaconBox/EntityWrapper/EntityHolderTextField.abc: BaconBox/EntityWrapper/EntityH
 
 
 
-$(BUILD_PATH)/EntityWrapper.swc: BaconBox/EntityWrapper/EntityHolderTextField.abc BaconBox/EntityWrapper/EntityHolderMovieClip.abc
+$(BUILD_PATH)/EntityWrapper.swc: BaconBox/EntityWrapper/EntityHolderMovieClip.abc
 	@echo "-------- Compile EntityWrapper.swc --------"
 	$(COMPC) -compiler.source-path . -include-classes BaconBox.EntityWrapper.EntityHolderTextField BaconBox.EntityWrapper.EntityHolderMovieClip -output $(BUILD_PATH)/EntityWrapper.swc
 
