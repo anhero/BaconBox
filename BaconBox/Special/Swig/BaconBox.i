@@ -48,6 +48,12 @@
    setmetatable(c, mt)
    return c
 end
+
+LuaState = class()
+function LuaState:init(name)
+  self.state = BaconBox.State(name)
+  self.state:setLuaClass(self)
+end
 }
 #endif
 
@@ -110,11 +116,16 @@ end
 #include "BaconBox/Display/Text/TextAlignment.h"
 #include "BaconBox/Components/TextComponent.h"
 #include "BaconBox/Display/Text/TextEntity.h"
+#include "BaconBox/AxisAlignedBoundingBox.h"
+  #include "BaconBox/Components/AABBHitbox.h"
+
+  #include "BaconBox/Components/SizeComponent.h"
+
 
 #include "BaconBox/Symbol.h"
 
 #if defined(BB_LUA)
-  #include "BaconBox/Components/Lua/LuaState.h"
+  #include "BaconBox/Components/Lua/LuaEntity.h"
 #endif
 
 namespace BaconBox{
@@ -332,7 +343,9 @@ namespace BaconBox{
 %include "BaconBox/Input/Pointer/PointerButtonSignalData.h"
 
 %include "BaconBox/Components/Transform.h"
-
+%include "BaconBox/AxisAlignedBoundingBox.h"
+ %include "BaconBox/Components/AABBHitbox.h"
+  %include "BaconBox/Components/SizeComponent.h"
 
 %include "BaconBox/Display/ColorFormat.h"
 
@@ -344,13 +357,12 @@ namespace BaconBox{
 %include "BaconBox/Components/Timeline.h"
 %include "BaconBox/Components/EntityContainer.h"
 
-%include "BaconBox/MovieClipEntity/MovieClipEntity.h"
 
 
 #if defined(BB_LUA)
-%include "BaconBox/Components/Lua/LuaState.h"
+%include "BaconBox/Components/Lua/LuaEntity.h"
 #endif
-
+%include "BaconBox/MovieClipEntity/MovieClipEntity.h"
 %include "BaconBox/Core/State.h"
 
 %include "BaconBox/Core/Engine.h"
@@ -388,6 +400,7 @@ namespace BaconBox{
     static SoundInfo *loadSoundRelativePath(const std::string &key,
                 const std::string &relativePath,
                 bool overwrite = false);
+              
 
     static SoundInfo *loadSoundFromBundle(const std::string &key,
                                 const std::string &bundleKey,
