@@ -16,9 +16,14 @@ namespace BaconBox {
 		FlashEntityContainer(const FlashEntityContainer &src);
 		
 		virtual ~FlashEntityContainer();
+
+		//void update();
+		//void render();
 		
 		void receiveMessage(int senderID, int destID, int message, void *data);
 		
+    	void propagateMessage(int senderID, int destID, int message, void *data);
+
 		void addChild(MovieClipEntity *newChild);
 		
 		void addChildAt(MovieClipEntity *newChild, int index);
@@ -54,6 +59,7 @@ namespace BaconBox {
 		int getNbChildren() const;
 		
 		MovieClipEntity * getParent() const;
+
 
 	private:
 		MovieClipHolder * movieClipHolder;

@@ -16,8 +16,43 @@ namespace BaconBox {
 	}
 	
 	FlashEntityContainer::~FlashEntityContainer() {
+		
+
 	}
 
+	/*
+	void FlashEntityContainer::update(){
+		int numChildren = getNbChildren();
+		for(int i = 0; i < numChildren; i++){
+			MovieClipEntity * entity = getChildAt(i);
+			if(entity)entity->update();
+		}
+	}
+
+	void FlashEntityContainer::render(){
+		int numChildren = getNbChildren();
+		for(int i = 0; i <numChildren; i++){
+			MovieClipEntity * entity = getChildAt(i);
+			if(entity)entity->render();
+		}
+	}
+	*/
+
+
+	
+
+
+	void FlashEntityContainer::propagateMessage(int senderID, int destID, int message, void *data){
+  		int numChildren = getNbChildren();
+		for(int i = 0; i < numChildren; i++){
+			MovieClipEntity * entity = getChildAt(i);
+			if(entity){
+				entity->propagateMessage(senderID, destID, message, data);
+			}
+		}
+    }
+
+	
 	void FlashEntityContainer::initializeConnections(){
 	    this->addConnection(new ComponentConnection<MovieClipHolder>(&this->movieClipHolder));
 	}
