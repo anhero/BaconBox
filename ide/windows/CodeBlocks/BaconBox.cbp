@@ -5,6 +5,7 @@
 		<Option title="BaconBox" />
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
+		<Option virtualFolders="BaconBox\Components\;" />
 		<Build>
 			<Target title="Debug">
 				<Option output="BaconBox" prefix_auto="1" extension_auto="1" />
@@ -88,6 +89,8 @@
 		<Unit filename="../../../BaconBox/Components/ComponentAddedData.cpp" />
 		<Unit filename="../../../BaconBox/Components/ComponentAddedData.h" />
 		<Unit filename="../../../BaconBox/Components/ComponentConnection.h" />
+		<Unit filename="../../../BaconBox/Components/DefaultAABBHitBox.cpp" />
+		<Unit filename="../../../BaconBox/Components/DefaultAABBHitBox.h" />
 		<Unit filename="../../../BaconBox/Components/DefaultEntityContainer.cpp" />
 		<Unit filename="../../../BaconBox/Components/DefaultEntityContainer.h" />
 		<Unit filename="../../../BaconBox/Components/DefaultMatrix.cpp" />
@@ -101,7 +104,9 @@
 		<Unit filename="../../../BaconBox/Components/EntityManager.h" />
 		<Unit filename="../../../BaconBox/Components/HasName.cpp" />
 		<Unit filename="../../../BaconBox/Components/HasName.h" />
-		<Unit filename="../../../BaconBox/Components/IComponentConnection.h" />
+		<Unit filename="../../../BaconBox/Components/IComponentConnection.h">
+			<Option virtualFolder="BaconBox/Components/" />
+		</Unit>
 		<Unit filename="../../../BaconBox/Components/Lua/LuaEntity.cpp" />
 		<Unit filename="../../../BaconBox/Components/Lua/LuaEntity.h" />
 		<Unit filename="../../../BaconBox/Components/MatrixComponent.cpp" />
@@ -110,6 +115,8 @@
 		<Unit filename="../../../BaconBox/Components/Mesh.h" />
 		<Unit filename="../../../BaconBox/Components/MeshDriverRenderer.cpp" />
 		<Unit filename="../../../BaconBox/Components/MeshDriverRenderer.h" />
+		<Unit filename="../../../BaconBox/Components/SizeComponent.cpp" />
+		<Unit filename="../../../BaconBox/Components/SizeComponent.h" />
 		<Unit filename="../../../BaconBox/Components/SymbolComponent.cpp" />
 		<Unit filename="../../../BaconBox/Components/SymbolComponent.h" />
 		<Unit filename="../../../BaconBox/Components/TextComponent.cpp" />
