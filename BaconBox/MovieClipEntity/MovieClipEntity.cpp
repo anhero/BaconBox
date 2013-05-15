@@ -18,6 +18,7 @@
 #include "BaconBox/Components/Timeline.h"
 #include "BaconBox/Components/DefaultEntityContainer.h"
 #include "BaconBox/Components/DefaultTimeline.h"
+#include "BaconBox/Components/DefaultAABBHitBox.h"
 #endif
 
 namespace BaconBox {
@@ -49,7 +50,7 @@ namespace BaconBox {
 	    setEntityContainer(new DefaultEntityContainer());
 	    setMatrixComponent(new DefaultMatrix());
 	    setTransform(new Transform());
-
+        setAABBHitBox(new DefaultAABBHitBox());
 		#endif
 
 	}
