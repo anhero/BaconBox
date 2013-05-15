@@ -52,12 +52,15 @@ namespace BaconBox {
 	//	}
 	//
 	DefaultEntityContainer::~DefaultEntityContainer() {
+	    std::set<MovieClipEntity*> toDelete;
 	    for(ChildArray::iterator i = children.begin(); i != children.end(); i++){
 			for(std::deque<MovieClipEntity*>::iterator j = i->second.begin(); j != i->second.end(); j++){
-				throw; //This is wrong, some entity will get deleted more than once.
-				delete (*j);
+				toDelete.insert(*j);
 			}
 	    }
+	    for(std::set<MovieClipEntity*>::iterator i = toDelete.begin(); i != toDelete.end(); i++){
+            delete (*i);
+        }
 	}
 
 	//	DefaultEntityContainer &DefaultEntityContainer::operator=(const DefaultEntityContainer &src) {
