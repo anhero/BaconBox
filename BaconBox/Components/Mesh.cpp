@@ -13,41 +13,41 @@ namespace BaconBox {
 		this->initializeConnections();
 	}
 
-	
-	
+
+
 	StandardVertexArray &Mesh::getPreTransformVertices(){
 		mustSync = true;
 		return preTransformVertices;
 	}
-	
+
 	StandardVertexArray &Mesh::getPostTransformVertices(){
 	    if(true || mustSync)syncMesh();
 	    return postTransformVertices;
 	}
-	
+
 //	const StandardVertexArray Mesh::getRelativeVertices() const {
 //		Transform *transform = reinterpret_cast<Transform*>(this->getEntity()->getComponent(Transform::ID));
-//		
+//
 //		if (transform) {
 //			StandardVertexArray result(this->vertices);
-//			
+//
 //			Vector2 position = transform->getPosition();
-//			
+//
 //			result.move(-position.x, -position.y);
-//			
+//
 //			return result;
 //		} else {
 //			return StandardVertexArray();
 //		}
 //	}
-	
+
 	void Mesh::initializeConnections() {
 		// We add the connections.
 		this->addConnection(new ComponentConnection<Transform>(&this->transform));
 		this->addConnection(new ComponentConnection<MatrixComponent>(&this->matrixComponent));
 		this->refreshConnections();
 	}
-	
+
 	void Mesh::syncMesh(){
 	    mustSync = false;
 	    postTransformVertices.clear();
@@ -60,27 +60,28 @@ namespace BaconBox {
 
 
 	void Mesh::receiveMessage(int senderID, int destID, int message, void *data) {
+	    Component::receiveMessage(senderID, destID, message, data);
 		if (senderID == Transform::ID && destID == Entity::BROADCAST) {
 			if (message == Transform::MESSAGE_POSITION_CHANGED) {
 			    	mustSync = true;
 //				Vector2ChangedData newPosition(*reinterpret_cast<Vector2ChangedData *>(data));
-//				
+//
 //				this->postTransformVertices.move(newPosition.newValue.x - newPosition.oldValue.x, newPosition.newValue.y - newPosition.oldValue.y);
 			} else if (message == Transform::MESSAGE_ROTATION_CHANGED) {
 				mustSync = true;
 //				ValueChangedData<float> newRotation(*reinterpret_cast<ValueChangedData<float> *>(data));
-//				
+//
 //				Transform *transform = reinterpret_cast<Transform*>(this->getEntity()->getComponent(Transform::ID));
-//				
+//
 //				if (transform) {
 //					this->postTransformVertices.rotateFromPoint(newRotation.newValue - newRotation.oldValue, transform->getPosition());
 //				}
 			} else if (message == Transform::MESSAGE_SCALE_CHANGED) {
 			    mustSync = true;
 //				Vector2ChangedData newScale(*reinterpret_cast<Vector2ChangedData *>(data));
-//				
+//
 //				Transform *transform = reinterpret_cast<Transform*>(this->getEntity()->getComponent(Transform::ID));
-//				
+//
 //				if (transform) {
 //					this->postTransformVertices.scaleFromPoint(newScale.newValue.x / newScale.oldValue.x, newScale.newValue.y / newScale.oldValue.y, transform->getPosition());
 //				}
@@ -89,7 +90,7 @@ namespace BaconBox {
 			    mustSync = true;
 			}
 		}
-		
+
 
 	}
 }
