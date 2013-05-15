@@ -93,7 +93,7 @@ namespace BaconBox {
 
 		return texInfo;
 	}
-	
+
 	bool ResourceManager::isLoadedTexture(const std::string &key) {
 #ifdef BB_OPENGL
 		std::map<std::string, TextureInformation *>::iterator i = textures.find(key);
@@ -102,7 +102,7 @@ namespace BaconBox {
 		return false;
 #endif
 	}
-	
+
 	bool ResourceManager::isExistingTexture(const std::string &key) {
 		std::map<std::string, TextureInformation *>::iterator i = textures.find(key);
 		return i != textures.end() && i->second != NULL;
@@ -601,49 +601,49 @@ namespace BaconBox {
 
 		//if there is more than one texture for the font.
 		const Array &symbolsArray = node["Symbol"].getArray();
-		
+
 		Object::const_iterator found;
 
 		for (Array::const_iterator i = symbolsArray.begin(); i != symbolsArray.end(); i++) {
 			Symbol *symbol = new Symbol();
 			const Object &tmpObject = i->getObject();
-			
+
 			found = tmpObject.find("className");
-			
+
 			if (found != tmpObject.end()) {
 				symbol->key = found->second.getString();
 			}
-			
+
 			found = tmpObject.find("textfield");
-			
+
 			if (found != tmpObject.end()) {
 				symbol->isTextField = found->second.getBool();
 			}
-			
+
 			if(symbol->isTextField) {
-				
+
 				found = tmpObject.find("text");
-				
+
 				if (found != tmpObject.end()) {
 					symbol->text = found->second.getString();
 				}
-				
+
 				found = tmpObject.find("font");
-				
+
 				if (found != tmpObject.end()) {
 					symbol->font = found->second.getString();
 				}
-				
+
 				symbol->frameCount  = 1;
-				
+
 				std::string alignment;
-				
+
 				found = tmpObject.find("alignment");
-				
+
 				if (found != tmpObject.end()) {
 					alignment = found->second.getString();
 				}
-				
+
 				if(alignment == "left"){
 					symbol->alignment = TextAlignment::LEFT;
 				}
@@ -653,73 +653,100 @@ namespace BaconBox {
 				else if(alignment == "right"){
 					symbol->alignment = TextAlignment::RIGHT;
 				}
-				
+
 				found = tmpObject.find("width");
-				
+
 				if (found != tmpObject.end()) {
 					symbol->textFieldWidth = found->second.getInt();
 				}
-				
+
 				found = tmpObject.find("height");
-				
+
 				if (found != tmpObject.end()) {
 					symbol->textFieldHeight = found->second.getInt();
 				}
 			} else {
 				found = tmpObject.find("frameCount");
-				
+
 				if (found != tmpObject.end()) {
 					symbol->frameCount = found->second.getInt();
 				}
 			}
-			
+
 			symbols[symbol->key] = symbol;
 		}
 
 		for (Array::const_iterator i = symbolsArray.begin(); i != symbolsArray.end(); i++) {
 			const Object &tmpObject = i->getObject();
-			
+
 			found = tmpObject.find("className");
-			
+
 			if (found != tmpObject.end()) {
 				Symbol *parent = symbols[found->second.getString()];
-				
+
+				found  = tmpObject.find("label");
+				if (found !=tmpObject.end()) {
+                    const Array &frames = found->second.getArray();
+                        for (Array::const_iterator j = frames.begin(); j != frames.end(); j++) {
+                            const Object &frameLabelObject = j->getObject();
+                            int startFrame;
+                            int endframe;
+                            std::string name;
+
+                            found = frameLabelObject.find("name");
+                            if (found != frameLabelObject.end()) {
+                                name = found->second.getString();
+                            }
+
+                            found = frameLabelObject.find("startFrame");
+                            if (found != frameLabelObject.end()) {
+                                startFrame = found->second.getInt();
+                            }
+
+                            found = frameLabelObject.find("endFrame");
+                            if (found != frameLabelObject.end()) {
+                                endframe = found->second.getInt();
+                            }
+                            parent->label[name] = std::pair<int, int>(startFrame, endframe);
+                        }
+
+				}
+
 				found = tmpObject.find("Frame");
-				
 				if (found !=tmpObject.end()) {
 					std::map<std::string, Symbol::Part*> children;
-					
+
 					const Array &frames = found->second.getArray();
 					int frameIndex = 0;
-					
+
 					for (Array::const_iterator j = frames.begin(); j != frames.end(); j++) {
 						int index = 0;
-						
+
 						const Object &currentObject = j->getObject();
-						
+
 						found = currentObject.find("Child");
-						
+
 						if (found != currentObject.end()) {
-							
+
 							const Array &childrenPerFrame = found->second.getArray();
-							
+
 							for (Array::const_iterator k = childrenPerFrame.begin(); k != childrenPerFrame.end(); k++) {
 								if(!k->isNull()){
-									
+
 									const Object &frameChildObject = k->getObject();
-									
+
 									std::string name;
-									
+
 									found = frameChildObject.find("name");
-									
+
 									if (found != frameChildObject.end()) {
 										name = found->second.getString();
 									}
-									
+
 									std::string className;
-									
+
 									found = frameChildObject.find("className");
-									
+
 									if (found != frameChildObject.end()) {
 										className = found->second.getString();
 									}
@@ -736,50 +763,50 @@ namespace BaconBox {
 									else{
 										part = l->second;
 									}
-									
+
 									part->indexByFrame.insert(std::pair<int, int>(frameIndex, index));
-									
+
 									Matrix matrix;
-									
+
 									found = frameChildObject.find("a");
 									if (found != frameChildObject.end()) {
 										matrix.a = found->second.getDouble();
 									}
-									
+
 									found = frameChildObject.find("b");
 									if (found != frameChildObject.end()) {
 										matrix.b = found->second.getDouble();
 									}
-									
+
 									found = frameChildObject.find("c");
 									if (found != frameChildObject.end()) {
 										matrix.c = found->second.getDouble();
 									}
-									
+
 									found = frameChildObject.find("d");
 									if (found != frameChildObject.end()) {
 										matrix.d = found->second.getDouble();
 									}
-									
+
 									found = frameChildObject.find("tx");
 									if (found != frameChildObject.end()) {
 										matrix.tx = found->second.getDouble();
 									}
-									
+
 									found = frameChildObject.find("ty");
 									if (found != frameChildObject.end()) {
 										matrix.ty = found->second.getDouble();
 									}
-									
+
 									part->matrices.insert(std::pair<int, Matrix>(frameIndex, matrix));
-									
+
 									index++;
 								}
 							}
 							frameIndex++;
 						}
 					}
-					
+
 					for(std::map<std::string, Symbol::Part*>::iterator j = children.begin(); j != children.end(); j++){
 						parent->parts.push_back(*(j->second));
 					}
@@ -802,11 +829,11 @@ namespace BaconBox {
 			symbol->textureKey = textureName;
 			Vector2 registrationPoint;
 			symbol->subTex = addSubTexture(name, new SubTextureInfo());
-	
+
 			symbol->subTex->position = Vector2((*i)["x"].getDouble(), (*i)["y"].getDouble());
 			symbol->subTex->size = Vector2((*i)["width"].getDouble(), (*i)["height"].getDouble());
 			symbol->subTex->textureInfo = NULL;
-			
+
 			if ((*i)["registrationPointX"].isNumeric()) {
 				registrationPoint.x = (*i)["registrationPointX"].getFloat();
 			}

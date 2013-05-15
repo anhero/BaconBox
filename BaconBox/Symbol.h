@@ -15,14 +15,14 @@ namespace BaconBox {
 //	    {
 //		bool operator() (const Part & a, const Part & b)
 //		{
-//		    return a.layerIndex < b.layerIndex; 
+//		    return a.layerIndex < b.layerIndex;
 //		}
 //		bool operator() (const Part & a, const Part & b)
 //		{
-//		    return a.layerIndex < b.layerIndex; 
+//		    return a.layerIndex < b.layerIndex;
 //		}
 //	    };
-		
+
 	    Part();
 	    typedef std::map<int, Matrix> MatrixByFrame;
 	    typedef std::map<int, int> IndexByFrame;
@@ -46,8 +46,9 @@ namespace BaconBox {
 //	Symbol * symbol;
 	std::list<Part> parts;
 	Vector2 registrationPoint;
-	
-	
+	std::map<std::string, std::pair<int, int> > label;
+
+
     };
 }
 
