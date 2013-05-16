@@ -13,6 +13,9 @@
 #elif defined(BB_WINDOWS_PLATFORM)
 #include <gl/gl.h>
 #include <gl/glu.h>
+#elif defined(BB_LINUX)
+#include <GL/gl.h>
+#include <GL/glu.h>
 #endif
 #endif
 
