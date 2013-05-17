@@ -8,7 +8,7 @@
 #include "BaconBox/Components/DefaultColorTransform.h"
 #include "BaconBox/Components/Texture.h"
 #include "BaconBox/Components/ComponentConnection.h"
-#include "Baconbox/Components/Visibility.h"
+#include "BaconBox/Components/Visibility.h"
 
 namespace BaconBox {
 	BB_ID_IMPL(MeshDriverRenderer);

@@ -118,7 +118,7 @@ end
 #include "BaconBox/Components/TextComponent.h"
 #include "BaconBox/Display/Text/TextEntity.h"
 #include "BaconBox/AxisAlignedBoundingBox.h"
-  #include "BaconBox/Components/AABBHitbox.h"
+  #include "BaconBox/Components/AABBHitBox.h"
 
   #include "BaconBox/Components/SizeComponent.h"
 

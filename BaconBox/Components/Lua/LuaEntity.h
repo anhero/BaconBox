@@ -7,7 +7,7 @@
 #include "BaconBox/Input/Pointer/Pointer.h"
 #include "BaconBox/Input/Keyboard/Keyboard.h"
 
-#include "BaconBox/Components/AABBHitbox.h"
+#include "BaconBox/Components/AABBHitBox.h"
 
 struct lua_State;
 struct swig_type_info;
