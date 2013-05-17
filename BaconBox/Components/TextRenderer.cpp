@@ -12,30 +12,30 @@
 #include "DefaultEntityContainer.h"
 
 namespace BaconBox {
-    
+
 	struct CharSprite{
 	    CharSprite(MovieClipEntity * sprite, TextureGlyphInformation * glyph): sprite(sprite), glyph(glyph), currentPos(){}
 		MovieClipEntity * sprite;
-		TextureGlyphInformation * glyph;    
+		TextureGlyphInformation * glyph;
 		Vector2 currentPos;
 	};
-	
+
 	BB_ID_IMPL(TextRenderer);
-	
+
 	TextRenderer::TextRenderer(TextureFont * font) : Component(), font(font), needPositionReset(false), alignment(TextAlignment::LEFT), textComponent(NULL) {
 		this->initializeConnections();
 	}
 
 	TextRenderer::~TextRenderer() {
 	}
-	
+
 	void TextRenderer::initializeConnections() {
 		// We add the connections.
 		this->addConnection(new ComponentConnection<TextComponent>(&this->textComponent));
 		this->refreshConnections();
 	}
-	
-	
+
+
 	void TextRenderer::render(){
 		if(needPositionReset){
 			internalResetPosition();
@@ -45,27 +45,27 @@ namespace BaconBox {
 //		      for(std::list<std::list<CharSprite> >::iterator j = i->begin(); j != i->end(); j++){
 //			  for(std::list<CharSprite>::iterator k = j->begin(); k != j->end(); k++){
 //			      k->sprite->render();
-//			  }	
+//			  }
 //		    }
 //		}
 		}
 
-	void TextRenderer::setColor(const Color &newColor){
-	    color = newColor;
-	    for(std::list<std::list<std::list<CharSprite> > >::iterator i = charSpritesLines.begin(); i != charSpritesLines.end(); i++){
-		      for(std::list<std::list<CharSprite> >::iterator j = i->begin(); j != i->end(); j++){
-			  for(std::list<CharSprite>::iterator k = j->begin(); k != j->end(); k++){
-			      k->sprite->setColor(color);
-			  }	
-		    }
-		}
-	}
+//	void TextRenderer::setColor(const Color &newColor){
+//	    color = newColor;
+//	    for(std::list<std::list<std::list<CharSprite> > >::iterator i = charSpritesLines.begin(); i != charSpritesLines.end(); i++){
+//		      for(std::list<std::list<CharSprite> >::iterator j = i->begin(); j != i->end(); j++){
+//			  for(std::list<CharSprite>::iterator k = j->begin(); k != j->end(); k++){
+//			      k->sprite->setColor(color);
+//			  }
+//		    }
+//		}
+//	}
 
 	void TextRenderer::setEntity(Entity *newEntity){
 	    Component::setEntity(newEntity);
 	}
 
-	
+
 	void TextRenderer::receiveMessage(int senderID, int destID, int message, void *data) {
 	    if(senderID == Transform::ID){
 		if(message == Transform::MESSAGE_POSITION_CHANGED || message == Transform::MESSAGE_ROTATION_CHANGED || message == Transform::MESSAGE_SCALE_CHANGED){
@@ -84,13 +84,8 @@ namespace BaconBox {
 			    resetPosition();
 			}
 		}
-		else if(senderID == ColorFilter::ID){
-			if(message == ColorFilter::MESSAGE_COLOR_CHANGED ){
-				setColor(*reinterpret_cast<Color*>(data));
-			}
-		}
 	}
-	
+
 	bool TextRenderer::isWordJump(Char32 charCode){
 		std::string wordJump = "\n\t ";
 		return wordJump.find(charCode) != std::string::npos;
@@ -102,10 +97,10 @@ namespace BaconBox {
 			charSpritesForAlignmentAdjust.pop_back();
 		}
 		Vector2 alignmentAdjust;
-		
+
 		if(alignment == TextAlignment::RIGHT){
 			alignmentAdjust.x = (textComponent->getSize().x - (advance.x));
-			
+
 		}
 		else if(alignment == TextAlignment::CENTER){
 			alignmentAdjust.x = (textComponent->getSize().x - (advance.x))/2;
@@ -125,11 +120,11 @@ namespace BaconBox {
 		newLineJump.y += font->getLineHeight();
 		advance = Vector2();
 	}
-	
+
 	void TextRenderer::resetPosition(){
 		needPositionReset = true;
 	}
-	
+
 	void TextRenderer::update(){
 		if(needPositionReset){
 			internalResetPosition();
@@ -137,14 +132,14 @@ namespace BaconBox {
 		}
 	}
 
-	
+
 	void TextRenderer::internalResetPosition(){
 	    Vector2 advance;
 	    Vector2 tempAdvance;
 	    Vector2 newLineJump;
 	    Char32 previousChar;
 	    std::list<CharSprite> charSpritesForAlignmentAdjust;
-	    
+
 //	    Transform* stringTransform = reinterpret_cast<Transform*>(getEntity()->getComponent(Transform::ID));
 	    for(std::list<std::list<std::list<CharSprite> > >::iterator i = charSpritesLines.begin(); i != charSpritesLines.end(); i++){
 			for(std::list<std::list<CharSprite> >::iterator j = i->begin(); j != i->end(); j++){
@@ -154,12 +149,12 @@ namespace BaconBox {
 					wordTempAdvances += glyphInfo->advance;
 				}
 				tempAdvance += wordTempAdvances;
-				
+
 				if(tempAdvance.x > textComponent->getSize().x){
 					tempAdvance = wordTempAdvances;
 					lineJump(newLineJump, advance, charSpritesForAlignmentAdjust);
 				}
-				
+
 				for(std::list<CharSprite>::iterator k = j->begin(); k != j->end(); k++){
 					TextureGlyphInformation * glyphInfo = k->glyph;
 					MovieClipEntity * sprite = k->sprite;
@@ -178,15 +173,15 @@ namespace BaconBox {
 					previousChar = glyphInfo->charCode;
 					charSpritesForAlignmentAdjust.push_back(*k);
 				}
-				
+
 			}
 			tempAdvance = Vector2();
-			
+
 			lineJump(newLineJump, advance, charSpritesForAlignmentAdjust);
 	    }
 		lineJump(newLineJump, advance, charSpritesForAlignmentAdjust);
 	}
-	
+
 	void TextRenderer::setText(const std::string & text){
 	    getEntity()->getComponent<DefaultEntityContainer>()->removeAllChildren();
 	    for(std::list<std::list<std::list<CharSprite> > >::iterator i = charSpritesLines.begin(); i != charSpritesLines.end(); i++ ){
@@ -196,17 +191,17 @@ namespace BaconBox {
 		    }
 		}
 	    }
-	    
+
 	    getEntity()->getComponent<DefaultTimeline>()->setNbFrames(1);
 
-	    
+
 	    charSpritesLines.clear();
-	    
+
 	    String32 text32 = UTFConvert::decodeUTF8(text);
 	    charSpritesLines.resize(1);
-	    
+
 	    charSpritesLines.back().resize(1);
-	    
+
 	    for(String32::iterator i = text32.begin(); i != text32.end(); i++ ){
 		std::list<std::list<CharSprite> >  & line = charSpritesLines.back();
 			std::list<CharSprite> & word = line.back();
@@ -233,16 +228,15 @@ namespace BaconBox {
 		    word.push_back(CharSprite(sprite, glyphInfo));
 		}
 		if(sprite)getEntity()->getComponent<DefaultEntityContainer>()->addChild(sprite);
-		
-		
+
+
 	    }
 	    	    getEntity()->getComponent<DefaultTimeline>()->gotoAndStop(0);
 
-	    
+
 	    resetPosition();
-	    setColor(color);
-	    
+
 	}
 
-	
+
 }

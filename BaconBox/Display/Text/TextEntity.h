@@ -9,7 +9,6 @@
 
 #include "BaconBox/Components/Transform.h"
 #include "BaconBox/Components/TextComponent.h"
-#include "BaconBox/Components/ColorFilter.h"
 #include "BaconBox/Components/EntityContainer.h"
 #include "BaconBox/MovieClipEntity/MovieClipEntity.h"
 #ifdef BB_FLASH_PLATEFORM

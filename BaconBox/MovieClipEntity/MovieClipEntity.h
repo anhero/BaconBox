@@ -8,7 +8,7 @@
 #include "BaconBox/PlatformFlagger.h"
 
 #include "BaconBox/Components/Transform.h"
-#include "BaconBox/Components/ColorFilter.h"
+#include "BaconBox/Components/ColorTransform.h"
 #include "BaconBox/Components/Timeline.h"
 #include "BaconBox/Components/EntityContainer.h"
 #include "BaconBox/Components/MatrixComponent.h"
@@ -32,7 +32,7 @@ namespace BaconBox {
 	/**
 	 *
 	 */
-	class MovieClipEntity : public Entity, public HasNameProxy, public TransformProxy, public ColorFilterProxy, public TimelineProxy,
+	class MovieClipEntity : public Entity, public HasNameProxy, public TransformProxy, public ColorTransformProxy, public TimelineProxy,
 	public EntityContainerProxy, public MatrixComponentProxy, public SymbolComponentProxy, public AABBHitBoxProxy, public SizeComponentProxy
 	#ifdef BB_LUA
         , public LuaEntityProxy

@@ -3,7 +3,7 @@
 #include "BaconBox/PlatformFlagger.h"
 #include "BaconBox/Components/Transform.h"
 #include "BaconBox/Components/Mesh.h"
-#include "BaconBox/Components/ColorFilter.h"
+#include "BaconBox/Components/ColorTransform.h"
 #include "BaconBox/Components/MeshDriverRenderer.h"
 #include "BaconBox/Components/DefaultEntityContainer.h"
 #include "BaconBox/Components/DefaultTimeline.h"
@@ -28,13 +28,13 @@
 
 
 namespace BaconBox {
-	
+
 	EntityFactory::EntityFactory():movieClipPool(0){
 
 
 	}
 
-	
+
 	void EntityFactory::initMovieClipPool(int size){
 		getInstance().movieClipPool.setNbAvailableObjects(size);
 	}
@@ -43,13 +43,13 @@ namespace BaconBox {
 		return getInstance().internalGetMovieClipEntity(key, autoPlay);
 	}
 
-	
-	
+
+
 	EntityFactory &EntityFactory::getInstance(){
 		static EntityFactory instance;
 		return instance;
 	}
-	
+
 	MovieClipEntity *EntityFactory::internalGetMovieClipEntity(const std::string &key, bool autoPlay) {
 #ifdef BB_DEBUG
     try{
@@ -76,16 +76,16 @@ namespace BaconBox {
 
 
 #endif
-		
+
 #ifdef BB_DEBUG
     }
     catch(...){
     Console__error("Error in EntityFactory::getMovieClipEntity with key: " << key);
     throw;
     }
-#endif		
+#endif
 	}
-	
+
 #if  defined(BB_FLASH_PLATEFORM)
 TextEntity * EntityFactory::getTextEntity(const std::string &key){
 		AS3::local::var mc =  FlashHelper::construct(key);
@@ -133,8 +133,8 @@ TextEntity * EntityFactory::getTextEntity(const std::string &key){
 			}
 		}
 			std::map<std::string, MovieClipEntity*> childByName;
-			
-		
+
+
 		for(std::map<int, std::map <int, Symbol::Part*> >::iterator i = orderedPart.begin();
 			i != orderedPart.end(); i++){
 			entity->gotoAndStop(i->first);
@@ -159,13 +159,13 @@ TextEntity * EntityFactory::getTextEntity(const std::string &key){
 		else{
 		    entity->gotoAndStop(0);
 		}
-		    
+
 	    }
 	entity->setSymbol(symbol);
-	
+
 	return entity;
 	}
-	
+
 	MovieClipEntity *EntityFactory::getMovieClipEntityFromSubTexture(SubTextureInfo* subTex, const Vector2 & origin){
 	    MovieClipEntity *result = NULL;
 
@@ -175,7 +175,7 @@ TextEntity * EntityFactory::getTextEntity(const std::string &key){
 			Mesh *mesh = new Mesh();
 
 			mesh->getPreTransformVertices().resize(4);
-			
+
 			mesh->getPreTransformVertices()[1].x = subTex->size.x;
 			mesh->getPreTransformVertices()[2].y = subTex->size.y;
 			mesh->getPreTransformVertices()[3] = subTex->size;
@@ -183,7 +183,7 @@ TextEntity * EntityFactory::getTextEntity(const std::string &key){
 			mesh->syncMesh();
 
 			result->addComponent(mesh);
-			
+
 			Texture *textureComponent = new Texture();
 
 			textureComponent->setTexture(subTex->textureInfo);
@@ -201,7 +201,7 @@ TextEntity * EntityFactory::getTextEntity(const std::string &key){
 
 			result->addComponent(new MeshDriverRenderer(RenderMode::SHAPE | RenderMode::COLOR | RenderMode::TEXTURE));
 		}
-		
+
 		return result;
 	}
 #endif
