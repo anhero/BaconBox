@@ -27,11 +27,11 @@ namespace BaconBox {
 			} else if (this->lastTexture) {
 				this->batch.render(this, this->lastTexture);
 			}
-			
+
 			this->batch.prepareRender();
 			this->lastTexture = textureInformation;
 		}
-		
+
 		this->batch.addItem(vertices, color, textureCoordinates);
 	}
 
@@ -55,6 +55,14 @@ namespace BaconBox {
 
 			glTexCoordPointer(2, GL_FLOAT, 0, GET_TEX_PTR(textureCoordinates));
 			glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+
+
+            if(textureInformation->colorFormat == ColorFormat::ALPHA){
+                glTexEnvf(GL_TEXTURE_ENV, GL_OPERAND1_RGB, GL_ONE_MINUS_SRC_COLOR);
+			}
+			else{
+                glTexEnvf(GL_TEXTURE_ENV, GL_OPERAND1_RGB, GL_SRC_COLOR);
+			}
 
 			glDrawArrays(GL_TRIANGLE_STRIP, 0, static_cast<GLsizei>(vertices.getNbVertices()));
 
@@ -122,6 +130,17 @@ namespace BaconBox {
 
 			glVertexPointer(2, GL_FLOAT, 0, GET_PTR_BATCH(vertices, i->first));
 			glTexCoordPointer(2, GL_FLOAT, 0, GET_TEX_PTR_BATCH(textureCoordinates, i->first));
+
+			if(textureInformation->colorFormat == ColorFormat::ALPHA){
+                glTexEnvf(GL_TEXTURE_ENV, GL_OPERAND1_RGB, GL_ONE_MINUS_SRC_COLOR);
+			}
+			else{
+                glTexEnvf(GL_TEXTURE_ENV, GL_OPERAND1_RGB, GL_SRC_COLOR);
+			}
+
+
+
+
 
 			if (i == --indiceList.end()) {
 				glDrawElements(GL_TRIANGLE_STRIP, static_cast<GLsizei>(indices.size() - i->second), GL_UNSIGNED_SHORT, GET_TEX_PTR_BATCH(indices, i->second));
@@ -207,6 +226,29 @@ namespace BaconBox {
 		glScalef(zoom.x, zoom.y, 1);
 		glRotatef(angle, 0, 0, 1);
 		glTranslatef(-(position.x), -(position.y), 0);
+
+
+        glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_COMBINE);
+        glTexEnvi(GL_TEXTURE_ENV, GL_COMBINE_RGB, GL_INTERPOLATE);
+
+        glTexEnvf(GL_TEXTURE_ENV, GL_OPERAND0_RGB, GL_SRC_COLOR);
+        //GL_OPERAND1_RGB is dependant on the color format.
+        glTexEnvf(GL_TEXTURE_ENV, GL_OPERAND2_RGB, GL_SRC_COLOR);
+
+            GLfloat testColor[4] = {1, -1, -1, 1};
+           glTexEnvfv(GL_TEXTURE_ENV, GL_TEXTURE_ENV_COLOR , testColor);
+        glTexEnvf(GL_TEXTURE_ENV, GL_SRC0_RGB, GL_PRIMARY_COLOR);
+        glTexEnvf(GL_TEXTURE_ENV, GL_SRC1_RGB, GL_TEXTURE);
+        glTexEnvf(GL_TEXTURE_ENV, GL_SRC2_RGB, GL_CONSTANT);
+
+
+
+
+
+        glTexEnvi(GL_TEXTURE_ENV, GL_COMBINE_ALPHA, GL_REPLACE);
+        glTexEnvf(GL_TEXTURE_ENV, GL_SRC0_ALPHA, GL_TEXTURE);
+//        glTexEnvf(GL_TEXTURE_ENV, GL_SRC1_ALPHA, GL_PRIMARY_COLOR);
+
 
 	}
 
@@ -299,7 +341,7 @@ namespace BaconBox {
 
 		texInfo->imageWidth = pixMap->getWidth();
 		texInfo->imageHeight = pixMap->getHeight();
-		
+
 		int widthPoweredToTwo = MathHelper::nextPowerOf2(pixMap->getWidth());
 		int heightPoweredToTwo = MathHelper::nextPowerOf2(pixMap->getHeight());
 
@@ -315,7 +357,7 @@ namespace BaconBox {
 		} else { // if (pixMap->getColorFormat() == ColorFormat::ALPHA)
 			format = GL_ALPHA;
 		}
-		
+
 		if (widthPoweredToTwo == pixMap->getWidth() && heightPoweredToTwo == pixMap->getHeight()) {
 			glTexImage2D(
 						 GL_TEXTURE_2D,
@@ -330,7 +372,7 @@ namespace BaconBox {
 		} else {
 			PixMap poweredTo2Pixmap(widthPoweredToTwo, heightPoweredToTwo, pixMap->getColorFormat());
 			poweredTo2Pixmap.insertSubPixMap(*pixMap);
-			
+
 			glTexImage2D(
 						 GL_TEXTURE_2D,
 						 0,
