@@ -92,7 +92,8 @@ end
 	#include "BaconBox/Core/Component.h"
 	#include "BaconBox/Core/Entity.h"
   #include "BaconBox/Display/Color.h"
-  #include "BaconBox/Components/ColorFilter.h"
+  #include "BaconBox/ColorMatrix.h" 
+  #include "BaconBox/Components/ColorTransform.h"
   #include "BaconBox/Components/HasName.h"
 
 	#include "BaconBox/Vector2.h"
@@ -271,7 +272,9 @@ class FlashEngine;
 
 %include "BaconBox/Core/Entity.h"
 %include "BaconBox/Display/Color.h"
-%include "BaconBox/Components/ColorFilter.h" 
+%include "BaconBox/ColorMatrix.h" 
+%include "BaconBox/Components/ColorTransform.h" 
+
 //%include "BaconBox/Vector2.h"
 
 namespace BaconBox{

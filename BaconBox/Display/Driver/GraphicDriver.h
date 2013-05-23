@@ -6,6 +6,7 @@
 #define BB_GRAPHIC_DRIVER_H
 
 #include "BaconBox/Display/Driver/ColorArray.h"
+#include "BaconBox/Display/Driver/ColorTransformArray.h"
 #include "BaconBox/Display/Driver/IndiceArray.h"
 
 #include "BaconBox/TextureCoordinates.h"
@@ -47,6 +48,13 @@ namespace BaconBox {
 		                                          const TextureCoordinates &textureCoordinates,
 		                                          const Color &color) = 0;
 
+        virtual void drawShapeWithTextureAndColorTransform(const VertexArray &vertices,
+		                                          const TextureInformation *textureInformation,
+		                                          const TextureCoordinates &textureCoordinates,
+		                                          const Color &color,
+		                                          const ColorTransformArray &colorMultiplier,
+		                                          const ColorTransformArray &colorOffset) = 0;
+
 		/**
 		 * Draw a textured shape with the given vertices, texture coordinate,
 		 * rendering informations (colors array and textureID) and number of
@@ -68,8 +76,8 @@ namespace BaconBox {
 		virtual void drawShapeWithColor(const VertexArray &vertices,
 		                                const Color &color) = 0;
 
-	
-		
+
+
 		virtual void drawBatchWithTextureAndColor(const VertexArray &vertices,
 		                                          const TextureInformation *textureInformation,
 		                                          const TextureCoordinates &textureCoordinates,
@@ -77,13 +85,22 @@ namespace BaconBox {
 												  const IndiceArrayList &indiceList,
 												  const ColorArray &colors) = 0;
 
+        virtual void drawBatchWithTextureAndColorTransform(const VertexArray &vertices,
+		                                  const TextureInformation *textureInformation,
+		                                  const TextureCoordinates &textureCoordinates,
+		                                  const IndiceArray &indices,
+		                                  const IndiceArrayList &indiceList,
+		                                  const ColorArray &colors,
+		                                  const ColorTransformArray &colorMultipliers,
+		                                  const ColorTransformArray &colorOffsets) = 0;
+
 		virtual void drawBatchWithTexture(const VertexArray &vertices,
 		                                  const TextureInformation *textureInformation,
 		                                  const TextureCoordinates &textureCoordinates,
 										  const IndiceArray &indices,
 										  const IndiceArrayList &indiceList) = 0;
 
-		
+
 
 		/**
 		 * Prepare the scene before rendering object.
@@ -128,18 +145,18 @@ namespace BaconBox {
 		 * @param pixMap A pixmap object containing the buffer the driver must load.
 		 */
 		virtual TextureInformation *loadTexture(PixMap *pixMap);
-        
+
         /**
          *  Remove a texture from graphic memory
          */
         virtual void deleteTexture(TextureInformation * textureInfo) = 0;
-		
+
 		/**
 		 * Finalizes all pending batches if there are any.
 		 */
 		virtual void finalizeRender() = 0;
 	protected:
-	    
+
 		 bool initialized;
 		/**
 		 * Default constructor.

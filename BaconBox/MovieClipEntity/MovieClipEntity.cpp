@@ -10,7 +10,7 @@
 #include "BaconBox/Components/Flash/FlashSizeComponent.h"
 #include "BaconBox/Components/Flash/FlashTransform.h"
 #include "BaconBox/Components/Flash/FlashAABBHitBox.h"
-
+#include "BaconBox/Components/Flash/FlashColorTransform.h"
 #else
 #include "BaconBox/Components/Mesh.h"
 #include "BaconBox/Components/MeshDriverRenderer.h"
@@ -25,7 +25,7 @@ namespace BaconBox {
 
     BB_ID_IMPL(MovieClipEntity);
 
-	MovieClipEntity::MovieClipEntity(): Entity(), HasNameProxy(this, "", false), TransformProxy(this, false), ColorFilterProxy(this), TimelineProxy(this),
+	MovieClipEntity::MovieClipEntity(): Entity(), HasNameProxy(this, "", false), TransformProxy(this, false), ColorTransformProxy(this), TimelineProxy(this),
 	EntityContainerProxy(this), MatrixComponentProxy(this), SymbolComponentProxy(this), AABBHitBoxProxy(this), SizeComponentProxy(this)
 	#ifdef BB_LUA
         , LuaEntityProxy(this)
@@ -39,6 +39,8 @@ namespace BaconBox {
         setSizeComponent(new FlashSizeComponent());
 	    setTransform(new FlashTransform());
 	    setAABBHitBox(new FlashAABBHitBox());
+	   setColorTransform(new FlashColorTransform());
+
 #else
 	    	    setHasName(new HasName(""));
 
@@ -51,11 +53,11 @@ namespace BaconBox {
 	    setMatrixComponent(new DefaultMatrix());
 	    setTransform(new Transform());
         setAABBHitBox(new DefaultAABBHitBox());
+        setColorTransform(new DefaultColorTransform());
 		#endif
-
 	}
 
-	MovieClipEntity::MovieClipEntity(const MovieClipEntity& src) : Entity(), HasNameProxy(this, ""), TransformProxy(this), ColorFilterProxy(this), TimelineProxy(this), EntityContainerProxy(this), MatrixComponentProxy(this), SymbolComponentProxy(this), AABBHitBoxProxy(this), SizeComponentProxy(this)
+	MovieClipEntity::MovieClipEntity(const MovieClipEntity& src) : Entity(), HasNameProxy(this, ""), TransformProxy(this), ColorTransformProxy(this), TimelineProxy(this), EntityContainerProxy(this), MatrixComponentProxy(this), SymbolComponentProxy(this), AABBHitBoxProxy(this), SizeComponentProxy(this)
     #ifdef BB_LUA
         , LuaEntityProxy(this)
 	#endif //BB_LUA

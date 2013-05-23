@@ -10,7 +10,7 @@
 #include "BaconBox/Components/ComponentConnection.h"
 
 namespace BaconBox {
-    
+
     class Transform;
 
 	/**
@@ -32,17 +32,17 @@ namespace BaconBox {
 	protected:
 	    void initializeConnections();
 	    Transform * transform;
-		
+
 	};
-	
+
 	class MatrixComponentProxy : public ComponentProxy {
 	public:
 		MatrixComponentProxy(Entity *entity);
-
+        MatrixComponent * getMatrixComponent();
 		void setMatrix(const Matrix & m);
 		Matrix & getMatrix();
 		Matrix getConcatMatrix();
-		
+
 	protected:
 	    	void setMatrixComponent(MatrixComponent * matrixComponent);
 

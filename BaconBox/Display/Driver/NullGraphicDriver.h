@@ -37,6 +37,13 @@ namespace BaconBox {
 		                                  const TextureCoordinates &textureCoordinates,
 		                                  const Color &color);
 
+      void drawShapeWithTextureAndColorTransform(const VertexArray &vertices,
+              const TextureInformation *textureInformation,
+              const TextureCoordinates &textureCoordinates,
+              const Color &color,
+              const ColorTransformArray &colorMultiplier,
+              const ColorTransformArray &colorOffset);
+
 		/**
 		 * Draw a textured shape with the given vertices, texture coordinate,
 		 * rendering informations (colors array and textureID) and number of
@@ -58,7 +65,7 @@ namespace BaconBox {
 		void drawShapeWithColor(const VertexArray &vertices,
 		                        const Color &color);
 
-		
+
 
 		void drawBatchWithTextureAndColor(const VertexArray &vertices,
 		                                  const TextureInformation *textureInformation,
@@ -66,6 +73,16 @@ namespace BaconBox {
 		                                  const IndiceArray &indices,
 		                                  const IndiceArrayList &indiceList,
 		                                  const ColorArray &colors);
+
+
+        void drawBatchWithTextureAndColorTransform(const VertexArray &vertices,
+		                                  const TextureInformation *textureInformation,
+		                                  const TextureCoordinates &textureCoordinates,
+		                                  const IndiceArray &indices,
+		                                  const IndiceArrayList &indiceList,
+		                                  const ColorArray &colors,
+		                                  const ColorTransformArray &colorMultipliers,
+		                                  const ColorTransformArray &colorOffsets);
 
 		void drawBatchWithTexture(const VertexArray &vertices,
 		                          const TextureInformation *textureInformation,
@@ -116,14 +133,14 @@ namespace BaconBox {
 		 * @param pixMap A pixmap object containing the buffer the driver must load.
 		 */
 		TextureInformation *loadTexture(PixMap *pixMap);
-        
-        
+
+
         /**
          *  Remove a texture from graphic memory
          */
         void deleteTexture(TextureInformation * textureInfo);
-        
-		
+
+
 		/**
 		 * Finalizes all pending batches if there are any.
 		 */

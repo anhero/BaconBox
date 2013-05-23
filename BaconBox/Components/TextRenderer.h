@@ -17,18 +17,18 @@ namespace BaconBox {
 	public:
 		BB_ID_HEADER;
 
-	
-	
+
+
 		TextRenderer(TextureFont * font);
-		
+
 		virtual void render();
 		void update();
-	
+
 		virtual ~TextRenderer();
 		void initializeConnections();
 		void setText(const std::string & text);
 		void setColor(const Color &newColor);
-	
+
 		virtual void receiveMessage(int senderID, int destID, int message, void *data);
 	protected:
 	    		void setEntity(Entity *newEntity);

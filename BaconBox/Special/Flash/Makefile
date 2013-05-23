@@ -67,7 +67,7 @@ BaconBox/Components/HasName.o \
 BaconBox/Components/TextComponent.o \
 BaconBox/Components/EntityManager.o \
 BaconBox/Components/ComponentAddedData.o \
-BaconBox/Components/ColorFilter.o \
+BaconBox/Components/ColorTransform.o \
 BaconBox/Components/Timeline.o \
 BaconBox/Components/EntityContainer.o \
 BaconBox/Components/SymbolComponent.o \
@@ -82,6 +82,7 @@ BaconBox/Components/Flash/FlashHasName.o \
 BaconBox/Components/Flash/FlashSizeComponent.o \
 BaconBox/Components/Flash/FlashTransform.o \
 BaconBox/Components/Flash/FlashAABBHitBox.o \
+BaconBox/Components/Flash/FlashColorTransform.o \
 BaconBox/Components/Flash/FlashEntityManager.o 
 
 
@@ -199,6 +200,7 @@ BaconBox/Vector2.o \
 BaconBox/EntityFactory.o \
 BaconBox/Symbol.o \
 BaconBox/Matrix.o \
+BaconBox/ColorMatrix.o \
 BaconBox/VertexArray.o
 
 FLASCC_FILE_PATH=BaconBox/Special/Flash

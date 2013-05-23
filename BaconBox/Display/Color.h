@@ -27,7 +27,7 @@ namespace BaconBox {
 		static const uint8_t MAX_COMPONENT_VALUE = 0xff;
 		/// Maximum value a component can have.
 		static const uint8_t MAX_COMPONENT_VALUE_32 = 0xff;
-                
+
 		/// Black color (0, 0, 0, 255).
 		static const Color BLACK;
 		/// Silver color (192, 192, 192, 255).
@@ -110,7 +110,7 @@ namespace BaconBox {
 		 * @see BaconBox::Color::setRGBA(uint32_t rgba)
 		 */
 		Color(uint32_t rgba);
-		
+
 		/**
 		 * Initializes the color's values from a string. The string must contain
 		 * the color values like in CSS ( http://www.w3.org/TR/css3-color/ ). If
@@ -239,7 +239,7 @@ namespace BaconBox {
 		 * A (you cannot omit the alpha).
 		 */
 		void setRGBA(uint32_t rgba);
-		
+
 		/**
 		 * Sets the color's values from a string. The string must contain the
 		 * color values like in CSS ( http://www.w3.org/TR/css3-color/ ). If the

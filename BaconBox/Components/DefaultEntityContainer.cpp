@@ -13,6 +13,7 @@
 #include "HasName.h"
 #include "BaconBox/Helper/TimeHelper.h"
 #include "BaconBox/Components/DefaultMatrix.h"
+#include "BaconBox/Components/DefaultColorTransform.h"
 namespace BaconBox {
 	DefaultEntityContainer::DefaultEntityContainer() : EntityContainer(), timeline(NULL), children(), parent(NULL), previousFrame(-1) {
 		this->initializeConnections();
@@ -376,7 +377,8 @@ namespace BaconBox {
 		std::deque<MovieClipEntity*> * currentChildren =  getCurrentFrameChildren();
 		if(currentChildren){
 			for(std::deque<MovieClipEntity*>::iterator i = currentChildren->begin(); i != currentChildren->end(); i++){
-				(*i)->getComponent<DefaultMatrix>()->setFrameMatrix(frame);
+				reinterpret_cast<DefaultMatrix*>((*i)->getMatrixComponent())->setFrameMatrix(frame);
+                reinterpret_cast<DefaultColorTransform*>((*i)->getColorTransform())->setFrameColorTransform(frame);
 			}
 		}
 		else {

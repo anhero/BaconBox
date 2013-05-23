@@ -71,7 +71,7 @@ namespace BaconBox {
 
 	void TextFieldHolder::setEntity(Entity *newEntity){
 	    Component::setEntity(newEntity);
-	    setColor(reinterpret_cast<ColorFilter*>(getEntity()->getComponent(ColorFilter::ID))->getColor());
+	    setColor(reinterpret_cast<ColorTransform*>(getEntity()->getComponent(ColorTransform::ID))->getColor());
 
 	}
 
@@ -107,8 +107,8 @@ namespace BaconBox {
 			    setAlignment(*reinterpret_cast<TextAlignment::type*>(data));
 			}
 		}
-		else if(senderID == ColorFilter::ID){
-			if(message == ColorFilter::MESSAGE_COLOR_CHANGED ){
+		else if(senderID == ColorTransform::ID){
+			if(message == ColorTransform::MESSAGE_COLOR_CHANGED ){
 				setColor(*reinterpret_cast<Color*>(data));
 			}
 		}

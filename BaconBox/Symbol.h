@@ -6,6 +6,9 @@
 #include <list>
 
 #include "BaconBox/Matrix.h"
+#include "BaconBox/ColorMatrix.h"
+
+#include "BaconBox/Display/Color.h"
 #include "BaconBox/Display/Text/TextAlignment.h"
 
 namespace BaconBox {
@@ -25,10 +28,12 @@ namespace BaconBox {
 
 	    Part();
 	    typedef std::map<int, Matrix> MatrixByFrame;
+	    typedef std::map<int, ColorMatrix> ColorMatrixByFrame;
 	    typedef std::map<int, int> IndexByFrame;
 	    IndexByFrame indexByFrame;
 	    std::string name;
 	    MatrixByFrame matrices;
+	    ColorMatrixByFrame colorMatrices;
 	    Symbol * symbol;
 	};
 	Symbol();
@@ -43,6 +48,7 @@ namespace BaconBox {
 		int textFieldWidth;
 		int textFieldHeight;
 		TextAlignment::type alignment;
+	    Color color;
 //	Symbol * symbol;
 	std::list<Part> parts;
 	Vector2 registrationPoint;
