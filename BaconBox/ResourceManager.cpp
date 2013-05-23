@@ -18,6 +18,8 @@
 #include "Display/Text/BMFont.h"
 #include "BaconBox/Helper/Serialization/XmlSerializer.h"
 #include "Symbol.h"
+#include "BaconBox/Helper/Parser.h"
+#include "BaconBox/ColorMatrix.h"
 
 #if defined(BB_FLASH_PLATEFORM)
 #include "BaconBox/Audio/Flash/FlashSoundEngine.h"
@@ -628,6 +630,16 @@ namespace BaconBox {
 					symbol->text = found->second.getString();
 				}
 
+				found = tmpObject.find("color");
+				if (found != tmpObject.end()){
+                    std::vector<int> temp;
+                   Parser::parseStringArray<int>(found->second.getString(), temp);
+                    symbol->color = Color(temp[0], temp[1], temp[2]);
+				}
+
+
+
+
 				found = tmpObject.find("font");
 
 				if (found != tmpObject.end()) {
@@ -799,6 +811,26 @@ namespace BaconBox {
 									}
 
 									part->matrices.insert(std::pair<int, Matrix>(frameIndex, matrix));
+
+                                    ColorMatrix colorMatrix;
+									found = frameChildObject.find("colorTransform");
+									if (found != frameChildObject.end()) {
+                                        std::vector<float> temp;
+                                       Parser::parseStringArray<float>(found->second.getString(), temp);
+                                       float divider = 1.0f / 255.0f;
+                                        colorMatrix.matrix[0] = temp[0];
+                                        colorMatrix.matrix[4] = temp[1] * divider;
+
+                                        colorMatrix.matrix[6] = temp[2];
+                                        colorMatrix.matrix[9] = temp[3] * divider;
+
+                                        colorMatrix.matrix[12] = temp[4];
+                                        colorMatrix.matrix[14] = temp[5] * divider;
+
+                                        colorMatrix.matrix[18] = temp[6];
+                                        colorMatrix.matrix[19] = temp[7] * divider;
+                                    }
+									part->colorMatrices.insert(std::pair<int, ColorMatrix>(frameIndex, colorMatrix));
 
 									index++;
 								}

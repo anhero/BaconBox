@@ -21,9 +21,11 @@ namespace BaconBox {
 	                                                const TextureInformation *textureInformation,
 	                                                const TextureCoordinates &textureCoordinates,
 	                                                const Color &color) {
+        ColorTransformArray white = ColorTransformArray(4, 1);
+        ColorTransformArray black = ColorTransformArray(4, 0);
 		if (textureInformation != this->lastTexture) {
 			if (this->batch.isSingle()) {
-				this->internalDrawShapeWithTextureAndColor(this->batch.getVertices(), this->lastTexture, this->batch.getTextureCoordinates(), this->batch.getColor());
+				this->internalDrawShapeWithTextureAndColorTransform(this->batch.getVertices(), this->lastTexture, this->batch.getTextureCoordinates(), this->batch.getColor(), white, black);
 			} else if (this->lastTexture) {
 				this->batch.render(this, this->lastTexture);
 			}
@@ -32,8 +34,30 @@ namespace BaconBox {
 			this->lastTexture = textureInformation;
 		}
 
-		this->batch.addItem(vertices, color, textureCoordinates);
+		this->batch.addItem(vertices, color, white, black, textureCoordinates);
 	}
+
+
+	void OpenGLDriver::drawShapeWithTextureAndColorTransform(const VertexArray &vertices,
+                  const TextureInformation *textureInformation,
+                  const TextureCoordinates &textureCoordinates,
+                  const Color &color,
+                  const ColorTransformArray &colorMultiplier,
+                  const ColorTransformArray &colorOffset){
+                    if (textureInformation != this->lastTexture) {
+                        if (this->batch.isSingle()) {
+                            this->internalDrawShapeWithTextureAndColorTransform(this->batch.getVertices(), this->lastTexture, this->batch.getTextureCoordinates(), this->batch.getColor(), colorMultiplier, colorOffset);
+                        } else if (this->lastTexture) {
+                            this->batch.render(this, this->lastTexture);
+                        }
+
+                        this->batch.prepareRender();
+                        this->lastTexture = textureInformation;
+                    }
+
+                    this->batch.addItem(vertices, color, colorMultiplier, colorOffset, textureCoordinates);
+
+                  }
 
 	void OpenGLDriver::drawShapeWithTexture(const VertexArray &vertices,
 	                                        const TextureInformation *textureInformation,
@@ -56,14 +80,13 @@ namespace BaconBox {
 			glTexCoordPointer(2, GL_FLOAT, 0, GET_TEX_PTR(textureCoordinates));
 			glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 
-
             if(textureInformation->colorFormat == ColorFormat::ALPHA){
-                glTexEnvf(GL_TEXTURE_ENV, GL_OPERAND1_RGB, GL_ONE_MINUS_SRC_COLOR);
+                program->sendUniform("alphaFormat",GL_TRUE);
+
 			}
 			else{
-                glTexEnvf(GL_TEXTURE_ENV, GL_OPERAND1_RGB, GL_SRC_COLOR);
+                program->sendUniform("alphaFormat",GL_FALSE);
 			}
-
 			glDrawArrays(GL_TRIANGLE_STRIP, 0, static_cast<GLsizei>(vertices.getNbVertices()));
 
 			glDisableClientState(GL_VERTEX_ARRAY);
@@ -100,6 +123,71 @@ namespace BaconBox {
 		}
 	}
 
+	void OpenGLDriver::drawBatchWithTextureAndColorTransform(const VertexArray &vertices,
+		                                  const TextureInformation *textureInformation,
+		                                  const TextureCoordinates &textureCoordinates,
+		                                  const IndiceArray &indices,
+		                                  const IndiceArrayList &indiceList,
+		                                  const ColorArray &colors,
+		                                  const ColorTransformArray &colorMultipliers,
+		                                  const ColorTransformArray &colorOffsets){
+
+        for (IndiceArrayList::const_iterator i = indiceList.begin();
+		     i != indiceList.end(); ++i) {
+			glEnableClientState(GL_COLOR_ARRAY);
+			glColorPointer(4,
+			               GL_UNSIGNED_BYTE,
+			               0,
+			               GET_TEX_PTR_BATCH(colors, i->first));
+
+			glBindTexture(GL_TEXTURE_2D, textureInformation->textureId);
+
+			glEnable(GL_TEXTURE_2D);
+			glEnable(GL_BLEND);
+
+
+			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+			glEnableClientState(GL_VERTEX_ARRAY);
+			glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+
+        glEnableVertexAttribArray(locColorMultiplier);
+        glEnableVertexAttribArray(locColorOffset);
+
+
+        glVertexAttribPointer(locColorMultiplier, 4, GL_FLOAT, GL_FALSE, 0, GET_TEX_PTR_BATCH(colorMultipliers, i->first));
+        glVertexAttribPointer(locColorOffset, 4, GL_FLOAT, GL_FALSE, 0, GET_TEX_PTR_BATCH(colorOffsets, i->first));
+
+			glVertexPointer(2, GL_FLOAT, 0, GET_PTR_BATCH(vertices, i->first));
+			glTexCoordPointer(2, GL_FLOAT, 0, GET_TEX_PTR_BATCH(textureCoordinates, i->first));
+
+             if(textureInformation->colorFormat == ColorFormat::ALPHA){
+                program->sendUniform("alphaFormat",GL_TRUE);
+
+			}
+			else{
+                program->sendUniform("alphaFormat",GL_FALSE);
+			}
+
+
+			if (i == --indiceList.end()) {
+				glDrawElements(GL_TRIANGLE_STRIP, static_cast<GLsizei>(indices.size() - i->second), GL_UNSIGNED_SHORT, GET_TEX_PTR_BATCH(indices, i->second));
+
+			} else {
+				glDrawElements(GL_TRIANGLE_STRIP, static_cast<GLsizei>((++IndiceArrayList::const_iterator(i))->second - i->second), GL_UNSIGNED_SHORT, GET_TEX_PTR_BATCH(indices, i->second));
+			}
+
+
+            glDisableVertexAttribArray(locColorMultiplier);
+            glDisableVertexAttribArray(locColorOffset);
+			glDisable(GL_BLEND);
+			glDisable(GL_TEXTURE_2D);
+			glDisableClientState(GL_VERTEX_ARRAY);
+			glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+			glDisableClientState(GL_COLOR_ARRAY);
+		}
+  }
+
 	void OpenGLDriver::drawBatchWithTextureAndColor(const VertexArray &vertices,
 	                                                const TextureInformation *textureInformation,
 	                                                const TextureCoordinates &textureCoordinates,
@@ -119,11 +207,8 @@ namespace BaconBox {
 			glEnable(GL_TEXTURE_2D);
 			glEnable(GL_BLEND);
 
-#ifdef BB_OPENGLES
+
 			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-#else
-			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-#endif
 
 			glEnableClientState(GL_VERTEX_ARRAY);
 			glEnableClientState(GL_TEXTURE_COORD_ARRAY);
@@ -131,15 +216,13 @@ namespace BaconBox {
 			glVertexPointer(2, GL_FLOAT, 0, GET_PTR_BATCH(vertices, i->first));
 			glTexCoordPointer(2, GL_FLOAT, 0, GET_TEX_PTR_BATCH(textureCoordinates, i->first));
 
-			if(textureInformation->colorFormat == ColorFormat::ALPHA){
-                glTexEnvf(GL_TEXTURE_ENV, GL_OPERAND1_RGB, GL_ONE_MINUS_SRC_COLOR);
+             if(textureInformation->colorFormat == ColorFormat::ALPHA){
+                program->sendUniform("alphaFormat",GL_FALSE);
+
 			}
 			else{
-                glTexEnvf(GL_TEXTURE_ENV, GL_OPERAND1_RGB, GL_SRC_COLOR);
+                program->sendUniform("alphaFormat",GL_TRUE);
 			}
-
-
-
 
 
 			if (i == --indiceList.end()) {
@@ -228,32 +311,59 @@ namespace BaconBox {
 		glTranslatef(-(position.x), -(position.y), 0);
 
 
-        glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_COMBINE);
-        glTexEnvi(GL_TEXTURE_ENV, GL_COMBINE_RGB, GL_INTERPOLATE);
-
-        glTexEnvf(GL_TEXTURE_ENV, GL_OPERAND0_RGB, GL_SRC_COLOR);
-        //GL_OPERAND1_RGB is dependant on the color format.
-        glTexEnvf(GL_TEXTURE_ENV, GL_OPERAND2_RGB, GL_SRC_COLOR);
-
-            GLfloat testColor[4] = {1, -1, -1, 1};
-           glTexEnvfv(GL_TEXTURE_ENV, GL_TEXTURE_ENV_COLOR , testColor);
-        glTexEnvf(GL_TEXTURE_ENV, GL_SRC0_RGB, GL_PRIMARY_COLOR);
-        glTexEnvf(GL_TEXTURE_ENV, GL_SRC1_RGB, GL_TEXTURE);
-        glTexEnvf(GL_TEXTURE_ENV, GL_SRC2_RGB, GL_CONSTANT);
-
-
-
-
-
-        glTexEnvi(GL_TEXTURE_ENV, GL_COMBINE_ALPHA, GL_REPLACE);
-        glTexEnvf(GL_TEXTURE_ENV, GL_SRC0_ALPHA, GL_TEXTURE);
-//        glTexEnvf(GL_TEXTURE_ENV, GL_SRC1_ALPHA, GL_PRIMARY_COLOR);
-
-
 	}
 
 	void OpenGLDriver::initializeGraphicDriver() {
 		GraphicDriver::initializeGraphicDriver();
+
+		#ifdef BB_GLEW
+		 GLenum err;
+           err = glewInit();
+            if (GLEW_OK != err)
+            {
+                Console__error("GLEW INIT FAILED!");
+            }
+
+		#endif // BB_GLEW
+
+
+		program = new GLSLProgram(
+                    "\
+                      attribute vec4 colormultiplierAtt;\
+                      attribute vec4 colorOffsetAtt;\
+                      varying vec4 colorMultiplier;\
+                      varying vec4 colorOffset;\
+                      void main(void) {\
+                        colorMultiplier = colormultiplierAtt;\
+                        colorOffset = colorOffsetAtt;\
+                        gl_Position = ftransform();\
+                        gl_FrontColor = gl_Color;\
+                        gl_TexCoord[0] = gl_MultiTexCoord0;\
+                      }"
+
+                      ,
+
+                      "uniform bool  alphaFormat;\
+                      uniform sampler2D  tex;\
+                      varying vec4 colorMultiplier;\
+                      varying vec4 colorOffset;\
+                      void main(void) {\
+                      vec4 color;\
+                      if(alphaFormat){ \
+                        color = vec4(vec3(1.0), texture2D(tex, gl_TexCoord[0].st).a); \
+                      } \
+                      else{ \
+                        color = texture2D(tex, gl_TexCoord[0].st); \
+                      } \
+                        gl_FragColor = ((gl_Color * color)* colorMultiplier) + vec4(colorOffset.rgb, colorOffset.a * color.a);\
+                      }");
+
+    		program->use();
+    		program->sendUniform("tex",0);
+            program->sendUniform("alphaFormat",GL_FALSE);
+            locColorMultiplier = program->getAttributeLocation("colormultiplierAtt");
+            locColorOffset = program->getAttributeLocation("colorOffsetAtt");
+
 		glShadeModel(GL_FLAT);
 
 		if (MainWindow::getInstance().getOrientation() == WindowOrientation::NORMAL ||
@@ -303,6 +413,9 @@ namespace BaconBox {
 		int swapInterval = 1;
 		CGLSetParameter(CGLGetCurrentContext(), kCGLCPSwapInterval, &swapInterval);
 #endif
+
+
+      //  glCreateShader(GL_VERTEX_SHADER);
 
 
 		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
@@ -417,6 +530,24 @@ namespace BaconBox {
 			           Color::WHITE.getBlue(), Color::WHITE.getAlpha());
 		}
 	}
+
+	void OpenGLDriver::internalDrawShapeWithTextureAndColorTransform(const VertexArray &vertices,
+	                                                        const TextureInformation *textureInformation,
+	                                                        const TextureCoordinates &textureCoordinates,
+	                                                        const Color &color,
+	                                                        const ColorTransformArray &colorMultiplier,
+                                                            const ColorTransformArray &colorOffset) {
+
+        glVertexAttrib4f(locColorMultiplier, colorMultiplier[0], colorMultiplier[1], colorMultiplier[2], colorMultiplier[3]);
+        glVertexAttrib4f(locColorOffset, colorOffset[0], colorOffset[1], colorOffset[2], colorOffset[3]);
+
+        internalDrawShapeWithTextureAndColor(vertices, textureInformation, textureCoordinates, color);
+
+        glVertexAttrib4f(locColorMultiplier, Color::WHITE.getRed(), Color::WHITE.getGreen(), Color::WHITE.getBlue(), Color::WHITE.getAlpha());
+        glVertexAttrib4f(locColorOffset, Color::WHITE.getRed(), Color::WHITE.getGreen(), Color::WHITE.getBlue(), Color::WHITE.getAlpha());
+	}
+
+
 
 	OpenGLDriver::OpenGLDriver() : GraphicDriver(), batch(), lastTexture(NULL) {
 	}

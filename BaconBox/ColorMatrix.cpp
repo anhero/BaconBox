@@ -7,9 +7,10 @@
 #include "BaconBox/Helper/Serialization/DefaultSerializer.h"
 #include "BaconBox/Helper/Serialization/Serializer.h"
 
+#include "BaconBox/Helper/MathHelper.h"
 namespace BaconBox {
 
-	ColorMatrix::ColorMatrix():matrix{20, 0}{
+	ColorMatrix::ColorMatrix():matrix(20, 0){
         matrix[0] = 1;
         matrix[6] = 1;
         matrix[12] = 1;
@@ -17,7 +18,7 @@ namespace BaconBox {
 	}
 
 	ColorMatrix::ColorMatrix(float redMultiplier, float redOffset, float greenMultiplier, float greenOffset,
-                float blueMultiplier, float blueOffset, float alphaMultiplier, float alphaOffset):matrix{20, 0}{
+                float blueMultiplier, float blueOffset, float alphaMultiplier, float alphaOffset):matrix(20, 0){
                 matrix[0] = redMultiplier;
                 matrix[4] = redOffset;
 
@@ -47,29 +48,44 @@ namespace BaconBox {
 
 	ColorMatrix ColorMatrix::operator*(const ColorMatrix & m) const{
 	    ColorMatrix temp;
-	    temp.matrix[0] = (matrix[0] * m.matrix[0]) + (matrix[1] * m.matrix[5]) + (matrix[2] * m.matrix[10]) + (matrix[3] * m.matrix[15]);
-	    temp.matrix[1] = (matrix[0] * m.matrix[1]) + (matrix[1] * m.matrix[6]) + (matrix[2] * m.matrix[11]) + (matrix[3] * m.matrix[16]);
-	    temp.matrix[2] = (matrix[0] * m.matrix[2]) + (matrix[1] * m.matrix[7]) + (matrix[2] * m.matrix[12]) + (matrix[3] * m.matrix[17]);
-	    temp.matrix[3] = (matrix[0] * m.matrix[3]) + (matrix[1] * m.matrix[8]) + (matrix[2] * m.matrix[13]) + (matrix[3] * m.matrix[18]);
-	    temp.matrix[4] = (matrix[0] * m.matrix[4]) + (matrix[1] * m.matrix[9]) + (matrix[2] * m.matrix[14]) + (matrix[3] * m.matrix[19]) + (matrix[4]);
 
-	    temp.matrix[5] = (matrix[5] * m.matrix[0]) + (matrix[6] * m.matrix[5]) + (matrix[7] * m.matrix[10]) + (matrix[8] * m.matrix[15]);
-	    temp.matrix[6] = (matrix[5] * m.matrix[1]) + (matrix[6] * m.matrix[6]) + (matrix[7] * m.matrix[11]) + (matrix[8] * m.matrix[16]);
-	    temp.matrix[7] = (matrix[5] * m.matrix[2]) + (matrix[6] * m.matrix[7]) + (matrix[7] * m.matrix[12]) + (matrix[8] * m.matrix[17]);
-	    temp.matrix[8] = (matrix[5] * m.matrix[3]) + (matrix[6] * m.matrix[8]) + (matrix[7] * m.matrix[13]) + (matrix[8] * m.matrix[18]);
-	    temp.matrix[9] = (matrix[5] * m.matrix[4]) + (matrix[6] * m.matrix[9]) + (matrix[7] * m.matrix[14]) + (matrix[8] * m.matrix[19]) + (matrix[9]);
+	    //longer but complete method
+//	    temp.matrix[0] = (matrix[0] * m.matrix[0]) + (matrix[1] * m.matrix[5]) + (matrix[2] * m.matrix[10]) + (matrix[3] * m.matrix[15]);
+//	    temp.matrix[1] = (matrix[0] * m.matrix[1]) + (matrix[1] * m.matrix[6]) + (matrix[2] * m.matrix[11]) + (matrix[3] * m.matrix[16]);
+//	    temp.matrix[2] = (matrix[0] * m.matrix[2]) + (matrix[1] * m.matrix[7]) + (matrix[2] * m.matrix[12]) + (matrix[3] * m.matrix[17]);
+//	    temp.matrix[3] = (matrix[0] * m.matrix[3]) + (matrix[1] * m.matrix[8]) + (matrix[2] * m.matrix[13]) + (matrix[3] * m.matrix[18]);
+//	    temp.matrix[4] = (matrix[0] * m.matrix[4]) + (matrix[1] * m.matrix[9]) + (matrix[2] * m.matrix[14]) + (matrix[3] * m.matrix[19]) + (matrix[4]);
+//
+//	    temp.matrix[5] = (matrix[5] * m.matrix[0]) + (matrix[6] * m.matrix[5]) + (matrix[7] * m.matrix[10]) + (matrix[8] * m.matrix[15]);
+//	    temp.matrix[6] = (matrix[5] * m.matrix[1]) + (matrix[6] * m.matrix[6]) + (matrix[7] * m.matrix[11]) + (matrix[8] * m.matrix[16]);
+//	    temp.matrix[7] = (matrix[5] * m.matrix[2]) + (matrix[6] * m.matrix[7]) + (matrix[7] * m.matrix[12]) + (matrix[8] * m.matrix[17]);
+//	    temp.matrix[8] = (matrix[5] * m.matrix[3]) + (matrix[6] * m.matrix[8]) + (matrix[7] * m.matrix[13]) + (matrix[8] * m.matrix[18]);
+//	    temp.matrix[9] = (matrix[5] * m.matrix[4]) + (matrix[6] * m.matrix[9]) + (matrix[7] * m.matrix[14]) + (matrix[8] * m.matrix[19]) + (matrix[9]);
+//
+//	    temp.matrix[10] = (matrix[10] * m.matrix[0]) + (matrix[11] * m.matrix[5]) + (matrix[12] * m.matrix[10]) + (matrix[13] * m.matrix[15]);
+//	    temp.matrix[11] = (matrix[10] * m.matrix[1]) + (matrix[11] * m.matrix[6]) + (matrix[12] * m.matrix[11]) + (matrix[13] * m.matrix[16]);
+//	    temp.matrix[12] = (matrix[10] * m.matrix[2]) + (matrix[11] * m.matrix[7]) + (matrix[12] * m.matrix[12]) + (matrix[13] * m.matrix[17]);
+//	    temp.matrix[13] = (matrix[10] * m.matrix[3]) + (matrix[11] * m.matrix[8]) + (matrix[12] * m.matrix[13]) + (matrix[13] * m.matrix[18]);
+//	    temp.matrix[14] = (matrix[10] * m.matrix[4]) + (matrix[11] * m.matrix[9]) + (matrix[12] * m.matrix[14]) + (matrix[13] * m.matrix[19]) + (matrix[14]);
+//
+//	    temp.matrix[15] = (matrix[15] * m.matrix[0]) + (matrix[16] * m.matrix[5]) + (matrix[17] * m.matrix[10]) + (matrix[18] * m.matrix[15]);
+//	    temp.matrix[16] = (matrix[15] * m.matrix[1]) + (matrix[16] * m.matrix[6]) + (matrix[17] * m.matrix[11]) + (matrix[18] * m.matrix[16]);
+//	    temp.matrix[17] = (matrix[15] * m.matrix[2]) + (matrix[16] * m.matrix[7]) + (matrix[17] * m.matrix[12]) + (matrix[18] * m.matrix[17]);
+//	    temp.matrix[18] = (matrix[15] * m.matrix[3]) + (matrix[16] * m.matrix[8]) + (matrix[17] * m.matrix[13]) + (matrix[18] * m.matrix[18]);
+//	    temp.matrix[19] = (matrix[15] * m.matrix[4]) + (matrix[16] * m.matrix[9]) + (matrix[17] * m.matrix[14]) + (matrix[18] * m.matrix[19]) + (matrix[19]);
 
-	    temp.matrix[10] = (matrix[10] * m.matrix[0]) + (matrix[11] * m.matrix[5]) + (matrix[12] * m.matrix[10]) + (matrix[13] * m.matrix[15]);
-	    temp.matrix[11] = (matrix[10] * m.matrix[1]) + (matrix[11] * m.matrix[6]) + (matrix[12] * m.matrix[11]) + (matrix[13] * m.matrix[16]);
-	    temp.matrix[12] = (matrix[10] * m.matrix[2]) + (matrix[11] * m.matrix[7]) + (matrix[12] * m.matrix[12]) + (matrix[13] * m.matrix[17]);
-	    temp.matrix[13] = (matrix[10] * m.matrix[3]) + (matrix[11] * m.matrix[8]) + (matrix[12] * m.matrix[13]) + (matrix[13] * m.matrix[18]);
-	    temp.matrix[14] = (matrix[10] * m.matrix[4]) + (matrix[11] * m.matrix[9]) + (matrix[12] * m.matrix[14]) + (matrix[13] * m.matrix[19]) + (matrix[14]);
 
-	    temp.matrix[15] = (matrix[15] * m.matrix[0]) + (matrix[16] * m.matrix[5]) + (matrix[17] * m.matrix[10]) + (matrix[18] * m.matrix[15]);
-	    temp.matrix[16] = (matrix[15] * m.matrix[1]) + (matrix[16] * m.matrix[6]) + (matrix[17] * m.matrix[11]) + (matrix[18] * m.matrix[16]);
-	    temp.matrix[17] = (matrix[15] * m.matrix[2]) + (matrix[16] * m.matrix[7]) + (matrix[17] * m.matrix[12]) + (matrix[18] * m.matrix[17]);
-	    temp.matrix[18] = (matrix[15] * m.matrix[3]) + (matrix[16] * m.matrix[8]) + (matrix[17] * m.matrix[13]) + (matrix[18] * m.matrix[18]);
-	    temp.matrix[19] = (matrix[15] * m.matrix[4]) + (matrix[16] * m.matrix[9]) + (matrix[17] * m.matrix[14]) + (matrix[18] * m.matrix[19]) + (matrix[19]);
+        //faster and minimal method
+        temp.matrix[0] = MathHelper::clamp((matrix[0] * m.matrix[0]), -1.0f, 1.0f);
+	    temp.matrix[6] = MathHelper::clamp((matrix[6] * m.matrix[6]), -1.0f, 1.0f);
+	    temp.matrix[12] = MathHelper::clamp((matrix[12] * m.matrix[12]), -1.0f, 1.0f);
+	    temp.matrix[18] = MathHelper::clamp((matrix[18] * m.matrix[18]), -1.0f, 1.0f);
+
+	    temp.matrix[4] = MathHelper::clamp((matrix[4] * m.matrix[0]) + m.matrix[4], -1.0f, 1.0f);
+	    temp.matrix[9] = MathHelper::clamp((matrix[9] * m.matrix[6]) + m.matrix[9], -1.0f, 1.0f);
+	    temp.matrix[14] = MathHelper::clamp((matrix[14] * m.matrix[12]) + m.matrix[14], -1.0f, 1.0f);
+	    temp.matrix[19] = MathHelper::clamp((matrix[19] * m.matrix[18]) + m.matrix[19], -1.0f, 1.0f);
+
 	    return temp;
 	}
 

@@ -118,10 +118,13 @@ TextEntity * EntityFactory::getTextEntity(const std::string &key){
 				tf->setAlignment(symbol->alignment);
 				tf->setSize(Vector2(symbol->textFieldWidth, symbol->textFieldHeight));
 				entity = tf;
+                entity->setColor(symbol->color);
+
 			}
 			else{
 				entity = movieClipPool.create();
 			}
+
 		DefaultEntityContainer * container = reinterpret_cast<DefaultEntityContainer*>(entity->getComponent(DefaultEntityContainer::ID));
 		DefaultTimeline * timeline = reinterpret_cast<DefaultTimeline*>(entity->getComponent(DefaultTimeline::ID));
 		timeline->setNbFrames(symbol->frameCount);
@@ -149,7 +152,9 @@ TextEntity * EntityFactory::getTextEntity(const std::string &key){
 					childEntity = currentMovieClip->second;
 				}
 			childEntity->setName(j->second->name);
-			reinterpret_cast<DefaultMatrix*>(childEntity->getComponent(DefaultMatrix::ID))->matrixByParentFrame = j->second->matrices;
+			reinterpret_cast<DefaultMatrix*>(childEntity->getMatrixComponent())->matrixByParentFrame = j->second->matrices;
+           reinterpret_cast<DefaultColorTransform*>(childEntity->getColorTransform())->matrixByParentFrame = j->second->colorMatrices;
+
 			container->addChildToCurrentFrame(childEntity);
 		    }
 		}
@@ -162,7 +167,7 @@ TextEntity * EntityFactory::getTextEntity(const std::string &key){
 
 	    }
 	entity->setSymbol(symbol);
-
+	return entity;
 	return entity;
 	}
 
@@ -199,7 +204,7 @@ TextEntity * EntityFactory::getTextEntity(const std::string &key){
 			textureComponent->getTextureCoordinates()[3].y = (subTex->position.y + subTex->size.y)/subTex->textureInfo->poweredHeight;
 			result->addComponent(textureComponent);
 
-			result->addComponent(new MeshDriverRenderer(RenderMode::SHAPE | RenderMode::COLOR | RenderMode::TEXTURE));
+			result->addComponent(new MeshDriverRenderer(RenderMode::SHAPE | RenderMode::COLOR | RenderMode::TEXTURE | RenderMode::COLOR_TRANSORMED));
 		}
 
 		return result;

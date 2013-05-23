@@ -82,8 +82,8 @@ namespace BaconBox {
 		result |= static_cast<uint32_t>(colors[A]);
 		return result;
 	}
-	
-	
+
+
 	unsigned int Color::getRGBA() const{
 	    return *this;
 	}
@@ -163,7 +163,7 @@ namespace BaconBox {
 			if (tmp[0] == '#') {
 				// We remove the '#'.
 				tmp.erase(0, 1);
-				
+
 				// We make sure it has a valid size.
 				if (tmp.size() == 3) {
 					// We convert it to the 6 char format.
@@ -176,10 +176,10 @@ namespace BaconBox {
 				if (tmp.size() == 6) {
 					// We append the alpha value.
 					tmp.append("ff");
-					
+
 					// We convert it to an int.
 					uint32_t rgba;
-					
+
 					if (StringHelper::fromString(tmp, rgba, std::hex)) {
 						setRGBA(rgba);
 					}

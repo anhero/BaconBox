@@ -28,6 +28,8 @@ fi
 libraries+=( 'jsonbox' )
 libraries+=( 'rapidxml' )
 libraries+=( 'lua' )
+libraries+=( 'glew' )
+
 libraries+=( 'sigly' )
 
 # vim: ft=sh

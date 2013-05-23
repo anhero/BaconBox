@@ -12,6 +12,14 @@ namespace BaconBox {
 	                                                     const Color &) {
 	}
 
+	void NullGraphicDriver::drawShapeWithTextureAndColorTransform(const VertexArray &vertices,
+              const TextureInformation *textureInformation,
+              const TextureCoordinates &textureCoordinates,
+              const Color &color,
+              const ColorTransformArray &colorMultiplier,
+              const ColorTransformArray &colorOffset){
+              }
+
 	void NullGraphicDriver::drawShapeWithTexture(const VertexArray &,
 	                                             const TextureInformation *,
 	                                             const TextureCoordinates &) {
@@ -21,7 +29,19 @@ namespace BaconBox {
 	                                           const Color &) {
 	}
 
-	
+	void NullGraphicDriver::drawBatchWithTextureAndColorTransform(const VertexArray &vertices,
+		                                  const TextureInformation *textureInformation,
+		                                  const TextureCoordinates &textureCoordinates,
+		                                  const IndiceArray &indices,
+		                                  const IndiceArrayList &indiceList,
+		                                  const ColorArray &colors,
+		                                  const ColorTransformArray &colorMultipliers,
+		                                  const ColorTransformArray &colorOffsets){
+
+
+		                                  }
+
+
 	void NullGraphicDriver::drawBatchWithTextureAndColor(const VertexArray &,
 	                                                     const TextureInformation *,
 	                                                     const TextureCoordinates &,
@@ -36,12 +56,12 @@ namespace BaconBox {
 	                                             const IndiceArray &,
 	                                             const IndiceArrayList &) {
 	}
-    
+
     void NullGraphicDriver::deleteTexture(TextureInformation * textureInfo){
-        
+
     }
 
-	
+
 
 	void NullGraphicDriver::prepareScene(const Vector2 &, float,
 	                                     const Vector2 &, const Color &) {
@@ -66,7 +86,7 @@ namespace BaconBox {
 	TextureInformation *NullGraphicDriver::loadTexture(PixMap *) {
 		return NULL;
 	}
-	
+
 	void NullGraphicDriver::finalizeRender() {
 	}
 

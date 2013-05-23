@@ -8,25 +8,30 @@
 #include "BaconBox/ColorMatrix.h"
 #include "BaconBox/Components/EntityContainer.h"
 
-namespace BaconBox {
 
+namespace BaconBox {
+    class EntityFactory;
 	class DefaultColorTransform : public ColorTransform {
+	    friend class EntityFactory;
 	public:
 
 		DefaultColorTransform();
-		void setAlpha(uint8_t alpha);
-		Color & getConcatColor();
-		ColorMatrix & getConcatColorMatrix();
 
-	protected:
+		void setAlphaMultiplier(float alpha);
+		void setColorMultiplier(float r, float g, float b, float a);
+		void setColorOffset(float r, float g, float b, float a);
+		ColorMatrix & getConcatColorMatrix();
+        void setFrameColorTransform(int frame);
+    	protected:
 		void initializeConnections();
 
 	private:
+	    bool useCustomMatrix;
 		ColorMatrix matrix;
 		ColorMatrix concatMatrix;
-
-		Color color;
 		EntityContainer * entityContainer;
+        std::map<int, ColorMatrix> matrixByParentFrame;
+
 	};
 
 }

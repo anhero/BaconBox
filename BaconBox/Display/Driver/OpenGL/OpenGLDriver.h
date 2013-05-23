@@ -8,7 +8,7 @@
 #include "BaconBox/Display/Driver/GraphicDriver.h"
 #include "BaconBox/Display/Driver/OpenGL/BBOpenGL.h"
 #include "BaconBox/Display/DynamicBatch.h"
-
+#include "GLSLProgram.h"
 namespace BaconBox {
 	/**
 	 * OpenGl graphic driver.
@@ -32,6 +32,14 @@ namespace BaconBox {
 		                                  const TextureInformation *textureInformation,
 		                                  const TextureCoordinates &textureCoordinates,
 		                                  const Color &color);
+
+
+        void drawShapeWithTextureAndColorTransform(const VertexArray &vertices,
+                  const TextureInformation *textureInformation,
+                  const TextureCoordinates &textureCoordinates,
+                  const Color &color,
+                  const ColorTransformArray &colorMultiplier,
+                  const ColorTransformArray &colorOffset);
 		/**
 		 * Draw a textured shape with the given vertices, texture coordinate,
 		 * rendering informations (colors array and textureID) and number of
@@ -59,6 +67,18 @@ namespace BaconBox {
 		                                  const IndiceArray &indices,
 		                                  const IndiceArrayList &indiceList,
 		                                  const ColorArray &colors);
+
+        void drawBatchWithTextureAndColorTransform(const VertexArray &vertices,
+		                                  const TextureInformation *textureInformation,
+		                                  const TextureCoordinates &textureCoordinates,
+		                                  const IndiceArray &indices,
+		                                  const IndiceArrayList &indiceList,
+		                                  const ColorArray &colors,
+		                                  const ColorTransformArray &colorMultipliers,
+		                                  const ColorTransformArray &colorOffsets);
+
+
+
 
 		void drawBatchWithTexture(const VertexArray &vertices,
 		                          const TextureInformation *textureInformation,
@@ -128,7 +148,18 @@ namespace BaconBox {
 		                                          const TextureCoordinates &textureCoordinates,
 		                                          const Color &color);
 
+        void internalDrawShapeWithTextureAndColorTransform(const VertexArray &vertices,
+		                                          const TextureInformation *textureInformation,
+		                                          const TextureCoordinates &textureCoordinates,
+		                                          const Color &color,
+		                                          const ColorTransformArray &colorMultiplier,
+		                                          const ColorTransformArray &colorOffset);
+
 		DynamicBatch batch;
+
+        GLSLProgram *program;
+        GLuint locColorMultiplier;
+        GLuint locColorOffset;
 
 		const TextureInformation *lastTexture;
 

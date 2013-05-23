@@ -27,7 +27,7 @@ namespace BaconBox {
 		virtual ~TextRenderer();
 		void initializeConnections();
 		void setText(const std::string & text);
-		//void setColor(const Color &newColor);
+		void setColor(const Color &newColor);
 
 		virtual void receiveMessage(int senderID, int destID, int message, void *data);
 	protected:

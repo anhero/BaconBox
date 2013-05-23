@@ -6,6 +6,8 @@
 #include "BaconBox/TextureCoordinates.h"
 #include "BaconBox/Display/Driver/IndiceArray.h"
 #include "BaconBox/Display/Driver/ColorArray.h"
+#include "BaconBox/Display/Driver/ColorTransformArray.h"
+
 
 namespace BaconBox {
 	class GraphicDriver;
@@ -19,12 +21,13 @@ namespace BaconBox {
 
 		void prepareRender();
 
-		void addItem(const VertexArray &newVertices, const Color &newColor, const TextureCoordinates &newTextureCoordinates);
+		void addItem(const VertexArray &newVertices, const Color &newColor, const ColorTransformArray &newColorMultiplier,
+                            const ColorTransformArray &newColorOffset, const TextureCoordinates &newTextureCoordinates);
 
 		void render(GraphicDriver *driver, const TextureInformation *textureInformation);
-		
+
 		bool isSingle() const;
-		
+
 		const StandardVertexArray &getVertices() const;
 		const TextureCoordinates &getTextureCoordinates() const;
 		const Color &getColor() const;
@@ -40,6 +43,11 @@ namespace BaconBox {
 		TextureCoordinates textureCoordinates;
 
 		ColorArray colors;
+
+        ColorTransformArray colorMultipliers;
+
+        ColorTransformArray colorOffsets;
+
 
 		IndiceArray indices;
 

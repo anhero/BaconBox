@@ -67,10 +67,27 @@ namespace BaconBox {
 				if (entity) {
 					if (this->mesh) {
 						Color color = Color::WHITE;
+						ColorTransformArray colorMultiplier(4, 0);
+						ColorTransformArray colorOffset(4, 0);
 						// We check if we have a color (if not, it will be defaulted to white).
 						if (this->renderMode & RenderMode::COLOR) {
 							if (this->colorTransform) {
-								color = this->colorTransform->getConcatColor();
+								color = this->colorTransform->getColor();
+							}
+						}
+
+						if (this->renderMode & RenderMode::COLOR_TRANSORMED) {
+							if (this->colorTransform) {
+								ColorMatrix matrix = this->colorTransform->getConcatColorMatrix();
+								colorMultiplier[0] = matrix.matrix[0];
+								colorMultiplier[1] = matrix.matrix[6];
+								colorMultiplier[2] = matrix.matrix[12];
+								colorMultiplier[3] = matrix.matrix[18];
+
+								colorOffset[0] = matrix.matrix[4];
+								colorOffset[1] = matrix.matrix[9];
+								colorOffset[2] = matrix.matrix[14];
+								colorOffset[3] = matrix.matrix[19];
 							}
 						}
 
@@ -78,7 +95,7 @@ namespace BaconBox {
 						if (this->renderMode & RenderMode::TEXTURE) {
 							if (this->texture) {
 								// We render with the texture.
-								GraphicDriver::getInstance().drawShapeWithTextureAndColor(this->mesh->getPostTransformVertices(), this->texture->getTexture(), this->texture->getTextureCoordinates(), color);
+								GraphicDriver::getInstance().drawShapeWithTextureAndColorTransform(this->mesh->getPostTransformVertices(), this->texture->getTexture(), this->texture->getTextureCoordinates(), color, colorMultiplier, colorOffset);
 							} else {
 								// We render without the texture.
 								GraphicDriver::getInstance().drawShapeWithColor(this->mesh->getPostTransformVertices(), color);

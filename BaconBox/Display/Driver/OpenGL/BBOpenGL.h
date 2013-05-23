@@ -11,9 +11,12 @@
 #if defined(BB_MAC_PLATFORM)
 #include <OpenGL/OpenGL.h>
 #elif defined(BB_WINDOWS_PLATFORM)
-#include <gl/gl.h>
-#include <gl/glu.h>
-#include "glext.h"
+#define GLEW_STATIC
+#include "GL/glew.h"
+#define BB_GLEW
+//#include <gl/gl.h>
+//#include <gl/glu.h>
+//#include "glext.h"
 #elif defined(BB_LINUX)
 #include <GL/gl.h>
 #include <GL/glu.h>

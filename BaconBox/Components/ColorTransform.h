@@ -11,20 +11,32 @@ namespace BaconBox {
 	public:
 		BB_ID_HEADER;
 
+		static int MESSAGE_COLOR_CHANGED;
+
 		ColorTransform();
-		virtual void setAlpha(uint8_t alpha) = 0;
+		void setColor(const Color &color);
+		virtual void setAlphaMultiplier(float alpha) = 0;
+		virtual void setColorMultiplier(float r, float g, float b, float a) = 0;
+		virtual void setColorOffset(float r, float g, float b, float a) = 0;
+
+		const Color &getColor();
 		virtual ColorMatrix & getConcatColorMatrix() = 0;
 
 	private:
+	    Color color;
 
 	};
 
 	class ColorTransformProxy : public ComponentProxy {
 	public:
 		ColorTransformProxy(Entity *entity);
-
-		void setAlpha(uint8_t alpha);
+		void setColor(const Color &color);
+		void setAlphaMultiplier(float alpha);
+		void setColorMultiplier(float r, float g, float b, float a = 1.0f);
+		void setColorOffset(float r, float g, float b, float a);
+		const Color &getColor();
 		ColorMatrix & getConcatColorMatrix();
+		ColorTransform * getColorTransform();
 	protected:
 	    void setColorTransform(ColorTransform * colorTransform);
 

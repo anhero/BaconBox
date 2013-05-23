@@ -50,16 +50,16 @@ namespace BaconBox {
 //		}
 		}
 
-//	void TextRenderer::setColor(const Color &newColor){
-//	    color = newColor;
-//	    for(std::list<std::list<std::list<CharSprite> > >::iterator i = charSpritesLines.begin(); i != charSpritesLines.end(); i++){
-//		      for(std::list<std::list<CharSprite> >::iterator j = i->begin(); j != i->end(); j++){
-//			  for(std::list<CharSprite>::iterator k = j->begin(); k != j->end(); k++){
-//			      k->sprite->setColor(color);
-//			  }
-//		    }
-//		}
-//	}
+	void TextRenderer::setColor(const Color &newColor){
+	    color = newColor;
+	    for(std::list<std::list<std::list<CharSprite> > >::iterator i = charSpritesLines.begin(); i != charSpritesLines.end(); i++){
+		      for(std::list<std::list<CharSprite> >::iterator j = i->begin(); j != i->end(); j++){
+			  for(std::list<CharSprite>::iterator k = j->begin(); k != j->end(); k++){
+			      k->sprite->setColor(color);
+			  }
+		    }
+		}
+	}
 
 	void TextRenderer::setEntity(Entity *newEntity){
 	    Component::setEntity(newEntity);
@@ -83,6 +83,9 @@ namespace BaconBox {
 			else if(message == TextComponent::MESSAGE_SIZE_CHANGED){
 			    resetPosition();
 			}
+		}
+		else if(senderID == ColorTransform::ID && message == ColorTransform::MESSAGE_COLOR_CHANGED){
+            setColor(*reinterpret_cast<Color*>(data));
 		}
 	}
 
@@ -180,6 +183,7 @@ namespace BaconBox {
 			lineJump(newLineJump, advance, charSpritesForAlignmentAdjust);
 	    }
 		lineJump(newLineJump, advance, charSpritesForAlignmentAdjust);
+		setColor(reinterpret_cast<TextEntity*>(getEntity())->getColor());
 	}
 
 	void TextRenderer::setText(const std::string & text){
