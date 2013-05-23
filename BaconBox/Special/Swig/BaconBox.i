@@ -106,6 +106,7 @@ end
 	#include "BaconBox/MovieClipEntity/MovieClipEntity.h"
 	#include "BaconBox/EntityFactory.h"
   #include "BaconBox/Components/HasName.h"
+  #include "BaconBox/Display/Camera.h"
   #include "BaconBox/Core/State.h"
   #include "BaconBox/Core/Engine.h"
   #include "BaconBox/Display/Text/FontFormat.h"
@@ -366,6 +367,8 @@ namespace BaconBox{
 %include "BaconBox/Components/Lua/LuaEntity.h"
 #endif
 %include "BaconBox/MovieClipEntity/MovieClipEntity.h"
+%include "BaconBox/Display/Camera.h"
+
 %include "BaconBox/Core/State.h"
 
 %include "BaconBox/Core/Engine.h"

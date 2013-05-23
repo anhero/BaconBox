@@ -28,6 +28,20 @@ namespace BaconBox {
 
 	FlashEntityManager::~FlashEntityManager() {
 	}
+
+
+	void FlashEntityManager::setProperty(const std::string & propertyName, AS3::local::var arg){
+		FlashHelper::setProperty(movieClipManager, propertyName, arg);
+	}
+
+	AS3::local::var FlashEntityManager::getProperty(const std::string & propertyName){
+		return FlashHelper::getProperty(movieClipManager, propertyName);
+	}
+
+	AS3::local::var FlashEntityManager::callMethod(const std::string & functionName, int argCount, AS3::local::var *args){
+		return FlashHelper::callMethod(movieClipManager, functionName, argCount, args);
+	} 
+
 		
 	void FlashEntityManager::add(Entity *newEntity) {
 	    if(newEntity){

@@ -83,6 +83,7 @@ BaconBox/Components/Flash/FlashSizeComponent.o \
 BaconBox/Components/Flash/FlashTransform.o \
 BaconBox/Components/Flash/FlashAABBHitBox.o \
 BaconBox/Components/Flash/FlashColorTransform.o \
+BaconBox/Components/Flash/FlashCameraManager.o \
 BaconBox/Components/Flash/FlashEntityManager.o 
 
 

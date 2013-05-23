@@ -7,6 +7,7 @@
 
 #ifdef BB_FLASH_PLATEFORM
 #include "BaconBox/Components/Flash/FlashEntityManager.h"
+#include "BaconBox/Components/Flash/FlashCameraManager.h"
 #endif
 
 #include "BaconBox/Console.h"
@@ -30,7 +31,9 @@ namespace BaconBox {
 
 
 		#ifdef BB_FLASH_PLATEFORM
-		addComponent(new FlashEntityManager());
+            FlashEntityManager * fm = new FlashEntityManager();
+            addComponent(fm);
+            this->camera->getComponent<FlashCameraManager>()->setEntityManager(fm);
 		#endif
 
 	}
