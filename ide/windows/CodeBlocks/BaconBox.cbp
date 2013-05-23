@@ -159,12 +159,17 @@
 		<Unit filename="../../../BaconBox/Display/Color.h" />
 		<Unit filename="../../../BaconBox/Display/ColorFormat.h" />
 		<Unit filename="../../../BaconBox/Display/Driver/ColorArray.h" />
+		<Unit filename="../../../BaconBox/Display/Driver/ColorTransformArray.h" />
 		<Unit filename="../../../BaconBox/Display/Driver/GraphicDriver.cpp" />
 		<Unit filename="../../../BaconBox/Display/Driver/GraphicDriver.h" />
 		<Unit filename="../../../BaconBox/Display/Driver/IndiceArray.h" />
 		<Unit filename="../../../BaconBox/Display/Driver/NullGraphicDriver.cpp" />
 		<Unit filename="../../../BaconBox/Display/Driver/NullGraphicDriver.h" />
 		<Unit filename="../../../BaconBox/Display/Driver/OpenGL/BBOpenGL.h" />
+		<Unit filename="../../../BaconBox/Display/Driver/OpenGL/GLSLProgram.cpp" />
+		<Unit filename="../../../BaconBox/Display/Driver/OpenGL/GLSLProgram.h" />
+		<Unit filename="../../../BaconBox/Display/Driver/OpenGL/GLSLShader.cpp" />
+		<Unit filename="../../../BaconBox/Display/Driver/OpenGL/GLSLShader.h" />
 		<Unit filename="../../../BaconBox/Display/Driver/OpenGL/OpenGLDriver.cpp" />
 		<Unit filename="../../../BaconBox/Display/Driver/OpenGL/OpenGLDriver.h" />
 		<Unit filename="../../../BaconBox/Display/Driver/OpenGL/OpenGLStaticBatchManager.cpp" />
