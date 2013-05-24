@@ -14,7 +14,7 @@ namespace BaconBox{
     typedef std::map<std::string,int> uniformmap;
         public:
             GLSLProgram();
-            GLSLProgram(const std::string &shaderSrc, unsigned int shaderType=GL_VERTEX_SHADER_ARB);
+            GLSLProgram(const std::string &shaderSrc, unsigned int shaderType=GL_VERTEX_SHADER);
             GLSLProgram(const std::string &vertexShaderSrc, const std::string &fragmentShaderSrc);
             virtual ~GLSLProgram();
 

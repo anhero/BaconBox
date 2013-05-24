@@ -38,6 +38,10 @@ namespace BaconBox {
 		 */
 		static std::string getDocumentPath();
 		
+		static std::string getResourcePath();
+		
+		
+		
 		static std::string getPathFromFilename(std::string filename);
 
 		/**

@@ -117,6 +117,9 @@ namespace BaconBox {
 		 * @param translation 2D translation to apply.
 		 */
 		void translate(const Vector2 &translation);
+		
+		void scale(const Vector2 &scale);
+		void rotate(float angle);
 
 		/**
 		 * Loads the identity matrix as the current matrix.

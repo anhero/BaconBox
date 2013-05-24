@@ -55,35 +55,35 @@ namespace BaconBox {
 		                                          const ColorTransformArray &colorMultiplier,
 		                                          const ColorTransformArray &colorOffset) = 0;
 
-		/**
-		 * Draw a textured shape with the given vertices, texture coordinate,
-		 * rendering informations (colors array and textureID) and number of
-		 * vertices.
-		 * @param vertices Vertices to draw.
-		 * @param textureInformation Pointer to the texture information.
-		 * @param textureCoordinates Texture coordinates in the texture to
-		 * draw.
-		 */
-		virtual void drawShapeWithTexture(const VertexArray &vertices,
-		                                  const TextureInformation *textureInformation,
-		                                  const TextureCoordinates &textureCoordinates) = 0;
+//		/**
+//		 * Draw a textured shape with the given vertices, texture coordinate,
+//		 * rendering informations (colors array and textureID) and number of
+//		 * vertices.
+//		 * @param vertices Vertices to draw.
+//		 * @param textureInformation Pointer to the texture information.
+//		 * @param textureCoordinates Texture coordinates in the texture to
+//		 * draw.
+//		 */
+//		virtual void drawShapeWithTexture(const VertexArray &vertices,
+//		                                  const TextureInformation *textureInformation,
+//		                                  const TextureCoordinates &textureCoordinates) = 0;
+//
+//		/**
+//		 * Draws a colored shape.
+//		 * @param vertices Vertices to draw.
+//		 * @param color Color to render.
+//		 */
+//		virtual void drawShapeWithColor(const VertexArray &vertices,
+//		                                const Color &color) = 0;
 
-		/**
-		 * Draws a colored shape.
-		 * @param vertices Vertices to draw.
-		 * @param color Color to render.
-		 */
-		virtual void drawShapeWithColor(const VertexArray &vertices,
-		                                const Color &color) = 0;
 
 
-
-		virtual void drawBatchWithTextureAndColor(const VertexArray &vertices,
-		                                          const TextureInformation *textureInformation,
-		                                          const TextureCoordinates &textureCoordinates,
-												  const IndiceArray &indices,
-												  const IndiceArrayList &indiceList,
-												  const ColorArray &colors) = 0;
+//		virtual void drawBatchWithTextureAndColor(const VertexArray &vertices,
+//		                                          const TextureInformation *textureInformation,
+//		                                          const TextureCoordinates &textureCoordinates,
+//												  const IndiceArray &indices,
+//												  const IndiceArrayList &indiceList,
+//												  const ColorArray &colors) = 0;
 
         virtual void drawBatchWithTextureAndColorTransform(const VertexArray &vertices,
 		                                  const TextureInformation *textureInformation,
@@ -94,11 +94,11 @@ namespace BaconBox {
 		                                  const ColorTransformArray &colorMultipliers,
 		                                  const ColorTransformArray &colorOffsets) = 0;
 
-		virtual void drawBatchWithTexture(const VertexArray &vertices,
-		                                  const TextureInformation *textureInformation,
-		                                  const TextureCoordinates &textureCoordinates,
-										  const IndiceArray &indices,
-										  const IndiceArrayList &indiceList) = 0;
+//		virtual void drawBatchWithTexture(const VertexArray &vertices,
+//		                                  const TextureInformation *textureInformation,
+//		                                  const TextureCoordinates &textureCoordinates,
+//										  const IndiceArray &indices,
+//										  const IndiceArrayList &indiceList) = 0;
 
 
 
@@ -129,6 +129,10 @@ namespace BaconBox {
 		 * @param translation 2D translation to apply.
 		 */
 		virtual void translate(const Vector2 &translation) = 0;
+		virtual void scale(const Vector2 &scale) = 0;
+		virtual void rotate(float angle) = 0;
+		
+		
 
 		/**
 		 * Loads the identity matrix as the current matrix.

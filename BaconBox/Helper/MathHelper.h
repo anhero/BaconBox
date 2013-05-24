@@ -21,6 +21,8 @@ namespace BaconBox {
 	 */
 	class MathHelper {
 	public:
+		const static double PI_OVER_180;
+		
 		template <typename T>
 		struct AngleConvert {
 			/**

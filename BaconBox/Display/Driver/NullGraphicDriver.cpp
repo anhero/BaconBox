@@ -76,6 +76,9 @@ namespace BaconBox {
 
 	void NullGraphicDriver::translate(const Vector2 &) {
 	}
+	
+	void NullGraphicDriver::scale(const Vector2 &scale){}
+	void NullGraphicDriver::rotate(float angle){}
 
 	void NullGraphicDriver::loadIdentity() {
 	}

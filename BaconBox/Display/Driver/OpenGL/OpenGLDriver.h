@@ -40,33 +40,33 @@ namespace BaconBox {
                   const Color &color,
                   const ColorTransformArray &colorMultiplier,
                   const ColorTransformArray &colorOffset);
-		/**
-		 * Draw a textured shape with the given vertices, texture coordinate,
-		 * rendering informations (colors array and textureID) and number of
-		 * vertices.
-		 * @param vertices Vertices to draw.
-		 * @param textureInformation Pointer to the texture information.
-		 * @param textureCoordinates Texture coordinates in the texture to
-		 * draw.
-		 */
-		void drawShapeWithTexture(const VertexArray &vertices,
-		                          const TextureInformation *textureInformation,
-		                          const TextureCoordinates &textureCoordinates);
-		/**
-		 * Draws a colored shape.
-		 * @param vertices Vertices to draw.
-		 * @param color Color to render.
-		 */
-		void drawShapeWithColor(const VertexArray &vertices,
-		                        const Color &color);
+//		/**
+//		 * Draw a textured shape with the given vertices, texture coordinate,
+//		 * rendering informations (colors array and textureID) and number of
+//		 * vertices.
+//		 * @param vertices Vertices to draw.
+//		 * @param textureInformation Pointer to the texture information.
+//		 * @param textureCoordinates Texture coordinates in the texture to
+//		 * draw.
+//		 */
+//		void drawShapeWithTexture(const VertexArray &vertices,
+//		                          const TextureInformation *textureInformation,
+//		                          const TextureCoordinates &textureCoordinates);
+//		/**
+//		 * Draws a colored shape.
+//		 * @param vertices Vertices to draw.
+//		 * @param color Color to render.
+//		 */
+//		void drawShapeWithColor(const VertexArray &vertices,
+//		                        const Color &color);
 
 
-		void drawBatchWithTextureAndColor(const VertexArray &vertices,
-		                                  const TextureInformation *textureInformation,
-		                                  const TextureCoordinates &textureCoordinates,
-		                                  const IndiceArray &indices,
-		                                  const IndiceArrayList &indiceList,
-		                                  const ColorArray &colors);
+//		void drawBatchWithTextureAndColor(const VertexArray &vertices,
+//		                                  const TextureInformation *textureInformation,
+//		                                  const TextureCoordinates &textureCoordinates,
+//		                                  const IndiceArray &indices,
+//		                                  const IndiceArrayList &indiceList,
+//		                                  const ColorArray &colors);
 
         void drawBatchWithTextureAndColorTransform(const VertexArray &vertices,
 		                                  const TextureInformation *textureInformation,
@@ -79,12 +79,12 @@ namespace BaconBox {
 
 
 
-
-		void drawBatchWithTexture(const VertexArray &vertices,
-		                          const TextureInformation *textureInformation,
-		                          const TextureCoordinates &textureCoordinates,
-		                          const IndiceArray &indices,
-		                          const IndiceArrayList &indiceList);
+//
+//		void drawBatchWithTexture(const VertexArray &vertices,
+//		                          const TextureInformation *textureInformation,
+//		                          const TextureCoordinates &textureCoordinates,
+//		                          const IndiceArray &indices,
+//		                          const IndiceArrayList &indiceList);
 
 
 
@@ -114,11 +114,15 @@ namespace BaconBox {
 		 * @param translation 2D translation to apply.
 		 */
 		void translate(const Vector2 &translation);
-
+		
+		void scale(const Vector2 &scale);
+		void rotate(float angle);
+		
 		/**
 		 * Loads the identity matrix as the current matrix.
 		 */
 		void loadIdentity();
+		
 
 		/**
 		 * Pops the current matrix from the stack.
@@ -141,25 +145,48 @@ namespace BaconBox {
 		 */
 		void finalizeRender();
 	private:
+		
+		void multMatrix(float *MatrixB,float MatrixA[16]);
+		
 		static float clampColorComponent(unsigned short component);
 
-		void internalDrawShapeWithTextureAndColor(const VertexArray &vertices,
-		                                          const TextureInformation *textureInformation,
-		                                          const TextureCoordinates &textureCoordinates,
-		                                          const Color &color);
+//		void internalDrawShapeWithTextureAndColor(const VertexArray &vertices,
+//		                                          const TextureInformation *textureInformation,
+//		                                          const TextureCoordinates &textureCoordinates,
+//		                                          const Color &color);
+//
+//        void internalDrawShapeWithTextureAndColorTransform(const VertexArray &vertices,
+//		                                          const TextureInformation *textureInformation,
+//		                                          const TextureCoordinates &textureCoordinates,
+//		                                          const Color &color,
+//		                                          const ColorTransformArray &colorMultiplier,
+//		                                          const ColorTransformArray &colorOffset);
 
-        void internalDrawShapeWithTextureAndColorTransform(const VertexArray &vertices,
-		                                          const TextureInformation *textureInformation,
-		                                          const TextureCoordinates &textureCoordinates,
-		                                          const Color &color,
-		                                          const ColorTransformArray &colorMultiplier,
-		                                          const ColorTransformArray &colorOffset);
-
+		
+		std::vector<float> tempTransformMatrix;
+		std::vector<float> modelViewMatrix;
 		DynamicBatch batch;
 
         GLSLProgram *program;
-        GLuint locColorMultiplier;
-        GLuint locColorOffset;
+		
+		
+		struct{
+			GLuint colorMultiplier;
+			GLuint colorOffset;
+			GLuint color;
+			GLuint vertices;
+			GLuint texCoord;
+			
+		} attributes;
+		
+		
+		struct{
+			GLuint tex;
+			GLuint alphaFormat;
+			GLuint projection;
+			GLuint modelView;
+			
+		} uniforms;
 
 		const TextureInformation *lastTexture;
 

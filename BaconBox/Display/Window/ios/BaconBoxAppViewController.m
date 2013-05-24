@@ -22,7 +22,7 @@
     }
     //self.view.clipsToBounds = YES;
     
-    EAGLContext *aContext = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES1];
+    EAGLContext *aContext = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];
     
    
     if (!aContext)

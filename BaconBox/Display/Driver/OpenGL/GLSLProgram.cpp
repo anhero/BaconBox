@@ -236,7 +236,7 @@ void GLSLProgram::getProgramLog(std::string &log) const
 	GLint debugLength;
 	getParameter(GL_INFO_LOG_LENGTH, &debugLength);
 
-	debug = new GLcharARB[debugLength];
+	debug = new GLchar[debugLength];
 	glGetProgramInfoLog(programHandle, debugLength, &debugLength, debug);
 
 	//cout << debug;

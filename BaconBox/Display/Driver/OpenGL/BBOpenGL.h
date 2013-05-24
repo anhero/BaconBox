@@ -26,8 +26,8 @@
 
 
 #if defined(BB_IPHONE_PLATFORM)
-#import <OpenGLES/ES1/gl.h>
-#import <OpenGLES/ES1/glext.h>
+#import <OpenGLES/ES2/gl.h>
+#import <OpenGLES/ES2/glext.h>
 #elif defined(BB_QT)
 #include <QtOpenGL>
 #elif defined(BB_MAC_PLATFORM)

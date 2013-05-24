@@ -3,6 +3,9 @@
 #include <cmath>
 
 namespace BaconBox {
+	
+const double MathHelper::PI_OVER_180 = 0.017453292519943295769236907684886;
+	
 	/// Float containing the PI value.
 	template <> MathHelper::PI<float>::operator float() {
 		return 3.14159265f;

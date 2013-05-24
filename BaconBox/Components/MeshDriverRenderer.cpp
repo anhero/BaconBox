@@ -98,11 +98,11 @@ namespace BaconBox {
 								GraphicDriver::getInstance().drawShapeWithTextureAndColorTransform(this->mesh->getPostTransformVertices(), this->texture->getTexture(), this->texture->getTextureCoordinates(), color, colorMultiplier, colorOffset);
 							} else {
 								// We render without the texture.
-								GraphicDriver::getInstance().drawShapeWithColor(this->mesh->getPostTransformVertices(), color);
+								throw "Not implemented yet";
 							}
 						} else {
 							// We render the mesh with the given color.
-							GraphicDriver::getInstance().drawShapeWithColor(this->mesh->getPostTransformVertices(), color);
+							throw "Not implemented yet";
 						}
 					}
 				}

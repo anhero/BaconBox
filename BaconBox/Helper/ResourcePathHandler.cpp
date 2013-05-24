@@ -46,6 +46,27 @@ namespace BaconBox {
 		return path;
 	}
 
+	
+	std::string ResourcePathHandler::getResourcePath(){
+		std::string resourcePath;
+#ifdef BB_IPHONE_PLATFORM
+
+		NSString *resourceDirectory = [[NSBundle mainBundle] resourcePath];
+		resourcePath = [resourceDirectory cStringUsingEncoding: NSASCIIStringEncoding];
+#else
+resourcePath = Engine::getApplicationPath();
+		
+#ifdef BB_MAC_PLATFORM
+		resourcePath = resourcePath + "/../Resources/" + item;
+#else
+		resourcePath = resourcePath + "/resources/" + item;
+#endif
+
+#endif
+		return resourcePath;
+	}
+
+	
 	std::string ResourcePathHandler::getDocumentPathFor(const std::string &item) {
 		std::string documentPath = getDocumentPath();
 		documentPath.append(item);
