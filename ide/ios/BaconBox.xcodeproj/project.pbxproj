@@ -166,6 +166,7 @@
 		5188D274174F0E6F0078D310 /* Vector3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5188D1BA174F0E6F0078D310 /* Vector3.cpp */; };
 		5188D275174F0E6F0078D310 /* VertexArray.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5188D1BC174F0E6F0078D310 /* VertexArray.cpp */; };
 		5188D277174F0EFA0078D310 /* BaconBoxLua.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5188D276174F0EFA0078D310 /* BaconBoxLua.cpp */; };
+		519039A1174FE9D200814708 /* Platform.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 519039A0174FE9D200814708 /* Platform.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -313,8 +314,6 @@
 		5188D093174F0E6F0078D310 /* Color.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Color.cpp; sourceTree = "<group>"; };
 		5188D094174F0E6F0078D310 /* Color.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Color.h; sourceTree = "<group>"; };
 		5188D095174F0E6F0078D310 /* ColorFormat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorFormat.h; sourceTree = "<group>"; };
-		5188D097174F0E6F0078D310 /* ColorArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorArray.h; sourceTree = "<group>"; };
-		5188D098174F0E6F0078D310 /* ColorTransformArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorTransformArray.h; sourceTree = "<group>"; };
 		5188D099174F0E6F0078D310 /* GraphicDriver.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GraphicDriver.cpp; sourceTree = "<group>"; };
 		5188D09A174F0E6F0078D310 /* GraphicDriver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GraphicDriver.h; sourceTree = "<group>"; };
 		5188D09B174F0E6F0078D310 /* IndiceArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IndiceArray.h; sourceTree = "<group>"; };
@@ -529,6 +528,9 @@
 		5188D1BC174F0E6F0078D310 /* VertexArray.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = VertexArray.cpp; sourceTree = "<group>"; };
 		5188D1BD174F0E6F0078D310 /* VertexArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VertexArray.h; sourceTree = "<group>"; };
 		5188D276174F0EFA0078D310 /* BaconBoxLua.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BaconBoxLua.cpp; sourceTree = "<group>"; };
+		5190399F174FE92A00814708 /* Platform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Platform.h; sourceTree = "<group>"; };
+		519039A0174FE9D200814708 /* Platform.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Platform.cpp; sourceTree = "<group>"; };
+		51D2C18E17568FB60089E377 /* ColorArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorArray.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -595,6 +597,8 @@
 		5188CFEE174F0E6F0078D310 /* BaconBox */ = {
 			isa = PBXGroup;
 			children = (
+				519039A0174FE9D200814708 /* Platform.cpp */,
+				5190399F174FE92A00814708 /* Platform.h */,
 				5188CFEF174F0E6F0078D310 /* Audio */,
 				5188D028174F0E6F0078D310 /* AxisAlignedBoundingBox.cpp */,
 				5188D029174F0E6F0078D310 /* AxisAlignedBoundingBox.h */,
@@ -815,8 +819,7 @@
 		5188D096174F0E6F0078D310 /* Driver */ = {
 			isa = PBXGroup;
 			children = (
-				5188D097174F0E6F0078D310 /* ColorArray.h */,
-				5188D098174F0E6F0078D310 /* ColorTransformArray.h */,
+				51D2C18E17568FB60089E377 /* ColorArray.h */,
 				5188D099174F0E6F0078D310 /* GraphicDriver.cpp */,
 				5188D09A174F0E6F0078D310 /* GraphicDriver.h */,
 				5188D09B174F0E6F0078D310 /* IndiceArray.h */,
@@ -1379,6 +1382,7 @@
 				5188D274174F0E6F0078D310 /* Vector3.cpp in Sources */,
 				5188D275174F0E6F0078D310 /* VertexArray.cpp in Sources */,
 				5188D277174F0EFA0078D310 /* BaconBoxLua.cpp in Sources */,
+				519039A1174FE9D200814708 /* Platform.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1400,7 +1404,7 @@
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_INPUT_FILETYPE = sourcecode.cpp.objcpp;
-				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -1410,7 +1414,8 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				LLVM_LTO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 			};
@@ -1430,11 +1435,13 @@
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_INPUT_FILETYPE = sourcecode.cpp.objcpp;
+				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PREPROCESSOR_DEFINITIONS = "BB_LUA=1";
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				LLVM_LTO = YES;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
