@@ -8,7 +8,6 @@
 #include "BaconBox/Display/Window/MainWindow.h"
 #include "BaconBox/VertexArray.h"
 #include "BaconBox/Display/Color.h"
-#include "BaconBox/Display/PixMap.h"
 #include "BaconBox/Console.h"
 
 #define GET_PTR(vertices) reinterpret_cast<const GLfloat *>(&(*vertices.getBegin()))
@@ -18,275 +17,109 @@
 
 
 namespace BaconBox {
-	void OpenGLDriver::drawShapeWithTextureAndColor(const VertexArray &vertices,
-	                                                const TextureInformation *textureInformation,
-	                                                const TextureCoordinates &textureCoordinates,
-	                                                const Color &color) {
-        ColorTransformArray white = ColorTransformArray(4, 1);
-        ColorTransformArray black = ColorTransformArray(4, 0);
-		if (textureInformation != this->lastTexture) {
-//			if (this->batch.isSingle()) {
-//				this->internalDrawShapeWithTextureAndColorTransform(this->batch.getVertices(), this->lastTexture, this->batch.getTextureCoordinates(), this->batch.getColor(), white, black);
-//			} else
-			if (this->lastTexture) {
-				this->batch.render(this, this->lastTexture);
-			}
-
-			this->batch.prepareRender();
-			this->lastTexture = textureInformation;
-		}
-
-		this->batch.addItem(vertices, color, white, black, textureCoordinates);
-	}
 
 
-	void OpenGLDriver::drawShapeWithTextureAndColorTransform(const VertexArray &vertices,
+	void OpenGLDriver::drawShapeWithTextureColorColorOffset(const VertexArray &vertices,
                   const TextureInformation *textureInformation,
                   const TextureCoordinates &textureCoordinates,
                   const Color &color,
-                  const ColorTransformArray &colorMultiplier,
-                  const ColorTransformArray &colorOffset){
-                    if (textureInformation != this->lastTexture) {
-//                        if (this->batch.isSingle()) {
-//                            this->internalDrawShapeWithTextureAndColorTransform(this->batch.getVertices(), this->lastTexture, this->batch.getTextureCoordinates(), this->batch.getColor(), colorMultiplier, colorOffset);
-//                        } else
-							if (this->lastTexture) {
-                            this->batch.render(this, this->lastTexture);
-                        }
+                  const Color &colorOffset, bool blend){
+		if (this->lastTexture){
+			if(textureInformation != this->lastTexture || blend != lastShapeBlend) {
+				this->batch.render(this, this->lastTexture, lastShapeBlend);
+				this->batch.prepareRender();
+			}
+		}
+		else{
+			this->batch.prepareRender();
+		}
+		
+						this->batch.addItem(vertices, color, colorOffset, textureCoordinates);
+						this->lastTexture = textureInformation;
+						lastShapeBlend = blend;
 
-                        this->batch.prepareRender();
-                        this->lastTexture = textureInformation;
-                    }
+	}
 
-                    this->batch.addItem(vertices, color, colorMultiplier, colorOffset, textureCoordinates);
 
-                  }
-
-//	void OpenGLDriver::drawShapeWithTexture(const VertexArray &vertices,
-//	                                        const TextureInformation *textureInformation,
-//	                                        const TextureCoordinates &textureCoordinates) {
-//		// We make sure the texture information is valid.
-//		if (textureInformation) {
-//			glBindTexture(GL_TEXTURE_2D, textureInformation->textureId);
-//
-//			glEnable(GL_TEXTURE_2D);
-//			glEnable(GL_BLEND);
-//#ifdef BB_OPENGLES
-//			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-//#else
-//			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-//#endif
-//
-//			glVertexPointer(2, GL_FLOAT, 0, GET_PTR(vertices));
-//			glEnableClientState(GL_VERTEX_ARRAY);
-//
-//			glTexCoordPointer(2, GL_FLOAT, 0, GET_TEX_PTR(textureCoordinates));
-//			glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-//
-//            if(textureInformation->colorFormat == ColorFormat::ALPHA){
-//                program->sendUniform("alphaFormat",GL_TRUE);
-//
-//			}
-//			else{
-//                program->sendUniform("alphaFormat",GL_FALSE);
-//			}
-//			glDrawArrays(GL_TRIANGLE_STRIP, 0, static_cast<GLsizei>(vertices.getNbVertices()));
-//
-//			glDisableClientState(GL_VERTEX_ARRAY);
-//			glDisableClientState(GL_TEXTURE_COORD_ARRAY);
-//			glDisable(GL_BLEND);
-//			glDisable(GL_TEXTURE_2D);
-//
-//		}
-//	}
-
-//	void OpenGLDriver::drawShapeWithColor(const VertexArray &vertices,
-//	                                      const Color &color) {
-//		if (color.getAlpha() > 0u) {
-//			glColor4ub(color.getRed(), color.getGreen(), color.getBlue(),
-//			           color.getAlpha());
-//
-//			glVertexPointer(2, GL_FLOAT, 0, GET_PTR(vertices));
-//			glEnable(GL_BLEND);
-//
-//#ifdef BB_OPENGLES
-//			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-//#else
-//			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-//#endif
-//			glEnableClientState(GL_VERTEX_ARRAY);
-//
-//			glDrawArrays(GL_TRIANGLE_STRIP, 0, static_cast<GLsizei>(vertices.getNbVertices()));
-//
-//			glDisableClientState(GL_VERTEX_ARRAY);
-//			glDisable(GL_BLEND);
-//
-//			glColor4ub(Color::WHITE.getRed(), Color::WHITE.getGreen(),
-//			           Color::WHITE.getBlue(), Color::WHITE.getAlpha());
-//		}
-//	}
-
-	void OpenGLDriver::drawBatchWithTextureAndColorTransform(const VertexArray &vertices,
+	void OpenGLDriver::drawBatchWithTextureColorColorOffset(const VertexArray &vertices,
 		                                  const TextureInformation *textureInformation,
 		                                  const TextureCoordinates &textureCoordinates,
 		                                  const IndiceArray &indices,
-		                                  const IndiceArrayList &indiceList,
 		                                  const ColorArray &colors,
-		                                  const ColorTransformArray &colorMultipliers,
-		                                  const ColorTransformArray &colorOffsets){
+		                                  const ColorArray &colorOffsets, bool blend){
+		
+		
 
-        for (IndiceArrayList::const_iterator i = indiceList.begin();
-			  i != indiceList.end(); ++i) {
 
-			glEnableVertexAttribArray(attributes.color);
-			glVertexAttribPointer(attributes.color, 4, GL_UNSIGNED_BYTE, GL_FALSE, 0,  GET_TEX_PTR_BATCH(colors, i->first));
+			currentGPUState.textureID = textureInformation->textureId;
+			currentGPUState.textureCoordinates = GET_TEX_PTR_BATCH(textureCoordinates, 0);
+			currentGPUState.vertices = GET_PTR_BATCH(vertices, 0);
+			currentGPUState.colors = GET_TEX_PTR_BATCH(colors, 0);
+			currentGPUState.colorOffsets = GET_TEX_PTR_BATCH(colorOffsets, 0);
+			currentGPUState.format = textureInformation->colorFormat;
+			currentGPUState.blend = blend;
 			
-			 
+			if(! (currentGPUState.format == lastGPUState.format) ){
+				lastGPUState.format = currentGPUState.format;
+				if(textureInformation->colorFormat == ColorFormat::ALPHA){
+					program->sendUniform(uniforms.alphaFormat,GL_TRUE);
+//					program = alphaProgram;
+//					program->use();
+					
+				}
+				else{
+					program->sendUniform(uniforms.alphaFormat,GL_FALSE);
+//					program = rgbProgram;
+//					program->use();
+				}
+			}
+			if(lastGPUState.blend != currentGPUState.blend){
+				if(blend){
+					glEnable(GL_BLEND);
 
-			glEnable(GL_TEXTURE_2D);
-			glEnable(GL_BLEND);
-
-
-			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
-			glEnableVertexAttribArray(attributes.vertices);
-			glEnableVertexAttribArray(attributes.texCoord);
-
-        glEnableVertexAttribArray(attributes.colorMultiplier);
-        glEnableVertexAttribArray(attributes.colorOffset);
-
-
-        glVertexAttribPointer(attributes.colorMultiplier, 4, GL_FLOAT, GL_FALSE, 0, GET_TEX_PTR_BATCH(colorMultipliers, i->first));
-        glVertexAttribPointer(attributes.colorOffset, 4, GL_FLOAT, GL_FALSE, 0, GET_TEX_PTR_BATCH(colorOffsets, i->first));
-
-			glVertexAttribPointer(attributes.vertices, 4, GL_FLOAT, GL_FALSE, 0, GET_PTR_BATCH(vertices, i->first));
-			glVertexAttribPointer(attributes.texCoord, 4, GL_FLOAT, GL_FALSE, 0, GET_TEX_PTR_BATCH(textureCoordinates, i->first));
+				}
+				else{
+					glDisable(GL_BLEND);
+				}
+				lastGPUState.blend = currentGPUState.blend;
+			}
 			
-			
-			if(textureInformation->colorFormat == ColorFormat::ALPHA){
-                program->sendUniform("alphaFormat",GL_TRUE);
-
+			if(! (currentGPUState.textureID == lastGPUState.textureID) ){
+				lastGPUState.textureID = currentGPUState.textureID;
+				glBindTexture(GL_TEXTURE_2D, textureInformation->textureId);
 			}
-			else{
-                program->sendUniform("alphaFormat",GL_FALSE);
+			if(! (currentGPUState.textureCoordinates == lastGPUState.textureCoordinates) ){
+				lastGPUState.textureCoordinates = currentGPUState.textureCoordinates;
+				glVertexAttribPointer(attributes.texCoord, 2, GL_FLOAT, GL_FALSE, 0, currentGPUState.textureCoordinates);
+			}
+			if(! (currentGPUState.vertices == lastGPUState.vertices) ){
+				lastGPUState.vertices = currentGPUState.vertices;
+				glVertexAttribPointer(attributes.vertices, 2, GL_FLOAT, GL_FALSE, 0, currentGPUState.vertices);
+			}
+			if(! (currentGPUState.colors == lastGPUState.colors) ){
+				lastGPUState.colors = currentGPUState.colors;
+				glVertexAttribPointer(attributes.color, 4, GL_FLOAT, GL_FALSE, 0,  currentGPUState.colors);
+			}
+			if(! (currentGPUState.colorOffsets == lastGPUState.colorOffsets) ){
+				lastGPUState.colorOffsets = currentGPUState.colorOffsets;
+				glVertexAttribPointer(attributes.colorOffset, 4, GL_FLOAT, GL_FALSE, 0, currentGPUState.colorOffsets);
 			}
 
-
-			if (i == --indiceList.end()) {
-				glDrawElements(GL_TRIANGLE_STRIP, static_cast<GLsizei>(indices.size() - i->second), GL_UNSIGNED_SHORT, GET_TEX_PTR_BATCH(indices, i->second));
-
-			} else {
-				glDrawElements(GL_TRIANGLE_STRIP, static_cast<GLsizei>((++IndiceArrayList::const_iterator(i))->second - i->second), GL_UNSIGNED_SHORT, GET_TEX_PTR_BATCH(indices, i->second));
-			}
-
-
-            glDisableVertexAttribArray(attributes.color);
-			glDisableVertexAttribArray(attributes.vertices);
-            glDisableVertexAttribArray(attributes.texCoord);
-            glDisableVertexAttribArray(attributes.colorMultiplier);
-            glDisableVertexAttribArray(attributes.colorOffset);
-			glDisable(GL_BLEND);
-			glDisable(GL_TEXTURE_2D);
-		}
+			glDrawElements(GL_TRIANGLE_STRIP, indices.size(), GL_UNSIGNED_SHORT, &(indices[0]));
   }
 
-//	void OpenGLDriver::drawBatchWithTextureAndColor(const VertexArray &vertices,
-//	                                                const TextureInformation *textureInformation,
-//	                                                const TextureCoordinates &textureCoordinates,
-//	                                                const IndiceArray &indices,
-//	                                                const IndiceArrayList &indiceList,
-//	                                                const ColorArray &colors) {
-//		for (IndiceArrayList::const_iterator i = indiceList.begin();
-//		     i != indiceList.end(); ++i) {
-//			glEnableVertexAttribArray(attributes.color);
-//			glVertexAttribPointer(attributes.color, 4, GL_UNSIGNED_BYTE, GL_FALSE, 0,  GET_TEX_PTR_BATCH(colors, i->first));
-//
-//
-//			glBindTexture(GL_TEXTURE_2D, textureInformation->textureId);
-//
-//			glEnable(GL_TEXTURE_2D);
-//			glEnable(GL_BLEND);
-//
-//
-//			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-//
-//			glEnableClientState(GL_VERTEX_ARRAY);
-//			glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-//
-//			glVertexPointer(2, GL_FLOAT, 0, GET_PTR_BATCH(vertices, i->first));
-//			glTexCoordPointer(2, GL_FLOAT, 0, GET_TEX_PTR_BATCH(textureCoordinates, i->first));
-//
-//             if(textureInformation->colorFormat == ColorFormat::ALPHA){
-//                program->sendUniform("alphaFormat",GL_FALSE);
-//
-//			}
-//			else{
-//                program->sendUniform("alphaFormat",GL_TRUE);
-//			}
-//
-//
-//			if (i == --indiceList.end()) {
-//				glDrawElements(GL_TRIANGLE_STRIP, static_cast<GLsizei>(indices.size() - i->second), GL_UNSIGNED_SHORT, GET_TEX_PTR_BATCH(indices, i->second));
-//
-//			} else {
-//				glDrawElements(GL_TRIANGLE_STRIP, static_cast<GLsizei>((++IndiceArrayList::const_iterator(i))->second - i->second), GL_UNSIGNED_SHORT, GET_TEX_PTR_BATCH(indices, i->second));
-//			}
-//
-//			glDisable(GL_BLEND);
-//			glDisable(GL_TEXTURE_2D);
-//			glDisableClientState(GL_VERTEX_ARRAY);
-//			glDisableClientState(GL_TEXTURE_COORD_ARRAY);
-//			glDisableClientState(GL_COLOR_ARRAY);
-//		}
-//	}
-
-//	void OpenGLDriver::drawBatchWithTexture(const VertexArray &vertices,
-//	                                        const TextureInformation *textureInformation,
-//	                                        const TextureCoordinates &textureCoordinates,
-//	                                        const IndiceArray &indices,
-//	                                        const IndiceArrayList &indiceList) {
-//		for (IndiceArrayList::const_iterator i = indiceList.begin();
-//		     i != indiceList.end(); ++i) {
-//			glBindTexture(GL_TEXTURE_2D, textureInformation->textureId);
-//
-//			glEnable(GL_TEXTURE_2D);
-//			glEnable(GL_BLEND);
-//
-//#ifdef BB_OPENGLES
-//			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-//#else
-//			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-//#endif
-//
-//			glEnableClientState(GL_VERTEX_ARRAY);
-//			glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-//
-//			glVertexPointer(2, GL_FLOAT, 0, GET_PTR_BATCH(vertices, i->first));
-//			glTexCoordPointer(2, GL_FLOAT, 0, GET_TEX_PTR_BATCH(textureCoordinates, i->first));
-//
-//			if (i == --indiceList.end()) {
-//				glDrawElements(GL_TRIANGLE_STRIP, static_cast<GLsizei>(indices.size() - i->second), GL_UNSIGNED_SHORT, GET_TEX_PTR_BATCH(indices, i->second));
-//
-//			} else {
-//				glDrawElements(GL_TRIANGLE_STRIP, static_cast<GLsizei>((++IndiceArrayList::const_iterator(i))->second - i->second), GL_UNSIGNED_SHORT, GET_TEX_PTR_BATCH(indices, i->second));
-//			}
-//
-//			glDisable(GL_BLEND);
-//			glDisable(GL_TEXTURE_2D);
-//			glDisableClientState(GL_VERTEX_ARRAY);
-//			glDisableClientState(GL_TEXTURE_COORD_ARRAY);
-//		}
-//	}
 
 	void OpenGLDriver::prepareScene(const Vector2 &position, float angle,
 	                                const Vector2 &zoom,
-	                                const Color &backgroundColor) {
-		glClearColor(clampColorComponent(backgroundColor.getRed()),
-		             clampColorComponent(backgroundColor.getGreen()),
-		             clampColorComponent(backgroundColor.getBlue()),
+	                                const Color &backgroundColor, bool clearScreen) {
+		if(clearScreen){
+		glClearColor(backgroundColor.getRed(),
+		             backgroundColor.getGreen(),
+		             backgroundColor.getBlue(),
 		             1.0f);
 
 		glClear(GL_COLOR_BUFFER_BIT);
+		}
 
 		loadIdentity();
 
@@ -308,6 +141,8 @@ namespace BaconBox {
 		scale(zoom);
 		rotate(angle);
 		translate(-(position));
+		program->sendUniform(uniforms.modelView, &(modelViewMatrix[0]));
+
 
 
 	}
@@ -324,68 +159,72 @@ namespace BaconBox {
             }
 
 		#endif // BB_GLEW
-
-
-		program = new GLSLProgram(
-                    "\
-					 precision mediump float;\
-					uniform mat4 Projection;\
-					uniform mat4 Modelview;\
-					\
-					attribute vec4 position;\
-					attribute vec2 texcoordIN;\
-                      attribute vec4 colorMultiplierIN;\
-                      attribute vec4 colorOffsetIN;\
-					attribute vec4 colorIN;\
-								  \
-					  varying vec2 texcoord;\
-                      varying vec4 colorMultiplier;\
-                      varying vec4 colorOffset;\
-						varying vec4 color;\
-								  \
-                      void main(void) {\
-						texcoord = texcoordIN;\
-                        colorMultiplier = colorMultiplierIN;\
-                        colorOffset = colorOffsetIN;\
-                        color = colorIN;\
-						gl_Position = Projection * Modelview * position;\
-                      }"
-
-                      ,
-
-                      "\
-					precision mediump float;\
-					uniform bool  alphaFormat;\
-                      uniform sampler2D  tex;\
-					varying vec2 texcoord;\
-					varying vec4 colorMultiplier;\
-					varying vec4 colorOffset;\
-					varying vec4 color;\
-                      void main(void) {\
-                      vec4 texColor;\
-                      if(alphaFormat){ \
-                        texColor = vec4(vec3(1.0), texture2D(tex, texcoord).a); \
-                      } \
-                      else{ \
-                        texColor = texture2D(tex, texcoord); \
-                      } \
-                        gl_FragColor = ((color * texColor)* colorMultiplier) + vec4(colorOffset.rgb, colorOffset.a * color.a);\
-                      }");
+		std::string vertexShader;
+#ifdef BB_IPHONE_PLATFORM
+		vertexShader += "precision mediump float;\n";
+#endif
+		vertexShader += "uniform mat4 projection;\
+		uniform mat4 modelView;\
+		\
+		attribute vec2 position;\
+		attribute vec2 texcoordIN;\
+		attribute vec4 colorOffsetIN;\
+		attribute vec4 colorIN;\
+		varying vec2 texcoord;\
+		varying vec4 colorOffset;\
+		varying vec4 color;\
+		void main(void) {\
+		mat4 modelViewProjection = (projection * modelView);\
+		texcoord = texcoordIN;\
+		colorOffset = colorOffsetIN;\
+		color = colorIN;\
+		gl_Position =   modelViewProjection * vec4(position, 0.0, 1.0);\
+		}";
+		
+		std::string fragmentShader;
+		
+#ifdef BB_IPHONE_PLATFORM
+		fragmentShader += "precision lowp float;\n";
+#endif
+		fragmentShader += "uniform bool  alphaFormat;\
+		uniform sampler2D  tex;\
+		varying vec2 texcoord;\
+		varying vec4 colorOffset;\
+		varying vec4 color;\
+		void main(void) {\
+		vec4 texColor = texture2D(tex, texcoord);\
+		if(alphaFormat){\
+		texColor = vec4(vec3(1.0), texColor.a); \
+		} \
+		gl_FragColor = (texColor * color) +colorOffset;\
+		}";
+		
+		program = new GLSLProgram(vertexShader,fragmentShader);
 
     		program->use();
+		
 			uniforms.tex = program->getUniformLocation("tex");
 			uniforms.alphaFormat = program->getUniformLocation("alphaFormat");
-			uniforms.projection = program->getUniformLocation("Projection");
-			uniforms.modelView= program->getUniformLocation("Modelview");
+			uniforms.projection = program->getUniformLocation("projection");
+			uniforms.modelView= program->getUniformLocation("modelView");
 		
     		program->sendUniform(uniforms.tex, 0);
             program->sendUniform(uniforms.alphaFormat, GL_FALSE);
 		
+		
 			attributes.vertices = program->getAttributeLocation("position");
 			attributes.texCoord = program->getAttributeLocation("texcoordIN");
-            attributes.colorMultiplier = program->getAttributeLocation("colorMultiplierIN");
             attributes.colorOffset = program->getAttributeLocation("colorOffsetIN");
 			attributes.color = program->getAttributeLocation("colorIN");
+		
+		
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		
+        glEnableVertexAttribArray(attributes.colorOffset);
+		glEnableVertexAttribArray(attributes.color);
+		glEnableVertexAttribArray(attributes.vertices);
+		glEnableVertexAttribArray(attributes.texCoord);
 
 
 		if (MainWindow::getInstance().getOrientation() == WindowOrientation::NORMAL ||
@@ -423,30 +262,26 @@ namespace BaconBox {
 			bottom = 0.0f;
 			top = static_cast<float>(MainWindow::getInstance().getContextWidth());
 		}
+		
+		
+
 
 		std::vector<float> projectionMatrix(16,0);
-		projectionMatrix[0] = 0.5f * (right - left);
-		projectionMatrix[4] = (right+left) / (right - left);
-		projectionMatrix[5] = 0.5f * (top - bottom);
-		projectionMatrix[8] = (top+bottom) / (top - bottom);
+		projectionMatrix[0] = 2.0f / (right - left);
+		projectionMatrix[5] = 2.0f / (top- bottom);
 		projectionMatrix[10] = -1;
-		projectionMatrix[12] = 0;
+		projectionMatrix[12] = -((right+left)/(right-left));
+		projectionMatrix[13] = -((top+bottom)/(top-bottom));
+//		projectionMatrix[14] = 0;
 		projectionMatrix[15] = 1;
 		
-		program->sendUniform(uniforms.projection, &(projectionMatrix[0]), true);
-		
+		program->sendUniform(uniforms.projection, &(projectionMatrix[0]));
 #if defined(BB_MAC_PLATFORM) && defined(BB_SDL)
 		int swapInterval = 1;
 		CGLSetParameter(CGLGetCurrentContext(), kCGLCPSwapInterval, &swapInterval);
 #endif
+		
 
-
-      //  glCreateShader(GL_VERTEX_SHADER);
-
-
-		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-
-		glClear(GL_COLOR_BUFFER_BIT);
 	}
 
 	void OpenGLDriver::pushMatrix() {
@@ -458,23 +293,23 @@ namespace BaconBox {
 
 		
 		tempTransformMatrix[0] = 1;
-		tempTransformMatrix[1] = 0;
-		tempTransformMatrix[2] = 0;
-		tempTransformMatrix[3] = 0;
-		
 		tempTransformMatrix[4] = 0;
-		tempTransformMatrix[5] = 1;
-		tempTransformMatrix[6] = 0;
-		tempTransformMatrix[7] = 0;
-		
 		tempTransformMatrix[8] = 0;
-		tempTransformMatrix[9] = 0;
-		tempTransformMatrix[10] = 1;
-		tempTransformMatrix[11] = 0;
+		tempTransformMatrix[12] = 0;
 		
-		tempTransformMatrix[12] = translation.x;
-		tempTransformMatrix[13] = translation.y;
+		tempTransformMatrix[1] = 0;
+		tempTransformMatrix[5] = 1;
+		tempTransformMatrix[9] = 0;
+		tempTransformMatrix[13] = 0;
+		
+		tempTransformMatrix[2] = 0;
+		tempTransformMatrix[6] = 0;
+		tempTransformMatrix[10] = 1;
 		tempTransformMatrix[14] = 0;
+		
+		tempTransformMatrix[3] = translation.x;
+		tempTransformMatrix[7] = translation.y;
+		tempTransformMatrix[12] = 0;
 		tempTransformMatrix[15] = 1;
 		
 		multMatrix(&(modelViewMatrix[0]),&(tempTransformMatrix[0]));
@@ -484,23 +319,23 @@ namespace BaconBox {
 	void OpenGLDriver::scale(const Vector2 &scale){
 		
 		tempTransformMatrix[0] = scale.x;
-		tempTransformMatrix[1] = 0;
-		tempTransformMatrix[2] = 0;
-		tempTransformMatrix[3] = 0;
-		
 		tempTransformMatrix[4] = 0;
-		tempTransformMatrix[5] = scale.y;
-		tempTransformMatrix[6] = 0;
-		tempTransformMatrix[7] = 0;
-		
 		tempTransformMatrix[8] = 0;
-		tempTransformMatrix[9] = 0;
-		tempTransformMatrix[10] = 1;
-		tempTransformMatrix[11] = 0;
-		
 		tempTransformMatrix[12] = 0;
+		
+		tempTransformMatrix[1] = 0;
+		tempTransformMatrix[5] = scale.y;
+		tempTransformMatrix[9] = 0;
 		tempTransformMatrix[13] = 0;
+		
+		tempTransformMatrix[2] = 0;
+		tempTransformMatrix[6] = 0;
+		tempTransformMatrix[10] = 1;
 		tempTransformMatrix[14] = 0;
+		
+		tempTransformMatrix[3] = 0;
+		tempTransformMatrix[7] = 0;
+		tempTransformMatrix[11] = 0;
 		tempTransformMatrix[15] = 1;
 		
 		multMatrix(&(modelViewMatrix[0]),&(tempTransformMatrix[0]));
@@ -511,23 +346,23 @@ namespace BaconBox {
 		float angle= a * MathHelper::PI_OVER_180 ;
 		
 		tempTransformMatrix[0] = 1;
-		tempTransformMatrix[1] = -MathHelper::sin(angle);
-		tempTransformMatrix[2] = 0;
-		tempTransformMatrix[3] = 0;
-		
-		tempTransformMatrix[4] = MathHelper::sin(angle);
-		tempTransformMatrix[5] = 1-(1-MathHelper::cos(angle));
-		tempTransformMatrix[6] = 0;
-		tempTransformMatrix[7] = 0;
-		
+		tempTransformMatrix[4] = -MathHelper::sin(angle);
 		tempTransformMatrix[8] = 0;
-		tempTransformMatrix[9] = 0;
-		tempTransformMatrix[10] = 1;
-		tempTransformMatrix[11] = 0;
-		
 		tempTransformMatrix[12] = 0;
+		
+		tempTransformMatrix[1] = MathHelper::sin(angle);
+		tempTransformMatrix[5] = 1-(1-MathHelper::cos(angle));
+		tempTransformMatrix[9] = 0;
 		tempTransformMatrix[13] = 0;
+		
+		tempTransformMatrix[2] = 0;
+		tempTransformMatrix[6] = 0;
+		tempTransformMatrix[10] = 1;
 		tempTransformMatrix[14] = 0;
+		
+		tempTransformMatrix[3] = 0;
+		tempTransformMatrix[7] = 0;
+		tempTransformMatrix[12] = 0;
 		tempTransformMatrix[15] = 1;
 		
 		multMatrix(&(modelViewMatrix[0]),&(tempTransformMatrix[0]));
@@ -539,10 +374,14 @@ namespace BaconBox {
 		float NewMatrix[16];
 		int i;
 		for(i = 0; i < 4; i++){ //Cycle through each vector of first matrix.
-			NewMatrix[i*4] = MatrixA[i*4] * MatrixB[0] + MatrixA[i*4+1] * MatrixB[4] + MatrixA[i*4+2] * MatrixB[8] + MatrixA[i*4+3] * MatrixB[12];
-			NewMatrix[i*4+1] = MatrixA[i*4] * MatrixB[1] + MatrixA[i*4+1] * MatrixB[5] + MatrixA[i*4+2] * MatrixB[9] + MatrixA[i*4+3] * MatrixB[13];
-			NewMatrix[i*4+2] = MatrixA[i*4] * MatrixB[2] + MatrixA[i*4+1] * MatrixB[6] + MatrixA[i*4+2] * MatrixB[10] + MatrixA[i*4+3] * MatrixB[14];
-			NewMatrix[i*4+3] = MatrixA[i*4] * MatrixB[3] + MatrixA[i*4+1] * MatrixB[7] + MatrixA[i*4+2] * MatrixB[11] + MatrixA[i*4+3] * MatrixB[15];
+			int i1 = i;
+			int i2 = i + 4;
+			int i3 = i + 8;
+			int i4 = i + 12;
+			NewMatrix[i1] = MatrixA[i1] * MatrixB[0] + MatrixA[i2] * MatrixB[1] + MatrixA[i3] * MatrixB[2] + MatrixA[i4] * MatrixB[3];
+			NewMatrix[i2] = MatrixA[i1] * MatrixB[4] + MatrixA[i2] * MatrixB[5] + MatrixA[i3] * MatrixB[6] + MatrixA[i4] * MatrixB[7];
+			NewMatrix[i3] = MatrixA[i1] * MatrixB[8] + MatrixA[i2] * MatrixB[9] + MatrixA[i3] * MatrixB[10] + MatrixA[i4] * MatrixB[11];
+			NewMatrix[i4] = MatrixA[i1] * MatrixB[12] + MatrixA[i2] * MatrixB[13] + MatrixA[i3] * MatrixB[14] + MatrixA[i4] * MatrixB[15];
 		}
 		/*this should combine the matrixes*/
 		
@@ -553,23 +392,23 @@ namespace BaconBox {
 	//inspired by http://www.flashbang.se/archives/148
 	void OpenGLDriver::loadIdentity() {
 		modelViewMatrix[0] = 1;
-		modelViewMatrix[1] = 0;
-		modelViewMatrix[2] = 0;
-		modelViewMatrix[3] = 0;
-		
 		modelViewMatrix[4] = 0;
-		modelViewMatrix[5] = 1;
-		modelViewMatrix[6] = 0;
-		modelViewMatrix[7] = 0;
-		
 		modelViewMatrix[8] = 0;
-		modelViewMatrix[9] = 0;
-		modelViewMatrix[10] = 1;
-		modelViewMatrix[11] = 0;
-		
 		modelViewMatrix[12] = 0;
+		
+		modelViewMatrix[1] = 0;
+		modelViewMatrix[5] = 1;
+		modelViewMatrix[9] = 0;
 		modelViewMatrix[13] = 0;
+		
+		modelViewMatrix[2] = 0;
+		modelViewMatrix[6] = 0;
+		modelViewMatrix[10] = 1;
 		modelViewMatrix[14] = 0;
+		
+		modelViewMatrix[3] = 0;
+		modelViewMatrix[7] = 0;
+		modelViewMatrix[11] = 0;
 		modelViewMatrix[15] = 1;
 	}
 
@@ -578,7 +417,7 @@ namespace BaconBox {
 
 
 	void OpenGLDriver::deleteTexture(TextureInformation *textureInfo) {
-		glDeleteTextures(1, &(textureInfo->textureId));
+		glDeleteTextures(1, reinterpret_cast<unsigned int *>(&(textureInfo->textureId)));
 		textureInfo->textureId = -1;
 	}
 
@@ -586,7 +425,7 @@ namespace BaconBox {
 		GraphicDriver::loadTexture(pixMap);
 
 		TextureInformation *texInfo = new TextureInformation();
-		glGenTextures(1, &(texInfo->textureId));
+		glGenTextures(1, reinterpret_cast<unsigned int *>(&(texInfo->textureId)));
 		glBindTexture(GL_TEXTURE_2D, texInfo->textureId);
 
 		texInfo->imageWidth = pixMap->getWidth();
@@ -643,52 +482,14 @@ namespace BaconBox {
 
 	void OpenGLDriver::finalizeRender() {
 		if (this->lastTexture) {
-			this->batch.render(this, this->lastTexture);
+			this->batch.render(this, this->lastTexture, true);
 			this->lastTexture = NULL;
 		}
 	}
 
-	float OpenGLDriver::clampColorComponent(unsigned short component) {
-		return static_cast<float>(component) / static_cast<float>(Color::MAX_COMPONENT_VALUE);
-	}
-
-//	void OpenGLDriver::internalDrawShapeWithTextureAndColor(const VertexArray &vertices,
-//	                                                        const TextureInformation *textureInformation,
-//	                                                        const TextureCoordinates &textureCoordinates,
-//	                                                        const Color &color) {
-//		if (color.getAlpha() > 0u) {
-//			glColor4ub(color.getRed(), color.getGreen(), color.getBlue(),
-//			           color.getAlpha());
-//
-//			drawShapeWithTexture(vertices, textureInformation,
-//			                     textureCoordinates);
-//
-//			glColor4ub(Color::WHITE.getRed(), Color::WHITE.getGreen(),
-//			           Color::WHITE.getBlue(), Color::WHITE.getAlpha());
-//		}
-//	}
-//
-//	void OpenGLDriver::internalDrawShapeWithTextureAndColorTransform(const VertexArray &vertices,
-//	                                                        const TextureInformation *textureInformation,
-//	                                                        const TextureCoordinates &textureCoordinates,
-//	                                                        const Color &color,
-//	                                                        const ColorTransformArray &colorMultiplier,
-//                                                            const ColorTransformArray &colorOffset) {
-//
-//        glVertexAttrib4f(locColorMultiplier, colorMultiplier[0], colorMultiplier[1], colorMultiplier[2], colorMultiplier[3]);
-//        glVertexAttrib4f(locColorOffset, colorOffset[0], colorOffset[1], colorOffset[2], colorOffset[3]);
-//
-//        internalDrawShapeWithTextureAndColor(vertices, textureInformation, textureCoordinates, color);
-//
-//        glVertexAttrib4f(locColorMultiplier, Color::WHITE.getRed(), Color::WHITE.getGreen(), Color::WHITE.getBlue(), Color::WHITE.getAlpha());
-//        glVertexAttrib4f(locColorOffset, Color::WHITE.getRed(), Color::WHITE.getGreen(), Color::WHITE.getBlue(), Color::WHITE.getAlpha());
-//	}
-//
-	
-	
 
 
-	OpenGLDriver::OpenGLDriver() : GraphicDriver(), batch(), lastTexture(NULL), modelViewMatrix(16,0), tempTransformMatrix(16,0) {
+	OpenGLDriver::OpenGLDriver() : GraphicDriver(), batch(), lastShapeBlend(true),lastTexture(NULL), modelViewMatrix(16,0), tempTransformMatrix(16,0), lastGPUState(), currentGPUState() {
 	}
 
 	OpenGLDriver::~OpenGLDriver() {

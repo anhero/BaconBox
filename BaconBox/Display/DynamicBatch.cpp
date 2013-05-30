@@ -4,56 +4,52 @@
 #include "BaconBox/Display/Driver/GraphicDriver.h"
 #include <limits>
 namespace BaconBox {
-	DynamicBatch::DynamicBatch() {
+	DynamicBatch::DynamicBatch():indiceIterator(0) {
+		int reserveSize = std::numeric_limits<uint16_t>::max();
+		colors.reserve(reserveSize);
+		colorOffsets.reserve(reserveSize);
+		textureCoordinates.reserve(reserveSize);
+		vertices.reserve(reserveSize);
+		indices.reserve(reserveSize);
+	
 	}
 
 	DynamicBatch::~DynamicBatch() {
 	}
 
 	void DynamicBatch::prepareRender() {
-		this->sizes.clear();
-		this->vertices.clear();
-		this->textureCoordinates.clear();
-		this->colors.clear();
-        this->colorMultipliers.clear();
-		this->colorOffsets.clear();
-
-		this->indices.clear();
-		this->indiceList.clear();
+		this->vertices.resize(0);
+		this->textureCoordinates.resize(0);
+		this->colors.resize(0);
+		this->colorOffsets.resize(0);
+		this->indices.resize(0);
 	}
 
-	void DynamicBatch::addItem(const VertexArray &newVertices, const Color &newColor, const ColorTransformArray &newColorMultiplier,
-                            const ColorTransformArray &newColorOffset, const TextureCoordinates &newTextureCoordinates) {
-		if (newVertices.getNbVertices() == newTextureCoordinates.size()) {
-			this->vertices.insert(this->vertices.getEnd(), newVertices.getBegin(), newVertices.getEnd());
-			this->colors.insert(this->colors.end(), newVertices.getNbVertices(), newColor);
+	void DynamicBatch::addItem(const VertexArray &newVertices, const Color &newColor,
+                            const Color &newColorOffset, const TextureCoordinates &newTextureCoordinates) {
             for(int i = 0; i<4; i++){
-                this->colorMultipliers.insert(this->colorMultipliers.end(), newColorMultiplier.begin(), newColorMultiplier.end());
-                this->colorOffsets.insert(this->colorOffsets.end(), newColorOffset.begin(), newColorOffset.end());
+				this->colors.push_back(newColor);
+				colorOffsets.push_back(newColorOffset);
+				vertices.pushBack(newVertices[i]);
+				textureCoordinates.push_back(newTextureCoordinates[i]);
             }
-
-
-
-			this->sizes.push_back(newVertices.getNbVertices());
-			this->textureCoordinates.insert(this->textureCoordinates.end(), newTextureCoordinates.begin(), newTextureCoordinates.end());
-
-		} else {
-			Console::println("Tried to add an item into an BatchRenderer that doesn't have the same number of vertices and texture coordinates: ");
-			Console::print(newVertices.getNbVertices());
-			Console::print(" vertices and ");
-			Console::print(newTextureCoordinates.size());
-			Console::println(" texture coordinates.");
-		}
+		this->indices.push_back(indiceIterator);
+		this->indices.push_back(++indiceIterator);
+		this->indices.push_back(++indiceIterator);
+		this->indices.push_back(++indiceIterator);
+		this->indices.push_back(indiceIterator);
+		this->indices.push_back(++indiceIterator);
 	}
 
-	void DynamicBatch::render(GraphicDriver *driver, const TextureInformation *textureInformation) {
-		this->refreshIndices();
-		driver->drawBatchWithTextureAndColorTransform(this->vertices, textureInformation, this->textureCoordinates, this->indices, this->indiceList, this->colors, this->colorMultipliers, this->colorOffsets);
+	
+	
+	void DynamicBatch::render(GraphicDriver *driver, const TextureInformation *textureInformation, bool blend) {
+		this->indices.pop_back();
+		indiceIterator = 0;
+		driver->drawBatchWithTextureColorColorOffset(this->vertices, textureInformation, this->textureCoordinates, this->indices, this->colors, this->colorOffsets, blend);
     }
 
-	bool DynamicBatch::isSingle() const {
-		return this->sizes.size() == 1;
-	}
+
 
 	const StandardVertexArray &DynamicBatch::getVertices() const {
 		return this->vertices;
@@ -67,59 +63,4 @@ namespace BaconBox {
 		return this->colors.front();
 	}
 
-	void DynamicBatch::refreshIndices() {
-		static const StandardVertexArray::SizeType MAX_NB_INDICES = static_cast<StandardVertexArray::SizeType>(std::numeric_limits<IndiceArray::value_type>::max());
-
-		// We clear the current indices.
-		indices.clear();
-		indiceList.clear();
-
-		// We calculate the number of indices we'll need in the array.
-		IndiceArray::size_type nbIndices = 0;
-
-		for (std::vector<VertexArray::SizeType>::const_iterator i = this->sizes.begin(); i != this->sizes.end(); ++i) {
-			nbIndices += *i;
-		}
-
-		// We reserve the necessary memory.
-		if (indices.capacity() < nbIndices) {
-			indices.reserve(nbIndices);
-		}
-
-		IndiceArray::value_type indiceIterator = 0;
-
-		indiceList.push_back(std::make_pair(0, 0));
-
-		size_t currentIndex = 0;
-
-		// We initialize the indices for each body's vertices.
-		for (std::vector<VertexArray::SizeType>::const_iterator i = this->sizes.begin(); i != this->sizes.end(); ++i) {
-
-			// We make sure the body has at least 3 vertices.
-			if (*i >= 3) {
-
-				// We make sure we aren't over the number of indices in the
-				// current batch.
-				if ((currentIndex + *i) > indiceList.back().first + MAX_NB_INDICES) {
-					this->indiceList.push_back(std::make_pair(currentIndex, indices.size()));
-				}
-
-				// We get the body's first vertex's indice.
-				indiceIterator = static_cast<IndiceArray::value_type>(currentIndex - indiceList.back().first);
-
-				// We add the indices for each of the body's triangles.
-				IndiceArray::value_type nbTriangles = static_cast<IndiceArray::value_type>(*i - 2);
-
-				for (IndiceArray::value_type j = 0; j < nbTriangles; ++j) {
-					this->indices.push_back(indiceIterator + j);
-					this->indices.push_back(indiceIterator + j);
-					this->indices.push_back(indiceIterator + j + 1);
-					this->indices.push_back(indiceIterator + j + 2);
-					this->indices.push_back(indiceIterator + j + 2);
-				}
-			}
-
-			currentIndex += *i;
-		}
-	}
 }

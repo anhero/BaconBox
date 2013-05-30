@@ -8,6 +8,8 @@
 #include "BaconBox/Display/Driver/GraphicDriver.h"
 #include "BaconBox/Display/Driver/OpenGL/BBOpenGL.h"
 #include "BaconBox/Display/DynamicBatch.h"
+#include "BaconBox/Display/PixMap.h"
+
 #include "GLSLProgram.h"
 namespace BaconBox {
 	/**
@@ -17,74 +19,23 @@ namespace BaconBox {
 	class OpenGLDriver : public GraphicDriver {
 		friend class BaseEngine;
 	public:
-		/**
-		 * Draw a colored and textured shape with the given vertices, texture
-		 * coordinate, rendering informations (colors array and texture) and
-		 * number of vertices. Color information will blend with the texture
-		 * (and background if alpha is not at max value of 255).
-		 * @param vertices Vertices to draw.
-		 * @param textureInformation Pointer to the texture information.
-		 * @param textureCoordinates Texture coordinates in the texture to
-		 * draw.
-		 * @param color Color to render.
-		 */
-		void drawShapeWithTextureAndColor(const VertexArray &vertices,
-		                                  const TextureInformation *textureInformation,
-		                                  const TextureCoordinates &textureCoordinates,
-		                                  const Color &color);
 
-
-        void drawShapeWithTextureAndColorTransform(const VertexArray &vertices,
-                  const TextureInformation *textureInformation,
-                  const TextureCoordinates &textureCoordinates,
-                  const Color &color,
-                  const ColorTransformArray &colorMultiplier,
-                  const ColorTransformArray &colorOffset);
-//		/**
-//		 * Draw a textured shape with the given vertices, texture coordinate,
-//		 * rendering informations (colors array and textureID) and number of
-//		 * vertices.
-//		 * @param vertices Vertices to draw.
-//		 * @param textureInformation Pointer to the texture information.
-//		 * @param textureCoordinates Texture coordinates in the texture to
-//		 * draw.
-//		 */
-//		void drawShapeWithTexture(const VertexArray &vertices,
-//		                          const TextureInformation *textureInformation,
-//		                          const TextureCoordinates &textureCoordinates);
-//		/**
-//		 * Draws a colored shape.
-//		 * @param vertices Vertices to draw.
-//		 * @param color Color to render.
-//		 */
-//		void drawShapeWithColor(const VertexArray &vertices,
-//		                        const Color &color);
-
-
-//		void drawBatchWithTextureAndColor(const VertexArray &vertices,
-//		                                  const TextureInformation *textureInformation,
-//		                                  const TextureCoordinates &textureCoordinates,
-//		                                  const IndiceArray &indices,
-//		                                  const IndiceArrayList &indiceList,
-//		                                  const ColorArray &colors);
-
-        void drawBatchWithTextureAndColorTransform(const VertexArray &vertices,
-		                                  const TextureInformation *textureInformation,
-		                                  const TextureCoordinates &textureCoordinates,
-		                                  const IndiceArray &indices,
-		                                  const IndiceArrayList &indiceList,
-		                                  const ColorArray &colors,
-		                                  const ColorTransformArray &colorMultipliers,
-		                                  const ColorTransformArray &colorOffsets);
+		void drawShapeWithTextureColorColorOffset(const VertexArray &vertices,
+												  const TextureInformation *textureInformation,
+												  const TextureCoordinates &textureCoordinates,
+												  const Color &color,
+												  const Color &colorOffset, bool blend);
 
 
 
-//
-//		void drawBatchWithTexture(const VertexArray &vertices,
-//		                          const TextureInformation *textureInformation,
-//		                          const TextureCoordinates &textureCoordinates,
-//		                          const IndiceArray &indices,
-//		                          const IndiceArrayList &indiceList);
+        void drawBatchWithTextureColorColorOffset(const VertexArray &vertices,
+												  const TextureInformation *textureInformation,
+												  const TextureCoordinates &textureCoordinates,
+												  const IndiceArray &indices,
+												  const ColorArray &colors,
+												  const ColorArray &colorOffsets, bool blend);
+
+
 
 
 
@@ -99,7 +50,7 @@ namespace BaconBox {
 		 * @param backgroundColor The scene's background color.
 		 */
 		void prepareScene(const Vector2 &position, float angle,
-		                  const Vector2 &zoom, const Color &backgroundColor);
+		                  const Vector2 &zoom, const Color &backgroundColor, bool clearScreen);
 
 
 		void initializeGraphicDriver();
@@ -148,19 +99,6 @@ namespace BaconBox {
 		
 		void multMatrix(float *MatrixB,float MatrixA[16]);
 		
-		static float clampColorComponent(unsigned short component);
-
-//		void internalDrawShapeWithTextureAndColor(const VertexArray &vertices,
-//		                                          const TextureInformation *textureInformation,
-//		                                          const TextureCoordinates &textureCoordinates,
-//		                                          const Color &color);
-//
-//        void internalDrawShapeWithTextureAndColorTransform(const VertexArray &vertices,
-//		                                          const TextureInformation *textureInformation,
-//		                                          const TextureCoordinates &textureCoordinates,
-//		                                          const Color &color,
-//		                                          const ColorTransformArray &colorMultiplier,
-//		                                          const ColorTransformArray &colorOffset);
 
 		
 		std::vector<float> tempTransformMatrix;
@@ -168,10 +106,31 @@ namespace BaconBox {
 		DynamicBatch batch;
 
         GLSLProgram *program;
+//        GLSLProgram *rgbProgram;
+//        GLSLProgram *alphaProgram;
 		
+		
+		struct GPUState{
+			GPUState():blend(true), textureID(-1),textureCoordinates(NULL),vertices(NULL),colors(NULL),colorOffsets(NULL), format(ColorFormat::NONE){}
+			
+			int textureID;
+			bool blend;
+			const GLfloat * textureCoordinates;
+			const GLfloat * vertices;
+			const GLfloat * colors;
+			const GLfloat * colorOffsets;
+			ColorFormat format;
+			bool operator==(const GPUState &other) const {
+				return (other.textureID == this->textureID) && (other.textureCoordinates == this->textureCoordinates) && (other.vertices == this->vertices) && (other.colors == this->colors) &&(other.colorOffsets == this->colorOffsets) && (other.format == this->format);
+			}
+			
+			
+		};
+			
+		GPUState currentGPUState;
+		GPUState lastGPUState;
 		
 		struct{
-			GLuint colorMultiplier;
 			GLuint colorOffset;
 			GLuint color;
 			GLuint vertices;
@@ -189,7 +148,8 @@ namespace BaconBox {
 		} uniforms;
 
 		const TextureInformation *lastTexture;
-
+		bool lastShapeBlend;
+		
 		/**
 		 * Default constructor.
 		 */

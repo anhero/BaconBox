@@ -6,65 +6,34 @@ namespace BaconBox {
 		return instance;
 	}
 
-	void NullGraphicDriver::drawShapeWithTextureAndColor(const VertexArray &,
-	                                                     const TextureInformation *,
-	                                                     const TextureCoordinates &,
-	                                                     const Color &) {
-	}
-
-	void NullGraphicDriver::drawShapeWithTextureAndColorTransform(const VertexArray &vertices,
-              const TextureInformation *textureInformation,
-              const TextureCoordinates &textureCoordinates,
-              const Color &color,
-              const ColorTransformArray &colorMultiplier,
-              const ColorTransformArray &colorOffset){
-              }
-
-	void NullGraphicDriver::drawShapeWithTexture(const VertexArray &,
-	                                             const TextureInformation *,
-	                                             const TextureCoordinates &) {
-	}
-
-	void NullGraphicDriver::drawShapeWithColor(const VertexArray &,
-	                                           const Color &) {
-	}
-
-	void NullGraphicDriver::drawBatchWithTextureAndColorTransform(const VertexArray &vertices,
-		                                  const TextureInformation *textureInformation,
-		                                  const TextureCoordinates &textureCoordinates,
-		                                  const IndiceArray &indices,
-		                                  const IndiceArrayList &indiceList,
-		                                  const ColorArray &colors,
-		                                  const ColorTransformArray &colorMultipliers,
-		                                  const ColorTransformArray &colorOffsets){
-
-
-		                                  }
-
-
-	void NullGraphicDriver::drawBatchWithTextureAndColor(const VertexArray &,
-	                                                     const TextureInformation *,
-	                                                     const TextureCoordinates &,
-	                                                     const IndiceArray &,
-	                                                     const IndiceArrayList &,
-	                                                     const ColorArray &) {
-	}
-
-	void NullGraphicDriver::drawBatchWithTexture(const VertexArray &,
-	                                             const TextureInformation *,
-	                                             const TextureCoordinates &,
-	                                             const IndiceArray &,
-	                                             const IndiceArrayList &) {
-	}
-
     void NullGraphicDriver::deleteTexture(TextureInformation * textureInfo){
 
     }
 
+	
+	
+	void NullGraphicDriver::drawShapeWithTextureColorColorOffset(const VertexArray &vertices,
+											  const TextureInformation *textureInformation,
+											  const TextureCoordinates &textureCoordinates,
+											  const Color &color,
+																 const Color &colorOffset, bool blend){
+		
+	}
+	
+	
+	
+	void NullGraphicDriver::drawBatchWithTextureColorColorOffset(const VertexArray &vertices,
+											  const TextureInformation *textureInformation,
+											  const TextureCoordinates &textureCoordinates,
+											  const IndiceArray &indices,
+											  const ColorArray &colors,
+											const ColorArray &colorOffsets, bool blend){
+		
+	}
 
 
 	void NullGraphicDriver::prepareScene(const Vector2 &, float,
-	                                     const Vector2 &, const Color &) {
+	                                     const Vector2 &, const Color &, bool ) {
 	}
 
 

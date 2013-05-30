@@ -25,13 +25,8 @@ namespace BaconBox {
 
 		virtual CameraDriverRenderer *clone() const;
 
-
-		virtual void receiveMessage(int senderID, int id, int message, void *data);
-
-		virtual void update();
-
-		virtual void render();
-    private:
+		void render();
+    private:	
         Transform * transform;
         ColorTransform * colorTransform;
 		void initializeConnections();

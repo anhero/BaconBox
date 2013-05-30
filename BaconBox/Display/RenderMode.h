@@ -10,6 +10,7 @@ namespace BaconBox {
 		const int MASKED = 8;
 		const int INVERSE_MASKED = 16;
 		const int COLOR_TRANSORMED = 32;
+		const int BLENDED = 64;
 	};
 }
 

@@ -2,7 +2,7 @@
 #include <string>
 
 
-#ifdef BB_FLASH_PLATEFORM
+#ifdef BB_FLASH_PLATFORM
 #include "BaconBox/Components/Flash/MovieClipHolder.h"
 #include "BaconBox/Components/Flash/FlashEntityContainer.h"
 #include "BaconBox/Components/Flash/FlashTimeline.h"
@@ -26,13 +26,13 @@ namespace BaconBox {
     BB_ID_IMPL(MovieClipEntity);
 
 	MovieClipEntity::MovieClipEntity(): Entity(), HasNameProxy(this, "", false), TransformProxy(this, false), ColorTransformProxy(this), TimelineProxy(this),
-	EntityContainerProxy(this), MatrixComponentProxy(this), SymbolComponentProxy(this), AABBHitBoxProxy(this), SizeComponentProxy(this)
+	EntityContainerProxy(this), MatrixComponentProxy(this), SymbolComponentProxy(this), AABBHitBoxProxy(this), LuaEntityProxy(this), SizeComponentProxy(this)
 	#ifdef BB_LUA
-        , LuaEntityProxy(this)
+        
 	#endif //BB_LUA
 	{
 
-#ifdef BB_FLASH_PLATEFORM
+#ifdef BB_FLASH_PLATFORM
 	    setTimeline(new FlashTimeline());
 	    setEntityContainer(new FlashEntityContainer());
 	    setHasName(new FlashHasName());
@@ -62,7 +62,7 @@ namespace BaconBox {
         , LuaEntityProxy(this)
 	#endif //BB_LUA
 	{
-#ifdef BB_FLASH_PLATEFORM
+#ifdef BB_FLASH_PLATFORM
 
 #else
 
@@ -78,7 +78,7 @@ namespace BaconBox {
 	}
 
 
-#ifdef BB_FLASH_PLATEFORM
+#ifdef BB_FLASH_PLATFORM
 	void MovieClipEntity::setMovieClip(AS3::local::var aMC) {
 		MovieClipHolder *mcHolder = new MovieClipHolder(aMC);
 		addComponent(mcHolder);

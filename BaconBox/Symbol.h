@@ -43,6 +43,7 @@ namespace BaconBox {
 	SubTextureInfo * subTex;
 	bool isTexture;
 	bool isTextField;
+		bool blend;
 		std::string font;
 		std::string text;
 		int textFieldWidth;

@@ -19,7 +19,7 @@ namespace BaconBox {
 	class Camera;
 
 	class State : public Entity,
-		public HasNameProxy
+		public HasNameProxy 
 #ifdef BB_LUA
 , public LuaEntityProxy
 #endif //BB_LUA
@@ -56,7 +56,6 @@ namespace BaconBox {
 
 		virtual void onLoseFocus();
 	private:
-
 		void internalUpdate();
 
 		void internalRender();
@@ -64,8 +63,7 @@ namespace BaconBox {
 		void internalOnGetFocus();
 
 		void internalOnLoseFocus();
-
-		Camera *camera;
+	Camera *camera;
 	};
 }
 #endif

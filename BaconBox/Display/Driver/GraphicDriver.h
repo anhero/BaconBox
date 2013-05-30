@@ -6,7 +6,6 @@
 #define BB_GRAPHIC_DRIVER_H
 
 #include "BaconBox/Display/Driver/ColorArray.h"
-#include "BaconBox/Display/Driver/ColorTransformArray.h"
 #include "BaconBox/Display/Driver/IndiceArray.h"
 
 #include "BaconBox/TextureCoordinates.h"
@@ -32,74 +31,21 @@ namespace BaconBox {
 		 */
 		static GraphicDriver &getInstance();
 
-		/**
-		 * Draw a colored and textured shape with the given vertices, texture
-		 * coordinate, rendering informations (colors array and texture) and
-		 * number of vertices. Color information will blend with the texture
-		 * (and background if alpha is not at max value of 255).
-		 * @param vertices Vertices to draw.
-		 * @param textureInformation Pointer to the texture information.
-		 * @param textureCoordinates Texture coordinates in the texture to
-		 * draw.
-		 * @param color Color to render.
-		 */
-		virtual void drawShapeWithTextureAndColor(const VertexArray &vertices,
-		                                          const TextureInformation *textureInformation,
-		                                          const TextureCoordinates &textureCoordinates,
-		                                          const Color &color) = 0;
 
-        virtual void drawShapeWithTextureAndColorTransform(const VertexArray &vertices,
-		                                          const TextureInformation *textureInformation,
-		                                          const TextureCoordinates &textureCoordinates,
-		                                          const Color &color,
-		                                          const ColorTransformArray &colorMultiplier,
-		                                          const ColorTransformArray &colorOffset) = 0;
-
-//		/**
-//		 * Draw a textured shape with the given vertices, texture coordinate,
-//		 * rendering informations (colors array and textureID) and number of
-//		 * vertices.
-//		 * @param vertices Vertices to draw.
-//		 * @param textureInformation Pointer to the texture information.
-//		 * @param textureCoordinates Texture coordinates in the texture to
-//		 * draw.
-//		 */
-//		virtual void drawShapeWithTexture(const VertexArray &vertices,
-//		                                  const TextureInformation *textureInformation,
-//		                                  const TextureCoordinates &textureCoordinates) = 0;
-//
-//		/**
-//		 * Draws a colored shape.
-//		 * @param vertices Vertices to draw.
-//		 * @param color Color to render.
-//		 */
-//		virtual void drawShapeWithColor(const VertexArray &vertices,
-//		                                const Color &color) = 0;
-
-
-
-//		virtual void drawBatchWithTextureAndColor(const VertexArray &vertices,
-//		                                          const TextureInformation *textureInformation,
-//		                                          const TextureCoordinates &textureCoordinates,
-//												  const IndiceArray &indices,
-//												  const IndiceArrayList &indiceList,
-//												  const ColorArray &colors) = 0;
-
-        virtual void drawBatchWithTextureAndColorTransform(const VertexArray &vertices,
-		                                  const TextureInformation *textureInformation,
-		                                  const TextureCoordinates &textureCoordinates,
-		                                  const IndiceArray &indices,
-		                                  const IndiceArrayList &indiceList,
-		                                  const ColorArray &colors,
-		                                  const ColorTransformArray &colorMultipliers,
-		                                  const ColorTransformArray &colorOffsets) = 0;
-
-//		virtual void drawBatchWithTexture(const VertexArray &vertices,
-//		                                  const TextureInformation *textureInformation,
-//		                                  const TextureCoordinates &textureCoordinates,
-//										  const IndiceArray &indices,
-//										  const IndiceArrayList &indiceList) = 0;
-
+        virtual void drawShapeWithTextureColorColorOffset(const VertexArray &vertices,
+														  const TextureInformation *textureInformation,
+														  const TextureCoordinates &textureCoordinates,
+														  const Color &color,
+														  const Color &colorOffset, bool blend) = 0;
+		
+		
+		
+        virtual void drawBatchWithTextureColorColorOffset(const VertexArray &vertices,
+												  const TextureInformation *textureInformation,
+												  const TextureCoordinates &textureCoordinates,
+												  const IndiceArray &indices,
+												  const ColorArray &colors,
+												  const ColorArray &colorOffsets, bool blend) = 0;
 
 
 		/**
@@ -114,7 +60,7 @@ namespace BaconBox {
 		 */
 		virtual void prepareScene(const Vector2 &position, float angle,
 		                          const Vector2 &zoom,
-		                          const Color &backgroundColor) = 0;
+		                          const Color &backgroundColor, bool clearScreen) = 0;
 
 
 		virtual void initializeGraphicDriver();

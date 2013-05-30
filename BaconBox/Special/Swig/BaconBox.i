@@ -61,6 +61,8 @@ end
 %{
 
   #include "BaconBox/Helper/SafeEnum.h"
+  #include "BaconBox/Platform.h"
+
 	#include "BaconBox/PlatformFlagger.h"
 	#include "BaconBox/Core/IDManager.h"
   #ifdef BB_FLASH_PLATEFORM
@@ -114,6 +116,7 @@ end
   #include "BaconBox/Components/EntityContainer.h"
 
   #include "BaconBox/Display/Text/Font.h"
+  #include "BaconBox/Helper/ResourcePathHandler.h"
   #include "BaconBox/ResourceManager.h"
 #include "BaconBox/Display/Text/TextAlignment.h"
 #include "BaconBox/Components/TextComponent.h"
@@ -329,6 +332,8 @@ namespace BaconBox{
 
 
 %include "BaconBox/PlatformFlagger.h"
+%include "BaconBox/Platform.h"
+
 %include "BaconBox/Input/InputState.h"
 %include "BaconBox/SignalSlots/SignalData.h"
 
@@ -394,7 +399,11 @@ namespace BaconBox{
 %ignore getMovieClipEntityFromSymbol;
 %include "BaconBox/EntityFactory.h" 
 
+
+%include "BaconBox/Helper/ResourcePathHandler.h"
+
 namespace BaconBox{
+
 
   class ResourceManager{
     public:

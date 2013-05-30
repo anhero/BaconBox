@@ -33,14 +33,10 @@ namespace BaconBox {
 		return new CameraDriverRenderer(*this);
 	}
 
-	void CameraDriverRenderer::receiveMessage(int senderID, int id, int message, void *data) {
-	    Component::receiveMessage(senderID, id,message,data);
-	}
 
-	void CameraDriverRenderer::update() {
-	}
+
 
 	void CameraDriverRenderer::render(){
-		Engine::getGraphicDriver().prepareScene(transform->getPosition(), transform->getRotation()*-1, transform->getScale(), colorTransform->getColor());
+		Engine::getGraphicDriver().prepareScene(transform->getPosition(), transform->getRotation()*-1, transform->getScale(), colorTransform->getColor(), true);
 	}
 }

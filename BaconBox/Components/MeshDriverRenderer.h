@@ -4,13 +4,12 @@
 #include "BaconBox/Core/Component.h"
 #include "BaconBox/Components/DefaultColorTransform.h"
 #include "BaconBox/Display/RenderMode.h"
-
 namespace BaconBox {
 	class Mesh;
 	class Texture;
 	class ColorFilter;
 	class Visibility;
-
+	class GraphicDriver;
 	class MeshDriverRenderer : public Component {
 	public:
 		BB_ID_HEADER;
@@ -37,11 +36,16 @@ namespace BaconBox {
 		void setRenderMode(int newRenderMode);
 	private:
 		void initializeConnections();
+		
+		GraphicDriver  *  const graphicDriver;
 
 		Mesh *mesh;
 		Texture *texture;
 		DefaultColorTransform * colorTransform;
 		Visibility *visibility;
+		Color color;
+		Color colorMultiplier;
+		Color colorOffset;
 
 		int renderMode;
 	};

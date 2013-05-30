@@ -11,7 +11,7 @@
 #include "BaconBox/Components/TextComponent.h"
 #include "BaconBox/Components/EntityContainer.h"
 #include "BaconBox/MovieClipEntity/MovieClipEntity.h"
-#ifdef BB_FLASH_PLATEFORM
+#ifdef BB_FLASH_PLATFORM
 #include <AS3/AS3.h>
 #include <AS3/AS3++.h>
 #endif
@@ -27,7 +27,7 @@ class TextEntity : public MovieClipEntity, public TextComponentProxy {
 	TextEntity();
 	TextEntity(Font * font);
 
-	#ifdef BB_FLASH_PLATEFORM
+	#ifdef BB_FLASH_PLATFORM
 		void setMovieClip(AS3::local::var aMC);
 	#endif
 	

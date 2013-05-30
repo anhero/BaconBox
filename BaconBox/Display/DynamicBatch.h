@@ -6,7 +6,7 @@
 #include "BaconBox/TextureCoordinates.h"
 #include "BaconBox/Display/Driver/IndiceArray.h"
 #include "BaconBox/Display/Driver/ColorArray.h"
-#include "BaconBox/Display/Driver/ColorTransformArray.h"
+#include "BaconBox/Display/Driver/ColorArray.h"
 
 
 namespace BaconBox {
@@ -21,10 +21,10 @@ namespace BaconBox {
 
 		void prepareRender();
 
-		void addItem(const VertexArray &newVertices, const Color &newColor, const ColorTransformArray &newColorMultiplier,
-                            const ColorTransformArray &newColorOffset, const TextureCoordinates &newTextureCoordinates);
+		void addItem(const VertexArray &newVertices, const Color &newColor,
+					 const Color &newColorOffset, const TextureCoordinates &newTextureCoordinates);
 
-		void render(GraphicDriver *driver, const TextureInformation *textureInformation);
+		void render(GraphicDriver *driver, const TextureInformation *textureInformation, bool blend);
 
 		bool isSingle() const;
 
@@ -36,22 +36,17 @@ namespace BaconBox {
 
 		void initializeConnections();
 
-		std::vector<VertexArray::SizeType> sizes;
 
 		StandardVertexArray vertices;
 
 		TextureCoordinates textureCoordinates;
 
 		ColorArray colors;
-
-        ColorTransformArray colorMultipliers;
-
-        ColorTransformArray colorOffsets;
-
-
+        ColorArray colorOffsets;
 		IndiceArray indices;
 
-		IndiceArrayList indiceList;
+		IndiceArray::value_type indiceIterator;
+
 	};
 }
 

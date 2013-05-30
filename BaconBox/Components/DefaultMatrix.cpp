@@ -11,7 +11,7 @@ namespace BaconBox {
 
 
 
-	DefaultMatrix::DefaultMatrix() : MatrixComponent(), entityContainer(NULL), matrix(), hasCustomMatrix(false) {
+	DefaultMatrix::DefaultMatrix() : MatrixComponent(), entityContainer(NULL), matrix(), concatMatrix(), hasCustomMatrix(false) {
 	    initializeConnections();
 	}
 
@@ -43,9 +43,9 @@ namespace BaconBox {
 	Matrix DefaultMatrix::getConcatMatrix(){
 	    if(entityContainer && entityContainer->getParent()){
 		MatrixComponent * matrixComponent  = entityContainer->getParent()->getMatrixComponent();
-		Matrix temp = matrix;
-		temp.concat(matrixComponent->getConcatMatrix());
-		return temp;
+		concatMatrix = matrix;
+		concatMatrix.concat(matrixComponent->getConcatMatrix());
+		return concatMatrix;
 	    }
 	    else{
 		return matrix;

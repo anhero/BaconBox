@@ -1,7 +1,7 @@
 #include "TextEntity.h"
 #include <string>
 #include "Font.h"
-#if ! defined(BB_FLASH_PLATEFORM)
+#if ! defined(BB_FLASH_PLATFORM)
 #include "TextureFont.h"
 #include "BaconBox/Components/TextRenderer.h"
 #include "BaconBox/Components/DefaultEntityContainer.h"
@@ -17,7 +17,7 @@ namespace BaconBox {
 	TextEntity::TextEntity(Font * font): MovieClipEntity(), TextComponentProxy(this, font)
 	{
 	    
-#if ! defined(BB_FLASH_PLATEFORM)
+#if ! defined(BB_FLASH_PLATFORM)
 	    if(font->getFormat() == FontFormat::BMFONT){
 		addComponent(new TextRenderer(reinterpret_cast<TextureFont*>(font)));
 	    }
@@ -30,13 +30,13 @@ namespace BaconBox {
 	
 	TextEntity::TextEntity(): MovieClipEntity(), TextComponentProxy(this, NULL)
 	{
-	#if ! defined(BB_FLASH_PLATEFORM)
+	#if ! defined(BB_FLASH_PLATFORM)
 	#else
 
 	#endif	
 	}
 
-	#ifdef BB_FLASH_PLATEFORM
+	#ifdef BB_FLASH_PLATFORM
 	void TextEntity::setMovieClip(AS3::local::var aMC) {
 		TextFieldHolder *tfHolder = new TextFieldHolder(aMC);
 		addComponent(tfHolder);   

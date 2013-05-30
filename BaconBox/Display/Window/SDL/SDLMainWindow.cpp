@@ -78,7 +78,7 @@ namespace BaconBox {
 	SDLMainWindow::SDLMainWindow() : MainWindow(), mainWindow(NULL),
 		mainContext(NULL) {
 
-        SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_JOYSTICK);
+        SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO);
 
             unsigned int  nbJoystick = SDL_NumJoysticks();
             if(nbJoystick){

@@ -9,7 +9,8 @@
 namespace BaconBox {
     struct ColorMatrix{
 
-    std::vector<float> matrix;
+		Color colorMultiplier;
+		Color colorOffset;
 
 	ColorMatrix();
 	ColorMatrix(float redMultiplier, float redOffset, float greenMultiplier, float greenOffset,
@@ -27,7 +28,7 @@ namespace BaconBox {
 
 
 
-	Color multiplyWithColor(const Color & c) const;
+	Color getPreMultipliedColor(const Color & c) const;
 
 	ColorMatrix & concat(const ColorMatrix & parent);
 

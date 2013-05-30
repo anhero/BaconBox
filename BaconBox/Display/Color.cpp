@@ -6,6 +6,7 @@
 #include <vector>
 #include <utility>
 
+#include "BaconBox/Helper/MathHelper.h"
 #include "BaconBox/Helper/Serialization/Value.h"
 #include "BaconBox/Helper/Serialization/DefaultSerializer.h"
 #include "BaconBox/Helper/Serialization/Serializer.h"
@@ -13,32 +14,38 @@
 #include "BaconBox/Helper/Serialization/Object.h"
 
 namespace BaconBox {
-	const Color Color::BLACK(0, 0, 0);
-	const Color Color::SILVER(192, 192, 192);
-	const Color Color::GRAY(128, 128, 128);
-	const Color Color::WHITE(255, 255, 255);
-	const Color Color::MAROON(128, 0, 0);
-	const Color Color::RED(255, 0, 0);
-	const Color Color::PURPLE(128, 0, 128);
-	const Color Color::FUCHSIA(255, 0, 255);
-	const Color Color::GREEN(0, 128, 0);
-	const Color Color::LIME(0, 255, 0);
-	const Color Color::OLIVE(128, 128, 0);
-	const Color Color::YELLOW(255, 255, 0);
-	const Color Color::NAVY(0, 0, 128);
-	const Color Color::BLUE(0, 0, 255);
-	const Color Color::TEAL(0, 128, 128);
-	const Color Color::AQUA(0, 255, 255);
-	//const Color Color::TRANSPARENT(0, 0, 0, 0);
+	const Color Color::BLACK(0.0f, 0.0f, 0.0f);
+	const Color Color::SILVER(0.75f, 0.75f, 0.75f);
+	const Color Color::GRAY(0.5f, 0.5f, 0.5f);
+	const Color Color::WHITE(1.0f, 1.0f, 1.0f);
+	const Color Color::MAROON(0.5f, 0.0f, 0.0f);
+	const Color Color::RED(1.0f, 0.0f, 0.0f);
+	const Color Color::PURPLE(0.5f, 0.0f, 0.5f);
+	const Color Color::FUCHSIA(1.0f, 0.0f, 1.0f);
+	const Color Color::GREEN(0.0f, 0.5f, 0.0f);
+	const Color Color::LIME(0.0f, 1.0f, 0.0f);
+	const Color Color::OLIVE(0.5f, 0.5f, 0.0f);
+	const Color Color::YELLOW(1.0f, 1.0f, 0.0f);
+	const Color Color::NAVY(0.0f, 0.0f, 0.5f);
+	const Color Color::BLUE(0.0f, 0.0f, 0.5f);
+	const Color Color::TEAL(0.0f, 0.5f, 0.5f);
+	const Color Color::AQUA(0.0f, 1.0f, 1.0f);
+	const Color Color::TRANSPARENT(0.0f, 0.0f, 0.0f, 0.0f);
 
-	uint8_t Color::getWithinRange(int32_t component) {
-		return static_cast<uint8_t>((component < 0) ? (0) : ((component > MAX_COMPONENT_VALUE_32) ? (MAX_COMPONENT_VALUE) : (component)));
-	}
 
 	Color::Color() {
 		operator=(WHITE);
 	}
 
+	float Color::normalize(int component){
+		return MathHelper::clamp(static_cast<float>(component)/255.0f, 0.0f, 1.0f);
+	}
+	
+	Color::Color(float red, float green, float blue,
+				 float alpha){
+		setRGBA(red, green, blue, alpha);
+	}
+	
 	Color::Color(int32_t red, int32_t green, int32_t blue, int32_t alpha) {
 		setRGBA(red, green, blue, alpha);
 	}
@@ -77,9 +84,9 @@ namespace BaconBox {
 
 	Color::operator uint32_t() const {
 		unsigned int result = static_cast<uint32_t>(colors[R]) << 24;
-		result |= static_cast<uint32_t>(colors[G]) << 16;
-		result |= static_cast<uint32_t>(colors[B]) << 8;
-		result |= static_cast<uint32_t>(colors[A]);
+		result |= static_cast<uint32_t>(colors[G]*255) << 16;
+		result |= static_cast<uint32_t>(colors[B]*255) << 8;
+		result |= static_cast<uint32_t>(colors[A]*255);
 		return result;
 	}
 
@@ -92,37 +99,68 @@ namespace BaconBox {
 	    color >>= 8;
 	    return color;
 	}
-
-	uint8_t Color::getRed() const {
+	uint8_t Color::getRedUINT() const {
+		return static_cast<uint8_t>(colors[R] * 255);
+	}
+	
+	uint8_t Color::getGreenUINT() const {
+		return static_cast<uint8_t>(colors[G] * 255);
+	}
+	
+	uint8_t Color::getBlueUINT() const {
+		return static_cast<uint8_t>(colors[B] * 255);
+	}
+	
+	uint8_t Color::getAlphaUINT() const {
+		return static_cast<uint8_t>(colors[A] * 255);
+	}
+	
+	float Color::getRed() const {
 		return colors[R];
 	}
 
-	uint8_t Color::getGreen() const {
+	float Color::getGreen() const {
 		return colors[G];
 	}
 
-	uint8_t Color::getBlue() const {
+	float Color::getBlue() const {
 		return colors[B];
 	}
 
-	uint8_t Color::getAlpha() const {
+	float Color::getAlpha() const {
 		return colors[A];
 	}
 
 	void Color::setRed(int32_t red) {
-		colors[R] = getWithinRange(red);
+		colors[R] = normalize(red);
 	}
 
 	void Color::setGreen(int32_t green) {
-		colors[G] = getWithinRange(green);
+		colors[G] = normalize(green);
 	}
 
 	void Color::setBlue(int32_t blue) {
-		colors[B] = getWithinRange(blue);
+		colors[B] = normalize(blue);
 	}
 
 	void Color::setAlpha(int32_t alpha) {
-		colors[A] = getWithinRange(alpha);
+		colors[A] = normalize(alpha);
+	}
+	
+	void Color::setRed(float red) {
+		colors[R] = red;
+	}
+	
+	void Color::setGreen(float green) {
+		colors[G] = green;
+	}
+	
+	void Color::setBlue(float blue) {
+		colors[B] = blue;
+	}
+	
+	void Color::setAlpha(float alpha) {
+		colors[A] = alpha;
 	}
 
 	void Color::setRGB(int32_t red, int32_t green, int32_t blue) {
@@ -131,6 +169,13 @@ namespace BaconBox {
 		setBlue(blue);
 	}
 
+	
+	void Color::setRGB(float red, float green, float blue) {
+		setRed(red);
+		setGreen(green);
+		setBlue(blue);
+	}
+	
 	void Color::setRGB(uint32_t rgb) {
 		setRGB(static_cast<uint8_t>((rgb & 0xff0000) >> 16),
 		       static_cast<uint8_t>((rgb & 0x00ff00) >> 8),
@@ -142,6 +187,11 @@ namespace BaconBox {
 		setAlpha(alpha);
 	}
 
+	void Color::setRGBA(float red, float green, float blue, float alpha) {
+		setRGB(red, green, blue);
+		setAlpha(alpha);
+	}
+	
 	void Color::setRGBA(uint32_t rgba) {
 		setRGBA(static_cast<uint8_t>((rgba & 0xff000000) >> 24),
 		        static_cast<uint8_t>((rgba & 0x00ff0000) >> 16),
@@ -317,6 +367,9 @@ namespace BaconBox {
 			}
 		}
 	}
+	
+	
+	
 
 	std::map<std::string, Color> createCssColorMap() {
 		std::map<std::string, Color> result;
@@ -339,10 +392,54 @@ namespace BaconBox {
 		return result;
 	}
 
-	const uint8_t *Color::getComponents() const {
+	const float *Color::getComponents() const {
 		return colors;
 	}
 
+	Color Color::operator*(const Color & m) const{
+		Color temp(
+				   MathHelper::clamp(getRed() * m.getRed(), -1.0f, 1.0f),
+				   MathHelper::clamp(getGreen() * m.getGreen(), -1.0f, 1.0f),
+				   MathHelper::clamp(getBlue() * m.getBlue(), -1.0f, 1.0f),
+				   MathHelper::clamp(getAlpha() * m.getAlpha(), -1.0f, 1.0f)
+				   );
+		return temp;
+	}
+	
+	
+	
+	Color &Color::operator*=(const Color& m) {
+		setRGBA(
+				MathHelper::clamp(getRed() * m.getRed(), -1.0f, 1.0f),
+				MathHelper::clamp(getGreen() * m.getGreen(), -1.0f, 1.0f),
+				MathHelper::clamp(getBlue() * m.getBlue(), -1.0f, 1.0f),
+				MathHelper::clamp(getAlpha() * m.getAlpha(), -1.0f, 1.0f)
+				);
+		return (*this);
+	}
+	
+	Color Color::operator+(const Color & m) const{
+		Color temp(
+				   MathHelper::clamp(getRed() + m.getRed(), -1.0f, 1.0f),
+				   MathHelper::clamp(getGreen() + m.getGreen(), -1.0f, 1.0f),
+				   MathHelper::clamp(getBlue() + m.getBlue(), -1.0f, 1.0f),
+				   MathHelper::clamp(getAlpha() + m.getAlpha(), -1.0f, 1.0f)
+				   );
+		return temp;
+	}
+	
+	
+	
+	Color &Color::operator+=(const Color& m) {
+		setRGBA(
+				MathHelper::clamp(getRed() + m.getRed(), -1.0f, 1.0f),
+				MathHelper::clamp(getGreen() + m.getGreen(), -1.0f, 1.0f),
+				MathHelper::clamp(getBlue() + m.getBlue(), -1.0f, 1.0f),
+				MathHelper::clamp(getAlpha() + m.getAlpha(), -1.0f, 1.0f)
+				);
+		return (*this);
+	}
+	
 	Color::HSV Color::getHSV() const {
 		Color::HSV thisColor;
 
@@ -524,13 +621,13 @@ namespace BaconBox {
 		}
 
 		// We set the value's attributes.
-		node["red"].setInt(getRed());
+		node["red"].setDouble(getRed());
 		node["red"].setAttribute(true);
-		node["green"].setInt(getGreen());
+		node["green"].setDouble(getGreen());
 		node["green"].setAttribute(true);
-		node["blue"].setInt(getBlue());
+		node["blue"].setDouble(getBlue());
 		node["blue"].setAttribute(true);
-		node["alpha"].setInt(getAlpha());
+		node["alpha"].setDouble(getAlpha());
 		node["alpha"].setAttribute(true);
 	}
 
@@ -550,8 +647,8 @@ namespace BaconBox {
 		    itBlue->second.isNumeric() &&
 		    itAlpha->second.isNumeric()) {
 
-			setRGBA(itRed->second.getInt(), itGreen->second.getInt(),
-			        itBlue->second.getInt(), itAlpha->second.getInt());
+			setRGBA(static_cast<float>(itRed->second.getDouble()), static_cast<float>(itGreen->second.getDouble()),
+			        static_cast<float>(itBlue->second.getDouble()), static_cast<float>(itAlpha->second.getDouble()));
 
 		} else {
 			result = false;

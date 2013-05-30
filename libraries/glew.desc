@@ -6,7 +6,7 @@ _license="Modified BSD License"
 #_version="1.9.0"
 _version="1.9.0"
 _archive="${_name}-${_version}.tgz"
-_archive_url="http://sourceforge.net/projects/${_name}/files/${_name}/${_version}/${_archive}/download"
+_archive_url="http://sourceforge.net/projects/${_name}/files/${_name}/${_version}/${_archive}"
 _hash="69ce911decef6249d24742497e6ad06a" #1.9.0
 
 load_base http.fetch

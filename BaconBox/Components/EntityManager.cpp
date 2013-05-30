@@ -56,9 +56,9 @@ namespace BaconBox {
 		}
 
 		// We update the entities.
-		for (std::vector<Entity *>::iterator i = this->entities.begin(); i != this->entities.end(); ++i) {
-			(*i)->update();
-		}
+//		for (std::vector<Entity *>::iterator i = this->entities.begin(); i != this->entities.end(); ++i) {
+//			(*i)->update();
+//		}
 
 	}
 

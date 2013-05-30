@@ -66,9 +66,10 @@ namespace BaconBox {
 	
 	class ComponentProxy {
 	protected:
-	    ComponentProxy(Entity* entity, Component * component);
+		Entity* entity;
+
+	    ComponentProxy(Entity* entity, Component * newComponent);
 	    Component * component;
-	    Entity* entity;
 	};
 }
 

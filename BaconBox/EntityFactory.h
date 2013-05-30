@@ -15,19 +15,20 @@ namespace BaconBox {
 	    static void initMovieClipPool(int size);
 		
 		static MovieClipEntity *getMovieClipEntity(const std::string &key, bool autoPlay = false);
-#if defined(BB_FLASH_PLATEFORM)
+#if defined(BB_FLASH_PLATFORM)
 		static TextEntity *getTextEntity(const std::string &key);
 #endif
 		static EntityFactory &getInstance();
 
 		
 		MovieClipEntity *internalGetMovieClipEntity(const std::string &key, bool autoPlay = false);
-#if ! defined(BB_FLASH_PLATEFORM)
+#if ! defined(BB_FLASH_PLATFORM)
 		MovieClipEntity *getMovieClipEntityFromSymbol(Symbol* symbol, bool autoPlay = false);
-		MovieClipEntity *getMovieClipEntityFromSubTexture(SubTextureInfo* subTex, const Vector2 & origin = Vector2());
+		MovieClipEntity *getMovieClipEntityFromSubTexture(SubTextureInfo* subTex, const Vector2 & origin = Vector2(), bool blend = true);
 #endif
 
 	private:
+		
 		EntityFactory();
 		DynamicPool<MovieClipEntity> movieClipPool;
 

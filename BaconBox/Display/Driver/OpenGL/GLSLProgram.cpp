@@ -175,20 +175,26 @@ void GLSLProgram::sendUniform(GLuint location, int x, int y, int z,int w){
 void GLSLProgram::sendUniform(GLuint location, float *matrix, bool transpose, int size){
 	switch(size)
 	{
-	case '2':
-		glUniformMatrix2fv(location, 0, transpose, matrix);
+	case 2:
+		glUniformMatrix2fv(location, 1, transpose, matrix);
 		break;
-	case '3':
-		glUniformMatrix3fv(location, 0, transpose, matrix);
+	case 3:
+		glUniformMatrix3fv(location, 1, transpose, matrix);
 		break;
-	case '4':
-		glUniformMatrix4fv(location, 0, transpose, matrix);
+	case 4:
+		glUniformMatrix4fv(location, 1, transpose, matrix);
 		break;
 	}
 }
 
 GLuint GLSLProgram::getUniformLocation(const std::string &name) const{
-	return glGetUniformLocation(programHandle,name.c_str());
+	GLuint temp =  glGetUniformLocation(programHandle,name.c_str());
+	if(temp == -1){
+		std::string log;
+		getProgramLog(log);
+		Console__error("cannot get this uniform location: " << name << std::endl<< log);
+	}
+	return temp;
 }
 
 void GLSLProgram::setAttributeLocation(const std::string &name, GLuint location){
@@ -196,7 +202,13 @@ void GLSLProgram::setAttributeLocation(const std::string &name, GLuint location)
 }
 
 GLuint GLSLProgram::getAttributeLocation(const std::string &name) const{
-	return glGetAttribLocation(programHandle,name.c_str());
+	GLuint temp = glGetAttribLocation(programHandle,name.c_str());
+	if(temp == -1){
+		std::string log;
+		getProgramLog(log);
+		Console__error("cannot get this attribute location: " << name << std::endl<<log);
+	}
+	return temp;
 }
 
 void GLSLProgram::getAttributeInfo(GLuint location, std::string &name, GLenum &datatype, GLint &size) const{

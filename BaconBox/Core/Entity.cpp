@@ -79,7 +79,7 @@ namespace BaconBox {
 		
 		ComponentAddedData data(newComponent->getID(), newComponent);
 		
-		this->sendMessage(Entity::ID, BROADCAST, MESSAGE_ADD_COMPONENT, &data);
+		sendMessage(Entity::ID, BROADCAST, MESSAGE_ADD_COMPONENT, &data);
 		
 		return newComponent;
 	}

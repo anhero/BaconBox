@@ -16,6 +16,8 @@ namespace BaconBox {
 		LuaManager();
 		void doString(const std::string & string);
 		void doFile(const std::string & path);
+		void addToLuaPath(const std::string & path );
+
 	private:
 		lua_State *L;
 

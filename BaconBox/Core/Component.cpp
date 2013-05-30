@@ -80,10 +80,10 @@ namespace BaconBox {
 		this->connections.push_back(newConnection);
 	}
 	
-	ComponentProxy::ComponentProxy(Entity* entity, Component * component) {
-	    this->entity = entity;
-	    if (component) {
-			this->component = component;
+	ComponentProxy::ComponentProxy(Entity* newEntity, Component * newComponent){
+	    entity = newEntity;
+	    if (newComponent) {
+			component = newComponent;
 			entity->addComponent(component);
 	    }
 	}

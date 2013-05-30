@@ -45,7 +45,7 @@ namespace BaconBox {
 				   const std::string & path);
 
 		/// OpenGL's texture's ID.
-		unsigned int textureId;
+		int textureId;
 #else
 		TextureInformation(unsigned int newImageWidth,
 		                   unsigned int newImageHeight, const std::string & path);

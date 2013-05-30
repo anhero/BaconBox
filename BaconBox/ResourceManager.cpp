@@ -1,5 +1,5 @@
 #include "BaconBox/ResourceManager.h"
-
+#include "BaconBox/PlatformFlagger.h"
 #include <utility>
 #include "BaconBox/Console.h"
 #include "BaconBox/Audio/SoundFX.h"
@@ -21,7 +21,7 @@
 #include "BaconBox/Helper/Parser.h"
 #include "BaconBox/ColorMatrix.h"
 
-#if defined(BB_FLASH_PLATEFORM)
+#if defined(BB_FLASH_PLATFORM)
 #include "BaconBox/Audio/Flash/FlashSoundEngine.h"
 #include "BaconBox/Audio/Flash/FlashMusicEngine.h"
 
@@ -44,6 +44,7 @@ namespace BaconBox {
 
 	SubTextureInfo *ResourceManager::addSubTexture(const std::string &key, SubTextureInfo *subTextureInfo, bool overwrite) {
 		SubTextureInfo *subTexInfo = NULL;
+		
 
 		// We check if there is already a texture with this name.
 		if (subTextures.find(key) != subTextures.end()) {
@@ -99,7 +100,7 @@ namespace BaconBox {
 	bool ResourceManager::isLoadedTexture(const std::string &key) {
 #ifdef BB_OPENGL
 		std::map<std::string, TextureInformation *>::iterator i = textures.find(key);
-		return i != textures.end() && i->second != NULL && i->second->textureId > 0;
+		return i != textures.end() && i->second != NULL && i->second->textureId >= 0;
 #else
 		return false;
 #endif
@@ -285,7 +286,7 @@ namespace BaconBox {
 	MusicInfo *ResourceManager::loadMusicFromBundle(const std::string &key,
 	                                                const std::string &bundleKey,
 	                                                bool overwrite) {
-#if defined(BB_FLASH_PLATEFORM)
+#if defined(BB_FLASH_PLATFORM)
 		MusicInfo *newBgm = NULL;
 
 		if (musics.find(key) != musics.end()) {
@@ -333,7 +334,7 @@ namespace BaconBox {
 	                                                const std::string &bundleKey,
 	                                                bool overwrite) {
 
-#if defined(BB_FLASH_PLATEFORM)
+#if defined(BB_FLASH_PLATFORM)
 		SoundInfo *newSnd = NULL;
 
 		if (sounds.find(key) != sounds.end()) {
@@ -615,7 +616,8 @@ namespace BaconBox {
 			if (found != tmpObject.end()) {
 				symbol->key = found->second.getString();
 			}
-
+			
+			
 			found = tmpObject.find("textfield");
 
 			if (found != tmpObject.end()) {
@@ -762,6 +764,7 @@ namespace BaconBox {
 									if (found != frameChildObject.end()) {
 										className = found->second.getString();
 									}
+									//if(symbols[className]->isTextField) continue; //MEGA DEBUG TEST
 									Symbol::Part *part;
 									std::map<std::string, Symbol::Part*>::iterator l = children.find(name);
 									if (l == children.end()) {
@@ -818,17 +821,8 @@ namespace BaconBox {
                                         std::vector<float> temp;
                                        Parser::parseStringArray<float>(found->second.getString(), temp);
                                        float divider = 1.0f / 255.0f;
-                                        colorMatrix.matrix[0] = temp[0];
-                                        colorMatrix.matrix[4] = temp[1] * divider;
-
-                                        colorMatrix.matrix[6] = temp[2];
-                                        colorMatrix.matrix[9] = temp[3] * divider;
-
-                                        colorMatrix.matrix[12] = temp[4];
-                                        colorMatrix.matrix[14] = temp[5] * divider;
-
-                                        colorMatrix.matrix[18] = temp[6];
-                                        colorMatrix.matrix[19] = temp[7] * divider;
+                                        colorMatrix.colorMultiplier.setRGBA(temp[0], temp[2], temp[4], temp[6]);
+                                        colorMatrix.colorOffset.setRGBA(temp[1] * divider, temp[3] * divider, temp[5] * divider, temp[7] * divider);
                                     }
 									part->colorMatrices.insert(std::pair<int, ColorMatrix>(frameIndex, colorMatrix));
 
@@ -864,7 +858,11 @@ namespace BaconBox {
 
 			symbol->subTex->position = Vector2((*i)["x"].getDouble(), (*i)["y"].getDouble());
 			symbol->subTex->size = Vector2((*i)["width"].getDouble(), (*i)["height"].getDouble());
+			
 			symbol->subTex->textureInfo = NULL;
+			symbol->blend = (*i)["blend"].getBool();
+	
+			
 
 			if ((*i)["registrationPointX"].isNumeric()) {
 				registrationPoint.x = (*i)["registrationPointX"].getFloat();
@@ -896,7 +894,7 @@ namespace BaconBox {
 
 	Font *ResourceManager::initFontFromPathAndFormat(const std::string &key,
 	                                                 const std::string &path, const FontFormat &format) {
-#if ! defined (BB_FLASH_PLATEFORM)
+#if ! defined (BB_FLASH_PLATFORM)
 
 		if (format == FontFormat::BMFONT) {
 			BMFont *font = new BMFont(key);

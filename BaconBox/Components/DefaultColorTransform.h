@@ -24,14 +24,15 @@ namespace BaconBox {
         void setFrameColorTransform(int frame);
     	protected:
 		void initializeConnections();
-
+		
 	private:
+		bool needConcat();
 	    bool useCustomMatrix;
 		ColorMatrix matrix;
 		ColorMatrix concatMatrix;
 		EntityContainer * entityContainer;
         std::map<int, ColorMatrix> matrixByParentFrame;
-
+		bool invalidated;
 	};
 
 }

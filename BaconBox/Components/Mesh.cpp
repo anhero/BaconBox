@@ -9,7 +9,7 @@
 namespace BaconBox {
 	BB_ID_IMPL(Mesh);
 
-	Mesh::Mesh() : Component(), mustSync(false), transform(NULL),matrixComponent(NULL){
+	Mesh::Mesh() : Component(), mustSync(true), transform(NULL),matrixComponent(NULL){
 		this->initializeConnections();
 	}
 

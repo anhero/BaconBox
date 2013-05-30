@@ -38,12 +38,13 @@ namespace BaconBox {
 		}
 		
 		void BMFont::loadFontFile(const std::string &filename){
-		    std::fstream f;
+		    std::ifstream f;
 		     f.open(filename.c_str());
 		     char firstChar;
 		     f.get(firstChar);
-		     
-		     f.seekg(0, std::ios::beg);
+	
+
+		f.seekg(0, std::ios::beg);
 		     
 		     if(firstChar == 'i'){
 			//Text

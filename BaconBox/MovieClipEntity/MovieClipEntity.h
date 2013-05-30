@@ -23,7 +23,7 @@
 #include "BaconBox/Components/Lua/LuaEntity.h"
 #endif
 
-#ifdef BB_FLASH_PLATEFORM
+#ifdef BB_FLASH_PLATFORM
 #include <AS3/AS3.h>
 #include <AS3/AS3++.h>
 #endif
@@ -44,7 +44,7 @@ namespace BaconBox {
 		MovieClipEntity();
 		MovieClipEntity(const MovieClipEntity& src);
 
-#ifdef BB_FLASH_PLATEFORM
+#ifdef BB_FLASH_PLATFORM
 		virtual void setMovieClip(AS3::local::var aMC);
 #endif
 

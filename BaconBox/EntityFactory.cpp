@@ -16,7 +16,7 @@
 #include "Components/DefaultMatrix.h"
 #include "Core/Engine.h"
 
-#ifdef BB_FLASH_PLATEFORM
+#ifdef BB_FLASH_PLATFORM
 #include <AS3/AS3.h>
 #include <AS3/AS3++.h>
 #include "BaconBox/Helper/Flash/FlashHelper.h"
@@ -54,7 +54,7 @@ namespace BaconBox {
 #ifdef BB_DEBUG
     try{
 #endif
-#ifdef BB_FLASH_PLATEFORM
+#ifdef BB_FLASH_PLATFORM
 		AS3::local::var mc =  FlashHelper::construct(key);
 		return FlashHelper::getMCEntityFromMC(mc);
 
@@ -86,7 +86,7 @@ namespace BaconBox {
 #endif
 	}
 
-#if  defined(BB_FLASH_PLATEFORM)
+#if  defined(BB_FLASH_PLATFORM)
 TextEntity * EntityFactory::getTextEntity(const std::string &key){
 		AS3::local::var mc =  FlashHelper::construct(key);
 		return reinterpret_cast<TextEntity*>(FlashHelper::getMCEntityFromMC(mc));
@@ -108,7 +108,7 @@ TextEntity * EntityFactory::getTextEntity(const std::string &key){
 			symbol->subTex = ResourceManager::getSubTexture(symbol->key);
 			symbol->subTex->textureInfo = textureInfo;
 		}
-		entity = getMovieClipEntityFromSubTexture(symbol->subTex, symbol->registrationPoint);
+		entity = getMovieClipEntityFromSubTexture(symbol->subTex, symbol->registrationPoint, symbol->blend);
 	    }
 	    else{
 			if(symbol->isTextField){
@@ -168,10 +168,9 @@ TextEntity * EntityFactory::getTextEntity(const std::string &key){
 	    }
 	entity->setSymbol(symbol);
 	return entity;
-	return entity;
 	}
 
-	MovieClipEntity *EntityFactory::getMovieClipEntityFromSubTexture(SubTextureInfo* subTex, const Vector2 & origin){
+	MovieClipEntity *EntityFactory::getMovieClipEntityFromSubTexture(SubTextureInfo* subTex, const Vector2 & origin, bool blend){
 	    MovieClipEntity *result = NULL;
 
 		if (subTex) {
@@ -179,13 +178,14 @@ TextEntity * EntityFactory::getTextEntity(const std::string &key){
 
 			Mesh *mesh = new Mesh();
 
+			
 			mesh->getPreTransformVertices().resize(4);
+	
 
 			mesh->getPreTransformVertices()[1].x = subTex->size.x;
 			mesh->getPreTransformVertices()[2].y = subTex->size.y;
 			mesh->getPreTransformVertices()[3] = subTex->size;
 			mesh->getPreTransformVertices().move(origin.x, origin.y);
-			mesh->syncMesh();
 
 			result->addComponent(mesh);
 
@@ -204,7 +204,7 @@ TextEntity * EntityFactory::getTextEntity(const std::string &key){
 			textureComponent->getTextureCoordinates()[3].y = (subTex->position.y + subTex->size.y)/subTex->textureInfo->poweredHeight;
 			result->addComponent(textureComponent);
 
-			result->addComponent(new MeshDriverRenderer(RenderMode::SHAPE | RenderMode::COLOR | RenderMode::TEXTURE | RenderMode::COLOR_TRANSORMED));
+			result->addComponent(new MeshDriverRenderer(RenderMode::SHAPE | RenderMode::COLOR | RenderMode::TEXTURE | RenderMode::COLOR_TRANSORMED | (blend ? RenderMode::BLENDED : RenderMode::NONE)));
 		}
 
 		return result;

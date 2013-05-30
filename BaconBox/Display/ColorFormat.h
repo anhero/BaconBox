@@ -16,6 +16,7 @@ namespace BaconBox {
 	 */
 	struct ColorFormatDef {
 		enum type {
+			NONE,
 			RGBA,
 			ALPHA
 		};

@@ -14,13 +14,13 @@
 	#define BB_SDL
 #endif
 
-#if defined(BB_FLASH_PLATEFORM )
-#undef BB_FLASH_PLATEFORM
+#if defined(BB_FLASH_PLATFORM )
+#undef BB_FLASH_PLATFORM
 #define __FLASHPLAYER__
 #endif
 
 #if defined(__FLASHPLAYER__)
-        #define BB_FLASH_PLATEFORM 1
+        #define BB_FLASH_PLATFORM 1
         #define BB_TIME_HELPER_IMPL BaconBox::LibcTimeHelper
 	#define BB_TIME_HELPER_INCLUDE "BaconBox/Helper/libc/LibcTimeHelper.h"
 
@@ -74,7 +74,7 @@
 		#include <qt_windows.h>
 	#endif // BB_QT
 
-	#define BB_WINDOWS_PLATFORM
+	#define BB_WINDOWS_PLATFORM 1
 
 
 	#define BB_TIME_HELPER_IMPL BaconBox::WindowsTimeHelper
@@ -88,25 +88,26 @@
 	//Get more informations about the system
 	#include "TargetConditionals.h"
 
-	#define BB_APPLE_PLATFORM
+	#define BB_APPLE_PLATFORM 1
     
 
 	//More detailed platforms
 	#if TARGET_IPHONE_SIMULATOR
-		#define BB_IPHONE_PLATFORM
-		#define BB_IPHONE_SIMULATOR_PLATFORM
+		#define BB_IPHONE_PLATFORM 1
+		#define BB_IPHONE_SIMULATOR_PLATFORM 1
 	#endif // TARGET_IPHONE_SIMULATOR
 
 	#if TARGET_OS_IPHONE
-		#define BB_IPHONE_PLATFORM
-		#define BB_IPHONE_DEVICE_PLATFORM
+		#define BB_IPHONE_PLATFORM 1
+		#define BB_IPHONE_DEVICE_PLATFORM 1
 	#endif // TARGET_OS_IPHONE
 
 	#if TARGET_OS_MAC
-		#define BB_MAC_PLATFORM
+		#define BB_MAC_PLATFORM 1
 	#endif
 
 	#ifdef BB_IPHONE_PLATFORM
+		#define BB_OPENGL
         #define BB_OPENGLES
 		//Time on iOS
 		#define BB_TIME_HELPER_IMPL BaconBox::IOSTimeHelper

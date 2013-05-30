@@ -1,6 +1,6 @@
 #include "BaconBox/PlatformFlagger.h"
 
-#if defined(BB_MAC_PLATFORM) || defined(BB_LINUX) || defined(BB_FLASH_PLATEFORM)
+#if defined(BB_MAC_PLATFORM) || defined(BB_LINUX) || defined(BB_FLASH_PLATFORM)
 
 #include "LibcTimeHelper.h"
 

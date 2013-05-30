@@ -37,6 +37,7 @@ namespace BaconBox {
 	private:
 void internalSetMatrix(const Matrix & m);
 		Matrix matrix;
+		Matrix concatMatrix;
 		std::map<int, Matrix> matrixByParentFrame;
 		EntityContainer * entityContainer;
 		void updateMatrix(Vector2 position, Vector2 scale, float angle);

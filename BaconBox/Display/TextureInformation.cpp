@@ -6,7 +6,7 @@
 namespace BaconBox {
 
 #if defined (BB_OPENGL) || defined (BB_OPENGLES)
-	TextureInformation::TextureInformation(): textureId(0), colorFormat(ColorFormat::RGBA),
+	TextureInformation::TextureInformation(): textureId(-1), colorFormat(ColorFormat::RGBA),
 		poweredWidth(0), poweredHeight(0), imageWidth(0), imageHeight(0), path("") {
 	}
 

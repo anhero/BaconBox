@@ -16,11 +16,11 @@ namespace BaconBox {
 	int MeshDriverRenderer::MESSAGE_GET_RENDER_MODE = IDManager::generateID();
 	int MeshDriverRenderer::MESSAGE_SET_RENDER_MODE = IDManager::generateID();
 
-	MeshDriverRenderer::MeshDriverRenderer(int newRenderMode) : Component(), mesh(NULL), texture(NULL), colorTransform(NULL), visibility(NULL), renderMode(newRenderMode) {
+	MeshDriverRenderer::MeshDriverRenderer(int newRenderMode) : Component(), mesh(NULL), texture(NULL), colorTransform(NULL), visibility(NULL), renderMode(newRenderMode), colorMultiplier(Color::WHITE), colorOffset(Color::TRANSPARENT), color(Color::WHITE), graphicDriver(&GraphicDriver::getInstance()) {
 		this->initializeConnections();
 	}
 
-	MeshDriverRenderer::MeshDriverRenderer(const MeshDriverRenderer &src) : Component(src), mesh(NULL), texture(NULL), colorTransform(NULL), visibility(NULL), renderMode(src.renderMode) {
+	MeshDriverRenderer::MeshDriverRenderer(const MeshDriverRenderer &src) : Component(src), mesh(NULL), texture(NULL), colorTransform(NULL), visibility(NULL), colorMultiplier(src.colorMultiplier), colorOffset(src.colorOffset),renderMode(src.renderMode), graphicDriver(&GraphicDriver::getInstance()) {
 		this->initializeConnections();
 	}
 
@@ -66,28 +66,21 @@ namespace BaconBox {
 				Entity *entity = this->getEntity();
 				if (entity) {
 					if (this->mesh) {
-						Color color = Color::WHITE;
-						ColorTransformArray colorMultiplier(4, 0);
-						ColorTransformArray colorOffset(4, 0);
-						// We check if we have a color (if not, it will be defaulted to white).
-						if (this->renderMode & RenderMode::COLOR) {
-							if (this->colorTransform) {
-								color = this->colorTransform->getColor();
+						
+			
+						if(this->colorTransform){
+							if (this->renderMode & RenderMode::COLOR_TRANSORMED){
+								ColorMatrix &  matrix = this->colorTransform->getConcatColorMatrix();
+								color = matrix.getPreMultipliedColor(this->colorTransform->getColor());
+								colorOffset = matrix.colorOffset;
 							}
-						}
-
-						if (this->renderMode & RenderMode::COLOR_TRANSORMED) {
-							if (this->colorTransform) {
-								ColorMatrix matrix = this->colorTransform->getConcatColorMatrix();
-								colorMultiplier[0] = matrix.matrix[0];
-								colorMultiplier[1] = matrix.matrix[6];
-								colorMultiplier[2] = matrix.matrix[12];
-								colorMultiplier[3] = matrix.matrix[18];
-
-								colorOffset[0] = matrix.matrix[4];
-								colorOffset[1] = matrix.matrix[9];
-								colorOffset[2] = matrix.matrix[14];
-								colorOffset[3] = matrix.matrix[19];
+							else if(this->renderMode & RenderMode::COLOR){
+								color = this->colorTransform->getColor();
+								colorOffset = Color::TRANSPARENT;
+							}
+							else{
+								color = Color::WHITE;
+								colorOffset = Color::TRANSPARENT;
 							}
 						}
 
@@ -95,7 +88,8 @@ namespace BaconBox {
 						if (this->renderMode & RenderMode::TEXTURE) {
 							if (this->texture) {
 								// We render with the texture.
-								GraphicDriver::getInstance().drawShapeWithTextureAndColorTransform(this->mesh->getPostTransformVertices(), this->texture->getTexture(), this->texture->getTextureCoordinates(), color, colorMultiplier, colorOffset);
+								
+								graphicDriver->drawShapeWithTextureColorColorOffset(this->mesh->getPostTransformVertices(), this->texture->getTexture(), this->texture->getTextureCoordinates(), color, colorOffset, (this->renderMode & RenderMode::BLENDED));
 							} else {
 								// We render without the texture.
 								throw "Not implemented yet";

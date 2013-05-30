@@ -24,9 +24,9 @@ namespace BaconBox {
 		/// Number of components each color has.
 		static const unsigned int NB_COMPONENTS = 4;
 		/// Maximum value a component can have.
-		static const uint8_t MAX_COMPONENT_VALUE = 0xff;
+		static const float MAX_COMPONENT_VALUE = 1.0f;
 		/// Maximum value a component can have.
-		static const uint8_t MAX_COMPONENT_VALUE_32 = 0xff;
+		static const float MAX_COMPONENT_VALUE_32 = 1.0f;
 
 		/// Black color (0, 0, 0, 255).
 		static const Color BLACK;
@@ -61,7 +61,7 @@ namespace BaconBox {
 		/// Aqua color (0, 255, 255, 255).
 		static const Color AQUA;
 		/// Transparent color (0, 0, 0, 0).
-                //static const Color TRANSPARENT;
+		static const Color TRANSPARENT;
 
 		/// Enumeration for the indexes of the color's array of components.
 		enum Component {
@@ -80,13 +80,8 @@ namespace BaconBox {
 			/// Value component. Between 0 and 1.
 			float V;
 		};
-
-		/**
-		 * Makes a given component within the required range (0 to 255).
-		 * @param component Component value to put within range.
-		 * @return The clamped value.
-		 */
-		static uint8_t getWithinRange(int32_t component);
+		
+		float normalize(int32_t component);
 
 		/**
 		 * Default constructor. Initializes the color to BLACK.
@@ -101,8 +96,10 @@ namespace BaconBox {
 		 * @param blue Blue component.
 		 * @param alpha Alpha component.
 		 */
-		Color(int32_t red, int32_t green, int32_t blue,
-		      int32_t alpha = MAX_COMPONENT_VALUE);
+		Color(float red, float green, float blue,
+		      float alpha = MAX_COMPONENT_VALUE);
+		
+		Color(int32_t red, int32_t green, int32_t blue, int32_t alpha = 255);
 
 		/**
 		 * Parameterized constructor with one parameter.
@@ -144,6 +141,12 @@ namespace BaconBox {
 		 * @param other Other color to compare to.
 		 */
 		bool operator!=(const Color &other);
+		
+		Color operator*(const Color & m) const;
+		Color &operator*=(const Color& m);
+		
+		Color operator+(const Color & m) const;
+		Color &operator+=(const Color& m);
 
 		/**
 		 * Operator to cast the color into one component.
@@ -156,26 +159,26 @@ namespace BaconBox {
 		 * Gets the color's red component.
 		 * @return Red component
 		 */
-		uint8_t getRed() const;
-
+		uint8_t getRedUINT() const;
+		float getRed() const;
 		/**
 		 * Gets the color's green component.
 		 * @return Green component
 		 */
-		uint8_t getGreen() const;
-
+		uint8_t getGreenUINT() const;
+		float getGreen() const;
 		/**
 		 * Gets the color's blue component.
 		 * @return Blue component
 		 */
-		uint8_t getBlue() const;
-
+		uint8_t getBlueUINT() const;
+		float getBlue() const;
 		/**
 		 * Gets the color's alpha component.
 		 * @return Alpha component
 		 */
-		uint8_t getAlpha() const;
-
+		uint8_t getAlphaUINT() const;
+		float getAlpha() const;
 		/**
 		 * Sets the color's red component. Takes care of validating the value
 		 * so that it isn't over 255. Only the first 2 bytes from the value
@@ -183,7 +186,7 @@ namespace BaconBox {
 		 * @param red New red component.
 		 */
 		void setRed(int32_t red);
-
+		void setRed(float red);
 		/**
 		 * Sets the color's green component. Takes care of validating the
 		 * value so that it isn't over 255. Only the first 2 bytes from the
@@ -191,7 +194,7 @@ namespace BaconBox {
 		 * @param green New green component.
 		 */
 		void setGreen(int32_t green);
-
+		void setGreen(float green);
 		/**
 		 * Sets the color's blue component. Takes care of validating the value
 		 * so that it isn't over 255. Only the first 2 bytes from the value
@@ -199,7 +202,7 @@ namespace BaconBox {
 		 * @param blue New blue component.
 		 */
 		void setBlue(int32_t blue);
-
+		void setBlue(float blue);
 		/**
 		 * Sets the color's alpha component. Takes care of validating the
 		 * value so that it isn't over 255. Only the first 2 bytes from the
@@ -207,7 +210,7 @@ namespace BaconBox {
 		 * @param alpha New alpha component.
 		 */
 		void setAlpha(int32_t alpha);
-
+		void setAlpha(float alpha);
 		/**
 		 * Sets the color's red, green and blue components. Simply calls
 		 * setRed(), setGreen() and setBlue().
@@ -216,7 +219,7 @@ namespace BaconBox {
 		 * @param blue New blue component.
 		 */
 		void setRGB(int32_t red, int32_t green, int32_t blue);
-
+		void setRGB(float red, float green, float blue);
 		/**
 		 * Set the first 3 components with one integer.
 		 * @param rgb Color in the format 0x000000.
@@ -232,7 +235,7 @@ namespace BaconBox {
 		 * @param alpha New alpha component.
 		 */
 		void setRGBA(int32_t red, int32_t green, int32_t blue, int32_t alpha);
-
+		void setRGBA(float red, float green, float blue, float alpha);
 		/**
 		 * Set the 4 components with one integer.
 		 * @param rgba Color in the format 0x00000000. The order is R, G, B and
@@ -253,7 +256,7 @@ namespace BaconBox {
 		 * Directly gets the color's array of components.
 		 * @return Array containing the four components in the order RGBA.
 		 */
-		const uint8_t *getComponents() const;
+		const float *getComponents() const;
 
 		/**
 		 * Gets the color as HSV representation.
@@ -330,7 +333,7 @@ namespace BaconBox {
 		static bool isValidValue(const Value &node);
 	private:
 		/// Color components.
-		uint8_t colors[NB_COMPONENTS];
+		float colors[NB_COMPONENTS];
 	};
 #pragma pack()
 	std::ostream &operator<<(std::ostream &output,
