@@ -16,6 +16,33 @@ namespace BaconBox {
 		virtual ~Emitter();
 		
 		Emitter &operator=(const Emitter &src);
+		
+		double getMinLifetime() const;
+		void setMinLifetime(double newMinLifetime);
+
+		double getMaxLifetime() const;
+		void setMaxLifetime(double newMaxLifetime);
+		
+		float getMinForce() const;
+		void setMinForce(float newMinForce);
+
+		float getMaxForce() const;
+		void setMaxForce(float newMaxForce);
+
+		float getMinAngle() const;
+		void setMinAngle(float newMinAngle);
+
+		float getMaxAngle() const;
+		void setMaxAngle(float newMaxAngle);
+		
+		float getMinAngularVelocity() const;
+		void setMinAngularVelocity(float newMinAngularVelocity);
+		
+		float getMaxAngularVelocity() const;
+		void setMaxAngularVelocity(float newMaxAngularVelocity);
+		
+		int getRotationDirection() const;
+		void setRotationDirection(int newRotationDirection);
 	private:
 		/**
 		 * The minimum lifetime of each particle, measured in seconds.
@@ -47,7 +74,7 @@ namespace BaconBox {
 		 * Maximum angle at which each particle is spawned. The angle is between
 		 * -180 and 180. Angle increases as it goes counter clockwise.
 		 */
-		float angleVariation;
+		float maxAngle;
 		
 		/**
 		 * Minimum rotation speed (measured in degrees) to apply to each
