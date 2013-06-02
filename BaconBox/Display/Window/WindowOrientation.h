@@ -4,16 +4,19 @@
 #include "BaconBox/Helper/SafeEnum.h"
 
 namespace BaconBox {
-	struct WindowOrientationDef {
-		enum type {
-			NORMAL,
-			UPSIDE_DOWN,
-			HORIZONTAL_LEFT,
-			HORIZONTAL_RIGHT
+		struct WindowOrientation {
+			enum type {
+				NORMAL,
+				UPSIDE_DOWN,
+				HORIZONTAL_LEFT,
+				HORIZONTAL_RIGHT
+			};
+			
+		private:
+			WindowOrientation();
 		};
-	};
-	
-	typedef SafeEnum<WindowOrientationDef> WindowOrientation;
+		
 }
+
 
 #endif

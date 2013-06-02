@@ -142,14 +142,14 @@ namespace BaconBox {
 		 * @return Current orientation.
 		 * @see BaconBox::MainWindow::orientation
 		 */
-		WindowOrientation getOrientation() const;
+		WindowOrientation::type getOrientation() const;
 		
 		/**
 		 * Sets the window's current orientation.
 		 * @param newOrientation New orientation to set.
 		 * @see BaconBox::MainWindow::orientation
 		 */
-		void setOrientation(WindowOrientation newOrientation);
+		void setOrientation(WindowOrientation::type newOrientation);
 	protected:
 		/**
 		 * The constructor. When implementing a MainWindow, do any
@@ -181,7 +181,7 @@ namespace BaconBox {
 		unsigned int contextHeight;
 		
 		/// Window's orientation. NORMAL by default.
-		WindowOrientation orientation;
+		WindowOrientation::type orientation;
 	};
 }
 

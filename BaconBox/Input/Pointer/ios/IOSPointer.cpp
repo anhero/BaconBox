@@ -50,7 +50,7 @@ namespace BaconBox {
 			(*newIosPosition)*=2.0f;
 		}
 
-		switch (MainWindow::getInstance().getOrientation().underlying()) {
+		switch (MainWindow::getInstance().getOrientation()) {
 		case WindowOrientation::UPSIDE_DOWN:
                 newIosPosition->y = MainWindow::getInstance().getResolutionHeight() - newIosPosition->y;
 			break;

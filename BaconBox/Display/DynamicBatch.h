@@ -20,6 +20,8 @@ namespace BaconBox {
 		~DynamicBatch();
 
 		void prepareRender();
+		
+		void addItem(const VertexArray &newVertices, const TextureCoordinates &newTextureCoordinates);
 
 		void addItem(const VertexArray &newVertices, const Color &newColor,
 					 const Color &newColorOffset, const TextureCoordinates &newTextureCoordinates);

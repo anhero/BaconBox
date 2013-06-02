@@ -32,11 +32,25 @@ namespace BaconBox {
 		static GraphicDriver &getInstance();
 
 
+		virtual void drawShapeWithTexture(const VertexArray &vertices,
+								  const TextureInformation *textureInformation,
+								  const TextureCoordinates &textureCoordinates,
+								  bool blend) = 0;
+		
+		
         virtual void drawShapeWithTextureColorColorOffset(const VertexArray &vertices,
 														  const TextureInformation *textureInformation,
 														  const TextureCoordinates &textureCoordinates,
 														  const Color &color,
 														  const Color &colorOffset, bool blend) = 0;
+		
+		
+		virtual void drawBatchWithTexture(const VertexArray &vertices,
+								  const TextureInformation *textureInformation,
+								  const TextureCoordinates &textureCoordinates,
+								  const IndiceArray &indices,
+								  bool blend) = 0;
+
 		
 		
 		

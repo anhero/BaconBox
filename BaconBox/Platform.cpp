@@ -3,26 +3,22 @@
 using namespace BaconBox;
 
 Platform::Platform(){
-	iphonePlatform = false;
-	flashPlatform = false;
-	
+	isRetina = false;
+	isIOS = false;
+	isIphone = false;
+	isIphone5 = false;
+	isIpad = false;
+	isFlash = false;
 #ifdef BB_IPHONE_PLATFORM
-	iphonePlatform = true;
+	isIOS = true;
 #endif
 	
 	
-#ifdef BB_IPHONE_PLATFORM
-	flashPlatform = false;
+#ifdef BB_FLASH_PLATFORM
+	isFlash = true;
 #endif
 }
 
-
-bool Platform::isIphone(){
-	return getInstance().iphonePlatform;
-}
-bool Platform::isFlash(){
-	return getInstance().flashPlatform;
-}
 
 Platform &Platform::getInstance() {
 	static Platform instance;

@@ -4,6 +4,7 @@
 #import "EAGLView.h"
 
 #include <BaconBox/Core/Engine.h>
+#include "BaconBox/Platform.h"
 @interface BaconBoxAppViewController ()
 @property (nonatomic, retain) EAGLContext *context;
 @property (nonatomic, assign) CADisplayLink *displayLink;
@@ -16,8 +17,12 @@
 - (id)initWithFrame:(CGRect)frame
 {
     self.view = [[[EAGLView alloc] initWithFrame:frame] autorelease];
-    
-    if ([[UIScreen mainScreen] respondsToSelector:@selector(scale)] && [[UIScreen mainScreen] scale] == 2){
+	bool retina = [[UIScreen mainScreen] scale] == 2;
+	BaconBox::Platform::getInstance().isRetina = retina;
+	BaconBox::Platform::getInstance().isIphone = (frame.size.width == 320);
+	BaconBox::Platform::getInstance().isIphone5 = (frame.size.height == 568);
+	BaconBox::Platform::getInstance().isIpad = (frame.size.width == 768);
+    if ([[UIScreen mainScreen] respondsToSelector:@selector(scale)] && retina){
         [self.view setContentScaleFactor:2.0f];
     }
     //self.view.clipsToBounds = YES;

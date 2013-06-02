@@ -25,7 +25,18 @@ namespace BaconBox {
 												  const TextureCoordinates &textureCoordinates,
 												  const Color &color,
 												  const Color &colorOffset, bool blend);
+		
+		void drawShapeWithTexture(const VertexArray &vertices,
+							 const TextureInformation *textureInformation,
+							 const TextureCoordinates &textureCoordinates,
+							 bool blend);
 
+		
+		void drawBatchWithTexture(const VertexArray &vertices,
+												  const TextureInformation *textureInformation,
+												  const TextureCoordinates &textureCoordinates,
+												  const IndiceArray &indices,
+												  bool blend);
 
 
         void drawBatchWithTextureColorColorOffset(const VertexArray &vertices,
@@ -103,13 +114,14 @@ namespace BaconBox {
 		
 		std::vector<float> tempTransformMatrix;
 		std::vector<float> modelViewMatrix;
+		std::vector<float> projectionMatrix;
 		DynamicBatch batch;
 
         GLSLProgram *program;
-//        GLSLProgram *rgbProgram;
-//        GLSLProgram *alphaProgram;
-		
-		
+       GLSLProgram *rgbProgram;
+        GLSLProgram *alphaProgram;
+		GLSLProgram *rgbNoTransformProgram;
+		GLSLProgram * alphaNoTransformProgram;
 		struct GPUState{
 			GPUState():blend(true), textureID(-1),textureCoordinates(NULL),vertices(NULL),colors(NULL),colorOffsets(NULL), format(ColorFormat::NONE){}
 			
@@ -141,7 +153,6 @@ namespace BaconBox {
 		
 		struct{
 			GLuint tex;
-			GLuint alphaFormat;
 			GLuint projection;
 			GLuint modelView;
 			
@@ -149,6 +160,8 @@ namespace BaconBox {
 
 		const TextureInformation *lastTexture;
 		bool lastShapeBlend;
+		
+		bool lastShapeColorTransform;
 		
 		/**
 		 * Default constructor.

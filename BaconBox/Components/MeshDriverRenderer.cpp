@@ -88,8 +88,12 @@ namespace BaconBox {
 						if (this->renderMode & RenderMode::TEXTURE) {
 							if (this->texture) {
 								// We render with the texture.
-								
-								graphicDriver->drawShapeWithTextureColorColorOffset(this->mesh->getPostTransformVertices(), this->texture->getTexture(), this->texture->getTextureCoordinates(), color, colorOffset, (this->renderMode & RenderMode::BLENDED));
+								if(color == Color::WHITE && colorOffset == Color::TRANSPARENT){
+									graphicDriver->drawShapeWithTexture(this->mesh->getPostTransformVertices(), this->texture->getTexture(), this->texture->getTextureCoordinates(), (this->renderMode & RenderMode::BLENDED));
+								}
+								else{
+									graphicDriver->drawShapeWithTextureColorColorOffset(this->mesh->getPostTransformVertices(), this->texture->getTexture(), this->texture->getTextureCoordinates(), color, colorOffset, (this->renderMode & RenderMode::BLENDED));
+								}
 							} else {
 								// We render without the texture.
 								throw "Not implemented yet";

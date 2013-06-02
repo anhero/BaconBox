@@ -25,7 +25,7 @@ namespace BaconBox {
                   const Color &color,
                   const Color &colorOffset, bool blend){
 		if (this->lastTexture){
-			if(textureInformation != this->lastTexture || blend != lastShapeBlend) {
+			if(textureInformation != this->lastTexture || blend != lastShapeBlend ||  !lastShapeColorTransform) {
 				this->batch.render(this, this->lastTexture, lastShapeBlend);
 				this->batch.prepareRender();
 			}
@@ -37,9 +37,102 @@ namespace BaconBox {
 						this->batch.addItem(vertices, color, colorOffset, textureCoordinates);
 						this->lastTexture = textureInformation;
 						lastShapeBlend = blend;
-
+						lastShapeColorTransform = true;
+	}
+	
+	
+	
+	void OpenGLDriver::drawShapeWithTexture(const VertexArray &vertices,
+															const TextureInformation *textureInformation,
+															const TextureCoordinates &textureCoordinates,
+															bool blend){
+		if (this->lastTexture){
+			if(textureInformation != this->lastTexture || blend != lastShapeBlend || lastShapeColorTransform) {
+				this->batch.render(this, this->lastTexture, lastShapeBlend);
+				this->batch.prepareRender();
+			}
+		}
+		else{
+			this->batch.prepareRender();
+		}
+		
+		this->batch.addItem(vertices, textureCoordinates);
+		this->lastTexture = textureInformation;
+		lastShapeBlend = blend;
+		lastShapeColorTransform = false;
+		
 	}
 
+	
+	
+	void OpenGLDriver::drawBatchWithTexture(const VertexArray &vertices,
+	const TextureInformation *textureInformation,
+	const TextureCoordinates &textureCoordinates,
+	const IndiceArray &indices,
+	bool blend){
+		currentGPUState.textureID = textureInformation->textureId;
+		currentGPUState.textureCoordinates = GET_TEX_PTR_BATCH(textureCoordinates, 0);
+		currentGPUState.vertices = GET_PTR_BATCH(vertices, 0);
+		currentGPUState.format = textureInformation->colorFormat;
+		currentGPUState.blend = blend;
+		
+		bool wrongProgram  = (program != rgbNoTransformProgram && program != alphaNoTransformProgram);
+		if(! (currentGPUState.format == lastGPUState.format) || wrongProgram){
+			if(wrongProgram){
+				glDisableVertexAttribArray(attributes.colorOffset);
+				glDisableVertexAttribArray(attributes.color);
+			}
+			
+			lastGPUState.format = currentGPUState.format;
+			if(textureInformation->colorFormat == ColorFormat::ALPHA){
+				program = alphaNoTransformProgram;
+				program->use();
+				
+			}
+			else{
+				program = rgbNoTransformProgram;
+				program->use();
+			}
+    		program->sendUniform(uniforms.tex, 0);
+			program->sendUniform(uniforms.projection, &(projectionMatrix[0]));
+			program->sendUniform(uniforms.modelView, &(modelViewMatrix[0]));
+
+		}
+		if(lastGPUState.blend != currentGPUState.blend){
+			if(blend){
+				glEnable(GL_BLEND);
+				
+			}
+			else{
+				glDisable(GL_BLEND);
+			}
+			lastGPUState.blend = currentGPUState.blend;
+		}
+		
+		if(! (currentGPUState.textureID == lastGPUState.textureID) ){
+			lastGPUState.textureID = currentGPUState.textureID;
+			glBindTexture(GL_TEXTURE_2D, textureInformation->textureId);
+		}
+		if(! (currentGPUState.textureCoordinates == lastGPUState.textureCoordinates) ){
+			lastGPUState.textureCoordinates = currentGPUState.textureCoordinates;
+			glVertexAttribPointer(attributes.texCoord, 2, GL_FLOAT, GL_FALSE, 0, currentGPUState.textureCoordinates);
+		}
+		if(! (currentGPUState.vertices == lastGPUState.vertices) ){
+			lastGPUState.vertices = currentGPUState.vertices;
+			glVertexAttribPointer(attributes.vertices, 2, GL_FLOAT, GL_FALSE, 0, currentGPUState.vertices);
+		}
+		if(! (currentGPUState.colors == lastGPUState.colors) ){
+			lastGPUState.colors = currentGPUState.colors;
+			glVertexAttribPointer(attributes.color, 4, GL_FLOAT, GL_FALSE, 0,  currentGPUState.colors);
+		}
+		if(! (currentGPUState.colorOffsets == lastGPUState.colorOffsets) ){
+			lastGPUState.colorOffsets = currentGPUState.colorOffsets;
+			glVertexAttribPointer(attributes.colorOffset, 4, GL_FLOAT, GL_FALSE, 0, currentGPUState.colorOffsets);
+		}
+		
+		glDrawElements(GL_TRIANGLE_STRIP, indices.size(), GL_UNSIGNED_SHORT, &(indices[0]));
+		
+	}
 
 	void OpenGLDriver::drawBatchWithTextureColorColorOffset(const VertexArray &vertices,
 		                                  const TextureInformation *textureInformation,
@@ -48,8 +141,6 @@ namespace BaconBox {
 		                                  const ColorArray &colors,
 		                                  const ColorArray &colorOffsets, bool blend){
 		
-		
-
 
 			currentGPUState.textureID = textureInformation->textureId;
 			currentGPUState.textureCoordinates = GET_TEX_PTR_BATCH(textureCoordinates, 0);
@@ -58,20 +149,27 @@ namespace BaconBox {
 			currentGPUState.colorOffsets = GET_TEX_PTR_BATCH(colorOffsets, 0);
 			currentGPUState.format = textureInformation->colorFormat;
 			currentGPUState.blend = blend;
-			
-			if(! (currentGPUState.format == lastGPUState.format) ){
+		
+		bool notRGBOrAlpha  = (program != rgbProgram && program != alphaProgram);
+			if(! (currentGPUState.format == lastGPUState.format) || notRGBOrAlpha){
+				if(notRGBOrAlpha){
+					glEnableVertexAttribArray(attributes.colorOffset);
+					glEnableVertexAttribArray(attributes.color);
+				}
 				lastGPUState.format = currentGPUState.format;
 				if(textureInformation->colorFormat == ColorFormat::ALPHA){
-					program->sendUniform(uniforms.alphaFormat,GL_TRUE);
-//					program = alphaProgram;
-//					program->use();
+					program = alphaProgram;
+					program->use();
 					
 				}
 				else{
-					program->sendUniform(uniforms.alphaFormat,GL_FALSE);
-//					program = rgbProgram;
-//					program->use();
+					program = rgbProgram;
+					program->use();
 				}
+				program->sendUniform(uniforms.tex, 0);
+				program->sendUniform(uniforms.projection, &(projectionMatrix[0]));
+				program->sendUniform(uniforms.modelView, &(modelViewMatrix[0]));
+
 			}
 			if(lastGPUState.blend != currentGPUState.blend){
 				if(blend){
@@ -123,15 +221,15 @@ namespace BaconBox {
 
 		loadIdentity();
 
-		switch (MainWindow::getInstance().getOrientation().underlying()) {
+		switch (MainWindow::getInstance().getOrientation()) {
 		case WindowOrientation::HORIZONTAL_LEFT:
 			rotate(-90.0f);
-			translate(Vector2(static_cast<float>(MainWindow::getInstance().getContextWidth()), 0.0f));
+			translate(Vector2(0, static_cast<float>(MainWindow::getInstance().getContextHeight())));
 			break;
 
 		case WindowOrientation::HORIZONTAL_RIGHT:
 			rotate(90.0f);
-			translate(Vector2(0.0f, -static_cast<float>(MainWindow::getInstance().getContextHeight())));
+			translate(Vector2(static_cast<float>(MainWindow::getInstance().getContextWidth()), 0));
 			break;
 
 		default:
@@ -159,11 +257,10 @@ namespace BaconBox {
             }
 
 		#endif // BB_GLEW
-		std::string vertexShader;
-#ifdef BB_IPHONE_PLATFORM
-		vertexShader += "precision mediump float;\n";
-#endif
-		vertexShader += "uniform mat4 projection;\
+		
+		
+		std::string coreVertexShader =
+		"uniform mat4 projection;\
 		uniform mat4 modelView;\
 		\
 		attribute vec2 position;\
@@ -181,35 +278,109 @@ namespace BaconBox {
 		gl_Position =   modelViewProjection * vec4(position, 0.0, 1.0);\
 		}";
 		
-		std::string fragmentShader;
 		
-#ifdef BB_IPHONE_PLATFORM
-		fragmentShader += "precision lowp float;\n";
-#endif
-		fragmentShader += "uniform bool  alphaFormat;\
+		std::string coreVertexNoColorShader =
+		"uniform mat4 projection;\
+		uniform mat4 modelView;\
+		\
+		attribute vec2 position;\
+		attribute vec2 texcoordIN;\
+		varying vec2 texcoord;\
+		void main(void) {\
+		mat4 modelViewProjection = (projection * modelView);\
+		texcoord = texcoordIN;\
+		gl_Position =   modelViewProjection * vec4(position, 0.0, 1.0);\
+		}";
+		
+		
+		std::string coreFragmentShaderAlpha =
+		"uniform bool  alphaFormat;\
 		uniform sampler2D  tex;\
 		varying vec2 texcoord;\
 		varying vec4 colorOffset;\
 		varying vec4 color;\
 		void main(void) {\
 		vec4 texColor = texture2D(tex, texcoord);\
-		if(alphaFormat){\
 		texColor = vec4(vec3(1.0), texColor.a); \
-		} \
 		gl_FragColor = (texColor * color) +colorOffset;\
 		}";
 		
-		program = new GLSLProgram(vertexShader,fragmentShader);
-
+		std::string coreFragmentShaderAlphaNoColor =
+		"uniform bool  alphaFormat;\
+		uniform sampler2D  tex;\
+		varying vec2 texcoord;\
+		void main(void) {\
+		vec4 texColor = texture2D(tex, texcoord);\
+		texColor = vec4(vec3(1.0), texColor.a); \
+		gl_FragColor = (texColor);\
+		}";
+		
+		
+		
+		std::string coreFragmentShaderNoColor =
+		"uniform bool  alphaFormat;\
+		uniform sampler2D  tex;\
+		varying vec2 texcoord;\
+		void main(void) {\
+		vec4 texColor = texture2D(tex, texcoord);\
+		gl_FragColor = texColor;\
+		}";
+		
+		
+		std::string coreFragmentShader =
+		"uniform bool  alphaFormat;\
+		uniform sampler2D  tex;\
+		varying vec2 texcoord;\
+		varying vec4 colorOffset;\
+		varying vec4 color;\
+		void main(void) {\
+		vec4 texColor = texture2D(tex, texcoord);\
+		gl_FragColor = (texColor * color) +colorOffset;\
+		}";
+		
+		
+		
+		std::string vertexShaderNoColor;
+		std::string vertexShader;
+		std::string fragmentShaderAlpha;
+		std::string fragmentShaderAlphaNoColor;
+		std::string fragmentShaderNoColor;
+		std::string fragmentShader;
+		
+#ifdef BB_IPHONE_PLATFORM
+		std::string GLESPrecisionVertex = "precision mediump float;\n";
+		std::string GLESPrecisionFragment = "precision lowp float;\n";
+		vertexShaderNoColor += GLESPrecisionVertex;
+		vertexShader += GLESPrecisionVertex;
+		
+		fragmentShaderAlpha += GLESPrecisionFragment;
+		fragmentShaderNoColor += GLESPrecisionFragment;
+		fragmentShader += GLESPrecisionFragment;
+		fragmentShaderAlphaNoColor += GLESPrecisionFragment;
+		
+#endif
+		
+		
+		vertexShaderNoColor += coreVertexShader;
+		vertexShader += coreVertexShader;
+		fragmentShaderAlpha += coreFragmentShaderAlpha;
+		fragmentShaderNoColor += coreFragmentShaderNoColor;
+		fragmentShader += coreFragmentShader;
+		fragmentShaderAlphaNoColor += coreFragmentShaderAlphaNoColor;
+		
+			alphaProgram = new GLSLProgram(vertexShader,fragmentShaderAlpha);
+			rgbProgram = new GLSLProgram(vertexShader,fragmentShader);
+			rgbNoTransformProgram = new GLSLProgram(vertexShaderNoColor,fragmentShaderNoColor);
+			alphaNoTransformProgram = new GLSLProgram(vertexShaderNoColor,fragmentShaderAlphaNoColor);
+			
+			program = rgbProgram;
     		program->use();
 		
 			uniforms.tex = program->getUniformLocation("tex");
-			uniforms.alphaFormat = program->getUniformLocation("alphaFormat");
 			uniforms.projection = program->getUniformLocation("projection");
 			uniforms.modelView= program->getUniformLocation("modelView");
 		
     		program->sendUniform(uniforms.tex, 0);
-            program->sendUniform(uniforms.alphaFormat, GL_FALSE);
 		
 		
 			attributes.vertices = program->getAttributeLocation("position");
@@ -232,41 +403,21 @@ namespace BaconBox {
 			glViewport(0, 0, static_cast<int>(MainWindow::getInstance().getResolutionWidth()), static_cast<int>(MainWindow::getInstance().getResolutionHeight()));
 
 		} else {
-			glViewport(0, 0, static_cast<int>(MainWindow::getInstance().getResolutionHeight()), static_cast<int>(MainWindow::getInstance().getResolutionWidth()));
+			glViewport(0, 0, static_cast<int>(MainWindow::getInstance().getResolutionWidth()), static_cast<int>(MainWindow::getInstance().getResolutionHeight()));
 		}
 
 
 		float left, right, bottom, top;
 
-		if (MainWindow::getInstance().getOrientation() == WindowOrientation::NORMAL) {
 			left = 0.0f;
 			right = static_cast<float>(MainWindow::getInstance().getContextWidth());
 			bottom = static_cast<float>(MainWindow::getInstance().getContextHeight());
 			top = 0.0f;
 
-		} else if (MainWindow::getInstance().getOrientation() == WindowOrientation::UPSIDE_DOWN) {
-			left = 0.0f;
-			right = static_cast<float>(MainWindow::getInstance().getContextWidth());
-			bottom = 0.0f;
-			top = static_cast<float>(MainWindow::getInstance().getContextHeight());
-
-		} else if (MainWindow::getInstance().getOrientation() == WindowOrientation::HORIZONTAL_LEFT) {
-			left = static_cast<float>(MainWindow::getInstance().getContextHeight());
-			right = 0.0f;
-			bottom = 0.0f;
-			top = static_cast<float>(MainWindow::getInstance().getContextWidth());
-
-		} else { //if (MainWindow::getInstance().getOrientation() == WindowOrientation::HORIZONTAL_RIGHT)
-			left = static_cast<float>(MainWindow::getInstance().getContextHeight());
-			right = 0.0f;
-			bottom = 0.0f;
-			top = static_cast<float>(MainWindow::getInstance().getContextWidth());
-		}
-		
+				
 		
 
 
-		std::vector<float> projectionMatrix(16,0);
 		projectionMatrix[0] = 2.0f / (right - left);
 		projectionMatrix[5] = 2.0f / (top- bottom);
 		projectionMatrix[10] = -1;
@@ -295,21 +446,21 @@ namespace BaconBox {
 		tempTransformMatrix[0] = 1;
 		tempTransformMatrix[4] = 0;
 		tempTransformMatrix[8] = 0;
-		tempTransformMatrix[12] = 0;
+		tempTransformMatrix[12] = translation.x;;
 		
 		tempTransformMatrix[1] = 0;
 		tempTransformMatrix[5] = 1;
 		tempTransformMatrix[9] = 0;
-		tempTransformMatrix[13] = 0;
+		tempTransformMatrix[13] = translation.y;
 		
 		tempTransformMatrix[2] = 0;
 		tempTransformMatrix[6] = 0;
 		tempTransformMatrix[10] = 1;
 		tempTransformMatrix[14] = 0;
 		
-		tempTransformMatrix[3] = translation.x;
-		tempTransformMatrix[7] = translation.y;
-		tempTransformMatrix[12] = 0;
+		tempTransformMatrix[3] = 0;//translation.x;
+		tempTransformMatrix[7] = 0;//translation.y;
+		tempTransformMatrix[11] = 0;
 		tempTransformMatrix[15] = 1;
 		
 		multMatrix(&(modelViewMatrix[0]),&(tempTransformMatrix[0]));
@@ -344,25 +495,31 @@ namespace BaconBox {
 	//inspired by http://www.flashbang.se/archives/148
 	void OpenGLDriver::rotate(float a){
 		float angle= a * MathHelper::PI_OVER_180 ;
+		float sinAngle = MathHelper::sin(angle);
+		float cosAngle = MathHelper::cos(angle);
 		
-		tempTransformMatrix[0] = 1;
-		tempTransformMatrix[4] = -MathHelper::sin(angle);
-		tempTransformMatrix[8] = 0;
+		float x = 0;
+		float y = 0;
+		float z = 1;
+		
+		tempTransformMatrix[0] = 1+(1-cosAngle)*(x*x-1);
+		tempTransformMatrix[4] = -z*sinAngle+(1-cosAngle)*x*y;
+		tempTransformMatrix[8] = y*sinAngle+(1-cosAngle)*x*z;
 		tempTransformMatrix[12] = 0;
 		
-		tempTransformMatrix[1] = MathHelper::sin(angle);
-		tempTransformMatrix[5] = 1-(1-MathHelper::cos(angle));
-		tempTransformMatrix[9] = 0;
+		tempTransformMatrix[1] = z*sinAngle+(1-cosAngle)*x*y;
+		tempTransformMatrix[5] = 1+(1-cosAngle)*(y*y-1);
+		tempTransformMatrix[9] = -x*sinAngle+(1-cosAngle)*y*z;
 		tempTransformMatrix[13] = 0;
 		
-		tempTransformMatrix[2] = 0;
-		tempTransformMatrix[6] = 0;
-		tempTransformMatrix[10] = 1;
+		tempTransformMatrix[2] = -y*sinAngle+(1-cosAngle)*x*z;
+		tempTransformMatrix[6] = x*sinAngle+(1-cosAngle)*y*z;
+		tempTransformMatrix[10] = 1+(1-cosAngle)*(z*z-1);
 		tempTransformMatrix[14] = 0;
 		
 		tempTransformMatrix[3] = 0;
 		tempTransformMatrix[7] = 0;
-		tempTransformMatrix[12] = 0;
+		tempTransformMatrix[11] = 0;
 		tempTransformMatrix[15] = 1;
 		
 		multMatrix(&(modelViewMatrix[0]),&(tempTransformMatrix[0]));
@@ -489,7 +646,7 @@ namespace BaconBox {
 
 
 
-	OpenGLDriver::OpenGLDriver() : GraphicDriver(), batch(), lastShapeBlend(true),lastTexture(NULL), modelViewMatrix(16,0), tempTransformMatrix(16,0), lastGPUState(), currentGPUState() {
+	OpenGLDriver::OpenGLDriver() : GraphicDriver(), batch(), lastShapeBlend(true), lastShapeColorTransform(false), program(NULL), lastTexture(NULL), projectionMatrix(16,0), modelViewMatrix(16,0), tempTransformMatrix(16,0), lastGPUState(), currentGPUState() {
 	}
 
 	OpenGLDriver::~OpenGLDriver() {

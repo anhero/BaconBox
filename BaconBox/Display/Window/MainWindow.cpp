@@ -64,11 +64,11 @@ namespace BaconBox {
 		}
 	}
 	
-	WindowOrientation MainWindow::getOrientation() const {
+	WindowOrientation::type MainWindow::getOrientation() const {
 		return orientation;
 	}
 	
-	void MainWindow::setOrientation(WindowOrientation newOrientation) {
+	void MainWindow::setOrientation(WindowOrientation::type newOrientation) {
 		if (orientation != newOrientation) {
 			if (((orientation == WindowOrientation::NORMAL ||
 				orientation == WindowOrientation::UPSIDE_DOWN) &&

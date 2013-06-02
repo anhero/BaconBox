@@ -4,14 +4,19 @@
 namespace BaconBox {
     class Platform{
 	public:
-		static bool isIphone();
-		static bool isFlash();
-		private:
+
+		
+		bool isRetina;
+		bool isIOS;
+		bool isIphone;
+		bool isIphone5;
+		bool isIpad;
+		bool isFlash;
 		static Platform & getInstance();
+		private:
 		
-		
-		bool iphonePlatform;
-		bool flashPlatform;
+
+
 		Platform();
 		
 	};

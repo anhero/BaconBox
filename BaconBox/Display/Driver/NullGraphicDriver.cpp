@@ -30,7 +30,25 @@ namespace BaconBox {
 											const ColorArray &colorOffsets, bool blend){
 		
 	}
-
+	
+	
+	
+	void NullGraphicDriver::drawShapeWithTexture(const VertexArray &vertices,
+							  const TextureInformation *textureInformation,
+							  const TextureCoordinates &textureCoordinates,
+							  bool blend){
+		
+	}
+	
+	
+	void NullGraphicDriver::drawBatchWithTexture(const VertexArray &vertices,
+							  const TextureInformation *textureInformation,
+							  const TextureCoordinates &textureCoordinates,
+							  const IndiceArray &indices,
+							  bool blend){
+		
+	}
+	
 
 	void NullGraphicDriver::prepareScene(const Vector2 &, float,
 	                                     const Vector2 &, const Color &, bool ) {

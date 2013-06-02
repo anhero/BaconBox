@@ -72,6 +72,9 @@ end
 	#endif //BB_FLASH_PLATEFORM
 
 
+  #include "BaconBox/Display/Window/WindowOrientation.h"
+  #include "BaconBox/Display/Window/MainWindow.h"
+
   #include "BaconBox/Input/InputState.h"
   #include "BaconBox/Input/InputSignalData.h"
   #include "BaconBox/Input/Pointer/CursorButton.h"
@@ -336,6 +339,9 @@ namespace BaconBox{
 
 %include "BaconBox/Input/InputState.h"
 %include "BaconBox/SignalSlots/SignalData.h"
+
+%include "BaconBox/Display/Window/WindowOrientation.h"
+%include "BaconBox/Display/Window/MainWindow.h"
 
 %include "BaconBox/Input/Keyboard/Key.h"
 %include "BaconBox/Input/Keyboard/KeyboardState.h"
