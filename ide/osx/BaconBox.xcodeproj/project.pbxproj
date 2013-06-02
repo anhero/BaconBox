@@ -9,6 +9,12 @@
 /* Begin PBXBuildFile section */
 		2478740816360C7F006D4A59 /* libSDL2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2478740616360C7F006D4A59 /* libSDL2.a */; };
 		2478740916360C7F006D4A59 /* libSDL2main.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2478740716360C7F006D4A59 /* libSDL2main.a */; };
+		24BCFE61175BC90F00967C43 /* ParticleEmitter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 24BCFE5F175BC90F00967C43 /* ParticleEmitter.cpp */; };
+		24BCFE62175BC90F00967C43 /* ParticleEmitter.h in Headers */ = {isa = PBXBuildFile; fileRef = 24BCFE60175BC90F00967C43 /* ParticleEmitter.h */; };
+		24BCFE65175BC9E500967C43 /* Explosion.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 24BCFE63175BC9E500967C43 /* Explosion.cpp */; };
+		24BCFE66175BC9E500967C43 /* Explosion.h in Headers */ = {isa = PBXBuildFile; fileRef = 24BCFE64175BC9E500967C43 /* Explosion.h */; };
+		24BCFE69175BD01500967C43 /* Emitter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 24BCFE67175BD01400967C43 /* Emitter.cpp */; };
+		24BCFE6A175BD01500967C43 /* Emitter.h in Headers */ = {isa = PBXBuildFile; fileRef = 24BCFE68175BD01400967C43 /* Emitter.h */; };
 		24CD5A9916347EE9001EB407 /* libJsonBox.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 24CD5A9716347EE8001EB407 /* libJsonBox.a */; };
 		5153CCE01698A80A00431A19 /* libfreetype.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5153CCDF1698A80A00431A19 /* libfreetype.a */; };
 		5153CCE31698A82A00431A19 /* libpng.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5153CCE21698A82A00431A19 /* libpng.a */; };
@@ -349,6 +355,12 @@
 /* Begin PBXFileReference section */
 		2478740616360C7F006D4A59 /* libSDL2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSDL2.a; path = libraries/Darwin/x86_64/lib/libSDL2.a; sourceTree = "<group>"; };
 		2478740716360C7F006D4A59 /* libSDL2main.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSDL2main.a; path = libraries/Darwin/x86_64/lib/libSDL2main.a; sourceTree = "<group>"; };
+		24BCFE5F175BC90F00967C43 /* ParticleEmitter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ParticleEmitter.cpp; path = Emitter/ParticleEmitter.cpp; sourceTree = "<group>"; };
+		24BCFE60175BC90F00967C43 /* ParticleEmitter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ParticleEmitter.h; path = Emitter/ParticleEmitter.h; sourceTree = "<group>"; };
+		24BCFE63175BC9E500967C43 /* Explosion.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Explosion.cpp; path = Emitter/Explosion.cpp; sourceTree = "<group>"; };
+		24BCFE64175BC9E500967C43 /* Explosion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Explosion.h; path = Emitter/Explosion.h; sourceTree = "<group>"; };
+		24BCFE67175BD01400967C43 /* Emitter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Emitter.cpp; path = Emitter/Emitter.cpp; sourceTree = "<group>"; };
+		24BCFE68175BD01400967C43 /* Emitter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Emitter.h; path = Emitter/Emitter.h; sourceTree = "<group>"; };
 		24CD5A9716347EE8001EB407 /* libJsonBox.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libJsonBox.a; path = libraries/Darwin/x86_64/lib/libJsonBox.a; sourceTree = "<group>"; };
 		5153CCDF1698A80A00431A19 /* libfreetype.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libfreetype.a; path = libraries/Darwin/x86_64/lib/libfreetype.a; sourceTree = "<group>"; };
 		5153CCE21698A82A00431A19 /* libpng.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpng.a; path = libraries/Darwin/x86_64/lib/libpng.a; sourceTree = SOURCE_ROOT; };
@@ -709,6 +721,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		24BCFE5E175BC8EF00967C43 /* Emitter */ = {
+			isa = PBXGroup;
+			children = (
+				24BCFE5F175BC90F00967C43 /* ParticleEmitter.cpp */,
+				24BCFE60175BC90F00967C43 /* ParticleEmitter.h */,
+				24BCFE63175BC9E500967C43 /* Explosion.cpp */,
+				24BCFE64175BC9E500967C43 /* Explosion.h */,
+				24BCFE67175BD01400967C43 /* Emitter.cpp */,
+				24BCFE68175BD01400967C43 /* Emitter.h */,
+			);
+			name = Emitter;
+			sourceTree = "<group>";
+		};
 		24CD5A9B16347EF2001EB407 /* libraries */ = {
 			isa = PBXGroup;
 			children = (
@@ -908,6 +933,7 @@
 		51903A4117500B7B00814708 /* Display */ = {
 			isa = PBXGroup;
 			children = (
+				24BCFE5E175BC8EF00967C43 /* Emitter */,
 				51903A4217500B7B00814708 /* BatchedVertexArray.cpp */,
 				51903A4317500B7B00814708 /* BatchedVertexArray.h */,
 				51903A4417500B7B00814708 /* BatchManager.cpp */,
@@ -1524,6 +1550,9 @@
 				51903D0A17500B7B00814708 /* Vector2.h in Headers */,
 				51903D0C17500B7B00814708 /* Vector3.h in Headers */,
 				51903D0E17500B7B00814708 /* VertexArray.h in Headers */,
+				24BCFE62175BC90F00967C43 /* ParticleEmitter.h in Headers */,
+				24BCFE66175BC9E500967C43 /* Explosion.h in Headers */,
+				24BCFE6A175BD01500967C43 /* Emitter.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1721,6 +1750,9 @@
 				51903D0917500B7B00814708 /* Vector2.cpp in Sources */,
 				51903D0B17500B7B00814708 /* Vector3.cpp in Sources */,
 				51903D0D17500B7B00814708 /* VertexArray.cpp in Sources */,
+				24BCFE61175BC90F00967C43 /* ParticleEmitter.cpp in Sources */,
+				24BCFE65175BC9E500967C43 /* Explosion.cpp in Sources */,
+				24BCFE69175BD01500967C43 /* Emitter.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
