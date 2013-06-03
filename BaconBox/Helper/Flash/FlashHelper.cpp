@@ -29,13 +29,13 @@ AS3::local::var FlashHelper::callMethod(const AS3::local::var & var, const std::
 				AS3::local::internal::trace(args[i]);
 			}
 		}
-		throw;
 		}
 	#endif
 }
 
 
 MovieClipEntity * FlashHelper::getMCEntityFromMC(AS3::local::var mc){
+		if(mc == AS3::local::internal::_null) return NULL;
 		if(AS3::local::internal::equals(mc, AS3::local::internal::_undefined) ||!AS3::local::internal::is(mc, MOVIECLIP_CLASS)) return NULL;
 		inline_as3("import BaconBox.MovieClipEntity;");
 		inline_as3("import BaconBox.TextEntity;");
@@ -74,7 +74,6 @@ AS3::local::var FlashHelper::getProperty(const AS3::local::var & var, const std:
 		Console__error("Error calling getProperty " << propertyName << " on an AS3 object in FlashHelper. (See trace)");
 		AS3_Trace("GetProperty was called on:");
 		AS3::local::internal::trace(var);
-		throw;
 		}
 	#endif
 }
@@ -93,7 +92,6 @@ void FlashHelper::setProperty(const AS3::local::var & var, const std::string & p
 		AS3::local::internal::trace(var);
 		AS3_Trace("with arg:");
 		AS3::local::internal::trace(arg);
-		throw;
 		}
 	#endif
 }
@@ -117,7 +115,6 @@ AS3::local::var FlashHelper::callFunction(const std::string & functionName, cons
 				AS3::local::internal::trace(args[i]);
 			}
 		}
-		throw;
 		}
 	#endif
 }
@@ -139,7 +136,7 @@ AS3::local::var FlashHelper::construct(const std::string & className){
 		}
 		catch(...){
 		Console__error("Error constructing an as3 object " << className << " in FlashHelper.");
-		throw;
+		return AS3::local::internal::_null;
 		}
 	#endif
 }

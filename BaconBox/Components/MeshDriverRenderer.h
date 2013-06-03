@@ -29,7 +29,7 @@ namespace BaconBox {
 
 		virtual void receiveMessage(int senderID, int destID, int message, void *data);
 
-		virtual void render();
+		virtual void update();
 
 		int getRenderMode() const;
 

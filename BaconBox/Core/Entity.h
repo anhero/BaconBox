@@ -56,16 +56,11 @@ namespace BaconBox {
 		 * Sends a message to all components.
 		 */
 		void sendMessage(int senderID, int destID, int message, void *data);
-
-		/**
-		 * Updates all of the entity's components.
-		 */
-		void update();
 		
 		/**
 		 * Calls the render method on all of the entity's components.
 		 */
-		void render();
+		void update();
 
 		/**
 		 * Gets the name of the entity's type.

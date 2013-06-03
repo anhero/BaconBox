@@ -56,17 +56,12 @@ namespace BaconBox {
 		}
 
 		// We update the entities.
-//		for (std::vector<Entity *>::iterator i = this->entities.begin(); i != this->entities.end(); ++i) {
-//			(*i)->update();
-//		}
-
-	}
-
-	void EntityManager::render(){
-	    for (std::vector<Entity *>::iterator i = this->entities.begin(); i != this->entities.end(); ++i) {
-			(*i)->render();
+		for (std::vector<Entity *>::iterator i = this->entities.begin(); i != this->entities.end(); ++i) {
+			(*i)->update();
 		}
+
 	}
+
 
 	void EntityManager::receiveMessage(int senderID, int destID, int message, void *data) {
 		if(senderID != State::ID)return;

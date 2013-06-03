@@ -39,9 +39,8 @@ namespace BaconBox {
 
 		virtual ~State();
 
-		virtual void update();
 
-		virtual void render();
+		virtual void update();
 
 		void add(Entity *newEntity);
 
@@ -57,8 +56,6 @@ namespace BaconBox {
 		virtual void onLoseFocus();
 	private:
 		void internalUpdate();
-
-		void internalRender();
 
 		void internalOnGetFocus();
 

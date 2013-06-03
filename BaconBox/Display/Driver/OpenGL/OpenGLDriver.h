@@ -142,11 +142,18 @@ namespace BaconBox {
 		GPUState currentGPUState;
 		GPUState lastGPUState;
 		
-		struct{
-			GLuint colorOffset;
-			GLuint color;
+		struct attributes{
 			GLuint vertices;
 			GLuint texCoord;
+			GLuint color;
+			GLuint colorOffset;
+			
+			attributes(){
+				vertices = 0;
+				texCoord = 1;
+				color = 2;
+				colorOffset = 3;
+			}
 			
 		} attributes;
 		

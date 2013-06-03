@@ -21,7 +21,6 @@ namespace BaconBox {
 		virtual void receiveMessage(int senderID, int destID, int message, void *data);
 		
 		void update();
-		void render();
 
 	private:
 	    

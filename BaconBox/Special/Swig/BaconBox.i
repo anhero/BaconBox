@@ -65,11 +65,11 @@ end
 
 	#include "BaconBox/PlatformFlagger.h"
 	#include "BaconBox/Core/IDManager.h"
-  #ifdef BB_FLASH_PLATEFORM
+  #ifdef BB_FLASH_PLATFORM
 	#include <AS3/AS3.h>
 	#include <AS3/AS3++.h>
 	#include "BaconBox/Components/Flash/MovieClipHolder.h" 
-	#endif //BB_FLASH_PLATEFORM
+	#endif //BB_FLASH_PLATFORM
 
 
   #include "BaconBox/Display/Window/WindowOrientation.h"
@@ -138,7 +138,7 @@ end
 
 namespace BaconBox{
 class BaseEngine;
-#ifdef BB_FLASH_PLATEFORM
+#ifdef BB_FLASH_PLATFORM
 class FlashEngine;
 #endif
 }
@@ -206,7 +206,7 @@ class SoundInfo;
 namespace BaconBox{
 class BaseEngine;
 
-#ifdef BB_FLASH_PLATEFORM
+#ifdef BB_FLASH_PLATFORM
 class FlashEngine;
 #endif
 

@@ -58,7 +58,7 @@ namespace BaconBox {
 		}
 	}
 
-	void MeshDriverRenderer::render() {
+	void MeshDriverRenderer::update() {
 		if (!this->visibility || this->visibility->isVisible()) {
 			// We check if we have to render a shape.
 			if (this->renderMode & RenderMode::SHAPE) {

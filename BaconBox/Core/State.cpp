@@ -42,11 +42,8 @@ namespace BaconBox {
 	State::~State() {
 	}
 
+
 	void State::update() {
-
-	}
-
-	void State::render() {
 
 	}
 
@@ -74,14 +71,10 @@ namespace BaconBox {
 	void State::onLoseFocus() {
 	}
 
+
 	void State::internalUpdate() {
 		Entity::update();
 		this->update();
-	}
-
-	void State::internalRender() {
-		Entity::render();
-		this->render();
 	}
 
 

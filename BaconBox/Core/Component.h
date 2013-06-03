@@ -36,7 +36,6 @@ namespace BaconBox {
 		virtual void receiveMessage(int senderID, int destID, int message, void *data);
 		
 		virtual void update();
-		virtual void render();
 		
 		const std::string &getComponentName() const;
 		

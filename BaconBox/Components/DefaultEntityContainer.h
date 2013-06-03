@@ -31,15 +31,9 @@ namespace BaconBox {
 
 		void receiveMessage(int senderID, int destID, int message, void *data);
 
-		/**
-		 * Updates all the child entities.
-		 */
-		void update();
 
-		/**
-		 * Renders all the child entities.
-		 */
-		void render();
+
+		void update();
 
 
 		void propagateMessage(int senderID, int destID, int message, void *data);

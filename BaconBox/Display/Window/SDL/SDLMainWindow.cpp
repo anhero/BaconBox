@@ -20,6 +20,7 @@ namespace BaconBox {
 		                              static_cast<int>(this->getResolutionHeight()),
 		                              SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN);
 		mainContext = SDL_GL_CreateContext(mainWindow);
+		printf("caca: %s\n", SDL_GetError());
 
 		if (SDL_GL_SetSwapInterval(1) < 0) {
 			printf("opengl error [SetSwapInterval]: %s\n", SDL_GetError());

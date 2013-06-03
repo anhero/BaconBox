@@ -24,7 +24,6 @@ namespace BaconBox {
 		void reloadLuaClass();
 
 		void update();
-		void render();
 
 		virtual void receiveMessage(int senderID, int destID, int message, void *data);
 
@@ -50,7 +49,6 @@ namespace BaconBox {
 
 		int table_index;
 		int update_index;
-		int render_index;
 		int userData_index;
 
 		int onPointerButtonPress_index;

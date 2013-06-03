@@ -25,7 +25,7 @@ namespace BaconBox {
 
 		virtual CameraDriverRenderer *clone() const;
 
-		void render();
+		void update();
     private:	
         Transform * transform;
         ColorTransform * colorTransform;

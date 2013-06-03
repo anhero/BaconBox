@@ -36,7 +36,7 @@ namespace BaconBox {
 
 
 
-	void CameraDriverRenderer::render(){
+	void CameraDriverRenderer::update(){
 		Engine::getGraphicDriver().prepareScene(transform->getPosition(), transform->getRotation()*-1, transform->getScale(), colorTransform->getColor(), true);
 	}
 }

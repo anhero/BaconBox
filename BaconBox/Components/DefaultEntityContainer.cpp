@@ -134,22 +134,15 @@ namespace BaconBox {
 		}
 	}
 
+
 	void updateChild(Entity *child) {
 		child->update();
 	}
 
-	void renderChild(Entity *child) {
-		child->render();
-	}
 
 	void DefaultEntityContainer::update() {
 		this->EntityContainer::update();
 		EntityContainerLooper::forEachChildCurrentFrame(this, updateChild);
-	}
-
-	void DefaultEntityContainer::render() {
-		this->EntityContainer::render();
-		EntityContainerLooper::forEachChildCurrentFrame(this, renderChild);
 	}
 
 

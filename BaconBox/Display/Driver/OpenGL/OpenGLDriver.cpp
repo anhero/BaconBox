@@ -361,7 +361,7 @@ namespace BaconBox {
 #endif
 		
 		
-		vertexShaderNoColor += coreVertexShader;
+		vertexShaderNoColor += coreVertexNoColorShader;
 		vertexShader += coreVertexShader;
 		fragmentShaderAlpha += coreFragmentShaderAlpha;
 		fragmentShaderNoColor += coreFragmentShaderNoColor;
@@ -382,12 +382,29 @@ namespace BaconBox {
 		
     		program->sendUniform(uniforms.tex, 0);
 		
+			attributes.vertices = 0;
 		
-			attributes.vertices = program->getAttributeLocation("position");
-			attributes.texCoord = program->getAttributeLocation("texcoordIN");
-            attributes.colorOffset = program->getAttributeLocation("colorOffsetIN");
-			attributes.color = program->getAttributeLocation("colorIN");
+		rgbProgram->setAttributeLocation("position", attributes.vertices);
+		rgbProgram->setAttributeLocation("texcoordIN", attributes.texCoord);
+		rgbProgram->setAttributeLocation("colorIN", attributes.color);
+		rgbProgram->setAttributeLocation("colorOffsetIN", attributes.colorOffset);
+		rgbProgram->link();
 		
+		alphaProgram->setAttributeLocation("position", attributes.vertices);
+		alphaProgram->setAttributeLocation("texcoordIN", attributes.texCoord);
+		alphaProgram->setAttributeLocation("colorIN", attributes.color);
+		alphaProgram->setAttributeLocation("colorOffsetIN", attributes.colorOffset);
+		alphaProgram->link();
+		
+		rgbNoTransformProgram->setAttributeLocation("position", attributes.vertices);
+		rgbNoTransformProgram->setAttributeLocation("texcoordIN", attributes.texCoord);
+		rgbNoTransformProgram->link();
+		
+		alphaNoTransformProgram->setAttributeLocation("position", attributes.vertices);
+		alphaNoTransformProgram->setAttributeLocation("texcoordIN", attributes.texCoord);
+		alphaNoTransformProgram->link();
+		
+
 		
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);

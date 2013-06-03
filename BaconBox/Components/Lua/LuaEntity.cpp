@@ -14,7 +14,7 @@ namespace BaconBox {
 
 	 int LuaEntity::EMPTY_LUA_REF = -1;
 
-	LuaEntity::LuaEntity() : Component(), isClicked(false), aabbHitBox(NULL), table_index(EMPTY_LUA_REF), update_index(EMPTY_LUA_REF), render_index(EMPTY_LUA_REF), userData_index(EMPTY_LUA_REF), onPointerButtonPress_index(EMPTY_LUA_REF),
+	LuaEntity::LuaEntity() : Component(), isClicked(false), aabbHitBox(NULL), table_index(EMPTY_LUA_REF), update_index(EMPTY_LUA_REF), userData_index(EMPTY_LUA_REF), onPointerButtonPress_index(EMPTY_LUA_REF),
 		onPointerButtonHold_index(EMPTY_LUA_REF), onPointerButtonRelease_index(EMPTY_LUA_REF), onPointerMove_index(EMPTY_LUA_REF),
 	onKeyPress_index(EMPTY_LUA_REF), onKeyRelease_index(EMPTY_LUA_REF), onKeyHold_index(EMPTY_LUA_REF), onPointerMoveOut_index(EMPTY_LUA_REF){
         initializeConnections();
@@ -29,9 +29,7 @@ namespace BaconBox {
 			if(update_index != EMPTY_LUA_REF){
 				luaL_unref(L, LUA_REGISTRYINDEX, update_index);
 			}
-			if(render_index != EMPTY_LUA_REF){
-				luaL_unref(L, LUA_REGISTRYINDEX, render_index);
-			}
+
 			if(userData_index != EMPTY_LUA_REF){
 				luaL_unref(L, LUA_REGISTRYINDEX, userData_index);
 			}
@@ -83,17 +81,7 @@ namespace BaconBox {
 		}
 	}
 
-	void LuaEntity::render(){
-        if(render_index == EMPTY_LUA_REF)return;
-		lua_rawgeti(L, LUA_REGISTRYINDEX,render_index);
-		lua_rawgeti(L, LUA_REGISTRYINDEX,table_index);
-		lua_rawgeti(L, LUA_REGISTRYINDEX,userData_index);
-		int ret = lua_pcall(L, 2, 0, 0);
-		if(ret !=0){
-			std::cout << "An error occured calling render on a LuaEntity. " <<std::endl;
-			std::cout << "Error : " << lua_tostring(L, -1) << std::endl;
-		}
-	}
+
 	void LuaEntity::onKeyPress(KeySignalData data){
 		lua_rawgeti(L, LUA_REGISTRYINDEX,onKeyPress_index);
 		lua_rawgeti(L, LUA_REGISTRYINDEX,table_index);
@@ -212,17 +200,7 @@ namespace BaconBox {
 		    update_index = luaL_ref(L, LUA_REGISTRYINDEX);
 		}
 
-		if(table_index == EMPTY_LUA_REF || userData_index == EMPTY_LUA_REF) return;
-		lua_rawgeti(L, LUA_REGISTRYINDEX,table_index);
-		lua_getfield(L, -1, "render");
-		if(lua_isnil(L, -1)){
-		    lua_pop(L, -1);
 
-				render_index = EMPTY_LUA_REF;
-		}
-		else{
-		    render_index = luaL_ref(L, LUA_REGISTRYINDEX);
-		}
 
 
 		//onPointerButtonPress

@@ -6,10 +6,10 @@ CXX="$(FLASCC)/usr/bin/g++"
 
 AS3COMPILER:=asc2.jar
 BASE_CFLAGS=-Werror -Wno-write-strings -Wno-trigraphs
-DEFINE_FLAG=-DTIXML_USE_STL -DTINYXML_USE_STL -DBB_DEBUG
+DEFINE_FLAG=-DTIXML_USE_STL -DBB_DEBUG
 PROJECT_ROOT=../../..
 CUSTOM_LIB_PATH=$(wildcard $(PROJECT_ROOT)/libraries/FreeBSD/i686 $(PROJECT_ROOT)/libraries/FreeBSD/x86_64)
-LINK_FLAG=-lpng -lz -lAS3++ -lJsonBox -ltinyxml -lfreetype
+LINK_FLAG=-lpng -lz -lAS3++ -lJsonBox
 
 
 COMPC=$(FLEX)/bin/compc
@@ -202,6 +202,7 @@ BaconBox/EntityFactory.o \
 BaconBox/Symbol.o \
 BaconBox/Matrix.o \
 BaconBox/ColorMatrix.o \
+BaconBox/Platform.o \
 BaconBox/VertexArray.o
 
 FLASCC_FILE_PATH=BaconBox/Special/Flash
@@ -271,7 +272,7 @@ VFS.abc: LSOBackingStore.as URLLoaderVFS.as
 
 $(addsuffix .as3,$(SWIG_OUTPUT)) $(addsuffix .cpp,$(SWIG_OUTPUT)): $(BUILD_PATH)/build $(SWIG_INTERFACE)
 	@echo "-------- SWIG wrappers --------"
-	"$(FLASCC)/usr/bin/swig" -as3 -c++ -module $(SWIG_MODULE) -outdir . -ignoremissing $(DEFINE_FLAG) -DBB_FLASH_PLATEFORM -package BaconBox -I$(PROJECT_ROOT) -o $(addsuffix .cpp,$(SWIG_OUTPUT)) $(SWIG_INTERFACE)
+	"$(FLASCC)/usr/bin/swig" -as3 -c++ -module $(SWIG_MODULE) -outdir . -ignoremissing $(DEFINE_FLAG) -DBB_FLASH_PLATFORM -package BaconBox -I$(PROJECT_ROOT) -o $(addsuffix .cpp,$(SWIG_OUTPUT)) $(SWIG_INTERFACE)
 #	cp Entity_wrapper.cpp $(BUILD_PATH)/BaconBox/Special/Flash/
 	mv $(addsuffix .as,$(SWIG_OUTPUT)) $(addsuffix .as3,$(SWIG_OUTPUT))
 
@@ -285,7 +286,7 @@ $(addsuffix .abc,$(SWIG_OUTPUT)): $(addsuffix .as3,$(SWIG_OUTPUT))
 
 $(PROJECT_ROOT)/BaconBox/Special/Flash/$(addsuffix .cpp,$(LUA_SWIG_WRAPPER)): $(LUA_SWIG_INTERFACE)
 	@echo "-------- lua SWIG wrappers --------"
-	$(SWIG) -lua -c++ -module BaconBox -outdir . -ignoremissing $(DEFINE_FLAG) -DBB_FLASH_PLATEFORM -DBB_LUA -I$(PROJECT_ROOT) -o $(addsuffix .cpp,$(LUA_SWIG_WRAPPER)) $(LUA_SWIG_INTERFACE)
+	$(SWIG) -lua -c++ -module BaconBox -outdir . -ignoremissing $(DEFINE_FLAG) -DBB_FLASH_PLATFORM -DBB_LUA -I$(PROJECT_ROOT) -o $(addsuffix .cpp,$(LUA_SWIG_WRAPPER)) $(LUA_SWIG_INTERFACE)
 
 
 BaconBox/EntityWrapper/EntityHolderMovieClip.abc: BaconBox/EntityWrapper/EntityHolderMovieClip.as

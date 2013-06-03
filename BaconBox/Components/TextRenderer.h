@@ -21,7 +21,6 @@ namespace BaconBox {
 
 		TextRenderer(TextureFont * font);
 
-		virtual void render();
 		void update();
 
 		virtual ~TextRenderer();

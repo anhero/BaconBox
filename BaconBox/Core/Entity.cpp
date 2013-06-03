@@ -51,12 +51,6 @@ namespace BaconBox {
 		}
 	}
 
-	void Entity::render() {
-		for (std::list<Component *>::iterator i = this->components.begin(); i != this->components.end(); ++i) {
-			(*i)->render();
-		}
-	}
-
 	const std::string &Entity::getEntityName() const {
 		return IDManager::getName(this->getID());
 	}

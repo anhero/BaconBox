@@ -257,6 +257,9 @@ namespace BaconBox {
 		 * @return Array containing the four components in the order RGBA.
 		 */
 		const float *getComponents() const;
+		
+		float *getComponents();
+		
 
 		/**
 		 * Gets the color as HSV representation.

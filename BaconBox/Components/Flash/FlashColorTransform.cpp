@@ -21,6 +21,9 @@ namespace BaconBox {
 		AS3_DeclareVar(mc, *);
 		AS3::local::var tempMC = movieClipHolder->getMovieClip();
 		AS3_CopyVarxxToVar(mc, tempMC);
+		float * cm = matrix.colorMultiplier.getComponents();
+		float * co = matrix.colorOffset.getComponents();
+
 
 		inline_as3(
 			"import flash.geom.ColorTransform;"
@@ -33,8 +36,8 @@ namespace BaconBox {
 			"%5 = ct.greenOffset;\n" 
 			"%6 = ct.blueOffset;\n" 
 			"%7 = ct.alphaOffset;\n" 
-			: "=r"(matrix.matrix[0]), "=r"(matrix.matrix[6]), "=r"(matrix.matrix[12]), "=r"(matrix.matrix[18]), 
-			"=r"(matrix.matrix[4]), "=r"(matrix.matrix[9]), "=r"(matrix.matrix[14]), "=r"(matrix.matrix[19])
+			: "=r"(cm[0]), "=r"(cm[1]), "=r"(cm[2]), "=r"(cm[3]), 
+			"=r"(co[0]), "=r"(co[1]), "=r"(co[2]), "=r"(co[3])
 		);
 
 	}

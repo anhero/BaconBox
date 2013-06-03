@@ -392,7 +392,11 @@ namespace BaconBox {
 		return result;
 	}
 
-	const float *Color::getComponents() const {
+	float *Color::getComponents(){
+		return colors;
+	}
+	
+	const float *Color::getComponents() const{
 		return colors;
 	}
 

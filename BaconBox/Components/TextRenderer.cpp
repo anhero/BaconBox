@@ -36,19 +36,12 @@ namespace BaconBox {
 	}
 
 
-	void TextRenderer::render(){
+	void TextRenderer::update(){
 		if(needPositionReset){
 			internalResetPosition();
 			needPositionReset =false;
 		}
-//	    for(std::list<std::list<std::list<CharSprite> > >::iterator i = charSpritesLines.begin(); i != charSpritesLines.end(); i++){
-//		      for(std::list<std::list<CharSprite> >::iterator j = i->begin(); j != i->end(); j++){
-//			  for(std::list<CharSprite>::iterator k = j->begin(); k != j->end(); k++){
-//			      k->sprite->render();
-//			  }
-//		    }
-//		}
-		}
+	}
 
 	void TextRenderer::setColor(const Color &newColor){
 	    color = newColor;
@@ -126,13 +119,6 @@ namespace BaconBox {
 
 	void TextRenderer::resetPosition(){
 		needPositionReset = true;
-	}
-
-	void TextRenderer::update(){
-		if(needPositionReset){
-			internalResetPosition();
-			needPositionReset =false;
-		}
 	}
 
 

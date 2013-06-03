@@ -153,44 +153,16 @@ namespace BaconBox {
 		if (this->currentState || this->nextState) {
 			TimeHelper::getInstance().refreshTime();
 
-			// We update the time from TimeHelper.
-			if (!this->nextUpdate) {
-				this->nextUpdate = TimeHelper::getInstance().getSinceStartComplete();
-			}
-
-			this->loops = 0;
-
-			while (TimeHelper::getInstance().getSinceStartComplete() > this->nextUpdate &&
-			       this->loops < this->minFps) {
-				// We refresh the time.
-				TimeHelper::getInstance().refreshTime();
-
-				// We call the focus methods if needed.
-				switchToNextState();
-
-				// We update the current state.
-				this->currentState->internalUpdate();
-
-				this->renderedSinceLastUpdate = false;
-				// We update the input manager.
-				InputManager::getInstance().update();
-				// We update the timers.
-				TimerManager::update();
-				this->nextUpdate += this->updateDelay;
-				this->lastUpdate = TimeHelper::getInstance().getSinceStartComplete();
-				++this->loops;
-			}
-
-			if (!this->renderedSinceLastUpdate) {
+			
+			InputManager::getInstance().update();
 			    if(! this->currentState && this->nextState){
 				switchToNextState();
 			    }
-				this->currentState->internalRender();
+				this->currentState->internalUpdate();
 				GraphicDriver::getInstance().finalizeRender();
 				this->renderedSinceLastUpdate = true;
 				this->bufferSwapped = false;
 				this->lastRender = TimeHelper::getInstance().getSinceStartComplete();
-			}
 
 			if (static_cast<AudioEngine *>(this->soundEngine) != static_cast<AudioEngine *>(this->musicEngine)) {
 				this->soundEngine->update();
