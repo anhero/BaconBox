@@ -4,6 +4,10 @@
 #include "BaconBox/Display/Emitter/Emitter.h"
 
 namespace BaconBox {
+	/**
+	 * Represents a particle emitter that emits its particles all at the same
+	 * time, like an explosion.
+	 */
 	class Explosion : public Emitter {
 	public:
 		Explosion();

@@ -2,6 +2,10 @@
 #define BB_EMITTER_H
 
 namespace BaconBox {
+	
+	/**
+	 * Base class for particle emitters.
+	 */
 	class Emitter {
 	public:
 		static const int NONE = 0;
