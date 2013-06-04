@@ -16,7 +16,7 @@ namespace BaconBox {
 	int MeshDriverRenderer::MESSAGE_GET_RENDER_MODE = IDManager::generateID();
 	int MeshDriverRenderer::MESSAGE_SET_RENDER_MODE = IDManager::generateID();
 
-	MeshDriverRenderer::MeshDriverRenderer(int newRenderMode) : Component(), mesh(NULL), texture(NULL), colorTransform(NULL), visibility(NULL), renderMode(newRenderMode), colorMultiplier(Color::WHITE), colorOffset(Color::TRANSPARENT), color(Color::WHITE), graphicDriver(&GraphicDriver::getInstance()) {
+	MeshDriverRenderer::MeshDriverRenderer(int newRenderMode) : Component(), mesh(NULL), texture(NULL), colorTransform(NULL), visibility(NULL), renderMode(newRenderMode), colorMultiplier(Color::WHITE), colorOffset(Color::NO_COLOR), color(Color::WHITE), graphicDriver(&GraphicDriver::getInstance()) {
 		this->initializeConnections();
 	}
 
@@ -66,8 +66,8 @@ namespace BaconBox {
 				Entity *entity = this->getEntity();
 				if (entity) {
 					if (this->mesh) {
-						
-			
+
+
 						if(this->colorTransform){
 							if (this->renderMode & RenderMode::COLOR_TRANSORMED){
 								ColorMatrix &  matrix = this->colorTransform->getConcatColorMatrix();
@@ -76,11 +76,11 @@ namespace BaconBox {
 							}
 							else if(this->renderMode & RenderMode::COLOR){
 								color = this->colorTransform->getColor();
-								colorOffset = Color::TRANSPARENT;
+								colorOffset = Color::NO_COLOR;
 							}
 							else{
 								color = Color::WHITE;
-								colorOffset = Color::TRANSPARENT;
+								colorOffset = Color::NO_COLOR;
 							}
 						}
 
@@ -88,7 +88,7 @@ namespace BaconBox {
 						if (this->renderMode & RenderMode::TEXTURE) {
 							if (this->texture) {
 								// We render with the texture.
-								if(color == Color::WHITE && colorOffset == Color::TRANSPARENT){
+								if(color == Color::WHITE && colorOffset == Color::NO_COLOR){
 									graphicDriver->drawShapeWithTexture(this->mesh->getPostTransformVertices(), this->texture->getTexture(), this->texture->getTextureCoordinates(), (this->renderMode & RenderMode::BLENDED));
 								}
 								else{

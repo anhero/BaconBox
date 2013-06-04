@@ -10,12 +10,12 @@
 #include "BaconBox/Helper/MathHelper.h"
 namespace BaconBox {
 
-	ColorMatrix::ColorMatrix():colorOffset(Color::TRANSPARENT), colorMultiplier(Color::WHITE) {
+	ColorMatrix::ColorMatrix():colorOffset(Color::NO_COLOR), colorMultiplier(Color::WHITE) {
 //        matrix[0] = 1;
 //        matrix[6] = 1;
 //        matrix[12] = 1;
 //        matrix[18] = 1;
-		
+
 	}
 
 	ColorMatrix::ColorMatrix(float redMultiplier, float redOffset, float greenMultiplier, float greenOffset,
@@ -36,7 +36,7 @@ namespace BaconBox {
     }
 
     ColorMatrix::ColorMatrix(const ColorMatrix &src):colorOffset(src.colorOffset), colorMultiplier(src.colorMultiplier){
-     
+
 	}
 
 	ColorMatrix &ColorMatrix::operator=(const ColorMatrix &src) {
@@ -79,8 +79,8 @@ namespace BaconBox {
 								MathHelper::clamp((colorMultiplier.getGreen() * m.colorMultiplier.getGreen()), -1.0f, 1.0f),
 								MathHelper::clamp((colorMultiplier.getBlue() * m.colorMultiplier.getBlue()), -1.0f, 1.0f),
 								MathHelper::clamp((colorMultiplier.getAlpha() * m.colorMultiplier.getAlpha()), -1.0f, 1.0f));
-		
- 
+
+
 		temp.colorOffset.setRGBA(MathHelper::clamp((colorOffset.getRed() * m.colorMultiplier.getRed()) + m.colorOffset.getRed(), -1.0f, 1.0f),
 								 MathHelper::clamp((colorOffset.getGreen() *  m.colorMultiplier.getGreen()) + m.colorOffset.getGreen(), -1.0f, 1.0f),
 								 MathHelper::clamp((colorOffset.getBlue() *  m.colorMultiplier.getBlue()) + m.colorOffset.getBlue(), -1.0f, 1.0f),
@@ -97,8 +97,8 @@ namespace BaconBox {
 									 MathHelper::clamp((colorMultiplier.getGreen() * m.colorMultiplier.getGreen()), -1.0f, 1.0f),
 									 MathHelper::clamp((colorMultiplier.getBlue() * m.colorMultiplier.getBlue()), -1.0f, 1.0f),
 									 MathHelper::clamp((colorMultiplier.getAlpha() * m.colorMultiplier.getAlpha()), -1.0f, 1.0f));
-		
-		
+
+
 		colorOffset.setRGBA(MathHelper::clamp((colorOffset.getRed() * m.colorMultiplier.getRed()) + m.colorOffset.getRed(), -1.0f, 1.0f),
 								 MathHelper::clamp((colorOffset.getGreen() *  m.colorMultiplier.getGreen()) + m.colorOffset.getGreen(), -1.0f, 1.0f),
 								 MathHelper::clamp((colorOffset.getBlue() *  m.colorMultiplier.getBlue()) + m.colorOffset.getBlue(), -1.0f, 1.0f),
@@ -130,13 +130,13 @@ namespace BaconBox {
 	}
 
 	void ColorMatrix::serialize(Value &node, bool setName) const {
-		
+
 		}
 
 
 		bool ColorMatrix::deserialize(const Value &node) {
 
-		
+
 		}
 }
 

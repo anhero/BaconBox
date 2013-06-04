@@ -28,6 +28,7 @@ namespace BaconBox {
 		/// Maximum value a component can have.
 		static const float MAX_COMPONENT_VALUE_32 = 1.0f;
 
+
 		/// Black color (0, 0, 0, 255).
 		static const Color BLACK;
 		/// Silver color (192, 192, 192, 255).
@@ -60,8 +61,8 @@ namespace BaconBox {
 		static const Color TEAL;
 		/// Aqua color (0, 255, 255, 255).
 		static const Color AQUA;
-		/// Transparent color (0, 0, 0, 0).
-		static const Color TRANSPARENT;
+
+		static const Color NO_COLOR;
 
 		/// Enumeration for the indexes of the color's array of components.
 		enum Component {
@@ -80,7 +81,7 @@ namespace BaconBox {
 			/// Value component. Between 0 and 1.
 			float V;
 		};
-		
+
 		float normalize(int32_t component);
 
 		/**
@@ -98,7 +99,7 @@ namespace BaconBox {
 		 */
 		Color(float red, float green, float blue,
 		      float alpha = MAX_COMPONENT_VALUE);
-		
+
 		Color(int32_t red, int32_t green, int32_t blue, int32_t alpha = 255);
 
 		/**
@@ -141,10 +142,10 @@ namespace BaconBox {
 		 * @param other Other color to compare to.
 		 */
 		bool operator!=(const Color &other);
-		
+
 		Color operator*(const Color & m) const;
 		Color &operator*=(const Color& m);
-		
+
 		Color operator+(const Color & m) const;
 		Color &operator+=(const Color& m);
 
@@ -257,9 +258,9 @@ namespace BaconBox {
 		 * @return Array containing the four components in the order RGBA.
 		 */
 		const float *getComponents() const;
-		
+
 		float *getComponents();
-		
+
 
 		/**
 		 * Gets the color as HSV representation.

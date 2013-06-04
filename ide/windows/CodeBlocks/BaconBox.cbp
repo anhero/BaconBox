@@ -350,6 +350,8 @@
 		<Unit filename="../../../BaconBox/Matrix.h" />
 		<Unit filename="../../../BaconBox/MovieClipEntity/MovieClipEntity.cpp" />
 		<Unit filename="../../../BaconBox/MovieClipEntity/MovieClipEntity.h" />
+		<Unit filename="../../../BaconBox/Platform.cpp" />
+		<Unit filename="../../../BaconBox/Platform.h" />
 		<Unit filename="../../../BaconBox/PlatformFlagger.h" />
 		<Unit filename="../../../BaconBox/ResourceManager.cpp" />
 		<Unit filename="../../../BaconBox/ResourceManager.h" />
