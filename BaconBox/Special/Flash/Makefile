@@ -138,6 +138,7 @@ BaconBox/Helper/Serialization/Serializer.o \
 BaconBox/Helper/Serialization/Value.o \
 BaconBox/Helper/Serialization/JsonBox/JsonBoxSerializer.o \
 BaconBox/Helper/Serialization/RapidXml/RapidXmlSerializer.o \
+BaconBox/Helper/Lua/LuaHelper.o \
 BaconBox/Helper/Flash/FlashHelper.o
 
 INPUT_SOURCES= \

@@ -350,6 +350,8 @@
 		51903D0C17500B7B00814708 /* Vector3.h in Headers */ = {isa = PBXBuildFile; fileRef = 51903B7317500B7B00814708 /* Vector3.h */; };
 		51903D0D17500B7B00814708 /* VertexArray.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 51903B7417500B7B00814708 /* VertexArray.cpp */; };
 		51903D0E17500B7B00814708 /* VertexArray.h in Headers */ = {isa = PBXBuildFile; fileRef = 51903B7517500B7B00814708 /* VertexArray.h */; };
+		51C34E72175E645200960346 /* LuaHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 51C34E70175E645200960346 /* LuaHelper.cpp */; };
+		51C34E73175E645200960346 /* LuaHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 51C34E71175E645200960346 /* LuaHelper.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -697,6 +699,8 @@
 		51903B7417500B7B00814708 /* VertexArray.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = VertexArray.cpp; sourceTree = "<group>"; };
 		51903B7517500B7B00814708 /* VertexArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VertexArray.h; sourceTree = "<group>"; };
 		51B7424F16345CFF00DB18E1 /* libBaconBox.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libBaconBox.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		51C34E70175E645200960346 /* LuaHelper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LuaHelper.cpp; sourceTree = "<group>"; };
+		51C34E71175E645200960346 /* LuaHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LuaHelper.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1036,6 +1040,7 @@
 		51903A9417500B7B00814708 /* Helper */ = {
 			isa = PBXGroup;
 			children = (
+				51C34E6F175E645200960346 /* Lua */,
 				51903A9517500B7B00814708 /* AlgorithmHelper.h */,
 				51903A9617500B7B00814708 /* Base64.cpp */,
 				51903A9717500B7B00814708 /* Base64.h */,
@@ -1360,6 +1365,15 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		51C34E6F175E645200960346 /* Lua */ = {
+			isa = PBXGroup;
+			children = (
+				51C34E70175E645200960346 /* LuaHelper.cpp */,
+				51C34E71175E645200960346 /* LuaHelper.h */,
+			);
+			path = Lua;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -1553,6 +1567,7 @@
 				24BCFE62175BC90F00967C43 /* ParticleEmitter.h in Headers */,
 				24BCFE66175BC9E500967C43 /* Explosion.h in Headers */,
 				24BCFE6A175BD01500967C43 /* Emitter.h in Headers */,
+				51C34E73175E645200960346 /* LuaHelper.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1753,6 +1768,7 @@
 				24BCFE61175BC90F00967C43 /* ParticleEmitter.cpp in Sources */,
 				24BCFE65175BC9E500967C43 /* Explosion.cpp in Sources */,
 				24BCFE69175BD01500967C43 /* Emitter.cpp in Sources */,
+				51C34E72175E645200960346 /* LuaHelper.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
