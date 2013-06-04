@@ -14,6 +14,7 @@ struct swig_type_info;
 
 
 namespace BaconBox {
+	class MovieClipEntity;
 	class LuaEntity : public Component {
 	public:
 		BB_ID_HEADER;
@@ -27,7 +28,7 @@ namespace BaconBox {
 
 		virtual void receiveMessage(int senderID, int destID, int message, void *data);
 
-
+		void addHitMask(MovieClipEntity* entity);
 
 		void onPointerButtonPress(PointerButtonSignalData data);
 		void onPointerButtonHold(PointerButtonSignalData data);
@@ -73,6 +74,7 @@ namespace BaconBox {
 		swig_type_info* keySignalData;
 
         AABBHitBox * aabbHitBox;
+		std::list<MovieClipEntity*> masks;
 
 	};
 
@@ -82,6 +84,7 @@ namespace BaconBox {
 
 
 		LuaEntityProxy(Entity* entity, bool mustAddComponent = true);
+		void addHitMask(MovieClipEntity* entity);
 		void reloadLuaClass();
 		void setLuaClass(lua_State * L);
 	private:

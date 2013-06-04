@@ -7,6 +7,8 @@
 #include "BaconBox/Console.h"
 #include "BaconBox/Core/IDManager.h"
 
+
+#include "BaconBox/MovieClipEntity/MovieClipEntity.h"
 swig_type_info * getTypeByName(lua_State* L, const char * name);
 void pushLuaWrapperBySwigType(lua_State* L,void* ptr,swig_type_info *type,int own);
 namespace BaconBox {
@@ -81,7 +83,12 @@ namespace BaconBox {
 		}
 	}
 
+	void LuaEntity::addHitMask(MovieClipEntity* entity){
+		masks.push_back(entity);
+	}
 
+	
+	
 	void LuaEntity::onKeyPress(KeySignalData data){
 		lua_rawgeti(L, LUA_REGISTRYINDEX,onKeyPress_index);
 		lua_rawgeti(L, LUA_REGISTRYINDEX,table_index);
@@ -119,7 +126,21 @@ namespace BaconBox {
 
 
 	void LuaEntity::onPointerButtonPress(PointerButtonSignalData data){
-        if(!aabbHitBox || aabbHitBox->getAABB().overlaps(data.getPosition())){
+		bool aabbhit =false;
+		if(aabbHitBox){
+			const AxisAlignedBoundingBox & aabb = aabbHitBox->getAABB();
+			aabbhit = aabb.overlaps(data.getPosition());
+			if(aabbhit){
+				for (std::list<MovieClipEntity*>::iterator i = masks.begin(); i != masks.end(); i++) {
+					if (aabb.isCompletelyInside((*i)->getAABB())) {
+						aabbhit = false;
+						break;
+					}
+				}
+			}
+		}
+		
+        if(!aabbHitBox || aabbhit){
             lua_rawgeti(L, LUA_REGISTRYINDEX,onPointerButtonPress_index);
             lua_rawgeti(L, LUA_REGISTRYINDEX,table_index);
             pushLuaWrapperBySwigType(L, reinterpret_cast<void*>(&data), pointerButtonSignalData, 0);
@@ -133,8 +154,20 @@ namespace BaconBox {
 	}
 
 	void LuaEntity::onPointerButtonHold(PointerButtonSignalData data){
-        if(!aabbHitBox || aabbHitBox->getAABB().overlaps(data.getPosition())){
-            lua_rawgeti(L, LUA_REGISTRYINDEX,onPointerButtonHold_index);
+		bool aabbhit =false;
+		if(aabbHitBox){
+			const AxisAlignedBoundingBox & aabb = aabbHitBox->getAABB();
+			aabbhit = aabb.overlaps(data.getPosition());
+			if(aabbhit){
+				for (std::list<MovieClipEntity*>::iterator i = masks.begin(); i != masks.end(); i++) {
+					if (aabb.isCompletelyInside((*i)->getAABB())) {
+						aabbhit = false;
+						break;
+					}
+				}
+			}
+		}
+        if(!aabbHitBox || aabbhit){            lua_rawgeti(L, LUA_REGISTRYINDEX,onPointerButtonHold_index);
             lua_rawgeti(L, LUA_REGISTRYINDEX,table_index);
             pushLuaWrapperBySwigType(L, reinterpret_cast<void*>(&data), pointerButtonSignalData, 0);
             lua_rawgeti(L, LUA_REGISTRYINDEX,userData_index);
@@ -147,7 +180,20 @@ namespace BaconBox {
 	}
 
 	void LuaEntity::onPointerButtonRelease(PointerButtonSignalData data){
-        if(!aabbHitBox || aabbHitBox->getAABB().overlaps(data.getPosition())){
+        bool aabbhit =false;
+		if(aabbHitBox){
+			const AxisAlignedBoundingBox & aabb = aabbHitBox->getAABB();
+			aabbhit = aabb.overlaps(data.getPosition());
+			if(aabbhit){
+				for (std::list<MovieClipEntity*>::iterator i = masks.begin(); i != masks.end(); i++) {
+					if (aabb.isCompletelyInside((*i)->getAABB())) {
+						aabbhit = false;
+						break;
+					}
+				}
+			}
+		}
+        if(!aabbHitBox || aabbhit){
             lua_rawgeti(L, LUA_REGISTRYINDEX,onPointerButtonRelease_index);
             lua_rawgeti(L, LUA_REGISTRYINDEX,table_index);
             pushLuaWrapperBySwigType(L, reinterpret_cast<void*>(&data), pointerButtonSignalData, 0);
@@ -161,7 +207,20 @@ namespace BaconBox {
 	}
 
 	void LuaEntity::onPointerMove(PointerSignalData data){
-        if((!aabbHitBox || aabbHitBox->getAABB().overlaps(data.getPosition())) && onPointerMove_index != EMPTY_LUA_REF){
+		bool aabbhit =false;
+		if(aabbHitBox){
+			const AxisAlignedBoundingBox & aabb = aabbHitBox->getAABB();
+			aabbhit = aabb.overlaps(data.getPosition());
+			if(aabbhit){
+				for (std::list<MovieClipEntity*>::iterator i = masks.begin(); i != masks.end(); i++) {
+					if (aabb.isCompletelyInside((*i)->getAABB())) {
+						aabbhit = false;
+						break;
+					}
+				}
+			}
+		}
+        if((!aabbHitBox || aabbhit) && onPointerMove_index != EMPTY_LUA_REF){
             lua_rawgeti(L, LUA_REGISTRYINDEX,onPointerMove_index);
             lua_rawgeti(L, LUA_REGISTRYINDEX,table_index);
             pushLuaWrapperBySwigType(L, reinterpret_cast<void*>(&data), pointerSignalData, 0);
@@ -343,6 +402,10 @@ namespace BaconBox {
 	}
 
 	LuaEntityProxy::LuaEntityProxy(Entity * entity, bool mustAddComponent): BB_PROXY_CONSTRUCTOR(new LuaEntity()){
+	}
+	
+	void LuaEntityProxy::addHitMask(MovieClipEntity* entity){
+	    reinterpret_cast<LuaEntity*>(component)->addHitMask(entity);
 	}
 
 	void LuaEntityProxy::reloadLuaClass(){
