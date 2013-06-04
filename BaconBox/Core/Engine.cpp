@@ -1,5 +1,11 @@
 #include "BaconBox/Core/Engine.h"
 
+
+#ifdef BB_LUA
+#include "BaconBox/Helper/Lua/LuaHelper.h"
+#endif //BB_LUA
+
+
 namespace BaconBox {
 	const double Engine::DEFAULT_UPDATES_PER_SECOND = 60.0;
 	const std::string Engine::DEFAULT_APPLICATION_NAME = std::string("BaconBoxApp");
@@ -13,6 +19,12 @@ namespace BaconBox {
 	State *Engine::addState(State *newState) {
 		return getInstance().addState(newState);
 	}
+	
+#ifdef BB_LUA
+	State * Engine::addState(lua_State * L){
+		return Engine::addState(reinterpret_cast<State*>(LuaHelper::getEntityFromLuaEntity(L)));
+	}
+#endif //BB_LUA
 	
 	void Engine::removeState(const std::string &name) {
 		getInstance().removeState(name);

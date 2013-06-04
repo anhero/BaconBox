@@ -49,10 +49,23 @@
    return c
 end
 
-LuaState = class()
+LuaEntity = class()
+function LuaEntity:init(entity)
+  self.entity = entity
+  self.entity:setLuaClass(self)
+  for key, value in pairs(getmetatable(self.entity)[".fn"]) do
+      if self[key] == nil  and key ~=  "update" then
+        self[key] = function(self, ...) return self.entity[key](self.entity, ...);end
+      end
+  end
+end
+
+
+
+LuaState = class(LuaEntity)
 function LuaState:init(name)
-  self.state = BaconBox.State(name)
-  self.state:setLuaClass(self)
+  LuaEntity.init(self, BaconBox.State(name))
+  self.state = self.entity
 end
 }
 #endif
@@ -158,6 +171,10 @@ class FlashEngine;
 		return NULL;
 	}
 
+  int luaUserDataconvertPtr(lua_State* L,int index,void** ptr,swig_type_info *type,int flags){
+    return SWIG_Lua_ConvertPtr(L,index,ptr,type,flags);
+  }
+
   void pushLuaWrapperBySwigType(lua_State* L,void* ptr,swig_type_info *type,int own){
     SWIG_NewPointerObj(L, ptr, type, own);
   }
@@ -225,19 +242,27 @@ class FlashEngine;
 
 %typemap(arginit) SWIGTYPE *self %{
   swig_type_info * selfType = $descriptor;
+    SWIG_ConvertPtr(L,1,(void**)&$1,selfType,0);
 %}
 
+
+   %typemap(typecheck) lua_State* {
+      $1 = lua_istable(L,$input);
+    }
+
   %typemap(arginit) lua_State* %{
-    SWIG_ConvertPtr(L,1,(void**)&arg1,selfType,0);
     #ifdef IMPOSSIBLE_MACRO_JUST_TO_SKIP_SWIG_ARG_COUNT_CHECK_I_SHOULD_REALLY_FIND_A_FIX_IN_THE_NEAR_FUTURE
     %}
     
+ 
 
     %typemap(in) (lua_State*) %{ 
    #endif //IMPOSSIBLE_MACRO_JUST_TO_SKIP_SWIG_ARG_COUNT_CHECK_I_SHOULD_REALLY_FIND_A_FIX_IN_THE_NEAR_FUTURE
         
-    arg2 = L;
+    $1 = L;
     %}
+
+
 
 #endif
 

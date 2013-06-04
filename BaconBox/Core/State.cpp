@@ -12,6 +12,10 @@
 
 #include "BaconBox/Console.h"
 
+#ifdef BB_LUA
+#include "BaconBox/Helper/Lua/LuaHelper.h"
+#endif //BB_LUA
+
 namespace BaconBox {
 	BB_ID_IMPL(State);
 	
@@ -37,6 +41,7 @@ namespace BaconBox {
             this->camera->getComponent<FlashCameraManager>()->setEntityManager(fm);
 		#endif
 
+
 	}
 
 	State::~State() {
@@ -50,6 +55,12 @@ namespace BaconBox {
 	void State::add(Entity *newEntity) {
 	    sendMessage(State::ID, Entity::BROADCAST, State::MESSAGE_ADDED_ENTITY,  newEntity);
 	}
+	
+#ifdef BB_LUA
+	void State::add(lua_State * L){
+		add(LuaHelper::getEntityFromLuaEntity(L));
+	}
+#endif //BB_LUA
 
 	void State::remove(Entity *newEntity) {
 	    if (newEntity && newEntity != this->camera) {

@@ -55,6 +55,10 @@ namespace BaconBox {
 		 */
 		static State *addState(State *newState);
 		
+	#ifdef BB_LUA
+		static State * addState(lua_State * L);
+	#endif //BB_LUA
+		
 		
 		static State *getState(const std::string &name);
 		

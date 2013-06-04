@@ -15,6 +15,11 @@
 #include "BaconBox/Components/HasName.h"
 
 #include "BaconBox/Input/Pointer/Pointer.h"
+
+#ifdef BB_LUA
+struct lua_State;
+#endif //BB_LUA
+
 namespace BaconBox {
 	class Camera;
 
@@ -43,7 +48,9 @@ namespace BaconBox {
 		virtual void update();
 
 		void add(Entity *newEntity);
-
+#ifdef BB_LUA
+		void add(lua_State * L);
+#endif //BB_LUA
 		void remove(Entity *newEntity);
 
 		Camera &getCamera();
