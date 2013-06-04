@@ -6,7 +6,7 @@ CXX="$(FLASCC)/usr/bin/g++"
 
 AS3COMPILER:=asc2.jar
 BASE_CFLAGS=-Werror -Wno-write-strings -Wno-trigraphs
-DEFINE_FLAG=-DTIXML_USE_STL -DBB_DEBUG
+DEFINE_FLAG=-DBB_DEBUG
 PROJECT_ROOT=../../..
 CUSTOM_LIB_PATH=$(wildcard $(PROJECT_ROOT)/libraries/FreeBSD/i686 $(PROJECT_ROOT)/libraries/FreeBSD/x86_64)
 LINK_FLAG=-lpng -lz -lAS3++ -lJsonBox
