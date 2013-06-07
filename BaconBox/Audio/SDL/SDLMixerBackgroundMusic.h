@@ -21,7 +21,7 @@ namespace BaconBox {
 	 * @ingroup Audio
 	 */
 	class SDLMixerBackgroundMusic : public BackgroundMusic,
-		public sigly::HasSlots<> {
+		public sigly::HasSlots<sigly::SingleThreaded> {
 		friend class SDLMixerEngine;
 		friend class sigly::Signal1<unsigned int>;
 	public:

@@ -67,11 +67,39 @@ function LuaState:init(name)
   LuaEntity.init(self, BaconBox.State(name))
   self.state = self.entity
 end
+
+function printTable(table)
+  for k,v in pairs(table) do
+    print(k,v)
+  end
+end
+
+
+function printUserData(userdata)
+  local meta = getmetatable(userdata)
+  print("Printing function of", userdata)
+  print("--- Function ---")
+  printTable(meta[".fn"])
+
+  print("--- Set ---")
+  printTable(meta[".set"])
+
+  print("--- Get ---")
+  printTable(meta[".get"]) 
+
+end
+
 }
 #endif
 
 
 %{
+
+
+  #ifdef BB_LUA
+    #include "BaconBox/Script/Lua/LuaCallback.h"
+    #include "BaconBox/Helper/Lua/LuaHelper.h"
+  #endif
 
   #include "BaconBox/Helper/SafeEnum.h"
   #include "BaconBox/Platform.h"
@@ -106,6 +134,8 @@ end
   #include "BaconBox/Input/Pointer/PointerState.h"
   #include "BaconBox/Input/Pointer/PointerSignalData.h"
   #include "BaconBox/Input/Pointer/PointerButtonSignalData.h"
+  #include "BaconBox/Input/Pointer/Pointer.h"
+
 
 	#include "BaconBox/Core/Component.h"
 	#include "BaconBox/Core/Entity.h"
@@ -206,6 +236,8 @@ class FlashEngine;
 
         return 1;
 	}
+
+  
 	#endif
 
 class SoundInfo;
@@ -220,6 +252,10 @@ class SoundInfo;
 #include "BaconBox/Audio/BackgroundMusic.h"
 
 %}
+
+%ignore Color::operator uint32_t() const;
+
+
 namespace BaconBox{
 class BaseEngine;
 
@@ -246,7 +282,8 @@ class FlashEngine;
 %}
 
 
-   %typemap(typecheck) lua_State* {
+
+   %typecheck(SWIG_TYPECHECK_POINTER)lua_State* {
       $1 = lua_istable(L,$input);
     }
 
@@ -267,7 +304,7 @@ class FlashEngine;
 #endif
 
 
-
+#pragma SWIG nowarn=325
 
 
 
@@ -293,14 +330,97 @@ class FlashEngine;
 
 #endif
 
+
+
+
+
+%include "sigly.h"
+
+
+
+%template(HasSlots_SingleThreaded) sigly::HasSlots< sigly::SingleThreaded >;
+%template(signal_base) sigly::_signal_base< sigly::SingleThreaded >;
+
+%template(signal_base0)sigly::_signal_base0< sigly::SingleThreaded >;
+%template(signal) sigly::Signal0< sigly::SingleThreaded >;
+
+%template(signal_base1_KeySignalData)sigly::_signal_base1< BaconBox::KeySignalData,sigly::SingleThreaded >;
+%template(signal_KeySignalData) sigly::Signal1< BaconBox::KeySignalData,sigly::SingleThreaded >;
+
+%template(signal_base1_KeyMaskSignalData)sigly::_signal_base1< BaconBox::KeyMaskSignalData,sigly::SingleThreaded >;
+%template(signal_KeyMaskSignalData) sigly::Signal1< BaconBox::KeyMaskSignalData,sigly::SingleThreaded >;
+
+
+
+%template(signal_base1_PointerSignalData)sigly::_signal_base1< BaconBox::PointerSignalData,sigly::SingleThreaded >;
+%template(signal_PointerSignalData) sigly::Signal1< BaconBox::PointerSignalData,sigly::SingleThreaded >;
+
+%template(signal_base1_PointerButtonSignalData)sigly::_signal_base1< BaconBox::PointerButtonSignalData,sigly::SingleThreaded >;
+%template(signal_PointerButtonSignalData) sigly::Signal1< BaconBox::PointerButtonSignalData,sigly::SingleThreaded >;
+
+
+%template(signal_base1_void)sigly::_signal_base1< void*,sigly::SingleThreaded >;
+%template(signal_void) sigly::Signal1< void*,sigly::SingleThreaded >;
+
+%extend  sigly::_signal_base<sigly::SingleThreaded> {
+  void connect(lua_State*L, const std::string & type = ""){
+    int paramCount = 0;
+    while(lua_isstring(L, -1)) {
+      paramCount++;
+      lua_pop (L, 1);
+    }
+    BaconBox::LuaCallback * cb = new BaconBox::LuaCallback(L, type);
+
+    switch(paramCount){
+      case 0:
+        BaconBox::LuaHelper::connectSignal0(L, cb);
+        break;
+      case 1:
+        BaconBox::LuaHelper::connectSignal1(L, cb);
+        break;
+    }
+  }
+
+   void disconnectCB(lua_State*L){
+      if(lua_isuserdata(L,-2) && lua_istable(L,-1) ){
+        lua_getfield(L, -1, "disconnect");
+        lua_pushvalue(L, -2);
+        lua_pushvalue(L, -4);
+        sigly::Signal1<void*> * signal = reinterpret_cast<sigly::Signal1<void*> *>(BaconBox::LuaHelper::getPointerFromLuaUserData(L, false));
+        lua_pushlightuserdata(L, signal);
+
+        int ret = lua_pcall(L, 3, 0, 0);
+        if(ret !=0){
+          std::cout << "An error occured calling disconnect() on a lua Callback in disconnectCB. " <<std::endl;
+          std::cout << "Error : " << lua_tostring(L, -1) << std::endl;
+        }
+        lua_pop (L, 2);
+      }
+      else{
+        Console__error("disconnectCB wasn't able to disconnect signal, wrong parameter were given.");
+      }
+  }
+};
+
+namespace BaconBox{
+class MovieClipEntity;
+}
+
+#ifdef BB_LUA
+  %include "BaconBox/Script/Lua/LuaCallback.h"
+#endif
+
 %include "BaconBox/Helper/SafeEnum.h"
 
 
 
 %include "BaconBox/Core/Component.h"
 
-%include "BaconBox/Components/HasName.h"
+%include "BaconBox/Components/UIManager.h"
+%include "BaconBox/Components/Clickable.h"
 
+
+%include "BaconBox/Components/HasName.h"
 
 %include "BaconBox/Core/Entity.h"
 %include "BaconBox/Display/Color.h"
@@ -358,6 +478,7 @@ namespace BaconBox{
 
 }
 
+%include "BaconBox/Matrix.h"
 
 %include "BaconBox/PlatformFlagger.h"
 %include "BaconBox/Platform.h"
@@ -368,19 +489,39 @@ namespace BaconBox{
 %include "BaconBox/Display/Window/WindowOrientation.h"
 %include "BaconBox/Display/Window/MainWindow.h"
 
+%include "BaconBox/Input/InputSignalData.h"
+
+%include "BaconBox/Input/InputDevice.h"
+
 %include "BaconBox/Input/Keyboard/Key.h"
 %include "BaconBox/Input/Keyboard/KeyboardState.h"
+%include "BaconBox/Input/Keyboard/KeyboardSignalData.h"
 %include "BaconBox/Input/Keyboard/KeySignalData.h"
 %include "BaconBox/Input/Keyboard/KeyMaskSignalData.h"
+
+
+
+
+%immutable BaconBox::Keyboard::keyPress;
+%immutable BaconBox::Keyboard::keyHold;
+%immutable BaconBox::Keyboard::keyRelease;
+%immutable BaconBox::Keyboard::keyMaskPress;
+%immutable BaconBox::Keyboard::keyMaskHold;
+%immutable BaconBox::Keyboard::keyMaskRelease;
 %include "BaconBox/Input/Keyboard/Keyboard.h"
 
 %include "BaconBox/Input/Pointer/CursorButton.h"
 
-%include "BaconBox/Input/InputSignalData.h"
 %include "BaconBox/Input/Pointer/CursorState.h"
 %include "BaconBox/Input/Pointer/PointerState.h"
 %include "BaconBox/Input/Pointer/PointerSignalData.h"
 %include "BaconBox/Input/Pointer/PointerButtonSignalData.h"
+
+%immutable BaconBox::Pointer::buttonPress;
+%immutable BaconBox::Pointer::buttonHold;
+%immutable BaconBox::Pointer::buttonRelease;
+%immutable BaconBox::Pointer::move;
+%include "BaconBox/Input/Pointer/Pointer.h"
 
 %include "BaconBox/Components/Transform.h"
 %include "BaconBox/AxisAlignedBoundingBox.h"
@@ -402,11 +543,15 @@ namespace BaconBox{
 #if defined(BB_LUA)
 %include "BaconBox/Components/Lua/LuaEntity.h"
 #endif
-%include "BaconBox/MovieClipEntity/MovieClipEntity.h"
+
+
+%include "BaconBox/Components/MatrixComponent.h"
 %include "BaconBox/Display/Camera.h"
 
 %include "BaconBox/Core/State.h"
 
+
+%immutable BaconBox::Engine::onInitialize;
 %include "BaconBox/Core/Engine.h"
 
 %include "BaconBox/Audio/AudioState.h"
@@ -423,7 +568,12 @@ namespace BaconBox{
 %include "BaconBox/Display/Text/Font.h"
 
 %include "BaconBox/Display/Text/TextAlignment.h"
+%include "BaconBox/Symbol.h"
+%include "BaconBox/Components/SymbolComponent.h"
+
 %include "BaconBox/Components/TextComponent.h"
+%include "BaconBox/MovieClipEntity/MovieClipEntity.h"
+
 %include "BaconBox/Display/Text/TextEntity.h"
 
 

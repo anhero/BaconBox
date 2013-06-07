@@ -17,7 +17,7 @@ namespace BaconBox {
 	void EntityContainer::receiveMessage(int senderID, int destID, int message, void *data) {
 	    this->Component::receiveMessage(senderID, destID, message, data);
 	    if(senderID != State::ID){
-            if(message == State::MESSAGE_LOSE_FOCUS || message == State::MESSAGE_GET_FOCUS){
+            if(message == State::MESSAGE_LOST_FOCUS || message == State::MESSAGE_GET_FOCUS){
                 this->propagateMessage(senderID, destID, message, data);
             }
 	    }

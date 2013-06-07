@@ -19,7 +19,7 @@ namespace BaconBox {
 		friend class Pointer;
 	public:
 		/// Default number of cursors a pointer's state has.
-		static const size_t DEFAULT_NB_CURSORS = 1;
+		static const size_t DEFAULT_NB_CURSORS;
 
 		/**
 		 * Parameterizable default constructor.

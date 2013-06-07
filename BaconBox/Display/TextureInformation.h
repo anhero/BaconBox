@@ -24,9 +24,10 @@ namespace BaconBox {
 		 * @param t Texture to output in the ostream.
 		 * @return Resulting ostream.
 		 */
+#ifndef SWIG
 		friend std::ostream &operator<<(std::ostream &output,
 		                                const TextureInformation &t);
-
+#endif
 		/**
 		 * Default constructor.
 		 */

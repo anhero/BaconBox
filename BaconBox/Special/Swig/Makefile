@@ -1,11 +1,12 @@
 SWIG:=`which swig`
+HEADERS_PATH:=../../../libraries/Darwin/x86_64/include
 
 
 all: BaconBoxLua.cpp
 
 
 BaconBoxLua.cpp: BaconBox.i
-	$(SWIG) -lua -c++ -module BaconBox -outdir . -ignoremissing -DTIXML_USE_STL -DTINYXML_USE_STL -DBB_OPENGL -DBB_LUA -I../../.. -o BaconBoxLua.cpp BaconBox.i
+	$(SWIG) -lua -c++ -module BaconBox -outdir . -ignoremissing  -DBB_OPENGL -DBB_LUA -I../../.. -I$(HEADERS_PATH)  -o BaconBoxLua.cpp BaconBox.i
 
 clean:
 	rm -rf BaconBoxLua.cpp

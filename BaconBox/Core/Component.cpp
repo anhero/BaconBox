@@ -11,7 +11,7 @@ namespace BaconBox {
     
 	BB_ID_IMPL(Component);
 	
-	Component::Component() : entity(NULL), sigly::HasSlots<>() {
+	Component::Component() : entity(NULL), sigly::HasSlots<sigly::SingleThreaded>() {
 	}
 	
 	Component::Component(const Component &src) : entity(NULL) {

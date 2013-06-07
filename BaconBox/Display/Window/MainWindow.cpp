@@ -87,7 +87,7 @@ namespace BaconBox {
 		}
 	}
 	
-	MainWindow::MainWindow() : sigly::HasSlots<>(), resolutionWidth(0), resolutionHeight(0),
+	MainWindow::MainWindow() : sigly::HasSlots<sigly::SingleThreaded>(), resolutionWidth(0), resolutionHeight(0),
 		contextWidth(0), contextHeight(0), orientation(WindowOrientation::NORMAL) {
 		Engine::onInitialize.connect(this, &MainWindow::onBaconBoxInit);
 	}

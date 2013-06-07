@@ -47,8 +47,10 @@ namespace BaconBox {
 		
 	bool deserialize(const Value &node);
 
-	static bool isValidValue(const Value &node);	
+	static bool isValidValue(const Value &node);
+#ifndef SWIG
 	friend  std::ostream &operator<<(std::ostream &output, const Matrix& m);
+#endif
     };
     
 	

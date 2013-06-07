@@ -6,6 +6,8 @@
 
 using namespace BaconBox;
 
+const size_t PointerState::DEFAULT_NB_CURSORS = 1;
+
 PointerState::PointerState(size_t nbCursors):
 	InputState(), cursors(std::vector<CursorState>(nbCursors, CursorState())) {
 }
