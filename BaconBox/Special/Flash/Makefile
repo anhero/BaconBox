@@ -6,11 +6,11 @@ CXX="$(FLASCC)/usr/bin/g++"
 
 AS3COMPILER:=asc2.jar
 BASE_CFLAGS=-Werror -Wno-write-strings -Wno-trigraphs
-DEFINE_FLAG=-DBB_DEBUG
+DEFINE_FLAG=-DBB_DEBUG -DSIGLY_DEFAULT_MT_POLICY=SingleThreaded
 PROJECT_ROOT=../../..
 CUSTOM_LIB_PATH=$(wildcard $(PROJECT_ROOT)/libraries/FreeBSD/i686 $(PROJECT_ROOT)/libraries/FreeBSD/x86_64)
 LINK_FLAG=-lpng -lz -lAS3++ -lJsonBox
-
+SWIG_HEADERS_PATH:=../../../libraries/Darwin/x86_64/include
 
 COMPC=$(FLEX)/bin/compc
 
@@ -65,6 +65,8 @@ BaconBox/Components/Mesh.o \
 BaconBox/Components/Transform.o \
 BaconBox/Components/HasName.o \
 BaconBox/Components/TextComponent.o \
+BaconBox/Components/Clickable.o \
+BaconBox/Components/UIManager.o \
 BaconBox/Components/EntityManager.o \
 BaconBox/Components/ComponentAddedData.o \
 BaconBox/Components/ColorTransform.o \
@@ -139,6 +141,7 @@ BaconBox/Helper/Serialization/Value.o \
 BaconBox/Helper/Serialization/JsonBox/JsonBoxSerializer.o \
 BaconBox/Helper/Serialization/RapidXml/RapidXmlSerializer.o \
 BaconBox/Helper/Lua/LuaHelper.o \
+BaconBox/Script/Lua/LuaCallback.o \
 BaconBox/Helper/Flash/FlashHelper.o
 
 INPUT_SOURCES= \
@@ -287,7 +290,7 @@ $(addsuffix .abc,$(SWIG_OUTPUT)): $(addsuffix .as3,$(SWIG_OUTPUT))
 
 $(PROJECT_ROOT)/BaconBox/Special/Flash/$(addsuffix .cpp,$(LUA_SWIG_WRAPPER)): $(LUA_SWIG_INTERFACE)
 	@echo "-------- lua SWIG wrappers --------"
-	$(SWIG) -lua -c++ -module BaconBox -outdir . -ignoremissing $(DEFINE_FLAG) -DBB_FLASH_PLATFORM -DBB_LUA -I$(PROJECT_ROOT) -o $(addsuffix .cpp,$(LUA_SWIG_WRAPPER)) $(LUA_SWIG_INTERFACE)
+	$(SWIG) -lua -c++ -module BaconBox -outdir . -ignoremissing $(DEFINE_FLAG) -DBB_FLASH_PLATFORM -DBB_LUA -I$(PROJECT_ROOT) -I$(SWIG_HEADERS_PATH) -o $(addsuffix .cpp,$(LUA_SWIG_WRAPPER)) $(LUA_SWIG_INTERFACE)
 
 
 BaconBox/EntityWrapper/EntityHolderMovieClip.abc: BaconBox/EntityWrapper/EntityHolderMovieClip.as

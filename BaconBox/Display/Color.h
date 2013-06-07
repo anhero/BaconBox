@@ -71,7 +71,7 @@ namespace BaconBox {
 		    B,
 		    A
 		};
-
+//#ifndef SWIG
 		/// HSV color components.
 		struct HSV {
 			/// Hue component. Between 0 and 360 degrees.
@@ -81,6 +81,7 @@ namespace BaconBox {
 			/// Value component. Between 0 and 1.
 			float V;
 		};
+//#endif
 
 		float normalize(int32_t component);
 
@@ -152,8 +153,10 @@ namespace BaconBox {
 		/**
 		 * Operator to cast the color into one component.
 		 */
-		operator uint32_t() const;
+#ifndef SWIG
 
+		operator uint32_t() const;
+#endif
 		unsigned int getRGBA() const;
 		unsigned int getRGB() const;
 		/**
@@ -339,9 +342,11 @@ namespace BaconBox {
 		/// Color components.
 		float colors[NB_COMPONENTS];
 	};
+#ifndef SWIG
 #pragma pack()
 	std::ostream &operator<<(std::ostream &output,
 	                         const Color &color);
+#endif
 }
 
 #endif

@@ -14,7 +14,7 @@ namespace BaconBox {
 	int Entity::MESSAGE_ADD_COMPONENT = IDManager::generateID();
 	int Entity::MESSAGE_REMOVE_COMPONENT = IDManager::generateID();
 
-	Entity::Entity() : components(), sigly::HasSlots<>() {
+	Entity::Entity() : components(), sigly::HasSlots<sigly::SingleThreaded>() {
 	}
 
 	Entity::Entity(const Entity &src) : components() {

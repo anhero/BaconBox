@@ -23,9 +23,9 @@ namespace BaconBox {
 	const int State::MESSAGE_ADDED_ENTITY = IDManager::generateID("State::MESSAGE_ADDED_ENTITY");
 	const int State::MESSAGE_REMOVED_ENTITY = IDManager::generateID("State::MESSAGE_REMOVED_ENTITY");
 	const int State::MESSAGE_GET_FOCUS = IDManager::generateID("State::MESSAGE_GET_FOCUS");
-	const int State::MESSAGE_LOSE_FOCUS = IDManager::generateID("State::MESSAGE_LOSE_FOCUS");
+	const int State::MESSAGE_LOST_FOCUS = IDManager::generateID("State::MESSAGE_LOST_FOCUS");
 
-	State::State(const std::string &newName) : Entity(), HasNameProxy(this, newName)
+	State::State(const std::string &newName) : Entity(), HasNameProxy(this, newName), UIManagerProxy(this)
 	#ifdef BB_LUA
 	, LuaEntityProxy(this)
 	#endif //BB_LUA
@@ -96,6 +96,6 @@ namespace BaconBox {
 
 	void State::internalOnLoseFocus() {
 		onLoseFocus();
-		sendMessage(State::ID, Entity::BROADCAST, State::MESSAGE_LOSE_FOCUS,  NULL);
+		sendMessage(State::ID, Entity::BROADCAST, State::MESSAGE_LOST_FOCUS,  NULL);
 	}
 }

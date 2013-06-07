@@ -30,16 +30,19 @@ namespace BaconBox {
 
 		void addHitMask(MovieClipEntity* entity);
 
-		void onPointerButtonPress(PointerButtonSignalData data);
-		void onPointerButtonHold(PointerButtonSignalData data);
-		void onPointerButtonRelease(PointerButtonSignalData data);
-		void onPointerMove(PointerSignalData data);
-
-		void onKeyPress(KeySignalData data);
-		void onKeyRelease(KeySignalData data);
-		void onKeyHold(KeySignalData data);
+//		void onPointerButtonPress(PointerButtonSignalData data);
+//		void onPointerButtonHold(PointerButtonSignalData data);
+//		void onPointerButtonRelease(PointerButtonSignalData data);
+//		void onPointerMove(PointerSignalData data);
+//
+//		void onKeyPress(KeySignalData data);
+//		void onKeyRelease(KeySignalData data);
+//		void onKeyHold(KeySignalData data);
 
 	private:
+		
+		void onLostFocus();
+		void onGetFocus();
 
         void initializeConnections();
 
@@ -51,18 +54,22 @@ namespace BaconBox {
 		int table_index;
 		int update_index;
 		int userData_index;
+		
+		int onGetFocus_index;
+		int onLostFocus_index;
+		int receiveMessage_index;
 
-		int onPointerButtonPress_index;
-		int onPointerButtonHold_index;
-		int onPointerButtonRelease_index;
-		int onPointerMove_index;
-
-        int onPointerMoveOut_index;
-
-
-		int onKeyPress_index;
-		int onKeyRelease_index;
-		int onKeyHold_index;
+//		int onPointerButtonPress_index;
+//		int onPointerButtonHold_index;
+//		int onPointerButtonRelease_index;
+//		int onPointerMove_index;
+//
+//        int onPointerMoveOut_index;
+//
+//
+//		int onKeyPress_index;
+//		int onKeyRelease_index;
+//		int onKeyHold_index;
 
 
 		lua_State * L;

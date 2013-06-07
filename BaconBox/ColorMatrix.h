@@ -39,8 +39,9 @@ namespace BaconBox {
 	void serialize(Value &node, bool setName = true) const;
 
 	bool deserialize(const Value &node);
-
+#ifndef SWIG
 	friend  std::ostream &operator<<(std::ostream &output, const ColorMatrix& m);
+#endif
     };
 
 

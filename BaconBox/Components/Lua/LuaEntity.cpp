@@ -16,9 +16,7 @@ namespace BaconBox {
 
 	 int LuaEntity::EMPTY_LUA_REF = -1;
 
-	LuaEntity::LuaEntity() : Component(), isClicked(false), aabbHitBox(NULL), table_index(EMPTY_LUA_REF), update_index(EMPTY_LUA_REF), userData_index(EMPTY_LUA_REF), onPointerButtonPress_index(EMPTY_LUA_REF),
-		onPointerButtonHold_index(EMPTY_LUA_REF), onPointerButtonRelease_index(EMPTY_LUA_REF), onPointerMove_index(EMPTY_LUA_REF),
-	onKeyPress_index(EMPTY_LUA_REF), onKeyRelease_index(EMPTY_LUA_REF), onKeyHold_index(EMPTY_LUA_REF), onPointerMoveOut_index(EMPTY_LUA_REF){
+	LuaEntity::LuaEntity() : Component(), isClicked(false), aabbHitBox(NULL), table_index(EMPTY_LUA_REF), update_index(EMPTY_LUA_REF), userData_index(EMPTY_LUA_REF), onGetFocus_index(EMPTY_LUA_REF), onLostFocus_index(EMPTY_LUA_REF), receiveMessage_index(EMPTY_LUA_REF) {
         initializeConnections();
 	}
 	LuaEntity::~LuaEntity(){
@@ -35,34 +33,46 @@ namespace BaconBox {
 			if(userData_index != EMPTY_LUA_REF){
 				luaL_unref(L, LUA_REGISTRYINDEX, userData_index);
 			}
-
-			if(onPointerButtonPress_index != EMPTY_LUA_REF){
-				luaL_unref(L, LUA_REGISTRYINDEX, onPointerButtonPress_index);
+			
+			if(onGetFocus_index != EMPTY_LUA_REF){
+				luaL_unref(L, LUA_REGISTRYINDEX, onGetFocus_index);
 			}
-			if(onPointerButtonHold_index != EMPTY_LUA_REF){
-				luaL_unref(L, LUA_REGISTRYINDEX, onPointerButtonHold_index);
+			
+			if(onLostFocus_index != EMPTY_LUA_REF){
+				luaL_unref(L, LUA_REGISTRYINDEX, onLostFocus_index);
 			}
-			if(onPointerButtonRelease_index != EMPTY_LUA_REF){
-				luaL_unref(L, LUA_REGISTRYINDEX, onPointerButtonRelease_index);
+			
+			if(receiveMessage_index != EMPTY_LUA_REF){
+				luaL_unref(L, LUA_REGISTRYINDEX, receiveMessage_index);
 			}
-			if(onPointerMove_index != EMPTY_LUA_REF){
-				luaL_unref(L, LUA_REGISTRYINDEX, onPointerMove_index);
-			}
-			if(onPointerMoveOut_index != EMPTY_LUA_REF){
-				luaL_unref(L, LUA_REGISTRYINDEX, onPointerMoveOut_index);
-			}
-
-
-
-			if(onKeyPress_index != EMPTY_LUA_REF){
-				luaL_unref(L, LUA_REGISTRYINDEX, onKeyPress_index);
-			}
-			if(onKeyRelease_index != EMPTY_LUA_REF){
-				luaL_unref(L, LUA_REGISTRYINDEX, onKeyRelease_index);
-			}
-			if(onKeyHold_index != EMPTY_LUA_REF){
-				luaL_unref(L, LUA_REGISTRYINDEX, onKeyHold_index);
-			}
+			
+//			if(onPointerButtonPress_index != EMPTY_LUA_REF){
+//				luaL_unref(L, LUA_REGISTRYINDEX, onPointerButtonPress_index);
+//			}
+//			if(onPointerButtonHold_index != EMPTY_LUA_REF){
+//				luaL_unref(L, LUA_REGISTRYINDEX, onPointerButtonHold_index);
+//			}
+//			if(onPointerButtonRelease_index != EMPTY_LUA_REF){
+//				luaL_unref(L, LUA_REGISTRYINDEX, onPointerButtonRelease_index);
+//			}
+//			if(onPointerMove_index != EMPTY_LUA_REF){
+//				luaL_unref(L, LUA_REGISTRYINDEX, onPointerMove_index);
+//			}
+//			if(onPointerMoveOut_index != EMPTY_LUA_REF){
+//				luaL_unref(L, LUA_REGISTRYINDEX, onPointerMoveOut_index);
+//			}
+//
+//
+//
+//			if(onKeyPress_index != EMPTY_LUA_REF){
+//				luaL_unref(L, LUA_REGISTRYINDEX, onKeyPress_index);
+//			}
+//			if(onKeyRelease_index != EMPTY_LUA_REF){
+//				luaL_unref(L, LUA_REGISTRYINDEX, onKeyRelease_index);
+//			}
+//			if(onKeyHold_index != EMPTY_LUA_REF){
+//				luaL_unref(L, LUA_REGISTRYINDEX, onKeyHold_index);
+//			}
 		}
 	}
 
@@ -89,160 +99,170 @@ namespace BaconBox {
 
 	
 	
-	void LuaEntity::onKeyPress(KeySignalData data){
-		lua_rawgeti(L, LUA_REGISTRYINDEX,onKeyPress_index);
+	void LuaEntity::onGetFocus(){
+		lua_rawgeti(L, LUA_REGISTRYINDEX,onGetFocus_index);
 		lua_rawgeti(L, LUA_REGISTRYINDEX,table_index);
-		pushLuaWrapperBySwigType(L, reinterpret_cast<void*>(&data), keySignalData, 0);
 		lua_rawgeti(L, LUA_REGISTRYINDEX,userData_index);
-		int ret = lua_pcall(L, 3, 0, 0);
+		int ret = lua_pcall(L, 2, 0, 0);
 		if(ret !=0){
-			std::cout << "An error occured calling onKeyPress in a LuaEntity. " <<std::endl;
+			std::cout << "An error occured calling onGetFocus in a LuaEntity. " <<std::endl;
 			std::cout << "Error : " << lua_tostring(L, -1) << std::endl;
 		}
 	}
-
-	void LuaEntity::onKeyRelease(KeySignalData data){
-		lua_rawgeti(L, LUA_REGISTRYINDEX,onKeyRelease_index);
+	
+	void LuaEntity::onLostFocus(){
+		lua_rawgeti(L, LUA_REGISTRYINDEX,onLostFocus_index);
 		lua_rawgeti(L, LUA_REGISTRYINDEX,table_index);
-		pushLuaWrapperBySwigType(L, reinterpret_cast<void*>(&data), keySignalData, 0);
 		lua_rawgeti(L, LUA_REGISTRYINDEX,userData_index);
-		int ret = lua_pcall(L, 3, 0, 0);
+		int ret = lua_pcall(L, 2, 0, 0);
 		if(ret !=0){
-			std::cout << "An error occured calling onKeyRelease in a LuaEntity. " <<std::endl;
+			std::cout << "An error occured calling onLostFocus in a LuaEntity. " <<std::endl;
 			std::cout << "Error : " << lua_tostring(L, -1) << std::endl;
 		}
 	}
-	void LuaEntity::onKeyHold(KeySignalData data){
-		lua_rawgeti(L, LUA_REGISTRYINDEX,onKeyHold_index);
-		lua_rawgeti(L, LUA_REGISTRYINDEX,table_index);
-		pushLuaWrapperBySwigType(L, reinterpret_cast<void*>(&data), keySignalData, 0);
-		lua_rawgeti(L, LUA_REGISTRYINDEX,userData_index);
-		int ret = lua_pcall(L, 3, 0, 0);
-		if(ret !=0){
-			std::cout << "An error occured calling onKeyHold in a LuaEntity. " <<std::endl;
-			std::cout << "Error : " << lua_tostring(L, -1) << std::endl;
-		}
-	}
-
-
-	void LuaEntity::onPointerButtonPress(PointerButtonSignalData data){
-		bool aabbhit =false;
-		if(aabbHitBox){
-			const AxisAlignedBoundingBox & aabb = aabbHitBox->getAABB();
-			aabbhit = aabb.overlaps(data.getPosition());
-			if(aabbhit){
-				for (std::list<MovieClipEntity*>::iterator i = masks.begin(); i != masks.end(); i++) {
-					if (aabb.isCompletelyInside((*i)->getAABB())) {
-						aabbhit = false;
-						break;
-					}
-				}
-			}
-		}
-		
-        if(!aabbHitBox || aabbhit){
-            lua_rawgeti(L, LUA_REGISTRYINDEX,onPointerButtonPress_index);
-            lua_rawgeti(L, LUA_REGISTRYINDEX,table_index);
-            pushLuaWrapperBySwigType(L, reinterpret_cast<void*>(&data), pointerButtonSignalData, 0);
-            lua_rawgeti(L, LUA_REGISTRYINDEX,userData_index);
-            int ret = lua_pcall(L, 3, 0, 0);
-            if(ret !=0){
-                std::cout << "An error occured calling onPointerButtonPress in a LuaEntity. " <<std::endl;
-                std::cout << "Error : " << lua_tostring(L, -1) << std::endl;
-            }
-        }
-	}
-
-	void LuaEntity::onPointerButtonHold(PointerButtonSignalData data){
-		bool aabbhit =false;
-		if(aabbHitBox){
-			const AxisAlignedBoundingBox & aabb = aabbHitBox->getAABB();
-			aabbhit = aabb.overlaps(data.getPosition());
-			if(aabbhit){
-				for (std::list<MovieClipEntity*>::iterator i = masks.begin(); i != masks.end(); i++) {
-					if (aabb.isCompletelyInside((*i)->getAABB())) {
-						aabbhit = false;
-						break;
-					}
-				}
-			}
-		}
-        if(!aabbHitBox || aabbhit){            lua_rawgeti(L, LUA_REGISTRYINDEX,onPointerButtonHold_index);
-            lua_rawgeti(L, LUA_REGISTRYINDEX,table_index);
-            pushLuaWrapperBySwigType(L, reinterpret_cast<void*>(&data), pointerButtonSignalData, 0);
-            lua_rawgeti(L, LUA_REGISTRYINDEX,userData_index);
-            int ret = lua_pcall(L, 3, 0, 0);
-            if(ret !=0){
-                std::cout << "An error occured calling onPointerButtonHold in a LuaEntity. " <<std::endl;
-                std::cout << "Error : " << lua_tostring(L, -1) << std::endl;
-            }
-        }
-	}
-
-	void LuaEntity::onPointerButtonRelease(PointerButtonSignalData data){
-        bool aabbhit =false;
-		if(aabbHitBox){
-			const AxisAlignedBoundingBox & aabb = aabbHitBox->getAABB();
-			aabbhit = aabb.overlaps(data.getPosition());
-			if(aabbhit){
-				for (std::list<MovieClipEntity*>::iterator i = masks.begin(); i != masks.end(); i++) {
-					if (aabb.isCompletelyInside((*i)->getAABB())) {
-						aabbhit = false;
-						break;
-					}
-				}
-			}
-		}
-        if(!aabbHitBox || aabbhit){
-            lua_rawgeti(L, LUA_REGISTRYINDEX,onPointerButtonRelease_index);
-            lua_rawgeti(L, LUA_REGISTRYINDEX,table_index);
-            pushLuaWrapperBySwigType(L, reinterpret_cast<void*>(&data), pointerButtonSignalData, 0);
-            lua_rawgeti(L, LUA_REGISTRYINDEX,userData_index);
-            int ret = lua_pcall(L, 3, 0, 0);
-            if(ret !=0){
-                std::cout << "An error occured calling onPointerButtonRelease in a LuaEntity. " <<std::endl;
-                std::cout << "Error : " << lua_tostring(L, -1) << std::endl;
-            }
-        }
-	}
-
-	void LuaEntity::onPointerMove(PointerSignalData data){
-		bool aabbhit =false;
-		if(aabbHitBox){
-			const AxisAlignedBoundingBox & aabb = aabbHitBox->getAABB();
-			aabbhit = aabb.overlaps(data.getPosition());
-			if(aabbhit){
-				for (std::list<MovieClipEntity*>::iterator i = masks.begin(); i != masks.end(); i++) {
-					if (aabb.isCompletelyInside((*i)->getAABB())) {
-						aabbhit = false;
-						break;
-					}
-				}
-			}
-		}
-        if((!aabbHitBox || aabbhit) && onPointerMove_index != EMPTY_LUA_REF){
-            lua_rawgeti(L, LUA_REGISTRYINDEX,onPointerMove_index);
-            lua_rawgeti(L, LUA_REGISTRYINDEX,table_index);
-            pushLuaWrapperBySwigType(L, reinterpret_cast<void*>(&data), pointerSignalData, 0);
-            lua_rawgeti(L, LUA_REGISTRYINDEX,userData_index);
-            int ret = lua_pcall(L, 3, 0, 0);
-            if(ret !=0){
-                std::cout << "An error occured calling onPointerMove in a LuaEntity. " <<std::endl;
-                std::cout << "Error : " << lua_tostring(L, -1) << std::endl;
-            }
-        }
-        else if(aabbHitBox && onPointerMoveOut_index != EMPTY_LUA_REF){
-            lua_rawgeti(L, LUA_REGISTRYINDEX,onPointerMoveOut_index);
-            lua_rawgeti(L, LUA_REGISTRYINDEX,table_index);
-            pushLuaWrapperBySwigType(L, reinterpret_cast<void*>(&data), pointerSignalData, 0);
-            lua_rawgeti(L, LUA_REGISTRYINDEX,userData_index);
-            int ret = lua_pcall(L, 3, 0, 0);
-            if(ret !=0){
-                std::cout << "An error occured calling onPointerMove in a LuaEntity. " <<std::endl;
-                std::cout << "Error : " << lua_tostring(L, -1) << std::endl;
-            }
-        }
-	}
+//
+//	void LuaEntity::onKeyRelease(KeySignalData data){
+//		lua_rawgeti(L, LUA_REGISTRYINDEX,onKeyRelease_index);
+//		lua_rawgeti(L, LUA_REGISTRYINDEX,table_index);
+//		pushLuaWrapperBySwigType(L, reinterpret_cast<void*>(&data), keySignalData, 0);
+//		lua_rawgeti(L, LUA_REGISTRYINDEX,userData_index);
+//		int ret = lua_pcall(L, 3, 0, 0);
+//		if(ret !=0){
+//			std::cout << "An error occured calling onKeyRelease in a LuaEntity. " <<std::endl;
+//			std::cout << "Error : " << lua_tostring(L, -1) << std::endl;
+//		}
+//	}
+//	void LuaEntity::onKeyHold(KeySignalData data){
+//		lua_rawgeti(L, LUA_REGISTRYINDEX,onKeyHold_index);
+//		lua_rawgeti(L, LUA_REGISTRYINDEX,table_index);
+//		pushLuaWrapperBySwigType(L, reinterpret_cast<void*>(&data), keySignalData, 0);
+//		lua_rawgeti(L, LUA_REGISTRYINDEX,userData_index);
+//		int ret = lua_pcall(L, 3, 0, 0);
+//		if(ret !=0){
+//			std::cout << "An error occured calling onKeyHold in a LuaEntity. " <<std::endl;
+//			std::cout << "Error : " << lua_tostring(L, -1) << std::endl;
+//		}
+//	}
+//
+//
+//	void LuaEntity::onPointerButtonPress(PointerButtonSignalData data){
+//		bool aabbhit =false;
+//		if(aabbHitBox){
+//			const AxisAlignedBoundingBox & aabb = aabbHitBox->getAABB();
+//			aabbhit = aabb.overlaps(data.getPosition());
+//			if(aabbhit){
+//				for (std::list<MovieClipEntity*>::iterator i = masks.begin(); i != masks.end(); i++) {
+//					if (aabb.isCompletelyInside((*i)->getAABB())) {
+//						aabbhit = false;
+//						break;
+//					}
+//				}
+//			}
+//		}
+//		
+//        if(!aabbHitBox || aabbhit){
+//            lua_rawgeti(L, LUA_REGISTRYINDEX,onPointerButtonPress_index);
+//            lua_rawgeti(L, LUA_REGISTRYINDEX,table_index);
+//            pushLuaWrapperBySwigType(L, reinterpret_cast<void*>(&data), pointerButtonSignalData, 0);
+//            lua_rawgeti(L, LUA_REGISTRYINDEX,userData_index);
+//            int ret = lua_pcall(L, 3, 0, 0);
+//            if(ret !=0){
+//                std::cout << "An error occured calling onPointerButtonPress in a LuaEntity. " <<std::endl;
+//                std::cout << "Error : " << lua_tostring(L, -1) << std::endl;
+//            }
+//        }
+//	}
+//
+//	void LuaEntity::onPointerButtonHold(PointerButtonSignalData data){
+//		bool aabbhit =false;
+//		if(aabbHitBox){
+//			const AxisAlignedBoundingBox & aabb = aabbHitBox->getAABB();
+//			aabbhit = aabb.overlaps(data.getPosition());
+//			if(aabbhit){
+//				for (std::list<MovieClipEntity*>::iterator i = masks.begin(); i != masks.end(); i++) {
+//					if (aabb.isCompletelyInside((*i)->getAABB())) {
+//						aabbhit = false;
+//						break;
+//					}
+//				}
+//			}
+//		}
+//        if(!aabbHitBox || aabbhit){            lua_rawgeti(L, LUA_REGISTRYINDEX,onPointerButtonHold_index);
+//            lua_rawgeti(L, LUA_REGISTRYINDEX,table_index);
+//            pushLuaWrapperBySwigType(L, reinterpret_cast<void*>(&data), pointerButtonSignalData, 0);
+//            lua_rawgeti(L, LUA_REGISTRYINDEX,userData_index);
+//            int ret = lua_pcall(L, 3, 0, 0);
+//            if(ret !=0){
+//                std::cout << "An error occured calling onPointerButtonHold in a LuaEntity. " <<std::endl;
+//                std::cout << "Error : " << lua_tostring(L, -1) << std::endl;
+//            }
+//        }
+//	}
+//
+//	void LuaEntity::onPointerButtonRelease(PointerButtonSignalData data){
+//        bool aabbhit =false;
+//		if(aabbHitBox){
+//			const AxisAlignedBoundingBox & aabb = aabbHitBox->getAABB();
+//			aabbhit = aabb.overlaps(data.getPosition());
+//			if(aabbhit){
+//				for (std::list<MovieClipEntity*>::iterator i = masks.begin(); i != masks.end(); i++) {
+//					if (aabb.isCompletelyInside((*i)->getAABB())) {
+//						aabbhit = false;
+//						break;
+//					}
+//				}
+//			}
+//		}
+//        if(!aabbHitBox || aabbhit){
+//            lua_rawgeti(L, LUA_REGISTRYINDEX,onPointerButtonRelease_index);
+//            lua_rawgeti(L, LUA_REGISTRYINDEX,table_index);
+//            pushLuaWrapperBySwigType(L, reinterpret_cast<void*>(&data), pointerButtonSignalData, 0);
+//            lua_rawgeti(L, LUA_REGISTRYINDEX,userData_index);
+//            int ret = lua_pcall(L, 3, 0, 0);
+//            if(ret !=0){
+//                std::cout << "An error occured calling onPointerButtonRelease in a LuaEntity. " <<std::endl;
+//                std::cout << "Error : " << lua_tostring(L, -1) << std::endl;
+//            }
+//        }
+//	}
+//
+//	void LuaEntity::onPointerMove(PointerSignalData data){
+//		bool aabbhit =false;
+//		if(aabbHitBox){
+//			const AxisAlignedBoundingBox & aabb = aabbHitBox->getAABB();
+//			aabbhit = aabb.overlaps(data.getPosition());
+//			if(aabbhit){
+//				for (std::list<MovieClipEntity*>::iterator i = masks.begin(); i != masks.end(); i++) {
+//					if (aabb.isCompletelyInside((*i)->getAABB())) {
+//						aabbhit = false;
+//						break;
+//					}
+//				}
+//			}
+//		}
+//        if((!aabbHitBox || aabbhit) && onPointerMove_index != EMPTY_LUA_REF){
+//            lua_rawgeti(L, LUA_REGISTRYINDEX,onPointerMove_index);
+//            lua_rawgeti(L, LUA_REGISTRYINDEX,table_index);
+//            pushLuaWrapperBySwigType(L, reinterpret_cast<void*>(&data), pointerSignalData, 0);
+//            lua_rawgeti(L, LUA_REGISTRYINDEX,userData_index);
+//            int ret = lua_pcall(L, 3, 0, 0);
+//            if(ret !=0){
+//                std::cout << "An error occured calling onPointerMove in a LuaEntity. " <<std::endl;
+//                std::cout << "Error : " << lua_tostring(L, -1) << std::endl;
+//            }
+//        }
+//        else if(aabbHitBox && onPointerMoveOut_index != EMPTY_LUA_REF){
+//            lua_rawgeti(L, LUA_REGISTRYINDEX,onPointerMoveOut_index);
+//            lua_rawgeti(L, LUA_REGISTRYINDEX,table_index);
+//            pushLuaWrapperBySwigType(L, reinterpret_cast<void*>(&data), pointerSignalData, 0);
+//            lua_rawgeti(L, LUA_REGISTRYINDEX,userData_index);
+//            int ret = lua_pcall(L, 3, 0, 0);
+//            if(ret !=0){
+//                std::cout << "An error occured calling onPointerMove in a LuaEntity. " <<std::endl;
+//                std::cout << "Error : " << lua_tostring(L, -1) << std::endl;
+//            }
+//        }
+//	}
 
 	void LuaEntity::reloadLuaClass(){
 		disconnectAll();
@@ -258,110 +278,40 @@ namespace BaconBox {
 		else{
 		    update_index = luaL_ref(L, LUA_REGISTRYINDEX);
 		}
-
-
-
-
-		//onPointerButtonPress
+		
 		lua_rawgeti(L, LUA_REGISTRYINDEX,table_index);
-		lua_getfield(L, -1, "onPointerButtonPress");
+		lua_getfield(L, -1, "onGetFocus");
 		if(lua_isnil(L, -1)){
 		    lua_pop(L, -1);
-				onPointerButtonPress_index = EMPTY_LUA_REF;
+			
+			onGetFocus_index = EMPTY_LUA_REF;
 		}
 		else{
-
-		    onPointerButtonPress_index = luaL_ref(L, LUA_REGISTRYINDEX);
-			Pointer::connectButtonPress(this, &LuaEntity::onPointerButtonPress);
+		   onGetFocus_index = luaL_ref(L, LUA_REGISTRYINDEX);
 		}
-
-		//onPointerButtonHold
+		
 		lua_rawgeti(L, LUA_REGISTRYINDEX,table_index);
-		lua_getfield(L, -1, "onPointerButtonHold");
+		lua_getfield(L, -1, "onLostFocus");
 		if(lua_isnil(L, -1)){
 		    lua_pop(L, -1);
-			onPointerButtonHold_index = EMPTY_LUA_REF;
+			
+			onLostFocus_index = EMPTY_LUA_REF;
 		}
 		else{
-		    onPointerButtonHold_index = luaL_ref(L, LUA_REGISTRYINDEX);
-			Pointer::connectButtonHold(this, &LuaEntity::onPointerButtonHold);
+		    onLostFocus_index = luaL_ref(L, LUA_REGISTRYINDEX);
 		}
-
-		//onPointerButtonRelease
+		
 		lua_rawgeti(L, LUA_REGISTRYINDEX,table_index);
-		lua_getfield(L, -1, "onPointerButtonRelease");
+		lua_getfield(L, -1, "receiveMessage");
 		if(lua_isnil(L, -1)){
 		    lua_pop(L, -1);
-			onPointerButtonRelease_index = EMPTY_LUA_REF;
+			
+			receiveMessage_index = EMPTY_LUA_REF;
 		}
 		else{
-		    onPointerButtonRelease_index = luaL_ref(L, LUA_REGISTRYINDEX);
-			Pointer::connectButtonRelease(this, &LuaEntity::onPointerButtonRelease);
+		   receiveMessage_index = luaL_ref(L, LUA_REGISTRYINDEX);
 		}
 
-		//onPointerMove
-		lua_rawgeti(L, LUA_REGISTRYINDEX,table_index);
-		lua_getfield(L, -1, "onPointerMove");
-		if(lua_isnil(L, -1)){
-		    lua_pop(L, -1);
-			onPointerMove_index = EMPTY_LUA_REF;
-		}
-		else{
-		    onPointerMove_index = luaL_ref(L, LUA_REGISTRYINDEX);
-			Pointer::connectMove(this, &LuaEntity::onPointerMove);
-		}
-
-		//onPointerMoveOut
-		lua_rawgeti(L, LUA_REGISTRYINDEX,table_index);
-		lua_getfield(L, -1, "onPointerMoveOut");
-		if(lua_isnil(L, -1)){
-		    lua_pop(L, -1);
-			onPointerMoveOut_index = EMPTY_LUA_REF;
-		}
-		else{
-		    onPointerMoveOut_index = luaL_ref(L, LUA_REGISTRYINDEX);
-			Pointer::connectMove(this, &LuaEntity::onPointerMove);
-		}
-
-
-
-		//onKeyPress
-		lua_rawgeti(L, LUA_REGISTRYINDEX,table_index);
-		lua_getfield(L, -1, "onKeyPress");
-		if(lua_isnil(L, -1)){
-		    lua_pop(L, -1);
-			onKeyPress_index = EMPTY_LUA_REF;
-		}
-		else{
-		    onKeyPress_index = luaL_ref(L, LUA_REGISTRYINDEX);
-			Keyboard::connectKeyPress(this, &LuaEntity::onKeyPress);
-		}
-
-
-		//onKeyRelease
-		lua_rawgeti(L, LUA_REGISTRYINDEX,table_index);
-		lua_getfield(L, -1, "onKeyRelease");
-		if(lua_isnil(L, -1)){
-		    lua_pop(L, -1);
-			onKeyRelease_index = EMPTY_LUA_REF;
-		}
-		else{
-		    onKeyRelease_index = luaL_ref(L, LUA_REGISTRYINDEX);
-			Keyboard::connectKeyRelease(this, &LuaEntity::onKeyRelease);
-		}
-
-
-		//onKeyHold
-		lua_rawgeti(L, LUA_REGISTRYINDEX,table_index);
-		lua_getfield(L, -1, "onKeyHold");
-		if(lua_isnil(L, -1)){
-		    lua_pop(L, -1);
-			onKeyHold_index = EMPTY_LUA_REF;
-		}
-		else{
-		    onKeyHold_index = luaL_ref(L, LUA_REGISTRYINDEX);
-			Keyboard::connectKeyHold(this, &LuaEntity::onKeyHold);
-		}
 	}
 
 	void LuaEntity::setLuaClass(lua_State * L){
@@ -382,23 +332,28 @@ namespace BaconBox {
 		pointerButtonSignalData = getTypeByName(L, "PointerButtonSignalData");
 		pointerSignalData = getTypeByName(L, "PointerSignalData");
 		keySignalData = getTypeByName(L, "KeySignalData");
-	    if(getEntity() == Engine::getCurrentState()) this->reloadLuaClass();
+	    this->reloadLuaClass();
 	}
 
 	void LuaEntity::receiveMessage(int senderID, int destID, int message, void *data) {
         Component::receiveMessage(senderID, destID, message, data);
 
 	    if(senderID == State::ID){
-		if(message == State::MESSAGE_LOSE_FOCUS){
-		    disconnectAll();
+		if(message == State::MESSAGE_LOST_FOCUS && onLostFocus_index != EMPTY_LUA_REF){
+			onLostFocus();
+//		    disconnectAll();
 
 		}
-		else if(message == State::MESSAGE_GET_FOCUS){
-
-		    reloadLuaClass();
+		else if(message == State::MESSAGE_GET_FOCUS && onGetFocus_index != EMPTY_LUA_REF){
+			onGetFocus();
+//		    reloadLuaClass();
 		}
 
 	    }
+		if(receiveMessage_index != EMPTY_LUA_REF){
+			//call lua receiveMessage
+		}
+
 	}
 
 	LuaEntityProxy::LuaEntityProxy(Entity * entity, bool mustAddComponent): BB_PROXY_CONSTRUCTOR(new LuaEntity()){

@@ -18,7 +18,7 @@ namespace BaconBox {
 	 * and would shoot a swipe signal when needed.
 	 * @ingroup Events
 	 */
-	class SignalAnalyzer : public sigly::HasSlots<> {
+	class SignalAnalyzer : public sigly::HasSlots<sigly::SingleThreaded> {
 	public:
 		/**
 		 * Default constructor.

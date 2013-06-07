@@ -17,7 +17,7 @@ namespace BaconBox {
 	 * the basic properties of the main window.
 	 * @ingroup WindowDisplay
 	 */
-	class MainWindow : public sigly::HasSlots<> {
+	class MainWindow : public sigly::HasSlots<sigly::SingleThreaded> {
 		friend class BaseEngine;
 	public:
 		/// Default name given to all new main windows.

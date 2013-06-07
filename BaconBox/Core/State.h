@@ -15,7 +15,7 @@
 #include "BaconBox/Components/HasName.h"
 
 #include "BaconBox/Input/Pointer/Pointer.h"
-
+#include "BaconBox/Components/UIManager.H"
 #ifdef BB_LUA
 struct lua_State;
 #endif //BB_LUA
@@ -24,7 +24,7 @@ namespace BaconBox {
 	class Camera;
 
 	class State : public Entity,
-		public HasNameProxy 
+		public HasNameProxy, public UIManagerProxy
 #ifdef BB_LUA
 , public LuaEntityProxy
 #endif //BB_LUA
@@ -36,7 +36,7 @@ namespace BaconBox {
 		static const int MESSAGE_ADDED_ENTITY;
 		static const int MESSAGE_REMOVED_ENTITY;
 		static const int MESSAGE_GET_FOCUS;
-		static const int MESSAGE_LOSE_FOCUS;
+		static const int MESSAGE_LOST_FOCUS;
 
 		static const std::string DEFAULT_NAME;
 

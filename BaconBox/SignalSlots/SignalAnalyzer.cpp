@@ -2,7 +2,7 @@
 
 using namespace BaconBox;
 
-SignalAnalyzer::SignalAnalyzer() : sigly::HasSlots<>() {
+SignalAnalyzer::SignalAnalyzer() : sigly::HasSlots<sigly::SingleThreaded>() {
 }
 
 SignalAnalyzer::~SignalAnalyzer() {

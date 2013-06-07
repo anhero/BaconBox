@@ -16,6 +16,12 @@
 		24BCFE69175BD01500967C43 /* Emitter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 24BCFE67175BD01400967C43 /* Emitter.cpp */; };
 		24BCFE6A175BD01500967C43 /* Emitter.h in Headers */ = {isa = PBXBuildFile; fileRef = 24BCFE68175BD01400967C43 /* Emitter.h */; };
 		24CD5A9916347EE9001EB407 /* libJsonBox.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 24CD5A9716347EE8001EB407 /* libJsonBox.a */; };
+		511A55B3176230C600CBEF43 /* UIManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 511A55B1176230C600CBEF43 /* UIManager.cpp */; };
+		511A55B4176230C600CBEF43 /* UIManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 511A55B2176230C600CBEF43 /* UIManager.h */; };
+		511A55B717623AAD00CBEF43 /* Clickable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 511A55B517623AAD00CBEF43 /* Clickable.cpp */; };
+		511A55B817623AAD00CBEF43 /* Clickable.h in Headers */ = {isa = PBXBuildFile; fileRef = 511A55B617623AAD00CBEF43 /* Clickable.h */; };
+		514C46A2175E972B003D098F /* LuaCallback.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 514C46A0175E972B003D098F /* LuaCallback.cpp */; };
+		514C46A3175E972B003D098F /* LuaCallback.h in Headers */ = {isa = PBXBuildFile; fileRef = 514C46A1175E972B003D098F /* LuaCallback.h */; };
 		5153CCE01698A80A00431A19 /* libfreetype.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5153CCDF1698A80A00431A19 /* libfreetype.a */; };
 		5153CCE31698A82A00431A19 /* libpng.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5153CCE21698A82A00431A19 /* libpng.a */; };
 		5153CCE81698A86E00431A19 /* libogg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5153CCE61698A86E00431A19 /* libogg.a */; };
@@ -364,6 +370,12 @@
 		24BCFE67175BD01400967C43 /* Emitter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Emitter.cpp; path = Emitter/Emitter.cpp; sourceTree = "<group>"; };
 		24BCFE68175BD01400967C43 /* Emitter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Emitter.h; path = Emitter/Emitter.h; sourceTree = "<group>"; };
 		24CD5A9716347EE8001EB407 /* libJsonBox.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libJsonBox.a; path = libraries/Darwin/x86_64/lib/libJsonBox.a; sourceTree = "<group>"; };
+		511A55B1176230C600CBEF43 /* UIManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UIManager.cpp; sourceTree = "<group>"; };
+		511A55B2176230C600CBEF43 /* UIManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIManager.h; sourceTree = "<group>"; };
+		511A55B517623AAD00CBEF43 /* Clickable.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Clickable.cpp; sourceTree = "<group>"; };
+		511A55B617623AAD00CBEF43 /* Clickable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Clickable.h; sourceTree = "<group>"; };
+		514C46A0175E972B003D098F /* LuaCallback.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LuaCallback.cpp; sourceTree = "<group>"; };
+		514C46A1175E972B003D098F /* LuaCallback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LuaCallback.h; sourceTree = "<group>"; };
 		5153CCDF1698A80A00431A19 /* libfreetype.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libfreetype.a; path = libraries/Darwin/x86_64/lib/libfreetype.a; sourceTree = "<group>"; };
 		5153CCE21698A82A00431A19 /* libpng.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpng.a; path = libraries/Darwin/x86_64/lib/libpng.a; sourceTree = SOURCE_ROOT; };
 		5153CCE61698A86E00431A19 /* libogg.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libogg.a; path = libraries/Darwin/x86_64/lib/libogg.a; sourceTree = "<group>"; };
@@ -850,6 +862,10 @@
 		519039E117500B7B00814708 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				511A55B517623AAD00CBEF43 /* Clickable.cpp */,
+				511A55B617623AAD00CBEF43 /* Clickable.h */,
+				511A55B1176230C600CBEF43 /* UIManager.cpp */,
+				511A55B2176230C600CBEF43 /* UIManager.h */,
 				519039E217500B7B00814708 /* AABBHitBox.cpp */,
 				519039E317500B7B00814708 /* AABBHitBox.h */,
 				519039E417500B7B00814708 /* Batch.cpp */,
@@ -1313,6 +1329,8 @@
 		51903B5317500B7B00814708 /* Lua */ = {
 			isa = PBXGroup;
 			children = (
+				514C46A0175E972B003D098F /* LuaCallback.cpp */,
+				514C46A1175E972B003D098F /* LuaCallback.h */,
 				51903B5417500B7B00814708 /* LuaManager.cpp */,
 				51903B5517500B7B00814708 /* LuaManager.h */,
 			);
@@ -1568,6 +1586,9 @@
 				24BCFE66175BC9E500967C43 /* Explosion.h in Headers */,
 				24BCFE6A175BD01500967C43 /* Emitter.h in Headers */,
 				51C34E73175E645200960346 /* LuaHelper.h in Headers */,
+				514C46A3175E972B003D098F /* LuaCallback.h in Headers */,
+				511A55B4176230C600CBEF43 /* UIManager.h in Headers */,
+				511A55B817623AAD00CBEF43 /* Clickable.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1769,6 +1790,9 @@
 				24BCFE65175BC9E500967C43 /* Explosion.cpp in Sources */,
 				24BCFE69175BD01500967C43 /* Emitter.cpp in Sources */,
 				51C34E72175E645200960346 /* LuaHelper.cpp in Sources */,
+				514C46A2175E972B003D098F /* LuaCallback.cpp in Sources */,
+				511A55B3176230C600CBEF43 /* UIManager.cpp in Sources */,
+				511A55B717623AAD00CBEF43 /* Clickable.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1785,6 +1809,7 @@
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
@@ -1795,6 +1820,7 @@
 					"BB_LUA=1",
 					"DEBUG=1",
 					"$(inherited)",
+					"SIGLY_DEFAULT_MT_POLICY=SingleThreaded",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_VERSION = "";
@@ -1802,6 +1828,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				LLVM_LTO = NO;
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
@@ -1821,17 +1848,20 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_INPUT_FILETYPE = sourcecode.cpp.cpp;
-				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_OPTIMIZATION_LEVEL = s;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"SDL=1",
 					"BB_LUA=1",
+					"SIGLY_DEFAULT_MT_POLICY=SingleThreaded",
 				);
 				GCC_VERSION = "";
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				LLVM_LTO = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				SDKROOT = macosx;
 			};
