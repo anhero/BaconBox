@@ -18,7 +18,6 @@ namespace BaconBox {
 		BB_ID_HEADER;
 		friend class MatrixComponent;
 
-
 		/// Message ID to use when requesting the entity's position.
 		static int MESSAGE_GET_POSITION;
 		/// Message ID to use when requesting the entity's rotation angle.
@@ -37,8 +36,6 @@ namespace BaconBox {
 		static int MESSAGE_ROTATION_CHANGED;
 		/// Message ID the component sends when its entity's scale values have changed.
 		static int MESSAGE_SCALE_CHANGED;
-
-
 
 		/**
 		 * Default constructor.
@@ -115,16 +112,11 @@ namespace BaconBox {
 		 */
 		void setScale(const Vector2 &newScale, bool withMessage = true);
 
-
-
 	private:
-
-
-
-	    	/**
-		 * Entity's position. All rotations and scaling are applied from this
-		 * point.
-		 */
+		/**
+		* Entity's position. All rotations and scaling are applied from this
+		* point.
+		*/
 		Vector2 position;
 
 		/**
@@ -136,7 +128,6 @@ namespace BaconBox {
 		 * Entity's horizontal and vertical scale values.
 		 */
 		Vector2 scale;
-
 	};
 
 
@@ -144,13 +135,10 @@ namespace BaconBox {
 	public:
 		TransformProxy(Entity *entity, bool mustAddComponent = true);
 
-
-
 		const Vector2 &getPosition() const;
 		void setPosition(const Vector2 &newPosition);
 
-        const Vector2 &getRealPosition() const;
-
+		const Vector2 &getRealPosition() const;
 
 		float getRotation() const;
 		void setRotation(float newRotation);
@@ -160,7 +148,7 @@ namespace BaconBox {
 
 
 	protected:
-	    void setTransform(Transform * transform);
+		void setTransform(Transform *transform);
 	};
 }
 

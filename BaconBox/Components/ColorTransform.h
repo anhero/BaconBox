@@ -6,7 +6,9 @@
 #include "BaconBox/ColorMatrix.h"
 
 namespace BaconBox {
-
+	/**
+	 * The ColorTransform component determines the entity's color.
+	 */
 	class ColorTransform : public Component {
 	public:
 		BB_ID_HEADER;
@@ -20,10 +22,10 @@ namespace BaconBox {
 		virtual void setColorOffset(float r, float g, float b, float a) = 0;
 
 		const Color &getColor();
-		virtual ColorMatrix & getConcatColorMatrix() = 0;
+		virtual ColorMatrix &getConcatColorMatrix() = 0;
 
 	private:
-	    Color color;
+		Color color;
 
 	};
 
@@ -35,10 +37,10 @@ namespace BaconBox {
 		void setColorMultiplier(float r, float g, float b, float a = 1.0f);
 		void setColorOffset(float r, float g, float b, float a);
 		const Color &getColor();
-		ColorMatrix & getConcatColorMatrix();
-		ColorTransform * getColorTransform();
+		ColorMatrix &getConcatColorMatrix();
+		ColorTransform *getColorTransform();
 	protected:
-	    void setColorTransform(ColorTransform * colorTransform);
+		void setColorTransform(ColorTransform *colorTransform);
 
 	};
 }

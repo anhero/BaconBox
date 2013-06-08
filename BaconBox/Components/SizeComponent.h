@@ -4,18 +4,19 @@
 #include "BaconBox/Core/Component.h"
 #include "BaconBox/Vector2.h"
 #include "BaconBox/Core/Entity.h"
-namespace BaconBox {
 
-class SizeComponent : public Component {
-    public:
-    	BB_ID_HEADER;
-        SizeComponent();
-        virtual float getWidth() = 0;
-        virtual float getHeight() = 0;
-        virtual Vector2 getSize();
-    protected:
-    private:
-};
+namespace BaconBox {
+	/**
+	 * The SizeComponent determines the width and height of an entity.
+	 */
+	class SizeComponent : public Component {
+	public:
+		BB_ID_HEADER;
+		SizeComponent();
+		virtual float getWidth() = 0;
+		virtual float getHeight() = 0;
+		virtual Vector2 getSize();
+	};
 
 
 	class SizeComponentProxy : public ComponentProxy {
@@ -26,7 +27,7 @@ class SizeComponent : public Component {
 		Vector2 getSize();
 
 	protected:
-	    	void setSizeComponent(SizeComponent * sizeComponent);
+		void setSizeComponent(SizeComponent *sizeComponent);
 
 	};
 }

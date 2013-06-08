@@ -10,9 +10,9 @@
 #include "BaconBox/Components/ComponentConnection.h"
 
 namespace BaconBox {
-
-    class Transform;
-
+	
+	class Transform;
+	
 	/**
 	 * Component that manages the entity's position, orientation and scaling
 	 * values.
@@ -24,27 +24,25 @@ namespace BaconBox {
 
 		MatrixComponent();
 
-		virtual void setMatrix(const Matrix & m);
-		virtual Matrix & getMatrix() = 0;
+		virtual void setMatrix(const Matrix &m);
+		virtual Matrix &getMatrix() = 0;
 		virtual Matrix getConcatMatrix() = 0;
 
-
 	protected:
-	    void initializeConnections();
-	    Transform * transform;
-
+		void initializeConnections();
+		Transform *transform;
 	};
 
 	class MatrixComponentProxy : public ComponentProxy {
 	public:
 		MatrixComponentProxy(Entity *entity);
-        MatrixComponent * getMatrixComponent();
-		void setMatrix(const Matrix & m);
-		Matrix & getMatrix();
+		MatrixComponent *getMatrixComponent();
+		void setMatrix(const Matrix &m);
+		Matrix &getMatrix();
 		Matrix getConcatMatrix();
 
 	protected:
-	    	void setMatrixComponent(MatrixComponent * matrixComponent);
+		void setMatrixComponent(MatrixComponent *matrixComponent);
 
 	};
 }

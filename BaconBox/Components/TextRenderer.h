@@ -9,39 +9,39 @@
 #include "BaconBox/Display/Text/TextAlignment.h"
 #include "TextComponent.h"
 #include "BaconBox/Helper/String32.h"
+
 namespace BaconBox {
-    class TextureFont;
-    struct CharSprite;
+	
+	class TextureFont;
+	struct CharSprite;
 
 	class TextRenderer : public Component {
 	public:
 		BB_ID_HEADER;
 
-
-
-		TextRenderer(TextureFont * font);
+		TextRenderer(TextureFont *font);
+		
+		virtual ~TextRenderer();
 
 		void update();
-
-		virtual ~TextRenderer();
 		void initializeConnections();
-		void setText(const std::string & text);
+		void setText(const std::string &text);
 		void setColor(const Color &newColor);
 
 		virtual void receiveMessage(int senderID, int destID, int message, void *data);
 	protected:
-	    		void setEntity(Entity *newEntity);
+		void setEntity(Entity *newEntity);
 
 	private:
 		Color color;
 		std::list<std::list<std::list<CharSprite> > > charSpritesLines;
 		void resetPosition();
 		void internalResetPosition();
-		TextureFont * font;
+		TextureFont *font;
 		TextAlignment::type alignment;
-		TextComponent* textComponent;
+		TextComponent *textComponent;
 		bool isWordJump(Char32 charCode);
-		void lineJump (Vector2 & newLineJump, Vector2 & advance, std::list<CharSprite> &charSpritesForAlignmentAdjust);
+		void lineJump(Vector2 &newLineJump, Vector2 &advance, std::list<CharSprite> &charSpritesForAlignmentAdjust);
 		bool needPositionReset;
 	};
 
