@@ -1,4 +1,4 @@
-#include "Emitter.h"
+#include "BaconBox/Display/Emitter.h"
 
 #include "BaconBox/Helper/Random.h"
 

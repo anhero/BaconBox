@@ -2,7 +2,7 @@
 #define BB_EXPLOSION_H
 
 #include "BaconBox/Core/Component.h"
-#include "BaconBox/Display/Emitter/Emitter.h"
+#include "BaconBox/Display/Emitter.h"
 
 namespace BaconBox {
 	/**
