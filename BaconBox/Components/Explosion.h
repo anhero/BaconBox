@@ -21,19 +21,33 @@ namespace BaconBox {
 		
 		Explosion &operator=(const Explosion &src);
 		
-		virtual void update();
+		virtual Explosion *clone() const;
 		
+		/**
+		 * Makes the explosion emit all of its particles.
+		 */
 		void explode();
+		
+		int getMinNbParticlesToShoot() const;
+		void setMinNbParticlesToShoot(int newMinNbParticlesToShoot);
+		
+		int getMaxNbParticlesToShoot() const;
+		void setMaxNbParticlesToShoot(int newMaxNbParticlesToShoot);
+		
+		using Emitter::emitParticle;
+		
+	protected:
+		void emitParticle(double lifetime, float force, float angle, float angularVelocity, int rotationDirection);
 	private:
 		/**
 		 * The minimum number of particles that will be spawned every explosion.
 		 */
-		unsigned int minEmission;
+		int minNbParticlesToShoot;
 		
 		/**
 		 * The maximum number of particles that will be spawned every explosion.
 		 */
-		unsigned int maxEmission;
+		int maxNbParticlesToShoot;
 	};
 }
 

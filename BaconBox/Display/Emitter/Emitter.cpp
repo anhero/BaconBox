@@ -1,5 +1,7 @@
 #include "Emitter.h"
 
+#include "BaconBox/Helper/Random.h"
+
 namespace BaconBox {
 	Emitter::Emitter() : minLifetime(0.2), maxLifetime(0.8), minForce(20.0), maxForce(40.0), minAngle(-180.0), maxAngle(180.0), minAngularVelocity(0.0), maxAngularVelocity(0.0), rotationDirection(Emitter::NONE) {
 	}
@@ -87,5 +89,14 @@ namespace BaconBox {
 	}
 	void Emitter::setRotationDirection(int newRotationDirection) {
 		this->rotationDirection = newRotationDirection;
+	}
+	
+	void Emitter::emitParticle() {
+		double lifetime = Random::getRandomDouble(this->minLifetime, this->maxLifetime);
+		float force = Random::getRandomFloat(this->minForce, this->maxForce);
+		float angle = Random::getRandomFloat(this->minAngle, this->maxAngle);
+		float angularVelocity = Random::getRandomFloat(this->minAngularVelocity, this->maxAngularVelocity);
+		
+		this->emitParticle(lifetime, force, angle, angularVelocity, this->rotationDirection);
 	}
 }

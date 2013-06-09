@@ -48,6 +48,9 @@ namespace BaconBox {
 		int getRotationDirection() const;
 		void setRotationDirection(int newRotationDirection);
 
+		void emitParticle();
+		
+	protected:
 		virtual void emitParticle(double lifetime, float force, float angle, float angularVelocity, int rotationDirection) = 0;
 	private:
 		/**

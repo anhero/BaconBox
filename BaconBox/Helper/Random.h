@@ -2,14 +2,11 @@
  * @file
  * @ingroup Helper
  */
-
-#ifndef BB_RANDOMGENERATOR_H
-#define BB_RANDOMGENERATOR_H
-
-#include <cstdlib>
+#ifndef BB_RANDOM_H
+#define BB_RANDOM_H
 
 namespace BaconBox {
-	
+
 	/**
 	 * Random number generator. Class used to generate random values.
 	 * @ingroup Helper
@@ -24,11 +21,13 @@ namespace BaconBox {
 		 * @return Number generated randomly between min and max (inclusively).
 		 */
 		static int getRandomInteger(int min, int max);
+		
 		/**
 		 * Generates a random boolean value.
 		 * @return Boolean value either true or false (random).
 		 */
 		static bool getRandomBool();
+		
 		/**
 		 * Generates a random double. The number generated will inclusively be
 		 * between the min and the max received.
@@ -49,11 +48,11 @@ namespace BaconBox {
 	private:
 		/// Maximum double value.
 		static double D_RAND_MAX;
-                /// Used to know if the random seed has been initialized or not.
-                static bool initialized;
-                static void init();
+		
+		/// Used to know if the random seed has been initialized or not.
+		static bool initialized;
+		static void init();
 	};
-	
 }
 
 #endif
