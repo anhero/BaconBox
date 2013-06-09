@@ -1,6 +1,8 @@
-#include "Explosion.h"
+#include "BaconBox/Components/Explosion.h"
 
 namespace BaconBox {
+	BB_ID_IMPL(Explosion);
+	
 	Explosion::Explosion() : Emitter(), minEmission(10), maxEmission(15) {
 	}
 	
@@ -19,6 +21,9 @@ namespace BaconBox {
 		}
 		
 		return *this;
+	}
+	
+	void Explosion::update() {
 	}
 	
 	void Explosion::explode() {

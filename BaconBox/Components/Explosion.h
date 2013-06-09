@@ -1,6 +1,7 @@
 #ifndef BB_EXPLOSION_H
 #define BB_EXPLOSION_H
 
+#include "BaconBox/Core/Component.h"
 #include "BaconBox/Display/Emitter/Emitter.h"
 
 namespace BaconBox {
@@ -8,8 +9,10 @@ namespace BaconBox {
 	 * Represents a particle emitter that emits its particles all at the same
 	 * time, like an explosion.
 	 */
-	class Explosion : public Emitter {
+	class Explosion : public Component, public Emitter {
 	public:
+		BB_ID_HEADER;
+		
 		Explosion();
 		
 		Explosion(const Explosion &src);
@@ -17,6 +20,8 @@ namespace BaconBox {
 		virtual ~Explosion();
 		
 		Explosion &operator=(const Explosion &src);
+		
+		virtual void update();
 		
 		void explode();
 	private:
