@@ -103,6 +103,7 @@ namespace BaconBox {
 		
 		if (!this->isInfiniteEmission()) {
 			this->stopwatch.stop();
+			this->currentLifetime = 0.0;
 		}
 	}
 	
@@ -116,6 +117,7 @@ namespace BaconBox {
 			
 			if (this->infiniteEmission) {
 				this->stopwatch.stop();
+				this->currentLifetime = 0.0;
 			} else if (this->isEmitting()) {
 				this->stopwatch.start();
 			}
