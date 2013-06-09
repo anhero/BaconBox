@@ -31,7 +31,8 @@ namespace BaconBox {
 	const Color Color::TEAL(0.0f, 0.5f, 0.5f);
 	const Color Color::AQUA(0.0f, 1.0f, 1.0f);
 	const Color Color::NO_COLOR(0.0f, 0.0f, 0.0f, 0.0f);
-
+	const float Color::MAX_COMPONENT_VALUE = 1.0f;
+	const float Color::MAX_COMPONENT_VALUE_32 = 1.0f;
 
 	Color::Color() {
 		operator=(WHITE);
