@@ -39,14 +39,14 @@ namespace BaconBox {
 		double getMaxEmissionTime() const;
 		void setMaxEmissionTime(double newMaxEmissionTime);
 		
+		double getCurrentLifetime() const;
+		
 		double getEmissionRate() const;
 		void setEmissionRate(double newEmissionRate);
 		
 	protected:
 		void emitParticle(double lifetime, float force, float angle, float angularVelocity, int rotationDirection);
 	private:
-		bool emitting;
-		
 		/**
 		 * Determines whether or not the emitter emits particles infinitely
 		 * when started.
@@ -63,11 +63,17 @@ namespace BaconBox {
 		 * stopping. Ignored if infiniteEmission is set to true.
 		 */
 		double maxEmissionTime;
+		
+		double currentLifetime;
 
 		Stopwatch stopwatch;
 		
 		/// Number of particles spawned per second.
 		double emissionRate;
+		
+		Stopwatch updateStopwatch;
+		
+		double timeCounter;
 	};
 }
 
