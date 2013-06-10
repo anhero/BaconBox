@@ -52,13 +52,14 @@ namespace BaconBox {
 
 	}
 
-	void State::add(Entity *newEntity) {
+	Entity * State::add(Entity *newEntity) {
 	    sendMessage(State::ID, Entity::BROADCAST, State::MESSAGE_ADDED_ENTITY,  newEntity);
+		return newEntity;
 	}
 	
 #ifdef BB_LUA
-	void State::add(lua_State * L){
-		add(LuaHelper::getEntityFromLuaEntity(L));
+	Entity * State::add(lua_State * L){
+		return add(LuaHelper::getEntityFromLuaEntity(L));
 	}
 #endif //BB_LUA
 

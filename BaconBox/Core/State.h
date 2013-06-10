@@ -16,6 +16,10 @@
 
 #include "BaconBox/Input/Pointer/Pointer.h"
 #include "BaconBox/Components/UIManager.H"
+
+
+
+
 #ifdef BB_LUA
 struct lua_State;
 #endif //BB_LUA
@@ -47,9 +51,9 @@ namespace BaconBox {
 
 		virtual void update();
 
-		void add(Entity *newEntity);
+		Entity * add(Entity *newEntity);
 #ifdef BB_LUA
-		void add(lua_State * L);
+		Entity * add(lua_State * L);
 #endif //BB_LUA
 		void remove(Entity *newEntity);
 
