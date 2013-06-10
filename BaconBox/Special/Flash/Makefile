@@ -60,7 +60,6 @@ BaconBox/Audio/Flash/FlashSoundFX.o
 
 
 COMPONENTS_SOURCES = \
-BaconBox/Components/CameraDriverRenderer.o \
 BaconBox/Components/Mesh.o \
 BaconBox/Components/Transform.o \
 BaconBox/Components/HasName.o \
@@ -74,6 +73,7 @@ BaconBox/Components/Timeline.o \
 BaconBox/Components/EntityContainer.o \
 BaconBox/Components/SymbolComponent.o \
 BaconBox/Components/MatrixComponent.o \
+BaconBox/Components/DefaultMatrix.o \
 BaconBox/Components/SizeComponent.o \
 BaconBox/Components/AABBHitBox.o \
 BaconBox/Components/Flash/MovieClipHolder.o \

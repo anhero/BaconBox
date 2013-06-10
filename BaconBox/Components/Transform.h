@@ -83,9 +83,9 @@ namespace BaconBox {
 		 * @return Vector2 containing the entity's position.
 		 * @see BaconBox::Transform::position
 		 */
-		const Vector2 &getPosition() const;
+		virtual const Vector2 &getPosition() const;
 
-		virtual const Vector2 &getRealPosition() const;
+		virtual const Vector2 &getRealPosition();
 
 		/**
 		 * Sets the entity's position.
@@ -115,27 +115,31 @@ namespace BaconBox {
 		 */
 		void setScale(const Vector2 &newScale, bool withMessage = true);
 
+	protected:
+		void initializeConnections();
 
-
-	private:
-
-
-
-	    	/**
-		 * Entity's position. All rotations and scaling are applied from this
-		 * point.
-		 */
 		Vector2 position;
-
+		
+		Vector2 realPosition;
+		
 		/**
 		 * Entity's rotation angle (in degrees, from -180 to 180).
 		 */
 		float rotation;
-
+		
 		/**
 		 * Entity's horizontal and vertical scale values.
 		 */
 		Vector2 scale;
+		
+	private:
+
+
+
+
+	
+		
+		MatrixComponent * matrixComponent;
 
 	};
 

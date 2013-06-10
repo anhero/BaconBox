@@ -11,7 +11,8 @@ namespace BaconBox {
 	public:
 
 		FlashTransform();
-		const Vector2 &getRealPosition() const;
+		const Vector2 &getPosition() const;
+		const Vector2 &getRealPosition();
 	private:
 		void initializeConnections();
 		MovieClipHolder * movieClipHolder;

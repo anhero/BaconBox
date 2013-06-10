@@ -9,7 +9,20 @@ namespace BaconBox {
 	    initializeConnections();
 	}
 
-	const Vector2 &FlashTransform::getRealPosition() const {
+	const Vector2 &FlashTransform::getPosition() const{
+		AS3_DeclareVar(mc, *);
+		AS3::local::var tempMC = movieClipHolder->getMovieClip();
+		AS3_CopyVarxxToVar(mc, tempMC);
+		inline_as3(
+			 "%0 = mc.x;\n"
+			 "%1 = mc.y;\n"
+			: "=r"(const_cast<FlashTransform*>(this)->position.x), "=r"(const_cast<FlashTransform*>(this)->position.y) :
+		);
+			return position;
+	}
+
+
+	const Vector2 &FlashTransform::getRealPosition() {
 		inline_as3("import flash.geom.Point");
 		const_cast<FlashTransform*>(this)->realPosition = this->getPosition();
 		AS3_DeclareVar(pos, flash.geom.Point);
@@ -18,12 +31,10 @@ namespace BaconBox {
 		AS3_CopyVarxxToVar(mc, tempMC);
 		inline_as3(
 			"pos = new Point();\n"
-			"pos.x = %1;\n" 
-			"pos.y = %2; \n"
 			"pos = mc.localToGlobal(pos);\n"
 			"%0 = pos.x;\n"
 			"%1 = pos.y;\n"
-			: "=r"(const_cast<FlashTransform*>(this)->realPosition.x), "=r"(const_cast<FlashTransform*>(this)->realPosition.y) : "r"(realPosition.x), "r"(realPosition.y)
+			: "=r"(const_cast<FlashTransform*>(this)->realPosition.x), "=r"(const_cast<FlashTransform*>(this)->realPosition.y) : 
 		);
 
 		return realPosition;

@@ -18,7 +18,8 @@ namespace BaconBox {
 	int Transform::MESSAGE_ROTATION_CHANGED = IDManager::generateID();
 	int Transform::MESSAGE_SCALE_CHANGED = IDManager::generateID();
 
-	Transform::Transform() : Component(), position(), rotation(0.0f), scale(1.0f, 1.0f){
+	Transform::Transform() : Component(), position(), rotation(0.0f), scale(1.0f, 1.0f), matrixComponent(NULL){
+		initializeConnections();
 	}
 
 	Transform::Transform(const Transform &src) : Component(src), position(src.position), rotation(src.rotation), scale(src.scale) {
@@ -44,6 +45,13 @@ namespace BaconBox {
 		return new Transform(*this);
 	}
 
+	void Transform::initializeConnections(){
+		this->addConnection(new ComponentConnection<MatrixComponent>(&this->matrixComponent));
+		this->refreshConnections();
+	}
+
+	
+	
 	void Transform::receiveMessage(int senderID, int destID, int message, void *data) {
 	    Component::receiveMessage(senderID, destID, message, data);
 		if (destID != Transform::ID) {
@@ -71,8 +79,14 @@ namespace BaconBox {
 	}
 
 
-	const Vector2 &Transform::getRealPosition() const {
-		return getPosition();
+	const Vector2 &Transform::getRealPosition() {
+		if(matrixComponent){
+			realPosition = matrixComponent->getConcatMatrix().multiplyWithVector(Vector2());
+			return realPosition;
+		}
+		else{
+			return getPosition();
+		}
 	}
 
 	void Transform::setPosition(const Vector2 &newPosition, bool withMessage) {
