@@ -24,9 +24,9 @@ namespace BaconBox {
 		/// Number of components each color has.
 		static const unsigned int NB_COMPONENTS = 4;
 		/// Maximum value a component can have.
-		static const float MAX_COMPONENT_VALUE = 1.0f;
+		static const float MAX_COMPONENT_VALUE;
 		/// Maximum value a component can have.
-		static const float MAX_COMPONENT_VALUE_32 = 1.0f;
+		static const float MAX_COMPONENT_VALUE_32;
 
 
 		/// Black color (0, 0, 0, 255).

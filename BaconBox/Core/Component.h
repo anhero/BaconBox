@@ -16,59 +16,57 @@
 namespace BaconBox {
 	class Entity;
 	class IComponentConnection;
-	
+
 	class Component : public sigly::HasSlots<sigly::SingleThreaded> {
 		friend class Entity;
 	public:
 		BB_ID_HEADER;
-		
+
 		Component();
-		
+
 		Component(const Component &src);
-		
+
 		virtual ~Component();
-		
+
 		Component &operator=(const Component &src);
-		
+
 		virtual Component *clone() const;
-				
+
 		void sendMessage(int destID, int message, void *data);
 		virtual void receiveMessage(int senderID, int destID, int message, void *data);
-		
+
 		virtual void update();
-		
+
 		const std::string &getComponentName() const;
-		
+
 		template <typename T>
-		    T * getEntity() const {
-		    return reinterpret_cast<T*>(this->entity);
+		T *getEntity() const {
+			return reinterpret_cast<T *>(this->entity);
 		}
-		
-		 Entity * getEntity() const ;
-	
-	
+
+		Entity *getEntity() const ;
+
+
 	protected:
 		void refreshConnections();
-		
+
 		void addConnection(IComponentConnection *newConnection);
 		virtual void setEntity(Entity *newEntity);
-		
-		
 
 	private:
-		
+
 		Entity *entity;
-		
+
 		std::vector<IComponentConnection *> connections;
 	};
-	
-	
+
+
 	class ComponentProxy {
 	protected:
-		Entity* entity;
+		Entity *entity;
 
-	    ComponentProxy(Entity* entity, Component * newComponent);
-	    Component * component;
+		ComponentProxy(Entity *entity, Component *newComponent);
+		Component *component;
 	};
 }
 

@@ -10,31 +10,34 @@
 #include "BaconBox/Components/ComponentConnection.h"
 
 namespace BaconBox {
+	/**
+	 * The AABBHitBox component determines the entity's bounding box used
+	 * for collision detection.
+	 */
+	class AABBHitBox : public Component {
+	public:
+		BB_ID_HEADER;
+		AABBHitBox();
+		virtual const AxisAlignedBoundingBox &getAABB() = 0;
+		void setAABB(const AxisAlignedBoundingBox &aabb);
+	protected:
+		bool haveCustomAABB;
+		AxisAlignedBoundingBox customAABB;
 
-class AABBHitBox : public Component {
-    public:
-    	BB_ID_HEADER;
-        AABBHitBox();
-        virtual const AxisAlignedBoundingBox & getAABB() = 0;
-        void setAABB(const AxisAlignedBoundingBox & aabb);
-    protected:
-        bool haveCustomAABB;
-        AxisAlignedBoundingBox customAABB;
+		SizeComponent *sizeComponent;
+		Transform *transform;
+		void initializeConnections();
+	private:
+	};
 
-        SizeComponent * sizeComponent;
-        Transform * transform;
-        void initializeConnections();
-    private:
-};
-
-class AABBHitBoxProxy : public ComponentProxy {
+	class AABBHitBoxProxy : public ComponentProxy {
 	public:
 		AABBHitBoxProxy(Entity *entity, bool mustAddComponent = true);
-		const AxisAlignedBoundingBox & getAABB();
-        void setAABB(const AxisAlignedBoundingBox & aabb);
+		const AxisAlignedBoundingBox &getAABB();
+		void setAABB(const AxisAlignedBoundingBox &aabb);
 
 	protected:
-	    	void setAABBHitBox(AABBHitBox * aabbHitBox);
+		void setAABBHitBox(AABBHitBox *aabbHitBox);
 
 	};
 
