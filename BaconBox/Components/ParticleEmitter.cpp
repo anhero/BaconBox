@@ -1,14 +1,18 @@
 #include "BaconBox/Components/ParticleEmitter.h"
 
 #include "BaconBox/Helper/Random.h"
+#include "BaconBox/Components/Transform.h"
+#include "BaconBox/Components/ComponentConnection.h"
 
 namespace BaconBox {
 	BB_ID_IMPL(ParticleEmitter);
 	
 	ParticleEmitter::ParticleEmitter() : Component(), Emitter(), infiniteEmission(true), minEmissionTime(0.0), maxEmissionTime(0.0), currentLifetime(0.0), stopwatch(), emissionRate(10.0), updateStopwatch(), timeCounter(0.0) {
+		this->initializeConnections();
 	}
 	
 	ParticleEmitter::ParticleEmitter(const ParticleEmitter &src) : Component(src), Emitter(src), infiniteEmission(src.infiniteEmission), minEmissionTime(src.minEmissionTime), maxEmissionTime(src.maxEmissionTime), currentLifetime(src.currentLifetime), stopwatch(src.stopwatch), emissionRate(src.emissionRate), updateStopwatch(src.updateStopwatch), timeCounter(src.timeCounter) {
+		this->initializeConnections();
 	}
 	
 	ParticleEmitter::~ParticleEmitter() {
@@ -148,6 +152,8 @@ namespace BaconBox {
 		this->emissionRate = newEmissionRate;
 	}
 	
-	void ParticleEmitter::emitParticle(double lifetime, float force, float angle, float angularVelocity, int rotationDirection) {
+	void ParticleEmitter::initializeConnections() {
+		this->addConnection(new ComponentConnection<Transform>(&this->transform));
+		this->refreshConnections();
 	}
 }

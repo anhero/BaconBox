@@ -37,7 +37,4 @@ namespace BaconBox {
 			this->emitParticle();
 		}
 	}
-	
-	void Explosion::emitParticle(double lifetime, float force, float angle, float angularVelocity, int rotationDirection) {
-	}
 }

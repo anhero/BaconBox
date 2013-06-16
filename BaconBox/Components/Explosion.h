@@ -34,10 +34,6 @@ namespace BaconBox {
 		int getMaxNbParticlesToShoot() const;
 		void setMaxNbParticlesToShoot(int newMaxNbParticlesToShoot);
 		
-		using Emitter::emitParticle;
-		
-	protected:
-		void emitParticle(double lifetime, float force, float angle, float angularVelocity, int rotationDirection);
 	private:
 		/**
 		 * The minimum number of particles that will be spawned every explosion.
