@@ -15,6 +15,8 @@
 		243C9C661764FEA7007250BA /* ParticleEmitter.h in Headers */ = {isa = PBXBuildFile; fileRef = 243C9C641764FEA7007250BA /* ParticleEmitter.h */; };
 		2478740816360C7F006D4A59 /* libSDL2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2478740616360C7F006D4A59 /* libSDL2.a */; };
 		2478740916360C7F006D4A59 /* libSDL2main.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2478740716360C7F006D4A59 /* libSDL2main.a */; };
+		24B61A84176E0ABC0097F001 /* Speed.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 24B61A82176E0ABC0097F001 /* Speed.cpp */; };
+		24B61A85176E0ABC0097F001 /* Speed.h in Headers */ = {isa = PBXBuildFile; fileRef = 24B61A83176E0ABC0097F001 /* Speed.h */; };
 		24CD5A9916347EE9001EB407 /* libJsonBox.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 24CD5A9716347EE8001EB407 /* libJsonBox.a */; };
 		511A55B3176230C600CBEF43 /* UIManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 511A55B1176230C600CBEF43 /* UIManager.cpp */; };
 		511A55B4176230C600CBEF43 /* UIManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 511A55B2176230C600CBEF43 /* UIManager.h */; };
@@ -369,6 +371,8 @@
 		243C9C641764FEA7007250BA /* ParticleEmitter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParticleEmitter.h; sourceTree = "<group>"; };
 		2478740616360C7F006D4A59 /* libSDL2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSDL2.a; path = libraries/Darwin/x86_64/lib/libSDL2.a; sourceTree = "<group>"; };
 		2478740716360C7F006D4A59 /* libSDL2main.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSDL2main.a; path = libraries/Darwin/x86_64/lib/libSDL2main.a; sourceTree = "<group>"; };
+		24B61A82176E0ABC0097F001 /* Speed.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Speed.cpp; sourceTree = "<group>"; };
+		24B61A83176E0ABC0097F001 /* Speed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Speed.h; sourceTree = "<group>"; };
 		24CD5A9716347EE8001EB407 /* libJsonBox.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libJsonBox.a; path = libraries/Darwin/x86_64/lib/libJsonBox.a; sourceTree = "<group>"; };
 		511A55B1176230C600CBEF43 /* UIManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UIManager.cpp; sourceTree = "<group>"; };
 		511A55B2176230C600CBEF43 /* UIManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIManager.h; sourceTree = "<group>"; };
@@ -909,6 +913,8 @@
 				51903A2C17500B7B00814708 /* Transform.h */,
 				51903A2D17500B7B00814708 /* Visibility.cpp */,
 				51903A2E17500B7B00814708 /* Visibility.h */,
+				24B61A82176E0ABC0097F001 /* Speed.cpp */,
+				24B61A83176E0ABC0097F001 /* Speed.h */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -1581,6 +1587,7 @@
 				243C9C5E1764F730007250BA /* Explosion.h in Headers */,
 				243C9C621764FE89007250BA /* Emitter.h in Headers */,
 				243C9C661764FEA7007250BA /* ParticleEmitter.h in Headers */,
+				24B61A85176E0ABC0097F001 /* Speed.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1785,6 +1792,7 @@
 				243C9C5D1764F730007250BA /* Explosion.cpp in Sources */,
 				243C9C611764FE89007250BA /* Emitter.cpp in Sources */,
 				243C9C651764FEA7007250BA /* ParticleEmitter.cpp in Sources */,
+				24B61A84176E0ABC0097F001 /* Speed.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
