@@ -7,7 +7,7 @@
 
 namespace BaconBox {
 	class Transform;
-	
+
 	class Speed : public Component {
 	public:
 		BB_ID_HEADER;
@@ -44,10 +44,28 @@ namespace BaconBox {
 		Vector2 velocity;
 		Vector2 acceleration;
 		float angularVelocity;
-		
+
 		Stopwatch updateStopwatch;
-		
+
 		Transform *transform;
+	};
+
+	class SpeedProxy : public ComponentProxy {
+	public:
+		SpeedProxy(Entity *entity, bool mustAddComponent = true);
+
+		const Vector2 &getVelocity() const;
+		void setVelocity(const Vector2 &newVelocity);
+		void setXVelocity(float newXVelocity);
+		void setYVelocity(float newYVelocity);
+
+		const Vector2 &getAcceleration() const;
+		void setAcceleration(const Vector2 &newAcceleration);
+		void setXAcceleration(float newXAcceleration);
+		void setYAcceleration(float newYAcceleration);
+
+		float getAngularVelocity() const;
+		void setAngularVelocity(float newAngularVelocity);
 	};
 }
 

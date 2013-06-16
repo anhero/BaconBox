@@ -36,9 +36,9 @@ namespace BaconBox {
 	void Speed::update() {
 		if (this->transform) {
 			float timeElapsed = static_cast<float>(this->updateStopwatch.getTime());
-			
+
 			this->velocity += this->acceleration * timeElapsed;
-			
+
 			if (this->velocity.x != 0.0f || this->velocity.y != 0.0f) {
 				this->transform->setPosition(this->transform->getPosition() + (this->velocity * timeElapsed));
 			}
@@ -95,5 +95,48 @@ namespace BaconBox {
 	void Speed::initializeConnections() {
 		this->addConnection(new ComponentConnection<Transform>(&this->transform));
 		this->refreshConnections();
+	}
+
+	SpeedProxy::SpeedProxy(Entity *entity, bool mustAddComponent) : BB_PROXY_CONSTRUCTOR(new Speed()) {
+	}
+
+	const Vector2 &SpeedProxy::getVelocity() const {
+		return reinterpret_cast<Speed *>(this->component)->getVelocity();
+	}
+
+	void SpeedProxy::setVelocity(const Vector2 &newVelocity) {
+		reinterpret_cast<Speed *>(this->component)->setVelocity(newVelocity);
+	}
+
+	void SpeedProxy::setXVelocity(float newXVelocity) {
+		reinterpret_cast<Speed *>(this->component)->setXVelocity(newXVelocity);
+	}
+
+	void SpeedProxy::setYVelocity(float newYVelocity) {
+		reinterpret_cast<Speed *>(this->component)->setYVelocity(newYVelocity);
+	}
+
+	const Vector2 &SpeedProxy::getAcceleration() const {
+		return reinterpret_cast<Speed *>(this->component)->getAcceleration();
+	}
+
+	void SpeedProxy::setAcceleration(const Vector2 &newAcceleration) {
+		reinterpret_cast<Speed *>(this->component)->setAcceleration(newAcceleration);
+	}
+
+	void SpeedProxy::setXAcceleration(float newXAcceleration) {
+		reinterpret_cast<Speed *>(this->component)->setXAcceleration(newXAcceleration);
+	}
+
+	void SpeedProxy::setYAcceleration(float newYAcceleration) {
+		reinterpret_cast<Speed *>(this->component)->setYAcceleration(newYAcceleration);
+	}
+
+	float SpeedProxy::getAngularVelocity() const {
+		return reinterpret_cast<Speed *>(this->component)->getAngularVelocity();
+	}
+
+	void SpeedProxy::setAngularVelocity(float newAngularVelocity) {
+		reinterpret_cast<Speed *>(this->component)->setAngularVelocity(newAngularVelocity);
 	}
 }
