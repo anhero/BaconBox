@@ -6,6 +6,8 @@
 #include "BaconBox/Helper/Stopwatch.h"
 
 namespace BaconBox {
+	class Transform;
+	
 	/**
 	 * Emits particles at a given rate for a given period of time. Can be used
 	 * to emit particles infinetly.
@@ -25,8 +27,6 @@ namespace BaconBox {
 		virtual ParticleEmitter *clone() const;
 		
 		virtual void update();
-		
-		using Emitter::emitParticle;
 		
 		bool isEmitting() const;
 		
@@ -48,9 +48,9 @@ namespace BaconBox {
 		double getEmissionRate() const;
 		void setEmissionRate(double newEmissionRate);
 		
-	protected:
-		void emitParticle(double lifetime, float force, float angle, float angularVelocity, int rotationDirection);
 	private:
+		void initializeConnections();
+		
 		/**
 		 * Determines whether or not the emitter emits particles infinitely
 		 * when started.
@@ -94,6 +94,8 @@ namespace BaconBox {
 		 * Used to count the time to know when to emit particles.
 		 */
 		double timeCounter;
+		
+		Transform *transform;
 	};
 }
 
