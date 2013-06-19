@@ -20,6 +20,7 @@
 					<Add option="-DBB_SDL" />
 					<Add option="-DBB_LUA" />
 					<Add option="-DBB_DEBUG" />
+					<Add option="-DSIGLY_DEFAULT_MT_POLICY=sigly::SingleThreaded" />
 					<Add directory="../../../../BaconBox" />
 					<Add directory="../../../libraries/MINGW32_NT-6.1/i686/include" />
 				</Compiler>
@@ -86,6 +87,8 @@
 		<Unit filename="../../../BaconBox/Components/Batch.h" />
 		<Unit filename="../../../BaconBox/Components/CameraDriverRenderer.cpp" />
 		<Unit filename="../../../BaconBox/Components/CameraDriverRenderer.h" />
+		<Unit filename="../../../BaconBox/Components/Clickable.cpp" />
+		<Unit filename="../../../BaconBox/Components/Clickable.h" />
 		<Unit filename="../../../BaconBox/Components/ColorTransform.cpp" />
 		<Unit filename="../../../BaconBox/Components/ColorTransform.h" />
 		<Unit filename="../../../BaconBox/Components/ComponentAddedData.cpp" />
@@ -133,6 +136,8 @@
 		<Unit filename="../../../BaconBox/Components/Timeline.h" />
 		<Unit filename="../../../BaconBox/Components/Transform.cpp" />
 		<Unit filename="../../../BaconBox/Components/Transform.h" />
+		<Unit filename="../../../BaconBox/Components/UIManager.cpp" />
+		<Unit filename="../../../BaconBox/Components/UIManager.h" />
 		<Unit filename="../../../BaconBox/Components/Visibility.cpp" />
 		<Unit filename="../../../BaconBox/Components/Visibility.h" />
 		<Unit filename="../../../BaconBox/Console.cpp" />
@@ -228,6 +233,8 @@
 		<Unit filename="../../../BaconBox/Helper/IsNumber.h" />
 		<Unit filename="../../../BaconBox/Helper/IsSame.h" />
 		<Unit filename="../../../BaconBox/Helper/Iterators.h" />
+		<Unit filename="../../../BaconBox/Helper/Lua/LuaHelper.cpp" />
+		<Unit filename="../../../BaconBox/Helper/Lua/LuaHelper.h" />
 		<Unit filename="../../../BaconBox/Helper/MathHelper.cpp" />
 		<Unit filename="../../../BaconBox/Helper/MathHelper.h" />
 		<Unit filename="../../../BaconBox/Helper/Parser.cpp" />
@@ -356,6 +363,8 @@
 		<Unit filename="../../../BaconBox/ResourceManager.cpp" />
 		<Unit filename="../../../BaconBox/ResourceManager.h" />
 		<Unit filename="../../../BaconBox/ResourcePointer.h" />
+		<Unit filename="../../../BaconBox/Script/Lua/LuaCallback.cpp" />
+		<Unit filename="../../../BaconBox/Script/Lua/LuaCallback.h" />
 		<Unit filename="../../../BaconBox/Script/Lua/LuaManager.cpp" />
 		<Unit filename="../../../BaconBox/Script/Lua/LuaManager.h" />
 		<Unit filename="../../../BaconBox/SignalSlots/SignalAnalyzer.cpp" />
