@@ -2,6 +2,7 @@
 
 #include "BaconBox/Components/Transform.h"
 #include "BaconBox/Components/ComponentConnection.h"
+#include "BaconBox/Console.h"
 
 namespace BaconBox {
 	BB_ID_IMPL(Speed);
@@ -36,6 +37,8 @@ namespace BaconBox {
 	}
 
 	void Speed::update() {
+		this->Component::update();
+		
 		if (this->transform) {
 			float timeElapsed = static_cast<float>(this->updateStopwatch.getTime());
 

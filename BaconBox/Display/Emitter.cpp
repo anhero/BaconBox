@@ -150,7 +150,9 @@ namespace BaconBox {
 			}
 			
 			// We update the particle's graphic.
-			//particle->second.graphic->update();
+#if defined(BB_FLASH_PLATFORM)
+			particle->second.graphic->update();
+#endif
 			
 			// We update the particle's life span.
 			particle->second.timeLeft -= timeElapsed;

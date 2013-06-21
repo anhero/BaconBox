@@ -88,7 +88,7 @@ namespace BaconBox {
 		 * Sets the entity's position.
 		 * @param newPosition Vector2 containing the entity's new position.
 		 */
-		void setPosition(const Vector2 &newPosition, bool withMessage = true);
+		virtual void setPosition(const Vector2 &newPosition, bool withMessage = true);
 
 		/**
 		 * Gets the entity's rotation angle.

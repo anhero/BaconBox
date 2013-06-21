@@ -55,8 +55,8 @@ namespace BaconBox {
 		 if(senderID == Transform::ID){
 		 	if(message == Transform::MESSAGE_POSITION_CHANGED)	{
 				Vector2ChangedData * pos = (reinterpret_cast<Vector2ChangedData *>(data));
-				setProperty("x", AS3::local::internal::new_int(pos->newValue.x));
-				setProperty("y", AS3::local::internal::new_int(pos->newValue.y));
+				setProperty("x", AS3::local::internal::new_Number(pos->newValue.x));
+				setProperty("y", AS3::local::internal::new_Number(pos->newValue.y));
 		 	}	
 		 	else if(message == Transform::MESSAGE_ROTATION_CHANGED){
 		 		ValueChangedData<float>* rotation= reinterpret_cast<ValueChangedData<float>*>(data);

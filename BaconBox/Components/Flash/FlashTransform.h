@@ -13,11 +13,12 @@ namespace BaconBox {
 		FlashTransform();
 		const Vector2 &getPosition() const;
 		const Vector2 &getRealPosition();
+		void setPosition(const Vector2 &newPosition, bool withMessage = true);
 	private:
 		void initializeConnections();
 		MovieClipHolder * movieClipHolder;
 		Vector2 realPosition;
-
+		bool customPosition;
 	};
 
 }
