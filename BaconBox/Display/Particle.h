@@ -37,7 +37,7 @@ namespace BaconBox {
 		 * @param newTimeLeft Time remaining for the particle.
 		 */
 		explicit Particle(T *newGraphic = NULL, double newTimeLeft = 0.0) :
-			graphic(newGraphic), timeLeft(newTimeLeft), alphaCounter(0.0f),
+			graphic(newGraphic), timeLeft(newTimeLeft), alphaCounter(1.0f),
 			alphaPerSecond(0.0f), scalingPerSecond(), anglePerSecond(0.0f) {
 		}
 

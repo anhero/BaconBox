@@ -42,6 +42,8 @@ namespace BaconBox {
 	}
 	
 	void ParticleEmitter::update() {
+		this->Component::update();
+		
 		// We check if the particle emitter is active.
 		if (this->updateStopwatch.isStarted()) {
 			// We update the time counter used to count the particles to emit.
@@ -146,7 +148,11 @@ namespace BaconBox {
 	void ParticleEmitter::setMaxEmissionTime(double newMaxEmissionTime) {
 		this->maxEmissionTime = newMaxEmissionTime;
 	}
-	
+
+	double ParticleEmitter::getCurrentLifetime() const {
+		return this->currentLifetime;
+	}
+
 	double ParticleEmitter::getEmissionRate() const {
 		return this->emissionRate;
 	}
@@ -159,12 +165,18 @@ namespace BaconBox {
 		this->Emitter::initializeParticle(particle);
 		
 		if (this->transform) {
-			Transform *particleTransform = reinterpret_cast<Transform *>(particle->second.graphic->getComponent(Transform::ID));
+			Transform *particleTransform = particle->second.graphic->getComponent<Transform>();
 			
 			if (particleTransform) {
 				particleTransform->setPosition(this->transform->getPosition());
 				particleTransform->setRotation(this->transform->getRotation());
 				particleTransform->setScale(this->transform->getScale());
+			}
+			
+			ColorTransform *particleColor = particle->second.graphic->getComponent<ColorTransform>();
+			
+			if (particleColor) {
+				particleColor->setAlphaMultiplier(1.0);
 			}
 		}
 	}
@@ -189,6 +201,10 @@ namespace BaconBox {
 		return reinterpret_cast<ParticleEmitter *>(this->component)->getMaxForce();
 	}
 	
+	void ParticleEmitterProxy::setMaxForce(float newMaxForce) {
+		reinterpret_cast<ParticleEmitter *>(this->component)->setMaxForce(newMaxForce);
+	}
+	
 	float ParticleEmitterProxy::getMinAngle() const {
 		return reinterpret_cast<ParticleEmitter *>(this->component)->getMinAngle();
 	}
@@ -199,6 +215,10 @@ namespace BaconBox {
 	
 	float ParticleEmitterProxy::getMaxAngle() const {
 		return reinterpret_cast<ParticleEmitter *>(this->component)->getMaxAngle();
+	}
+	
+	void ParticleEmitterProxy::setMaxAngle(float newMaxAngle) {
+		reinterpret_cast<ParticleEmitter *>(this->component)->setMaxForce(newMaxAngle);
 	}
 	
 	Emitter::PhaseList &ParticleEmitterProxy::getPhases() {
@@ -216,6 +236,11 @@ namespace BaconBox {
 	const Emitter::ParticleVector &ParticleEmitterProxy::getParticles() const {
 		return reinterpret_cast<ParticleEmitter *>(this->component)->getParticles();
 	}
+	
+	bool ParticleEmitterProxy::emitParticle() {
+		return reinterpret_cast<ParticleEmitter *>(this->component)->emitParticle();
+	}
+
 	
 	bool ParticleEmitterProxy::isEmitting() const {
 		return reinterpret_cast<ParticleEmitter *>(this->component)->isEmitting();

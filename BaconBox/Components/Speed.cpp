@@ -4,6 +4,7 @@
 #include "BaconBox/Components/ComponentConnection.h"
 
 namespace BaconBox {
+	BB_ID_IMPL(Speed);
 	Speed::Speed() : Component(), velocity(), acceleration(), angularVelocity(0.0f), updateStopwatch() {
 		this->initializeConnections();
 	}
@@ -31,6 +32,7 @@ namespace BaconBox {
 	}
 
 	void Speed::receiveMessage(int senderID, int destID, int message, void *data) {
+		this->Component::receiveMessage(senderID, destID, message, data);
 	}
 
 	void Speed::update() {

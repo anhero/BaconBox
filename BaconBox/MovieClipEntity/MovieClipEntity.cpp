@@ -24,7 +24,7 @@ namespace BaconBox {
 
     BB_ID_IMPL(MovieClipEntity);
 
-	MovieClipEntity::MovieClipEntity(): Entity(), HasNameProxy(this, "", false), TransformProxy(this, false), ColorTransformProxy(this), TimelineProxy(this), ClickableProxy(this), EntityContainerProxy(this), MatrixComponentProxy(this), SymbolComponentProxy(this), AABBHitBoxProxy(this), SizeComponentProxy(this)
+	MovieClipEntity::MovieClipEntity(): Entity(), HasNameProxy(this, "", false), TransformProxy(this, false), ColorTransformProxy(this), TimelineProxy(this), ClickableProxy(this), EntityContainerProxy(this), MatrixComponentProxy(this), SymbolComponentProxy(this), AABBHitBoxProxy(this), SizeComponentProxy(this), SpeedProxy(this)
 	#ifdef BB_LUA
         , LuaEntityProxy(this)
 	#endif //BB_LUA
@@ -55,7 +55,7 @@ namespace BaconBox {
 		#endif
 	}
 
-	MovieClipEntity::MovieClipEntity(const MovieClipEntity& src) : Entity(), HasNameProxy(this, ""), TransformProxy(this), ColorTransformProxy(this), TimelineProxy(this), EntityContainerProxy(this), MatrixComponentProxy(this), ClickableProxy(this),SymbolComponentProxy(this), AABBHitBoxProxy(this), SizeComponentProxy(this)
+	MovieClipEntity::MovieClipEntity(const MovieClipEntity& src) : Entity(), HasNameProxy(this, ""), TransformProxy(this), ColorTransformProxy(this), TimelineProxy(this), EntityContainerProxy(this), MatrixComponentProxy(this), ClickableProxy(this),SymbolComponentProxy(this), AABBHitBoxProxy(this), SizeComponentProxy(this), SpeedProxy(this)
     #ifdef BB_LUA
         , LuaEntityProxy(this)
 	#endif //BB_LUA
