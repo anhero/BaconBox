@@ -84,7 +84,7 @@ namespace BaconBox {
 	}
 
 	Color::operator uint32_t() const {
-		unsigned int result = static_cast<uint32_t>(colors[R]) << 24;
+		unsigned int result = static_cast<uint32_t>(colors[R]*255) << 24;
 		result |= static_cast<uint32_t>(colors[G]*255) << 16;
 		result |= static_cast<uint32_t>(colors[B]*255) << 8;
 		result |= static_cast<uint32_t>(colors[A]*255);
