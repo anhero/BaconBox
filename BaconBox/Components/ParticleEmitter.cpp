@@ -177,6 +177,46 @@ namespace BaconBox {
 	ParticleEmitterProxy::ParticleEmitterProxy(Entity *entity, bool mustAddComponent) : BB_PROXY_CONSTRUCTOR(new ParticleEmitter()) {
 	}
 	
+	float ParticleEmitterProxy::getMinForce() const {
+		return reinterpret_cast<ParticleEmitter *>(this->component)->getMinForce();
+	}
+	
+	void ParticleEmitterProxy::setMinForce(float newMinForce) {
+		reinterpret_cast<ParticleEmitter *>(this->component)->setMinForce(newMinForce);
+	}
+	
+	float ParticleEmitterProxy::getMaxForce() const {
+		return reinterpret_cast<ParticleEmitter *>(this->component)->getMaxForce();
+	}
+	
+	float ParticleEmitterProxy::getMinAngle() const {
+		return reinterpret_cast<ParticleEmitter *>(this->component)->getMinAngle();
+	}
+	
+	void ParticleEmitterProxy::setMinAngle(float newMinAngle) {
+		reinterpret_cast<ParticleEmitter *>(this->component)->setMinAngle(newMinAngle);
+	}
+	
+	float ParticleEmitterProxy::getMaxAngle() const {
+		return reinterpret_cast<ParticleEmitter *>(this->component)->getMaxAngle();
+	}
+	
+	Emitter::PhaseList &ParticleEmitterProxy::getPhases() {
+		return reinterpret_cast<ParticleEmitter *>(this->component)->getPhases();
+	}
+	
+	const Emitter::PhaseList &ParticleEmitterProxy::getPhases() const {
+		return reinterpret_cast<ParticleEmitter *>(this->component)->getPhases();
+	}
+	
+	Emitter::ParticleVector &ParticleEmitterProxy::getParticles() {
+		return reinterpret_cast<ParticleEmitter *>(this->component)->getParticles();
+	}
+	
+	const Emitter::ParticleVector &ParticleEmitterProxy::getParticles() const {
+		return reinterpret_cast<ParticleEmitter *>(this->component)->getParticles();
+	}
+	
 	bool ParticleEmitterProxy::isEmitting() const {
 		return reinterpret_cast<ParticleEmitter *>(this->component)->isEmitting();
 	}

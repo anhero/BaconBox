@@ -105,6 +105,28 @@ namespace BaconBox {
 	public:
 		ParticleEmitterProxy(Entity *entity, bool mustAddComponent = true);
 		
+		float getMinForce() const;
+		void setMinForce(float newMinForce);
+		
+		float getMaxForce() const;
+		void setMaxForce(float newMaxForce);
+		
+		float getMinAngle() const;
+		void setMinAngle(float newMinAngle);
+		
+		float getMaxAngle() const;
+		void setMaxAngle(float newMaxAngle);
+		
+		Emitter::PhaseList &getPhases();
+		
+		const Emitter::PhaseList &getPhases() const;
+		
+		Emitter::ParticleVector &getParticles();
+		
+		const Emitter::ParticleVector &getParticles() const;
+		
+		bool emitParticle();
+
 		bool isEmitting() const;
 		
 		void start();
