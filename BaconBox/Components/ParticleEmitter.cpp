@@ -116,6 +116,10 @@ namespace BaconBox {
 		}
 	}
 	
+	void ParticleEmitter::explode() {
+		while (this->emitParticle());
+	}
+	
 	bool ParticleEmitter::isInfiniteEmission() const {
 		return this->infiniteEmission;
 	}
@@ -256,6 +260,10 @@ namespace BaconBox {
 	
 	void ParticleEmitterProxy::stop() {
 		reinterpret_cast<ParticleEmitter *>(this->component)->stop();
+	}
+	
+	void ParticleEmitterProxy::explode() {
+		reinterpret_cast<ParticleEmitter *>(this->component)->explode();
 	}
 	
 	bool ParticleEmitterProxy::isInfiniteEmission() const {

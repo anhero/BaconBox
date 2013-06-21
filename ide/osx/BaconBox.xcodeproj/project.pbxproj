@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		243C9C5D1764F730007250BA /* Explosion.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 243C9C5B1764F730007250BA /* Explosion.cpp */; };
-		243C9C5E1764F730007250BA /* Explosion.h in Headers */ = {isa = PBXBuildFile; fileRef = 243C9C5C1764F730007250BA /* Explosion.h */; };
 		243C9C611764FE89007250BA /* Emitter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 243C9C5F1764FE89007250BA /* Emitter.cpp */; };
 		243C9C621764FE89007250BA /* Emitter.h in Headers */ = {isa = PBXBuildFile; fileRef = 243C9C601764FE89007250BA /* Emitter.h */; };
 		243C9C651764FEA7007250BA /* ParticleEmitter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 243C9C631764FEA7007250BA /* ParticleEmitter.cpp */; };
@@ -370,8 +368,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		243C9C5B1764F730007250BA /* Explosion.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Explosion.cpp; sourceTree = "<group>"; };
-		243C9C5C1764F730007250BA /* Explosion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Explosion.h; sourceTree = "<group>"; };
 		243C9C5F1764FE89007250BA /* Emitter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Emitter.cpp; sourceTree = "<group>"; };
 		243C9C601764FE89007250BA /* Emitter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Emitter.h; sourceTree = "<group>"; };
 		243C9C631764FEA7007250BA /* ParticleEmitter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ParticleEmitter.cpp; sourceTree = "<group>"; };
@@ -871,8 +867,6 @@
 			children = (
 				243C9C631764FEA7007250BA /* ParticleEmitter.cpp */,
 				243C9C641764FEA7007250BA /* ParticleEmitter.h */,
-				243C9C5B1764F730007250BA /* Explosion.cpp */,
-				243C9C5C1764F730007250BA /* Explosion.h */,
 				511A55B517623AAD00CBEF43 /* Clickable.cpp */,
 				511A55B617623AAD00CBEF43 /* Clickable.h */,
 				511A55B1176230C600CBEF43 /* UIManager.cpp */,
@@ -1605,7 +1599,6 @@
 				514C46A3175E972B003D098F /* LuaCallback.h in Headers */,
 				511A55B4176230C600CBEF43 /* UIManager.h in Headers */,
 				511A55B817623AAD00CBEF43 /* Clickable.h in Headers */,
-				243C9C5E1764F730007250BA /* Explosion.h in Headers */,
 				243C9C621764FE89007250BA /* Emitter.h in Headers */,
 				243C9C661764FEA7007250BA /* ParticleEmitter.h in Headers */,
 				24B61A85176E0ABC0097F001 /* Speed.h in Headers */,
@@ -1814,7 +1807,6 @@
 				514C46A2175E972B003D098F /* LuaCallback.cpp in Sources */,
 				511A55B3176230C600CBEF43 /* UIManager.cpp in Sources */,
 				511A55B717623AAD00CBEF43 /* Clickable.cpp in Sources */,
-				243C9C5D1764F730007250BA /* Explosion.cpp in Sources */,
 				243C9C611764FE89007250BA /* Emitter.cpp in Sources */,
 				243C9C651764FEA7007250BA /* ParticleEmitter.cpp in Sources */,
 				24B61A84176E0ABC0097F001 /* Speed.cpp in Sources */,

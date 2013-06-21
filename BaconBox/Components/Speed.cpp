@@ -41,7 +41,7 @@ namespace BaconBox {
 		
 		if (this->transform) {
 			float timeElapsed = static_cast<float>(this->updateStopwatch.getTime());
-
+			
 			this->velocity += this->acceleration * timeElapsed;
 
 			if (this->velocity.x != 0.0f || this->velocity.y != 0.0f) {

@@ -67,6 +67,7 @@ namespace BaconBox {
 			// We initialize the particle's graphic.
 			i->second.graphic = EntityFactory::getMovieClipEntity(key);
 			i->second.graphic->setAlphaMultiplier(0.0f);
+			i->second.graphic->setAcceleration(gravity);
 			result->addChild(i->second.graphic);
 			i->first = result->getPhases().end();
 		}
