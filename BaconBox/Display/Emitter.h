@@ -1,17 +1,24 @@
 #ifndef BB_EMITTER_H
 #define BB_EMITTER_H
 
+#include <list>
+#include <vector>
+#include <utility>
+#include "BaconBox/Display/Particle.h"
+#include "BaconBox/Display/ParticlePhase.h"
+
 namespace BaconBox {
+	class MovieClipEntity;
 
 	/**
 	 * Base class for particle emitters.
 	 */
 	class Emitter {
 	public:
-		static const int NONE = 0;
-		static const int CLOCKWISE = 1;
-		static const int COUNTER_CLOCKWISE = 2;
-		static const int BOTH = CLOCKWISE | COUNTER_CLOCKWISE;
+		/// Represents the type that contains the phases.
+		typedef std::list<ParticlePhase> PhaseList;
+		
+		typedef std::vector<std::pair<PhaseList::const_iterator, Particle<MovieClipEntity> > > ParticleVector;
 
 		Emitter();
 
@@ -38,21 +45,27 @@ namespace BaconBox {
 
 		float getMaxAngle() const;
 		void setMaxAngle(float newMaxAngle);
-
-		float getMinAngularVelocity() const;
-		void setMinAngularVelocity(float newMinAngularVelocity);
-
-		float getMaxAngularVelocity() const;
-		void setMaxAngularVelocity(float newMaxAngularVelocity);
-
-		int getRotationDirection() const;
-		void setRotationDirection(int newRotationDirection);
-
-		void emitParticle();
 		
-	protected:
-		virtual void emitParticle(double lifetime, float force, float angle, float angularVelocity, int rotationDirection) = 0;
+		PhaseList &getPhases();
+		
+		const PhaseList &getPhases() const;
+		
+		ParticleVector &getParticles();
+		
+		const ParticleVector &getParticles() const;
+
+		bool emitParticle();
 	private:
+		void initializeParticle(ParticleVector::iterator particle);
+		
+		ParticleVector::iterator findFirstDeadParticle();
+		
+		void clearParticles();
+		
+		void startPhase(ParticleVector::iterator particle);
+		
+		ParticleVector particles;
+		
 		/**
 		 * The minimum lifetime of each particle, measured in seconds.
 		 */
@@ -84,24 +97,8 @@ namespace BaconBox {
 		 * -180 and 180. Angle increases as it goes counter clockwise.
 		 */
 		float maxAngle;
-
-		/**
-		 * Minimum rotation speed (measured in degrees) to apply to each
-		 * particle spawned.
-		 */
-		float minAngularVelocity;
-
-		/**
-		 * Maximum rotation speed (measured in degrees) to apply to each
-		 * particle spawned.
-		 */
-		float maxAngularVelocity;
-
-		/**
-		 * Rotation direction for each particle spawned. Either NONE, CLOCKWISE
-		 * COUNTER_CLOCKWISE or BOTH.
-		 */
-		int rotationDirection;
+		
+		PhaseList phases;
 	};
 }
 
