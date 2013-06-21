@@ -73,7 +73,7 @@ namespace BaconBox {
 	}
 
 	void BaseEngine::removeAllStates() {
-		this->currentState->internalOnLoseFocus();
+		if(this->currentState)this->currentState->internalOnLoseFocus();
 
 	    std::list<std::string> statesNames;
 		for(std::map<std::string, State *>::iterator i= this->states.begin();
