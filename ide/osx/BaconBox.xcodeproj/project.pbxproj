@@ -20,6 +20,10 @@
 		2494A2D3176E462B00D483A3 /* Particle.h in Headers */ = {isa = PBXBuildFile; fileRef = 2494A2D2176E462B00D483A3 /* Particle.h */; };
 		24B61A84176E0ABC0097F001 /* Speed.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 24B61A82176E0ABC0097F001 /* Speed.cpp */; };
 		24B61A85176E0ABC0097F001 /* Speed.h in Headers */ = {isa = PBXBuildFile; fileRef = 24B61A83176E0ABC0097F001 /* Speed.h */; };
+		24CA7CFF17748A43000ACF7F /* EmitterFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 24CA7CFD17748A43000ACF7F /* EmitterFactory.cpp */; };
+		24CA7D0017748A43000ACF7F /* EmitterFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = 24CA7CFE17748A43000ACF7F /* EmitterFactory.h */; };
+		24CA7D0317748F25000ACF7F /* EmitterEntity.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 24CA7D0117748F25000ACF7F /* EmitterEntity.cpp */; };
+		24CA7D0417748F25000ACF7F /* EmitterEntity.h in Headers */ = {isa = PBXBuildFile; fileRef = 24CA7D0217748F25000ACF7F /* EmitterEntity.h */; };
 		24CD5A9916347EE9001EB407 /* libJsonBox.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 24CD5A9716347EE8001EB407 /* libJsonBox.a */; };
 		511A55B3176230C600CBEF43 /* UIManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 511A55B1176230C600CBEF43 /* UIManager.cpp */; };
 		511A55B4176230C600CBEF43 /* UIManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 511A55B2176230C600CBEF43 /* UIManager.h */; };
@@ -379,6 +383,10 @@
 		2494A2D2176E462B00D483A3 /* Particle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Particle.h; sourceTree = "<group>"; };
 		24B61A82176E0ABC0097F001 /* Speed.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Speed.cpp; sourceTree = "<group>"; };
 		24B61A83176E0ABC0097F001 /* Speed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Speed.h; sourceTree = "<group>"; };
+		24CA7CFD17748A43000ACF7F /* EmitterFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EmitterFactory.cpp; sourceTree = "<group>"; };
+		24CA7CFE17748A43000ACF7F /* EmitterFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmitterFactory.h; sourceTree = "<group>"; };
+		24CA7D0117748F25000ACF7F /* EmitterEntity.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EmitterEntity.cpp; sourceTree = "<group>"; };
+		24CA7D0217748F25000ACF7F /* EmitterEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmitterEntity.h; sourceTree = "<group>"; };
 		24CD5A9716347EE8001EB407 /* libJsonBox.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libJsonBox.a; path = libraries/Darwin/x86_64/lib/libJsonBox.a; sourceTree = "<group>"; };
 		511A55B1176230C600CBEF43 /* UIManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UIManager.cpp; sourceTree = "<group>"; };
 		511A55B2176230C600CBEF43 /* UIManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIManager.h; sourceTree = "<group>"; };
@@ -805,6 +813,8 @@
 				51903B7317500B7B00814708 /* Vector3.h */,
 				51903B7417500B7B00814708 /* VertexArray.cpp */,
 				51903B7517500B7B00814708 /* VertexArray.h */,
+				24CA7D0117748F25000ACF7F /* EmitterEntity.cpp */,
+				24CA7D0217748F25000ACF7F /* EmitterEntity.h */,
 			);
 			name = BaconBox;
 			path = ../../../../libraries/BaconBox/BaconBox;
@@ -1118,6 +1128,8 @@
 				51903AE917500B7B00814708 /* UTFConvert.h */,
 				51903AEA17500B7B00814708 /* ValueChangedData.h */,
 				51903AEB17500B7B00814708 /* Vector2ChangedData.h */,
+				24CA7CFD17748A43000ACF7F /* EmitterFactory.cpp */,
+				24CA7CFE17748A43000ACF7F /* EmitterFactory.h */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -1599,6 +1611,8 @@
 				24B61A85176E0ABC0097F001 /* Speed.h in Headers */,
 				2494A2D1176E44AE00D483A3 /* ParticlePhase.h in Headers */,
 				2494A2D3176E462B00D483A3 /* Particle.h in Headers */,
+				24CA7D0017748A43000ACF7F /* EmitterFactory.h in Headers */,
+				24CA7D0417748F25000ACF7F /* EmitterEntity.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1805,6 +1819,8 @@
 				243C9C651764FEA7007250BA /* ParticleEmitter.cpp in Sources */,
 				24B61A84176E0ABC0097F001 /* Speed.cpp in Sources */,
 				2494A2D0176E44AE00D483A3 /* ParticlePhase.cpp in Sources */,
+				24CA7CFF17748A43000ACF7F /* EmitterFactory.cpp in Sources */,
+				24CA7D0317748F25000ACF7F /* EmitterEntity.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

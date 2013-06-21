@@ -1,14 +1,15 @@
 #include "BaconBox/Display/Emitter.h"
 
 #include "BaconBox/Helper/Random.h"
+#include "BaconBox/Core/Engine.h"
 #include "BaconBox/MovieClipEntity/MovieClipEntity.h"
-#include "BaconBox/Components/Transform.h"
+#include "BaconBox/Components/Speed.h"
 
 namespace BaconBox {
-	Emitter::Emitter() : particles(), minLifetime(0.2), maxLifetime(0.8), minForce(20.0), maxForce(40.0), minAngle(-180.0), maxAngle(180.0), phases() {
+	Emitter::Emitter() : particles(), minForce(20.0), maxForce(40.0), minAngle(-180.0), maxAngle(180.0), phases() {
 	}
 
-	Emitter::Emitter(const Emitter &src) : particles(src.particles), minLifetime(src.minLifetime), maxLifetime(src.maxLifetime), minForce(src.minForce), maxForce(src.maxForce), minAngle(src.minAngle), maxAngle(src.maxAngle), phases(src.phases) {
+	Emitter::Emitter(const Emitter &src) : particles(src.particles), minForce(src.minForce), maxForce(src.maxForce), minAngle(src.minAngle), maxAngle(src.maxAngle), phases(src.phases) {
 	}
 
 	Emitter::~Emitter() {
@@ -18,8 +19,6 @@ namespace BaconBox {
 	Emitter &Emitter::operator=(const Emitter &src) {
 		if (this != &src) {
 			this->particles = src.particles;
-			this->minLifetime = src.minLifetime;
-			this->maxLifetime = src.maxLifetime;
 			this->minForce = src.minForce;
 			this->maxForce = src.maxForce;
 			this->minAngle = src.minAngle;
@@ -28,20 +27,6 @@ namespace BaconBox {
 		}
 
 		return *this;
-	}
-
-	double Emitter::getMinLifetime() const {
-		return this->minLifetime;
-	}
-	void Emitter::setMinLifetime(double newMinLifetime) {
-		this->minLifetime = newMinLifetime;
-	}
-
-	double Emitter::getMaxLifetime() const {
-		return this->maxLifetime;
-	}
-	void Emitter::setMaxLifetime(double newMaxLifetime) {
-		this->maxLifetime = newMaxLifetime;
 	}
 
 	float Emitter::getMinForce() const {
@@ -99,15 +84,65 @@ namespace BaconBox {
 	}
 
 	void Emitter::initializeParticle(ParticleVector::iterator particle) {
-		double lifetime = Random::getRandomDouble(this->minLifetime, this->maxLifetime);
 		float force = Random::getRandomFloat(this->minForce, this->maxForce);
 		float angle = Random::getRandomFloat(this->minAngle, this->maxAngle);
+
+		Speed *speed = reinterpret_cast<Speed *>(particle->second.graphic->getComponent(Speed::ID));
 		
-		particle->second.timeLeft = lifetime;
+		if (speed) {
+			Vector2 velocity(0.0f, force);
+			velocity.rotate(angle);
+			
+			speed->setVelocity(velocity);
+		}
 		
-		Transform *transform = reinterpret_cast<Transform *>(particle->second.graphic->getComponent(Transform::ID));
+		particle->second.timeLeft = 0.0;
+		particle->second.alphaCounter = 0.0f;
+	}
+	
+	void Emitter::updateParticles() {
+		// We update all particles.
+		for (ParticleVector::iterator i = this->particles.begin(); i != this->particles.end(); ++i) {
+			this->updateParticle(i);
+		}
+	}
+	
+	void Emitter::updateParticle(ParticleVector::iterator particle) {
+		// We check if the particle is still alive.
+		if (particle->second.timeLeft > 0.0) {
+			
+			// We update the particle.
+			
+			// We update the particle's alpha.
+			if (particle->second.alphaPerSecond != 0.0f) {
+				particle->second.alphaCounter = std::min(particle->second.alphaCounter + static_cast<float>(Engine::getSinceLastUpdate()) * particle->second.alphaPerSecond, 1.0f);
+				particle->second.graphic->setAlphaMultiplier(particle->second.alphaCounter);
+			}
+			
+			// We update the particle's scaling, if needed.
+			if (particle->second.scalingPerSecond != Vector2()) {
+				particle->second.graphic->setScale(particle->second.graphic->getScale() + (particle->second.scalingPerSecond * static_cast<float>(Engine::getSinceLastUpdate())));
+			}
+			
+			// We update the particle's rotation, if needed.
+			if (particle->second.anglePerSecond != 0.0f) {
+				particle->second.graphic->setRotation(particle->second.graphic->getRotation() + (particle->second.anglePerSecond * static_cast<float>(Engine::getSinceLastUpdate())));
+			}
+			
+			// We update the particle's graphic.
+			particle->second.graphic->update();
+			
+			// We update the particle's life span.
+			particle->second.timeLeft -= Engine::getSinceLastUpdate();
+		}
 		
-		if (transform) {
+		// We update the particle's phase.
+		while (particle->second.timeLeft <= 0.0 && particle->first != this->getPhases().end()) {
+			++(particle->first);
+			
+			if (particle->first != this->getPhases().end()) {
+				this->startPhase(particle);
+			}
 		}
 	}
 
@@ -134,6 +169,16 @@ namespace BaconBox {
 	void Emitter::startPhase(ParticleVector::iterator particle) {
 		// We make sure the phase is valid.
 		if (particle->first != this->phases.end()) {
+			particle->second.timeLeft = particle->first->phaseDuration + Random::getRandomDouble(0.0, particle->first->phaseDurationVariance);
+			
+			if (!particle->first->animationName.empty()) {
+				particle->second.graphic->gotoAndPlay(particle->first->animationName);
+			}
+			
+			particle->second.alphaCounter = 0.0;
+			particle->second.alphaPerSecond = particle->first->alphaPerSecond + Random::getRandomFloat(0.0f, particle->first->alphaPerSecondVariance);
+			particle->second.scalingPerSecond = particle->first->scalingPerSecond + Vector2(Random::getRandomFloat(0.0f, particle->first->scalingPerSecondVariance.x), Random::getRandomFloat(0.0f, particle->first->scalingPerSecondVariance.y));
+			particle->second.anglePerSecond = particle->first->anglePerSecond + Random::getRandomFloat(0.0f, particle->first->anglePerSecondVariance);
 		}
 	}
 }
