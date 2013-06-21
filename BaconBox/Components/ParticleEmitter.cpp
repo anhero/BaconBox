@@ -1,6 +1,7 @@
 #include "BaconBox/Components/ParticleEmitter.h"
 
 #include "BaconBox/Helper/Random.h"
+#include "BaconBox/MovieClipEntity/MovieClipEntity.h"
 #include "BaconBox/Components/Transform.h"
 #include "BaconBox/Components/ComponentConnection.h"
 
@@ -150,6 +151,20 @@ namespace BaconBox {
 	
 	void ParticleEmitter::setEmissionRate(double newEmissionRate) {
 		this->emissionRate = newEmissionRate;
+	}
+	
+	void ParticleEmitter::initializeParticle(ParticleVector::iterator particle) {
+		this->Emitter::initializeParticle(particle);
+		
+		if (this->transform) {
+			Transform *particleTransform = reinterpret_cast<Transform *>(particle->second.graphic->getComponent(Transform::ID));
+			
+			if (particleTransform) {
+				particleTransform->setPosition(this->transform->getPosition());
+				particleTransform->setRotation(this->transform->getRotation());
+				particleTransform->setScale(this->transform->getScale());
+			}
+		}
 	}
 	
 	void ParticleEmitter::initializeConnections() {

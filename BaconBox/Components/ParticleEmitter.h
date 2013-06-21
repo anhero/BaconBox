@@ -48,6 +48,9 @@ namespace BaconBox {
 		double getEmissionRate() const;
 		void setEmissionRate(double newEmissionRate);
 		
+	protected:
+		void initializeParticle(ParticleVector::iterator particle);
+		
 	private:
 		void initializeConnections();
 		

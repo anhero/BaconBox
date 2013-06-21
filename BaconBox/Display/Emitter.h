@@ -28,12 +28,6 @@ namespace BaconBox {
 
 		Emitter &operator=(const Emitter &src);
 
-		double getMinLifetime() const;
-		void setMinLifetime(double newMinLifetime);
-
-		double getMaxLifetime() const;
-		void setMaxLifetime(double newMaxLifetime);
-
 		float getMinForce() const;
 		void setMinForce(float newMinForce);
 
@@ -55,8 +49,13 @@ namespace BaconBox {
 		const ParticleVector &getParticles() const;
 
 		bool emitParticle();
+	protected:
+		virtual void initializeParticle(ParticleVector::iterator particle);
+		
+		void updateParticles();
 	private:
-		void initializeParticle(ParticleVector::iterator particle);
+		
+		void updateParticle(ParticleVector::iterator particle);
 		
 		ParticleVector::iterator findFirstDeadParticle();
 		
@@ -65,16 +64,6 @@ namespace BaconBox {
 		void startPhase(ParticleVector::iterator particle);
 		
 		ParticleVector particles;
-		
-		/**
-		 * The minimum lifetime of each particle, measured in seconds.
-		 */
-		double minLifetime;
-
-		/**
-		 * The maximum lifetime of each particle, measured in seconds.
-		 */
-		double maxLifetime;
 
 		/**
 		 * Minimum force applied to the particle when spawned.
