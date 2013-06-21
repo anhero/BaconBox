@@ -87,6 +87,9 @@ namespace BaconBox {
 		 */
 		float maxAngle;
 		
+		/**
+		 * List of particle phases each particle go through before dying.
+		 */
 		PhaseList phases;
 	};
 }

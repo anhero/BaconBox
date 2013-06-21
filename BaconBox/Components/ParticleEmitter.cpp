@@ -80,6 +80,8 @@ namespace BaconBox {
 				this->updateStopwatch.start();
 			}
 		}
+		
+		this->updateParticles();
 	}
 	
 	bool ParticleEmitter::isEmitting() const {
@@ -170,5 +172,60 @@ namespace BaconBox {
 	void ParticleEmitter::initializeConnections() {
 		this->addConnection(new ComponentConnection<Transform>(&this->transform));
 		this->refreshConnections();
+	}
+
+	ParticleEmitterProxy::ParticleEmitterProxy(Entity *entity, bool mustAddComponent) : BB_PROXY_CONSTRUCTOR(new ParticleEmitter()) {
+	}
+	
+	bool ParticleEmitterProxy::isEmitting() const {
+		return reinterpret_cast<ParticleEmitter *>(this->component)->isEmitting();
+	}
+	
+	void ParticleEmitterProxy::start() {
+		reinterpret_cast<ParticleEmitter *>(this->component)->start();
+	}
+	
+	void ParticleEmitterProxy::pause() {
+		reinterpret_cast<ParticleEmitter *>(this->component)->pause();
+	}
+	
+	void ParticleEmitterProxy::stop() {
+		reinterpret_cast<ParticleEmitter *>(this->component)->stop();
+	}
+	
+	bool ParticleEmitterProxy::isInfiniteEmission() const {
+		return reinterpret_cast<ParticleEmitter *>(this->component)->isInfiniteEmission();
+	}
+	
+	void ParticleEmitterProxy::setInfiniteEmission(bool newInfiniteEmission) {
+		reinterpret_cast<ParticleEmitter *>(this->component)->setInfiniteEmission(newInfiniteEmission);
+	}
+	
+	double ParticleEmitterProxy::getMinEmissionTime() const {
+		return reinterpret_cast<ParticleEmitter *>(this->component)->getMinEmissionTime();
+	}
+	
+	void ParticleEmitterProxy::setMinEmissionTime(double newMinEmissionTime) {
+		reinterpret_cast<ParticleEmitter *>(this->component)->setMinEmissionTime(newMinEmissionTime);
+	}
+	
+	double ParticleEmitterProxy::getMaxEmissionTime() const {
+		return reinterpret_cast<ParticleEmitter *>(this->component)->getMaxEmissionTime();
+	}
+	
+	void ParticleEmitterProxy::setMaxEmissionTime(double newMaxEmissionTime) {
+		reinterpret_cast<ParticleEmitter *>(this->component)->setMaxEmissionTime(newMaxEmissionTime);
+	}
+	
+	double ParticleEmitterProxy::getCurrentLifetime() const {
+		return reinterpret_cast<ParticleEmitter *>(this->component)->getCurrentLifetime();
+	}
+	
+	double ParticleEmitterProxy::getEmissionRate() const {
+		return reinterpret_cast<ParticleEmitter *>(this->component)->getEmissionRate();
+	}
+	
+	void ParticleEmitterProxy::setEmissionRate(double newEmissionRate) {
+		reinterpret_cast<ParticleEmitter *>(this->component)->setEmissionRate(newEmissionRate);
 	}
 }

@@ -100,6 +100,31 @@ namespace BaconBox {
 		
 		Transform *transform;
 	};
+	
+	class ParticleEmitterProxy : public ComponentProxy {
+	public:
+		ParticleEmitterProxy(Entity *entity, bool mustAddComponent = true);
+		
+		bool isEmitting() const;
+		
+		void start();
+		void pause();
+		void stop();
+		
+		bool isInfiniteEmission() const;
+		void setInfiniteEmission(bool newInfiniteEmission);
+		
+		double getMinEmissionTime() const;
+		void setMinEmissionTime(double newMinEmissionTime);
+		
+		double getMaxEmissionTime() const;
+		void setMaxEmissionTime(double newMaxEmissionTime);
+		
+		double getCurrentLifetime() const;
+		
+		double getEmissionRate() const;
+		void setEmissionRate(double newEmissionRate);
+	};
 }
 
 #endif /* defined(BB_PARTICLE_EMITTER_H) */
