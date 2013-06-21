@@ -66,6 +66,7 @@ namespace BaconBox {
 		for (Emitter::ParticleVector::iterator i = result->getParticles().begin(); i != result->getParticles().end(); ++i) {
 			// We initialize the particle's graphic.
 			i->second.graphic = EntityFactory::getMovieClipEntity(key);
+			i->second.graphic->setAlphaMultiplier(0.0f);
 			result->addChild(i->second.graphic);
 			i->first = result->getPhases().end();
 		}
