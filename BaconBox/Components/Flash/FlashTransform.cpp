@@ -5,11 +5,11 @@
 #include "BaconBox/Console.h"
 namespace BaconBox {
 	 
-	FlashTransform::FlashTransform(): Transform(), movieClipHolder(NULL){
+	FlashTransform::FlashTransform(): Transform(), movieClipHolder(NULL) {
 	    initializeConnections();
 	}
 
-	const Vector2 &FlashTransform::getPosition() const{
+	const Vector2 &FlashTransform::getPosition() const {
 		AS3_DeclareVar(mc, *);
 		AS3::local::var tempMC = movieClipHolder->getMovieClip();
 		AS3_CopyVarxxToVar(mc, tempMC);
@@ -18,7 +18,7 @@ namespace BaconBox {
 			 "%1 = mc.y;\n"
 			: "=r"(const_cast<FlashTransform*>(this)->position.x), "=r"(const_cast<FlashTransform*>(this)->position.y) :
 		);
-			return position;
+		return position;
 	}
 
 

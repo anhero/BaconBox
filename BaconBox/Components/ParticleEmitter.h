@@ -34,6 +34,11 @@ namespace BaconBox {
 		void pause();
 		void stop();
 		
+		/**
+		 * Makes the explosion emit all of its particles.
+		 */
+		void explode();
+		
 		bool isInfiniteEmission() const;
 		void setInfiniteEmission(bool newInfiniteEmission);
 		
@@ -132,6 +137,8 @@ namespace BaconBox {
 		void start();
 		void pause();
 		void stop();
+		
+		void explode();
 		
 		bool isInfiniteEmission() const;
 		void setInfiniteEmission(bool newInfiniteEmission);

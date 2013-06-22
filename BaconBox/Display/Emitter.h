@@ -6,6 +6,7 @@
 #include <utility>
 #include "BaconBox/Display/Particle.h"
 #include "BaconBox/Display/ParticlePhase.h"
+#include "BaconBox/Helper/Stopwatch.h"
 
 namespace BaconBox {
 	class MovieClipEntity;
@@ -59,8 +60,6 @@ namespace BaconBox {
 		
 		ParticleVector::iterator findFirstDeadParticle();
 		
-		void clearParticles();
-		
 		void startPhase(ParticleVector::iterator particle);
 		
 		ParticleVector particles;
@@ -91,6 +90,8 @@ namespace BaconBox {
 		 * List of particle phases each particle go through before dying.
 		 */
 		PhaseList phases;
+		
+		Stopwatch updateStopwatch;
 	};
 }
 

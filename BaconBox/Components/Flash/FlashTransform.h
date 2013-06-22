@@ -17,7 +17,6 @@ namespace BaconBox {
 		void initializeConnections();
 		MovieClipHolder * movieClipHolder;
 		Vector2 realPosition;
-
 	};
 
 }

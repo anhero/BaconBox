@@ -18,6 +18,7 @@ namespace BaconBox {
 		static AS3::local::var getProperty(const AS3::local::var & var, const std::string & propertyName);
 		static void setProperty(const AS3::local::var & var, const std::string & propertyName, AS3::local::var arg);
 		static MovieClipEntity * getMCEntityFromMC(AS3::local::var mc);
+		static AS3::local::var getMCFromMCEntity(MovieClipEntity *entity);
 
 		static AS3::local::var callFunction(const std::string & functionName, const std::string & ns, int argCount, AS3::local::var *args);
 
