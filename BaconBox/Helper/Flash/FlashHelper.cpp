@@ -62,6 +62,23 @@ MovieClipEntity * FlashHelper::getMCEntityFromMC(AS3::local::var mc){
 		return entityPointer;
 	}
 
+	AS3::local::var FlashHelper::getMCFromMCEntity(MovieClipEntity *entity) {
+		AS3::local::var mc = FlashHelper::construct("BaconBox.EntityWrapper.EntityHolderMovieClip");
+
+		AS3::local::var mcWrapper = FlashHelper::construct("BaconBox.MovieClipEntity");
+
+		AS3::local::var ptr = AS3::local::internal::new_int((int)entity);
+
+		FlashHelper::setProperty(mcWrapper, "swigCPtr", ptr);
+
+		FlashHelper::setProperty(mc, "entity", mcWrapper);
+		
+		AS3::local::var args[1] = {mc};
+		FlashHelper::callMethod(mcWrapper, "setMovieClip", 1, args);
+
+		return mc;
+	}
+
 AS3::local::var FlashHelper::getProperty(const AS3::local::var & var, const std::string & propertyName){
 	#ifdef BB_DEBUG
 		try{

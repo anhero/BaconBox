@@ -55,6 +55,7 @@ namespace BaconBox {
 		 * @return Reference to the modified ParticlePhase.
 		 */
 		ParticlePhase &operator=(const ParticlePhase &src);
+		
 		/// Minimum duration the phase will last.
 		double phaseDuration;
 

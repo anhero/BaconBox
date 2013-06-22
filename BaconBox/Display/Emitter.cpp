@@ -6,14 +6,13 @@
 #include "BaconBox/Components/Speed.h"
 
 namespace BaconBox {
-	Emitter::Emitter() : particles(), minForce(20.0), maxForce(40.0), minAngle(-180.0), maxAngle(180.0), phases() {
+	Emitter::Emitter() : particles(), minForce(20.0), maxForce(40.0), minAngle(-180.0), maxAngle(180.0), phases(), updateStopwatch(){
 	}
 
-	Emitter::Emitter(const Emitter &src) : particles(src.particles), minForce(src.minForce), maxForce(src.maxForce), minAngle(src.minAngle), maxAngle(src.maxAngle), phases(src.phases) {
+	Emitter::Emitter(const Emitter &src) : particles(src.particles), minForce(src.minForce), maxForce(src.maxForce), minAngle(src.minAngle), maxAngle(src.maxAngle), phases(src.phases), updateStopwatch(src.updateStopwatch) {
 	}
 
 	Emitter::~Emitter() {
-		this->clearParticles();
 	}
 
 	Emitter &Emitter::operator=(const Emitter &src) {
@@ -24,6 +23,7 @@ namespace BaconBox {
 			this->minAngle = src.minAngle;
 			this->maxAngle = src.maxAngle;
 			this->phases = src.phases;
+			this->updateStopwatch = src.updateStopwatch;
 		}
 
 		return *this;
@@ -55,6 +55,22 @@ namespace BaconBox {
 	}
 	void Emitter::setMaxAngle(float newMaxAngle) {
 		this->maxAngle = newMaxAngle;
+	}
+	
+	Emitter::PhaseList &Emitter::getPhases() {
+		return this->phases;
+	}
+	
+	const Emitter::PhaseList &Emitter::getPhases() const {
+		return this->phases;
+	}
+	
+	Emitter::ParticleVector &Emitter::getParticles() {
+		return this->particles;
+	}
+	
+	const Emitter::ParticleVector &Emitter::getParticles() const {
+		return this->particles;		
 	}
 
 	bool Emitter::emitParticle() {
@@ -96,8 +112,14 @@ namespace BaconBox {
 			speed->setVelocity(velocity);
 		}
 		
+		ColorTransform *particleColor = particle->second.graphic->getComponent<ColorTransform>();
+		
+		if (particleColor) {
+			particleColor->setAlphaMultiplier(1.0);
+		}
+		
 		particle->second.timeLeft = 0.0;
-		particle->second.alphaCounter = 0.0f;
+		particle->second.alphaCounter = 1.0f;
 	}
 	
 	void Emitter::updateParticles() {
@@ -105,35 +127,41 @@ namespace BaconBox {
 		for (ParticleVector::iterator i = this->particles.begin(); i != this->particles.end(); ++i) {
 			this->updateParticle(i);
 		}
+		
+		this->updateStopwatch.stop();
+		this->updateStopwatch.start();
 	}
 	
 	void Emitter::updateParticle(ParticleVector::iterator particle) {
 		// We check if the particle is still alive.
 		if (particle->second.timeLeft > 0.0) {
+			float timeElapsed = static_cast<float>(this->updateStopwatch.getTime());
 			
 			// We update the particle.
 			
 			// We update the particle's alpha.
 			if (particle->second.alphaPerSecond != 0.0f) {
-				particle->second.alphaCounter = std::min(particle->second.alphaCounter + static_cast<float>(Engine::getSinceLastUpdate()) * particle->second.alphaPerSecond, 1.0f);
+				particle->second.alphaCounter = std::min(particle->second.alphaCounter + timeElapsed * particle->second.alphaPerSecond, 1.0f);
 				particle->second.graphic->setAlphaMultiplier(particle->second.alphaCounter);
 			}
 			
 			// We update the particle's scaling, if needed.
 			if (particle->second.scalingPerSecond != Vector2()) {
-				particle->second.graphic->setScale(particle->second.graphic->getScale() + (particle->second.scalingPerSecond * static_cast<float>(Engine::getSinceLastUpdate())));
+				particle->second.graphic->setScale(particle->second.graphic->getScale() + (particle->second.scalingPerSecond * timeElapsed));
 			}
 			
 			// We update the particle's rotation, if needed.
 			if (particle->second.anglePerSecond != 0.0f) {
-				particle->second.graphic->setRotation(particle->second.graphic->getRotation() + (particle->second.anglePerSecond * static_cast<float>(Engine::getSinceLastUpdate())));
+				particle->second.graphic->setRotation(particle->second.graphic->getRotation() + (particle->second.anglePerSecond * timeElapsed));
 			}
 			
 			// We update the particle's graphic.
+#if defined(BB_FLASH_PLATFORM)
 			particle->second.graphic->update();
+#endif
 			
 			// We update the particle's life span.
-			particle->second.timeLeft -= Engine::getSinceLastUpdate();
+			particle->second.timeLeft -= timeElapsed;
 		}
 		
 		// We update the particle's phase.
@@ -163,9 +191,6 @@ namespace BaconBox {
 		return i;
 	}
 	
-	void Emitter::clearParticles() {
-	}
-	
 	void Emitter::startPhase(ParticleVector::iterator particle) {
 		// We make sure the phase is valid.
 		if (particle->first != this->phases.end()) {
@@ -175,7 +200,7 @@ namespace BaconBox {
 				particle->second.graphic->gotoAndPlay(particle->first->animationName);
 			}
 			
-			particle->second.alphaCounter = 0.0;
+			particle->second.alphaCounter = 1.0f;
 			particle->second.alphaPerSecond = particle->first->alphaPerSecond + Random::getRandomFloat(0.0f, particle->first->alphaPerSecondVariance);
 			particle->second.scalingPerSecond = particle->first->scalingPerSecond + Vector2(Random::getRandomFloat(0.0f, particle->first->scalingPerSecondVariance.x), Random::getRandomFloat(0.0f, particle->first->scalingPerSecondVariance.y));
 			particle->second.anglePerSecond = particle->first->anglePerSecond + Random::getRandomFloat(0.0f, particle->first->anglePerSecondVariance);
