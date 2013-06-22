@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		241C5D9A1775F80D00AC00EA /* Shake.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 241C5D981775F80D00AC00EA /* Shake.cpp */; };
+		241C5D9B1775F80D00AC00EA /* Shake.h in Headers */ = {isa = PBXBuildFile; fileRef = 241C5D991775F80D00AC00EA /* Shake.h */; };
 		243C9C611764FE89007250BA /* Emitter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 243C9C5F1764FE89007250BA /* Emitter.cpp */; };
 		243C9C621764FE89007250BA /* Emitter.h in Headers */ = {isa = PBXBuildFile; fileRef = 243C9C601764FE89007250BA /* Emitter.h */; };
 		243C9C651764FEA7007250BA /* ParticleEmitter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 243C9C631764FEA7007250BA /* ParticleEmitter.cpp */; };
@@ -368,6 +370,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		241C5D981775F80D00AC00EA /* Shake.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Shake.cpp; sourceTree = "<group>"; };
+		241C5D991775F80D00AC00EA /* Shake.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Shake.h; sourceTree = "<group>"; };
 		243C9C5F1764FE89007250BA /* Emitter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Emitter.cpp; sourceTree = "<group>"; };
 		243C9C601764FE89007250BA /* Emitter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Emitter.h; sourceTree = "<group>"; };
 		243C9C631764FEA7007250BA /* ParticleEmitter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ParticleEmitter.cpp; sourceTree = "<group>"; };
@@ -925,6 +929,8 @@
 				51903A2E17500B7B00814708 /* Visibility.h */,
 				24B61A82176E0ABC0097F001 /* Speed.cpp */,
 				24B61A83176E0ABC0097F001 /* Speed.h */,
+				241C5D981775F80D00AC00EA /* Shake.cpp */,
+				241C5D991775F80D00AC00EA /* Shake.h */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -1606,6 +1612,7 @@
 				2494A2D3176E462B00D483A3 /* Particle.h in Headers */,
 				24CA7D0017748A43000ACF7F /* EmitterFactory.h in Headers */,
 				24CA7D0417748F25000ACF7F /* EmitterEntity.h in Headers */,
+				241C5D9B1775F80D00AC00EA /* Shake.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1813,6 +1820,7 @@
 				2494A2D0176E44AE00D483A3 /* ParticlePhase.cpp in Sources */,
 				24CA7CFF17748A43000ACF7F /* EmitterFactory.cpp in Sources */,
 				24CA7D0317748F25000ACF7F /* EmitterEntity.cpp in Sources */,
+				241C5D9A1775F80D00AC00EA /* Shake.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
