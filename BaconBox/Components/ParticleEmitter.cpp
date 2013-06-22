@@ -176,12 +176,6 @@ namespace BaconBox {
 				particleTransform->setRotation(this->transform->getRotation());
 				particleTransform->setScale(this->transform->getScale());
 			}
-			
-			ColorTransform *particleColor = particle->second.graphic->getComponent<ColorTransform>();
-			
-			if (particleColor) {
-				particleColor->setAlphaMultiplier(1.0);
-			}
 		}
 	}
 	

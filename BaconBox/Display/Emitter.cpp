@@ -112,6 +112,12 @@ namespace BaconBox {
 			speed->setVelocity(velocity);
 		}
 		
+		ColorTransform *particleColor = particle->second.graphic->getComponent<ColorTransform>();
+		
+		if (particleColor) {
+			particleColor->setAlphaMultiplier(1.0);
+		}
+		
 		particle->second.timeLeft = 0.0;
 		particle->second.alphaCounter = 1.0f;
 	}

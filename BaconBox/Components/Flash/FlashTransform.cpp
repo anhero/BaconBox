@@ -5,25 +5,20 @@
 #include "BaconBox/Console.h"
 namespace BaconBox {
 	 
-	FlashTransform::FlashTransform(): Transform(), movieClipHolder(NULL), customPosition(false) {
+	FlashTransform::FlashTransform(): Transform(), movieClipHolder(NULL) {
 	    initializeConnections();
 	}
 
 	const Vector2 &FlashTransform::getPosition() const {
-		if (this->customPosition) {
-			return this->position;
-		} else {
-
-			AS3_DeclareVar(mc, *);
-			AS3::local::var tempMC = movieClipHolder->getMovieClip();
-			AS3_CopyVarxxToVar(mc, tempMC);
-			inline_as3(
-				 "%0 = mc.x;\n"
-				 "%1 = mc.y;\n"
-				: "=r"(const_cast<FlashTransform*>(this)->position.x), "=r"(const_cast<FlashTransform*>(this)->position.y) :
-			);
-			return position;
-		}
+		AS3_DeclareVar(mc, *);
+		AS3::local::var tempMC = movieClipHolder->getMovieClip();
+		AS3_CopyVarxxToVar(mc, tempMC);
+		inline_as3(
+			 "%0 = mc.x;\n"
+			 "%1 = mc.y;\n"
+			: "=r"(const_cast<FlashTransform*>(this)->position.x), "=r"(const_cast<FlashTransform*>(this)->position.y) :
+		);
+		return position;
 	}
 
 
@@ -43,11 +38,6 @@ namespace BaconBox {
 		);
 
 		return realPosition;
-	}
-
-	void FlashTransform::setPosition(const Vector2 &newPosition, bool withMessage) {
-		this->customPosition = true;
-		this->Transform::setPosition(newPosition, withMessage);
 	}
 
 	void FlashTransform::initializeConnections() {

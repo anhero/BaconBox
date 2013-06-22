@@ -88,7 +88,6 @@ namespace BaconBox {
 			return getPosition();
 		}
 	}
-
 	
 	void Transform::setPosition(const Vector2 &newPosition, bool withMessage) {
 		Vector2ChangedData data(this->position, newPosition);
