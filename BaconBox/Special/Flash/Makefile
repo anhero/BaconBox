@@ -14,6 +14,10 @@ SWIG_HEADERS_PATH:=../../../libraries/Darwin/x86_64/include
 
 COMPC=$(FLEX)/bin/compc
 
+ifdef linkOptimize
+	BASE_CFLAGS+= -O4 -flto-api=./exports.txt
+endif
+
 
 ifdef lua
 partialSwig=1
@@ -229,13 +233,13 @@ swf: check $(BUILD_PATH)/BaconBox.swf
 
 
 
-$(BUILD_PATH)/BaconBox.swf: $(addsuffix .abc,$(SWIG_OUTPUT)) EntityHolderMovieClip.abc EntityHolderTextField.abc $(addprefix $(PROJECT_ROOT)/,$(ALL_SOURCES)) $(addprefix $(PROJECT_ROOT)/,$(FLASCC_SOURCES))
+$(BUILD_PATH)/BaconBox.swf: $(addsuffix .abc,$(SWIG_OUTPUT)) ./exports.txt EntityHolderMovieClip.abc EntityHolderTextField.abc $(addprefix $(PROJECT_ROOT)/,$(ALL_SOURCES)) $(addprefix $(PROJECT_ROOT)/,$(FLASCC_SOURCES))
 	@echo "-------- BaconBox.swf--------"
 	"$(FLASCC)/usr/bin/g++" $(BASE_CFLAGS) $(DEFINE_FLAG) -I$(PROJECT_ROOT) -I$(CUSTOM_LIB_PATH)/include $(addsuffix .abc,$(SWIG_OUTPUT)) EntityHolderMovieClip.abc EntityHolderTextField.abc \
 	$(addprefix $(PROJECT_ROOT)/, $(ALL_SOURCES)) $(addprefix $(PROJECT_ROOT)/, $(FLASCC_SOURCES)) -emit-swf -o $(BUILD_PATH)/BaconBox.swf \
 	-L$(CUSTOM_LIB_PATH)/lib $(LINK_FLAG)
 
-$(BUILD_PATH)/BaconBox.swc: VFS.abc $(addsuffix .abc,$(SWIG_OUTPUT)) $(addprefix $(PROJECT_ROOT)/,$(ALL_SOURCES)) $(addprefix $(PROJECT_ROOT)/,$(FLASCC_SOURCES))
+$(BUILD_PATH)/BaconBox.swc: VFS.abc $(addsuffix .abc,$(SWIG_OUTPUT)) ./exports.txt $(addprefix $(PROJECT_ROOT)/,$(ALL_SOURCES)) $(addprefix $(PROJECT_ROOT)/,$(FLASCC_SOURCES))
 	@echo "-------- BaconBox.swc --------"
 	"$(FLASCC)/usr/bin/g++" $(BASE_CFLAGS) $(DEFINE_FLAG) -I$(PROJECT_ROOT) -I$(CUSTOM_LIB_PATH)/include $(addsuffix .abc,$(SWIG_OUTPUT)) \
 	VFS.abc $(addprefix $(PROJECT_ROOT)/, $(ALL_SOURCES)) $(addprefix $(PROJECT_ROOT)/, $(FLASCC_SOURCES)) -emit-swc=BaconBox -o $(BUILD_PATH)/BaconBox.swc \
