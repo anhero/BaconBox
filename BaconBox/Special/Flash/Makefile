@@ -15,7 +15,8 @@ SWIG_HEADERS_PATH:=../../../libraries/Darwin/x86_64/include
 COMPC=$(FLEX)/bin/compc
 
 ifdef linkOptimize
-	BASE_CFLAGS+= -O4 -flto-api=./exports.txt
+	BASE_CFLAGS+=-O4
+	LINK_FLAG+=  -flto-api=./exports.txt
 endif
 
 
