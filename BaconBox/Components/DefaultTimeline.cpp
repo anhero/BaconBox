@@ -44,7 +44,7 @@ namespace BaconBox {
 		this->Timeline::update();
 
 		if (this->playing) {
-            if(endFrame != -1 && currentFrame <= endFrame){
+            if(endFrame == -1 || currentFrame <= endFrame){
                 this->nextFrame();
             }
             else if(currentFrame >=  endFrame){
