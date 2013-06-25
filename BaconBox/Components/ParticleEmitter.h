@@ -34,6 +34,11 @@ namespace BaconBox {
 		void pause();
 		void stop();
 		
+		/**
+		 * Makes the explosion emit all of its particles.
+		 */
+		void explode();
+		
 		bool isInfiniteEmission() const;
 		void setInfiniteEmission(bool newInfiniteEmission);
 		
@@ -47,6 +52,9 @@ namespace BaconBox {
 		
 		double getEmissionRate() const;
 		void setEmissionRate(double newEmissionRate);
+		
+	protected:
+		void initializeParticle(ParticleVector::iterator particle);
 		
 	private:
 		void initializeConnections();
@@ -96,6 +104,55 @@ namespace BaconBox {
 		double timeCounter;
 		
 		Transform *transform;
+	};
+	
+	class ParticleEmitterProxy : public ComponentProxy {
+	public:
+		ParticleEmitterProxy(Entity *entity, bool mustAddComponent = true);
+		
+		float getMinForce() const;
+		void setMinForce(float newMinForce);
+		
+		float getMaxForce() const;
+		void setMaxForce(float newMaxForce);
+		
+		float getMinAngle() const;
+		void setMinAngle(float newMinAngle);
+		
+		float getMaxAngle() const;
+		void setMaxAngle(float newMaxAngle);
+		
+		Emitter::PhaseList &getPhases();
+		
+		const Emitter::PhaseList &getPhases() const;
+		
+		Emitter::ParticleVector &getParticles();
+		
+		const Emitter::ParticleVector &getParticles() const;
+		
+		bool emitParticle();
+
+		bool isEmitting() const;
+		
+		void start();
+		void pause();
+		void stop();
+		
+		void explode();
+		
+		bool isInfiniteEmission() const;
+		void setInfiniteEmission(bool newInfiniteEmission);
+		
+		double getMinEmissionTime() const;
+		void setMinEmissionTime(double newMinEmissionTime);
+		
+		double getMaxEmissionTime() const;
+		void setMaxEmissionTime(double newMaxEmissionTime);
+		
+		double getCurrentLifetime() const;
+		
+		double getEmissionRate() const;
+		void setEmissionRate(double newEmissionRate);
 	};
 }
 

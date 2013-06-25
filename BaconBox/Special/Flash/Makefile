@@ -79,6 +79,8 @@ BaconBox/Components/SymbolComponent.o \
 BaconBox/Components/MatrixComponent.o \
 BaconBox/Components/DefaultMatrix.o \
 BaconBox/Components/SizeComponent.o \
+BaconBox/Components/ParticleEmitter.o \
+BaconBox/Components/Speed.o \
 BaconBox/Components/AABBHitBox.o \
 BaconBox/Components/Flash/MovieClipHolder.o \
 BaconBox/Components/Flash/TextFieldHolder.o \
@@ -106,6 +108,8 @@ BaconBox/Core/Flash/FlashEngine.o
 DISPLAY_SOURCES= \
 BaconBox/Display/Camera.o \
 BaconBox/Display/Color.o \
+BaconBox/Display/Emitter.o \
+BaconBox/Display/ParticlePhase.o \
 BaconBox/Display/PixMap.o \
 BaconBox/Display/TextureInformation.o \
 BaconBox/Display/SubTextureInfo.o \
@@ -129,6 +133,7 @@ BaconBox/Helper/Parser.o \
 BaconBox/Helper/Random.o \
 BaconBox/Helper/ResourcePathHandler.o \
 BaconBox/Helper/ShapeFactory.o \
+BaconBox/Helper/EmitterFactory.o \
 BaconBox/Helper/Stopwatch.o \
 BaconBox/Helper/StringHelper.o \
 BaconBox/Helper/TimeHelper.o \
@@ -211,7 +216,8 @@ BaconBox/Symbol.o \
 BaconBox/Matrix.o \
 BaconBox/ColorMatrix.o \
 BaconBox/Platform.o \
-BaconBox/VertexArray.o
+BaconBox/VertexArray.o \
+BaconBox/EmitterEntity.o
 
 FLASCC_FILE_PATH=BaconBox/Special/Flash
 

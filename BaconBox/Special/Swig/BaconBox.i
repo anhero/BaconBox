@@ -151,8 +151,21 @@ end
 
 
   #include "BaconBox/Display/SubTextureInfo.h"
+#include "BaconBox/Components/Speed.h"
+	
+#include "BaconBox/Helper/TimeHelper.h"
+#include "BaconBox/Helper/Stopwatch.h"
+#include "BaconBox/Display/ParticlePhase.h"
+#include "BaconBox/Display/Particle.h"
+#include "BaconBox/Display/Emitter.h"
+#include "BaconBox/Components/ParticleEmitter.h"
+	
 	#include "BaconBox/MovieClipEntity/MovieClipEntity.h"
+	
+#include "BaconBox/EmitterEntity.h"
+	
 	#include "BaconBox/EntityFactory.h"
+#include "BaconBox/Helper/EmitterFactory.h"
   #include "BaconBox/Components/HasName.h"
   #include "BaconBox/Display/Camera.h"
   #include "BaconBox/Core/State.h"
@@ -572,14 +585,25 @@ namespace BaconBox{
 %include "BaconBox/Components/SymbolComponent.h"
 
 %include "BaconBox/Components/TextComponent.h"
+%include "BaconBox/Components/Speed.h"
+	
+	%include "BaconBox/Helper/TimeHelper.h"
+	%include "BaconBox/Helper/Stopwatch.h"
+	%include "BaconBox/Display/ParticlePhase.h"
+	%include "BaconBox/Display/Particle.h"
+	%include "BaconBox/Display/Emitter.h"
+	%include "BaconBox/Components/ParticleEmitter.h"
+	
 %include "BaconBox/MovieClipEntity/MovieClipEntity.h"
+	
+%include "BaconBox/EmitterEntity.h"
 
 %include "BaconBox/Display/Text/TextEntity.h"
 
 
 %ignore getMovieClipEntityFromSymbol;
 %include "BaconBox/EntityFactory.h" 
-
+%include "BaconBox/Helper/EmitterFactory.h"
 
 %include "BaconBox/Helper/ResourcePathHandler.h"
 

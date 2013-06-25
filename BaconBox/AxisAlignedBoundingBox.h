@@ -274,6 +274,9 @@ namespace BaconBox {
 		 * @return True if the point is inside the bounding box, false if not.
 		 */
 		bool overlaps(const Vector2 &point) const;
+		
+		bool overlaps(const Vector2 &point, float radius) const;
+
 
 		/**
 		 * Checks if a point overlaps with the bounding box.

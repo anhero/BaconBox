@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		243C9C5D1764F730007250BA /* Explosion.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 243C9C5B1764F730007250BA /* Explosion.cpp */; };
-		243C9C5E1764F730007250BA /* Explosion.h in Headers */ = {isa = PBXBuildFile; fileRef = 243C9C5C1764F730007250BA /* Explosion.h */; };
 		243C9C611764FE89007250BA /* Emitter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 243C9C5F1764FE89007250BA /* Emitter.cpp */; };
 		243C9C621764FE89007250BA /* Emitter.h in Headers */ = {isa = PBXBuildFile; fileRef = 243C9C601764FE89007250BA /* Emitter.h */; };
 		243C9C651764FEA7007250BA /* ParticleEmitter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 243C9C631764FEA7007250BA /* ParticleEmitter.cpp */; };
@@ -20,6 +18,10 @@
 		2494A2D3176E462B00D483A3 /* Particle.h in Headers */ = {isa = PBXBuildFile; fileRef = 2494A2D2176E462B00D483A3 /* Particle.h */; };
 		24B61A84176E0ABC0097F001 /* Speed.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 24B61A82176E0ABC0097F001 /* Speed.cpp */; };
 		24B61A85176E0ABC0097F001 /* Speed.h in Headers */ = {isa = PBXBuildFile; fileRef = 24B61A83176E0ABC0097F001 /* Speed.h */; };
+		24CA7CFF17748A43000ACF7F /* EmitterFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 24CA7CFD17748A43000ACF7F /* EmitterFactory.cpp */; };
+		24CA7D0017748A43000ACF7F /* EmitterFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = 24CA7CFE17748A43000ACF7F /* EmitterFactory.h */; };
+		24CA7D0317748F25000ACF7F /* EmitterEntity.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 24CA7D0117748F25000ACF7F /* EmitterEntity.cpp */; };
+		24CA7D0417748F25000ACF7F /* EmitterEntity.h in Headers */ = {isa = PBXBuildFile; fileRef = 24CA7D0217748F25000ACF7F /* EmitterEntity.h */; };
 		24CD5A9916347EE9001EB407 /* libJsonBox.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 24CD5A9716347EE8001EB407 /* libJsonBox.a */; };
 		511A55B3176230C600CBEF43 /* UIManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 511A55B1176230C600CBEF43 /* UIManager.cpp */; };
 		511A55B4176230C600CBEF43 /* UIManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 511A55B2176230C600CBEF43 /* UIManager.h */; };
@@ -27,6 +29,8 @@
 		511A55B817623AAD00CBEF43 /* Clickable.h in Headers */ = {isa = PBXBuildFile; fileRef = 511A55B617623AAD00CBEF43 /* Clickable.h */; };
 		514C46A2175E972B003D098F /* LuaCallback.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 514C46A0175E972B003D098F /* LuaCallback.cpp */; };
 		514C46A3175E972B003D098F /* LuaCallback.h in Headers */ = {isa = PBXBuildFile; fileRef = 514C46A1175E972B003D098F /* LuaCallback.h */; };
+		5153401C17760005008DC02E /* DefaultSizeComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5153401A17760005008DC02E /* DefaultSizeComponent.cpp */; };
+		5153401D17760005008DC02E /* DefaultSizeComponent.h in Headers */ = {isa = PBXBuildFile; fileRef = 5153401B17760005008DC02E /* DefaultSizeComponent.h */; };
 		5153CCE01698A80A00431A19 /* libfreetype.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5153CCDF1698A80A00431A19 /* libfreetype.a */; };
 		5153CCE31698A82A00431A19 /* libpng.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5153CCE21698A82A00431A19 /* libpng.a */; };
 		5153CCE81698A86E00431A19 /* libogg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5153CCE61698A86E00431A19 /* libogg.a */; };
@@ -366,8 +370,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		243C9C5B1764F730007250BA /* Explosion.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Explosion.cpp; sourceTree = "<group>"; };
-		243C9C5C1764F730007250BA /* Explosion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Explosion.h; sourceTree = "<group>"; };
 		243C9C5F1764FE89007250BA /* Emitter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Emitter.cpp; sourceTree = "<group>"; };
 		243C9C601764FE89007250BA /* Emitter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Emitter.h; sourceTree = "<group>"; };
 		243C9C631764FEA7007250BA /* ParticleEmitter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ParticleEmitter.cpp; sourceTree = "<group>"; };
@@ -379,6 +381,10 @@
 		2494A2D2176E462B00D483A3 /* Particle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Particle.h; sourceTree = "<group>"; };
 		24B61A82176E0ABC0097F001 /* Speed.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Speed.cpp; sourceTree = "<group>"; };
 		24B61A83176E0ABC0097F001 /* Speed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Speed.h; sourceTree = "<group>"; };
+		24CA7CFD17748A43000ACF7F /* EmitterFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EmitterFactory.cpp; sourceTree = "<group>"; };
+		24CA7CFE17748A43000ACF7F /* EmitterFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmitterFactory.h; sourceTree = "<group>"; };
+		24CA7D0117748F25000ACF7F /* EmitterEntity.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EmitterEntity.cpp; sourceTree = "<group>"; };
+		24CA7D0217748F25000ACF7F /* EmitterEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmitterEntity.h; sourceTree = "<group>"; };
 		24CD5A9716347EE8001EB407 /* libJsonBox.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libJsonBox.a; path = libraries/Darwin/x86_64/lib/libJsonBox.a; sourceTree = "<group>"; };
 		511A55B1176230C600CBEF43 /* UIManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UIManager.cpp; sourceTree = "<group>"; };
 		511A55B2176230C600CBEF43 /* UIManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIManager.h; sourceTree = "<group>"; };
@@ -386,6 +392,8 @@
 		511A55B617623AAD00CBEF43 /* Clickable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Clickable.h; sourceTree = "<group>"; };
 		514C46A0175E972B003D098F /* LuaCallback.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LuaCallback.cpp; sourceTree = "<group>"; };
 		514C46A1175E972B003D098F /* LuaCallback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LuaCallback.h; sourceTree = "<group>"; };
+		5153401A17760005008DC02E /* DefaultSizeComponent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DefaultSizeComponent.cpp; sourceTree = "<group>"; };
+		5153401B17760005008DC02E /* DefaultSizeComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DefaultSizeComponent.h; sourceTree = "<group>"; };
 		5153CCDF1698A80A00431A19 /* libfreetype.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libfreetype.a; path = libraries/Darwin/x86_64/lib/libfreetype.a; sourceTree = "<group>"; };
 		5153CCE21698A82A00431A19 /* libpng.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpng.a; path = libraries/Darwin/x86_64/lib/libpng.a; sourceTree = SOURCE_ROOT; };
 		5153CCE61698A86E00431A19 /* libogg.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libogg.a; path = libraries/Darwin/x86_64/lib/libogg.a; sourceTree = "<group>"; };
@@ -805,6 +813,8 @@
 				51903B7317500B7B00814708 /* Vector3.h */,
 				51903B7417500B7B00814708 /* VertexArray.cpp */,
 				51903B7517500B7B00814708 /* VertexArray.h */,
+				24CA7D0117748F25000ACF7F /* EmitterEntity.cpp */,
+				24CA7D0217748F25000ACF7F /* EmitterEntity.h */,
 			);
 			name = BaconBox;
 			path = ../../../../libraries/BaconBox/BaconBox;
@@ -859,10 +869,10 @@
 		519039E117500B7B00814708 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				5153401A17760005008DC02E /* DefaultSizeComponent.cpp */,
+				5153401B17760005008DC02E /* DefaultSizeComponent.h */,
 				243C9C631764FEA7007250BA /* ParticleEmitter.cpp */,
 				243C9C641764FEA7007250BA /* ParticleEmitter.h */,
-				243C9C5B1764F730007250BA /* Explosion.cpp */,
-				243C9C5C1764F730007250BA /* Explosion.h */,
 				511A55B517623AAD00CBEF43 /* Clickable.cpp */,
 				511A55B617623AAD00CBEF43 /* Clickable.h */,
 				511A55B1176230C600CBEF43 /* UIManager.cpp */,
@@ -1118,6 +1128,8 @@
 				51903AE917500B7B00814708 /* UTFConvert.h */,
 				51903AEA17500B7B00814708 /* ValueChangedData.h */,
 				51903AEB17500B7B00814708 /* Vector2ChangedData.h */,
+				24CA7CFD17748A43000ACF7F /* EmitterFactory.cpp */,
+				24CA7CFE17748A43000ACF7F /* EmitterFactory.h */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -1545,6 +1557,7 @@
 				51903CA517500B7B00814708 /* AccelerometerSignalData.h in Headers */,
 				51903CA717500B7B00814708 /* AccelerometerState.h in Headers */,
 				51903CA917500B7B00814708 /* NullAccelerometer.h in Headers */,
+				5153401D17760005008DC02E /* DefaultSizeComponent.h in Headers */,
 				51903CAB17500B7B00814708 /* GamePad.h in Headers */,
 				51903CAD17500B7B00814708 /* GamePadButtonSignalData.h in Headers */,
 				51903CAF17500B7B00814708 /* GamePadSignalData.h in Headers */,
@@ -1593,12 +1606,13 @@
 				514C46A3175E972B003D098F /* LuaCallback.h in Headers */,
 				511A55B4176230C600CBEF43 /* UIManager.h in Headers */,
 				511A55B817623AAD00CBEF43 /* Clickable.h in Headers */,
-				243C9C5E1764F730007250BA /* Explosion.h in Headers */,
 				243C9C621764FE89007250BA /* Emitter.h in Headers */,
 				243C9C661764FEA7007250BA /* ParticleEmitter.h in Headers */,
 				24B61A85176E0ABC0097F001 /* Speed.h in Headers */,
 				2494A2D1176E44AE00D483A3 /* ParticlePhase.h in Headers */,
 				2494A2D3176E462B00D483A3 /* Particle.h in Headers */,
+				24CA7D0017748A43000ACF7F /* EmitterFactory.h in Headers */,
+				24CA7D0417748F25000ACF7F /* EmitterEntity.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1750,6 +1764,7 @@
 				51903C9617500B7B00814708 /* Timer.cpp in Sources */,
 				51903C9817500B7B00814708 /* TimerManager.cpp in Sources */,
 				51903C9C17500B7B00814708 /* UTFConvert.cpp in Sources */,
+				5153401C17760005008DC02E /* DefaultSizeComponent.cpp in Sources */,
 				51903CA217500B7B00814708 /* Accelerometer.cpp in Sources */,
 				51903CA417500B7B00814708 /* AccelerometerSignalData.cpp in Sources */,
 				51903CA617500B7B00814708 /* AccelerometerState.cpp in Sources */,
@@ -1800,11 +1815,12 @@
 				514C46A2175E972B003D098F /* LuaCallback.cpp in Sources */,
 				511A55B3176230C600CBEF43 /* UIManager.cpp in Sources */,
 				511A55B717623AAD00CBEF43 /* Clickable.cpp in Sources */,
-				243C9C5D1764F730007250BA /* Explosion.cpp in Sources */,
 				243C9C611764FE89007250BA /* Emitter.cpp in Sources */,
 				243C9C651764FEA7007250BA /* ParticleEmitter.cpp in Sources */,
 				24B61A84176E0ABC0097F001 /* Speed.cpp in Sources */,
 				2494A2D0176E44AE00D483A3 /* ParticlePhase.cpp in Sources */,
+				24CA7CFF17748A43000ACF7F /* EmitterFactory.cpp in Sources */,
+				24CA7D0317748F25000ACF7F /* EmitterEntity.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

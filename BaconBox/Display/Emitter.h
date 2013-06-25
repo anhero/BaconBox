@@ -6,6 +6,7 @@
 #include <utility>
 #include "BaconBox/Display/Particle.h"
 #include "BaconBox/Display/ParticlePhase.h"
+#include "BaconBox/Helper/Stopwatch.h"
 
 namespace BaconBox {
 	class MovieClipEntity;
@@ -28,12 +29,6 @@ namespace BaconBox {
 
 		Emitter &operator=(const Emitter &src);
 
-		double getMinLifetime() const;
-		void setMinLifetime(double newMinLifetime);
-
-		double getMaxLifetime() const;
-		void setMaxLifetime(double newMaxLifetime);
-
 		float getMinForce() const;
 		void setMinForce(float newMinForce);
 
@@ -55,26 +50,19 @@ namespace BaconBox {
 		const ParticleVector &getParticles() const;
 
 		bool emitParticle();
+	protected:
+		virtual void initializeParticle(ParticleVector::iterator particle);
+		
+		void updateParticles();
 	private:
-		void initializeParticle(ParticleVector::iterator particle);
+		
+		void updateParticle(ParticleVector::iterator particle);
 		
 		ParticleVector::iterator findFirstDeadParticle();
-		
-		void clearParticles();
 		
 		void startPhase(ParticleVector::iterator particle);
 		
 		ParticleVector particles;
-		
-		/**
-		 * The minimum lifetime of each particle, measured in seconds.
-		 */
-		double minLifetime;
-
-		/**
-		 * The maximum lifetime of each particle, measured in seconds.
-		 */
-		double maxLifetime;
 
 		/**
 		 * Minimum force applied to the particle when spawned.
@@ -98,7 +86,12 @@ namespace BaconBox {
 		 */
 		float maxAngle;
 		
+		/**
+		 * List of particle phases each particle go through before dying.
+		 */
 		PhaseList phases;
+		
+		Stopwatch updateStopwatch;
 	};
 }
 

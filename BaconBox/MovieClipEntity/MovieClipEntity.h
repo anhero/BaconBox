@@ -16,6 +16,7 @@
 #include "BaconBox/Components/MatrixComponent.h"
 #include "BaconBox/Components/SymbolComponent.h"
 #include "BaconBox/Components/SizeComponent.h"
+#include "BaconBox/Components/Speed.h"
 
 #include "BaconBox/Components/AABBHitBox.h"
 #include "BaconBox/Components/HasName.h"
@@ -35,7 +36,8 @@ namespace BaconBox {
 	 */
 	class ClickableProxy;
 	class MovieClipEntity : public Entity, public HasNameProxy, public TransformProxy, public ColorTransformProxy, public TimelineProxy,
-	public EntityContainerProxy, public MatrixComponentProxy, public SymbolComponentProxy, public AABBHitBoxProxy, public ClickableProxy, public SizeComponentProxy
+	public EntityContainerProxy, public MatrixComponentProxy, public SymbolComponentProxy, public AABBHitBoxProxy, public ClickableProxy,
+	public SizeComponentProxy, public SpeedProxy
 	#ifdef BB_LUA
         , public LuaEntityProxy
     #endif //BB_LUA
@@ -45,6 +47,10 @@ namespace BaconBox {
 
 		MovieClipEntity();
 		MovieClipEntity(const MovieClipEntity& src);
+		
+		virtual ~MovieClipEntity();
+		
+		MovieClipEntity &operator=(const MovieClipEntity &src);
 
 #ifdef BB_FLASH_PLATFORM
 		virtual void setMovieClip(AS3::local::var aMC);

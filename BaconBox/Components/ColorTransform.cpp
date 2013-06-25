@@ -46,8 +46,6 @@ namespace BaconBox {
 		return  reinterpret_cast<ColorTransform *>(component)->getColor();
 	}
 
-
-
 	ColorTransform *ColorTransformProxy::getColorTransform() {
 		return reinterpret_cast<ColorTransform *>(component);
 	}

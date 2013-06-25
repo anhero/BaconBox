@@ -2,8 +2,10 @@
 
 #include "BaconBox/Components/Transform.h"
 #include "BaconBox/Components/ComponentConnection.h"
+#include "BaconBox/Console.h"
 
 namespace BaconBox {
+	BB_ID_IMPL(Speed);
 	Speed::Speed() : Component(), velocity(), acceleration(), angularVelocity(0.0f), updateStopwatch() {
 		this->initializeConnections();
 	}
@@ -31,12 +33,15 @@ namespace BaconBox {
 	}
 
 	void Speed::receiveMessage(int senderID, int destID, int message, void *data) {
+		this->Component::receiveMessage(senderID, destID, message, data);
 	}
 
 	void Speed::update() {
+		this->Component::update();
+		
 		if (this->transform) {
 			float timeElapsed = static_cast<float>(this->updateStopwatch.getTime());
-
+			
 			this->velocity += this->acceleration * timeElapsed;
 
 			if (this->velocity.x != 0.0f || this->velocity.y != 0.0f) {

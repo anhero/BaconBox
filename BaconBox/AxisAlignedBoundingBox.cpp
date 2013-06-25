@@ -2,6 +2,8 @@
 
 #include <algorithm>
 
+#include "BaconBox/Console.h"
+
 namespace BaconBox {
 	AxisAlignedBoundingBox::AxisAlignedBoundingBox() : position(), size() {
 	}
@@ -151,6 +153,12 @@ namespace BaconBox {
 	bool AxisAlignedBoundingBox::overlaps(const Vector2 &point) const {
 		return overlaps(point.x, point.y);
 	}
+	
+	bool AxisAlignedBoundingBox::overlaps(const Vector2 &point, float radius) const{
+	
+		return overlaps(AxisAlignedBoundingBox(Vector2(point.x - radius, point.y - radius), Vector2(radius*2, radius*2)));
+	}
+
 
 	bool AxisAlignedBoundingBox::overlaps(float xPoint, float yPoint) const {
 		return xPoint >= getLeft() && xPoint <= getRight() &&
