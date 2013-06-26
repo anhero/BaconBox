@@ -255,10 +255,10 @@ $(BUILD_PATH)/BaconBox.swf: $(addsuffix .abc,$(SWIG_OUTPUT))  EntityHolderMovieC
 	$(addsuffix .o,$(addprefix $(PROJECT_ROOT)/, $(ALL_SOURCES))) $(addprefix $(PROJECT_ROOT)/, $(FLASCC_SOURCES)) -emit-swf -o $(BUILD_PATH)/BaconBox.swf \
 	-L$(CUSTOM_LIB_PATH)/lib $(LINK_FLAG)
 
-$(BUILD_PATH)/BaconBox.swc: VFS.abc $(addsuffix .abc,$(SWIG_OUTPUT)) $(addsuffix .o,$(addprefix $(PROJECT_ROOT)/,$(ALL_SOURCES))) $(addprefix $(PROJECT_ROOT)/,$(FLASCC_SOURCES))
+$(BUILD_PATH)/BaconBox.swc: VFS.abc $(addsuffix .abc,$(SWIG_OUTPUT)) $(addsuffix .o,$(addprefix $(PROJECT_ROOT)/,$(ALL_SOURCES))) $(addsuffix .o,$(addprefix $(PROJECT_ROOT)/,$(FLASCC_SOURCES)))
 	@echo "-------- BaconBox.swc --------"
 	"$(FLASCC)/usr/bin/g++" $(BASE_CFLAGS) $(DEFINE_FLAG) -I$(PROJECT_ROOT) -I$(CUSTOM_LIB_PATH)/include $(addsuffix .abc,$(SWIG_OUTPUT)) \
-	VFS.abc $(addsuffix .o,$(addprefix $(PROJECT_ROOT)/, $(ALL_SOURCES))) $(addprefix $(PROJECT_ROOT)/, $(FLASCC_SOURCES)) -emit-swc=BaconBox -o $(BUILD_PATH)/BaconBox.swc \
+	VFS.abc $(addsuffix .o,$(addprefix $(PROJECT_ROOT)/, $(ALL_SOURCES))) $(addsuffix .o,$(addprefix $(PROJECT_ROOT)/, $(FLASCC_SOURCES))) -emit-swc=BaconBox -o $(BUILD_PATH)/BaconBox.swc \
 	-L$(CUSTOM_LIB_PATH)/lib $(LINK_FLAG)
 
 $?UNAME=$(shell uname -s)
