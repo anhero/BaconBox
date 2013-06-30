@@ -6,8 +6,6 @@
 #include "BaconBox/Vector2.h"
 
 namespace BaconBox {
-	class SizeComponent;
-
 	class Shake : public Component {
 	public:
 		enum ShakeAxis {
@@ -36,9 +34,9 @@ namespace BaconBox {
 
 		void shake(float newIntensity = 0.05f, double newDuration = 0.5,
 		           bool forceReset = true, ShakeAxis newAxis = BOTH);
+		
+		const Vector2 &getOffset() const;
 	private:
-		void initializeConnections();
-
 		/// Axis on which the shaking takes place.
 		ShakeAxis axis;
 
@@ -55,8 +53,6 @@ namespace BaconBox {
 		Vector2 offset;
 
 		Stopwatch shakeStopwatch;
-
-		SizeComponent *size;
 	};
 
 	class ShakeProxy : public ComponentProxy {
@@ -65,6 +61,8 @@ namespace BaconBox {
 
 		void shake(float newIntensity = 0.05f, double newDuration = 0.5,
 		           bool forceReset = true, Shake::ShakeAxis newAxis = Shake::BOTH);
+		
+		const Vector2 &getOffset() const;
 	};
 }
 

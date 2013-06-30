@@ -5,9 +5,11 @@
 #define BB_CAMERADRIVERRENDERER_H
 
 #include "BaconBox/Core/Component.h"
-#include "BaconBox/Components/Transform.h"
-#include "BaconBox/Components/ColorTransform.h"
 namespace BaconBox {
+	class Transform;
+	class ColorTransform;
+	class Shake;
+	
 	/**
 	 *
 	 */
@@ -29,6 +31,7 @@ namespace BaconBox {
     private:	
         Transform * transform;
         ColorTransform * colorTransform;
+		Shake *shake;
 		void initializeConnections();
 
 	};

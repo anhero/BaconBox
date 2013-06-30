@@ -16,7 +16,7 @@ namespace BaconBox {
 	 * Represents a camera. Its position determines what the player sees on his
 	 * screen.
 	 */
-	class Camera  : public Entity, public TransformProxy, public  ColorTransformProxy, public MatrixComponentProxy, ShakeProxy {
+	class Camera : public Entity, public TransformProxy, public ColorTransformProxy, public MatrixComponentProxy, public ShakeProxy {
     public:
 		Camera();
 

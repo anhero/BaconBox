@@ -4,15 +4,19 @@
 #include "BaconBox/Display/Driver/GraphicDriver.h"
 #include "BaconBox/Display/Color.h"
 #include "BaconBox/Core/IDManager.h"
+#include "BaconBox/Components/Transform.h"
+#include "BaconBox/Components/ColorTransform.h"
+#include "BaconBox/Components/Shake.h"
 
 namespace BaconBox {
 	BB_ID_IMPL(CameraDriverRenderer);
 
-	CameraDriverRenderer::CameraDriverRenderer() : Component(), transform(NULL),  colorTransform(NULL){
-	    initializeConnections();
+	CameraDriverRenderer::CameraDriverRenderer() : Component(), transform(NULL),  colorTransform(NULL), shake(NULL) {
+	    this->initializeConnections();
 	}
 
-	CameraDriverRenderer::CameraDriverRenderer(const CameraDriverRenderer &src) : Component(src) {
+	CameraDriverRenderer::CameraDriverRenderer(const CameraDriverRenderer &src) : Component(src), transform(NULL),  colorTransform(NULL), shake(NULL) {
+		this->initializeConnections();
 	}
 
 	CameraDriverRenderer::~CameraDriverRenderer() {
@@ -21,6 +25,7 @@ namespace BaconBox {
 	void CameraDriverRenderer::initializeConnections(){
 	    this->addConnection(new ComponentConnection<Transform>(&this->transform));
 	    this->addConnection(new ComponentConnection<ColorTransform>(&this->colorTransform));
+	    this->addConnection(new ComponentConnection<Shake>(&this->shake));
 	}
 
 	CameraDriverRenderer &CameraDriverRenderer::operator=(const CameraDriverRenderer &src) {
@@ -33,10 +38,7 @@ namespace BaconBox {
 		return new CameraDriverRenderer(*this);
 	}
 
-
-
-
-	void CameraDriverRenderer::update(){
-		Engine::getGraphicDriver().prepareScene(transform->getPosition(), transform->getRotation()*-1, transform->getScale(), colorTransform->getColor(), true);
+	void CameraDriverRenderer::update() {
+		Engine::getGraphicDriver().prepareScene(this->transform->getPosition() + this->shake->getOffset(), -this->transform->getRotation(), this->transform->getScale(), this->colorTransform->getColor(), true);
 	}
 }

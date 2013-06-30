@@ -151,15 +151,15 @@ end
 
 
   #include "BaconBox/Display/SubTextureInfo.h"
-#include "BaconBox/Components/Speed.h"
-	
-#include "BaconBox/Helper/TimeHelper.h"
 #include "BaconBox/Helper/Stopwatch.h"
+#include "BaconBox/Helper/TimeHelper.h"
+#include "BaconBox/Components/Speed.h"
+#include "BaconBox/Components/Shake.h"
+
 #include "BaconBox/Display/ParticlePhase.h"
 #include "BaconBox/Display/Particle.h"
 #include "BaconBox/Display/Emitter.h"
 #include "BaconBox/Components/ParticleEmitter.h"
-#include "BaconBox/Components/Shake.h"
 	
 	#include "BaconBox/MovieClipEntity/MovieClipEntity.h"
 	
@@ -560,6 +560,9 @@ namespace BaconBox{
 
 
 %include "BaconBox/Components/MatrixComponent.h"
+%include "BaconBox/Helper/TimeHelper.h"
+%include "BaconBox/Helper/Stopwatch.h"
+%include "BaconBox/Components/Shake.h"
 %include "BaconBox/Display/Camera.h"
 
 %include "BaconBox/Core/State.h"
@@ -587,14 +590,11 @@ namespace BaconBox{
 
 %include "BaconBox/Components/TextComponent.h"
 %include "BaconBox/Components/Speed.h"
-	
-	%include "BaconBox/Helper/TimeHelper.h"
-	%include "BaconBox/Helper/Stopwatch.h"
+
 	%include "BaconBox/Display/ParticlePhase.h"
 	%include "BaconBox/Display/Particle.h"
 	%include "BaconBox/Display/Emitter.h"
 	%include "BaconBox/Components/ParticleEmitter.h"
-	%include "BaconBox/Components/Shake.h"
 	
 %include "BaconBox/MovieClipEntity/MovieClipEntity.h"
 	
