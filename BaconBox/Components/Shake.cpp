@@ -14,6 +14,8 @@ namespace BaconBox {
 	BB_ID_IMPL(Shake);
 
 	int Shake::MESSAGE_START_SHAKE = IDManager::generateID();
+	
+	int Shake::MESSAGE_SHAKE_OFFSET_CHANGED = IDManager::generateID();
 
 	Shake::Shake() : Component(), axis(BOTH), duration(0.0), offset(), shakeStopwatch() {
 	}
@@ -49,6 +51,9 @@ namespace BaconBox {
 		double timeSinceStarted = std::max(this->shakeStopwatch.getTime(), 0.0);
 		
 		if (timeSinceStarted < this->duration) {
+			Vector2ChangedData data;
+			data.oldValue = this->offset;
+			
 			// We calculate a random offset.
 			float tmpIntensity = (timeSinceStarted == 0.0) ? (this->intensity) : ((1.0f - (timeSinceStarted / this->duration)) * this->intensity);
 			
@@ -66,8 +71,13 @@ namespace BaconBox {
 				this->offset.y = 0.0f;
 			}
 			
-		} else {
+			data.newValue = this->offset;
+			this->sendMessage(Entity::BROADCAST, MESSAGE_SHAKE_OFFSET_CHANGED, &data);
+			
+		} else if (this->offset.x != 0.0f || this->offset.y != 0.0f) {
+			Vector2ChangedData data(this->offset, Vector2());
 			this->offset.x = this->offset.y = 0.0f;
+			this->sendMessage(Entity::BROADCAST, MESSAGE_SHAKE_OFFSET_CHANGED, &data);
 		}
 	}
 

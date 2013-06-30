@@ -17,6 +17,8 @@ namespace BaconBox {
 		BB_ID_HEADER;
 
 		static int MESSAGE_START_SHAKE;
+		
+		static int MESSAGE_SHAKE_OFFSET_CHANGED;
 
 		Shake();
 
