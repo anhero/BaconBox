@@ -117,31 +117,22 @@ namespace BaconBox {
 
 
 		Vector2 position;
-		
+
 		Vector2 realPosition;
-		
+
 		/**
 		 * Entity's rotation angle (in degrees, from -180 to 180).
 		 */
 		float rotation;
-		
+
 		/**
 		 * Entity's horizontal and vertical scale values.
 		 */
 		Vector2 scale;
-		
+
 	private:
-
-
-
-
-	
-		
-		MatrixComponent * matrixComponent;
-
-
+		MatrixComponent *matrixComponent;
 	};
-
 
 	class TransformProxy : public ComponentProxy {
 	public:
@@ -157,8 +148,6 @@ namespace BaconBox {
 
 		const Vector2 &getScale() const;
 		void setScale(const Vector2 &newScale);
-
-
 	protected:
 		void setTransform(Transform *transform);
 	};

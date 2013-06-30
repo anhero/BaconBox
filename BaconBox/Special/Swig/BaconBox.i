@@ -159,6 +159,7 @@ end
 #include "BaconBox/Display/Particle.h"
 #include "BaconBox/Display/Emitter.h"
 #include "BaconBox/Components/ParticleEmitter.h"
+#include "BaconBox/Components/Shake.h"
 	
 	#include "BaconBox/MovieClipEntity/MovieClipEntity.h"
 	
@@ -593,6 +594,7 @@ namespace BaconBox{
 	%include "BaconBox/Display/Particle.h"
 	%include "BaconBox/Display/Emitter.h"
 	%include "BaconBox/Components/ParticleEmitter.h"
+	%include "BaconBox/Components/Shake.h"
 	
 %include "BaconBox/MovieClipEntity/MovieClipEntity.h"
 	

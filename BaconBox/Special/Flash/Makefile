@@ -81,6 +81,7 @@ BaconBox/Components/MatrixComponent \
 BaconBox/Components/DefaultMatrix \
 BaconBox/Components/SizeComponent \
 BaconBox/Components/ParticleEmitter \
+BaconBox/Components/Shake \
 BaconBox/Components/Speed \
 BaconBox/Components/AABBHitBox \
 BaconBox/Components/Flash/MovieClipHolder \

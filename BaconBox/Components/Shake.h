@@ -13,11 +13,11 @@ namespace BaconBox {
 		enum ShakeAxis {
 		    HORIZONTAL = 1,
 		    VERTICAL = 2,
-			BOTH = 3
+		    BOTH = 3
 		};
-		
+
 		BB_ID_HEADER;
-		
+
 		static int MESSAGE_START_SHAKE;
 
 		Shake();
@@ -29,34 +29,42 @@ namespace BaconBox {
 		Shake &operator=(const Shake &src);
 
 		virtual Shake *clone() const;
-		
+
 		virtual void receiveMessage(int senderID, int destID, int message, void *data);
 
 		void update();
 
 		void shake(float newIntensity = 0.05f, double newDuration = 0.5,
-				   bool forceReset = true, ShakeAxis newAxis = BOTH);
+		           bool forceReset = true, ShakeAxis newAxis = BOTH);
 	private:
 		void initializeConnections();
-		
+
 		/// Axis on which the shaking takes place.
 		ShakeAxis axis;
-		
+
 		/**
 		 * Camera shaking intensity. Value between 0.0f and 1.0f. A ratio of
 		 * the screen size.
 		 */
 		float intensity;
-		
+
 		/// Time the shaking must take before stopping.
 		double duration;
-		
+
 		/// Offset used when the camera is shaking.
 		Vector2 offset;
 
 		Stopwatch shakeStopwatch;
-		
+
 		SizeComponent *size;
+	};
+
+	class ShakeProxy : public ComponentProxy {
+	public:
+		ShakeProxy(Entity *entity, bool mustAddComponent = true);
+
+		void shake(float newIntensity = 0.05f, double newDuration = 0.5,
+		           bool forceReset = true, Shake::ShakeAxis newAxis = Shake::BOTH);
 	};
 }
 
