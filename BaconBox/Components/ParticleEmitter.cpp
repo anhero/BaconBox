@@ -167,16 +167,6 @@ namespace BaconBox {
 	
 	void ParticleEmitter::initializeParticle(ParticleVector::iterator particle) {
 		this->Emitter::initializeParticle(particle);
-		
-		if (this->transform) {
-			Transform *particleTransform = particle->second.graphic->getComponent<Transform>();
-			
-			if (particleTransform) {
-				particleTransform->setPosition(this->transform->getPosition());
-				particleTransform->setRotation(this->transform->getRotation());
-				particleTransform->setScale(this->transform->getScale());
-			}
-		}
 	}
 	
 	void ParticleEmitter::initializeConnections() {

@@ -6,37 +6,57 @@
 #include "BaconBox/Vector2.h"
 
 namespace BaconBox {
-	class Transform;
-	
+	class SizeComponent;
+
 	class Shake : public Component {
 	public:
+		enum ShakeAxis {
+		    HORIZONTAL = 1,
+		    VERTICAL = 2,
+			BOTH = 3
+		};
+		
 		BB_ID_HEADER;
 		
+		static int MESSAGE_START_SHAKE;
+
 		Shake();
-		
+
 		Shake(const Shake &src);
-		
+
 		virtual ~Shake();
-		
+
 		Shake &operator=(const Shake &src);
-		
+
 		virtual Shake *clone() const;
 		
+		virtual void receiveMessage(int senderID, int destID, int message, void *data);
+
 		void update();
 
-		void shake(double newDuration, float newIntensity);
+		void shake(float newIntensity = 0.05f, double newDuration = 0.5,
+				   bool forceReset = true, ShakeAxis newAxis = BOTH);
 	private:
 		void initializeConnections();
 		
-		Transform *transform;
+		/// Axis on which the shaking takes place.
+		ShakeAxis axis;
 		
+		/**
+		 * Camera shaking intensity. Value between 0.0f and 1.0f. A ratio of
+		 * the screen size.
+		 */
 		float intensity;
 		
+		/// Time the shaking must take before stopping.
 		double duration;
 		
-		Vector2 initialPosition;
-		
+		/// Offset used when the camera is shaking.
+		Vector2 offset;
+
 		Stopwatch shakeStopwatch;
+		
+		SizeComponent *size;
 	};
 }
 
