@@ -3,10 +3,14 @@
 
 #include "BaconBox/Components/Flash/FlashEntityManager.h"
 #include "BaconBox/Core/Component.h"
+#include "BaconBox/Vector2.h"
 #include <AS3/AS3.h>
 #include <AS3/AS3++.h>
 
 namespace BaconBox {
+	class Transform;
+	class Shake;
+
 	class FlashCameraManager : public Component {
 	public:
 
@@ -16,12 +20,13 @@ namespace BaconBox {
 		void setEntityManager(FlashEntityManager *fm);	
 		virtual ~FlashCameraManager();
 		void receiveMessage(int senderID, int destID, int message, void *data);
-
-
 	private:
+		void initializeConnections();
+
 	    FlashEntityManager *flashManager;
 	    AS3::local::var stage;
-
+	    Transform *transform;
+	    Shake *shake;
 	};
 }
 
