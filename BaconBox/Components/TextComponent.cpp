@@ -15,6 +15,8 @@
 #include "BaconBox/Components/Flash/TextFieldHolder.h"
 #endif
 
+#include "BaconBox/Script/Lua/LuaManager.h"
+
 namespace BaconBox {
 	int TextComponent::MESSAGE_TEXT_CHANGED = IDManager::generateID();
 	int TextComponent::MESSAGE_FONT_CHANGED = IDManager::generateID();
@@ -48,8 +50,26 @@ namespace BaconBox {
 	}
 
 	void TextComponent::setText(const std::string &text) {
+	    #ifdef BB_DEBUG
+		try{
+        #endif
+
 		this->text = text;
+
 		sendMessage(Entity::BROADCAST, TextComponent::MESSAGE_TEXT_CHANGED, reinterpret_cast<void *>(&this->text));
+
+
+        #ifdef BB_DEBUG
+		}
+		catch(...){
+        #ifdef BB_LUA
+        LuaManager::getDefault().error("PREPUCE?!?!");
+        #endif
+		Console__error("Error calling TextComponent::setText");
+
+		}
+	#endif
+
 	}
 
 	const Vector2 &TextComponent::getSize() {

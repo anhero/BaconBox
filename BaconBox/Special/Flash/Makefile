@@ -14,6 +14,11 @@ SWIG_HEADERS_PATH:=../../../libraries/Darwin/x86_64/include
 
 COMPC=$(FLEX)/bin/compc
 
+ifdef linkOptimize
+	BASE_CFLAGS+=-O4
+	LINK_FLAG+=  -flto-api=$(BUILD_PATH)/exports.txt -fllvm-opt-opt=-strip
+endif
+
 
 ifdef lua
 partialSwig=1
@@ -21,7 +26,7 @@ LINK_FLAG += -llua
 DEFINE_FLAG+= -DBB_LUA
 LUA_SWIG_WRAPPER = BaconBoxLua
 LUA_SWIG_INTERFACE=../Swig/BaconBox.i
-LUA_SWIG_SOURCES= BaconBox/Special/Flash/$(addsuffix .o,$(LUA_SWIG_WRAPPER))
+LUA_SWIG_SOURCES= BaconBox/Special/Flash/$(LUA_SWIG_WRAPPER)
 endif
 
 
@@ -41,157 +46,157 @@ endif
 #vpath %.cpp $(PROJECT_ROOT)
 
 AUDIO_SOURCES = \
-BaconBox/Audio/AudioEngine.o \
-BaconBox/Audio/BackgroundMusic.o \
-BaconBox/Audio/MusicEngine.o \
-BaconBox/Audio/MusicInfo.o \
-BaconBox/Audio/MusicParameters.o \
-BaconBox/Audio/NullAudio.o \
-BaconBox/Audio/NullAudioEngine.o \
-BaconBox/Audio/Sound.o \
-BaconBox/Audio/SoundFX.o \
-BaconBox/Audio/SoundEngine.o \
-BaconBox/Audio/SoundInfo.o \
-BaconBox/Audio/SoundParameters.o \
-BaconBox/Audio/Flash/FlashSoundEngine.o \
-BaconBox/Audio/Flash/FlashMusicEngine.o \
-BaconBox/Audio/Flash/FlashBackgroundMusic.o \
-BaconBox/Audio/Flash/FlashSoundFX.o
+BaconBox/Audio/AudioEngine \
+BaconBox/Audio/BackgroundMusic \
+BaconBox/Audio/MusicEngine\
+BaconBox/Audio/MusicInfo\
+BaconBox/Audio/MusicParameters \
+BaconBox/Audio/NullAudio\
+BaconBox/Audio/NullAudioEngine \
+BaconBox/Audio/Sound \
+BaconBox/Audio/SoundFX \
+BaconBox/Audio/SoundEngine \
+BaconBox/Audio/SoundInfo \
+BaconBox/Audio/SoundParameters \
+BaconBox/Audio/Flash/FlashSoundEngine \
+BaconBox/Audio/Flash/FlashMusicEngine \
+BaconBox/Audio/Flash/FlashBackgroundMusic \
+BaconBox/Audio/Flash/FlashSoundFX
 
 
 COMPONENTS_SOURCES = \
-BaconBox/Components/Mesh.o \
-BaconBox/Components/Transform.o \
-BaconBox/Components/HasName.o \
-BaconBox/Components/TextComponent.o \
-BaconBox/Components/Clickable.o \
-BaconBox/Components/UIManager.o \
-BaconBox/Components/EntityManager.o \
-BaconBox/Components/ComponentAddedData.o \
-BaconBox/Components/ColorTransform.o \
-BaconBox/Components/Timeline.o \
-BaconBox/Components/EntityContainer.o \
-BaconBox/Components/SymbolComponent.o \
-BaconBox/Components/MatrixComponent.o \
-BaconBox/Components/DefaultMatrix.o \
-BaconBox/Components/SizeComponent.o \
-BaconBox/Components/ParticleEmitter.o \
-BaconBox/Components/Speed.o \
-BaconBox/Components/AABBHitBox.o \
-BaconBox/Components/Flash/MovieClipHolder.o \
-BaconBox/Components/Flash/TextFieldHolder.o \
-BaconBox/Components/Flash/FlashTimeline.o \
-BaconBox/Components/Flash/FlashEntityContainer.o \
-BaconBox/Components/Flash/FlashHasName.o \
-BaconBox/Components/Flash/FlashSizeComponent.o \
-BaconBox/Components/Flash/FlashTransform.o \
-BaconBox/Components/Flash/FlashAABBHitBox.o \
-BaconBox/Components/Flash/FlashColorTransform.o \
-BaconBox/Components/Flash/FlashCameraManager.o \
-BaconBox/Components/Flash/FlashEntityManager.o 
+BaconBox/Components/Mesh \
+BaconBox/Components/Transform \
+BaconBox/Components/HasName \
+BaconBox/Components/TextComponent \
+BaconBox/Components/Clickable \
+BaconBox/Components/UIManager \
+BaconBox/Components/EntityManager \
+BaconBox/Components/ComponentAddedData \
+BaconBox/Components/ColorTransform \
+BaconBox/Components/Timeline \
+BaconBox/Components/EntityContainer \
+BaconBox/Components/SymbolComponent \
+BaconBox/Components/MatrixComponent \
+BaconBox/Components/DefaultMatrix \
+BaconBox/Components/SizeComponent \
+BaconBox/Components/ParticleEmitter \
+BaconBox/Components/Speed \
+BaconBox/Components/AABBHitBox \
+BaconBox/Components/Flash/MovieClipHolder \
+BaconBox/Components/Flash/TextFieldHolder \
+BaconBox/Components/Flash/FlashTimeline \
+BaconBox/Components/Flash/FlashEntityContainer \
+BaconBox/Components/Flash/FlashHasName \
+BaconBox/Components/Flash/FlashSizeComponent \
+BaconBox/Components/Flash/FlashTransform \
+BaconBox/Components/Flash/FlashAABBHitBox \
+BaconBox/Components/Flash/FlashColorTransform \
+BaconBox/Components/Flash/FlashCameraManager \
+BaconBox/Components/Flash/FlashEntityManager 
 
 
 
 CORE_SOURCES= \
-BaconBox/Core/Component.o \
-BaconBox/Core/Engine.o \
-BaconBox/Core/Entity.o \
-BaconBox/Core/IDManager.o \
-BaconBox/Core/State.o \
-BaconBox/Core/BaseEngine.o \
-BaconBox/Core/Flash/FlashEngine.o
+BaconBox/Core/Component \
+BaconBox/Core/Engine \
+BaconBox/Core/Entity \
+BaconBox/Core/IDManager \
+BaconBox/Core/State \
+BaconBox/Core/BaseEngine \
+BaconBox/Core/Flash/FlashEngine
 
 DISPLAY_SOURCES= \
-BaconBox/Display/Camera.o \
-BaconBox/Display/Color.o \
-BaconBox/Display/Emitter.o \
-BaconBox/Display/ParticlePhase.o \
-BaconBox/Display/PixMap.o \
-BaconBox/Display/TextureInformation.o \
-BaconBox/Display/SubTextureInfo.o \
-BaconBox/Display/Driver/GraphicDriver.o \
-BaconBox/Display/Driver/NullGraphicDriver.o \
-BaconBox/Display/Text/Font.o \
-BaconBox/Display/Text/TextEntity.o \
-BaconBox/Display/Text/Flash/FlashFont.o \
-BaconBox/Display/Window/MainWindow.o \
-BaconBox/Display/Window/NullMainWindow.o \
-BaconBox/Display/Window/Flash/FlashMainWindow.o
+BaconBox/Display/Camera \
+BaconBox/Display/Color \
+BaconBox/Display/Emitter \
+BaconBox/Display/ParticlePhase \
+BaconBox/Display/PixMap \
+BaconBox/Display/TextureInformation \
+BaconBox/Display/SubTextureInfo \
+BaconBox/Display/Driver/GraphicDriver \
+BaconBox/Display/Driver/NullGraphicDriver \
+BaconBox/Display/Text/Font \
+BaconBox/Display/Text/TextEntity \
+BaconBox/Display/Text/Flash/FlashFont \
+BaconBox/Display/Window/MainWindow \
+BaconBox/Display/Window/NullMainWindow \
+BaconBox/Display/Window/Flash/FlashMainWindow
 
 
 HELPER_SOURCES= \
-BaconBox/Helper/Base64.o \
-BaconBox/Helper/BitHelper.o \
-BaconBox/Helper/CallHelper.o \
-BaconBox/Helper/Compression.o \
-BaconBox/Helper/MathHelper.o \
-BaconBox/Helper/Parser.o \
-BaconBox/Helper/Random.o \
-BaconBox/Helper/ResourcePathHandler.o \
-BaconBox/Helper/ShapeFactory.o \
-BaconBox/Helper/EmitterFactory.o \
-BaconBox/Helper/Stopwatch.o \
-BaconBox/Helper/StringHelper.o \
-BaconBox/Helper/TimeHelper.o \
-BaconBox/Helper/Timer.o \
-BaconBox/Helper/TimerManager.o \
-BaconBox/Helper/UTFConvert.o \
-BaconBox/Helper/libc/LibcTimeHelper.o \
-BaconBox/Helper/Serialization/Array.o \
-BaconBox/Helper/Serialization/DefaultSerializer.o \
-BaconBox/Helper/Serialization/Object.o \
-BaconBox/Helper/Serialization/Serializable.o \
-BaconBox/Helper/Serialization/Serializer.o \
-BaconBox/Helper/Serialization/Value.o \
-BaconBox/Helper/Serialization/JsonBox/JsonBoxSerializer.o \
-BaconBox/Helper/Serialization/RapidXml/RapidXmlSerializer.o \
-BaconBox/Helper/Lua/LuaHelper.o \
-BaconBox/Script/Lua/LuaCallback.o \
-BaconBox/Helper/Flash/FlashHelper.o
+BaconBox/Helper/Base64 \
+BaconBox/Helper/BitHelper \
+BaconBox/Helper/CallHelper \
+BaconBox/Helper/Compression \
+BaconBox/Helper/MathHelper \
+BaconBox/Helper/Parser \
+BaconBox/Helper/Random \
+BaconBox/Helper/ResourcePathHandler \
+BaconBox/Helper/ShapeFactory \
+BaconBox/Helper/EmitterFactory \
+BaconBox/Helper/Stopwatch \
+BaconBox/Helper/StringHelper \
+BaconBox/Helper/TimeHelper \
+BaconBox/Helper/Timer \
+BaconBox/Helper/TimerManager \
+BaconBox/Helper/UTFConvert \
+BaconBox/Helper/libc/LibcTimeHelper \
+BaconBox/Helper/Serialization/Array \
+BaconBox/Helper/Serialization/DefaultSerializer \
+BaconBox/Helper/Serialization/Object \
+BaconBox/Helper/Serialization/Serializable \
+BaconBox/Helper/Serialization/Serializer \
+BaconBox/Helper/Serialization/Value \
+BaconBox/Helper/Serialization/JsonBox/JsonBoxSerializer \
+BaconBox/Helper/Serialization/RapidXml/RapidXmlSerializer \
+BaconBox/Helper/Lua/LuaHelper \
+BaconBox/Script/Lua/LuaCallback \
+BaconBox/Helper/Flash/FlashHelper
 
 INPUT_SOURCES= \
-BaconBox/Input/InputDevice.o \
-BaconBox/Input/InputManager.o \
-BaconBox/Input/InputSignalData.o \
-BaconBox/Input/InputState.o \
-BaconBox/Input/Accelerometer/Accelerometer.o \
-BaconBox/Input/Accelerometer/AccelerometerSignalData.o \
-BaconBox/Input/Accelerometer/AccelerometerState.o \
-BaconBox/Input/Accelerometer/NullAccelerometer.o \
-BaconBox/Input/GamePad/GamePad.o \
-BaconBox/Input/GamePad/GamePadButtonSignalData.o \
-BaconBox/Input/GamePad/GamePadSignalData.o \
-BaconBox/Input/GamePad/GamePadState.o \
-BaconBox/Input/GamePad/GamePadThumbstickSignalData.o \
-BaconBox/Input/GamePad/NullGamePad.o \
-BaconBox/Input/Keyboard/Key.o \
-BaconBox/Input/Keyboard/Keyboard.o \
-BaconBox/Input/Keyboard/KeyboardSignalData.o \
-BaconBox/Input/Keyboard/KeyboardState.o \
-BaconBox/Input/Keyboard/KeyMaskSignalData.o \
-BaconBox/Input/Keyboard/KeySignalData.o \
-BaconBox/Input/Keyboard/NullKeyboard.o \
-BaconBox/Input/Pointer/CursorState.o \
-BaconBox/Input/Pointer/NullPointer.o \
-BaconBox/Input/Pointer/Pointer.o \
-BaconBox/Input/Pointer/PointerButtonSignalData.o \
-BaconBox/Input/Pointer/PointerSignalData.o \
-BaconBox/Input/Pointer/PointerState.o \
-BaconBox/Input/Pointer/CursorButton.o \
-BaconBox/Input/Keyboard/Flash/FlashKeyboard.o \
-BaconBox/Input/Pointer/Flash/FlashPointer.o
+BaconBox/Input/InputDevice \
+BaconBox/Input/InputManager \
+BaconBox/Input/InputSignalData \
+BaconBox/Input/InputState \
+BaconBox/Input/Accelerometer/Accelerometer \
+BaconBox/Input/Accelerometer/AccelerometerSignalData \
+BaconBox/Input/Accelerometer/AccelerometerState \
+BaconBox/Input/Accelerometer/NullAccelerometer \
+BaconBox/Input/GamePad/GamePad \
+BaconBox/Input/GamePad/GamePadButtonSignalData \
+BaconBox/Input/GamePad/GamePadSignalData \
+BaconBox/Input/GamePad/GamePadState \
+BaconBox/Input/GamePad/GamePadThumbstickSignalData \
+BaconBox/Input/GamePad/NullGamePad \
+BaconBox/Input/Keyboard/Key \
+BaconBox/Input/Keyboard/Keyboard \
+BaconBox/Input/Keyboard/KeyboardSignalData \
+BaconBox/Input/Keyboard/KeyboardState \
+BaconBox/Input/Keyboard/KeyMaskSignalData \
+BaconBox/Input/Keyboard/KeySignalData \
+BaconBox/Input/Keyboard/NullKeyboard \
+BaconBox/Input/Pointer/CursorState \
+BaconBox/Input/Pointer/NullPointer \
+BaconBox/Input/Pointer/Pointer \
+BaconBox/Input/Pointer/PointerButtonSignalData \
+BaconBox/Input/Pointer/PointerSignalData \
+BaconBox/Input/Pointer/PointerState \
+BaconBox/Input/Pointer/CursorButton \
+BaconBox/Input/Keyboard/Flash/FlashKeyboard \
+BaconBox/Input/Pointer/Flash/FlashPointer
 
 MOVIECLIP_SOURCES= \
-BaconBox/MovieClipEntity/MovieClipEntity.o
+BaconBox/MovieClipEntity/MovieClipEntity
 
 SIGNALSLOTS_SOURCES= \
-BaconBox/SignalSlots/SignalAnalyzer.o \
-BaconBox/SignalSlots/SignalAnalyzerManager.o \
-BaconBox/SignalSlots/SignalData.o
+BaconBox/SignalSlots/SignalAnalyzer \
+BaconBox/SignalSlots/SignalAnalyzerManager \
+BaconBox/SignalSlots/SignalData
 
 FLASCC_SOURCES = \
-BaconBox/Special/Flash/$(addsuffix .o,$(SWIG_OUTPUT)) \
-BaconBox/Special/Flash/main.o
+BaconBox/Special/Flash/$(addsuffix ,$(SWIG_OUTPUT)) \
+BaconBox/Special/Flash/main
 
 ALL_SOURCES= \
 $(AUDIO_SOURCES) \
@@ -202,25 +207,25 @@ $(HELPER_SOURCES) \
 $(INPUT_SOURCES) \
 $(MOVIECLIP_SOURCES) \
 $(SIGNALSLOTS_SOURCES) \
-BaconBox/AxisAlignedBoundingBox.o \
-BaconBox/Console.o \
-BaconBox/ResourceManager.o \
-BaconBox/StandardVertexArray.o \
-BaconBox/Vector2.o \
-BaconBox/EntityFactory.o \
-BaconBox/Symbol.o \
-BaconBox/Matrix.o \
-BaconBox/ColorMatrix.o \
-BaconBox/Platform.o \
-BaconBox/VertexArray.o \
-BaconBox/EmitterEntity.o
+BaconBox/AxisAlignedBoundingBox \
+BaconBox/Console \
+BaconBox/ResourceManager \
+BaconBox/StandardVertexArray \
+BaconBox/Vector2 \
+BaconBox/EntityFactory \
+BaconBox/Symbol \
+BaconBox/Matrix \
+BaconBox/ColorMatrix \
+BaconBox/Platform \
+BaconBox/VertexArray \
+BaconBox/EmitterEntity
 
 FLASCC_FILE_PATH=BaconBox/Special/Flash
 
 ifdef lua
-ALL_SOURCES+= BaconBox/Script/Lua/LuaManager.o \
+ALL_SOURCES+= BaconBox/Script/Lua/LuaManager \
 $(LUA_SWIG_SOURCES) \
-BaconBox/Components/Lua/LuaEntity.o
+BaconBox/Components/Lua/LuaEntity
 endif
 
 
@@ -230,21 +235,30 @@ all: check $(BUILD_PATH)/BaconBox.swc $(BUILD_PATH)/EntityWrapper.swc
 swf: check $(BUILD_PATH)/BaconBox.swf
 
 
-.PHONY : clean all swf partialSwig
+.PHONY : clean all swf partialSwig LTO
 
 
 
-
-$(BUILD_PATH)/BaconBox.swf: $(addsuffix .abc,$(SWIG_OUTPUT)) EntityHolderMovieClip.abc EntityHolderTextField.abc $(addprefix $(PROJECT_ROOT)/,$(ALL_SOURCES)) $(addprefix $(PROJECT_ROOT)/,$(FLASCC_SOURCES))
-	@echo "-------- BaconBox.swf--------"
-	"$(FLASCC)/usr/bin/g++" $(BASE_CFLAGS) $(DEFINE_FLAG) -I$(PROJECT_ROOT) -I$(CUSTOM_LIB_PATH)/include $(addsuffix .abc,$(SWIG_OUTPUT)) EntityHolderMovieClip.abc EntityHolderTextField.abc \
-	$(addprefix $(PROJECT_ROOT)/, $(ALL_SOURCES)) $(addprefix $(PROJECT_ROOT)/, $(FLASCC_SOURCES)) -emit-swf -o $(BUILD_PATH)/BaconBox.swf \
+LTO: VFS.abc $(addsuffix .abc,$(SWIG_OUTPUT)) $(BUILD_PATH)/exports.txt $(BUILD_PATH)/EntityWrapper.swc
+	"$(FLASCC)/usr/bin/g++" $(BASE_CFLAGS) $(DEFINE_FLAG) -I$(PROJECT_ROOT) -I$(CUSTOM_LIB_PATH)/include $(addsuffix .abc,$(SWIG_OUTPUT))  \
+	VFS.abc $(addsuffix .cpp, $(addprefix $(PROJECT_ROOT)/, $(ALL_SOURCES))) $(addsuffix .cpp, $(addprefix $(PROJECT_ROOT)/, $(FLASCC_SOURCES)))  $(DEFINE_FLAG) -I$(PROJECT_ROOT) -I$(CUSTOM_LIB_PATH)/include -emit-swc=BaconBox -o $(BUILD_PATH)/BaconBox.swc \
 	-L$(CUSTOM_LIB_PATH)/lib $(LINK_FLAG)
 
-$(BUILD_PATH)/BaconBox.swc: VFS.abc $(addsuffix .abc,$(SWIG_OUTPUT)) $(addprefix $(PROJECT_ROOT)/,$(ALL_SOURCES)) $(addprefix $(PROJECT_ROOT)/,$(FLASCC_SOURCES))
+LTOSWF: $(addsuffix .abc,$(SWIG_OUTPUT)) $(BUILD_PATH)/exports.txt $(BUILD_PATH)/EntityWrapper.swc
+	"$(FLASCC)/usr/bin/g++" $(BASE_CFLAGS) $(DEFINE_FLAG) -I$(PROJECT_ROOT) -I$(CUSTOM_LIB_PATH)/include $(addsuffix .abc,$(SWIG_OUTPUT))  \
+	$(addsuffix .cpp, $(addprefix $(PROJECT_ROOT)/, $(ALL_SOURCES))) $(addsuffix .cpp, $(addprefix $(PROJECT_ROOT)/, $(FLASCC_SOURCES)))  $(DEFINE_FLAG) -I$(PROJECT_ROOT) -I$(CUSTOM_LIB_PATH)/include -emit-swf -o $(BUILD_PATH)/BaconBox.swf \
+	-L$(CUSTOM_LIB_PATH)/lib $(LINK_FLAG)
+
+$(BUILD_PATH)/BaconBox.swf: $(addsuffix .abc,$(SWIG_OUTPUT))  EntityHolderMovieClip.abc EntityHolderTextField.abc $(addsuffix .o,$(addprefix $(PROJECT_ROOT)/,$(ALL_SOURCES))) $(addprefix $(PROJECT_ROOT)/,$(FLASCC_SOURCES)) (BUILD_PATH)/exports.txt
+	@echo "-------- BaconBox.swf--------"
+	"$(FLASCC)/usr/bin/g++" $(BASE_CFLAGS) $(DEFINE_FLAG) -I$(PROJECT_ROOT) -I$(CUSTOM_LIB_PATH)/include $(addsuffix .abc,$(SWIG_OUTPUT)) EntityHolderMovieClip.abc EntityHolderTextField.abc \
+	$(addsuffix .o,$(addprefix $(PROJECT_ROOT)/, $(ALL_SOURCES))) $(addprefix $(PROJECT_ROOT)/, $(FLASCC_SOURCES)) -emit-swf -o $(BUILD_PATH)/BaconBox.swf \
+	-L$(CUSTOM_LIB_PATH)/lib $(LINK_FLAG)
+
+$(BUILD_PATH)/BaconBox.swc: VFS.abc $(addsuffix .abc,$(SWIG_OUTPUT)) $(addsuffix .o,$(addprefix $(PROJECT_ROOT)/,$(ALL_SOURCES))) $(addsuffix .o,$(addprefix $(PROJECT_ROOT)/,$(FLASCC_SOURCES)))
 	@echo "-------- BaconBox.swc --------"
 	"$(FLASCC)/usr/bin/g++" $(BASE_CFLAGS) $(DEFINE_FLAG) -I$(PROJECT_ROOT) -I$(CUSTOM_LIB_PATH)/include $(addsuffix .abc,$(SWIG_OUTPUT)) \
-	VFS.abc $(addprefix $(PROJECT_ROOT)/, $(ALL_SOURCES)) $(addprefix $(PROJECT_ROOT)/, $(FLASCC_SOURCES)) -emit-swc=BaconBox -o $(BUILD_PATH)/BaconBox.swc \
+	VFS.abc $(addsuffix .o,$(addprefix $(PROJECT_ROOT)/, $(ALL_SOURCES))) $(addsuffix .o,$(addprefix $(PROJECT_ROOT)/, $(FLASCC_SOURCES))) -emit-swc=BaconBox -o $(BUILD_PATH)/BaconBox.swc \
 	-L$(CUSTOM_LIB_PATH)/lib $(LINK_FLAG)
 
 $?UNAME=$(shell uname -s)
@@ -263,7 +277,21 @@ else
 endif
 
 
+$(BUILD_PATH)/exports.txt: ./exports.txt $(addsuffix .o,$(SWIG_OUTPUT)) $(PROJECT_ROOT)/BaconBox/Special/Flash/$(addsuffix .o,$(LUA_SWIG_WRAPPER))
+	@echo "-------- exports.txt generation--------"
+	cp ./exports.txt $(BUILD_PATH)/exports.txt
+		"$(FLASCC)/usr/bin/nm" $(addsuffix .o,$(SWIG_OUTPUT)) | grep " T " | awk '{print $$3}' | sed 's/_//' >> $(BUILD_PATH)/exports.txt
+	#	"$(FLASCC)/usr/bin/nm" $(addsuffix .o,$(SWIG_OUTPUT)) | grep " W " | awk '{print $$3}' | sed 's/_//' >> $(BUILD_PATH)/exports.txt
+	#	"$(FLASCC)/usr/bin/nm" $(addsuffix .o,$(SWIG_OUTPUT)) | grep " U " | awk '{print $$2}' | sed 's/_//' >> $(BUILD_PATH)/exports.txt
 
+	#	"$(FLASCC)/usr/bin/nm" $(PROJECT_ROOT)/BaconBox/Special/Flash/$(addsuffix .o,$(LUA_SWIG_WRAPPER)) | grep " T " | awk '{print $$3}' | sed 's/_//' >> $(BUILD_PATH)/exports.txt
+	#	"$(FLASCC)/usr/bin/nm" $(PROJECT_ROOT)/BaconBox/Special/Flash/$(addsuffix .o,$(LUA_SWIG_WRAPPER)) | grep " W " | awk '{print $$3}' | sed 's/_//' >> $(BUILD_PATH)/exports.txt
+	#	"$(FLASCC)/usr/bin/nm" $(PROJECT_ROOT)/BaconBox/Special/Flash/$(addsuffix .o,$(LUA_SWIG_WRAPPER)) | grep " U " | awk '{print $$2}' | sed 's/_//' >> $(BUILD_PATH)/exports.txt
+
+
+	#	"$(FLASCC)/usr/bin/nm" $(PROJECT_ROOT)/BaconBox/Core/Component.o | grep " T " | awk '{print $$3}' | sed 's/_//' >> $(BUILD_PATH)/exports.txt
+	#	"$(FLASCC)/usr/bin/nm" $(PROJECT_ROOT)/BaconBox/Core/Component.o | grep " W " | awk '{print $$3}' | sed 's/_//' >> $(BUILD_PATH)/exports.txt
+	#	"$(FLASCC)/usr/bin/nm" $(PROJECT_ROOT)/BaconBox/Core/Component.o | grep " U " | awk '{print $$2}' | sed 's/_//' >> $(BUILD_PATH)/exports.txt
 LSOBackingStore.as:
 	chmod 766 "$(FLASCC)/usr/share/LSOBackingStore.as"
 	cp "$(FLASCC)/usr/share/LSOBackingStore.as" .
@@ -321,13 +349,15 @@ $(BUILD_PATH)/EntityWrapper.swc: BaconBox/EntityWrapper/EntityHolderMovieClip.ab
 $(addprefix $(PROJECT_ROOT)/,$(LUA_SWIG_SOURCES)): $(PROJECT_ROOT)/BaconBox/Special/Flash/$(addsuffix .cpp,$(LUA_SWIG_WRAPPER))
 
 
-%.o: %.c
+%.o: %.c 
 	@echo "-------- BUILD C FILE--------"
 	$(CXX) $< -c $(BASE_CFLAGS) -emit-swf $(DEFINE_FLAG) -I$(PROJECT_ROOT) -I$(CUSTOM_LIB_PATH)/include -o $@
 
-%.o: %.cpp
+
+%.o: %.cpp 
 	@echo "-------- BUILD CPP FILE--------"
 	$(CXX) $< -c $(BASE_CFLAGS) -emit-swf $(DEFINE_FLAG) -I$(PROJECT_ROOT) -I$(CUSTOM_LIB_PATH)/include -o $@
+
 
 $(BUILD_PATH)/build:
 	@echo "-------- creating build path --------"
@@ -348,7 +378,7 @@ check:
 	fi
 
 clean:
-	rm -rf BaconBoxAS3.cpp BaconBox.cpp BaconBoxLua.cpp *.swf *.swc *.as3 BaconBox/EntityWrapper/*.abc *.abc *.o $(BUILD_PATH) LSOBackingStore.as $(addprefix $(PROJECT_ROOT)/,$(ALL_SOURCES)) $(addprefix $(PROJECT_ROOT)/,$(FLASCC_SOURCES))
+	rm -rf BaconBoxAS3.cpp BaconBox.cpp BaconBoxLua.cpp *.swf *.swc *.as3 BaconBox/EntityWrapper/*.abc *.abc *.o $(BUILD_PATH) LSOBackingStore.as $(addsuffix .o,$(addprefix $(PROJECT_ROOT)/,$(ALL_SOURCES))) $(addsuffix .o,$(addprefix $(PROJECT_ROOT)/,$(FLASCC_SOURCES)))
 
 
 

@@ -5,9 +5,9 @@
 namespace BaconBox {
 AS3::local::var FlashEngine::stage;
 
-			package_as3("#package BaconBox\n"
-				"import flash.events.Event; \n"
-				"function EnginePulseEventListener(event:flash.events.Event):void {BaconBox.Engine.pulse();}\n");
+			// package_as3("#package BaconBox\n"
+			// 	"import flash.events.Event; \n"
+			// 	"function EnginePulseEventListener(event:flash.events.Event):void {BaconBox.Engine.pulse();}\n");
 
 		FlashEngine::FlashEngine():BaseEngine(){
 			AS3::local::var activeConsole;
@@ -17,7 +17,7 @@ AS3::local::var FlashEngine::stage;
 						"import flash.events.Event; \n"
 						"var activeConsole:DisplayObject = (CModule.activeConsole as DisplayObject);\n"
 						"var theStage:Stage = activeConsole.stage;\n"
-						"activeConsole.addEventListener(flash.events.Event.ENTER_FRAME, EnginePulseEventListener)"
+						"activeConsole.addEventListener(flash.events.Event.ENTER_FRAME, function(event:flash.events.Event):void {BaconBox.Engine.pulse();})"
 						::);
 			AS3_GetVarxxFromVar(stage, theStage);	
 
