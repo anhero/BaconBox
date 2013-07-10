@@ -25,6 +25,10 @@
 #include <string>
 #include <sstream>
 
+#ifdef BB_LUA
+#include "BaconBox/Script/Lua/LuaManager.h"
+#endif
+
 // Defines for line numbers and filename...
 // Sadly, can't be done by some other magic...
 #define Console__print(a)    Console::_print(__FILE__, __LINE__, a);
@@ -106,7 +110,11 @@ namespace BaconBox {
 		template <typename T>
 		static void error(const T& input) {
 #ifndef BB_ANDROID
-			std::cerr << "Error: " << input << std::endl;
+			#ifdef BB_LUA
+				LuaManager::error(Console::toString(input));
+			#else
+				std::cerr << "Error: " << input << std::endl;
+			#endif
 #endif
 		}
 

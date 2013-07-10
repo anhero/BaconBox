@@ -3,6 +3,10 @@
 #include "BaconBox/Console.h"
 #include "BaconBox/PlatformFlagger.h"
 
+#ifdef BB_LUA
+#include "BaconBox/Script/Lua/LuaManager.h"
+#endif
+
 using namespace BaconBox;
 
 
@@ -29,6 +33,7 @@ AS3::local::var FlashHelper::callMethod(const AS3::local::var & var, const std::
 				AS3::local::internal::trace(args[i]);
 			}
 		}
+
 		}
 	#endif
 }
@@ -152,7 +157,8 @@ AS3::local::var FlashHelper::construct(const std::string & className){
 	#ifdef BB_DEBUG
 		}
 		catch(...){
-		Console__error("Error constructing an as3 object " << className << " in FlashHelper.");
+		Console::error("Error constructing an as3 object " + className + " in FlashHelper.");
+
 		return AS3::local::internal::_null;
 		}
 	#endif
