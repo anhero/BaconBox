@@ -17,7 +17,11 @@ newoption {
 }
 
 if not _OPTIONS["target"] then
-   _OPTIONS["target"] = "SDL"
+	if not _OPTIONS["crossbridge"] then
+   		_OPTIONS["target"] = "SDL"
+	else 
+		_OPTIONS["target"] = "Flash"
+	end
 end
 
 newoption {
@@ -28,18 +32,25 @@ newoption {
 newoption {
 	trigger = "swig",
 	value="SWIG_PATH",
-  	description = "Swig executable. Default to `which swig`."
+  	description = "Swig executable. Default to 'swig'."
 }
 
 if not _OPTIONS["swig"] then
-   _OPTIONS["swig"] = "`which swig`"
+   _OPTIONS["swig"] = "swig"
 end
 
 
 newoption {
+	trigger = "crossbridge",
+	value="CROSSBRIDGE_PATH",
+  	description = "Path to the crossbridge SDK folder."
+}
+
+
+newoption {
 	trigger = "libraries",
-	value="PATH_TO_LIBRARIES",
-  	description = "Path to the include, lib and bin folder for the current target."
+	value="LIBRARIES_PAIR",
+  	description = "Architecture and platform pair. For FreeBSD i686 you would write --target=FreeBSD/i686. It must correspond to the name of your platform/architecture folder in the libraries folder."
 }
 if not _OPTIONS["libraries"] then
    _OPTIONS["libraries"] = ""
@@ -54,25 +65,7 @@ kind "StaticLib"
 language "C++"
 location "build"
 
-if _OPTIONS["lua"] then
-	os.mkdir("build")
-	os.execute(_OPTIONS["swig"] .. 
-		" -lua -c++  -module BaconBox -ignoremissing -DBB_OPENGL -DBB_LUA -I. -I" 
-		..  libraries .. "/include -o build/BaconBoxLua.cpp BaconBox/Special/Swig/BaconBox.i")
-end 
 
-files {"./build/**.h", "./build/**.cpp","./BaconBox/**.h", "./BaconBox/**.cpp" }
-
-
-
-
-if not (_OPTIONS["target"] == "Flash") then
-	if os.get() == "windows" then
-		excludes {"**/libc/**"}
-	else
-		excludes {"**/Windows/**"}
-	end
-end
 
 links{"JsonBox"}
 includedirs {".",  libraries .. "/include" }
@@ -112,6 +105,35 @@ configuration "not Flash"
 
 configuration "Debug"
 		defines {"BB_DEBUG"}
+
+
+
+if _OPTIONS["lua"] then
+	os.mkdir("build")
+	os.execute(_OPTIONS["swig"] .. 
+		" -lua -c++  -module BaconBox -ignoremissing -DBB_OPENGL -DBB_LUA" .. iif(_OPTIONS["target"] == "Flash", "-DBB_FLASH_PLATFORM", " ") .. "-I. -I" 
+		..  libraries .. "/include -o build/BaconBoxLua.cpp BaconBox/Special/Swig/BaconBox.i")
+end 
+
+files {"./build/**.h", "./build/**.cpp","./BaconBox/**.h", "./BaconBox/**.cpp" }
+
+
+
+
+if _OPTIONS["target"] == "Flash" then
+	if _OPTIONS["lua"] then
+		--os.execute(_OPTIONS["crossbridge"] .. " -as3 -c++ -module BaconBox -ignoremissing"
+	else
+		print("FLASH WITHOUT LUA ISN'T IMPLEMENTED YET!!!")
+	end
+
+else
+	if os.get() == "windows" then
+		excludes {"**/libc/**"}
+	else
+		excludes {"**/Windows/**"}
+	end
+end
 
 
 
