@@ -67,6 +67,16 @@ location "build"
 
 
 
+if _OPTIONS["lua"] then
+	os.mkdir("build")
+	os.execute(_OPTIONS["swig"] .. 
+		" -lua -c++  -module BaconBox -ignoremissing -DBB_OPENGL -DBB_LUA" .. iif(_OPTIONS["target"] == "Flash", "-DBB_FLASH_PLATFORM", " ") .. "-I. -I" 
+		..  libraries .. "/include -o build/BaconBoxLua.cpp BaconBox/Special/Swig/BaconBox.i")
+end 
+
+files {"./build/**.h", "./build/**.cpp","./BaconBox/**.h", "./BaconBox/**.cpp" }
+
+
 links{"JsonBox"}
 includedirs {".",  libraries .. "/include" }
 defines {"SIGLY_DEFAULT_MT_POLICY=sigly::SingleThreaded"}
@@ -106,16 +116,6 @@ configuration "not Flash"
 configuration "Debug"
 		defines {"BB_DEBUG"}
 
-
-
-if _OPTIONS["lua"] then
-	os.mkdir("build")
-	os.execute(_OPTIONS["swig"] .. 
-		" -lua -c++  -module BaconBox -ignoremissing -DBB_OPENGL -DBB_LUA" .. iif(_OPTIONS["target"] == "Flash", "-DBB_FLASH_PLATFORM", " ") .. "-I. -I" 
-		..  libraries .. "/include -o build/BaconBoxLua.cpp BaconBox/Special/Swig/BaconBox.i")
-end 
-
-files {"./build/**.h", "./build/**.cpp","./BaconBox/**.h", "./BaconBox/**.cpp" }
 
 
 
