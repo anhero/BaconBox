@@ -69,6 +69,9 @@ namespace BaconBox {
 		if(message == State::MESSAGE_ADDED_ENTITY){
 		    add(static_cast<Entity*>(data));
 		}
+		else if(message == State::MESSAGE_REMOVED_ENTITY){
+		    remove(static_cast<Entity*>(data));
+		}
 		else if(message == State::MESSAGE_LOST_FOCUS || message == State::MESSAGE_GET_FOCUS){
 		    for (std::vector<Entity *>::iterator i = this->entities.begin(); i != this->entities.end(); ++i) {
                 (*i)->sendMessage(senderID, destID, message, data);
