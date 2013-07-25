@@ -14,7 +14,7 @@
     
     BOOL animating;
     NSInteger animationFrameInterval;
-    CADisplayLink *displayLink;
+    __unsafe_unretained CADisplayLink *displayLink;
 }
 
 @property (readonly, nonatomic, getter=isAnimating) BOOL animating;
@@ -22,5 +22,5 @@
 
 - (void)startAnimation;
 - (void)stopAnimation;
-
+- (id)initWithFrame:(CGRect)frame;
 @end

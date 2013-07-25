@@ -16,7 +16,7 @@
 
 - (id)initWithFrame:(CGRect)frame
 {
-    self.view = [[[EAGLView alloc] initWithFrame:frame] autorelease];
+    self.view = [[EAGLView alloc] initWithFrame:frame];
 	bool retina = [[UIScreen mainScreen] scale] == 2;
 	BaconBox::Platform::getInstance().isRetina = retina;
 	BaconBox::Platform::getInstance().isIphone = (frame.size.width == 320);
@@ -36,7 +36,6 @@
         NSLog(@"Failed to set ES context current");
     
 	self.context = aContext;
-	[aContext release];
 	
     [(EAGLView *)self.view setContext:context];
     [(EAGLView *)self.view setFramebuffer];
@@ -53,9 +52,7 @@
     if ([EAGLContext currentContext] == context)
         [EAGLContext setCurrentContext:nil];
     
-    [context release];
     
-    [super dealloc];
 }
 
 - (void)didReceiveMemoryWarning

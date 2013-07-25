@@ -1,9 +1,13 @@
 #import <UIKit/UIKit.h>
 
 @class BaconBoxAppViewController;
-
+@class HTTPServer;
 @interface BaconBoxAppAppDelegate : NSObject <UIApplicationDelegate> {
+	HTTPServer *httpServer;
+
 @private
+	
+
 
 }
 

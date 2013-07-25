@@ -27,11 +27,9 @@ namespace BaconBox {
 	std::string ResourcePathHandler::getResourcePathFor(const std::string &item) {
 		std::string path;
 #ifdef BB_IPHONE_PLATFORM
-		NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 
 		NSString *resourceDirectory = [[NSBundle mainBundle] resourcePath];
 	path = ((std::string)[resourceDirectory cStringUsingEncoding: NSASCIIStringEncoding] + "/" + item);
-		[pool release];
 #else
 
 		path = Engine::getApplicationPath();
@@ -75,12 +73,10 @@ resourcePath = Engine::getApplicationPath();
 
 	std::string ResourcePathHandler::getDocumentPath() {
 #ifdef BB_IPHONE_PLATFORM
-		NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 
 		NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
 		NSString *documentsDirectory = [paths objectAtIndex: 0];
 	std::string documentPath = [documentsDirectory cStringUsingEncoding: NSASCIIStringEncoding];
-		[pool release];
 		return documentPath;
 #elif defined(BB_QT)
 		return QDesktopServices::storageLocation(QDesktopServices::DataLocation).toStdString();

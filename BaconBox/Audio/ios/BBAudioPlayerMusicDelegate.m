@@ -8,7 +8,7 @@
 @implementation BBAudioPlayerMusicDelegate
 
 - (id)initWithPath:(NSString *)path{
-	[super init];
+	self = [super init];
 
 	BGMusic = [[AVAudioPlayer alloc] initWithContentsOfURL:
 			   [[NSURL alloc] initFileURLWithPath:path] error:nil];

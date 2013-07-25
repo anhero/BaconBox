@@ -6,7 +6,7 @@
 #include "BaconBox/Core/Engine.h"
 #include "BaconBox/Input/InputManager.h"
 #include "BaconBox/Display/Window/ios/BaconBoxAppAppDelegate.h"
-
+#include "BaconBox/Display/Window/ios/BaconBoxAppViewController.h"
 #import <UIKit/UIKit.h>
 
 namespace BaconBox {
@@ -14,7 +14,6 @@ namespace BaconBox {
 	void IOSMainWindow::onBaconBoxInit(unsigned int resolutionWidth,
 									 unsigned int resolutionHeight,
 									 float contextWidth, float contextHeight) {
-		NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 		
 		InputManager::getInstance().setNbPointers(1);
 		InputManager::getInstance().setNbKeyboards(1);
@@ -26,7 +25,6 @@ namespace BaconBox {
 		
 		BaconBoxAppViewController *viewController = [[BaconBoxAppViewController alloc] initWithFrame: screenBounds];
 		[BaconBoxAppAppDelegate setViewController: viewController];
-		[pool release];
 		
 	}
 	
@@ -51,14 +49,11 @@ namespace BaconBox {
 	}
 	
 	void IOSMainWindow::show() {
-		NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 		//Need the next to lines of code to prevent the dead code strip
 		//from striping the BaconBoxAppDelegate Class
 		BaconBoxAppAppDelegate *appDelegate = [BaconBoxAppAppDelegate alloc];
-		[appDelegate release];
 		
 		UIApplicationMain(Engine::getApplicationArgc(), Engine::getApplicationArgv(), nil, @"BaconBoxAppAppDelegate");
-		[pool release];
 	}
 	
 	IOSMainWindow::~IOSMainWindow() {
