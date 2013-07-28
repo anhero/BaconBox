@@ -1,5 +1,5 @@
-#ifndef BB_DEFAULT_SIZECOMPONENT_H
-#define BB_DEFAULT_SIZECOMPONENT_H
+#ifndef BB_DEFAULT_SIZE_COMPONENT_H
+#define BB_DEFAULT_SIZE_COMPONENT_H
 
 #include "BaconBox/Components/SizeComponent.h"
 #include "BaconBox/Components/AABBHitBox.h"
@@ -12,15 +12,22 @@ namespace BaconBox {
 	class DefaultSizeComponent : public SizeComponent {
 	public:
 		DefaultSizeComponent();
-		float getWidth();
-		float getHeight();
+
+		DefaultSizeComponent(const DefaultSizeComponent &src);
+
+		DefaultSizeComponent &operator=(const DefaultSizeComponent &src);
+
+		DefaultSizeComponent *clone() const;
 		
+		float getWidth() const;
+		float getHeight() const;
+
 	private:
 		void initializeConnections();
-		AABBHitBox * aabb;
+		AABBHitBox *aabb;
 	};
 
 
 }
 
-#endif // BB_SIZECOMPONENT_H
+#endif // BB_SIZE_COMPONENT_H
