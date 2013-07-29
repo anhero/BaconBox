@@ -1,7 +1,6 @@
 #include "Camera.h"
 #include "BaconBox/Components/CameraDriverRenderer.h"
 
-
 #ifdef BB_FLASH_PLATFORM
 #include "BaconBox/Components/Flash/FlashColorTransform.h"
 #include "BaconBox/Components/Flash/FlashCameraManager.h"
@@ -11,7 +10,7 @@
 
 #include "BaconBox/Components/DefaultMatrix.h"
 namespace BaconBox {
-	Camera::Camera() : Entity(), TransformProxy(this), ColorTransformProxy(this), MatrixComponentProxy(this), ShakeProxy(this) {
+	Camera::Camera() : Entity(), TransformProxy(this), ColorTransformProxy(this), MatrixComponentProxy(this), ShakeProxy(this), CameraPositionConverterProxy(this) {
 	    #ifdef BB_FLASH_PLATFORM
                 setColorTransform(new FlashColorTransform());
                 addComponent(new FlashCameraManager());

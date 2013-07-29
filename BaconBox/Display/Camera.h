@@ -10,13 +10,14 @@
 #include "BaconBox/Components/ColorTransform.h"
 #include "BaconBox/Components/Shake.h"
 #include "BaconBox/Components/MatrixComponent.h"
+#include "BaconBox/Components/CameraPositionConverter.h"
 
 namespace BaconBox {
 	/**
 	 * Represents a camera. Its position determines what the player sees on his
 	 * screen.
 	 */
-	class Camera : public Entity, public TransformProxy, public ColorTransformProxy, public MatrixComponentProxy, public ShakeProxy {
+	class Camera : public Entity, public TransformProxy, public ColorTransformProxy, public MatrixComponentProxy, public ShakeProxy, public CameraPositionConverterProxy {
     public:
 		Camera();
 
