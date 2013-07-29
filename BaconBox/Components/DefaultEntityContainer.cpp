@@ -153,6 +153,10 @@ namespace BaconBox {
 
 
 	void DefaultEntityContainer::addChild(MovieClipEntity *newChild) {
+		if(this->timeline->getNbFrames() == 0){
+			this->timeline->setNbFrames(1);
+			this->timeline->gotoAndStop(0);
+		}
 		for(int i = 0; i < timeline->getNbFrames(); i++){
 			this->addChildAt(newChild, static_cast<int>(this->children[i].size()),  i);
 		}
