@@ -145,6 +145,7 @@ end
   #include "BaconBox/Components/HasName.h"
 
 	#include "BaconBox/Vector2.h"
+  #include "BaconBox/Components/Visibility.h"
 	#include "BaconBox/Components/Transform.h"
   #include "BaconBox/Display/ColorFormat.h"
   #include "BaconBox/Display/TextureInformation.h"
@@ -538,7 +539,7 @@ namespace BaconBox{
 %immutable BaconBox::Pointer::buttonRelease;
 %immutable BaconBox::Pointer::move;
 %include "BaconBox/Input/Pointer/Pointer.h"
-
+%include "BaconBox/Components/Visibility.h"
 %include "BaconBox/Components/Transform.h"
 %include "BaconBox/AxisAlignedBoundingBox.h"
  %include "BaconBox/Components/AABBHitbox.h"

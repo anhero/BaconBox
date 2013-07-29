@@ -12,6 +12,7 @@
 
 namespace BaconBox {
 	class Timeline;
+	class Visibility;
 	class EntityContainerLooper;
 
 	class DefaultEntityContainer : public EntityContainer {
@@ -105,6 +106,7 @@ namespace BaconBox {
 		void initializeConnections();
 
 		DefaultTimeline *timeline;
+		Visibility * visibility;
 		int previousFrame;
 
 		ChildArray children;
