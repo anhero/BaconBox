@@ -15,7 +15,7 @@
 #include "BaconBox/Components/DefaultMatrix.h"
 #include "BaconBox/Components/DefaultColorTransform.h"
 namespace BaconBox {
-	DefaultEntityContainer::DefaultEntityContainer() : EntityContainer(), timeline(NULL), children(), parent(NULL), previousFrame(-1) {
+	DefaultEntityContainer::DefaultEntityContainer() : EntityContainer(), timeline(NULL), children(), parent(NULL), previousFrame(-1), visibility(NULL) {
 		this->initializeConnections();
 		frameIterator = children.begin();
 
@@ -24,6 +24,8 @@ namespace BaconBox {
 	void DefaultEntityContainer::initializeConnections() {
 		// We add the connections.
 		this->addConnection(new ComponentConnection<DefaultTimeline>(&this->timeline));
+		this->addConnection(new ComponentConnection<Visibility>(&this->visibility));
+
 		this->refreshConnections();
 	}
 
@@ -136,13 +138,16 @@ namespace BaconBox {
 
 
 	void updateChild(Entity *child) {
-		child->update();
+			child->update();
 	}
 
 
 	void DefaultEntityContainer::update() {
-		this->EntityContainer::update();
-		EntityContainerLooper::forEachChildCurrentFrame(this, updateChild);
+		if (!visibility || visibility->isVisible()) {
+			this->EntityContainer::update();
+			EntityContainerLooper::forEachChildCurrentFrame(this, updateChild);
+		}
+
 	}
 
 
