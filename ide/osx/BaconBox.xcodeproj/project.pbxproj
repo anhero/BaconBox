@@ -41,6 +41,8 @@
 		5153CCEF1698A8C200431A19 /* libSDL2_mixer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5153CCEE1698A8C200431A19 /* libSDL2_mixer.a */; };
 		5153CCF11698A8ED00431A19 /* libvorbisenc.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5153CCF01698A8ED00431A19 /* libvorbisenc.a */; };
 		5153CCF31698A8F600431A19 /* libvorbisfile.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5153CCF21698A8F600431A19 /* libvorbisfile.a */; };
+		51810F9C17A6CD8300F36B16 /* CameraPositionConverter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 51810F9A17A6CD8300F36B16 /* CameraPositionConverter.cpp */; };
+		51810F9D17A6CD8300F36B16 /* CameraPositionConverter.h in Headers */ = {isa = PBXBuildFile; fileRef = 51810F9B17A6CD8300F36B16 /* CameraPositionConverter.h */; };
 		51903B7617500B7B00814708 /* AudioEngine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 519039A517500B7B00814708 /* AudioEngine.cpp */; };
 		51903B7717500B7B00814708 /* AudioEngine.h in Headers */ = {isa = PBXBuildFile; fileRef = 519039A617500B7B00814708 /* AudioEngine.h */; };
 		51903B7817500B7B00814708 /* AudioState.h in Headers */ = {isa = PBXBuildFile; fileRef = 519039A717500B7B00814708 /* AudioState.h */; };
@@ -406,6 +408,8 @@
 		5153CCEE1698A8C200431A19 /* libSDL2_mixer.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSDL2_mixer.a; path = libraries/Darwin/x86_64/lib/libSDL2_mixer.a; sourceTree = "<group>"; };
 		5153CCF01698A8ED00431A19 /* libvorbisenc.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libvorbisenc.a; path = libraries/Darwin/x86_64/lib/libvorbisenc.a; sourceTree = "<group>"; };
 		5153CCF21698A8F600431A19 /* libvorbisfile.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libvorbisfile.a; path = libraries/Darwin/x86_64/lib/libvorbisfile.a; sourceTree = "<group>"; };
+		51810F9A17A6CD8300F36B16 /* CameraPositionConverter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CameraPositionConverter.cpp; sourceTree = "<group>"; };
+		51810F9B17A6CD8300F36B16 /* CameraPositionConverter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CameraPositionConverter.h; sourceTree = "<group>"; };
 		519039A517500B7B00814708 /* AudioEngine.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AudioEngine.cpp; sourceTree = "<group>"; };
 		519039A617500B7B00814708 /* AudioEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioEngine.h; sourceTree = "<group>"; };
 		519039A717500B7B00814708 /* AudioState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioState.h; sourceTree = "<group>"; };
@@ -930,6 +934,8 @@
 				51903A2917500B7B00814708 /* Timeline.cpp */,
 				51903A2A17500B7B00814708 /* Timeline.h */,
 				51903A2B17500B7B00814708 /* Transform.cpp */,
+				51810F9A17A6CD8300F36B16 /* CameraPositionConverter.cpp */,
+				51810F9B17A6CD8300F36B16 /* CameraPositionConverter.h */,
 				51903A2C17500B7B00814708 /* Transform.h */,
 				51903A2D17500B7B00814708 /* Visibility.cpp */,
 				51903A2E17500B7B00814708 /* Visibility.h */,
@@ -1522,6 +1528,7 @@
 				51903C5D17500B7B00814708 /* DynamicPool.h in Headers */,
 				51903C5E17500B7B00814708 /* Ease.h in Headers */,
 				51903C5F17500B7B00814708 /* FlagSet.h in Headers */,
+				51810F9D17A6CD8300F36B16 /* CameraPositionConverter.h in Headers */,
 				51903C6317500B7B00814708 /* FlashExporterXmlReader.h in Headers */,
 				51903C6617500B7B00814708 /* IsBaseOf.h in Headers */,
 				51903C6717500B7B00814708 /* IsNumber.h in Headers */,
@@ -1828,6 +1835,7 @@
 				2494A2D0176E44AE00D483A3 /* ParticlePhase.cpp in Sources */,
 				24CA7CFF17748A43000ACF7F /* EmitterFactory.cpp in Sources */,
 				24CA7D0317748F25000ACF7F /* EmitterEntity.cpp in Sources */,
+				51810F9C17A6CD8300F36B16 /* CameraPositionConverter.cpp in Sources */,
 				241C5D9A1775F80D00AC00EA /* Shake.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

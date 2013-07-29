@@ -168,6 +168,8 @@ end
 	#include "BaconBox/EntityFactory.h"
 #include "BaconBox/Helper/EmitterFactory.h"
   #include "BaconBox/Components/HasName.h"
+  #include "BaconBox/Components/CameraPositionConverter.h"
+
   #include "BaconBox/Display/Camera.h"
   #include "BaconBox/Core/State.h"
   #include "BaconBox/Core/Engine.h"
@@ -563,6 +565,8 @@ namespace BaconBox{
 %include "BaconBox/Helper/TimeHelper.h"
 %include "BaconBox/Helper/Stopwatch.h"
 %include "BaconBox/Components/Shake.h"
+%include "BaconBox/Components/CameraPositionConverter.h"
+
 %include "BaconBox/Display/Camera.h"
 
 %include "BaconBox/Core/State.h"

@@ -1,4 +1,4 @@
-SWIG:=`which swig`
+SWIG:=swig
 HEADERS_PATH:=../../../libraries/Darwin/x86_64/include
 
 
