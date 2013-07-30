@@ -5,17 +5,17 @@
 #include "BaconBox/Components/ComponentConnection.h"
 namespace BaconBox {
 
-class FlashSizeComponent : public SizeComponent {
-    public:
-        FlashSizeComponent();
+	class FlashSizeComponent : public SizeComponent {
+	public:
+		FlashSizeComponent();
 
-        float getWidth();
-        float getHeight();
-    protected:
-    private:
-    			MovieClipHolder * movieClipHolder;
+		float getWidth() const;
+		float getHeight() const;
+	protected:
+	private:
+		MovieClipHolder *movieClipHolder;
 		void initializeConnections();
-};
+	};
 }
 
 #endif // BB_FLASH_SIZECOMPONENT_H

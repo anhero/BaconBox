@@ -1,21 +1,34 @@
 #include "DefaultSizeComponent.h"
 #include "BaconBox/Components/ComponentConnection.h"
-using namespace BaconBox;
+namespace BaconBox {
 
-DefaultSizeComponent::DefaultSizeComponent(): SizeComponent(), aabb(NULL){
-	initializeConnections();
-}
+	DefaultSizeComponent::DefaultSizeComponent(): SizeComponent(), aabb(NULL) {
+		this->initializeConnections();
+	}
 
+	DefaultSizeComponent::DefaultSizeComponent(const DefaultSizeComponent &src) : SizeComponent(src), aabb(NULL) {
+		this->initializeConnections();
+	}
 
+	DefaultSizeComponent &DefaultSizeComponent::operator=(const DefaultSizeComponent &src) {
+		this->SizeComponent::operator=(src);
 
-float DefaultSizeComponent::getWidth(){
-	return aabb->getAABB().getSize().x;
-}
-float DefaultSizeComponent::getHeight(){
-	return aabb->getAABB().getSize().y;
-}
+		return *this;
+	}
 
-void DefaultSizeComponent::initializeConnections(){
-	this->addConnection(new ComponentConnection<AABBHitBox>(&this->aabb));
-	this->refreshConnections();
+	DefaultSizeComponent *DefaultSizeComponent::clone() const {
+		return new DefaultSizeComponent(*this);
+	}
+
+	float DefaultSizeComponent::getWidth() const {
+		return aabb->getAABB().getSize().x;
+	}
+	float DefaultSizeComponent::getHeight() const {
+		return aabb->getAABB().getSize().y;
+	}
+
+	void DefaultSizeComponent::initializeConnections() {
+		this->addConnection(new ComponentConnection<AABBHitBox>(&this->aabb));
+		this->refreshConnections();
+	}
 }

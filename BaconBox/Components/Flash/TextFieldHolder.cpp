@@ -10,7 +10,7 @@
 #include "BaconBox/Helper/Vector2ChangedData.h"
 
 #include "BaconBox/Display/Text/Flash/FlashFont.h"
-
+#include "BaconBox/Components/Visibility.h"
 namespace BaconBox {
 
 	BB_ID_IMPL(TextFieldHolder);
@@ -112,5 +112,10 @@ namespace BaconBox {
 				setColor(*reinterpret_cast<Color*>(data));
 			}
 		}
-	}   
+		else if(senderID == Visibility::ID){
+			if(message == Visibility::MESSAGE_VISIBILITY_CHANGED){
+				FlashHelper::setProperty(textField, "visible", AS3::local::internal::new_Boolean(*reinterpret_cast<bool*>(data)));
+			}
+		}
+	}
 }

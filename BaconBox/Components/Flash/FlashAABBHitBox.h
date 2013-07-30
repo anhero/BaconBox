@@ -9,17 +9,16 @@
 
 namespace BaconBox {
 
-class FlashAABBHitBox : public AABBHitBox {
-    public:
-        FlashAABBHitBox();
-        const AxisAlignedBoundingBox & getAABB();
-    protected:
-        void initializeConnections();
-    private:
-        MovieClipHolder * movieClipHolder;
-        AS3::local::var stage;
+	class FlashAABBHitBox : public AABBHitBox {
+	public:
+		FlashAABBHitBox();
+		const AxisAlignedBoundingBox &getAABB();
+	private:
+		void initializeConnections();
+		MovieClipHolder *movieClipHolder;
+		AS3::local::var stage;
 
-};
+	};
 }
 
 #endif // BB_FLASH_AABBHITBOX_H

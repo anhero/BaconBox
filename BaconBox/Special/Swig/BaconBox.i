@@ -145,6 +145,7 @@ end
   #include "BaconBox/Components/HasName.h"
 
 	#include "BaconBox/Vector2.h"
+  #include "BaconBox/Components/Visibility.h"
 	#include "BaconBox/Components/Transform.h"
   #include "BaconBox/Display/ColorFormat.h"
   #include "BaconBox/Display/TextureInformation.h"
@@ -168,6 +169,8 @@ end
 	#include "BaconBox/EntityFactory.h"
 #include "BaconBox/Helper/EmitterFactory.h"
   #include "BaconBox/Components/HasName.h"
+  #include "BaconBox/Components/CameraPositionConverter.h"
+
   #include "BaconBox/Display/Camera.h"
   #include "BaconBox/Core/State.h"
   #include "BaconBox/Core/Engine.h"
@@ -536,7 +539,7 @@ namespace BaconBox{
 %immutable BaconBox::Pointer::buttonRelease;
 %immutable BaconBox::Pointer::move;
 %include "BaconBox/Input/Pointer/Pointer.h"
-
+%include "BaconBox/Components/Visibility.h"
 %include "BaconBox/Components/Transform.h"
 %include "BaconBox/AxisAlignedBoundingBox.h"
  %include "BaconBox/Components/AABBHitbox.h"
@@ -563,6 +566,8 @@ namespace BaconBox{
 %include "BaconBox/Helper/TimeHelper.h"
 %include "BaconBox/Helper/Stopwatch.h"
 %include "BaconBox/Components/Shake.h"
+%include "BaconBox/Components/CameraPositionConverter.h"
+
 %include "BaconBox/Display/Camera.h"
 
 %include "BaconBox/Core/State.h"

@@ -7,17 +7,22 @@
 
 namespace BaconBox {
 
-class DefaultAABBHitBox : public AABBHitBox {
-    public:
-        DefaultAABBHitBox();
-        const AxisAlignedBoundingBox & getAABB();
-    protected:
-        void initializeConnections();
-    private:
-        Mesh * mesh;
-        EntityContainer * entityContainer;
-
-};
+	class DefaultAABBHitBox : public AABBHitBox {
+	public:
+		DefaultAABBHitBox();
+		DefaultAABBHitBox(const DefaultAABBHitBox &src);
+		
+		DefaultAABBHitBox &operator=(const DefaultAABBHitBox &src);
+		
+		DefaultAABBHitBox *clone() const;
+		
+		const AxisAlignedBoundingBox &getAABB();
+	private:
+		void initializeConnections();
+		
+		Mesh *mesh;
+		EntityContainer *entityContainer;
+	};
 }
 
 #endif // BB_DEFAULT_AABBHITBOX_H

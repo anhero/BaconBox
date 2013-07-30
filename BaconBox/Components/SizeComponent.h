@@ -13,18 +13,19 @@ namespace BaconBox {
 	public:
 		BB_ID_HEADER;
 		SizeComponent();
-		virtual float getWidth() = 0;
-		virtual float getHeight() = 0;
-		virtual Vector2 getSize();
+		SizeComponent(const SizeComponent &src);
+		SizeComponent &operator=(const SizeComponent &src);
+		virtual float getWidth() const = 0;
+		virtual float getHeight() const = 0;
+		virtual const Vector2 getSize() const;
 	};
-
 
 	class SizeComponentProxy : public ComponentProxy {
 	public:
 		SizeComponentProxy(Entity *entity);
-		float getWidth();
-		float getHeight();
-		Vector2 getSize();
+		float getWidth() const;
+		float getHeight() const;
+		const Vector2 getSize() const;
 
 	protected:
 		void setSizeComponent(SizeComponent *sizeComponent);

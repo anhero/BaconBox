@@ -18,6 +18,10 @@ namespace BaconBox {
 	public:
 		BB_ID_HEADER;
 		AABBHitBox();
+		AABBHitBox(const AABBHitBox &src);
+		
+		AABBHitBox &operator=(const AABBHitBox &src);
+		
 		virtual const AxisAlignedBoundingBox &getAABB() = 0;
 		void setAABB(const AxisAlignedBoundingBox &aabb);
 	protected:
@@ -26,8 +30,8 @@ namespace BaconBox {
 
 		SizeComponent *sizeComponent;
 		Transform *transform;
-		void initializeConnections();
 	private:
+		void initializeConnections();
 	};
 
 	class AABBHitBoxProxy : public ComponentProxy {
