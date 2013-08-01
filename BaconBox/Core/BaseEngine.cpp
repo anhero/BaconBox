@@ -181,11 +181,11 @@ namespace BaconBox {
 	void BaseEngine::initializeEngine(unsigned int resolutionWidth,
 	                              unsigned int resolutionHeight,
 	                              float contextWidth,
-	                              float contextHeight) {
+	                              float contextHeight, WindowOrientation::type orientation) {
 
 		TimeHelper::getInstance();
 		InputManager::getInstance();
-		Engine::onInitialize.shoot(resolutionWidth, resolutionHeight, contextWidth, contextHeight);
+		Engine::onInitialize.shoot(resolutionWidth, resolutionHeight, contextWidth, contextHeight, orientation);
 
 		this->graphicDriver->initializeGraphicDriver();
 	}

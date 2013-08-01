@@ -221,27 +221,33 @@ namespace BaconBox {
 
 		loadIdentity();
 
-		switch (MainWindow::getInstance().getOrientation()) {
-		case WindowOrientation::HORIZONTAL_LEFT:
-			rotate(-90.0f);
-			translate(Vector2(0, static_cast<float>(MainWindow::getInstance().getContextHeight())));
-			break;
-
-		case WindowOrientation::HORIZONTAL_RIGHT:
-			rotate(90.0f);
-			translate(Vector2(static_cast<float>(MainWindow::getInstance().getContextWidth()), 0));
-			break;
-
-		default:
-			break;
-		}
+		
 
 		scale(zoom);
-		rotate(angle);
+		rotate(-angle);
 		translate(-(position));
+		
+		
+		
+		switch (MainWindow::getInstance().getOrientation()) {
+			case WindowOrientation::HORIZONTAL_LEFT:
+				rotate(-90.0f);
+				translate(Vector2(0, static_cast<float>(MainWindow::getInstance().getRealContextHeight())));
+				break;
+				
+			case WindowOrientation::HORIZONTAL_RIGHT:
+				rotate(90);
+				translate(Vector2(static_cast<float>(MainWindow::getInstance().getRealContextWidth()), 0));
+				break;
+				
+			default:
+				break;
+		}
+		
 		program->sendUniform(uniforms.modelView, &(modelViewMatrix[0]));
 
 
+		
 
 	}
 
@@ -415,20 +421,14 @@ namespace BaconBox {
 		glEnableVertexAttribArray(attributes.texCoord);
 
 
-		if (MainWindow::getInstance().getOrientation() == WindowOrientation::NORMAL ||
-		    MainWindow::getInstance().getOrientation() == WindowOrientation::UPSIDE_DOWN) {
-			glViewport(0, 0, static_cast<int>(MainWindow::getInstance().getResolutionWidth()), static_cast<int>(MainWindow::getInstance().getResolutionHeight()));
+		glViewport(0, 0, static_cast<int>(MainWindow::getInstance().getResolutionWidth()), static_cast<int>(MainWindow::getInstance().getResolutionHeight()));
 
-		} else {
-			glViewport(0, 0, static_cast<int>(MainWindow::getInstance().getResolutionWidth()), static_cast<int>(MainWindow::getInstance().getResolutionHeight()));
-		}
-
-
+	
 		float left, right, bottom, top;
 
 			left = 0.0f;
-			right = static_cast<float>(MainWindow::getInstance().getContextWidth());
-			bottom = static_cast<float>(MainWindow::getInstance().getContextHeight());
+			right = static_cast<float>(MainWindow::getInstance().getRealContextWidth());
+			bottom = static_cast<float>(MainWindow::getInstance().getRealContextHeight());
 			top = 0.0f;
 
 				

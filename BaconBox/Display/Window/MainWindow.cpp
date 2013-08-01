@@ -26,6 +26,14 @@ namespace BaconBox {
 		return resolutionHeight;
 	}
 	
+	unsigned int MainWindow::getRealResolutionWidth(){
+		return getResolutionWidth();
+	}
+	
+	unsigned int MainWindow::getRealResolutionHeight(){
+		return getResolutionHeight();
+	}
+	
 	void MainWindow::setResolution(unsigned int newResolutionWidth,
 								   unsigned int newResolutionHeight) {
 		resolutionWidth = newResolutionWidth;
@@ -47,6 +55,15 @@ namespace BaconBox {
     void MainWindow::hideCursor(){
         
     }
+	
+	
+	float MainWindow::getRealContextWidth(){
+		return getContextWidth();
+	}
+	
+	float MainWindow::getRealContextHeight(){
+		return getContextHeight();
+	}
 
 	void MainWindow::setContextSize(float newContextWidth, float newContextHeight) {
 		if (newContextWidth == 0.0f) {
@@ -83,7 +100,8 @@ namespace BaconBox {
 					 resolutionHeight = tmp;
 				}
 			orientation = newOrientation;
-			GraphicDriver::getInstance().initializeGraphicDriver();
+			this->setResolution(resolutionWidth, resolutionHeight);
+	
 		}
 	}
 	

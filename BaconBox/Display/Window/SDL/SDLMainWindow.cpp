@@ -6,13 +6,20 @@
 #include "BaconBox/Display/Driver/OpenGL/BBOpenGL.h"
 #include "BaconBox/Core/Engine.h"
 #include "BaconBox/Display/Driver/GraphicDriver.h"
-
+#include "BaconBox/Console.h"
 namespace BaconBox {
 
-	void SDLMainWindow::onBaconBoxInit(unsigned int resolutionWidth, unsigned int resolutionHeight, float contextWidth, float contextHeight) {
+	void SDLMainWindow::onBaconBoxInit(unsigned int resolutionWidth, unsigned int resolutionHeight, float contextWidth, float contextHeight, WindowOrientation::type orientation) {
+        if (orientation == WindowOrientation::HORIZONTAL_LEFT || orientation ==  WindowOrientation::HORIZONTAL_RIGHT) {
+            unsigned int tmp = resolutionWidth;
+            resolutionWidth = resolutionHeight;
+            resolutionHeight = tmp;
+        }
+		this->orientation = orientation;
+
 		this->MainWindow::setResolution(resolutionWidth, resolutionHeight);
 		this->MainWindow::setContextSize(contextWidth, contextHeight);
-
+       
 		mainWindow = SDL_CreateWindow(Engine::getApplicationName().c_str(),
 		                              SDL_WINDOWPOS_CENTERED,
 		                              SDL_WINDOWPOS_CENTERED,
@@ -30,7 +37,25 @@ namespace BaconBox {
 
 
 	}
-
+	
+	
+	unsigned int SDLMainWindow::getRealResolutionWidth(){
+		return (getOrientation() == WindowOrientation::HORIZONTAL_LEFT || getOrientation() == WindowOrientation::HORIZONTAL_RIGHT? getResolutionHeight(): getResolutionWidth());
+	}
+	
+	unsigned int SDLMainWindow::getRealResolutionHeight(){
+		return (getOrientation() == WindowOrientation::HORIZONTAL_LEFT || getOrientation() == WindowOrientation::HORIZONTAL_RIGHT? getResolutionWidth(): getResolutionHeight());
+	}
+	
+	
+	float SDLMainWindow::getRealContextWidth(){
+		return (getOrientation() == WindowOrientation::HORIZONTAL_LEFT || getOrientation() == WindowOrientation::HORIZONTAL_RIGHT? getContextHeight(): getContextWidth());
+	}
+	
+	float SDLMainWindow::getRealContextHeight(){
+		return (getOrientation() == WindowOrientation::HORIZONTAL_LEFT || getOrientation() == WindowOrientation::HORIZONTAL_RIGHT? getContextWidth(): getContextHeight());
+	}
+	
 	void SDLMainWindow::show() {
 		while (SDLInputManager::getSDLInstance()->isRunning()) {
 			Engine::pulse();
@@ -41,6 +66,8 @@ namespace BaconBox {
 			}
 		}
 	}
+	
+	
 
 	void SDLMainWindow::setResolution(unsigned int resolutionWidth,
 	                                  unsigned int resolutionHeight) {
@@ -73,6 +100,12 @@ namespace BaconBox {
 
 	void SDLMainWindow::setInputGrabbed(bool newInputGrabbed) {
 		SDL_SetWindowGrab(mainWindow, ((newInputGrabbed) ? (SDL_TRUE) : (SDL_FALSE)));
+	}
+	
+	void SDLMainWindow::setOrientation(WindowOrientation::type newOrientation) {
+		MainWindow::setOrientation(newOrientation);
+		SDL_SetWindowSize(mainWindow, static_cast<int>(this->getResolutionWidth()), static_cast<int>(this->getResolutionHeight()));
+		Console::error("MainWindow::setOrientation won't resize the OpenGl context on SDL. Set the window orientation in the engine initialization. (Engine::initializeEngine()).");
 	}
 
 	SDLMainWindow::SDLMainWindow() : MainWindow(), mainWindow(NULL),

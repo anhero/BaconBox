@@ -28,12 +28,23 @@ namespace BaconBox {
 		void onBaconBoxInit(unsigned int resolutionWidth,
 		                  unsigned int resolutionHeight,
 		                  float contextWidth,
-		                  float contextHeight);
+		                  float contextHeight,
+							WindowOrientation::type orientation);
 
 		/**
 		 * Activates and opens the window.
 		 */
 		void show();
+		
+
+		unsigned int getRealResolutionWidth();
+		unsigned int getRealResolutionHeight();
+		float getRealContextWidth();
+		float getRealContextHeight();
+		
+		
+		
+		
 
 		/**
 		 * Changes the caption of the window. This is usually
@@ -83,6 +94,9 @@ namespace BaconBox {
          */
         void showCursor();
 
+		void setOrientation(WindowOrientation::type newOrientation);
+		
+	
 
 		/**
 		 * Sets the context size. If you want to work in pixels, set them to 0 and they

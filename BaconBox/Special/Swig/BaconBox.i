@@ -192,6 +192,9 @@ end
 
 #include "BaconBox/Symbol.h"
 
+
+#include <sstream>
+
 #if defined(BB_LUA)
   #include "BaconBox/Components/Lua/LuaEntity.h"
 #endif
@@ -491,9 +494,24 @@ namespace BaconBox{
 
 		float x;
 		float y;
+
+
+
+
 	};
 
 }
+
+%extend BaconBox::Vector2 {
+const char *__str__() {
+       static char tmp[1024];
+       std::stringstream ss;
+        ss << (*self);
+        strcpy(tmp, ss.str().c_str());
+        return tmp;
+   }
+
+   }
 
 %include "BaconBox/Matrix.h"
 

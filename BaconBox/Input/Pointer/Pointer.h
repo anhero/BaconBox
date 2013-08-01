@@ -176,13 +176,10 @@ namespace BaconBox {
 		 */
 		std::vector<CursorState>& getCursorStates();
 
-		/**
-		 * Gets a cursor's position.
-		 * @param index Index of the cursor to get.
-		 * @return Reference to the cursor's position.
-		 */
-		Vector2& getCursorPosition(unsigned int index);
-
+		
+		const Vector2& getCursorPosition(unsigned int index);
+		
+		void setCursorPosition(unsigned int index, Vector2 & pos);
 		/**
 		 * Gets a cursor's previous position.
 		 * @param index Index of the cursor to get.

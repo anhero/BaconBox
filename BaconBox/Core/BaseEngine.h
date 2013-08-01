@@ -7,6 +7,8 @@
 #include <sigly.h>
 #include "BaconBox/PlatformFlagger.h"
 #include "BaconBox/Core/State.h"
+#include "BaconBox/Display/Window/WindowOrientation.h"
+
 namespace BaconBox {
 	class MainWindow;
 	class GraphicDriver;
@@ -50,7 +52,7 @@ namespace BaconBox {
 		virtual void initializeEngine(unsigned int resolutionWidth,
 		                             unsigned int resolutionHeight,
 		                             float contextWidth = 0.0f,
-		                             float contextHeight = 0.0f);
+									  float contextHeight = 0.0f, WindowOrientation::type orientation = WindowOrientation::NORMAL);
 		
 		virtual double getSinceLastUpdate();
 		

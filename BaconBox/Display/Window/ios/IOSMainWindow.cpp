@@ -13,12 +13,13 @@ namespace BaconBox {
 	
 	void IOSMainWindow::onBaconBoxInit(unsigned int resolutionWidth,
 									 unsigned int resolutionHeight,
-									 float contextWidth, float contextHeight) {
-		NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+									 float contextWidth, float contextHeight, WindowOrientation::type orientation) {
+				NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+
 		
 		InputManager::getInstance().setNbPointers(1);
 		InputManager::getInstance().setNbKeyboards(1);
-		
+		this->setOrientation(orientation);
 		CGRect screenBounds = [[UIScreen mainScreen] bounds];
 		this->MainWindow::setResolution(screenBounds.size.width, screenBounds.size.height);
 		setContextSize(contextWidth, contextHeight);
@@ -49,6 +50,7 @@ namespace BaconBox {
 	
 	void IOSMainWindow::setInputGrabbed(bool newInputGrabbed) {
 	}
+	
 	
 	void IOSMainWindow::show() {
 		NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
