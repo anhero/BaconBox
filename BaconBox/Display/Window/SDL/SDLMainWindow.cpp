@@ -105,7 +105,6 @@ namespace BaconBox {
 	void SDLMainWindow::setOrientation(WindowOrientation::type newOrientation) {
 		MainWindow::setOrientation(newOrientation);
 		SDL_SetWindowSize(mainWindow, static_cast<int>(this->getResolutionWidth()), static_cast<int>(this->getResolutionHeight()));
-		Console::error("MainWindow::setOrientation won't resize the OpenGl context on SDL. Set the window orientation in the engine initialization. (Engine::initializeEngine()).");
 	}
 
 	SDLMainWindow::SDLMainWindow() : MainWindow(), mainWindow(NULL),
