@@ -75,6 +75,16 @@ namespace BaconBox {
 
 		return subTexInfo;
 	}
+	
+	
+	TextureInformation * ResourceManager::createRenderTexture(const std::string &key,
+															  unsigned int width,
+															  unsigned int height,
+															  ColorFormat colorFormat,
+															  bool overwrite){
+		PixMap aPixmap(NULL, width, height, colorFormat);
+		return addTexture(key, &aPixmap, overwrite);
+	}
 
 	TextureInformation *ResourceManager::addTextureWithPath(const std::string &key, PixMap *aPixmap, const std::string &path, bool overwrite) {
 		TextureInformation *texInfo = addTexture(key, aPixmap, overwrite);

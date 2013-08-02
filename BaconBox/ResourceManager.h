@@ -44,6 +44,13 @@ namespace BaconBox {
 	    
 		static SubTextureInfo *addSubTexture(const std::string &key, SubTextureInfo *textureInfo,
 		                                      bool overwrite = false);
+		
+		
+		static TextureInformation *createRenderTexture(const std::string &key,
+													   unsigned int width,
+													   unsigned int height,
+													   ColorFormat colorFormat = ColorFormat::RGBA,
+		                                      bool overwrite = false);
 	    
 		/**
 		 * Add a texture already loaded as a pixmap into the graphic memory and
