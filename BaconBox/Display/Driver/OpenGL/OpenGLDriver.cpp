@@ -250,6 +250,38 @@ namespace BaconBox {
 		
 
 	}
+	
+	void OpenGLDriver::renderToTexture(const TextureInformation *textureInformation, unsigned int contextWidth, unsigned int contextHeight){
+		if(contextWidth == 0){
+			contextWidth = textureInformation->imageWidth;
+			contextHeight = textureInformation->imageHeight;
+		}
+#ifdef BB_OPENGLES
+		glBindFramebufferOES(GL_FRAMEBUFFER_OES, textureFBO);
+#else
+		glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, textureFBO);
+#endif
+		
+		
+#ifdef BB_OPENGLES
+		glFramebufferTexture2DOES(GL_FRAMEBUFFER_OES, GL_COLOR_ATTACHMENT0_OES,
+		                          GL_TEXTURE_2D, textureInformation->textureId, 0);
+#else
+		glFramebufferTexture2DEXT(GL_FRAMEBUFFER_EXT, GL_COLOR_ATTACHMENT0_EXT,
+		                          GL_TEXTURE_2D, textureInformation->textureId, 0);
+#endif
+		
+		glViewport(0, 0, contextWidth, contextHeight);
+	}
+
+void OpenGLDriver::endRenderToTexture(){
+#ifdef BB_OPENGLES
+	glBindFramebufferOES(GL_FRAMEBUFFER_OES, originalFramebuffer);
+#else
+	glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, originalFramebuffer);
+#endif
+	glViewport(0, 0, static_cast<int>(MainWindow::getInstance().getResolutionWidth()), static_cast<int>(MainWindow::getInstance().getResolutionHeight()));
+}
 
 	void OpenGLDriver::initializeGraphicDriver() {
 		GraphicDriver::initializeGraphicDriver();

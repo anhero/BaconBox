@@ -30,6 +30,9 @@ namespace BaconBox {
 		 * @return Reference to the graphic driver singleton.
 		 */
 		static GraphicDriver &getInstance();
+		
+		virtual void renderToTexture(const TextureInformation *textureInformation, unsigned int contextWidth = 0, unsigned int contextHeight = 0) = 0;
+		virtual void endRenderToTexture() = 0;
 
 
 		virtual void drawShapeWithTexture(const VertexArray &vertices,

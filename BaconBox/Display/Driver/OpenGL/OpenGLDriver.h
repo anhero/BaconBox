@@ -19,6 +19,11 @@ namespace BaconBox {
 	class OpenGLDriver : public GraphicDriver {
 		friend class BaseEngine;
 	public:
+		
+		
+		
+		void renderToTexture(const TextureInformation *textureInformation, unsigned int contextWidth = 0, unsigned int contextHeight = 0);
+		void endRenderToTexture();
 
 		void drawShapeWithTextureColorColorOffset(const VertexArray &vertices,
 												  const TextureInformation *textureInformation,
