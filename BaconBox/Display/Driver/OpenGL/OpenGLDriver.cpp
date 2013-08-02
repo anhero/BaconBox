@@ -419,8 +419,22 @@ namespace BaconBox {
 		glEnableVertexAttribArray(attributes.color);
 		glEnableVertexAttribArray(attributes.vertices);
 		glEnableVertexAttribArray(attributes.texCoord);
-
-
+		
+		GLint tempBuffer;
+#ifdef BB_OPENGLES
+		glGetIntegerv(GL_FRAMEBUFFER_BINDING_OES, &tempBuffer);
+#else
+		glGetIntegerv(GL_FRAMEBUFFER_BINDING_EXT, &tempBuffer);
+#endif
+		originalFramebuffer = static_cast<GLuint>(tempBuffer);
+		
+		if(textureFBOInitialized){
+			glDeleteFramebuffers(1, &textureFBO);
+		}
+	
+		glGenFramebuffers(1, &textureFBO);
+		textureFBOInitialized = true;
+		
 		glViewport(0, 0, static_cast<int>(MainWindow::getInstance().getResolutionWidth()), static_cast<int>(MainWindow::getInstance().getResolutionHeight()));
 
 	
@@ -605,8 +619,8 @@ namespace BaconBox {
 		texInfo->imageWidth = pixMap->getWidth();
 		texInfo->imageHeight = pixMap->getHeight();
 
-		int widthPoweredToTwo = MathHelper::nextPowerOf2(pixMap->getWidth());
-		int heightPoweredToTwo = MathHelper::nextPowerOf2(pixMap->getHeight());
+		unsigned int widthPoweredToTwo = MathHelper::nextPowerOf2(pixMap->getWidth());
+		unsigned int heightPoweredToTwo = MathHelper::nextPowerOf2(pixMap->getHeight());
 
 		texInfo->poweredWidth = widthPoweredToTwo;
 		texInfo->poweredHeight = heightPoweredToTwo;
@@ -621,20 +635,16 @@ namespace BaconBox {
 			format = GL_ALPHA;
 		}
 
-		if (widthPoweredToTwo == pixMap->getWidth() && heightPoweredToTwo == pixMap->getHeight()) {
-			glTexImage2D(
-						 GL_TEXTURE_2D,
-						 0,
-						 format,
-						 widthPoweredToTwo,
-						 heightPoweredToTwo,
-						 0,
-						 format,
-						 GL_UNSIGNED_BYTE,
-						 pixMap->getBuffer());
-		} else {
-			PixMap poweredTo2Pixmap(widthPoweredToTwo, heightPoweredToTwo, pixMap->getColorFormat());
-			poweredTo2Pixmap.insertSubPixMap(*pixMap);
+		PixMap *poweredTo2Pixmap;
+		bool deleteBuffer = false;
+		if (pixMap->getBuffer() && widthPoweredToTwo != pixMap->getWidth() && heightPoweredToTwo != pixMap->getHeight()) {
+			poweredTo2Pixmap = new PixMap(widthPoweredToTwo, heightPoweredToTwo, pixMap->getColorFormat());
+			poweredTo2Pixmap->insertSubPixMap(*pixMap);
+			deleteBuffer = true;
+		}
+		else{
+			poweredTo2Pixmap= new PixMap(pixMap->getBuffer(), widthPoweredToTwo, heightPoweredToTwo, pixMap->getColorFormat());
+		}
 
 			glTexImage2D(
 						 GL_TEXTURE_2D,
@@ -645,8 +655,10 @@ namespace BaconBox {
 						 0,
 						 format,
 						 GL_UNSIGNED_BYTE,
-						 poweredTo2Pixmap.getBuffer());
-		}
+						 poweredTo2Pixmap->getBuffer());
+			
+		if(!deleteBuffer)poweredTo2Pixmap->setBuffer(NULL);
+		delete poweredTo2Pixmap;
 
 		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
@@ -663,7 +675,7 @@ namespace BaconBox {
 
 
 
-	OpenGLDriver::OpenGLDriver() : GraphicDriver(), batch(), lastShapeBlend(true), lastShapeColorTransform(false), program(NULL), lastTexture(NULL), projectionMatrix(16,0), modelViewMatrix(16,0), tempTransformMatrix(16,0), lastGPUState(), currentGPUState() {
+	OpenGLDriver::OpenGLDriver() : GraphicDriver(), batch(), lastShapeBlend(true), lastShapeColorTransform(false), program(NULL), lastTexture(NULL), projectionMatrix(16,0), modelViewMatrix(16,0), tempTransformMatrix(16,0), lastGPUState(), currentGPUState(), textureFBOInitialized(false) {
 	}
 
 	OpenGLDriver::~OpenGLDriver() {

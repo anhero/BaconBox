@@ -48,7 +48,7 @@ namespace BaconBox {
 
 
 
-
+		
 
 		/**
 		 * Prepare the scene before rendering object.
@@ -107,6 +107,11 @@ namespace BaconBox {
 		 */
 		void finalizeRender();
 	private:
+		
+		bool  textureFBOInitialized;
+		GLuint textureFBO;
+		GLuint originalFramebuffer;
+
 		
 		void multMatrix(float *MatrixB,float MatrixA[16]);
 		
