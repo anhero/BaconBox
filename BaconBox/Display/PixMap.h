@@ -107,6 +107,8 @@ namespace BaconBox {
 		 */
 		ColorFormat getColorFormat() const;
 
+		
+		void setBuffer(uint8_t * buffer);
 		/**
 		 * Gets the buffer.
 		 * @return Pointer to the buffer's first element.

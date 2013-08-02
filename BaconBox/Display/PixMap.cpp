@@ -50,6 +50,10 @@ namespace BaconBox {
 			delete [] buffer;
 		}
 	}
+	
+	void PixMap::setBuffer(uint8_t * buffer){
+		buffer = NULL;
+	}
 
 	PixMap &PixMap::operator=(const PixMap &src) {
 		if (this != &src) {
