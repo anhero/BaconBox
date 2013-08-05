@@ -21,7 +21,9 @@ namespace BaconBox {
 		InputManager::getInstance().setNbKeyboards(1);
 		this->setOrientation(orientation);
 		CGRect screenBounds = [[UIScreen mainScreen] bounds];
-		this->MainWindow::setResolution(screenBounds.size.width, screenBounds.size.height);
+		CGFloat screenScale = [[UIScreen mainScreen] scale];
+		CGSize screenSize = CGSizeMake(screenBounds.size.width * screenScale, screenBounds.size.height * screenScale);
+		this->MainWindow::setResolution(screenSize.width, screenSize.height);
 		setContextSize(contextWidth, contextHeight);
 		
 		
@@ -29,6 +31,26 @@ namespace BaconBox {
 		[BaconBoxAppAppDelegate setViewController: viewController];
 		[pool release];
 		
+	}
+	
+	
+	void IOSMainWindow::setContextSize(float newContextWidth, float newContextHeight) {
+		float screenScale = 1/[[UIScreen mainScreen] scale];
+
+
+		if (newContextWidth == 0.0f) {
+			contextWidth = resolutionWidth * screenScale;
+			
+		} else {
+			contextWidth = newContextWidth;
+		}
+		
+		if (newContextHeight == 0.0f) {
+			contextHeight = resolutionHeight * screenScale;
+			
+		} else {
+			contextHeight = newContextHeight;
+		}
 	}
 	
 	IOSMainWindow::IOSMainWindow() : MainWindow() {

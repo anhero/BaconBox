@@ -19,6 +19,11 @@ namespace BaconBox {
 	class OpenGLDriver : public GraphicDriver {
 		friend class BaseEngine;
 	public:
+		
+		
+		
+		void renderToTexture(const TextureInformation *textureInformation, unsigned int viewportWidth = 0, unsigned int viewportHeight = 0, unsigned int contextWidth = 0, unsigned int contextHeight = 0);
+		void endRenderToTexture();
 
 		void drawShapeWithTextureColorColorOffset(const VertexArray &vertices,
 												  const TextureInformation *textureInformation,
@@ -48,7 +53,7 @@ namespace BaconBox {
 
 
 
-
+		
 
 		/**
 		 * Prepare the scene before rendering object.
@@ -108,6 +113,11 @@ namespace BaconBox {
 		void finalizeRender();
 	private:
 		
+		bool  textureFBOInitialized;
+		GLuint textureFBO;
+		GLuint originalFramebuffer;
+
+		
 		void multMatrix(float *MatrixB,float MatrixA[16]);
 		
 
@@ -131,7 +141,7 @@ namespace BaconBox {
 			const GLfloat * vertices;
 			const GLfloat * colors;
 			const GLfloat * colorOffsets;
-			ColorFormat format;
+			ColorFormat::type format;
 			bool operator==(const GPUState &other) const {
 				return (other.textureID == this->textureID) && (other.textureCoordinates == this->textureCoordinates) && (other.vertices == this->vertices) && (other.colors == this->colors) &&(other.colorOffsets == this->colorOffsets) && (other.format == this->format);
 			}

@@ -36,7 +36,7 @@ namespace BaconBox {
 		 * Set the resolution of the window.
 		 */
 		void setResolution(unsigned int resolutionWidth, unsigned int resolutionHeight);
-		
+		void setContextSize(float newContextWidth, float newContextHeight);
 		
 	private:
 		IOSMainWindow();

@@ -250,6 +250,76 @@ namespace BaconBox {
 		
 
 	}
+	
+	void OpenGLDriver::renderToTexture(const TextureInformation *textureInformation, unsigned int viewportWidth, unsigned int viewportHeight, unsigned int contextWidth, unsigned int contextHeight){
+		finalizeRender();
+		if(viewportWidth == 0){
+			viewportWidth = textureInformation->imageWidth;
+			viewportHeight = textureInformation->imageHeight;
+		}
+		
+		if(contextWidth == 0){
+			contextWidth = viewportWidth;
+			contextHeight = viewportHeight;
+		}
+		
+		glBindFramebuffer(GL_FRAMEBUFFER, textureFBO);
+
+		
+				glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0,
+		                          GL_TEXTURE_2D, textureInformation->textureId, 0);
+
+		
+		glViewport(0, 0, viewportWidth, viewportHeight);
+		
+		float left, right, bottom, top;
+		
+		left = 0.0f;
+		right = contextWidth;
+		bottom = 0.0f;
+		top = contextHeight;
+		
+	
+		projectionMatrix[0] = 2.0f / (right - left);
+		projectionMatrix[5] = 2.0f / (top- bottom);
+		projectionMatrix[10] = -1;
+		projectionMatrix[12] = -((right+left)/(right-left));
+		projectionMatrix[13] = -((top+bottom)/(top-bottom));
+		//		projectionMatrix[14] = 0;
+		projectionMatrix[15] = 1;
+		
+		program->sendUniform(uniforms.projection, &(projectionMatrix[0]));
+	}
+
+void OpenGLDriver::endRenderToTexture(){
+	finalizeRender();
+	glBindFramebuffer(GL_FRAMEBUFFER, originalFramebuffer);
+	
+	
+	glViewport(0, 0, static_cast<int>(MainWindow::getInstance().getResolutionWidth()), static_cast<int>(MainWindow::getInstance().getResolutionHeight()));
+	
+	
+	float left, right, bottom, top;
+	
+	left = 0.0f;
+	right = static_cast<float>(MainWindow::getInstance().getRealContextWidth());
+	bottom = static_cast<float>(MainWindow::getInstance().getRealContextHeight());
+	top = 0.0f;
+	
+	
+	
+	
+	
+	projectionMatrix[0] = 2.0f / (right - left);
+	projectionMatrix[5] = 2.0f / (top- bottom);
+	projectionMatrix[10] = -1;
+	projectionMatrix[12] = -((right+left)/(right-left));
+	projectionMatrix[13] = -((top+bottom)/(top-bottom));
+	//		projectionMatrix[14] = 0;
+	projectionMatrix[15] = 1;
+	
+	program->sendUniform(uniforms.projection, &(projectionMatrix[0]));
+}
 
 	void OpenGLDriver::initializeGraphicDriver() {
 		GraphicDriver::initializeGraphicDriver();
@@ -419,8 +489,18 @@ namespace BaconBox {
 		glEnableVertexAttribArray(attributes.color);
 		glEnableVertexAttribArray(attributes.vertices);
 		glEnableVertexAttribArray(attributes.texCoord);
-
-
+		
+		GLint tempBuffer;
+		glGetIntegerv(GL_FRAMEBUFFER_BINDING, &tempBuffer);
+		originalFramebuffer = static_cast<GLuint>(tempBuffer);
+		
+		if(textureFBOInitialized){
+			glDeleteFramebuffers(1, &textureFBO);
+		}
+	
+		glGenFramebuffers(1, &textureFBO);
+		textureFBOInitialized = true;
+		
 		glViewport(0, 0, static_cast<int>(MainWindow::getInstance().getResolutionWidth()), static_cast<int>(MainWindow::getInstance().getResolutionHeight()));
 
 	
@@ -605,8 +685,8 @@ namespace BaconBox {
 		texInfo->imageWidth = pixMap->getWidth();
 		texInfo->imageHeight = pixMap->getHeight();
 
-		int widthPoweredToTwo = MathHelper::nextPowerOf2(pixMap->getWidth());
-		int heightPoweredToTwo = MathHelper::nextPowerOf2(pixMap->getHeight());
+		unsigned int widthPoweredToTwo = MathHelper::nextPowerOf2(pixMap->getWidth());
+		unsigned int heightPoweredToTwo = MathHelper::nextPowerOf2(pixMap->getHeight());
 
 		texInfo->poweredWidth = widthPoweredToTwo;
 		texInfo->poweredHeight = heightPoweredToTwo;
@@ -621,20 +701,16 @@ namespace BaconBox {
 			format = GL_ALPHA;
 		}
 
-		if (widthPoweredToTwo == pixMap->getWidth() && heightPoweredToTwo == pixMap->getHeight()) {
-			glTexImage2D(
-						 GL_TEXTURE_2D,
-						 0,
-						 format,
-						 widthPoweredToTwo,
-						 heightPoweredToTwo,
-						 0,
-						 format,
-						 GL_UNSIGNED_BYTE,
-						 pixMap->getBuffer());
-		} else {
-			PixMap poweredTo2Pixmap(widthPoweredToTwo, heightPoweredToTwo, pixMap->getColorFormat());
-			poweredTo2Pixmap.insertSubPixMap(*pixMap);
+		PixMap *poweredTo2Pixmap;
+		bool deleteBuffer = false;
+		if (pixMap->getBuffer() && widthPoweredToTwo != pixMap->getWidth() && heightPoweredToTwo != pixMap->getHeight()) {
+			poweredTo2Pixmap = new PixMap(widthPoweredToTwo, heightPoweredToTwo, pixMap->getColorFormat());
+			poweredTo2Pixmap->insertSubPixMap(*pixMap);
+			deleteBuffer = true;
+		}
+		else{
+			poweredTo2Pixmap= new PixMap(pixMap->getBuffer(), widthPoweredToTwo, heightPoweredToTwo, pixMap->getColorFormat());
+		}
 
 			glTexImage2D(
 						 GL_TEXTURE_2D,
@@ -645,8 +721,10 @@ namespace BaconBox {
 						 0,
 						 format,
 						 GL_UNSIGNED_BYTE,
-						 poweredTo2Pixmap.getBuffer());
-		}
+						 poweredTo2Pixmap->getBuffer());
+			
+		if(!deleteBuffer)poweredTo2Pixmap->setBuffer(NULL);
+		delete poweredTo2Pixmap;
 
 		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
@@ -663,7 +741,7 @@ namespace BaconBox {
 
 
 
-	OpenGLDriver::OpenGLDriver() : GraphicDriver(), batch(), lastShapeBlend(true), lastShapeColorTransform(false), program(NULL), lastTexture(NULL), projectionMatrix(16,0), modelViewMatrix(16,0), tempTransformMatrix(16,0), lastGPUState(), currentGPUState() {
+	OpenGLDriver::OpenGLDriver() : GraphicDriver(), batch(), lastShapeBlend(true), lastShapeColorTransform(false), program(NULL), lastTexture(NULL), projectionMatrix(16,0), modelViewMatrix(16,0), tempTransformMatrix(16,0), lastGPUState(), currentGPUState(), textureFBOInitialized(false) {
 	}
 
 	OpenGLDriver::~OpenGLDriver() {
