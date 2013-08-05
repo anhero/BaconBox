@@ -23,13 +23,13 @@ namespace BaconBox {
 	}
 
 	PixMap::PixMap(unsigned int newWidth, unsigned int newHeight,
-	               ColorFormat newColorFormat) : width(newWidth),
+	               ColorFormat::type newColorFormat) : width(newWidth),
 		height(newHeight), colorFormat(newColorFormat),
 		buffer(new uint8_t[width *height * ((colorFormat == ColorFormat::RGBA) ? (4) : (1))]) {
 	}
 
 	PixMap::PixMap(unsigned int newWidth, unsigned int newHeight,
-	               uint8_t defaultValue, ColorFormat newColorFormat) :
+	               uint8_t defaultValue, ColorFormat::type newColorFormat) :
 		width(newWidth), height(newHeight), colorFormat(newColorFormat),
 		buffer(new uint8_t[width *height * ((colorFormat == ColorFormat::RGBA) ? (4) : (1))]) {
 		unsigned int tmpLength = width * height * ((colorFormat == ColorFormat::RGBA) ? (4) : (1));
@@ -40,7 +40,7 @@ namespace BaconBox {
 	}
 
 	PixMap::PixMap(uint8_t *newBuffer, unsigned int newWidth,
-	               unsigned int newHeight, ColorFormat newColorFormat) :
+	               unsigned int newHeight, ColorFormat::type newColorFormat) :
 		width(newWidth), height(newHeight), colorFormat(newColorFormat),
 		buffer(newBuffer) {
 	}
@@ -52,7 +52,7 @@ namespace BaconBox {
 	}
 	
 	void PixMap::setBuffer(uint8_t * buffer){
-		buffer = NULL;
+		this->buffer = NULL;
 	}
 
 	PixMap &PixMap::operator=(const PixMap &src) {
@@ -78,7 +78,7 @@ namespace BaconBox {
 		return *this;
 	}
 
-	void PixMap::convertTo(ColorFormat format) {
+	void PixMap::convertTo(ColorFormat::type format) {
 		uint8_t *tempBuffer;
 		int pixelCount = width * height;
 		bool successful = false;
@@ -150,7 +150,7 @@ namespace BaconBox {
 		return height;
 	}
 
-	ColorFormat PixMap::getColorFormat() const {
+	ColorFormat::type PixMap::getColorFormat() const {
 		return colorFormat;
 	}
 

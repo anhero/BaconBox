@@ -80,7 +80,7 @@ namespace BaconBox {
 	TextureInformation * ResourceManager::createRenderTexture(const std::string &key,
 															  unsigned int width,
 															  unsigned int height,
-															  ColorFormat colorFormat,
+															  ColorFormat::type colorFormat,
 															  bool overwrite){
 		PixMap aPixmap(NULL, width, height, colorFormat);
 		return addTexture(key, &aPixmap, overwrite);
@@ -168,7 +168,7 @@ namespace BaconBox {
 
 	void ResourceManager::registerTexture(const std::string &key,
 	                                      const std::string &filePath,
-	                                      ColorFormat colorFormat,
+	                                      ColorFormat::type colorFormat,
 	                                      bool overwrite) {
 		TextureInformation *textureInfo = new TextureInformation();
 		textureInfo->path = filePath;
@@ -178,7 +178,7 @@ namespace BaconBox {
 
 	TextureInformation *ResourceManager::loadTexture(const std::string &key,
 	                                                 const std::string &filePath,
-	                                                 ColorFormat colorFormat,
+	                                                 ColorFormat::type colorFormat,
 	                                                 bool overwrite) {
 		PixMap *pixMap = loadPixMap(filePath, colorFormat);
 
@@ -210,7 +210,7 @@ namespace BaconBox {
 
 	TextureInformation *ResourceManager::loadTextureRelativePath(const std::string &key,
 	                                                             const std::string &relativePath,
-	                                                             ColorFormat colorFormat,
+	                                                             ColorFormat::type colorFormat,
 	                                                             bool overwrite) {
 		return loadTexture(key,
 		                   ResourcePathHandler::getResourcePathFor(relativePath),
@@ -1011,7 +1011,7 @@ namespace BaconBox {
 #endif
 	}
 
-	PixMap *ResourceManager::loadPixMap(const std::string &filePath, ColorFormat colorFormat) {
+	PixMap *ResourceManager::loadPixMap(const std::string &filePath, ColorFormat::type colorFormat) {
 		PixMap *pixmap = loadPixMapFromPNG(filePath);
 
 		if (pixmap && colorFormat == ColorFormat::ALPHA) {
@@ -1023,7 +1023,7 @@ namespace BaconBox {
 
 	PixMap *ResourceManager::loadPixMap(const std::string &filePath,
 	                                    const Color &transparentColor) {
-		PixMap *result = loadPixMap(filePath, ColorFormat(ColorFormat::RGBA));
+		PixMap *result = loadPixMap(filePath, ColorFormat::RGBA);
 
 		if (result) {
 			result->makeColorTransparent(transparentColor);

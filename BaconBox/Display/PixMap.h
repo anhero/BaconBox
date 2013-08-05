@@ -42,7 +42,7 @@ namespace BaconBox {
 		 * @see BaconBox::ColorFormat::Enum
 		 */
 		PixMap(unsigned int newWidth, unsigned int newHeight,
-		       ColorFormat newColorFormat = ColorFormat::RGBA);
+		       ColorFormat::type newColorFormat = ColorFormat::RGBA);
 
 		/**
 		 * Parameterized constructor.
@@ -57,7 +57,7 @@ namespace BaconBox {
 		 */
 		PixMap(unsigned int newWidth, unsigned int newHeight,
 			   uint8_t defaultValue,
-			   ColorFormat newColorFormat = ColorFormat::RGBA);
+			   ColorFormat::type newColorFormat = ColorFormat::RGBA);
 
 		/**
 		 * Constructor. Creates the PixMap with an existing buffer. It does not
@@ -72,7 +72,7 @@ namespace BaconBox {
 		 */
 		PixMap(uint8_t *newBuffer, unsigned int newWidth,
 		       unsigned int newHeight,
-		       ColorFormat newColorFormat = ColorFormat::RGBA);
+		       ColorFormat::type newColorFormat = ColorFormat::RGBA);
 
 		/**
 		 * Destructor.
@@ -105,7 +105,7 @@ namespace BaconBox {
 		 * @see BaconBox::PixMap::colorFormat
 		 * @see BaconBox::ColorFormat::Enum
 		 */
-		ColorFormat getColorFormat() const;
+		ColorFormat::type getColorFormat() const;
 
 		
 		void setBuffer(uint8_t * buffer);
@@ -162,7 +162,7 @@ namespace BaconBox {
 							 unsigned int yOffset);
 
 		///Convert the current PixMap to the given format.
-		void convertTo(ColorFormat colorFormat);
+		void convertTo(ColorFormat::type colorFormat);
 
 		/**
 		 * Makes the specified color transparent. Does nothing if the PixMap
@@ -180,7 +180,7 @@ namespace BaconBox {
 		unsigned int height;
 
 		/// Color format of the array (See ColorFormat enum)
-		ColorFormat colorFormat;
+		ColorFormat::type colorFormat;
 
 		/// Pointer to the first pixel of the PixMap
 		uint8_t *buffer;

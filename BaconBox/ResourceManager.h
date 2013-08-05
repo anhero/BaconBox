@@ -49,7 +49,7 @@ namespace BaconBox {
 		static TextureInformation *createRenderTexture(const std::string &key,
 													   unsigned int width,
 													   unsigned int height,
-													   ColorFormat colorFormat = ColorFormat::RGBA,
+													   ColorFormat::type colorFormat = ColorFormat::RGBA,
 		                                      bool overwrite = false);
 	    
 		/**
@@ -83,7 +83,7 @@ namespace BaconBox {
 		 */
 		static TextureInformation *loadTexture(const std::string &key,
 		                                       const std::string &filePath,
-		                                       ColorFormat colorFormat = ColorFormat::RGBA,
+		                                       ColorFormat::type colorFormat = ColorFormat::RGBA,
 		                                       bool overwrite = false);
 		
 		static TextureInformation *loadTexture(const std::string &key);
@@ -91,7 +91,7 @@ namespace BaconBox {
 		
 		static void registerTexture(const std::string &key,
 		                                       const std::string &filePath,
-		                                       ColorFormat colorFormat = ColorFormat::RGBA,
+		                                       ColorFormat::type colorFormat = ColorFormat::RGBA,
 		                                       bool overwrite = false);
 
 		/**
@@ -130,7 +130,7 @@ namespace BaconBox {
 		 */
 		static TextureInformation *loadTextureRelativePath(const std::string &key,
 		                                                   const std::string &relativePath,
-		                                                   ColorFormat colorFormat = ColorFormat::RGBA,
+		                                                   ColorFormat::type colorFormat = ColorFormat::RGBA,
 		                                                   bool overwrite = false);
 
 		/**
@@ -333,7 +333,7 @@ namespace BaconBox {
 		static void removeFont(const std::string &key);
 		
 		/// Create a PixMap from an image file at the given path.
-		static PixMap *loadPixMap(const std::string &filePath, ColorFormat colorFormat);
+		static PixMap *loadPixMap(const std::string &filePath, ColorFormat::type colorFormat);
 		
 		/**
 		 * Loads a pixmap from a file and sets a specific color as transparent.
