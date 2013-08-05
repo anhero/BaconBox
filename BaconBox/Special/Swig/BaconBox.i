@@ -270,7 +270,7 @@ class SoundInfo;
 
 #include "BaconBox/Audio/MusicEngine.h"
 #include "BaconBox/Audio/BackgroundMusic.h"
-
+#include "BaconBox/Display/Driver/GraphicDriver.h"
 %}
 
 %ignore Color::operator uint32_t() const;
@@ -632,12 +632,32 @@ const char *__str__() {
 
 %include "BaconBox/Helper/ResourcePathHandler.h"
 
+
 namespace BaconBox{
-
-
+  
+  #if !defined (BB_FLASH_PLATFORM)
+  class GraphicDriver {
+  public:
+    static GraphicDriver &getInstance();
+    void renderToTexture(const TextureInformation *textureInformation, unsigned int contextWidth = 0, unsigned int contextHeight = 0);
+    void endRenderToTexture();
+    private:
+    GraphicDriver();
+    ~GraphicDriver();
+  };
+  #endif
+  
   class ResourceManager{
     public:
-
+  #if !defined (BB_FLASH_PLATFORM)
+    static TextureInformation *createRenderTexture(const std::string &key,
+                             unsigned int width,
+                             unsigned int height,
+                             ColorFormat::type colorFormat = ColorFormat::RGBA,
+                                          bool overwrite = false);
+    static TextureInformation *getTexture(const std::string &key);
+                                          
+  #endif
     static SoundInfo *loadSound(const std::string &key,
                                 const std::string &filePath,
                                 bool overwrite = false);
