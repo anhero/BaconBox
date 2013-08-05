@@ -251,36 +251,74 @@ namespace BaconBox {
 
 	}
 	
-	void OpenGLDriver::renderToTexture(const TextureInformation *textureInformation, unsigned int contextWidth, unsigned int contextHeight){
-		if(contextWidth == 0){
-			contextWidth = textureInformation->imageWidth;
-			contextHeight = textureInformation->imageHeight;
+	void OpenGLDriver::renderToTexture(const TextureInformation *textureInformation, unsigned int viewportWidth, unsigned int viewportHeight, unsigned int contextWidth, unsigned int contextHeight){
+		finalizeRender();
+		if(viewportWidth == 0){
+			viewportWidth = textureInformation->imageWidth;
+			viewportHeight = textureInformation->imageHeight;
 		}
-#ifdef BB_OPENGLES
-		glBindFramebufferOES(GL_FRAMEBUFFER_OES, textureFBO);
-#else
-		glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, textureFBO);
-#endif
 		
+		if(contextWidth == 0){
+			contextWidth = viewportWidth;
+			contextHeight = viewportHeight;
+		}
 		
-#ifdef BB_OPENGLES
-		glFramebufferTexture2DOES(GL_FRAMEBUFFER_OES, GL_COLOR_ATTACHMENT0_OES,
+		glBindFramebuffer(GL_FRAMEBUFFER, textureFBO);
+
+		
+				glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0,
 		                          GL_TEXTURE_2D, textureInformation->textureId, 0);
-#else
-		glFramebufferTexture2DEXT(GL_FRAMEBUFFER_EXT, GL_COLOR_ATTACHMENT0_EXT,
-		                          GL_TEXTURE_2D, textureInformation->textureId, 0);
-#endif
+
 		
-		glViewport(0, 0, contextWidth, contextHeight);
+		glViewport(0, 0, viewportWidth, viewportHeight);
+		
+		float left, right, bottom, top;
+		
+		left = 0.0f;
+		right = contextWidth;
+		bottom = 0.0f;
+		top = contextHeight;
+		
+	
+		projectionMatrix[0] = 2.0f / (right - left);
+		projectionMatrix[5] = 2.0f / (top- bottom);
+		projectionMatrix[10] = -1;
+		projectionMatrix[12] = -((right+left)/(right-left));
+		projectionMatrix[13] = -((top+bottom)/(top-bottom));
+		//		projectionMatrix[14] = 0;
+		projectionMatrix[15] = 1;
+		
+		program->sendUniform(uniforms.projection, &(projectionMatrix[0]));
 	}
 
 void OpenGLDriver::endRenderToTexture(){
-#ifdef BB_OPENGLES
-	glBindFramebufferOES(GL_FRAMEBUFFER_OES, originalFramebuffer);
-#else
-	glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, originalFramebuffer);
-#endif
+	finalizeRender();
+	glBindFramebuffer(GL_FRAMEBUFFER, originalFramebuffer);
+	
+	
 	glViewport(0, 0, static_cast<int>(MainWindow::getInstance().getResolutionWidth()), static_cast<int>(MainWindow::getInstance().getResolutionHeight()));
+	
+	
+	float left, right, bottom, top;
+	
+	left = 0.0f;
+	right = static_cast<float>(MainWindow::getInstance().getRealContextWidth());
+	bottom = static_cast<float>(MainWindow::getInstance().getRealContextHeight());
+	top = 0.0f;
+	
+	
+	
+	
+	
+	projectionMatrix[0] = 2.0f / (right - left);
+	projectionMatrix[5] = 2.0f / (top- bottom);
+	projectionMatrix[10] = -1;
+	projectionMatrix[12] = -((right+left)/(right-left));
+	projectionMatrix[13] = -((top+bottom)/(top-bottom));
+	//		projectionMatrix[14] = 0;
+	projectionMatrix[15] = 1;
+	
+	program->sendUniform(uniforms.projection, &(projectionMatrix[0]));
 }
 
 	void OpenGLDriver::initializeGraphicDriver() {
@@ -453,11 +491,7 @@ void OpenGLDriver::endRenderToTexture(){
 		glEnableVertexAttribArray(attributes.texCoord);
 		
 		GLint tempBuffer;
-#ifdef BB_OPENGLES
-		glGetIntegerv(GL_FRAMEBUFFER_BINDING_OES, &tempBuffer);
-#else
-		glGetIntegerv(GL_FRAMEBUFFER_BINDING_EXT, &tempBuffer);
-#endif
+		glGetIntegerv(GL_FRAMEBUFFER_BINDING, &tempBuffer);
 		originalFramebuffer = static_cast<GLuint>(tempBuffer);
 		
 		if(textureFBOInitialized){

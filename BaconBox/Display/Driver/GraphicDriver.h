@@ -31,7 +31,7 @@ namespace BaconBox {
 		 */
 		static GraphicDriver &getInstance();
 		
-		virtual void renderToTexture(const TextureInformation *textureInformation, unsigned int contextWidth = 0, unsigned int contextHeight = 0) = 0;
+		virtual void renderToTexture(const TextureInformation *textureInformation, unsigned int viewportWidth = 0, unsigned int viewportHeight = 0, unsigned int contextWidth = 0, unsigned int contextHeight = 0) = 0;
 		virtual void endRenderToTexture() = 0;
 
 

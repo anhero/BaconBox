@@ -12,6 +12,9 @@ namespace BaconBox {
 
 	
 	
+	void NullGraphicDriver::renderToTexture(const TextureInformation *textureInformation, unsigned int viewportWidth, unsigned int viewportHeight, unsigned int contextWidth, unsigned int contextHeight){}
+	void NullGraphicDriver::endRenderToTexture(){}
+	
 	void NullGraphicDriver::drawShapeWithTextureColorColorOffset(const VertexArray &vertices,
 											  const TextureInformation *textureInformation,
 											  const TextureCoordinates &textureCoordinates,
