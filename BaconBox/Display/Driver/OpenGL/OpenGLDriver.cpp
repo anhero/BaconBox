@@ -214,7 +214,7 @@ namespace BaconBox {
 		glClearColor(backgroundColor.getRed(),
 		             backgroundColor.getGreen(),
 		             backgroundColor.getBlue(),
-		             1.0f);
+		              backgroundColor.getAlpha());
 
 		glClear(GL_COLOR_BUFFER_BIT);
 		}
@@ -227,7 +227,7 @@ namespace BaconBox {
 		rotate(-angle);
 		translate(-(position));
 		
-		
+		if(!isRenderingToTexture){
 		
 		switch (MainWindow::getInstance().getOrientation()) {
 			case WindowOrientation::HORIZONTAL_LEFT:
@@ -243,7 +243,7 @@ namespace BaconBox {
 			default:
 				break;
 		}
-		
+		}
 		program->sendUniform(uniforms.modelView, &(modelViewMatrix[0]));
 
 
@@ -252,73 +252,74 @@ namespace BaconBox {
 	}
 	
 	void OpenGLDriver::renderToTexture(const TextureInformation *textureInformation, unsigned int viewportWidth, unsigned int viewportHeight, unsigned int contextWidth, unsigned int contextHeight){
-//		finalizeRender();
-//		if(viewportWidth == 0){
-//			viewportWidth = textureInformation->imageWidth;
-//			viewportHeight = textureInformation->imageHeight;
-//		}
-//		
-//		if(contextWidth == 0){
-//			contextWidth = viewportWidth;
-//			contextHeight = viewportHeight;
-//		}
-//		
-//		glBindFramebuffer(GL_FRAMEBUFFER, textureFBO);
-//
-//		
-//				glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0,
-//		                          GL_TEXTURE_2D, textureInformation->textureId, 0);
-//
-//		
-//		glViewport(0, 0, viewportWidth, viewportHeight);
-//		
-//		float left, right, bottom, top;
-//		
-//		left = 0.0f;
-//		right = contextWidth;
-//		bottom = 0.0f;
-//		top = contextHeight;
-//		
-//	
-//		projectionMatrix[0] = 2.0f / (right - left);
-//		projectionMatrix[5] = 2.0f / (top- bottom);
-//		projectionMatrix[10] = -1;
-//		projectionMatrix[12] = -((right+left)/(right-left));
-//		projectionMatrix[13] = -((top+bottom)/(top-bottom));
-//		//		projectionMatrix[14] = 0;
-//		projectionMatrix[15] = 1;
-//		
-//		program->sendUniform(uniforms.projection, &(projectionMatrix[0]));
+		finalizeRender();
+		isRenderingToTexture = true;
+		if(viewportWidth == 0){
+			viewportWidth = textureInformation->imageWidth;
+			viewportHeight = textureInformation->imageHeight;
+		}
+		
+		if(contextWidth == 0){
+			contextWidth = viewportWidth;
+			contextHeight = viewportHeight;
+		}
+		
+		glBindFramebuffer(GL_FRAMEBUFFER, textureFBO);
+
+		
+				glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0,
+		                          GL_TEXTURE_2D, textureInformation->textureId, 0);
+
+		
+		glViewport(0, 0, viewportWidth, viewportHeight);
+		
+		float left, right, bottom, top;
+		
+		left = 0.0f;
+		right = contextWidth;
+		bottom = 0.0f;
+		top = contextHeight;
+		
+	
+		projectionMatrix[0] = 2.0f / (right - left);
+		projectionMatrix[5] = 2.0f / (top- bottom);
+		projectionMatrix[10] = -1;
+		projectionMatrix[12] = -((right+left)/(right-left));
+		projectionMatrix[13] = -((top+bottom)/(top-bottom));
+		//		projectionMatrix[14] = 0;
+		projectionMatrix[15] = 1;
+		
+		program->sendUniform(uniforms.projection, &(projectionMatrix[0]));
 	}
 
 void OpenGLDriver::endRenderToTexture(){
-//	finalizeRender();
-//	glBindFramebuffer(GL_FRAMEBUFFER, originalFramebuffer);
-//	
-//	
-//	glViewport(0, 0, static_cast<int>(MainWindow::getInstance().getResolutionWidth()), static_cast<int>(MainWindow::getInstance().getResolutionHeight()));
-//	
-//	
-//	float left, right, bottom, top;
-//	
-//	left = 0.0f;
-//	right = static_cast<float>(MainWindow::getInstance().getRealContextWidth());
-//	bottom = static_cast<float>(MainWindow::getInstance().getRealContextHeight());
-//	top = 0.0f;
-//	
-//	
-//	
-//	
-//	
-//	projectionMatrix[0] = 2.0f / (right - left);
-//	projectionMatrix[5] = 2.0f / (top- bottom);
-//	projectionMatrix[10] = -1;
-//	projectionMatrix[12] = -((right+left)/(right-left));
-//	projectionMatrix[13] = -((top+bottom)/(top-bottom));
-//	//		projectionMatrix[14] = 0;
-//	projectionMatrix[15] = 1;
-//	
-//	program->sendUniform(uniforms.projection, &(projectionMatrix[0]));
+	finalizeRender();
+	isRenderingToTexture = false;
+
+	glBindFramebuffer(GL_FRAMEBUFFER, originalFramebuffer);
+	
+	
+	glViewport(0, 0, static_cast<int>(MainWindow::getInstance().getRealResolutionWidth()), static_cast<int>(MainWindow::getInstance().getRealResolutionHeight()));
+	
+	
+	float left, right, bottom, top;
+	
+	left = 0.0f;
+	right = static_cast<float>(MainWindow::getInstance().getRealContextWidth());
+	bottom = static_cast<float>(MainWindow::getInstance().getRealContextHeight());
+	top = 0.0f;
+	
+	
+	
+	projectionMatrix[0] = 2.0f / (right - left);
+	projectionMatrix[5] = 2.0f / (top- bottom);
+	projectionMatrix[10] = -1;
+	projectionMatrix[12] = -((right+left)/(right-left));
+	projectionMatrix[13] = -((top+bottom)/(top-bottom));
+	//		projectionMatrix[14] = 0;
+	projectionMatrix[15] = 1;
+	
+	program->sendUniform(uniforms.projection, &(projectionMatrix[0]));
 }
 
 	void OpenGLDriver::initializeGraphicDriver() {
@@ -741,7 +742,7 @@ void OpenGLDriver::endRenderToTexture(){
 
 
 
-	OpenGLDriver::OpenGLDriver() : GraphicDriver(), batch(), lastShapeBlend(true), lastShapeColorTransform(false), program(NULL), lastTexture(NULL), projectionMatrix(16,0), modelViewMatrix(16,0), tempTransformMatrix(16,0), lastGPUState(), currentGPUState(), textureFBOInitialized(false), shaderCompiled(false) {
+	OpenGLDriver::OpenGLDriver() : GraphicDriver(), batch(), lastShapeBlend(true), lastShapeColorTransform(false), program(NULL), lastTexture(NULL), projectionMatrix(16,0), modelViewMatrix(16,0), tempTransformMatrix(16,0), lastGPUState(), currentGPUState(), textureFBOInitialized(false), shaderCompiled(false), isRenderingToTexture(false) {
 	}
 
 	OpenGLDriver::~OpenGLDriver() {
