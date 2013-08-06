@@ -171,6 +171,8 @@ namespace BaconBox {
 		 */
 		virtual ~MainWindow();
 	protected:
+		
+		bool orientationIsHorizontal();
 		/// Screen's width resolution (or width of the window in window mode).
 		unsigned int resolutionWidth;
 

@@ -112,7 +112,7 @@ namespace BaconBox {
 		 */
 		void finalizeRender();
 	private:
-		
+		bool shaderCompiled;
 		bool  textureFBOInitialized;
 		GLuint textureFBO;
 		GLuint originalFramebuffer;

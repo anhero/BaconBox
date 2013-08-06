@@ -10,28 +10,25 @@
 namespace BaconBox {
 
 	void SDLMainWindow::onBaconBoxInit(unsigned int resolutionWidth, unsigned int resolutionHeight, float contextWidth, float contextHeight, WindowOrientation::type orientation) {
-        if (orientation == WindowOrientation::HORIZONTAL_LEFT || orientation ==  WindowOrientation::HORIZONTAL_RIGHT) {
-            unsigned int tmp = resolutionWidth;
-            resolutionWidth = resolutionHeight;
-            resolutionHeight = tmp;
-        }
-		this->orientation = orientation;
-
+		
 		this->MainWindow::setResolution(resolutionWidth, resolutionHeight);
 		this->MainWindow::setContextSize(contextWidth, contextHeight);
-       
+		
 		mainWindow = SDL_CreateWindow(Engine::getApplicationName().c_str(),
 		                              SDL_WINDOWPOS_CENTERED,
 		                              SDL_WINDOWPOS_CENTERED,
-		                              static_cast<int>(this->getResolutionWidth()),
-		                              static_cast<int>(this->getResolutionHeight()),
+		                              static_cast<int>(resolutionWidth),
+		                              static_cast<int>(resolutionHeight),
 		                              SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN);
 		mainContext = SDL_GL_CreateContext(mainWindow);
 
 		if (SDL_GL_SetSwapInterval(1) < 0) {
 			printf("opengl error [SetSwapInterval]: %s\n", SDL_GetError());
 		}
-
+		
+	
+		this->setOrientation(orientation);
+		
 		InputManager::getInstance().setNbKeyboards(1);
 		InputManager::getInstance().setNbPointers(1);
 
@@ -39,22 +36,22 @@ namespace BaconBox {
 	}
 	
 	
-	unsigned int SDLMainWindow::getRealResolutionWidth(){
-		return (getOrientation() == WindowOrientation::HORIZONTAL_LEFT || getOrientation() == WindowOrientation::HORIZONTAL_RIGHT? getResolutionHeight(): getResolutionWidth());
-	}
-	
-	unsigned int SDLMainWindow::getRealResolutionHeight(){
-		return (getOrientation() == WindowOrientation::HORIZONTAL_LEFT || getOrientation() == WindowOrientation::HORIZONTAL_RIGHT? getResolutionWidth(): getResolutionHeight());
-	}
-	
-	
-	float SDLMainWindow::getRealContextWidth(){
-		return (getOrientation() == WindowOrientation::HORIZONTAL_LEFT || getOrientation() == WindowOrientation::HORIZONTAL_RIGHT? getContextHeight(): getContextWidth());
-	}
-	
-	float SDLMainWindow::getRealContextHeight(){
-		return (getOrientation() == WindowOrientation::HORIZONTAL_LEFT || getOrientation() == WindowOrientation::HORIZONTAL_RIGHT? getContextWidth(): getContextHeight());
-	}
+//	unsigned int SDLMainWindow::getRealResolutionWidth(){
+//		return (getOrientation() == WindowOrientation::HORIZONTAL_LEFT || getOrientation() == WindowOrientation::HORIZONTAL_RIGHT? getResolutionHeight(): getResolutionWidth());
+//	}
+//	
+//	unsigned int SDLMainWindow::getRealResolutionHeight(){
+//		return (getOrientation() == WindowOrientation::HORIZONTAL_LEFT || getOrientation() == WindowOrientation::HORIZONTAL_RIGHT? getResolutionWidth(): getResolutionHeight());
+//	}
+//	
+//	
+//	float SDLMainWindow::getRealContextWidth(){
+//		return (getOrientation() == WindowOrientation::HORIZONTAL_LEFT || getOrientation() == WindowOrientation::HORIZONTAL_RIGHT? getContextHeight(): getContextWidth());
+//	}
+//	
+//	float SDLMainWindow::getRealContextHeight(){
+//		return (getOrientation() == WindowOrientation::HORIZONTAL_LEFT || getOrientation() == WindowOrientation::HORIZONTAL_RIGHT? getContextWidth(): getContextHeight());
+//	}
 	
 	void SDLMainWindow::show() {
 		while (SDLInputManager::getSDLInstance()->isRunning()) {
@@ -72,7 +69,7 @@ namespace BaconBox {
 	void SDLMainWindow::setResolution(unsigned int resolutionWidth,
 	                                  unsigned int resolutionHeight) {
 		this->MainWindow::setResolution(resolutionWidth, resolutionHeight);
-		SDL_SetWindowSize(mainWindow, static_cast<int>(this->getResolutionWidth()), static_cast<int>(this->getResolutionHeight()));
+		SDL_SetWindowSize(mainWindow, static_cast<int>(this->getRealResolutionWidth()), static_cast<int>(this->getRealResolutionHeight()));
 		GraphicDriver::getInstance().initializeGraphicDriver();
 	}
 
@@ -104,7 +101,10 @@ namespace BaconBox {
 	
 	void SDLMainWindow::setOrientation(WindowOrientation::type newOrientation) {
 		MainWindow::setOrientation(newOrientation);
-		SDL_SetWindowSize(mainWindow, static_cast<int>(this->getResolutionWidth()), static_cast<int>(this->getResolutionHeight()));
+		setResolution(this->getRealResolutionWidth(), this->getRealResolutionHeight());
+		setContextSize(this->getRealContextWidth(), this->getRealContextHeight());
+//		SDL_SetWindowSize(mainWindow, static_cast<int>(this->getRealResolutionWidth()), static_cast<int>(this->getRealResolutionHeight()));
+//		GraphicDriver::getInstance().initializeGraphicDriver();
 	}
 
 	SDLMainWindow::SDLMainWindow() : MainWindow(), mainWindow(NULL),

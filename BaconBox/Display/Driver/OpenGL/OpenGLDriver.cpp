@@ -252,78 +252,79 @@ namespace BaconBox {
 	}
 	
 	void OpenGLDriver::renderToTexture(const TextureInformation *textureInformation, unsigned int viewportWidth, unsigned int viewportHeight, unsigned int contextWidth, unsigned int contextHeight){
-		finalizeRender();
-		if(viewportWidth == 0){
-			viewportWidth = textureInformation->imageWidth;
-			viewportHeight = textureInformation->imageHeight;
-		}
-		
-		if(contextWidth == 0){
-			contextWidth = viewportWidth;
-			contextHeight = viewportHeight;
-		}
-		
-		glBindFramebuffer(GL_FRAMEBUFFER, textureFBO);
-
-		
-				glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0,
-		                          GL_TEXTURE_2D, textureInformation->textureId, 0);
-
-		
-		glViewport(0, 0, viewportWidth, viewportHeight);
-		
-		float left, right, bottom, top;
-		
-		left = 0.0f;
-		right = contextWidth;
-		bottom = 0.0f;
-		top = contextHeight;
-		
-	
-		projectionMatrix[0] = 2.0f / (right - left);
-		projectionMatrix[5] = 2.0f / (top- bottom);
-		projectionMatrix[10] = -1;
-		projectionMatrix[12] = -((right+left)/(right-left));
-		projectionMatrix[13] = -((top+bottom)/(top-bottom));
-		//		projectionMatrix[14] = 0;
-		projectionMatrix[15] = 1;
-		
-		program->sendUniform(uniforms.projection, &(projectionMatrix[0]));
+//		finalizeRender();
+//		if(viewportWidth == 0){
+//			viewportWidth = textureInformation->imageWidth;
+//			viewportHeight = textureInformation->imageHeight;
+//		}
+//		
+//		if(contextWidth == 0){
+//			contextWidth = viewportWidth;
+//			contextHeight = viewportHeight;
+//		}
+//		
+//		glBindFramebuffer(GL_FRAMEBUFFER, textureFBO);
+//
+//		
+//				glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0,
+//		                          GL_TEXTURE_2D, textureInformation->textureId, 0);
+//
+//		
+//		glViewport(0, 0, viewportWidth, viewportHeight);
+//		
+//		float left, right, bottom, top;
+//		
+//		left = 0.0f;
+//		right = contextWidth;
+//		bottom = 0.0f;
+//		top = contextHeight;
+//		
+//	
+//		projectionMatrix[0] = 2.0f / (right - left);
+//		projectionMatrix[5] = 2.0f / (top- bottom);
+//		projectionMatrix[10] = -1;
+//		projectionMatrix[12] = -((right+left)/(right-left));
+//		projectionMatrix[13] = -((top+bottom)/(top-bottom));
+//		//		projectionMatrix[14] = 0;
+//		projectionMatrix[15] = 1;
+//		
+//		program->sendUniform(uniforms.projection, &(projectionMatrix[0]));
 	}
 
 void OpenGLDriver::endRenderToTexture(){
-	finalizeRender();
-	glBindFramebuffer(GL_FRAMEBUFFER, originalFramebuffer);
-	
-	
-	glViewport(0, 0, static_cast<int>(MainWindow::getInstance().getResolutionWidth()), static_cast<int>(MainWindow::getInstance().getResolutionHeight()));
-	
-	
-	float left, right, bottom, top;
-	
-	left = 0.0f;
-	right = static_cast<float>(MainWindow::getInstance().getRealContextWidth());
-	bottom = static_cast<float>(MainWindow::getInstance().getRealContextHeight());
-	top = 0.0f;
-	
-	
-	
-	
-	
-	projectionMatrix[0] = 2.0f / (right - left);
-	projectionMatrix[5] = 2.0f / (top- bottom);
-	projectionMatrix[10] = -1;
-	projectionMatrix[12] = -((right+left)/(right-left));
-	projectionMatrix[13] = -((top+bottom)/(top-bottom));
-	//		projectionMatrix[14] = 0;
-	projectionMatrix[15] = 1;
-	
-	program->sendUniform(uniforms.projection, &(projectionMatrix[0]));
+//	finalizeRender();
+//	glBindFramebuffer(GL_FRAMEBUFFER, originalFramebuffer);
+//	
+//	
+//	glViewport(0, 0, static_cast<int>(MainWindow::getInstance().getResolutionWidth()), static_cast<int>(MainWindow::getInstance().getResolutionHeight()));
+//	
+//	
+//	float left, right, bottom, top;
+//	
+//	left = 0.0f;
+//	right = static_cast<float>(MainWindow::getInstance().getRealContextWidth());
+//	bottom = static_cast<float>(MainWindow::getInstance().getRealContextHeight());
+//	top = 0.0f;
+//	
+//	
+//	
+//	
+//	
+//	projectionMatrix[0] = 2.0f / (right - left);
+//	projectionMatrix[5] = 2.0f / (top- bottom);
+//	projectionMatrix[10] = -1;
+//	projectionMatrix[12] = -((right+left)/(right-left));
+//	projectionMatrix[13] = -((top+bottom)/(top-bottom));
+//	//		projectionMatrix[14] = 0;
+//	projectionMatrix[15] = 1;
+//	
+//	program->sendUniform(uniforms.projection, &(projectionMatrix[0]));
 }
 
 	void OpenGLDriver::initializeGraphicDriver() {
 		GraphicDriver::initializeGraphicDriver();
 
+		
 		#ifdef BB_GLEW
 		 GLenum err;
            err = glewInit();
@@ -334,7 +335,8 @@ void OpenGLDriver::endRenderToTexture(){
 
 		#endif // BB_GLEW
 		
-		
+		if(!shaderCompiled){
+			shaderCompiled = true;
 		std::string coreVertexShader =
 		"uniform mat4 projection;\
 		uniform mat4 modelView;\
@@ -479,7 +481,7 @@ void OpenGLDriver::endRenderToTexture(){
 		alphaNoTransformProgram->setAttributeLocation("position", attributes.vertices);
 		alphaNoTransformProgram->setAttributeLocation("texcoordIN", attributes.texCoord);
 		alphaNoTransformProgram->link();
-		
+		}
 
 		
 		glEnable(GL_BLEND);
@@ -501,7 +503,7 @@ void OpenGLDriver::endRenderToTexture(){
 		glGenFramebuffers(1, &textureFBO);
 		textureFBOInitialized = true;
 		
-		glViewport(0, 0, static_cast<int>(MainWindow::getInstance().getResolutionWidth()), static_cast<int>(MainWindow::getInstance().getResolutionHeight()));
+		glViewport(0, 0, static_cast<int>(MainWindow::getInstance().getRealResolutionWidth()), static_cast<int>(MainWindow::getInstance().getRealResolutionHeight()));
 
 	
 		float left, right, bottom, top;
@@ -510,8 +512,6 @@ void OpenGLDriver::endRenderToTexture(){
 			right = static_cast<float>(MainWindow::getInstance().getRealContextWidth());
 			bottom = static_cast<float>(MainWindow::getInstance().getRealContextHeight());
 			top = 0.0f;
-
-				
 		
 
 
@@ -741,7 +741,7 @@ void OpenGLDriver::endRenderToTexture(){
 
 
 
-	OpenGLDriver::OpenGLDriver() : GraphicDriver(), batch(), lastShapeBlend(true), lastShapeColorTransform(false), program(NULL), lastTexture(NULL), projectionMatrix(16,0), modelViewMatrix(16,0), tempTransformMatrix(16,0), lastGPUState(), currentGPUState(), textureFBOInitialized(false) {
+	OpenGLDriver::OpenGLDriver() : GraphicDriver(), batch(), lastShapeBlend(true), lastShapeColorTransform(false), program(NULL), lastTexture(NULL), projectionMatrix(16,0), modelViewMatrix(16,0), tempTransformMatrix(16,0), lastGPUState(), currentGPUState(), textureFBOInitialized(false), shaderCompiled(false) {
 	}
 
 	OpenGLDriver::~OpenGLDriver() {

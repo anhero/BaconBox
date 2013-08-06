@@ -37,10 +37,10 @@ namespace BaconBox {
 		void show();
 		
 
-		unsigned int getRealResolutionWidth();
-		unsigned int getRealResolutionHeight();
-		float getRealContextWidth();
-		float getRealContextHeight();
+//		unsigned int getRealResolutionWidth();
+//		unsigned int getRealResolutionHeight();
+//		float getRealContextWidth();
+//		float getRealContextHeight();
 		
 		
 		

@@ -17,36 +17,6 @@ namespace BaconBox {
 	void MainWindow::releaseInput() {
 		setInputGrabbed(false);
 	}
-
-	unsigned int MainWindow::getResolutionWidth() {
-		return resolutionWidth;
-	}
-	
-	unsigned int MainWindow::getResolutionHeight() {
-		return resolutionHeight;
-	}
-	
-	unsigned int MainWindow::getRealResolutionWidth(){
-		return getResolutionWidth();
-	}
-	
-	unsigned int MainWindow::getRealResolutionHeight(){
-		return getResolutionHeight();
-	}
-	
-	void MainWindow::setResolution(unsigned int newResolutionWidth,
-								   unsigned int newResolutionHeight) {
-		resolutionWidth = newResolutionWidth;
-		resolutionHeight = newResolutionHeight;
-	}
-	
-	float MainWindow::getContextWidth() {
-		return contextWidth;
-	}
-	
-	float MainWindow::getContextHeight() {
-		return contextHeight;
-	}
     
     void MainWindow::showCursor(){
         
@@ -57,27 +27,62 @@ namespace BaconBox {
     }
 	
 	
+	unsigned int MainWindow::getResolutionWidth() {
+		return (orientationIsHorizontal() ? resolutionHeight : resolutionWidth);
+	}
+	
+	unsigned int MainWindow::getResolutionHeight() {
+		return (!orientationIsHorizontal() ? resolutionHeight : resolutionWidth);
+	}
+	
+	unsigned int MainWindow::getRealResolutionWidth(){
+		return resolutionWidth;
+	}
+	
+	unsigned int MainWindow::getRealResolutionHeight(){
+		return resolutionHeight;
+	}
+	
+	
+	float MainWindow::getContextWidth() {
+		return (orientationIsHorizontal() ? contextHeight : contextWidth);
+	}
+	
+	float MainWindow::getContextHeight() {
+		return (!orientationIsHorizontal() ? contextHeight : contextWidth);
+	}
+	
 	float MainWindow::getRealContextWidth(){
-		return getContextWidth();
+		return contextWidth;
 	}
 	
 	float MainWindow::getRealContextHeight(){
-		return getContextHeight();
+		return contextHeight;
 	}
 
+	void MainWindow::setResolution(unsigned int newResolutionWidth,
+								   unsigned int newResolutionHeight) {
+		resolutionWidth = (!orientationIsHorizontal() ? newResolutionWidth: newResolutionHeight);
+		resolutionHeight = (orientationIsHorizontal() ? newResolutionWidth: newResolutionHeight);
+	}
+	bool MainWindow::orientationIsHorizontal(){
+		return (this->getOrientation() == WindowOrientation::HORIZONTAL_LEFT || this->getOrientation() == WindowOrientation::HORIZONTAL_RIGHT);
+	}
+	
 	void MainWindow::setContextSize(float newContextWidth, float newContextHeight) {
+		
 		if (newContextWidth == 0.0f) {
 			contextWidth = resolutionWidth;
 
 		} else {
-			contextWidth = newContextWidth;
+			contextWidth = (!orientationIsHorizontal() ? newContextWidth: newContextHeight);
 		}
 
 		if (newContextHeight == 0.0f) {
 			contextHeight = resolutionHeight;
 
 		} else {
-			contextHeight = newContextHeight;
+			contextHeight = (orientationIsHorizontal() ? newContextWidth: newContextHeight);
 		}
 	}
 	
@@ -87,21 +92,7 @@ namespace BaconBox {
 	
 	void MainWindow::setOrientation(WindowOrientation::type newOrientation) {
 		if (orientation != newOrientation) {
-			if (((orientation == WindowOrientation::NORMAL ||
-				orientation == WindowOrientation::UPSIDE_DOWN) &&
-				(newOrientation == WindowOrientation::HORIZONTAL_LEFT ||
-				 newOrientation == WindowOrientation::HORIZONTAL_RIGHT)) ||
-				((orientation == WindowOrientation::HORIZONTAL_LEFT ||
-				 orientation == WindowOrientation::HORIZONTAL_RIGHT) &&
-				 (newOrientation == WindowOrientation::NORMAL ||
-				  newOrientation == WindowOrientation::UPSIDE_DOWN))) {
-					 unsigned int tmp = resolutionWidth;
-					 resolutionWidth = resolutionHeight;
-					 resolutionHeight = tmp;
-				}
 			orientation = newOrientation;
-			this->setResolution(resolutionWidth, resolutionHeight);
-	
 		}
 	}
 	
