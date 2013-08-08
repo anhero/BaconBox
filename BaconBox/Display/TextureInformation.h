@@ -53,7 +53,7 @@ namespace BaconBox {
 #endif
 
 		/// Color format of the texture
-		ColorFormat colorFormat;
+		ColorFormat::type colorFormat;
 
 		/// Texture width powered to 2
 		unsigned int poweredWidth;

@@ -18,7 +18,8 @@ void SDLPointer::updateDevice() {
 	int x, y; // For the mouse position.
 	// We check the pointer's buttons' states.
 	Uint8 buttons = SDL_GetMouseState(&x, &y);
-	getCursorPosition(0) = Vector2(static_cast<float>(x), static_cast<float>(y));
+	Vector2 pos(static_cast<float>(x), static_cast<float>(y));
+	setCursorPosition(0, pos);
 	getCursorButtons(0)[CursorButton::LEFT] = static_cast<bool>(buttons & SDL_BUTTON(SDL_BUTTON_LEFT));
 	getCursorButtons(0)[CursorButton::RIGHT] = static_cast<bool>(buttons & SDL_BUTTON(SDL_BUTTON_RIGHT));
 	getCursorButtons(0)[CursorButton::MIDDLE] = static_cast<bool>(buttons & SDL_BUTTON(SDL_BUTTON_MIDDLE));

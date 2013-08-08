@@ -20,6 +20,11 @@ namespace BaconBox {
 		 * @return Reference to the null graphic driver singleton.
 		 */
 		static NullGraphicDriver &getInstance();
+		
+		
+		
+		void renderToTexture(const TextureInformation *textureInformation, unsigned int viewportWidth = 0, unsigned int viewportHeight = 0, unsigned int contextWidth = 0, unsigned int contextHeight = 0);
+		void endRenderToTexture();
 
 		/*
 		 * Prepare the scene before rendering object.

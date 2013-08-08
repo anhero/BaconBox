@@ -42,8 +42,13 @@ namespace BaconBox {
 	MovieClipEntity *EntityFactory::getMovieClipEntity(const std::string &key, bool autoPlay) {
 		return getInstance().internalGetMovieClipEntity(key, autoPlay);
 	}
+	MovieClipEntity *EntityFactory::getMovieClipEntity() {
+		return getInstance().internalGetMovieClipEntity();
+	}
 
-
+	MovieClipEntity *EntityFactory::internalGetMovieClipEntity() {
+		return movieClipPool.create();
+	}
 
 	EntityFactory &EntityFactory::getInstance(){
 		static EntityFactory instance;

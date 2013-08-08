@@ -25,7 +25,7 @@
     if ([[UIScreen mainScreen] respondsToSelector:@selector(scale)] && retina){
         [self.view setContentScaleFactor:2.0f];
     }
-    //self.view.clipsToBounds = YES;
+//    self.view.clipsToBounds = YES;
     
     EAGLContext *aContext = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];
     
