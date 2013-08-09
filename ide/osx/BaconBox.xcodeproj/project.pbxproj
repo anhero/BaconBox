@@ -371,6 +371,8 @@
 		51903D0E17500B7B00814708 /* VertexArray.h in Headers */ = {isa = PBXBuildFile; fileRef = 51903B7517500B7B00814708 /* VertexArray.h */; };
 		51C34E72175E645200960346 /* LuaHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 51C34E70175E645200960346 /* LuaHelper.cpp */; };
 		51C34E73175E645200960346 /* LuaHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 51C34E71175E645200960346 /* LuaHelper.h */; };
+		C79337FB17B5586800D87A1F /* Property.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C79337F917B5586800D87A1F /* Property.cpp */; };
+		C79337FC17B5586800D87A1F /* Property.h in Headers */ = {isa = PBXBuildFile; fileRef = C79337FA17B5586800D87A1F /* Property.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -739,6 +741,8 @@
 		51B7424F16345CFF00DB18E1 /* libBaconBox.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libBaconBox.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		51C34E70175E645200960346 /* LuaHelper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LuaHelper.cpp; sourceTree = "<group>"; };
 		51C34E71175E645200960346 /* LuaHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LuaHelper.h; sourceTree = "<group>"; };
+		C79337F917B5586800D87A1F /* Property.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Property.cpp; sourceTree = "<group>"; };
+		C79337FA17B5586800D87A1F /* Property.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Property.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -817,6 +821,8 @@
 				51903B6F17500B7B00814708 /* TextureCoordinates.h */,
 				51903B7017500B7B00814708 /* Vector2.cpp */,
 				51903B7117500B7B00814708 /* Vector2.h */,
+				C79337F917B5586800D87A1F /* Property.cpp */,
+				C79337FA17B5586800D87A1F /* Property.h */,
 				51903B7217500B7B00814708 /* Vector3.cpp */,
 				51903B7317500B7B00814708 /* Vector3.h */,
 				51903B7417500B7B00814708 /* VertexArray.cpp */,
@@ -1623,6 +1629,7 @@
 				243C9C661764FEA7007250BA /* ParticleEmitter.h in Headers */,
 				24B61A85176E0ABC0097F001 /* Speed.h in Headers */,
 				2494A2D1176E44AE00D483A3 /* ParticlePhase.h in Headers */,
+				C79337FC17B5586800D87A1F /* Property.h in Headers */,
 				2494A2D3176E462B00D483A3 /* Particle.h in Headers */,
 				24CA7D0017748A43000ACF7F /* EmitterFactory.h in Headers */,
 				24CA7D0417748F25000ACF7F /* EmitterEntity.h in Headers */,
@@ -1742,6 +1749,7 @@
 				51903C2017500B7B00814708 /* OpenGLStaticBatchManager.cpp in Sources */,
 				51903C2217500B7B00814708 /* DynamicBatch.cpp in Sources */,
 				51903C2417500B7B00814708 /* PixMap.cpp in Sources */,
+				C79337FB17B5586800D87A1F /* Property.cpp in Sources */,
 				51903C2717500B7B00814708 /* SubTextureInfo.cpp in Sources */,
 				51903C2917500B7B00814708 /* BMFont.cpp in Sources */,
 				51903C2D17500B7B00814708 /* Font.cpp in Sources */,

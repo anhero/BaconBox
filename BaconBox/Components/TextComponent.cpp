@@ -49,6 +49,10 @@ namespace BaconBox {
 		sendMessage(Entity::BROADCAST, TextComponent::MESSAGE_SIZE_CHANGED, reinterpret_cast<void *>(&boundingBox));
 	}
 
+	const std::string & TextComponent::getText() const{
+		return text;
+	}
+	
 	void TextComponent::setText(const std::string &text) {
 	    #ifdef BB_DEBUG
 		try{
@@ -94,7 +98,7 @@ namespace BaconBox {
 		return font;
 	}
 
-	TextComponentProxy::TextComponentProxy(Entity *entity, Font *font, bool mustAddComponent): BB_PROXY_CONSTRUCTOR(new TextComponent())  {
+	TextComponentProxy::TextComponentProxy(Entity *entity, Font *font, bool mustAddComponent): BB_PROXY_CONSTRUCTOR(new TextComponent()), text(this, &TextComponentProxy::getText, &TextComponentProxy::setText)  {
 		reinterpret_cast<TextComponent *>(component)->font = font;
 	}
 
@@ -121,5 +125,11 @@ namespace BaconBox {
 	void TextComponentProxy::setText(const std::string &text) {
 		reinterpret_cast<TextComponent *>(component)->setText(text);
 	}
+	
+	const std::string & TextComponentProxy::getText() const{
+		return reinterpret_cast<TextComponent *>(component)->getText();
+
+	}
+
 
 }

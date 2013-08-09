@@ -3,6 +3,8 @@
 
 #include "BaconBox/Core/Component.h"
 #include "BaconBox/Vector2.h"
+#include "BaconBox/Property.h"
+
 #include "BaconBox/Core/Entity.h"
 #include "BaconBox/AxisAlignedBoundingBox.h"
 #include "BaconBox/Display/Text/TextAlignment.h"
@@ -26,6 +28,7 @@ namespace BaconBox {
 		virtual ~TextComponent();
 		void setAlignment(TextAlignment::type alignment);
 		void setText(const std::string &text);
+		const std::string & getText() const;
 		void setSize(Vector2 size);
 		const Vector2   &getSize();
 		void setFont(Font *font);
@@ -41,6 +44,13 @@ namespace BaconBox {
 
 	class TextComponentProxy : public ComponentProxy {
 	public:
+		
+#ifdef SWIG
+		std::string text;
+#else
+		Property<const std::string &, TextComponentProxy> text;
+#endif
+		
 		TextComponentProxy(Entity *entity, Font *font, bool mustAddComponent = true);
 		Font *getFont();
 		void setFont(Font *font);
@@ -48,6 +58,8 @@ namespace BaconBox {
 		const Vector2   &getSize();
 		void setAlignment(TextAlignment::type alignment);
 		void setText(const std::string &text);
+		const std::string & getText() const;
+
 	};
 }
 

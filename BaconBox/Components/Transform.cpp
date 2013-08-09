@@ -18,11 +18,22 @@ namespace BaconBox {
 	int Transform::MESSAGE_ROTATION_CHANGED = IDManager::generateID();
 	int Transform::MESSAGE_SCALE_CHANGED = IDManager::generateID();
 
-	Transform::Transform() : Component(), position(), rotation(0.0f), scale(1.0f, 1.0f), matrixComponent(NULL) {
+	Transform::Transform() : Component(), _position(), _rotation(0.0f), _scale(1.0f, 1.0f), matrixComponent(NULL),
+	x(this, &Transform::getX, &Transform::setX),
+	y(this, &Transform::getY, &Transform::setY),
+	scaleX(this, &Transform::getScaleX, &Transform::setScaleX),
+	scaleY(this, &Transform::getScaleX, &Transform::setScaleX),
+	rotation(this, &Transform::getRotation, &Transform::setRotationInternal){
 		initializeConnections();
 	}
 
-	Transform::Transform(const Transform &src) : Component(src), position(src.position), rotation(src.rotation), scale(src.scale) {
+	Transform::Transform(const Transform &src) : Component(src), _position(src._position), _rotation(src._rotation), _scale(src._scale),
+	x(this, &Transform::getX, &Transform::setX),
+	y(this, &Transform::getY, &Transform::setY),
+	scaleX(this, &Transform::getScaleX, &Transform::setScaleX),
+	scaleY(this, &Transform::getScaleX, &Transform::setScaleX),
+	rotation(this, &Transform::getRotation, &Transform::setRotationInternal){
+		
 	}
 
 	Transform::~Transform() {
@@ -38,6 +49,45 @@ namespace BaconBox {
 
 		return *this;
 	}
+	
+	void Transform::setX(float x){
+		_position.x = x;
+		setPosition(_position);
+	}
+	
+	void Transform::setY(float y){
+		_position.y = y;
+		setPosition(_position);
+	}
+	void Transform::setScaleX(float x){
+		_scale.x = x;
+		setScale(_scale);
+
+	}
+	void Transform::setScaleY(float y){
+		_scale.y = y;
+		setScale(_scale);
+	}
+	
+	void Transform::setRotationInternal(float rotation){
+		setRotation(rotation);
+	}
+
+	
+	float Transform::getX() const{
+		return getPosition().x;
+	}
+	float Transform::getY() const{
+		return getPosition().y;
+	}
+		
+	float Transform::getScaleX() const{
+		return getScale().x;
+	}
+	float Transform::getScaleY() const{
+		return getScale().y;
+	}
+	
 
 
 	Transform *Transform::clone() const {
@@ -77,8 +127,9 @@ namespace BaconBox {
 	}
 
 	const Vector2 &Transform::getPosition() const {
-		return this->position;
+		return this->_position;
 	}
+
 
 	const Vector2 &Transform::getRealPosition() {
 		if (matrixComponent) {
@@ -91,8 +142,8 @@ namespace BaconBox {
 	}
 
 	void Transform::setPosition(const Vector2 &newPosition, bool withMessage) {
-		Vector2ChangedData data(this->position, newPosition);
-		this->position = newPosition;
+		Vector2ChangedData data(this->_position, newPosition);
+		this->_position = newPosition;
 
 		if (withMessage) {
 			sendMessage(Entity::BROADCAST, MESSAGE_POSITION_CHANGED, &(data));
@@ -100,12 +151,12 @@ namespace BaconBox {
 	}
 
 	float Transform::getRotation() const {
-		return this->rotation;
+		return this->_rotation;
 	}
 
 	void Transform::setRotation(float newRotation, bool withMessage) {
-		ValueChangedData<float> data(this->rotation, newRotation);
-		this->rotation = newRotation;
+		ValueChangedData<float> data(this->_rotation, newRotation);
+		this->_rotation = newRotation;
 
 		if (withMessage) {
 			sendMessage(Entity::BROADCAST, MESSAGE_ROTATION_CHANGED, &(data));
@@ -113,19 +164,36 @@ namespace BaconBox {
 	}
 
 	const Vector2 &Transform::getScale() const {
-		return this->scale;
+		return this->_scale;
 	}
 
 	void Transform::setScale(const Vector2 &newScale, bool withMessage) {
-		Vector2ChangedData data(this->scale, newScale);
-		this->scale = newScale;
+		Vector2ChangedData data(this->_scale, newScale);
+		this->_scale = newScale;
 
 		if (withMessage) {
 			sendMessage(Entity::BROADCAST, MESSAGE_SCALE_CHANGED, &(data));
 		}
 	}
+	
+	void TransformProxy::setProperties(Transform *transform){
+		if(transform){
+			x.setInstance(transform);
+			x.setInstance(transform);
+			scaleX.setInstance(transform);
+			scaleY.setInstance(transform);
+			rotation.setInstance(transform);
+		}
+	}
 
-	TransformProxy::TransformProxy(Entity *entity, bool mustAddComponent): BB_PROXY_CONSTRUCTOR(new Transform())  {
+
+	TransformProxy::TransformProxy(Entity *entity, bool mustAddComponent): BB_PROXY_CONSTRUCTOR(new Transform()),
+	x(NULL, &Transform::getX, &Transform::setX),
+	y(NULL, &Transform::getY, &Transform::setY),
+	scaleX(NULL, &Transform::getScaleX, &Transform::setScaleX),
+	scaleY(NULL, &Transform::getScaleX, &Transform::setScaleX),
+	rotation(NULL, &Transform::getRotation, &Transform::setRotationInternal)  {
+		setProperties(static_cast<Transform*>(this->component));
 	}
 
 	const Vector2 &TransformProxy::getPosition() const {
@@ -159,5 +227,6 @@ namespace BaconBox {
 	void TransformProxy::setTransform(Transform *transform) {
 		component = transform;
 		entity->addComponent(transform);
+		setProperties(transform);
 	}
 }
