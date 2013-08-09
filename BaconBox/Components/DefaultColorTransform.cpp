@@ -38,6 +38,10 @@ namespace BaconBox {
 		return (invalidated || reinterpret_cast<DefaultColorTransform*>(parentMC->getColorTransform())->needConcat());
 	}
 	
+	ColorMatrix &DefaultColorTransform::getMatrix(){
+		return matrix;
+	}
+	
 
 	ColorMatrix & DefaultColorTransform::getConcatColorMatrix(){
 		MovieClipEntity * parentMC = entityContainer->getParent();

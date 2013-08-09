@@ -21,9 +21,16 @@ namespace BaconBox {
 		return color;
 	}
 
-	ColorTransformProxy::ColorTransformProxy(Entity *entity): ComponentProxy(entity, NULL)  {
+	ColorTransformProxy::ColorTransformProxy(Entity *entity): ComponentProxy(entity, NULL), alpha(this, &ColorTransformProxy::getAlpha, &ColorTransformProxy::setAlpha)  {
 	}
-
+	float ColorTransformProxy::getAlpha() const {
+		reinterpret_cast<ColorTransform *>(component)->getMatrix().colorMultiplier.getAlpha();
+	}
+	
+	void ColorTransformProxy::setAlpha(float alpha) {
+		reinterpret_cast<ColorTransform *>(component)->setAlphaMultiplier(alpha);
+	}
+	
 	ColorMatrix   &ColorTransformProxy::getConcatColorMatrix() {
 		return reinterpret_cast<ColorTransform *>(component)->getConcatColorMatrix();
 	}
