@@ -45,10 +45,10 @@ namespace BaconBox {
 	class TextComponentProxy : public ComponentProxy {
 	public:
 		
-#ifdef SWIG
+#if SWIG
 		std::string text;
 #else
-		Property<const std::string &, TextComponentProxy> text;
+		Property<const std::string&, TextComponentProxy, const std::string> text;
 #endif
 		
 		TextComponentProxy(Entity *entity, Font *font, bool mustAddComponent = true);
@@ -57,9 +57,12 @@ namespace BaconBox {
 		void setSize(Vector2 size);
 		const Vector2   &getSize();
 		void setAlignment(TextAlignment::type alignment);
-		void setText(const std::string &text);
-		const std::string & getText() const;
+		void setText(const std::string&text);
+		const std::string& getText() const;
 
+	private:
+		const std::string &getTextProperty() const;
+		void setTextProperty(const std::string &text);
 	};
 }
 
