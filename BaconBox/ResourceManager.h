@@ -299,6 +299,10 @@ namespace BaconBox {
 		 */
 		static void removeMusic(const std::string &key);
 
+	
+		
+		static void addFontAlias(const std::string &key, const std::string &existingKey);
+		
 		/**
 		 * Loads the font at the specified path and put it in the fonts' map.
 		 * @param key Name of the font, it will be the key of the fonts' map.

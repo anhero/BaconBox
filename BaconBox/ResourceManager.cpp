@@ -839,6 +839,12 @@ namespace BaconBox {
 		Console__error("Error initializing font " << key);
 		return NULL;
 	}
+	
+	
+	void ResourceManager::addFontAlias(const std::string &key, const std::string &existingKey){
+		fonts[key] = fonts[existingKey];
+	}
+
 
 	Font *ResourceManager::initFontFromPathAndFormat(const std::string &key,
 	                                                 const std::string &path, const FontFormat &format) {

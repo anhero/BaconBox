@@ -700,7 +700,7 @@ namespace BaconBox{
 
     static MusicInfo *getMusic(const std::string &key);
 
-
+static void addFontAlias(const std::string &key, const std::string &existingKey);
 static Font *loadFont(const std::string &key,
                           const std::string &path, bool overwrite = false);
 
