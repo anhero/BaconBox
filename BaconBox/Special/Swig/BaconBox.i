@@ -153,6 +153,11 @@ end
 
   #include "BaconBox/Display/SubTextureInfo.h"
 #include "BaconBox/Helper/Stopwatch.h"
+
+#include "BaconBox/Helper/Ease.h"
+
+#include "BaconBox/Helper/MathHelper.h"
+
 #include "BaconBox/Helper/TimeHelper.h"
 #include "BaconBox/Components/Speed.h"
 #include "BaconBox/Components/Shake.h"
@@ -581,6 +586,10 @@ const char *__str__() {
 
 
 %include "BaconBox/Components/MatrixComponent.h"
+%include "BaconBox/Helper/Ease.h"
+
+%include "BaconBox/Helper/MathHelper.h"
+
 %include "BaconBox/Helper/TimeHelper.h"
 %include "BaconBox/Helper/Stopwatch.h"
 %include "BaconBox/Components/Shake.h"
@@ -685,7 +694,7 @@ namespace BaconBox{
                                             const std::string &relativePath,
                                             bool overwrite = false);       
 
-  static void loadFlashExporterXML(const std::string & xmlPath, const std::string & secondXMLPath = "");
+  static void loadFlashExporterXML(const std::string & xmlPath);
 
     static SoundInfo *getSound(const std::string &key);
 

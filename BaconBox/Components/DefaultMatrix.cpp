@@ -11,7 +11,7 @@ namespace BaconBox {
 
 
 
-	DefaultMatrix::DefaultMatrix() : MatrixComponent(), entityContainer(NULL), matrix(), concatMatrix(), hasCustomMatrix(false) {
+	DefaultMatrix::DefaultMatrix() : MatrixComponent(), entityContainer(NULL), matrix(), matrixByParentFrame(NULL), concatMatrix(), hasCustomMatrix(false) {
 	    initializeConnections();
 	}
 
@@ -35,8 +35,9 @@ namespace BaconBox {
 
 
 	void DefaultMatrix::setFrameMatrix(int frame){
-		if(hasCustomMatrix) return;
-	    internalSetMatrix(matrixByParentFrame[frame]);
+		if(!hasCustomMatrix && matrixByParentFrame) {
+			internalSetMatrix((*matrixByParentFrame)[frame]);
+		}
 	}
 
 

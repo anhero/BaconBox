@@ -179,7 +179,7 @@ namespace BaconBox {
 	void TransformProxy::setProperties(Transform *transform){
 		if(transform){
 			x.setInstance(transform);
-			x.setInstance(transform);
+			y.setInstance(transform);
 			scaleX.setInstance(transform);
 			scaleY.setInstance(transform);
 			rotation.setInstance(transform);

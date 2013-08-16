@@ -45,7 +45,7 @@ namespace BaconBox {
 		void setAlpha(float alpha);
 		
 #ifdef SWIG
-		bool alpha;
+		float alpha;
 #else
 		Property<float, ColorTransformProxy> alpha;
 #endif

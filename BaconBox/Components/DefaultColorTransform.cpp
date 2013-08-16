@@ -5,7 +5,7 @@
 namespace BaconBox {
 
 
-	DefaultColorTransform::DefaultColorTransform() : ColorTransform(), useCustomMatrix(false), entityContainer(NULL), invalidated(true), concatMatrix(), matrix(1,0,1,0,1,0,1,0){
+	DefaultColorTransform::DefaultColorTransform() : ColorTransform(), useCustomMatrix(false), entityContainer(NULL), invalidated(true), concatMatrix(), matrixByParentFrame(NULL), matrix(1,0,1,0,1,0,1,0){
 	    initializeConnections();
 	}
 
@@ -16,22 +16,28 @@ namespace BaconBox {
 
 
 	void DefaultColorTransform::setFrameColorTransform(int frame){
-	    matrix =  matrixByParentFrame[frame];
-		invalidated = true;
+		if(!useCustomMatrix && matrixByParentFrame){
+			matrix =  (*matrixByParentFrame)[frame];
+			invalidated = true;
+		}
+			
 	}
 		void DefaultColorTransform::setColorMultiplier(float r, float g, float b, float a){
 			matrix.colorMultiplier.setRGBA(r, g, b, a);
             useCustomMatrix = true;
+			invalidated = true;
 		}
 
 		void DefaultColorTransform::setColorOffset(float r, float g, float b, float a){
 			matrix.colorOffset.setRGBA(r, g, b, a);
             useCustomMatrix = true;
+			invalidated = true;
 		}
 
         void DefaultColorTransform::setAlphaMultiplier(float alpha){
 			matrix.colorMultiplier.setAlpha(alpha);
             useCustomMatrix = true;
+			invalidated = true;
         }
 	bool DefaultColorTransform::needConcat(){
 		MovieClipEntity * parentMC = entityContainer->getParent();
