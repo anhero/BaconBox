@@ -5,6 +5,9 @@
 #include <sstream>
 using namespace BaconBox;
 
+const std::string FALSE_STRING = std::string("false");
+const std::string TRUE_STRING = std::string("true");
+
 int Parser::stringToInt(const std::string &str) {
 	return atoi(str.c_str());
 }
@@ -30,6 +33,11 @@ bool Parser::isInteger(const std::string &str) {
 	}
 
 	return true;
+}
+
+
+bool Parser::stringToBool(const std::string& str) {
+	return !strcasecmp(str.c_str(), TRUE_STRING.c_str());
 }
 
 

@@ -11,6 +11,7 @@ namespace BaconBox {
 		bool isIphone;
 		bool isIphone5;
 		bool isIpad;
+		bool  isIpod;
 		bool isFlash;
 		static Platform & getInstance();
 		private:

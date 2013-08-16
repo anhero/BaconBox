@@ -27,7 +27,8 @@ namespace BaconBox {
 
 		static double stringToDouble(const std::string& str);
 
-
+		
+		static bool stringToBool(const std::string& str);
 		/**
 		 * Create a string from the given integer. Ex: 123 would give "123".
 		 */

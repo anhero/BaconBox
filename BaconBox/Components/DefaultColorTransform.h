@@ -32,7 +32,7 @@ namespace BaconBox {
 		ColorMatrix matrix;
 		ColorMatrix concatMatrix;
 		EntityContainer * entityContainer;
-        std::map<int, ColorMatrix> matrixByParentFrame;
+        std::map<int, ColorMatrix> * matrixByParentFrame;
 		bool invalidated;
 	};
 

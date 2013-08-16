@@ -575,320 +575,258 @@ namespace BaconBox {
 		}
 	}
 
-	void ResourceManager::loadFlashExporterXML(const std::string &xmlPath, const std::string &secondXMLPath) {
-		XmlSerializer serializer;
+	void ResourceManager::loadFlashExporterXML(const std::string &xmlPath) {
 
-		if (!secondXMLPath.empty()) {
-			std::string texturePath;
+		rapidxml::xml_document<> doc;
+		
+		// We read the document from the stream.
+		rapidxml::file<> inputXml(xmlPath.c_str());
+		
+		doc.parse<0>(inputXml.data());
+		rapidxml::xml_node<> *root = doc.first_node();
+		
+		std::string dirPath = ResourcePathHandler::getPathFromFilename(xmlPath);
 
-			Value value;
-			Value animation;
-			Value textures;
-			serializer.readFromFile(xmlPath, value);
-			if (!value["Symbols"].isNull()) {
-				animation = value;
-				serializer.readFromFile(secondXMLPath, textures);
-				texturePath = ResourcePathHandler::getPathFromFilename(secondXMLPath);
-
-			} else {
-
-				textures = value;
-				texturePath = ResourcePathHandler::getPathFromFilename(xmlPath);
-				serializer.readFromFile(secondXMLPath, animation);
-			}
-
-			loadFlashExporterTextures(textures, texturePath);
-			loadFlashExporterSymbols(animation);
-
-		} else {
-			std::string dirPath = ResourcePathHandler::getPathFromFilename(xmlPath);
-			Value value;
-			serializer.readFromFile(xmlPath, value);
-			loadFlashExporterTextures(value["Texture"], dirPath);
-			loadFlashExporterSymbols(value["Symbols"]);
-		}
+		loadFlashExporterTextures(root->first_node("Texture"), dirPath);
+		loadFlashExporterSymbols(root->first_node("Symbols"));
 	}
-
-
-	void ResourceManager::loadFlashExporterSymbols(Value &node) {
-
-		//if there is more than one texture for the font.
-		const Array &symbolsArray = node["Symbol"].getArray();
-
-		Object::const_iterator found;
-
-		for (Array::const_iterator i = symbolsArray.begin(); i != symbolsArray.end(); i++) {
-			Symbol *symbol = new Symbol();
-			const Object &tmpObject = i->getObject();
-
-			found = tmpObject.find("className");
-
-			if (found != tmpObject.end()) {
-				symbol->key = found->second.getString();
-			}
-			
-			
-			found = tmpObject.find("textfield");
-
-			if (found != tmpObject.end()) {
-				symbol->isTextField = found->second.getBool();
-			}
-
-			if(symbol->isTextField) {
-
-				found = tmpObject.find("text");
-
-				if (found != tmpObject.end()) {
-					symbol->text = found->second.getString();
-				}
-
-				found = tmpObject.find("color");
-				if (found != tmpObject.end()){
-                    std::vector<int> temp;
-                   Parser::parseStringArray<int>(found->second.getString(), temp);
-                    symbol->color = Color(temp[0], temp[1], temp[2]);
-				}
-
-
-
-
-				found = tmpObject.find("font");
-
-				if (found != tmpObject.end()) {
-					symbol->font = found->second.getString();
-				}
-
-				symbol->frameCount  = 1;
-
-				std::string alignment;
-
-				found = tmpObject.find("alignment");
-
-				if (found != tmpObject.end()) {
-					alignment = found->second.getString();
-				}
-
-				if(alignment == "left"){
-					symbol->alignment = TextAlignment::LEFT;
-				}
-				else if(alignment == "center"){
-					symbol->alignment = TextAlignment::CENTER;
-				}
-				else if(alignment == "right"){
-					symbol->alignment = TextAlignment::RIGHT;
-				}
-
-				found = tmpObject.find("width");
-
-				if (found != tmpObject.end()) {
-					symbol->textFieldWidth = found->second.getInt();
-				}
-
-				found = tmpObject.find("height");
-
-				if (found != tmpObject.end()) {
-					symbol->textFieldHeight = found->second.getInt();
-				}
-			} else {
-				found = tmpObject.find("frameCount");
-
-				if (found != tmpObject.end()) {
-					symbol->frameCount = found->second.getInt();
-				}
-			}
-
-			symbols[symbol->key] = symbol;
-		}
-
-		for (Array::const_iterator i = symbolsArray.begin(); i != symbolsArray.end(); i++) {
-			const Object &tmpObject = i->getObject();
-
-			found = tmpObject.find("className");
-
-			if (found != tmpObject.end()) {
-				Symbol *parent = symbols[found->second.getString()];
-
-				found  = tmpObject.find("label");
-				if (found !=tmpObject.end()) {
-                    const Array &frames = found->second.getArray();
-                        for (Array::const_iterator j = frames.begin(); j != frames.end(); j++) {
-                            const Object &frameLabelObject = j->getObject();
-                            int startFrame;
-                            int endframe;
-                            std::string name;
-
-                            found = frameLabelObject.find("name");
-                            if (found != frameLabelObject.end()) {
-                                name = found->second.getString();
-                            }
-
-                            found = frameLabelObject.find("startFrame");
-                            if (found != frameLabelObject.end()) {
-                                startFrame = found->second.getInt();
-                            }
-
-                            found = frameLabelObject.find("endFrame");
-                            if (found != frameLabelObject.end()) {
-                                endframe = found->second.getInt();
-                            }
-                            parent->label[name] = std::pair<int, int>(startFrame, endframe);
-                        }
-
-				}
-
-				found = tmpObject.find("Frame");
-				if (found !=tmpObject.end()) {
-					std::map<std::string, Symbol::Part*> children;
-
-					const Array &frames = found->second.getArray();
-					int frameIndex = 0;
-
-					for (Array::const_iterator j = frames.begin(); j != frames.end(); j++) {
-						int index = 0;
-
-						const Object &currentObject = j->getObject();
-
-						found = currentObject.find("Child");
-
-						if (found != currentObject.end()) {
-
-							const Array &childrenPerFrame = found->second.getArray();
-
-							for (Array::const_iterator k = childrenPerFrame.begin(); k != childrenPerFrame.end(); k++) {
-								if(!k->isNull()){
-
-									const Object &frameChildObject = k->getObject();
-
-									std::string name;
-
-									found = frameChildObject.find("name");
-
-									if (found != frameChildObject.end()) {
-										name = found->second.getString();
-									}
-
-									std::string className;
-
-									found = frameChildObject.find("className");
-
-									if (found != frameChildObject.end()) {
-										className = found->second.getString();
-									}
-									//if(symbols[className]->isTextField) continue; //MEGA DEBUG TEST
-									Symbol::Part *part;
-									std::map<std::string, Symbol::Part*>::iterator l = children.find(name);
-									if (l == children.end()) {
-										part = children[name] = new Symbol::Part();
-										part->name = name;
-										part->symbol = symbols[className];
-										if(! part->symbol){
-											Console__error("Trying to add a NULL symbol part with key " << className << " to " << parent->key);
-										}
-									}
-									else{
-										part = l->second;
-									}
-
-									part->indexByFrame.insert(std::pair<int, int>(frameIndex, index));
-
-									Matrix matrix;
-
-									found = frameChildObject.find("a");
-									if (found != frameChildObject.end()) {
-										matrix.a = found->second.getDouble();
-									}
-
-									found = frameChildObject.find("b");
-									if (found != frameChildObject.end()) {
-										matrix.b = found->second.getDouble();
-									}
-
-									found = frameChildObject.find("c");
-									if (found != frameChildObject.end()) {
-										matrix.c = found->second.getDouble();
-									}
-
-									found = frameChildObject.find("d");
-									if (found != frameChildObject.end()) {
-										matrix.d = found->second.getDouble();
-									}
-
-									found = frameChildObject.find("tx");
-									if (found != frameChildObject.end()) {
-										matrix.tx = found->second.getDouble();
-									}
-
-									found = frameChildObject.find("ty");
-									if (found != frameChildObject.end()) {
-										matrix.ty = found->second.getDouble();
-									}
-
-									part->matrices.insert(std::pair<int, Matrix>(frameIndex, matrix));
-
-                                    ColorMatrix colorMatrix;
-									found = frameChildObject.find("colorTransform");
-									if (found != frameChildObject.end()) {
-                                        std::vector<float> temp;
-                                       Parser::parseStringArray<float>(found->second.getString(), temp);
-                                       float divider = 1.0f / 255.0f;
-                                        colorMatrix.colorMultiplier.setRGBA(temp[0], temp[2], temp[4], temp[6]);
-                                        colorMatrix.colorOffset.setRGBA(temp[1] * divider, temp[3] * divider, temp[5] * divider, temp[7] * divider);
-                                    }
-									part->colorMatrices.insert(std::pair<int, ColorMatrix>(frameIndex, colorMatrix));
-
-									index++;
-								}
-							}
-							frameIndex++;
-						}
-					}
-
-					for(std::map<std::string, Symbol::Part*>::iterator j = children.begin(); j != children.end(); j++){
-						parent->parts.push_back(*(j->second));
-					}
-				}
-			}
-		}
-	}
-
-	void ResourceManager::loadFlashExporterTextures(Value &node, const std::string &dirPath) {
-		std::string textureName = node["name"].getString();
-		registerTexture(textureName, dirPath + "/" + node["path"].getString());
-
-		Array subTextures = node["SubTexture"].getArray();
-
-		for (Array::iterator i = subTextures.begin(); i != subTextures.end(); i++) {
-			std::string name = (*i)["name"].getString();
+	
+	
+	void ResourceManager::loadFlashExporterTextures(rapidxml::xml_node<> *node, const std::string &dirPath) {
+		std::string textureName = node->first_attribute("name")->value();
+		registerTexture(textureName, dirPath + "/" + node->first_attribute("path")->value());
+		
+						
+		for (rapidxml::xml_node<> *subTextNode = node->first_node("SubTexture"); subTextNode; subTextNode = subTextNode->next_sibling()){
+			std::string name = subTextNode->first_attribute("name")->value();
 			Symbol *symbol = new Symbol();
 			symbol->isTexture = true;
 			symbol->key = name;
 			symbol->textureKey = textureName;
 			Vector2 registrationPoint;
 			symbol->subTex = addSubTexture(name, new SubTextureInfo());
-
-			symbol->subTex->position = Vector2((*i)["x"].getDouble(), (*i)["y"].getDouble());
-			symbol->subTex->size = Vector2((*i)["width"].getDouble(), (*i)["height"].getDouble());
+			
+			symbol->subTex->position = Vector2(Parser::stringToDouble(subTextNode->first_attribute("x")->value()), Parser::stringToDouble(subTextNode->first_attribute("y")->value()));
+			symbol->subTex->size = Vector2(Parser::stringToDouble(subTextNode->first_attribute("width")->value()), Parser::stringToDouble(subTextNode->first_attribute("height")->value()));
 			
 			symbol->subTex->textureInfo = NULL;
-			symbol->blend = (*i)["blend"].getBool();
-	
+
+			symbol->blend = Parser::stringToBool(subTextNode->first_attribute("blend")->value());
 			
-
-			if ((*i)["registrationPointX"].isNumeric()) {
-				registrationPoint.x = (*i)["registrationPointX"].getFloat();
-			}
-
-			if ((*i)["registrationPointY"].isNumeric()) {
-				registrationPoint.y = (*i)["registrationPointY"].getFloat();
-			}
-
+			
+			
+			registrationPoint.x = Parser::stringToDouble(subTextNode->first_attribute("registrationPointX")->value());
+			registrationPoint.y = Parser::stringToDouble(subTextNode->first_attribute("registrationPointY")->value());
+			
 			symbol->registrationPoint = registrationPoint;
 			symbols[name] = symbol;
 		}
+		
+}
 
+
+	void ResourceManager::loadFlashExporterSymbols(rapidxml::xml_node<> *node) {
+
+		rapidxml::xml_attribute<> * found;
+		for (rapidxml::xml_node<> *symbolNode = node->first_node("Symbol"); symbolNode; symbolNode = symbolNode->next_sibling()){
+				Symbol *symbol = new Symbol();
+
+				found = symbolNode->first_attribute("className");
+				if (found) {
+					symbol->key = found->value();
+				}
+				
+				found = symbolNode->first_attribute("textfield");
+				if (found) {
+					symbol->isTextField = Parser::stringToBool(found->value());
+				}
+
+				if(symbol->isTextField) {
+					found = symbolNode->first_attribute("text");
+					if (found) {
+						symbol->text = found->value();
+					}
+
+					found = symbolNode->first_attribute("color");
+					if (found){
+	                    std::vector<int> temp;
+	                   Parser::parseStringArray<int>(found->value(), temp);
+	                    symbol->color = Color(temp[0], temp[1], temp[2]);
+					}
+
+
+
+					found = symbolNode->first_attribute("font");
+
+					if (found) {
+						symbol->font = found->value();
+					}
+
+					symbol->frameCount  = 1;
+
+					std::string alignment;
+
+					found = symbolNode->first_attribute("alignment");
+					if (found) {
+						alignment = found->value();
+					}
+
+					if(alignment == "left"){
+						symbol->alignment = TextAlignment::LEFT;
+					}
+					else if(alignment == "center"){
+						symbol->alignment = TextAlignment::CENTER;
+					}
+					else if(alignment == "right"){
+						symbol->alignment = TextAlignment::RIGHT;
+					}
+
+					
+					found = symbolNode->first_attribute("width");
+					if (found) {
+						symbol->textFieldWidth = Parser::stringToInt(found->value());
+					}
+					
+					
+					found = symbolNode->first_attribute("height");
+					if (found) {
+						symbol->textFieldHeight = Parser::stringToInt(found->value());
+					}
+
+				} else {
+					found = symbolNode->first_attribute("frameCount");
+					if (found) {
+						symbol->frameCount = Parser::stringToInt(found->value());
+					}
+				}
+
+				symbols[symbol->key] = symbol;
+		}
+
+		for (rapidxml::xml_node<> *symbolNode = node->first_node("Symbol"); symbolNode; symbolNode = symbolNode->next_sibling()){
+	
+			found = symbolNode->first_attribute("className");
+			Symbol *parent = symbols[found->value()];
+			
+			for (rapidxml::xml_node<> *labelNode = symbolNode->first_node("label"); labelNode; labelNode = labelNode->next_sibling()){
+
+                            int startFrame;
+                            int endframe;
+                            std::string name;
+
+								found = symbolNode->first_attribute("name");
+                            if (found) {
+                                name = found->value();
+                            }
+				
+							found = symbolNode->first_attribute("startFrame");
+							if (found) {
+								startFrame = Parser::stringToInt(found->value());
+							}
+				
+							found = symbolNode->first_attribute("endFrame");
+							if (found) {
+								endframe = Parser::stringToInt(found->value());
+							}
+
+                
+								parent->label[name] = std::pair<int, int>(startFrame, endframe);
+			}
+
+			
+			std::map<std::string, Symbol::Part*> children;
+			int frameIndex = 0;
+
+			for (rapidxml::xml_node<> *frameNode = symbolNode->first_node("Frame"); frameNode; frameNode = frameNode->next_sibling()){
+
+				int index = 0;
+
+				for (rapidxml::xml_node<> *childNode = frameNode->first_node("Child"); childNode; childNode = childNode->next_sibling()){
+					std::string name;
+
+					found = childNode->first_attribute("name");
+
+					if (found) {
+						name = found->value();
+					}
+
+					std::string className;
+
+					found = childNode->first_attribute("className");
+
+					if (found) {
+						className = found->value();
+					}
+
+					Symbol::Part *part;
+					std::map<std::string, Symbol::Part*>::iterator i = children.find(name);
+					if (i == children.end()) {
+						part = children[name] = new Symbol::Part();
+						part->name = name;
+						part->symbol = symbols[className];
+						if(! part->symbol){
+							Console__error("Trying to add a NULL symbol part with key " << className << " to " << parent->key);
+						}
+					}
+					else{
+						part = i->second;
+					}
+
+					part->indexByFrame.insert(std::pair<int, int>(frameIndex, index));
+
+					Matrix matrix;
+					found = childNode->first_attribute("a");
+					if (found) {
+						matrix.a = Parser::stringToDouble(found->value());
+					}
+			
+					
+					found = childNode->first_attribute("b");
+					if (found) {
+						matrix.b = Parser::stringToDouble(found->value());
+					}
+					found = childNode->first_attribute("c");
+					if (found) {
+						matrix.c = Parser::stringToDouble(found->value());
+					}
+					found = childNode->first_attribute("d");
+					if (found) {
+						matrix.d = Parser::stringToDouble(found->value());
+					}
+					found = childNode->first_attribute("tx");
+					if (found) {
+						matrix.tx = Parser::stringToDouble(found->value());
+					}
+					found = childNode->first_attribute("ty");
+					if (found) {
+						matrix.ty = Parser::stringToDouble(found->value());
+					}
+
+					
+					part->matrices.insert(std::pair<int, Matrix>(frameIndex, matrix));
+
+					ColorMatrix colorMatrix;
+					found = childNode->first_attribute("colorTransform");
+					if (found) {
+                        std::vector<float> temp;
+                       Parser::parseStringArray<float>(found->value(), temp);
+                       float divider = 1.0f / 255.0f;
+                        colorMatrix.colorMultiplier.setRGBA(temp[0], temp[2], temp[4], temp[6]);
+                        colorMatrix.colorOffset.setRGBA(temp[1] * divider, temp[3] * divider, temp[5] * divider, temp[7] * divider);
+                    }
+					part->colorMatrices.insert(std::pair<int, ColorMatrix>(frameIndex, colorMatrix));
+
+					index++;
+				}
+			
+				frameIndex++;
+			}
+
+			for(std::map<std::string, Symbol::Part*>::iterator j = children.begin(); j != children.end(); j++){
+				parent->parts.push_back(*(j->second));
+			}
+		}
 	}
-
-
 
 
 	Font *ResourceManager::initFontFromPath(const std::string &key,

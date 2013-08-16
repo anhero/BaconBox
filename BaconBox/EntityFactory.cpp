@@ -157,8 +157,8 @@ TextEntity * EntityFactory::getTextEntity(const std::string &key){
 					childEntity = currentMovieClip->second;
 				}
 			childEntity->setName(j->second->name);
-			reinterpret_cast<DefaultMatrix*>(childEntity->getMatrixComponent())->matrixByParentFrame = j->second->matrices;
-           reinterpret_cast<DefaultColorTransform*>(childEntity->getColorTransform())->matrixByParentFrame = j->second->colorMatrices;
+			reinterpret_cast<DefaultMatrix*>(childEntity->getMatrixComponent())->matrixByParentFrame = &j->second->matrices;
+           reinterpret_cast<DefaultColorTransform*>(childEntity->getColorTransform())->matrixByParentFrame = &j->second->colorMatrices;
 
 			container->addChildToCurrentFrame(childEntity);
 		    }
