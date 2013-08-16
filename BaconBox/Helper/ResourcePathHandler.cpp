@@ -39,7 +39,7 @@ namespace BaconBox {
 #ifdef BB_MAC_PLATFORM
 		path = path + "/../Resources/" + item;
 #else
-		path = path + "/resources/" + item;
+		path = path + "/Resources/" + item;
 #endif
 
 #endif
@@ -59,7 +59,7 @@ resourcePath = Engine::getApplicationPath();
 #ifdef BB_MAC_PLATFORM
 		resourcePath = resourcePath + "/../Resources";
 #else
-		resourcePath = resourcePath + "/resources";
+		resourcePath = resourcePath + "/Resources";
 #endif
 
 #endif
