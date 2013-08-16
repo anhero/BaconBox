@@ -172,6 +172,7 @@ TextEntity * EntityFactory::getTextEntity(const std::string &key){
 
 	    }
 	entity->setSymbol(symbol);
+		if(!entity) Console__error("Error calling EntityFactory::getMovieClipEntityFromSymbol with symbol " + symbol->key);
 	return entity;
 	}
 
