@@ -81,6 +81,9 @@ namespace BaconBox {
 			std::transform(str.begin(), str.end(), result.begin(), toupper);
 			return result;
 		}
+		
+		static int caseInsensitiveCompare(const std::string & str1, const std::string & str2);
+
 
 		/**
 		 * Trims white spaces at the beginning and the end of a string.
