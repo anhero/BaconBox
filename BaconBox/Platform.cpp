@@ -13,7 +13,7 @@ Platform::Platform(){
 	isIOS = false;
 	isIphone = false;
 	isIpod = false;
-	isIphone5 = false;
+	isIOSWide = false;
 	isIpad = false;
 	isFlash = false;
 #ifdef BB_IPHONE_PLATFORM
@@ -21,9 +21,9 @@ Platform::Platform(){
 	NSString * device = [UIDevice currentDevice].model;
 	isIpad = [device  isEqual: @"iPad"];
 	isIpod = [device  isEqual: @"Pod touch"];
-
+	isRetina = [[UIScreen mainScreen] scale] == 2;
 	isIphone = [device  isEqual: @"iPhone"];
-	isIphone5 = [[ UIScreen mainScreen ] bounds ].size.height == 568;
+	isIOSWide = [[ UIScreen mainScreen ] bounds ].size.height == 568;
 #endif
 	
 	
