@@ -26,6 +26,12 @@ namespace BaconBox {
         
     }
 	
+	Vector2 MainWindow::getResolution(){
+		return Vector2(static_cast<float>(getResolutionWidth()), static_cast<float>(getResolutionHeight()));
+	}
+	Vector2 MainWindow::getContextSize(){
+		return Vector2(getContextWidth(), getContextHeight());
+	}
 	
 	unsigned int MainWindow::getResolutionWidth() {
 		return (orientationIsHorizontal() ? resolutionHeight : resolutionWidth);
@@ -94,6 +100,9 @@ namespace BaconBox {
 		if (orientation != newOrientation) {
 			orientation = newOrientation;
 		}
+		
+		setResolution(this->getRealResolutionWidth(), this->getRealResolutionHeight());
+		setContextSize(this->getRealContextWidth(), this->getRealContextHeight());
 	}
 	
 	MainWindow::MainWindow() : sigly::HasSlots<sigly::SingleThreaded>(), resolutionWidth(0), resolutionHeight(0),

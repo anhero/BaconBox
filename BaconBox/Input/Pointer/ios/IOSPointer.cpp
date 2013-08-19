@@ -1,7 +1,7 @@
 #include "BaconBox/Input/Pointer/ios/IOSPointer.h"
 #include "BaconBox/Input/Pointer/CursorButton.h"
 #include "BaconBox/Display/Window/MainWindow.h"
-
+#import <UIKit/UIKit.h>
 namespace BaconBox {
 	const unsigned int MAX_IOS_NB_OF_TOUCH = 11;
 
@@ -15,6 +15,8 @@ namespace BaconBox {
 		touchEnd.connect(this, &IOSPointer::onTouchEnd);
 		touchMove.connect(this, &IOSPointer::onTouchMove);
 		touchCancelled.connect(this, &IOSPointer::onTouchCancelled);
+		
+		screenScale = [[UIScreen mainScreen] scale];
 	}
 
 	IOSPointer::~IOSPointer() {
@@ -102,6 +104,7 @@ namespace BaconBox {
 			if (touchID != -1) {
 				CGPoint location = [touch locationInView: [touch view]];
 				this->touches[touchID].position =  Vector2(static_cast<float>(location.x), static_cast<float>(location.y));
+				this->touches[touchID].position *= screenScale;
 				convertToBaconBoxScreenPosition(&(this->touches[touchID].position));
 				this->touches[touchID].inContact = true;
 			}
@@ -118,6 +121,7 @@ namespace BaconBox {
 
 				CGPoint location = [touch locationInView: [touch view]];
 				this->touches[touchID].position = Vector2(static_cast<float>(location.x), static_cast<float>(location.y));
+				this->touches[touchID].position *= screenScale;
 				convertToBaconBoxScreenPosition(&(this->touches[touchID].position));
 				this->touches[touchID].inContact = false;
 			}
@@ -137,6 +141,7 @@ namespace BaconBox {
 			if (touchID != -1) {
 				CGPoint location = [touch locationInView: [touch view]];
 				this->touches[touchID].position =  Vector2(static_cast<float>(location.x), static_cast<float>(location.y));
+				this->touches[touchID].position *= screenScale;
 				convertToBaconBoxScreenPosition(&(this->touches[touchID].position));
 				this->touches[touchID].inContact = true;
 			}

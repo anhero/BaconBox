@@ -37,18 +37,19 @@ const Vector2 &PointerState::getCursorPosition(size_t index) {
 }
 
 void PointerState::setCursorPosition(unsigned int index, Vector2 pos) {
-	
+//	std::cout << "res " <<MainWindow::getInstance().getResolutionHeight() << " " << MainWindow::getInstance().getRealResolutionHeight() << std::endl;
+//	std::cout << "con" <<MainWindow::getInstance().getContextHeight() << " " << MainWindow::getInstance().getRealContextHeight() << std::endl;
 	float windowOrientationAngleOffset = 0.0f;
 	Vector2 windowOrientationOffset;
 	switch (MainWindow::getInstance().getOrientation()) {
 		case WindowOrientation::HORIZONTAL_LEFT:
 			windowOrientationAngleOffset = -90.0f;
-			windowOrientationOffset.x = static_cast<float>(MainWindow::getInstance().getRealContextHeight());
+			windowOrientationOffset.x = static_cast<float>(MainWindow::getInstance().getRealResolutionHeight());
 			break;
 			
 		case WindowOrientation::HORIZONTAL_RIGHT:
 			windowOrientationAngleOffset = 90.0f;
-			windowOrientationOffset.y = static_cast<float>(MainWindow::getInstance().getRealContextWidth());
+			windowOrientationOffset.y = static_cast<float>(MainWindow::getInstance().getRealResolutionWidth());
 			break;
 		default:
 			break;
@@ -56,6 +57,12 @@ void PointerState::setCursorPosition(unsigned int index, Vector2 pos) {
 	
 	pos.rotate(windowOrientationAngleOffset);
 	pos +=(windowOrientationOffset);
+	
+	Vector2 v(MainWindow::getInstance().getContextWidth(), MainWindow::getInstance().getContextHeight());
+	
+	pos.coordinatesMultiply(v.getCoordinatesDivision(Vector2(static_cast<float>(MainWindow::getInstance().getResolutionWidth()), static_cast<float>(MainWindow::getInstance().getResolutionHeight()))));
+	
+	
 	cursors[index].position = pos;
 }
 

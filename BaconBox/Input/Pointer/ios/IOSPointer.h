@@ -49,6 +49,8 @@ namespace BaconBox {
 		 */
 		void updateDevice();
 	private:
+		
+		float screenScale;
 		/**
 		 * Converts the position we receive to BaconBox's format.
 		 * @param newIosPosition Pointer to the vector to set the BaconBox

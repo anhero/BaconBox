@@ -101,8 +101,8 @@ namespace BaconBox {
 	
 	void SDLMainWindow::setOrientation(WindowOrientation::type newOrientation) {
 		MainWindow::setOrientation(newOrientation);
-		setResolution(this->getRealResolutionWidth(), this->getRealResolutionHeight());
-		setContextSize(this->getRealContextWidth(), this->getRealContextHeight());
+//		setResolution(this->getRealResolutionWidth(), this->getRealResolutionHeight());
+//		setContextSize(this->getRealContextWidth(), this->getRealContextHeight());
 //		SDL_SetWindowSize(mainWindow, static_cast<int>(this->getRealResolutionWidth()), static_cast<int>(this->getRealResolutionHeight()));
 //		GraphicDriver::getInstance().initializeGraphicDriver();
 	}
