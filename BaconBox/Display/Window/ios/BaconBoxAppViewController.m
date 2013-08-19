@@ -18,10 +18,10 @@
 {
     self.view = [[[EAGLView alloc] initWithFrame:frame] autorelease];
 	bool retina = [[UIScreen mainScreen] scale] == 2;
-	BaconBox::Platform::getInstance().isRetina = retina;
-	BaconBox::Platform::getInstance().isIphone = (frame.size.width == 320);
-	BaconBox::Platform::getInstance().isIphone5 = (frame.size.height == 568);
-	BaconBox::Platform::getInstance().isIpad = (frame.size.width == 768);
+//	BaconBox::Platform::getInstance().isRetina = retina;
+//	BaconBox::Platform::getInstance().isIphone = (frame.size.width == 320);
+//	BaconBox::Platform::getInstance().isIOSWide = (frame.size.height == 568);
+//	BaconBox::Platform::getInstance().isIpad = (frame.size.width == 768);
     if ([[UIScreen mainScreen] respondsToSelector:@selector(scale)] && retina){
         [self.view setContentScaleFactor:2.0f];
     }

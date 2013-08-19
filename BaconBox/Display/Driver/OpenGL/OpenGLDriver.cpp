@@ -210,6 +210,7 @@ namespace BaconBox {
 	void OpenGLDriver::prepareScene(const Vector2 &position, float angle,
 	                                const Vector2 &zoom,
 	                                const Color &backgroundColor, bool clearScreen) {
+		
 		if(clearScreen){
 		glClearColor(backgroundColor.getRed(),
 		             backgroundColor.getGreen(),
@@ -244,7 +245,6 @@ namespace BaconBox {
 				break;
 		}
 		}
-		program->sendUniform(uniforms.modelView, &(modelViewMatrix[0]));
 
 
 		
@@ -460,28 +460,30 @@ void OpenGLDriver::endRenderToTexture(){
 			uniforms.modelView= program->getUniformLocation("modelView");
 		
     		program->sendUniform(uniforms.tex, 0);
-		
+			program->sendUniform(uniforms.modelView, &(modelViewMatrix[0]));
 			attributes.vertices = 0;
 		
 		rgbProgram->setAttributeLocation("position", attributes.vertices);
 		rgbProgram->setAttributeLocation("texcoordIN", attributes.texCoord);
 		rgbProgram->setAttributeLocation("colorIN", attributes.color);
 		rgbProgram->setAttributeLocation("colorOffsetIN", attributes.colorOffset);
+			
+			alphaProgram->setAttributeLocation("position", attributes.vertices);
+			alphaProgram->setAttributeLocation("texcoordIN", attributes.texCoord);
+			alphaProgram->setAttributeLocation("colorIN", attributes.color);
+			alphaProgram->setAttributeLocation("colorOffsetIN", attributes.colorOffset);
+			
+			rgbNoTransformProgram->setAttributeLocation("position", attributes.vertices);
+			rgbNoTransformProgram->setAttributeLocation("texcoordIN", attributes.texCoord);
+			
+			alphaNoTransformProgram->setAttributeLocation("position", attributes.vertices);
+			alphaNoTransformProgram->setAttributeLocation("texcoordIN", attributes.texCoord);
+			
 		rgbProgram->link();
-		
-		alphaProgram->setAttributeLocation("position", attributes.vertices);
-		alphaProgram->setAttributeLocation("texcoordIN", attributes.texCoord);
-		alphaProgram->setAttributeLocation("colorIN", attributes.color);
-		alphaProgram->setAttributeLocation("colorOffsetIN", attributes.colorOffset);
 		alphaProgram->link();
-		
-		rgbNoTransformProgram->setAttributeLocation("position", attributes.vertices);
-		rgbNoTransformProgram->setAttributeLocation("texcoordIN", attributes.texCoord);
 		rgbNoTransformProgram->link();
-		
-		alphaNoTransformProgram->setAttributeLocation("position", attributes.vertices);
-		alphaNoTransformProgram->setAttributeLocation("texcoordIN", attributes.texCoord);
 		alphaNoTransformProgram->link();
+			
 		}
 
 		
