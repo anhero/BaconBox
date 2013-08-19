@@ -708,23 +708,23 @@ namespace BaconBox {
 			found = symbolNode->first_attribute("className");
 			Symbol *parent = symbols[found->value()];
 			
-			for (rapidxml::xml_node<> *labelNode = symbolNode->first_node("label"); labelNode; labelNode = labelNode->next_sibling()){
+			for (rapidxml::xml_node<> *labelNode = symbolNode->first_node("label"); labelNode; labelNode = labelNode->next_sibling("label")){
 
-                            int startFrame;
-                            int endframe;
+                            int startFrame = 0;
+                            int endframe = -1;
                             std::string name;
 
-								found = symbolNode->first_attribute("name");
+							found = labelNode->first_attribute("name");
                             if (found) {
                                 name = found->value();
                             }
 				
-							found = symbolNode->first_attribute("startFrame");
+							found = labelNode->first_attribute("startFrame");
 							if (found) {
 								startFrame = Parser::stringToInt(found->value());
 							}
 				
-							found = symbolNode->first_attribute("endFrame");
+							found = labelNode->first_attribute("endFrame");
 							if (found) {
 								endframe = Parser::stringToInt(found->value());
 							}
