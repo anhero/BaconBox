@@ -191,7 +191,7 @@ namespace BaconBox {
 	x(NULL, &Transform::getX, &Transform::setX),
 	y(NULL, &Transform::getY, &Transform::setY),
 	scaleX(NULL, &Transform::getScaleX, &Transform::setScaleX),
-	scaleY(NULL, &Transform::getScaleX, &Transform::setScaleX),
+	scaleY(NULL, &Transform::getScaleY, &Transform::setScaleY),
 	rotation(NULL, &Transform::getRotation, &Transform::setRotationInternal)  {
 		setProperties(static_cast<Transform*>(this->component));
 	}
