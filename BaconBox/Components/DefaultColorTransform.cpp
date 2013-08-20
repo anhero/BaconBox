@@ -54,11 +54,14 @@ namespace BaconBox {
 
 	ColorMatrix & DefaultColorTransform::getConcatColorMatrix(){
 		MovieClipEntity * parentMC = entityContainer->getParent();
-		if(!useCustomMatrix && entityContainer && parentMC){
+		if( entityContainer && parentMC){
 			if(needConcat()){
 				concatMatrix = matrix;
-				invalidated = false;
 				concatMatrix.concat(parentMC->getConcatColorMatrix());
+				
+				//TODO: the invalidated system does not work, we need to think of something else to prevent over concatenetion of matrix, a version system where we increment an int maybe?
+//				invalidated = false;
+
 				return concatMatrix;
 			}
 			else{
