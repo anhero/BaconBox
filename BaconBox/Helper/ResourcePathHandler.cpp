@@ -23,6 +23,9 @@
 #include "BaconBox/Core/Engine.h"
 
 namespace BaconBox {
+	
+	std::string ResourcePathHandler::debugResourcePath = "";
+
 
 	std::string ResourcePathHandler::getResourcePathFor(const std::string &item) {
 		std::string path;
@@ -33,8 +36,12 @@ namespace BaconBox {
 	path = ((std::string)[resourceDirectory cStringUsingEncoding: NSASCIIStringEncoding] + "/" + item);
 		[pool release];
 #else
-
-		path = Engine::getApplicationPath();
+		if(debugResourcePath != ""){
+			path = debugResourcePath + "/" + item;
+		}
+		else{
+			path = Engine::getApplicationPath();
+		
 
 #ifdef BB_MAC_PLATFORM
 		path = path + "/../Resources/" + item;
@@ -43,9 +50,13 @@ namespace BaconBox {
 #endif
 
 #endif
+		}
 		return path;
 	}
 
+	void ResourcePathHandler::setDebugResourcePath(const std::string & path){
+		debugResourcePath = path;
+	}
 	
 	std::string ResourcePathHandler::getResourcePath(){
 		std::string resourcePath;
@@ -54,6 +65,9 @@ namespace BaconBox {
 		NSString *resourceDirectory = [[NSBundle mainBundle] resourcePath];
 		resourcePath = [resourceDirectory cStringUsingEncoding: NSASCIIStringEncoding];
 #else
+		
+		if(debugResourcePath != "") return debugResourcePath;
+
 resourcePath = Engine::getApplicationPath();
 		
 #ifdef BB_MAC_PLATFORM

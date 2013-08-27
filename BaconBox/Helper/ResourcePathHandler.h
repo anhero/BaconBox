@@ -40,7 +40,7 @@ namespace BaconBox {
 		
 		static std::string getResourcePath();
 		
-		
+		static void setDebugResourcePath(const std::string & path);
 		
 		static std::string getPathFromFilename(std::string filename);
 
@@ -88,6 +88,8 @@ namespace BaconBox {
 		 */
 		static bool isFileWritable(const std::string &filePath);
 	private:
+		
+		static std::string debugResourcePath;
 		/**
 		 * Default constructor, to make sure no one tries to instantiate this
 		 * class.
