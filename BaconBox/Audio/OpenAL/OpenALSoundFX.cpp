@@ -62,9 +62,9 @@ void OpenALSoundFX::setVolume(int newVolume) {
 	alSourcef(sourceId, AL_GAIN, OpenALEngine::baconBoxToOpenALVolume(newVolume));
 }
 
-AudioState OpenALSoundFX::getCurrentState() const {
+AudioState::type OpenALSoundFX::getCurrentState() const {
 	ALint state;
-	AudioState result = AudioState::INITIAL;
+	AudioState::type result = AudioState::INITIAL;
 	alGetSourcei(sourceId, AL_SOURCE_STATE, &state);
 
 	switch(state) {
