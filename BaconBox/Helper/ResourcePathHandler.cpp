@@ -48,9 +48,9 @@ namespace BaconBox {
 #else
 		path = path + "/Resources/" + item;
 #endif
-
-#endif
-		}
+}
+#endif //BB_IPHONE_PLATFORM
+		
 		return path;
 	}
 
@@ -76,7 +76,7 @@ resourcePath = Engine::getApplicationPath();
 		resourcePath = resourcePath + "/Resources";
 #endif
 
-#endif
+#endif //BB_IPHONE_PLATFORM
 		return resourcePath;
 	}
 
