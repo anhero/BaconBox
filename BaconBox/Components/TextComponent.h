@@ -20,6 +20,7 @@ namespace BaconBox {
 		static int MESSAGE_FONT_CHANGED;
 		static int MESSAGE_ALIGNMENT_CHANGED;
 		static int MESSAGE_SIZE_CHANGED;
+		static int MESSAGE_PIXEL_SIZE_CHANGED;
 		
 		BB_ID_HEADER;
 
@@ -32,6 +33,8 @@ namespace BaconBox {
 		void setSize(Vector2 size);
 		const Vector2   &getSize();
 		void setFont(Font *font);
+		void setPixelSize(int pixelSize);
+
 		Font *getFont();
 
 		virtual void receiveMessage(int senderID, int destID, int message, void *data);
@@ -55,6 +58,7 @@ namespace BaconBox {
 		Font *getFont();
 		void setFont(Font *font);
 		void setSize(Vector2 size);
+		void setPixelSize(int pixelSize);
 		const Vector2   &getSize();
 		void setAlignment(TextAlignment::type alignment);
 		void setText(const std::string&text);

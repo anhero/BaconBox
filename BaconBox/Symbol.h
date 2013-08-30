@@ -48,6 +48,7 @@ namespace BaconBox {
 		std::string text;
 		int textFieldWidth;
 		int textFieldHeight;
+		int fontSize;
 		TextAlignment::type alignment;
 	    Color color;
 //	Symbol * symbol;

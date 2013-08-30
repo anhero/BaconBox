@@ -121,6 +121,7 @@ TextEntity * EntityFactory::getTextEntity(const std::string &key){
 				TextEntity * tf = font->getTextEntity();
 				tf->setText(symbol->text);
 				tf->setAlignment(symbol->alignment);
+				tf->setPixelSize(symbol->fontSize);
 				tf->setSize(Vector2(symbol->textFieldWidth, symbol->textFieldHeight));
 				entity = tf;
                 entity->setColor(symbol->color);

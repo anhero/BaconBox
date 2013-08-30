@@ -104,7 +104,9 @@ namespace BaconBox {
 			     }
 			     
 			     
-			     lineHeight = font["common"]["lineHeight"].getInt();
+				lineHeight = font["common"]["lineHeight"].getInt();
+				
+				pixelSize = font["info"]["size"].getInt();
 			     
 			}
 			else{

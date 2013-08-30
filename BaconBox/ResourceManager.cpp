@@ -646,6 +646,11 @@ namespace BaconBox {
 					if (found) {
 						symbol->text = found->value();
 					}
+					
+					found = symbolNode->first_attribute("fontSize");
+					if (found) {
+						symbol->fontSize = Parser::stringToInt(found->value());
+					}
 
 					found = symbolNode->first_attribute("color");
 					if (found){

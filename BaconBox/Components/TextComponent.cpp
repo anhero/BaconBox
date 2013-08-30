@@ -22,7 +22,8 @@ namespace BaconBox {
 	int TextComponent::MESSAGE_FONT_CHANGED = IDManager::generateID();
 	int TextComponent::MESSAGE_ALIGNMENT_CHANGED = IDManager::generateID();
 	int TextComponent::MESSAGE_SIZE_CHANGED = IDManager::generateID();
-
+	int TextComponent::MESSAGE_PIXEL_SIZE_CHANGED = IDManager::generateID();
+	
 	BB_ID_IMPL(TextComponent);
 
 	TextComponent::TextComponent() : Component(), alignment(TextAlignment::LEFT), boundingBox(Vector2(), Vector2(200, 200)) {
@@ -37,6 +38,10 @@ namespace BaconBox {
 				boundingBox.setPosition(reinterpret_cast<Vector2ChangedData *>(data)->newValue);
 			}
 		}
+	}
+	
+	void TextComponent::setPixelSize(int pixelSize) {
+		sendMessage(Entity::BROADCAST, TextComponent::MESSAGE_PIXEL_SIZE_CHANGED, reinterpret_cast<void *>(&pixelSize));
 	}
 
 	void TextComponent::setAlignment(TextAlignment::type alignment) {
@@ -128,6 +133,10 @@ namespace BaconBox {
 
 	}
 	
+	void TextComponentProxy::setPixelSize(int pixelSize) {
+		reinterpret_cast<TextComponent *>(component)->setPixelSize(pixelSize);
+	}
+
 	void TextComponentProxy::setTextProperty(const std::string & text) {
 		reinterpret_cast<TextComponent *>(component)->setText(text);
 	}
