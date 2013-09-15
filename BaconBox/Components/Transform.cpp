@@ -207,6 +207,21 @@ namespace BaconBox {
 	void TransformProxy::setPosition(const Vector2 &newPosition) {
 		reinterpret_cast<Transform *>(component)->setPosition(newPosition);
 	}
+	
+	float TransformProxy::getXPosition() const {
+		return this->getPosition().x;
+	}
+	float TransformProxy::getYPosition() const {
+		return this->getPosition().y;
+	}
+	
+	void TransformProxy::setXPosition(float newXPosition) {
+		this->setPosition(Vector2(newXPosition, this->getPosition().y));
+	}
+	
+	void TransformProxy::setYPosition(float newYPosition) {
+		this->setPosition(Vector2(this->getPosition().x, newYPosition));
+	}
 
 	float TransformProxy::getRotation() const {
 		return reinterpret_cast<Transform *>(component)->getRotation();

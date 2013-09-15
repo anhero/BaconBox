@@ -169,6 +169,12 @@ namespace BaconBox {
 
 		const Vector2 &getPosition() const;
 		void setPosition(const Vector2 &newPosition);
+		
+		float getXPosition() const;
+		float getYPosition() const;
+		
+		void setXPosition(float newXPosition);
+		void setYPosition(float newYPosition);
 
 		const Vector2 &getRealPosition() const;
 
