@@ -2,6 +2,11 @@
 #include "BaconBox/Core/Entity.h"
 #include "BaconBox/MovieClipEntity/MovieClipEntity.h"
 #include "BaconBox/Core/State.h"
+
+#ifdef BB_LUA
+#include "BaconBox/Helper/Lua/LuaHelper.h"
+#endif //BB_LUA
+
 namespace BaconBox {
 	BB_ID_IMPL(EntityContainer);
 
@@ -36,6 +41,12 @@ namespace BaconBox {
 	void EntityContainerProxy::addChild(MovieClipEntity *newChild) {
 		reinterpret_cast<EntityContainer*>(this->component)->addChild(newChild);
 	}
+	
+#ifdef BB_LUA
+	void EntityContainerProxy::addChild(lua_State * L){
+		reinterpret_cast<EntityContainer*>(this->component)->addChild(LuaHelper::getMovieClipEntityFromLuaEntity(L));
+	}
+#endif //BB_LUA
 
 	void EntityContainerProxy::addChildAt(MovieClipEntity *newChild, int index) {
 		reinterpret_cast<EntityContainer*>(this->component)->addChildAt(newChild, index);
