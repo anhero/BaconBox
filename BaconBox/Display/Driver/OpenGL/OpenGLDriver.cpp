@@ -246,6 +246,7 @@ namespace BaconBox {
 		}
 		}
 
+		program->sendUniform(uniforms.modelView, &(modelViewMatrix[0]));
 
 		
 
