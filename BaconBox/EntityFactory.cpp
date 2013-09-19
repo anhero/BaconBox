@@ -26,6 +26,7 @@
 #include <BaconBox/Console.h>
 #include <BaconBox/Display/Text/Font.h>
 
+#include <BaconBox/Console.h>
 
 namespace BaconBox {
 
@@ -118,6 +119,7 @@ TextEntity * EntityFactory::getTextEntity(const std::string &key){
 	    else{
 			if(symbol->isTextField){
 				Font * font = ResourceManager::getFont(symbol->font);
+				if(font == NULL) Console::error("Missing font " + symbol->font);
 				TextEntity * tf = font->getTextEntity();
 				tf->setText(symbol->text);
 				tf->setAlignment(symbol->alignment);
