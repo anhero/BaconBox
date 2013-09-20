@@ -153,6 +153,11 @@ end
 
   #include "BaconBox/Display/SubTextureInfo.h"
 #include "BaconBox/Helper/Stopwatch.h"
+
+#include "BaconBox/Helper/Ease.h"
+
+#include "BaconBox/Helper/MathHelper.h"
+
 #include "BaconBox/Helper/TimeHelper.h"
 #include "BaconBox/Components/Speed.h"
 #include "BaconBox/Components/Shake.h"
@@ -191,6 +196,9 @@ end
 
 
 #include "BaconBox/Symbol.h"
+
+
+#include <sstream>
 
 #if defined(BB_LUA)
   #include "BaconBox/Components/Lua/LuaEntity.h"
@@ -267,7 +275,7 @@ class SoundInfo;
 
 #include "BaconBox/Audio/MusicEngine.h"
 #include "BaconBox/Audio/BackgroundMusic.h"
-
+#include "BaconBox/Display/Driver/GraphicDriver.h"
 %}
 
 %ignore Color::operator uint32_t() const;
@@ -491,9 +499,24 @@ namespace BaconBox{
 
 		float x;
 		float y;
+
+
+
+
 	};
 
 }
+
+%extend BaconBox::Vector2 {
+const char *__str__() {
+       static char tmp[1024];
+       std::stringstream ss;
+        ss << (*self);
+        strcpy(tmp, ss.str().c_str());
+        return tmp;
+   }
+
+   }
 
 %include "BaconBox/Matrix.h"
 
@@ -563,6 +586,10 @@ namespace BaconBox{
 
 
 %include "BaconBox/Components/MatrixComponent.h"
+%include "BaconBox/Helper/Ease.h"
+
+%include "BaconBox/Helper/MathHelper.h"
+
 %include "BaconBox/Helper/TimeHelper.h"
 %include "BaconBox/Helper/Stopwatch.h"
 %include "BaconBox/Components/Shake.h"
@@ -614,12 +641,32 @@ namespace BaconBox{
 
 %include "BaconBox/Helper/ResourcePathHandler.h"
 
+
 namespace BaconBox{
-
-
+  
+  #if !defined (BB_FLASH_PLATFORM)
+  class GraphicDriver {
+  public:
+    static GraphicDriver &getInstance();
+    void renderToTexture(const TextureInformation *textureInformation, unsigned int contextWidth = 0, unsigned int contextHeight = 0);
+    void endRenderToTexture();
+    private:
+    GraphicDriver();
+    ~GraphicDriver();
+  };
+  #endif
+  
   class ResourceManager{
     public:
-
+  #if !defined (BB_FLASH_PLATFORM)
+    static TextureInformation *createRenderTexture(const std::string &key,
+                             unsigned int width,
+                             unsigned int height,
+                             ColorFormat::type colorFormat = ColorFormat::RGBA,
+                                          bool overwrite = false);
+    static TextureInformation *getTexture(const std::string &key);
+                                          
+  #endif
     static SoundInfo *loadSound(const std::string &key,
                                 const std::string &filePath,
                                 bool overwrite = false);
@@ -647,13 +694,13 @@ namespace BaconBox{
                                             const std::string &relativePath,
                                             bool overwrite = false);       
 
-  static void loadFlashExporterXML(const std::string & xmlPath, const std::string & secondXMLPath = "");
+  static void loadFlashExporterXML(const std::string & xmlPath);
 
     static SoundInfo *getSound(const std::string &key);
 
     static MusicInfo *getMusic(const std::string &key);
 
-
+static void addFontAlias(const std::string &key, const std::string &existingKey);
 static Font *loadFont(const std::string &key,
                           const std::string &path, bool overwrite = false);
 

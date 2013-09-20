@@ -26,7 +26,7 @@ namespace BaconBox {
 	 * Audio engine implementation to play sounds and music with SDL_mixer.
 	 * @ingroup Audio
 	 */
-	class SDLMixerEngine : public SoundEngine, public MusicEngine {
+	class SDLMixerEngine : public MusicEngine, public SoundEngine {
 		friend class BaseEngine;
 	public:
 		/**

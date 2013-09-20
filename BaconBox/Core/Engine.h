@@ -12,6 +12,7 @@
 #include "BaconBox/PlatformFlagger.h"
 
 #include "BaconBox/Core/State.h"
+#include "BaconBox/Display/Window/WindowOrientation.h"
 
 #include BB_ENGINE_INCLUDE
 
@@ -46,7 +47,7 @@ namespace BaconBox {
 		
 		
 		/// Signal sent when the BaconBox engine is initialized.
-		static sigly::Signal4<unsigned int, unsigned int, float, float> onInitialize;
+		static sigly::Signal5<unsigned int, unsigned int, float, float, WindowOrientation::type> onInitialize;
 		
 		/**
 		 * Adds a state to the engine's list.
@@ -133,7 +134,7 @@ namespace BaconBox {
 		static void initializeEngine(unsigned int resolutionWidth,
 		                             unsigned int resolutionHeight,
 		                             float contextWidth = 0.0f,
-		                             float contextHeight = 0.0f);
+		                             float contextHeight = 0.0f, WindowOrientation::type orientation = WindowOrientation::NORMAL);
 		
 		/**
 		 * Gets the time elapsed since the last update called on a state.

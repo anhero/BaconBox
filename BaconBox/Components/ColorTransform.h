@@ -4,7 +4,7 @@
 #include "BaconBox/Core/Component.h"
 #include "BaconBox/Display/Color.h"
 #include "BaconBox/ColorMatrix.h"
-
+#include "BaconBox/Property.h"
 namespace BaconBox {
 	/**
 	 * The ColorTransform component determines the entity's color.
@@ -23,6 +23,7 @@ namespace BaconBox {
 
 		const Color &getColor();
 		virtual ColorMatrix &getConcatColorMatrix() = 0;
+		virtual ColorMatrix &getMatrix() = 0;
 
 	private:
 		Color color;
@@ -39,6 +40,16 @@ namespace BaconBox {
 		const Color &getColor();
 		ColorMatrix &getConcatColorMatrix();
 		ColorTransform *getColorTransform();
+		
+		float getAlpha() const;
+		void setAlpha(float alpha);
+		
+#ifdef SWIG
+		float alpha;
+#else
+		Property<float, ColorTransformProxy> alpha;
+#endif
+		
 	protected:
 		void setColorTransform(ColorTransform *colorTransform);
 

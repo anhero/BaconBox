@@ -47,8 +47,8 @@ namespace BaconBox {
 		 * @param index Index of the cursor to get.
 		 * @return Reference to the cursor's position.
 		 */
-		Vector2& getCursorPosition(size_t index);
-
+		const Vector2& getCursorPosition(size_t index);
+		void setCursorPosition(unsigned int index, Vector2 pos);
 		/**
 		 * Gets a cursor's previous position.
 		 * @param index Index of the cursor to get.

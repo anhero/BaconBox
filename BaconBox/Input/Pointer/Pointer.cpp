@@ -50,8 +50,12 @@ std::vector<CursorState>& Pointer::getCursorStates() {
 	return state.cursors;
 }
 
-Vector2& Pointer::getCursorPosition(unsigned int index) {
+const Vector2& Pointer::getCursorPosition(unsigned int index) {
 	return state.getCursorPosition(index);
+}
+
+void Pointer::setCursorPosition(unsigned int index, Vector2 & pos) {
+	state.setCursorPosition(index, pos);
 }
 
 Vector2& Pointer::getCursorPreviousPosition(unsigned int index) {

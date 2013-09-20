@@ -26,6 +26,7 @@
 #include <BaconBox/Console.h>
 #include <BaconBox/Display/Text/Font.h>
 
+#include <BaconBox/Console.h>
 
 namespace BaconBox {
 
@@ -118,9 +119,11 @@ TextEntity * EntityFactory::getTextEntity(const std::string &key){
 	    else{
 			if(symbol->isTextField){
 				Font * font = ResourceManager::getFont(symbol->font);
+				if(font == NULL) Console::error("Missing font " + symbol->font);
 				TextEntity * tf = font->getTextEntity();
 				tf->setText(symbol->text);
 				tf->setAlignment(symbol->alignment);
+				tf->setPixelSize(symbol->fontSize);
 				tf->setSize(Vector2(symbol->textFieldWidth, symbol->textFieldHeight));
 				entity = tf;
                 entity->setColor(symbol->color);
@@ -157,8 +160,8 @@ TextEntity * EntityFactory::getTextEntity(const std::string &key){
 					childEntity = currentMovieClip->second;
 				}
 			childEntity->setName(j->second->name);
-			reinterpret_cast<DefaultMatrix*>(childEntity->getMatrixComponent())->matrixByParentFrame = j->second->matrices;
-           reinterpret_cast<DefaultColorTransform*>(childEntity->getColorTransform())->matrixByParentFrame = j->second->colorMatrices;
+			reinterpret_cast<DefaultMatrix*>(childEntity->getMatrixComponent())->matrixByParentFrame = &j->second->matrices;
+           reinterpret_cast<DefaultColorTransform*>(childEntity->getColorTransform())->matrixByParentFrame = &j->second->colorMatrices;
 
 			container->addChildToCurrentFrame(childEntity);
 		    }
@@ -172,6 +175,7 @@ TextEntity * EntityFactory::getTextEntity(const std::string &key){
 
 	    }
 	entity->setSymbol(symbol);
+		if(!entity) Console__error("Error calling EntityFactory::getMovieClipEntityFromSymbol with symbol " + symbol->key);
 	return entity;
 	}
 

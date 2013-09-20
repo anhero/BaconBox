@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5142284C17A858B200CC1E98 /* CameraPositionConverter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5142284A17A858B200CC1E98 /* CameraPositionConverter.cpp */; };
 		5161F0E9172037090044226C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5161F0E8172037090044226C /* Foundation.framework */; };
 		5161F420172049AC0044226C /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5161F41F172049AC0044226C /* libz.dylib */; };
 		5161F422172049B90044226C /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5161F421172049B90044226C /* OpenGLES.framework */; };
@@ -194,6 +195,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		5142284A17A858B200CC1E98 /* CameraPositionConverter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CameraPositionConverter.cpp; sourceTree = "<group>"; };
+		5142284B17A858B200CC1E98 /* CameraPositionConverter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CameraPositionConverter.h; sourceTree = "<group>"; };
 		5161F0E5172037090044226C /* libBaconBox.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libBaconBox.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		5161F0E8172037090044226C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		5161F41F172049AC0044226C /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
@@ -745,6 +748,8 @@
 		516A9140179ED9FC00F483C4 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				5142284A17A858B200CC1E98 /* CameraPositionConverter.cpp */,
+				5142284B17A858B200CC1E98 /* CameraPositionConverter.h */,
 				516A9141179ED9FC00F483C4 /* AABBHitBox.cpp */,
 				516A9142179ED9FC00F483C4 /* AABBHitBox.h */,
 				516A9143179ED9FC00F483C4 /* Batch.cpp */,
@@ -1327,6 +1332,7 @@
 				516A9381179ED9FD00F483C4 /* Value.cpp in Sources */,
 				516A93AA179ED9FD00F483C4 /* PointerSignalData.cpp in Sources */,
 				516A9303179ED9FD00F483C4 /* BBAudioPlayerMusicDelegate.m in Sources */,
+				5142284C17A858B200CC1E98 /* CameraPositionConverter.cpp in Sources */,
 				516A9304179ED9FD00F483C4 /* MusicEngine.cpp in Sources */,
 				516A938B179ED9FD00F483C4 /* AccelerometerSignalData.cpp in Sources */,
 				516A937E179ED9FD00F483C4 /* Serializable.cpp in Sources */,
@@ -1479,7 +1485,7 @@
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_INPUT_FILETYPE = sourcecode.cpp.objcpp;
-				GCC_OPTIMIZATION_LEVEL = 3;
+				GCC_OPTIMIZATION_LEVEL = fast;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -1491,7 +1497,8 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
-				LLVM_LTO = NO;
+				LLVM_LTO = YES;
+				LLVM_VECTORIZE_LOOPS = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 			};
@@ -1512,7 +1519,7 @@
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_INPUT_FILETYPE = sourcecode.cpp.objcpp;
-				GCC_OPTIMIZATION_LEVEL = 3;
+				GCC_OPTIMIZATION_LEVEL = fast;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"BB_LUA=1",
 					"SIGLY_DEFAULT_MT_POLICY=SingleThreaded",
@@ -1521,7 +1528,8 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
-				LLVM_LTO = NO;
+				LLVM_LTO = YES;
+				LLVM_VECTORIZE_LOOPS = YES;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -1531,6 +1539,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				DSTROOT = /tmp/BaconBox.dst;
+				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "";
 				HEADER_SEARCH_PATHS = (
@@ -1541,6 +1550,8 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/../../libraries/ios/universal/lib\"",
 				);
+				LLVM_LTO = NO;
+				LLVM_VECTORIZE_LOOPS = NO;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -1551,6 +1562,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				DSTROOT = /tmp/BaconBox.dst;
+				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "";
 				HEADER_SEARCH_PATHS = (
@@ -1561,6 +1573,8 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/../../libraries/ios/universal/lib\"",
 				);
+				LLVM_LTO = NO;
+				LLVM_VECTORIZE_LOOPS = NO;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;

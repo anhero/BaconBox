@@ -13,8 +13,6 @@
 		243C9C621764FE89007250BA /* Emitter.h in Headers */ = {isa = PBXBuildFile; fileRef = 243C9C601764FE89007250BA /* Emitter.h */; };
 		243C9C651764FEA7007250BA /* ParticleEmitter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 243C9C631764FEA7007250BA /* ParticleEmitter.cpp */; };
 		243C9C661764FEA7007250BA /* ParticleEmitter.h in Headers */ = {isa = PBXBuildFile; fileRef = 243C9C641764FEA7007250BA /* ParticleEmitter.h */; };
-		2478740816360C7F006D4A59 /* libSDL2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2478740616360C7F006D4A59 /* libSDL2.a */; };
-		2478740916360C7F006D4A59 /* libSDL2main.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2478740716360C7F006D4A59 /* libSDL2main.a */; };
 		2494A2D0176E44AE00D483A3 /* ParticlePhase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2494A2CE176E44AE00D483A3 /* ParticlePhase.cpp */; };
 		2494A2D1176E44AE00D483A3 /* ParticlePhase.h in Headers */ = {isa = PBXBuildFile; fileRef = 2494A2CF176E44AE00D483A3 /* ParticlePhase.h */; };
 		2494A2D3176E462B00D483A3 /* Particle.h in Headers */ = {isa = PBXBuildFile; fileRef = 2494A2D2176E462B00D483A3 /* Particle.h */; };
@@ -24,7 +22,6 @@
 		24CA7D0017748A43000ACF7F /* EmitterFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = 24CA7CFE17748A43000ACF7F /* EmitterFactory.h */; };
 		24CA7D0317748F25000ACF7F /* EmitterEntity.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 24CA7D0117748F25000ACF7F /* EmitterEntity.cpp */; };
 		24CA7D0417748F25000ACF7F /* EmitterEntity.h in Headers */ = {isa = PBXBuildFile; fileRef = 24CA7D0217748F25000ACF7F /* EmitterEntity.h */; };
-		24CD5A9916347EE9001EB407 /* libJsonBox.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 24CD5A9716347EE8001EB407 /* libJsonBox.a */; };
 		511A55B3176230C600CBEF43 /* UIManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 511A55B1176230C600CBEF43 /* UIManager.cpp */; };
 		511A55B4176230C600CBEF43 /* UIManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 511A55B2176230C600CBEF43 /* UIManager.h */; };
 		511A55B717623AAD00CBEF43 /* Clickable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 511A55B517623AAD00CBEF43 /* Clickable.cpp */; };
@@ -33,14 +30,6 @@
 		514C46A3175E972B003D098F /* LuaCallback.h in Headers */ = {isa = PBXBuildFile; fileRef = 514C46A1175E972B003D098F /* LuaCallback.h */; };
 		5153401C17760005008DC02E /* DefaultSizeComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5153401A17760005008DC02E /* DefaultSizeComponent.cpp */; };
 		5153401D17760005008DC02E /* DefaultSizeComponent.h in Headers */ = {isa = PBXBuildFile; fileRef = 5153401B17760005008DC02E /* DefaultSizeComponent.h */; };
-		5153CCE01698A80A00431A19 /* libfreetype.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5153CCDF1698A80A00431A19 /* libfreetype.a */; };
-		5153CCE31698A82A00431A19 /* libpng.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5153CCE21698A82A00431A19 /* libpng.a */; };
-		5153CCE81698A86E00431A19 /* libogg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5153CCE61698A86E00431A19 /* libogg.a */; };
-		5153CCE91698A86E00431A19 /* libvorbis.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5153CCE71698A86E00431A19 /* libvorbis.a */; };
-		5153CCED1698A88E00431A19 /* libz.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5153CCEC1698A88E00431A19 /* libz.a */; };
-		5153CCEF1698A8C200431A19 /* libSDL2_mixer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5153CCEE1698A8C200431A19 /* libSDL2_mixer.a */; };
-		5153CCF11698A8ED00431A19 /* libvorbisenc.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5153CCF01698A8ED00431A19 /* libvorbisenc.a */; };
-		5153CCF31698A8F600431A19 /* libvorbisfile.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5153CCF21698A8F600431A19 /* libvorbisfile.a */; };
 		51810F9C17A6CD8300F36B16 /* CameraPositionConverter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 51810F9A17A6CD8300F36B16 /* CameraPositionConverter.cpp */; };
 		51810F9D17A6CD8300F36B16 /* CameraPositionConverter.h in Headers */ = {isa = PBXBuildFile; fileRef = 51810F9B17A6CD8300F36B16 /* CameraPositionConverter.h */; };
 		51903B7617500B7B00814708 /* AudioEngine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 519039A517500B7B00814708 /* AudioEngine.cpp */; };
@@ -371,6 +360,21 @@
 		51903D0E17500B7B00814708 /* VertexArray.h in Headers */ = {isa = PBXBuildFile; fileRef = 51903B7517500B7B00814708 /* VertexArray.h */; };
 		51C34E72175E645200960346 /* LuaHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 51C34E70175E645200960346 /* LuaHelper.cpp */; };
 		51C34E73175E645200960346 /* LuaHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 51C34E71175E645200960346 /* LuaHelper.h */; };
+		C75E26D617C6740A00A22316 /* libogg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C75E26CF17C6740A00A22316 /* libogg.a */; };
+		C75E26D717C6740A00A22316 /* libSDL2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C75E26D017C6740A00A22316 /* libSDL2.a */; };
+		C75E26D817C6740A00A22316 /* libSDL2main.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C75E26D117C6740A00A22316 /* libSDL2main.a */; };
+		C75E26D917C6740A00A22316 /* libSDL2_mixer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C75E26D217C6740A00A22316 /* libSDL2_mixer.a */; };
+		C75E26DA17C6740A00A22316 /* libvorbis.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C75E26D317C6740A00A22316 /* libvorbis.a */; };
+		C75E26DB17C6740A00A22316 /* libvorbisenc.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C75E26D417C6740A00A22316 /* libvorbisenc.a */; };
+		C75E26DC17C6740A00A22316 /* libvorbisfile.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C75E26D517C6740A00A22316 /* libvorbisfile.a */; };
+		C79337FB17B5586800D87A1F /* Property.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C79337F917B5586800D87A1F /* Property.cpp */; };
+		C79337FC17B5586800D87A1F /* Property.h in Headers */ = {isa = PBXBuildFile; fileRef = C79337FA17B5586800D87A1F /* Property.h */; };
+		C7B9796417C671460016E86F /* libfreetype.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C7B9795817C671460016E86F /* libfreetype.a */; };
+		C7B9796517C671460016E86F /* libGLEW.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C7B9795917C671460016E86F /* libGLEW.a */; };
+		C7B9796617C671460016E86F /* libJsonBox.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C7B9795A17C671460016E86F /* libJsonBox.a */; };
+		C7B9796717C671460016E86F /* liblua.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C7B9795B17C671460016E86F /* liblua.a */; };
+		C7B9796F17C671460016E86F /* libz.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C7B9796317C671460016E86F /* libz.a */; };
+		C7B9797117C6715A0016E86F /* libpng.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C7B9797017C6715A0016E86F /* libpng.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -380,8 +384,6 @@
 		243C9C601764FE89007250BA /* Emitter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Emitter.h; sourceTree = "<group>"; };
 		243C9C631764FEA7007250BA /* ParticleEmitter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ParticleEmitter.cpp; sourceTree = "<group>"; };
 		243C9C641764FEA7007250BA /* ParticleEmitter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParticleEmitter.h; sourceTree = "<group>"; };
-		2478740616360C7F006D4A59 /* libSDL2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSDL2.a; path = libraries/Darwin/x86_64/lib/libSDL2.a; sourceTree = "<group>"; };
-		2478740716360C7F006D4A59 /* libSDL2main.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSDL2main.a; path = libraries/Darwin/x86_64/lib/libSDL2main.a; sourceTree = "<group>"; };
 		2494A2CE176E44AE00D483A3 /* ParticlePhase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ParticlePhase.cpp; sourceTree = "<group>"; };
 		2494A2CF176E44AE00D483A3 /* ParticlePhase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParticlePhase.h; sourceTree = "<group>"; };
 		2494A2D2176E462B00D483A3 /* Particle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Particle.h; sourceTree = "<group>"; };
@@ -391,7 +393,6 @@
 		24CA7CFE17748A43000ACF7F /* EmitterFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmitterFactory.h; sourceTree = "<group>"; };
 		24CA7D0117748F25000ACF7F /* EmitterEntity.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EmitterEntity.cpp; sourceTree = "<group>"; };
 		24CA7D0217748F25000ACF7F /* EmitterEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmitterEntity.h; sourceTree = "<group>"; };
-		24CD5A9716347EE8001EB407 /* libJsonBox.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libJsonBox.a; path = libraries/Darwin/x86_64/lib/libJsonBox.a; sourceTree = "<group>"; };
 		511A55B1176230C600CBEF43 /* UIManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UIManager.cpp; sourceTree = "<group>"; };
 		511A55B2176230C600CBEF43 /* UIManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIManager.h; sourceTree = "<group>"; };
 		511A55B517623AAD00CBEF43 /* Clickable.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Clickable.cpp; sourceTree = "<group>"; };
@@ -400,14 +401,6 @@
 		514C46A1175E972B003D098F /* LuaCallback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LuaCallback.h; sourceTree = "<group>"; };
 		5153401A17760005008DC02E /* DefaultSizeComponent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DefaultSizeComponent.cpp; sourceTree = "<group>"; };
 		5153401B17760005008DC02E /* DefaultSizeComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DefaultSizeComponent.h; sourceTree = "<group>"; };
-		5153CCDF1698A80A00431A19 /* libfreetype.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libfreetype.a; path = libraries/Darwin/x86_64/lib/libfreetype.a; sourceTree = "<group>"; };
-		5153CCE21698A82A00431A19 /* libpng.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpng.a; path = libraries/Darwin/x86_64/lib/libpng.a; sourceTree = SOURCE_ROOT; };
-		5153CCE61698A86E00431A19 /* libogg.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libogg.a; path = libraries/Darwin/x86_64/lib/libogg.a; sourceTree = "<group>"; };
-		5153CCE71698A86E00431A19 /* libvorbis.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libvorbis.a; path = libraries/Darwin/x86_64/lib/libvorbis.a; sourceTree = "<group>"; };
-		5153CCEC1698A88E00431A19 /* libz.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libz.a; path = libraries/Darwin/x86_64/lib/libz.a; sourceTree = "<group>"; };
-		5153CCEE1698A8C200431A19 /* libSDL2_mixer.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSDL2_mixer.a; path = libraries/Darwin/x86_64/lib/libSDL2_mixer.a; sourceTree = "<group>"; };
-		5153CCF01698A8ED00431A19 /* libvorbisenc.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libvorbisenc.a; path = libraries/Darwin/x86_64/lib/libvorbisenc.a; sourceTree = "<group>"; };
-		5153CCF21698A8F600431A19 /* libvorbisfile.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libvorbisfile.a; path = libraries/Darwin/x86_64/lib/libvorbisfile.a; sourceTree = "<group>"; };
 		51810F9A17A6CD8300F36B16 /* CameraPositionConverter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CameraPositionConverter.cpp; sourceTree = "<group>"; };
 		51810F9B17A6CD8300F36B16 /* CameraPositionConverter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CameraPositionConverter.h; sourceTree = "<group>"; };
 		519039A517500B7B00814708 /* AudioEngine.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AudioEngine.cpp; sourceTree = "<group>"; };
@@ -739,6 +732,21 @@
 		51B7424F16345CFF00DB18E1 /* libBaconBox.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libBaconBox.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		51C34E70175E645200960346 /* LuaHelper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LuaHelper.cpp; sourceTree = "<group>"; };
 		51C34E71175E645200960346 /* LuaHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LuaHelper.h; sourceTree = "<group>"; };
+		C75E26CF17C6740A00A22316 /* libogg.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libogg.a; path = /Users/twistedjoe/Documents/Berzerk/BaconBox/FF2/ide/osx/../../libraries/BaconBox/libraries/Darwin/x86_64/lib/libogg.a; sourceTree = "<absolute>"; };
+		C75E26D017C6740A00A22316 /* libSDL2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSDL2.a; path = /Users/twistedjoe/Documents/Berzerk/BaconBox/FF2/ide/osx/../../libraries/BaconBox/libraries/Darwin/x86_64/lib/libSDL2.a; sourceTree = "<absolute>"; };
+		C75E26D117C6740A00A22316 /* libSDL2main.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSDL2main.a; path = /Users/twistedjoe/Documents/Berzerk/BaconBox/FF2/ide/osx/../../libraries/BaconBox/libraries/Darwin/x86_64/lib/libSDL2main.a; sourceTree = "<absolute>"; };
+		C75E26D217C6740A00A22316 /* libSDL2_mixer.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSDL2_mixer.a; path = /Users/twistedjoe/Documents/Berzerk/BaconBox/FF2/ide/osx/../../libraries/BaconBox/libraries/Darwin/x86_64/lib/libSDL2_mixer.a; sourceTree = "<absolute>"; };
+		C75E26D317C6740A00A22316 /* libvorbis.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libvorbis.a; path = /Users/twistedjoe/Documents/Berzerk/BaconBox/FF2/ide/osx/../../libraries/BaconBox/libraries/Darwin/x86_64/lib/libvorbis.a; sourceTree = "<absolute>"; };
+		C75E26D417C6740A00A22316 /* libvorbisenc.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libvorbisenc.a; path = /Users/twistedjoe/Documents/Berzerk/BaconBox/FF2/ide/osx/../../libraries/BaconBox/libraries/Darwin/x86_64/lib/libvorbisenc.a; sourceTree = "<absolute>"; };
+		C75E26D517C6740A00A22316 /* libvorbisfile.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libvorbisfile.a; path = /Users/twistedjoe/Documents/Berzerk/BaconBox/FF2/ide/osx/../../libraries/BaconBox/libraries/Darwin/x86_64/lib/libvorbisfile.a; sourceTree = "<absolute>"; };
+		C79337F917B5586800D87A1F /* Property.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Property.cpp; sourceTree = "<group>"; };
+		C79337FA17B5586800D87A1F /* Property.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Property.h; sourceTree = "<group>"; };
+		C7B9795817C671460016E86F /* libfreetype.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libfreetype.a; path = ../../../../libraries/BaconBox/libraries/Darwin/x86_64/lib/libfreetype.a; sourceTree = "<group>"; };
+		C7B9795917C671460016E86F /* libGLEW.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libGLEW.a; path = ../../../../libraries/BaconBox/libraries/Darwin/x86_64/lib/libGLEW.a; sourceTree = "<group>"; };
+		C7B9795A17C671460016E86F /* libJsonBox.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libJsonBox.a; path = ../../../../libraries/BaconBox/libraries/Darwin/x86_64/lib/libJsonBox.a; sourceTree = "<group>"; };
+		C7B9795B17C671460016E86F /* liblua.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = liblua.a; path = ../../../../libraries/BaconBox/libraries/Darwin/x86_64/lib/liblua.a; sourceTree = "<group>"; };
+		C7B9796317C671460016E86F /* libz.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libz.a; path = ../../../../libraries/BaconBox/libraries/Darwin/x86_64/lib/libz.a; sourceTree = "<group>"; };
+		C7B9797017C6715A0016E86F /* libpng.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpng.a; path = ../../../../libraries/BaconBox/libraries/Darwin/x86_64/lib/libpng.a; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -746,17 +754,19 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2478740816360C7F006D4A59 /* libSDL2.a in Frameworks */,
-				2478740916360C7F006D4A59 /* libSDL2main.a in Frameworks */,
-				24CD5A9916347EE9001EB407 /* libJsonBox.a in Frameworks */,
-				5153CCE01698A80A00431A19 /* libfreetype.a in Frameworks */,
-				5153CCE31698A82A00431A19 /* libpng.a in Frameworks */,
-				5153CCE81698A86E00431A19 /* libogg.a in Frameworks */,
-				5153CCE91698A86E00431A19 /* libvorbis.a in Frameworks */,
-				5153CCED1698A88E00431A19 /* libz.a in Frameworks */,
-				5153CCEF1698A8C200431A19 /* libSDL2_mixer.a in Frameworks */,
-				5153CCF11698A8ED00431A19 /* libvorbisenc.a in Frameworks */,
-				5153CCF31698A8F600431A19 /* libvorbisfile.a in Frameworks */,
+				C75E26D817C6740A00A22316 /* libSDL2main.a in Frameworks */,
+				C75E26D717C6740A00A22316 /* libSDL2.a in Frameworks */,
+				C7B9796717C671460016E86F /* liblua.a in Frameworks */,
+				C7B9796617C671460016E86F /* libJsonBox.a in Frameworks */,
+				C75E26D917C6740A00A22316 /* libSDL2_mixer.a in Frameworks */,
+				C75E26DC17C6740A00A22316 /* libvorbisfile.a in Frameworks */,
+				C75E26DB17C6740A00A22316 /* libvorbisenc.a in Frameworks */,
+				C75E26DA17C6740A00A22316 /* libvorbis.a in Frameworks */,
+				C75E26D617C6740A00A22316 /* libogg.a in Frameworks */,
+				C7B9796517C671460016E86F /* libGLEW.a in Frameworks */,
+				C7B9796F17C671460016E86F /* libz.a in Frameworks */,
+				C7B9796417C671460016E86F /* libfreetype.a in Frameworks */,
+				C7B9797117C6715A0016E86F /* libpng.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -766,17 +776,19 @@
 		24CD5A9B16347EF2001EB407 /* libraries */ = {
 			isa = PBXGroup;
 			children = (
-				5153CCE21698A82A00431A19 /* libpng.a */,
-				5153CCF01698A8ED00431A19 /* libvorbisenc.a */,
-				5153CCF21698A8F600431A19 /* libvorbisfile.a */,
-				5153CCEE1698A8C200431A19 /* libSDL2_mixer.a */,
-				5153CCEC1698A88E00431A19 /* libz.a */,
-				5153CCE61698A86E00431A19 /* libogg.a */,
-				5153CCE71698A86E00431A19 /* libvorbis.a */,
-				5153CCDF1698A80A00431A19 /* libfreetype.a */,
-				2478740616360C7F006D4A59 /* libSDL2.a */,
-				2478740716360C7F006D4A59 /* libSDL2main.a */,
-				24CD5A9716347EE8001EB407 /* libJsonBox.a */,
+				C75E26CF17C6740A00A22316 /* libogg.a */,
+				C75E26D017C6740A00A22316 /* libSDL2.a */,
+				C75E26D117C6740A00A22316 /* libSDL2main.a */,
+				C75E26D217C6740A00A22316 /* libSDL2_mixer.a */,
+				C75E26D317C6740A00A22316 /* libvorbis.a */,
+				C75E26D417C6740A00A22316 /* libvorbisenc.a */,
+				C75E26D517C6740A00A22316 /* libvorbisfile.a */,
+				C7B9797017C6715A0016E86F /* libpng.a */,
+				C7B9795817C671460016E86F /* libfreetype.a */,
+				C7B9795917C671460016E86F /* libGLEW.a */,
+				C7B9795A17C671460016E86F /* libJsonBox.a */,
+				C7B9795B17C671460016E86F /* liblua.a */,
+				C7B9796317C671460016E86F /* libz.a */,
 			);
 			name = libraries;
 			sourceTree = "<group>";
@@ -817,6 +829,8 @@
 				51903B6F17500B7B00814708 /* TextureCoordinates.h */,
 				51903B7017500B7B00814708 /* Vector2.cpp */,
 				51903B7117500B7B00814708 /* Vector2.h */,
+				C79337F917B5586800D87A1F /* Property.cpp */,
+				C79337FA17B5586800D87A1F /* Property.h */,
 				51903B7217500B7B00814708 /* Vector3.cpp */,
 				51903B7317500B7B00814708 /* Vector3.h */,
 				51903B7417500B7B00814708 /* VertexArray.cpp */,
@@ -1623,6 +1637,7 @@
 				243C9C661764FEA7007250BA /* ParticleEmitter.h in Headers */,
 				24B61A85176E0ABC0097F001 /* Speed.h in Headers */,
 				2494A2D1176E44AE00D483A3 /* ParticlePhase.h in Headers */,
+				C79337FC17B5586800D87A1F /* Property.h in Headers */,
 				2494A2D3176E462B00D483A3 /* Particle.h in Headers */,
 				24CA7D0017748A43000ACF7F /* EmitterFactory.h in Headers */,
 				24CA7D0417748F25000ACF7F /* EmitterEntity.h in Headers */,
@@ -1742,6 +1757,7 @@
 				51903C2017500B7B00814708 /* OpenGLStaticBatchManager.cpp in Sources */,
 				51903C2217500B7B00814708 /* DynamicBatch.cpp in Sources */,
 				51903C2417500B7B00814708 /* PixMap.cpp in Sources */,
+				C79337FB17B5586800D87A1F /* Property.cpp in Sources */,
 				51903C2717500B7B00814708 /* SubTextureInfo.cpp in Sources */,
 				51903C2917500B7B00814708 /* BMFont.cpp in Sources */,
 				51903C2D17500B7B00814708 /* Font.cpp in Sources */,
@@ -1873,6 +1889,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				LLVM_LTO = NO;
+				LLVM_VECTORIZE_LOOPS = NO;
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
@@ -1894,7 +1911,7 @@
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_INPUT_FILETYPE = sourcecode.cpp.cpp;
-				GCC_OPTIMIZATION_LEVEL = s;
+				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"SDL=1",
 					"BB_LUA=1",
@@ -1905,7 +1922,8 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				LLVM_LTO = YES;
+				LLVM_LTO = NO;
+				LLVM_VECTORIZE_LOOPS = NO;
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				SDKROOT = macosx;
 			};
@@ -1922,7 +1940,9 @@
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/../../libraries/Darwin/x86_64/lib\"",
+					"\\\\\\\"$(SRCROOT)/../../libraries/Darwin/x86_64/lib\\\\\\\"",
+					/Users/twistedjoe/Documents/Berzerk/BaconBox/FF2/libraries/BaconBox/libraries/Darwin/x86_64/lib,
+					/Users/twistedjoe/Documents/Berzerk/BaconBox/FF2/ide/osx/../../libraries/BaconBox/libraries/Darwin/x86_64/lib,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)\" \"$(SRCROOT)/libraries/Darwin/x86_64/include\"";
@@ -1940,7 +1960,9 @@
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/../../libraries/Darwin/x86_64/lib\"",
+					"\\\\\\\"$(SRCROOT)/../../libraries/Darwin/x86_64/lib\\\\\\\"",
+					/Users/twistedjoe/Documents/Berzerk/BaconBox/FF2/libraries/BaconBox/libraries/Darwin/x86_64/lib,
+					/Users/twistedjoe/Documents/Berzerk/BaconBox/FF2/ide/osx/../../libraries/BaconBox/libraries/Darwin/x86_64/lib,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)\" \"$(SRCROOT)/libraries/Darwin/x86_64/include\"";

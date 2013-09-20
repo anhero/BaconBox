@@ -2,7 +2,7 @@
 #define BB_VISIBILITY_H
 
 #include "BaconBox/Core/Component.h"
-
+#include "BaconBox/Property.h"
 namespace BaconBox {
 	/**
 	 * Component that determines its Entity's visibility.
@@ -44,6 +44,11 @@ namespace BaconBox {
 		
 		bool isVisible() const;
 		void setVisible(bool newVisible);
+#ifdef SWIG
+		bool visible;
+#else
+		Property<bool, Visibility> visible;
+#endif
 	private:
 	};
 }

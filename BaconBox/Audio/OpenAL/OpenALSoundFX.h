@@ -70,7 +70,7 @@ namespace BaconBox {
 		 * current state.
 		 * @return Sound effect's current state.
 		 */
-		AudioState getCurrentState() const;
+		AudioState::type getCurrentState() const;
 
         /**
          * Gets the sound effect's source ID.

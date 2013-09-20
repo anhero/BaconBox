@@ -15,13 +15,13 @@ namespace BaconBox {
 	class IOSMainWindow : public MainWindow {
 		friend class BaseEngine;
 	public:
-		void onBaconBoxInit(unsigned int resolutionWidth, unsigned int resolutionHeight, float contextWidth, float contextHeight);
+		void onBaconBoxInit(unsigned int resolutionWidth, unsigned int resolutionHeight, float contextWidth, float contextHeight, WindowOrientation::type orientation);
 		void show();
 		void setCaption(const std::string &caption);
 		bool isFullScreen() const;
 		void setFullScreen(bool);
 		/**
-		 * Checks if the main window grabs the input. When the input is
+		 * Checks if the main window grabs the input. Whenà the input is
 		 * grabbed, the cursor is invisible.
 		 * @return True if the main window grabbed the input, false if not.
 		 */
@@ -36,7 +36,8 @@ namespace BaconBox {
 		 * Set the resolution of the window.
 		 */
 		void setResolution(unsigned int resolutionWidth, unsigned int resolutionHeight);
-        
+		void setContextSize(float newContextWidth, float newContextHeight);
+		
 	private:
 		IOSMainWindow();
 

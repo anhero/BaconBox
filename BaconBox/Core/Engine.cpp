@@ -9,7 +9,7 @@
 namespace BaconBox {
 	const double Engine::DEFAULT_UPDATES_PER_SECOND = 60.0;
 	const std::string Engine::DEFAULT_APPLICATION_NAME = std::string("BaconBoxApp");
-	sigly::Signal4<unsigned int, unsigned int, float, float> Engine::onInitialize = sigly::Signal4<unsigned int, unsigned int, float, float>();
+	sigly::Signal5<unsigned int, unsigned int, float, float, WindowOrientation::type> Engine::onInitialize = sigly::Signal5<unsigned int, unsigned int, float, float, WindowOrientation::type>();
 	
 
 	void Engine::application(int argc, char *argv[], const std::string &name) {
@@ -74,8 +74,8 @@ namespace BaconBox {
 	void Engine::initializeEngine(unsigned int resolutionWidth,
 	                              unsigned int resolutionHeight,
 	                              float contextWidth,
-	                              float contextHeight) {
-		getInstance().initializeEngine(resolutionWidth, resolutionHeight, contextWidth, contextHeight);
+	                              float contextHeight, WindowOrientation::type orientation) {
+		getInstance().initializeEngine(resolutionWidth, resolutionHeight, contextWidth, contextHeight, orientation);
 	}
 	
 	double Engine::getSinceLastUpdate() {

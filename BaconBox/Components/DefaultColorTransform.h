@@ -21,6 +21,7 @@ namespace BaconBox {
 		void setColorMultiplier(float r, float g, float b, float a);
 		void setColorOffset(float r, float g, float b, float a);
 		ColorMatrix & getConcatColorMatrix();
+		ColorMatrix &getMatrix();
         void setFrameColorTransform(int frame);
     	protected:
 		void initializeConnections();
@@ -31,7 +32,7 @@ namespace BaconBox {
 		ColorMatrix matrix;
 		ColorMatrix concatMatrix;
 		EntityContainer * entityContainer;
-        std::map<int, ColorMatrix> matrixByParentFrame;
+        std::map<int, ColorMatrix> * matrixByParentFrame;
 		bool invalidated;
 	};
 

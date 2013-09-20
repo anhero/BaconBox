@@ -9,9 +9,11 @@ namespace BaconBox {
 		bool isRetina;
 		bool isIOS;
 		bool isIphone;
-		bool isIphone5;
+		bool isIOSWide;
 		bool isIpad;
+		bool  isIpod;
 		bool isFlash;
+		
 		static Platform & getInstance();
 		private:
 		

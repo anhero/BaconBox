@@ -53,7 +53,8 @@ namespace BaconBox {
 		}
 	}
 	
-	VisibilityProxy::VisibilityProxy(Entity* entity, bool mustAddComponent): BB_PROXY_CONSTRUCTOR(new Visibility())  {
+	VisibilityProxy::VisibilityProxy(Entity* entity, bool mustAddComponent): BB_PROXY_CONSTRUCTOR(new Visibility()),
+	visible(reinterpret_cast<Visibility*>(component), &Visibility::isVisible, &Visibility::setVisible){
 	}
 	
 	

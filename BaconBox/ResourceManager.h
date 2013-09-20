@@ -18,6 +18,13 @@
 
 #include "BaconBox/Helper/Serialization/Value.h"
 #include "Symbol.h"
+
+
+#include <rapidxml.hpp>
+#include <rapidxml_utils.hpp>
+#include <rapidxml_print.hpp>
+
+
 namespace BaconBox {
 	class SoundFX;
 	class Symbol;
@@ -43,6 +50,13 @@ namespace BaconBox {
 	    
 	    
 		static SubTextureInfo *addSubTexture(const std::string &key, SubTextureInfo *textureInfo,
+		                                      bool overwrite = false);
+		
+		
+		static TextureInformation *createRenderTexture(const std::string &key,
+													   unsigned int width,
+													   unsigned int height,
+													   ColorFormat::type colorFormat = ColorFormat::RGBA,
 		                                      bool overwrite = false);
 	    
 		/**
@@ -76,7 +90,7 @@ namespace BaconBox {
 		 */
 		static TextureInformation *loadTexture(const std::string &key,
 		                                       const std::string &filePath,
-		                                       ColorFormat colorFormat = ColorFormat::RGBA,
+		                                       ColorFormat::type colorFormat = ColorFormat::RGBA,
 		                                       bool overwrite = false);
 		
 		static TextureInformation *loadTexture(const std::string &key);
@@ -84,7 +98,7 @@ namespace BaconBox {
 		
 		static void registerTexture(const std::string &key,
 		                                       const std::string &filePath,
-		                                       ColorFormat colorFormat = ColorFormat::RGBA,
+		                                       ColorFormat::type colorFormat = ColorFormat::RGBA,
 		                                       bool overwrite = false);
 
 		/**
@@ -123,7 +137,7 @@ namespace BaconBox {
 		 */
 		static TextureInformation *loadTextureRelativePath(const std::string &key,
 		                                                   const std::string &relativePath,
-		                                                   ColorFormat colorFormat = ColorFormat::RGBA,
+		                                                   ColorFormat::type colorFormat = ColorFormat::RGBA,
 		                                                   bool overwrite = false);
 
 		/**
@@ -285,6 +299,10 @@ namespace BaconBox {
 		 */
 		static void removeMusic(const std::string &key);
 
+	
+		
+		static void addFontAlias(const std::string &key, const std::string &existingKey);
+		
 		/**
 		 * Loads the font at the specified path and put it in the fonts' map.
 		 * @param key Name of the font, it will be the key of the fonts' map.
@@ -326,7 +344,7 @@ namespace BaconBox {
 		static void removeFont(const std::string &key);
 		
 		/// Create a PixMap from an image file at the given path.
-		static PixMap *loadPixMap(const std::string &filePath, ColorFormat colorFormat);
+		static PixMap *loadPixMap(const std::string &filePath, ColorFormat::type colorFormat);
 		
 		/**
 		 * Loads a pixmap from a file and sets a specific color as transparent.
@@ -344,11 +362,11 @@ namespace BaconBox {
 		static void savePixMap(const PixMap &pixMap,
 							   const std::string &filePath);
 		
-		static void loadFlashExporterXML(const std::string & xmlPath, const std::string & secondXMLPath = "");
+		static void loadFlashExporterXML(const std::string & xmlPath);
 		
-		static void loadFlashExporterSymbols(Value & node);
+		static void loadFlashExporterSymbols(rapidxml::xml_node<> *node);
 		
-		static void loadFlashExporterTextures(Value & node, const std::string & dirPath);
+		static void loadFlashExporterTextures(rapidxml::xml_node<> *node,  const std::string & dirPath);
 		
 		static bool isLoadedTexture(const std::string & key);
 		static bool isExistingTexture(const std::string & key);

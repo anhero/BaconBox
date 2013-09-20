@@ -1,7 +1,7 @@
 #include "BaconBox/Input/Pointer/ios/IOSPointer.h"
 #include "BaconBox/Input/Pointer/CursorButton.h"
 #include "BaconBox/Display/Window/MainWindow.h"
-
+#import <UIKit/UIKit.h>
 namespace BaconBox {
 	const unsigned int MAX_IOS_NB_OF_TOUCH = 11;
 
@@ -15,6 +15,8 @@ namespace BaconBox {
 		touchEnd.connect(this, &IOSPointer::onTouchEnd);
 		touchMove.connect(this, &IOSPointer::onTouchMove);
 		touchCancelled.connect(this, &IOSPointer::onTouchCancelled);
+		
+		screenScale = [[UIScreen mainScreen] scale];
 	}
 
 	IOSPointer::~IOSPointer() {
@@ -23,7 +25,7 @@ namespace BaconBox {
 	void IOSPointer::updateDevice() {
 		for (unsigned int i = 0;  i < MAX_IOS_NB_OF_TOUCH; i++) {
 			getCursorPreviousPosition(i) = getCursorPosition(i);
-			getCursorPosition(i) = this->touches[i].position;
+			setCursorPosition(i, this->touches[i].position);
 			getCursorPreviousButtons(i)[CursorButton::LEFT] = getCursorButtons(i)[CursorButton::LEFT];
 			getCursorButtons(i)[CursorButton::LEFT] = this->touches[i].inContact;
 
@@ -46,28 +48,28 @@ namespace BaconBox {
 	}
 
 	void IOSPointer::convertToBaconBoxScreenPosition(Vector2 *newIosPosition) {
-		if (std::max(MainWindow::getInstance().getResolutionWidth(), MainWindow::getInstance().getResolutionHeight()) == 960) {
-			(*newIosPosition)*=2.0f;
-		}
-
-		switch (MainWindow::getInstance().getOrientation()) {
-		case WindowOrientation::UPSIDE_DOWN:
-                newIosPosition->y = MainWindow::getInstance().getResolutionHeight() - newIosPosition->y;
-			break;
-
-		case WindowOrientation::HORIZONTAL_LEFT:
-                newIosPosition->x =newIosPosition->y;
-                newIosPosition->y = MainWindow::getInstance().getResolutionHeight() - newIosPosition->x;
-			break;
-
-		case WindowOrientation::HORIZONTAL_RIGHT:
-                newIosPosition->x = MainWindow::getInstance().getResolutionWidth() - newIosPosition->y;
-                newIosPosition->y = newIosPosition->x;
-			break;
-
-		default:
-			break;
-		}
+//		if (std::max(MainWindow::getInstance().getResolutionWidth(), MainWindow::getInstance().getResolutionHeight()) == 960) {
+//			(*newIosPosition)*=2.0f;
+//		}
+//
+//		switch (MainWindow::getInstance().getOrientation()) {
+//		case WindowOrientation::UPSIDE_DOWN:
+//                newIosPosition->y = MainWindow::getInstance().getResolutionHeight() - newIosPosition->y;
+//			break;
+//
+//		case WindowOrientation::HORIZONTAL_LEFT:
+//                newIosPosition->x =newIosPosition->y;
+//                newIosPosition->y = MainWindow::getInstance().getResolutionHeight() - newIosPosition->x;
+//			break;
+//
+//		case WindowOrientation::HORIZONTAL_RIGHT:
+//                newIosPosition->x = MainWindow::getInstance().getResolutionWidth() - newIosPosition->y;
+//                newIosPosition->y = newIosPosition->x;
+//			break;
+//
+//		default:
+//			break;
+//		}
 	}
 
 	int IOSPointer::AddNewTouch(UITouch *touch) {
@@ -102,6 +104,7 @@ namespace BaconBox {
 			if (touchID != -1) {
 				CGPoint location = [touch locationInView: [touch view]];
 				this->touches[touchID].position =  Vector2(static_cast<float>(location.x), static_cast<float>(location.y));
+				this->touches[touchID].position *= screenScale;
 				convertToBaconBoxScreenPosition(&(this->touches[touchID].position));
 				this->touches[touchID].inContact = true;
 			}
@@ -118,6 +121,7 @@ namespace BaconBox {
 
 				CGPoint location = [touch locationInView: [touch view]];
 				this->touches[touchID].position = Vector2(static_cast<float>(location.x), static_cast<float>(location.y));
+				this->touches[touchID].position *= screenScale;
 				convertToBaconBoxScreenPosition(&(this->touches[touchID].position));
 				this->touches[touchID].inContact = false;
 			}
@@ -137,6 +141,7 @@ namespace BaconBox {
 			if (touchID != -1) {
 				CGPoint location = [touch locationInView: [touch view]];
 				this->touches[touchID].position =  Vector2(static_cast<float>(location.x), static_cast<float>(location.y));
+				this->touches[touchID].position *= screenScale;
 				convertToBaconBoxScreenPosition(&(this->touches[touchID].position));
 				this->touches[touchID].inContact = true;
 			}

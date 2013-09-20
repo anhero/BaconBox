@@ -9,7 +9,7 @@
 namespace BaconBox {
 	BB_ID_IMPL(Mesh);
 
-	Mesh::Mesh() : Component(), mustSync(true), transform(NULL),matrixComponent(NULL){
+	Mesh::Mesh() : Component(), mustSync(true), transform(NULL), postTransformVertices(4), matrixComponent(NULL){
 		this->initializeConnections();
 	}
 
@@ -50,9 +50,9 @@ namespace BaconBox {
 
 	void Mesh::syncMesh(){
 	    mustSync = false;
-	    postTransformVertices.clear();
-	    for(StandardVertexArray::Iterator i  = preTransformVertices.getBegin(); i != preTransformVertices.getEnd(); i++){
-		postTransformVertices.pushBack(*i);
+//	    postTransformVertices.clear();
+	    for(int  i  = 0; i < preTransformVertices.getNbVertices(); i++){
+			postTransformVertices[i] = preTransformVertices[i];
 	    }
 
 	    if(matrixComponent)postTransformVertices.multiplyWithMatrix(matrixComponent->getConcatMatrix());

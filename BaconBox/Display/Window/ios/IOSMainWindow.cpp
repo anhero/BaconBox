@@ -13,19 +13,40 @@ namespace BaconBox {
 	
 	void IOSMainWindow::onBaconBoxInit(unsigned int resolutionWidth,
 									 unsigned int resolutionHeight,
-									 float contextWidth, float contextHeight) {
+
+									 float contextWidth, float contextHeight, WindowOrientation::type orientation) {
 		
 		InputManager::getInstance().setNbPointers(1);
-		InputManager::getInstance().setNbKeyboards(1);
-		
+		InputManager::getInstance().setNbKeyboards(1)
+		;
 		CGRect screenBounds = [[UIScreen mainScreen] bounds];
-		this->MainWindow::setResolution(screenBounds.size.width, screenBounds.size.height);
+		CGFloat screenScale = [[UIScreen mainScreen] scale];
+		CGSize screenSize = CGSizeMake(screenBounds.size.width * screenScale, screenBounds.size.height * screenScale);
+		
+		this->MainWindow::setResolution(screenSize.width, screenSize.height);
 		setContextSize(contextWidth, contextHeight);
+		this->setOrientation(orientation);
 		
-		
+
 		BaconBoxAppViewController *viewController = [[BaconBoxAppViewController alloc] initWithFrame: screenBounds];
 		[BaconBoxAppAppDelegate setViewController: viewController];
 		
+	}
+	
+	
+	void IOSMainWindow::setContextSize(float newContextWidth, float newContextHeight) {
+		MainWindow::setContextSize(newContextWidth, newContextHeight);
+		float screenScale = 1/[[UIScreen mainScreen] scale];
+
+
+		if (newContextWidth == 0.0f) {
+			contextWidth *= screenScale;
+			
+		}
+		if (newContextHeight == 0.0f) {
+			contextHeight *= screenScale;
+			
+		}
 	}
 	
 	IOSMainWindow::IOSMainWindow() : MainWindow() {
@@ -47,6 +68,7 @@ namespace BaconBox {
 	
 	void IOSMainWindow::setInputGrabbed(bool newInputGrabbed) {
 	}
+	
 	
 	void IOSMainWindow::show() {
 		//Need the next to lines of code to prevent the dead code strip

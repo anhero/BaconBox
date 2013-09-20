@@ -46,6 +46,7 @@
 }
 - (void)stop{
 	[self stopFading];
+	BGMusic.currentTime = 0;
 	[BGMusic stop];
 }
 

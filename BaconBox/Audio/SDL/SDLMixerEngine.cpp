@@ -131,7 +131,7 @@ namespace BaconBox {
 		}
 	}
 
-	SDLMixerEngine::SDLMixerEngine() : SoundEngine(), MusicEngine(),
+	SDLMixerEngine::SDLMixerEngine() : MusicEngine(), SoundEngine(),
 		disconnect(false) {
 		instance = this;
 		lastFadeTick = SDL_GetTicks();

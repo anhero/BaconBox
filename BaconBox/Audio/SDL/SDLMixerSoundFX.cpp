@@ -52,8 +52,8 @@ void SDLMixerSoundFX::setVolume(int newVolume) {
 	refreshVolume(getVolume());
 }
 
-AudioState SDLMixerSoundFX::getCurrentState() const {
-	AudioState result = AudioState::INITIAL;
+AudioState::type SDLMixerSoundFX::getCurrentState() const {
+	AudioState::type result = AudioState::INITIAL;
 
 	if(hasPlayed) {
 		if(channel == INVALID_CHANNEL) {
@@ -99,7 +99,12 @@ void SDLMixerSoundFX::soundVolumeChanged() {
 }
 
 void SDLMixerSoundFX::refreshVolume(int newVolume) {
+	int volume =0;
+	if(! SDLMixerEngine::getInstance()->SoundEngine::isMuted()){
+		volume = SDLMixerEngine::baconBoxToSdlVolume(static_cast<int>(static_cast<float>(newVolume) * (static_cast<float>(SDLMixerEngine::getInstance()->getSoundVolume()) / static_cast<float>(Sound::MAX_VOLUME))));
+	}
+		
 	if(channel != INVALID_CHANNEL) {
-		Mix_Volume(channel, SDLMixerEngine::baconBoxToSdlVolume(static_cast<int>(static_cast<float>(newVolume) * (static_cast<float>(SDLMixerEngine::getInstance()->getSoundVolume()) / static_cast<float>(Sound::MAX_VOLUME)))));
+		Mix_Volume(channel, volume);
 	}
 }

@@ -21,19 +21,25 @@ namespace BaconBox {
 	
 	
 	const Vector2 CameraPositionConverter::screenToWorld(const Vector2 &positionOnScreen) const{
-
+				
+		// We apply the camera's scaling and rotation to the position on screen.
+		
+		
 		// We apply the camera's scaling and rotation to the position on screen.
 		Vector2 result(positionOnScreen);
 		
-		result +=transform->getPosition();
-
-		result.rotate(-transform->getRotation());
 		
-		Vector2 v(MainWindow::getInstance().getContextWidth(), MainWindow::getInstance().getContextHeight());
+		result +=(transform->getPosition());
+		result.rotate(-(transform->getRotation()));
+		
+		Vector2 v(1, 1);
 		
 		v.coordinatesDivide(transform->getScale());
+		result.coordinatesMultiply(v);
 		
-		result.coordinatesMultiply(v.getCoordinatesDivision(Vector2(static_cast<float>(MainWindow::getInstance().getResolutionWidth()), static_cast<float>(MainWindow::getInstance().getResolutionHeight()))));
+		
+	
+		
 		return result;
 	}
 	

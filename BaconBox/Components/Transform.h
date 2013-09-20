@@ -7,8 +7,10 @@
 #include "BaconBox/Input/Pointer/Pointer.h"
 #include "BaconBox/Matrix.h"
 #include "BaconBox/Helper/Vector2ChangedData.h"
+#include "BaconBox/Property.h"
 namespace BaconBox {
 	class MatrixComponent;
+	class TransformProxy;
 	/**
 	 * Component that manages the entity's position, orientation and scaling
 	 * values.
@@ -17,7 +19,7 @@ namespace BaconBox {
 	public:
 		BB_ID_HEADER;
 		friend class MatrixComponent;
-
+		friend class TransformProxy;
 		/// Message ID to use when requesting the entity's position.
 		static int MESSAGE_GET_POSITION;
 		/// Message ID to use when requesting the entity's rotation angle.
@@ -81,6 +83,7 @@ namespace BaconBox {
 		 * @see BaconBox::Transform::position
 		ç */
 		virtual const Vector2 &getPosition() const;
+		
 
 		virtual const Vector2 &getRealPosition();
 
@@ -111,24 +114,50 @@ namespace BaconBox {
 		 * @param newScale Vector2 containing the entity's new scale values.
 		 */
 		void setScale(const Vector2 &newScale, bool withMessage = true);
+		
+#ifdef SWIG
+		float x;
+		float y;
+		float scaleX;
+		float scaleY;
+		float rotation;
+#else
+		Property<float, Transform> x;
+		Property<float, Transform> y;
+		Property<float, Transform> scaleX;
+		Property<float, Transform> scaleY;
+		Property<float, Transform> rotation;
+#endif
 
 	protected:
 		void initializeConnections();
+		
+		void setRotationInternal(float rotation);
+		
+		void setX(float X);
+		void setY(float X);
+		void setScaleX(float X);
+		void setScaleY(float X);
+		
+		float getX() const;
+		float getY() const;
+		float getScaleX() const;
+		float getScaleY() const;
+		
 
-
-		Vector2 position;
+		Vector2 _position;
 
 		Vector2 realPosition;
 
 		/**
 		 * Entity's rotation angle (in degrees, from -180 to 180).
 		 */
-		float rotation;
+		float _rotation;
 
 		/**
 		 * Entity's horizontal and vertical scale values.
 		 */
-		Vector2 scale;
+		Vector2 _scale;
 
 	private:
 		MatrixComponent *matrixComponent;
@@ -140,6 +169,12 @@ namespace BaconBox {
 
 		const Vector2 &getPosition() const;
 		void setPosition(const Vector2 &newPosition);
+		
+		float getXPosition() const;
+		float getYPosition() const;
+		
+		void setXPosition(float newXPosition);
+		void setYPosition(float newYPosition);
 
 		const Vector2 &getRealPosition() const;
 
@@ -148,8 +183,22 @@ namespace BaconBox {
 
 		const Vector2 &getScale() const;
 		void setScale(const Vector2 &newScale);
+#ifdef SWIG
+		float  x;
+		float  y;
+		float  scaleX;
+		float  scaleY;
+		float  rotation;
+#else
+		Property<float, Transform> x;
+		Property<float, Transform> y;
+		Property<float, Transform> scaleX;
+		Property<float, Transform> scaleY;
+		Property<float, Transform> rotation;
+#endif
 	protected:
 		void setTransform(Transform *transform);
+		void setProperties(Transform *transform);
 	};
 }
 

@@ -3,7 +3,7 @@
 #include "BaconBox/Input/Pointer/CursorButton.h"
 
 #include "BaconBox/Console.h"
-
+#include "BaconBox/Display/Window/MainWindow.h"
 using namespace BaconBox;
 
 const size_t PointerState::DEFAULT_NB_CURSORS = 1;
@@ -32,9 +32,40 @@ const CursorState &PointerState::getCursorState(size_t index) const {
 	return cursors[index];
 }
 
-Vector2 &PointerState::getCursorPosition(size_t index) {
+const Vector2 &PointerState::getCursorPosition(size_t index) {
 	return cursors[index].position;
 }
+
+void PointerState::setCursorPosition(unsigned int index, Vector2 pos) {
+//	std::cout << "res " <<MainWindow::getInstance().getResolutionHeight() << " " << MainWindow::getInstance().getRealResolutionHeight() << std::endl;
+//	std::cout << "con" <<MainWindow::getInstance().getContextHeight() << " " << MainWindow::getInstance().getRealContextHeight() << std::endl;
+	float windowOrientationAngleOffset = 0.0f;
+	Vector2 windowOrientationOffset;
+	switch (MainWindow::getInstance().getOrientation()) {
+		case WindowOrientation::HORIZONTAL_LEFT:
+			windowOrientationAngleOffset = -90.0f;
+			windowOrientationOffset.x = static_cast<float>(MainWindow::getInstance().getRealResolutionHeight());
+			break;
+			
+		case WindowOrientation::HORIZONTAL_RIGHT:
+			windowOrientationAngleOffset = 90.0f;
+			windowOrientationOffset.y = static_cast<float>(MainWindow::getInstance().getRealResolutionWidth());
+			break;
+		default:
+			break;
+	}
+	
+	pos.rotate(windowOrientationAngleOffset);
+	pos +=(windowOrientationOffset);
+	
+	Vector2 v(MainWindow::getInstance().getContextWidth(), MainWindow::getInstance().getContextHeight());
+	
+	pos.coordinatesMultiply(v.getCoordinatesDivision(Vector2(static_cast<float>(MainWindow::getInstance().getResolutionWidth()), static_cast<float>(MainWindow::getInstance().getResolutionHeight()))));
+	
+	
+	cursors[index].position = pos;
+}
+
 
 Vector2 &PointerState::getCursorPreviousPosition(size_t index) {
 	return cursors[index].previousPosition;

@@ -10,7 +10,7 @@
 #include <string>
 
 #include "BaconBox/Display/Window/WindowOrientation.h"
-
+#include "BaconBox/Vector2.h"
 namespace BaconBox {
 	/**
 	 * Represents the application's main window. This class is used to control
@@ -39,7 +39,7 @@ namespace BaconBox {
 		 * @param contextHeight The height of the context (set it to 0 if you want to work
 		 * with pixels, it will match the resolution height).
 		 */
-		virtual void onBaconBoxInit(unsigned int resolutionWidth, unsigned int resolutionHeight, float contextWidth, float contextHeight) = 0;
+		virtual void onBaconBoxInit(unsigned int resolutionWidth, unsigned int resolutionHeight, float contextWidth, float contextHeight, WindowOrientation::type orientation) = 0;
 
 		/**
 		 * Activates and opens the window.
@@ -78,7 +78,9 @@ namespace BaconBox {
 		 * @param newInputGrabbed
 		 */
 		virtual void setInputGrabbed(bool newInputGrabbed) = 0;
-        
+		
+		Vector2 getResolution();
+        Vector2 getContextSize();
         
         /**
          * Hide the pointer. The pointer still work, but it won't be visible.
@@ -104,14 +106,16 @@ namespace BaconBox {
 		 * Gets the resolution width.
 		 * @return Current window resolution width.
 		 */
-		unsigned int getResolutionWidth();
+		virtual unsigned int getResolutionWidth();
+		virtual unsigned int getRealResolutionWidth();
+		
 
 		/**
 		 * Gets the resolution height.
 		 * @return Current window resolution height.
 		 */
 		unsigned int getResolutionHeight();
-
+		virtual unsigned int getRealResolutionHeight();
 		/**
 		 * Sets the resolution of the window.
 		 */
@@ -129,6 +133,11 @@ namespace BaconBox {
 		 * @return Current context height.
 		 */
 		float getContextHeight();
+		
+		
+		
+		virtual float getRealContextWidth();
+		virtual float getRealContextHeight();
 		
 		/**
 		 * Sets the context size. If you want to work in pixels, set them to 0 and they
@@ -149,7 +158,7 @@ namespace BaconBox {
 		 * @param newOrientation New orientation to set.
 		 * @see BaconBox::MainWindow::orientation
 		 */
-		void setOrientation(WindowOrientation::type newOrientation);
+		virtual void setOrientation(WindowOrientation::type newOrientation);
 	protected:
 		/**
 		 * The constructor. When implementing a MainWindow, do any
@@ -161,7 +170,9 @@ namespace BaconBox {
 		 * Destructor.
 		 */
 		virtual ~MainWindow();
-	private:
+	protected:
+		
+		bool orientationIsHorizontal();
 		/// Screen's width resolution (or width of the window in window mode).
 		unsigned int resolutionWidth;
 
