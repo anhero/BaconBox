@@ -179,7 +179,7 @@
 		516A93C5179ED9FD00F483C4 /* Vector2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 516A92F5179ED9FD00F483C4 /* Vector2.cpp */; };
 		516A93C6179ED9FD00F483C4 /* Vector3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 516A92F7179ED9FD00F483C4 /* Vector3.cpp */; };
 		516A93C7179ED9FD00F483C4 /* VertexArray.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 516A92F9179ED9FD00F483C4 /* VertexArray.cpp */; };
-		51C9B6B717A0A8D200C30894 /* libCocoaHTTPServer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 51C9B6B617A0A8D200C30894 /* libCocoaHTTPServer.a */; };
+		C784119217ECF50300FC8929 /* libCocoaHTTPServer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C784119117ECF50300FC8929 /* libCocoaHTTPServer.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -570,7 +570,9 @@
 		516A92F9179ED9FD00F483C4 /* VertexArray.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = VertexArray.cpp; sourceTree = "<group>"; };
 		516A92FA179ED9FD00F483C4 /* VertexArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VertexArray.h; sourceTree = "<group>"; };
 		51C0640E17A0960E003BDF37 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
-		51C9B6B617A0A8D200C30894 /* libCocoaHTTPServer.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libCocoaHTTPServer.a; path = ../../../../libraries/BaconBox/libraries/ios/universal/lib/libCocoaHTTPServer.a; sourceTree = "<group>"; };
+		C784119117ECF50300FC8929 /* libCocoaHTTPServer.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libCocoaHTTPServer.a; path = ../../../../libraries/BaconBox/libraries/ios/universal/lib/libCocoaHTTPServer.a; sourceTree = "<group>"; };
+		C7B75C1317ECBDFD00A056CF /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		C7B75C1517ECBE0D00A056CF /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -582,7 +584,7 @@
 				5161F42C172049FD0044226C /* QuartzCore.framework in Frameworks */,
 				5161F42A172049F50044226C /* OpenAL.framework in Frameworks */,
 				5161F428172049ED0044226C /* CoreGraphics.framework in Frameworks */,
-				51C9B6B717A0A8D200C30894 /* libCocoaHTTPServer.a in Frameworks */,
+				C784119217ECF50300FC8929 /* libCocoaHTTPServer.a in Frameworks */,
 				5161F426172049DB0044226C /* AVFoundation.framework in Frameworks */,
 				5161F424172049D60044226C /* AudioToolbox.framework in Frameworks */,
 				5161F422172049B90044226C /* OpenGLES.framework in Frameworks */,
@@ -618,7 +620,9 @@
 		5161F0E7172037090044226C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				51C9B6B617A0A8D200C30894 /* libCocoaHTTPServer.a */,
+				C784119117ECF50300FC8929 /* libCocoaHTTPServer.a */,
+				C7B75C1517ECBE0D00A056CF /* libxml2.dylib */,
+				C7B75C1317ECBDFD00A056CF /* CFNetwork.framework */,
 				51C0640E17A0960E003BDF37 /* Security.framework */,
 				5161F4FD172079A30044226C /* libfreetype.a */,
 				5161F4FE172079A30044226C /* libJsonBox.a */,
@@ -1539,7 +1543,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				DSTROOT = /tmp/BaconBox.dst;
-				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_OPTIMIZATION_LEVEL = fast;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "";
 				HEADER_SEARCH_PATHS = (
@@ -1548,10 +1552,11 @@
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/../../libraries/ios/universal/lib\"",
+					"\\\"$(SRCROOT)/../../libraries/ios/universal/lib\\\"",
+					/Users/twistedjoe/Documents/Berzerk/BaconBox/FF2/libraries/BaconBox/libraries/ios/universal/lib,
 				);
-				LLVM_LTO = NO;
-				LLVM_VECTORIZE_LOOPS = NO;
+				LLVM_LTO = YES;
+				LLVM_VECTORIZE_LOOPS = YES;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -1562,7 +1567,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				DSTROOT = /tmp/BaconBox.dst;
-				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_OPTIMIZATION_LEVEL = fast;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "";
 				HEADER_SEARCH_PATHS = (
@@ -1571,10 +1576,11 @@
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/../../libraries/ios/universal/lib\"",
+					"\\\"$(SRCROOT)/../../libraries/ios/universal/lib\\\"",
+					/Users/twistedjoe/Documents/Berzerk/BaconBox/FF2/libraries/BaconBox/libraries/ios/universal/lib,
 				);
-				LLVM_LTO = NO;
-				LLVM_VECTORIZE_LOOPS = NO;
+				LLVM_LTO = YES;
+				LLVM_VECTORIZE_LOOPS = YES;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
