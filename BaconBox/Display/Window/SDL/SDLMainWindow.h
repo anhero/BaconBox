@@ -43,7 +43,7 @@ namespace BaconBox {
 //		float getRealContextHeight();
 		
 		
-		
+		void setUpdatesPerSecond(double setFrameInterval);
 		
 
 		/**

@@ -53,6 +53,9 @@ namespace BaconBox {
 //		return (getOrientation() == WindowOrientation::HORIZONTAL_LEFT || getOrientation() == WindowOrientation::HORIZONTAL_RIGHT? getContextWidth(): getContextHeight());
 //	}
 	
+	void SDLMainWindow::setUpdatesPerSecond(double setFrameInterval){
+	}
+	
 	void SDLMainWindow::show() {
 		while (SDLInputManager::getSDLInstance()->isRunning()) {
 			Engine::pulse();

@@ -6,7 +6,6 @@
 #include "BaconBox/Core/Engine.h"
 #include "BaconBox/Input/InputManager.h"
 #include "BaconBox/Display/Window/ios/BaconBoxAppAppDelegate.h"
-#include "BaconBox/Display/Window/ios/BaconBoxAppViewController.h"
 #import <UIKit/UIKit.h>
 
 namespace BaconBox {
@@ -28,7 +27,9 @@ namespace BaconBox {
 		this->setOrientation(orientation);
 		
 
-		BaconBoxAppViewController *viewController = [[BaconBoxAppViewController alloc] initWithFrame: screenBounds];
+		viewController = [[BaconBoxAppViewController alloc] initWithFrame: screenBounds];
+		[viewController setFrameInterval: 60.0f/Engine::getUpdatesPerSecond()];
+
 		[BaconBoxAppAppDelegate setViewController: viewController];
 		
 	}
@@ -47,6 +48,10 @@ namespace BaconBox {
 			contextHeight *= screenScale;
 			
 		}
+	}
+	
+	void IOSMainWindow::setUpdatesPerSecond(double setFrameInterval){
+		[viewController setFrameInterval: 60.0f/setFrameInterval];
 	}
 	
 	IOSMainWindow::IOSMainWindow() : MainWindow() {

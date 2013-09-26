@@ -11,7 +11,6 @@
 @private
     EAGLContext *context;
     GLuint program;
-    
     BOOL animating;
     NSInteger animationFrameInterval;
     __unsafe_unretained CADisplayLink *displayLink;
@@ -23,4 +22,6 @@
 - (void)startAnimation;
 - (void)stopAnimation;
 - (id)initWithFrame:(CGRect)frame;
+- (void)setFrameInterval: (double) frameInterval;
+
 @end

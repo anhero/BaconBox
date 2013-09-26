@@ -45,6 +45,7 @@ namespace BaconBox {
 		 * Activates and opens the window.
 		 */
 		virtual void show() = 0;
+		virtual void setUpdatesPerSecond(double updatesPerSecond) = 0;
 
 		/**
 		 * Changes the caption of the window. This is usually

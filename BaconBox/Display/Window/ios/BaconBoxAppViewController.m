@@ -43,6 +43,16 @@
     animating = FALSE;
     animationFrameInterval = 1;
     self.displayLink = nil;
+	
+	if ([self respondsToSelector:@selector(setNeedsStatusBarAppearanceUpdate)]) {
+        // iOS 7
+        [self prefersStatusBarHidden];
+        [self performSelector:@selector(setNeedsStatusBarAppearanceUpdate)];
+    } else {
+        // iOS 6
+        [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationSlide];
+    }
+	
     return self;
 }
 
@@ -53,6 +63,12 @@
         [EAGLContext setCurrentContext:nil];
     
     
+}
+
+
+- (BOOL)prefersStatusBarHidden
+{
+    return YES;
 }
 
 - (void)didReceiveMemoryWarning
@@ -108,12 +124,20 @@
     }
 }
 
+- (void)setFrameInterval: (double) frameInterval {
+	animationFrameInterval = frameInterval;
+	[self.displayLink setFrameInterval:animationFrameInterval];
+
+}
+
+
 - (void)startAnimation
 {
     if (!animating) {
         CADisplayLink *aDisplayLink = [[UIScreen mainScreen] displayLinkWithTarget:self selector:@selector(drawFrame)];
-        [aDisplayLink setFrameInterval:animationFrameInterval];
+		[aDisplayLink setFrameInterval:animationFrameInterval];
         [aDisplayLink addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
+
         self.displayLink = aDisplayLink;
         
         animating = TRUE;
