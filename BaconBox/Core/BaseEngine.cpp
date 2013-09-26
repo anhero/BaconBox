@@ -128,6 +128,7 @@ namespace BaconBox {
 			// Calculate the update delay.
 			this->updateDelay = 1.0 / static_cast<double>(updatesPerSecond);
 		}
+		mainWindow->setUpdatesPerSecond(updatesPerSecond);
 	}
 
 	void BaseEngine::switchToNextState(){
@@ -162,7 +163,7 @@ namespace BaconBox {
 			
 			this->loops = 0;
 			
-			while (TimeHelper::getInstance().getSinceStartComplete() > this->nextUpdate &&
+			if (TimeHelper::getInstance().getSinceStartComplete() > this->nextUpdate &&
 			       this->loops < this->minFps) {
 				// We refresh the time.
 				TimeHelper::getInstance().refreshTime();
