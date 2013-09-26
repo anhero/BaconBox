@@ -23,29 +23,38 @@
 #include "BaconBox/Core/Engine.h"
 
 namespace BaconBox {
+	
+	std::string ResourcePathHandler::debugResourcePath = "";
+
 
 	std::string ResourcePathHandler::getResourcePathFor(const std::string &item) {
 		std::string path;
 #ifdef BB_IPHONE_PLATFORM
-		NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 
 		NSString *resourceDirectory = [[NSBundle mainBundle] resourcePath];
 	path = ((std::string)[resourceDirectory cStringUsingEncoding: NSASCIIStringEncoding] + "/" + item);
-		[pool release];
 #else
-
-		path = Engine::getApplicationPath();
+		if(debugResourcePath != ""){
+			path = debugResourcePath + "/" + item;
+		}
+		else{
+			path = Engine::getApplicationPath();
+		
 
 #ifdef BB_MAC_PLATFORM
 		path = path + "/../Resources/" + item;
 #else
 		path = path + "/Resources/" + item;
 #endif
-
-#endif
+}
+#endif //BB_IPHONE_PLATFORM
+		
 		return path;
 	}
 
+	void ResourcePathHandler::setDebugResourcePath(const std::string & path){
+		debugResourcePath = path;
+	}
 	
 	std::string ResourcePathHandler::getResourcePath(){
 		std::string resourcePath;
@@ -54,6 +63,9 @@ namespace BaconBox {
 		NSString *resourceDirectory = [[NSBundle mainBundle] resourcePath];
 		resourcePath = [resourceDirectory cStringUsingEncoding: NSASCIIStringEncoding];
 #else
+		
+		if(debugResourcePath != "") return debugResourcePath;
+
 resourcePath = Engine::getApplicationPath();
 		
 #ifdef BB_MAC_PLATFORM
@@ -62,7 +74,7 @@ resourcePath = Engine::getApplicationPath();
 		resourcePath = resourcePath + "/Resources";
 #endif
 
-#endif
+#endif //BB_IPHONE_PLATFORM
 		return resourcePath;
 	}
 
@@ -75,12 +87,10 @@ resourcePath = Engine::getApplicationPath();
 
 	std::string ResourcePathHandler::getDocumentPath() {
 #ifdef BB_IPHONE_PLATFORM
-		NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 
 		NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
 		NSString *documentsDirectory = [paths objectAtIndex: 0];
 	std::string documentPath = [documentsDirectory cStringUsingEncoding: NSASCIIStringEncoding];
-		[pool release];
 		return documentPath;
 #elif defined(BB_QT)
 		return QDesktopServices::storageLocation(QDesktopServices::DataLocation).toStdString();

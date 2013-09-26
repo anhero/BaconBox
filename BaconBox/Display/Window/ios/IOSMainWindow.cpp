@@ -6,52 +6,52 @@
 #include "BaconBox/Core/Engine.h"
 #include "BaconBox/Input/InputManager.h"
 #include "BaconBox/Display/Window/ios/BaconBoxAppAppDelegate.h"
-
 #import <UIKit/UIKit.h>
 
 namespace BaconBox {
 	
 	void IOSMainWindow::onBaconBoxInit(unsigned int resolutionWidth,
 									 unsigned int resolutionHeight,
-									 float contextWidth, float contextHeight, WindowOrientation::type orientation) {
-				NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 
+									 float contextWidth, float contextHeight, WindowOrientation::type orientation) {
 		
 		InputManager::getInstance().setNbPointers(1);
-		InputManager::getInstance().setNbKeyboards(1);
+		InputManager::getInstance().setNbKeyboards(1)
+		;
 		CGRect screenBounds = [[UIScreen mainScreen] bounds];
 		CGFloat screenScale = [[UIScreen mainScreen] scale];
 		CGSize screenSize = CGSizeMake(screenBounds.size.width * screenScale, screenBounds.size.height * screenScale);
 		
 		this->MainWindow::setResolution(screenSize.width, screenSize.height);
+		setContextSize(contextWidth, contextHeight);
 		this->setOrientation(orientation);
 		
-		setContextSize(contextWidth, contextHeight);
 
-		BaconBoxAppViewController *viewController = [[BaconBoxAppViewController alloc] initWithFrame: screenBounds];
+		viewController = [[BaconBoxAppViewController alloc] initWithFrame: screenBounds];
+		[viewController setFrameInterval: 60.0f/Engine::getUpdatesPerSecond()];
+
 		[BaconBoxAppAppDelegate setViewController: viewController];
-		[pool release];
 		
 	}
 	
 	
 	void IOSMainWindow::setContextSize(float newContextWidth, float newContextHeight) {
+		MainWindow::setContextSize(newContextWidth, newContextHeight);
 		float screenScale = 1/[[UIScreen mainScreen] scale];
 
 
 		if (newContextWidth == 0.0f) {
-			contextWidth = resolutionWidth * screenScale;
+			contextWidth *= screenScale;
 			
-		} else {
-			contextWidth = newContextWidth;
 		}
-		
 		if (newContextHeight == 0.0f) {
-			contextHeight = resolutionHeight * screenScale;
+			contextHeight *= screenScale;
 			
-		} else {
-			contextHeight = newContextHeight;
 		}
+	}
+	
+	void IOSMainWindow::setUpdatesPerSecond(double setFrameInterval){
+		[viewController setFrameInterval: 60.0f/setFrameInterval];
 	}
 	
 	IOSMainWindow::IOSMainWindow() : MainWindow() {
@@ -76,14 +76,11 @@ namespace BaconBox {
 	
 	
 	void IOSMainWindow::show() {
-		NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 		//Need the next to lines of code to prevent the dead code strip
 		//from striping the BaconBoxAppDelegate Class
 		BaconBoxAppAppDelegate *appDelegate = [BaconBoxAppAppDelegate alloc];
-		[appDelegate release];
 		
 		UIApplicationMain(Engine::getApplicationArgc(), Engine::getApplicationArgv(), nil, @"BaconBoxAppAppDelegate");
-		[pool release];
 	}
 	
 	IOSMainWindow::~IOSMainWindow() {

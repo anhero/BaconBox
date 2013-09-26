@@ -17,8 +17,11 @@ namespace BaconBox {
 
 	void DefaultColorTransform::setFrameColorTransform(int frame){
 		if(!useCustomMatrix && matrixByParentFrame){
-			matrix =  (*matrixByParentFrame)[frame];
-			invalidated = true;
+			if(matrix.colorOffset !=  (*matrixByParentFrame)[frame].colorOffset || matrix.colorMultiplier !=  (*matrixByParentFrame)[frame].colorMultiplier) {
+				matrix =  (*matrixByParentFrame)[frame];
+				invalidated = true;
+			}
+
 		}
 			
 	}
@@ -41,7 +44,7 @@ namespace BaconBox {
         }
 	bool DefaultColorTransform::needConcat(){
 		MovieClipEntity * parentMC = entityContainer->getParent();
-		return (invalidated || reinterpret_cast<DefaultColorTransform*>(parentMC->getColorTransform())->needConcat());
+		return (invalidated || (parentMC && reinterpret_cast<DefaultColorTransform*>(parentMC->getColorTransform())->needConcat()));
 	}
 	
 	ColorMatrix &DefaultColorTransform::getMatrix(){
@@ -51,10 +54,14 @@ namespace BaconBox {
 
 	ColorMatrix & DefaultColorTransform::getConcatColorMatrix(){
 		MovieClipEntity * parentMC = entityContainer->getParent();
-		if(!useCustomMatrix && entityContainer && parentMC){
+		if( entityContainer && parentMC){
 			if(needConcat()){
 				concatMatrix = matrix;
 				concatMatrix.concat(parentMC->getConcatColorMatrix());
+				
+				//TODO: the invalidated system does not work, we need to think of something else to prevent over concatenetion of matrix, a version system where we increment an int maybe?
+//				invalidated = false;
+
 				return concatMatrix;
 			}
 			else{
@@ -62,6 +69,7 @@ namespace BaconBox {
 			}
 	    }
 	    else{
+			invalidated = false;
 	    	return matrix;
 	    }
 	}

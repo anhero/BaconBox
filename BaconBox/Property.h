@@ -7,7 +7,8 @@
 #define BB_PROPERTY_H
 namespace BaconBox{
 	template<class _Prop_t,
-	class _ObjClass_t>
+	class _ObjClass_t,
+	class _ref_Prop_t = _Prop_t>
 	class Property
 	{
 		typedef _Prop_t (_ObjClass_t::* _pmGet_t)() const;
@@ -22,6 +23,8 @@ namespace BaconBox{
 		Property(_ObjClass_t* objInstance, _pmGet_t pmGet, _pmSet_t pmSet)
 		:  m_objInstance(objInstance), m_pmGet(pmGet), m_pmSet(pmSet)
 		{}
+		
+		_ref_Prop_t* operator &(){ return &((m_objInstance->*m_pmGet)()); }
 		operator _Prop_t() { return (m_objInstance->*m_pmGet)(); }
 		void operator =(_Prop_t value) { (m_objInstance->*m_pmSet)(value); }
 	};

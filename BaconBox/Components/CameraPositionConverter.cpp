@@ -32,10 +32,13 @@ namespace BaconBox {
 		result +=(transform->getPosition());
 		result.rotate(-(transform->getRotation()));
 		
-		Vector2 v(MainWindow::getInstance().getContextWidth(), MainWindow::getInstance().getContextHeight());
+		Vector2 v(1, 1);
 		
 		v.coordinatesDivide(transform->getScale());
+		result.coordinatesMultiply(v);
 		
+		
+	
 		
 		return result;
 	}

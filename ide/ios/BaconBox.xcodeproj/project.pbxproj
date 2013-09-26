@@ -19,7 +19,6 @@
 		5161F42E17204A050044226C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5161F42D17204A050044226C /* UIKit.framework */; };
 		5161F502172079A30044226C /* libfreetype.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5161F4FD172079A30044226C /* libfreetype.a */; };
 		5161F503172079A30044226C /* libJsonBox.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5161F4FE172079A30044226C /* libJsonBox.a */; };
-		5161F504172079A30044226C /* liblua.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5161F4FF172079A30044226C /* liblua.a */; };
 		5161F505172079A30044226C /* libpng.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5161F500172079A30044226C /* libpng.a */; };
 		516A92FB179ED9FD00F483C4 /* AudioEngine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 516A9104179ED9FC00F483C4 /* AudioEngine.cpp */; };
 		516A92FC179ED9FD00F483C4 /* BackgroundMusic.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 516A9107179ED9FC00F483C4 /* BackgroundMusic.cpp */; };
@@ -179,6 +178,8 @@
 		516A93C5179ED9FD00F483C4 /* Vector2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 516A92F5179ED9FD00F483C4 /* Vector2.cpp */; };
 		516A93C6179ED9FD00F483C4 /* Vector3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 516A92F7179ED9FD00F483C4 /* Vector3.cpp */; };
 		516A93C7179ED9FD00F483C4 /* VertexArray.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 516A92F9179ED9FD00F483C4 /* VertexArray.cpp */; };
+		C784119217ECF50300FC8929 /* libCocoaHTTPServer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C784119117ECF50300FC8929 /* libCocoaHTTPServer.a */; };
+		C7F3281D17F35451009D7092 /* liblua.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5161F4FF172079A30044226C /* liblua.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -568,6 +569,11 @@
 		516A92F8179ED9FD00F483C4 /* Vector3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Vector3.h; sourceTree = "<group>"; };
 		516A92F9179ED9FD00F483C4 /* VertexArray.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = VertexArray.cpp; sourceTree = "<group>"; };
 		516A92FA179ED9FD00F483C4 /* VertexArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VertexArray.h; sourceTree = "<group>"; };
+		51C0640E17A0960E003BDF37 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		C745EF1A17F0DCF000753FE9 /* libluajit-5.1.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libluajit-5.1.a"; path = "../../../../libraries/BaconBox/libraries/ios/universal/lib/libluajit-5.1.a"; sourceTree = "<group>"; };
+		C784119117ECF50300FC8929 /* libCocoaHTTPServer.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libCocoaHTTPServer.a; path = ../../../../libraries/BaconBox/libraries/ios/universal/lib/libCocoaHTTPServer.a; sourceTree = "<group>"; };
+		C7B75C1317ECBDFD00A056CF /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		C7B75C1517ECBE0D00A056CF /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -579,14 +585,15 @@
 				5161F42C172049FD0044226C /* QuartzCore.framework in Frameworks */,
 				5161F42A172049F50044226C /* OpenAL.framework in Frameworks */,
 				5161F428172049ED0044226C /* CoreGraphics.framework in Frameworks */,
+				C784119217ECF50300FC8929 /* libCocoaHTTPServer.a in Frameworks */,
 				5161F426172049DB0044226C /* AVFoundation.framework in Frameworks */,
 				5161F424172049D60044226C /* AudioToolbox.framework in Frameworks */,
 				5161F422172049B90044226C /* OpenGLES.framework in Frameworks */,
 				5161F420172049AC0044226C /* libz.dylib in Frameworks */,
+				C7F3281D17F35451009D7092 /* liblua.a in Frameworks */,
 				5161F0E9172037090044226C /* Foundation.framework in Frameworks */,
 				5161F502172079A30044226C /* libfreetype.a in Frameworks */,
 				5161F503172079A30044226C /* libJsonBox.a in Frameworks */,
-				5161F504172079A30044226C /* liblua.a in Frameworks */,
 				5161F505172079A30044226C /* libpng.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -614,6 +621,11 @@
 		5161F0E7172037090044226C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C745EF1A17F0DCF000753FE9 /* libluajit-5.1.a */,
+				C784119117ECF50300FC8929 /* libCocoaHTTPServer.a */,
+				C7B75C1517ECBE0D00A056CF /* libxml2.dylib */,
+				C7B75C1317ECBDFD00A056CF /* CFNetwork.framework */,
+				51C0640E17A0960E003BDF37 /* Security.framework */,
 				5161F4FD172079A30044226C /* libfreetype.a */,
 				5161F4FE172079A30044226C /* libJsonBox.a */,
 				5161F4FF172079A30044226C /* liblua.a */,
@@ -1469,6 +1481,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++98";
 				CLANG_CXX_LIBRARY = "libstdc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
@@ -1478,7 +1491,7 @@
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_INPUT_FILETYPE = sourcecode.cpp.objcpp;
-				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_OPTIMIZATION_LEVEL = fast;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -1490,8 +1503,8 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
-				LLVM_LTO = NO;
-				LLVM_VECTORIZE_LOOPS = NO;
+				LLVM_LTO = YES;
+				LLVM_VECTORIZE_LOOPS = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 			};
@@ -1503,6 +1516,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++98";
 				CLANG_CXX_LIBRARY = "libstdc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
@@ -1511,7 +1525,7 @@
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_INPUT_FILETYPE = sourcecode.cpp.objcpp;
-				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_OPTIMIZATION_LEVEL = fast;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"BB_LUA=1",
 					"SIGLY_DEFAULT_MT_POLICY=SingleThreaded",
@@ -1520,8 +1534,8 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
-				LLVM_LTO = NO;
-				LLVM_VECTORIZE_LOOPS = NO;
+				LLVM_LTO = YES;
+				LLVM_VECTORIZE_LOOPS = YES;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -1531,6 +1545,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				DSTROOT = /tmp/BaconBox.dst;
+				GCC_OPTIMIZATION_LEVEL = fast;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "";
 				HEADER_SEARCH_PATHS = (
@@ -1539,8 +1554,12 @@
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/../../libraries/ios/universal/lib\"",
+					"\\\\\\\"$(SRCROOT)/../../libraries/ios/universal/lib\\\\\\\"",
+					/Users/twistedjoe/Documents/Berzerk/BaconBox/FF2/libraries/BaconBox/libraries/ios/universal/lib,
+					/Users/twistedjoe/Documents/Berzerk/BaconBox/FF2/Libraries/BaconBox/libraries/ios/universal/lib,
 				);
+				LLVM_LTO = NO;
+				LLVM_VECTORIZE_LOOPS = YES;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -1551,6 +1570,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				DSTROOT = /tmp/BaconBox.dst;
+				GCC_OPTIMIZATION_LEVEL = fast;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "";
 				HEADER_SEARCH_PATHS = (
@@ -1559,8 +1579,12 @@
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/../../libraries/ios/universal/lib\"",
+					"\\\\\\\"$(SRCROOT)/../../libraries/ios/universal/lib\\\\\\\"",
+					/Users/twistedjoe/Documents/Berzerk/BaconBox/FF2/libraries/BaconBox/libraries/ios/universal/lib,
+					/Users/twistedjoe/Documents/Berzerk/BaconBox/FF2/Libraries/BaconBox/libraries/ios/universal/lib,
 				);
+				LLVM_LTO = NO;
+				LLVM_VECTORIZE_LOOPS = YES;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;

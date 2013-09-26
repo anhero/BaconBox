@@ -5,7 +5,6 @@
 #ifndef BB_AUDIO_STATE_H
 #define BB_AUDIO_STATE_H
 
-#include "BaconBox/Helper/SafeEnum.h"
 
 namespace BaconBox {
 	/**
@@ -15,7 +14,8 @@ namespace BaconBox {
 	 * music, it set at PAUSED. When a sound is done being played, it is set at
 	 * STOPPED.
 	 */
-	struct AudioStateDef {
+	
+	struct AudioState {
 		enum type {
 			INITIAL,
 			PLAYING,
@@ -24,8 +24,9 @@ namespace BaconBox {
 			FADING_IN,
 			FADING_OUT
 		};
+		
+	private:
 	};
-	typedef SafeEnum<AudioStateDef> AudioState;
 }
 
 #endif

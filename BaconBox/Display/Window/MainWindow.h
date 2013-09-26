@@ -10,7 +10,7 @@
 #include <string>
 
 #include "BaconBox/Display/Window/WindowOrientation.h"
-
+#include "BaconBox/Vector2.h"
 namespace BaconBox {
 	/**
 	 * Represents the application's main window. This class is used to control
@@ -45,6 +45,7 @@ namespace BaconBox {
 		 * Activates and opens the window.
 		 */
 		virtual void show() = 0;
+		virtual void setUpdatesPerSecond(double updatesPerSecond) = 0;
 
 		/**
 		 * Changes the caption of the window. This is usually
@@ -79,8 +80,8 @@ namespace BaconBox {
 		 */
 		virtual void setInputGrabbed(bool newInputGrabbed) = 0;
 		
-		
-        
+		Vector2 getResolution();
+        Vector2 getContextSize();
         
         /**
          * Hide the pointer. The pointer still work, but it won't be visible.

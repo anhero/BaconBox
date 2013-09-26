@@ -68,7 +68,7 @@ namespace BaconBox {
 		 * @return Sound's current state.
 		 * @see BaconBox::AudioState
 		 */
-		AudioState getCurrentState() const;
+		AudioState::type getCurrentState() const;
 		/**
 		 * Destructor.
 		 */

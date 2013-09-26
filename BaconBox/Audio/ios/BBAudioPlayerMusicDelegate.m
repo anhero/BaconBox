@@ -8,7 +8,7 @@
 @implementation BBAudioPlayerMusicDelegate
 
 - (id)initWithPath:(NSString *)path{
-	[super init];
+	self = [super init];
 
 	BGMusic = [[AVAudioPlayer alloc] initWithContentsOfURL:
 			   [[NSURL alloc] initFileURLWithPath:path] error:nil];
@@ -46,6 +46,7 @@
 }
 - (void)stop{
 	[self stopFading];
+	BGMusic.currentTime = 0;
 	[BGMusic stop];
 }
 

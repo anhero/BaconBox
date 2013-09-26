@@ -70,7 +70,7 @@ namespace BaconBox {
 		 * @return Sound's current state.
 		 * @see BaconBox::AudioState::Enum
 		 */
-		virtual AudioState getCurrentState() const = 0;
+		virtual AudioState::type getCurrentState() const = 0;
 		/**
 		 * Destructor. Does not delete the sound data, only the sound source.
 		 * This is done to be able to have many sounds playing the same

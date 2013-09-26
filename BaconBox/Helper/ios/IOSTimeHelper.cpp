@@ -14,18 +14,14 @@ void IOSTimeHelper::sleep(double duration) {
 }
 
 IOSTimeHelper::IOSTimeHelper() : TimeHelper(), startTime(0.0), lastTime(0.0) {
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
 	startTime = [[NSDate date] timeIntervalSince1970];
-	[pool release];
 }
 
 IOSTimeHelper::~IOSTimeHelper() {
 }
 
 void IOSTimeHelper::refreshTime() {
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
 	double currentTime = [[NSDate date] timeIntervalSince1970];
-	[pool release];
 	double sinceLast = currentTime - lastTime;
 	
 	// We add time to sinceStart and sinceStartReal only if the game isn't

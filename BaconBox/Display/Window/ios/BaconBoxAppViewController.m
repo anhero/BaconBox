@@ -16,12 +16,12 @@
 
 - (id)initWithFrame:(CGRect)frame
 {
-    self.view = [[[EAGLView alloc] initWithFrame:frame] autorelease];
+    self.view = [[EAGLView alloc] initWithFrame:frame];
 	bool retina = [[UIScreen mainScreen] scale] == 2;
-	BaconBox::Platform::getInstance().isRetina = retina;
-	BaconBox::Platform::getInstance().isIphone = (frame.size.width == 320);
-	BaconBox::Platform::getInstance().isIphone5 = (frame.size.height == 568);
-	BaconBox::Platform::getInstance().isIpad = (frame.size.width == 768);
+//	BaconBox::Platform::getInstance().isRetina = retina;
+//	BaconBox::Platform::getInstance().isIphone = (frame.size.width == 320);
+//	BaconBox::Platform::getInstance().isIOSWide = (frame.size.height == 568);
+//	BaconBox::Platform::getInstance().isIpad = (frame.size.width == 768);
     if ([[UIScreen mainScreen] respondsToSelector:@selector(scale)] && retina){
         [self.view setContentScaleFactor:2.0f];
     }
@@ -36,7 +36,6 @@
         NSLog(@"Failed to set ES context current");
     
 	self.context = aContext;
-	[aContext release];
 	
     [(EAGLView *)self.view setContext:context];
     [(EAGLView *)self.view setFramebuffer];
@@ -44,6 +43,16 @@
     animating = FALSE;
     animationFrameInterval = 1;
     self.displayLink = nil;
+	
+	if ([self respondsToSelector:@selector(setNeedsStatusBarAppearanceUpdate)]) {
+        // iOS 7
+        [self prefersStatusBarHidden];
+        [self performSelector:@selector(setNeedsStatusBarAppearanceUpdate)];
+    } else {
+        // iOS 6
+        [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationSlide];
+    }
+	
     return self;
 }
 
@@ -53,9 +62,13 @@
     if ([EAGLContext currentContext] == context)
         [EAGLContext setCurrentContext:nil];
     
-    [context release];
     
-    [super dealloc];
+}
+
+
+- (BOOL)prefersStatusBarHidden
+{
+    return YES;
 }
 
 - (void)didReceiveMemoryWarning
@@ -111,12 +124,20 @@
     }
 }
 
+- (void)setFrameInterval: (double) frameInterval {
+	animationFrameInterval = frameInterval;
+	[self.displayLink setFrameInterval:animationFrameInterval];
+
+}
+
+
 - (void)startAnimation
 {
     if (!animating) {
         CADisplayLink *aDisplayLink = [[UIScreen mainScreen] displayLinkWithTarget:self selector:@selector(drawFrame)];
-        [aDisplayLink setFrameInterval:animationFrameInterval];
+		[aDisplayLink setFrameInterval:animationFrameInterval];
         [aDisplayLink addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
+
         self.displayLink = aDisplayLink;
         
         animating = TRUE;

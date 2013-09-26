@@ -6,6 +6,14 @@
 #include "BaconBox/Core/Component.h"
 #include "BaconBox/Vector2.h"
 
+#ifdef BB_LUA
+#include "BaconBox/Components/Lua/LuaEntity.h"
+#endif
+
+#ifdef BB_LUA
+struct lua_State;
+#endif //BB_LUA
+
 namespace BaconBox {
     class MovieClipEntity;
 	class EntityContainer : public Component {
@@ -67,8 +75,11 @@ namespace BaconBox {
 	public:
 		EntityContainerProxy(MovieClipEntity *entity);
 
-
 		void addChild(MovieClipEntity *newChild);
+		
+#ifdef BB_LUA
+		void addChild(lua_State *L);
+#endif //BB_LUA
 
 		void addChildAt(MovieClipEntity *newChild, int index);
 

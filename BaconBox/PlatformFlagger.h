@@ -16,7 +16,9 @@
 
 #if defined(BB_FLASH_PLATFORM )
 #undef BB_FLASH_PLATFORM
-#define __FLASHPLAYER__
+ 	#if !defined(__FLASHPLAYER__ )
+		#define __FLASHPLAYER__
+	#endif
 #endif
 
 #if defined(__FLASHPLAYER__)

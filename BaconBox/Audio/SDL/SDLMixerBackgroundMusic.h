@@ -86,7 +86,7 @@ namespace BaconBox {
 		 * @return Sound's current state.
 		 * @see BaconBox::AudioState::Enum
 		 */
-		AudioState getCurrentState() const;
+		AudioState::type getCurrentState() const;
 		/**
 		 * Play the music with a fade in effect.
 		 * @param nbTimes Number of times to play the music in loop. Negative

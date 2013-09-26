@@ -6,6 +6,7 @@
 #define BB_IOS_MAIN_WINDOW_H
 
 #include "BaconBox/Display/Window/MainWindow.h"
+#include "BaconBox/Display/Window/ios/BaconBoxAppViewController.h"
 
 namespace BaconBox {
 	/**
@@ -20,6 +21,10 @@ namespace BaconBox {
 		void setCaption(const std::string &caption);
 		bool isFullScreen() const;
 		void setFullScreen(bool);
+		
+		
+		void setUpdatesPerSecond(double updatesPerSecond);
+
 		/**
 		 * Checks if the main window grabs the input. Whenà the input is
 		 * grabbed, the cursor is invisible.
@@ -39,6 +44,7 @@ namespace BaconBox {
 		void setContextSize(float newContextWidth, float newContextHeight);
 		
 	private:
+		BaconBoxAppViewController *viewController;
 		IOSMainWindow();
 
 		~IOSMainWindow();

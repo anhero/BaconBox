@@ -15,6 +15,10 @@ LuaManager * LuaManager::instance = NULL;
 		luaL_openlibs(L);
         luaopen_BaconBox(L);
 	}
+	lua_State * LuaManager::getVM(){
+		return  getDefault().L;
+	}
+
 
 	void LuaManager::doString(const std::string & string){
         getDefault().internalDoString(string);

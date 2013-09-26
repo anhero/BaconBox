@@ -22,7 +22,7 @@ namespace BaconBox {
 
 	BB_ID_IMPL(TextRenderer);
 
-	TextRenderer::TextRenderer(TextureFont *font) : Component(), font(font), needPositionReset(false), alignment(TextAlignment::LEFT), textComponent(NULL) {
+	TextRenderer::TextRenderer(TextureFont *font) : Component(), font(font), needPositionReset(false), needTextReset(false), scaleRatio(1.0f), alignment(TextAlignment::LEFT), textComponent(NULL) {
 		this->initializeConnections();
 	}
 
@@ -77,6 +77,11 @@ namespace BaconBox {
 			} else if (message == TextComponent::MESSAGE_SIZE_CHANGED) {
 				resetPosition();
 			}
+			else if (message == TextComponent::MESSAGE_PIXEL_SIZE_CHANGED) {
+				int pixelSize = *reinterpret_cast<int*>(data);
+				scaleRatio = static_cast<float>(pixelSize) / static_cast<float>(font->getPixelSize());
+				resetPosition();
+			}
 
 		} else if (senderID == ColorTransform::ID && message == ColorTransform::MESSAGE_COLOR_CHANGED) {
 			setColor(*reinterpret_cast<Color *>(data));
@@ -97,12 +102,11 @@ namespace BaconBox {
 		Vector2 alignmentAdjust;
 
 		if (alignment == TextAlignment::RIGHT) {
-			alignmentAdjust.x = (textComponent->getSize().x - (advance.x));
+			alignmentAdjust.x = (textComponent->getSize().x/scaleRatio - (advance.x));
 
 		} else if (alignment == TextAlignment::CENTER) {
-			alignmentAdjust.x = (textComponent->getSize().x - (advance.x)) / 2;
+			alignmentAdjust.x = (textComponent->getSize().x/scaleRatio - (advance.x)) / 2;
 		}
-
 		if (true || alignment != TextAlignment::LEFT) {
 			for (std::list<CharSprite>::iterator k = charSpritesForAlignmentAdjust.begin(); k != charSpritesForAlignmentAdjust.end(); k++) {
 				MovieClipEntity *sprite = k->sprite;
@@ -124,8 +128,15 @@ namespace BaconBox {
 		needPositionReset = true;
 	}
 
+	void TextRenderer::resetText() {
+		needTextReset = true;
+		resetPosition();
+	}
 
 	void TextRenderer::internalResetPosition() {
+		if(needTextReset){
+			internalResetText();
+		}
 		Vector2 advance;
 		Vector2 tempAdvance;
 		Vector2 newLineJump;
@@ -142,7 +153,7 @@ namespace BaconBox {
 					wordTempAdvances += glyphInfo->advance;
 				}
 
-				tempAdvance += wordTempAdvances;
+				tempAdvance += wordTempAdvances *scaleRatio;
 
 				if (tempAdvance.x > textComponent->getSize().x) {
 					tempAdvance = wordTempAdvances;
@@ -152,6 +163,7 @@ namespace BaconBox {
 				for (std::list<CharSprite>::iterator k = j->begin(); k != j->end(); k++) {
 					TextureGlyphInformation *glyphInfo = k->glyph;
 					MovieClipEntity *sprite = k->sprite;
+					sprite->setScale(sprite->getScale() * scaleRatio);
 					//					Transform* transform = reinterpret_cast<Transform*>(sprite->getComponent(Transform::ID));
 					Mesh *mesh = reinterpret_cast<Mesh *>(sprite->getComponent(Mesh::ID));
 					Vector2 glypRelativePosition = advance + glyphInfo->offset + Vector2(font->getKerning(previousChar, k->glyph->charCode), 0) + newLineJump;
@@ -182,6 +194,11 @@ namespace BaconBox {
 	}
 
 	void TextRenderer::setText(const std::string &text) {
+		text32 = UTFConvert::decodeUTF8(text);
+		resetText();
+	}
+	
+	void TextRenderer::internalResetText(){
 		getEntity()->getComponent<DefaultEntityContainer>()->removeAllChildren();
 
 		for (std::list<std::list<std::list<CharSprite> > >::iterator i = charSpritesLines.begin(); i != charSpritesLines.end(); i++) {
@@ -198,7 +215,6 @@ namespace BaconBox {
 
 		charSpritesLines.clear();
 
-		String32 text32 = UTFConvert::decodeUTF8(text);
 		charSpritesLines.resize(1);
 
 		charSpritesLines.back().resize(1);

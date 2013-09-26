@@ -83,7 +83,7 @@ void BBAudioPlayerMusic::setVolume(int newVolume) {
 	[bgm setVolume:(static_cast<float>(getVolume()) / static_cast<float>(Sound::MAX_VOLUME))];
 }
 
-AudioState BBAudioPlayerMusic::getCurrentState() const {
+AudioState::type BBAudioPlayerMusic::getCurrentState() const {
 	if(!playedOnce) {
 		return AudioState::INITIAL;
 	} else if([bgm isStopped]) {

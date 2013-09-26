@@ -21,7 +21,7 @@ namespace BaconBox {
 
         static LuaManager& getDefault();
         static void destroyVM();
-
+		static lua_State * getVM();
 	private:
 	    static LuaManager * instance;
 

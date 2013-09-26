@@ -3,6 +3,8 @@
 #include <iomanip>
 #include <iostream>
 #include <sstream>
+#include "StringHelper.h"
+
 using namespace BaconBox;
 
 const std::string FALSE_STRING = std::string("false");
@@ -37,7 +39,7 @@ bool Parser::isInteger(const std::string &str) {
 
 
 bool Parser::stringToBool(const std::string& str) {
-	return !strcasecmp(str.c_str(), TRUE_STRING.c_str());
+	return !StringHelper::caseInsensitiveCompare(str, TRUE_STRING);
 }
 
 

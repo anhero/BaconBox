@@ -128,6 +128,7 @@ namespace BaconBox {
 			// Calculate the update delay.
 			this->updateDelay = 1.0 / static_cast<double>(updatesPerSecond);
 		}
+		mainWindow->setUpdatesPerSecond(updatesPerSecond);
 	}
 
 	void BaseEngine::switchToNextState(){
@@ -154,25 +155,64 @@ namespace BaconBox {
 		// We make sure the pointer to the current state is valid.
 		if (this->currentState || this->nextState) {
 			TimeHelper::getInstance().refreshTime();
-
 			
-			InputManager::getInstance().update();
-			    if(! this->currentState && this->nextState){
-				switchToNextState();
-			    }
+			// We update the time from TimeHelper.
+			if (!this->nextUpdate) {
+				this->nextUpdate = TimeHelper::getInstance().getSinceStartComplete();
+			}
+			
+			this->loops = 0;
+			
+			if (TimeHelper::getInstance().getSinceStartComplete() > this->nextUpdate &&
+			       this->loops < this->minFps) {
+				// We refresh the time.
+				TimeHelper::getInstance().refreshTime();
+				
+				// We call the focus methods if needed.
+				if (this->nextState) {
+					// If the next state is the first state the engine is
+					// playing, the current state will be set to NULL, so we
+					// call the onLoseFocus only if the currentState is valid.
+					if (this->currentState) {
+						this->currentState->internalOnLoseFocus();
+					}
+					
+					// We set the next state as the current state.
+					this->currentState = this->nextState;
+					// We call the onGetFocus method.
+					this->currentState->internalOnGetFocus();
+					
+					this->nextState = NULL;
+				}
+				
+				// We update the current state.
 				this->currentState->internalUpdate();
+				
+				this->renderedSinceLastUpdate = false;
+				// We update the input manager.
+				InputManager::getInstance().update();
+				// We update the timers.
+				TimerManager::update();
+				this->nextUpdate += this->updateDelay;
+				this->lastUpdate = TimeHelper::getInstance().getSinceStartComplete();
+				++this->loops;
+			}
+			
+			if (!this->renderedSinceLastUpdate) {
+//				this->currentState->internalRender();
 				GraphicDriver::getInstance().finalizeRender();
 				this->renderedSinceLastUpdate = true;
 				this->bufferSwapped = false;
 				this->lastRender = TimeHelper::getInstance().getSinceStartComplete();
-
+			}
+			
 			if (static_cast<AudioEngine *>(this->soundEngine) != static_cast<AudioEngine *>(this->musicEngine)) {
 				this->soundEngine->update();
 			}
-
+			
 			this->musicEngine->update();
 		}
-
+		
 		if (this->needsExit) {
 			exit(this->tmpExitCode);
 		}
