@@ -17,8 +17,10 @@ Platform::Platform(){
 	isIpad = false;
 	isFlash = false;
 #ifdef BB_IPHONE_PLATFORM
-	isIOS = true;
+	
 	NSString * device = [UIDevice currentDevice].model;
+	this->isIOS = true;
+
 	isIpad = [device  isEqual: @"iPad"];
 	isIpod = [device  isEqual: @"Pod touch"];
 	isRetina = [[UIScreen mainScreen] scale] == 2;
