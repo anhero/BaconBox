@@ -15,9 +15,9 @@ namespace BaconBox {
 
 									 float contextWidth, float contextHeight, WindowOrientation::type orientation) {
 		
-		InputManager::getInstance().setNbPointers(1);
-		InputManager::getInstance().setNbKeyboards(1)
-		;
+		
+
+		
 		CGRect screenBounds = [[UIScreen mainScreen] bounds];
 		CGFloat screenScale = [[UIScreen mainScreen] scale];
 		CGSize screenSize = CGSizeMake(screenBounds.size.width * screenScale, screenBounds.size.height * screenScale);
@@ -31,6 +31,10 @@ namespace BaconBox {
 		[viewController setFrameInterval: 60.0f/Engine::getUpdatesPerSecond()];
 
 		[BaconBoxAppAppDelegate setViewController: viewController];
+		
+		InputManager::getInstance().setNbPointers(1);
+		InputManager::getInstance().setNbKeyboards(1);
+		InputManager::getInstance().setNbAccelerometers(1);
 		
 	}
 	

@@ -12,7 +12,7 @@
 
 @implementation BaconBoxAppViewController
 
-@synthesize animating, context, displayLink;
+@synthesize animating, context, displayLink, motionManager, accelData;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -52,9 +52,49 @@
         // iOS 6
         [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationSlide];
     }
+	CMMotionManager *test;
+
+	
+	//init accelerometer and gyrometer
+	self.motionManager = [[CMMotionManager alloc] init];
+	self.motionManager.accelerometerUpdateInterval = .2;
+	self.motionManager.gyroUpdateInterval = .2;
+	
+	[self.motionManager startAccelerometerUpdatesToQueue:[NSOperationQueue currentQueue]
+											 withHandler:^(CMAccelerometerData  *accelerometerData, NSError *error) {
+												 [self outputAccelertionData:accelerometerData.acceleration];
+												 if(error){
+													 
+													 NSLog(@"%@", error);
+												 }
+											 }];
+	
+	
+	[self.motionManager startGyroUpdatesToQueue:[NSOperationQueue currentQueue]
+									withHandler:^(CMGyroData *gyroData, NSError *error) {
+										[self outputRotationData:gyroData.rotationRate];
+									}];
+	
+	self.accelData = new sigly::Signal1<CMAcceleration *>();
+	
 	
     return self;
 }
+
+
+-(sigly::Signal1<CMAcceleration *>*)getAccelSignal{
+	return accelData;
+}
+
+-(void)outputAccelertionData:(CMAcceleration)acceleration
+{
+	accelData->shoot(&acceleration);
+}
+-(void)outputRotationData:(CMRotationRate)rotation
+{
+	
+}
+
 
 - (void)dealloc
 {

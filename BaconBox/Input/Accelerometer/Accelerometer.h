@@ -68,13 +68,13 @@ namespace BaconBox {
 		 * Activates the updating of the accelerometer. When activated, the
 		 * accelerometer fetches data about it at every update.
 		 */
-		void activate();
+		virtual void activate();
 		
 		/**
 		 * Deactivates the updating of the accelerometer. When deactivated, the
 		 * acceleration values of the accelerometer's state are never updated.
 		 */
-		void deactivate();
+		virtual void deactivate();
 		
 		/**
 		 * Checks if the accelerometer is active.
@@ -92,6 +92,7 @@ namespace BaconBox {
 		
 		/// Accelerometer's state containing its acceleration values (x, y z).
 		AccelerometerState state;
+		void setState(float xAcceleration, float yAcceleration, float zAcceleration);
 		
 		/**
 		 * Default constructor.

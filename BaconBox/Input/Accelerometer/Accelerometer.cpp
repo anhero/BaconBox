@@ -41,3 +41,15 @@ Accelerometer::~Accelerometer() {
 void Accelerometer::updateDevice() {
 	InputDevice::updateDevice();
 }
+
+const AccelerometerState& Accelerometer::getState() const {
+	return state;
+}
+
+
+void Accelerometer::setState(float xAcceleration, float yAcceleration, float zAcceleration){
+	state.xAcceleration = xAcceleration;
+	state.yAcceleration = yAcceleration;
+	state.zAcceleration = zAcceleration;
+
+}

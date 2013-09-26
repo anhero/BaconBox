@@ -15,6 +15,7 @@
 
 @property (nonatomic, retain) IBOutlet BaconBoxAppViewController *viewController;
 
++ (BaconBoxAppViewController*)getViewController;
 
 + (void)setViewController:(BaconBoxAppViewController*) controller;
 

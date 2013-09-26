@@ -4,7 +4,6 @@
 #import <OpenGLES/ES1/glext.h>
 #import <OpenGLES/ES2/gl.h>
 #import <OpenGLES/ES2/glext.h>
-
 @class EAGLContext;
 
 // This class wraps the CAEAGLLayer from CoreAnimation into a convenient UIView subclass.
@@ -15,12 +14,15 @@
     // The pixel dimensions of the CAEAGLLayer.
     GLint framebufferWidth;
     GLint framebufferHeight;
-    
+	
+
     // The OpenGL ES names for the framebuffer and renderbuffer used to render to this view.
     GLuint defaultFramebuffer, colorRenderbuffer;
 }
 
 @property (nonatomic, retain) EAGLContext *context;
+
+
 
 - (void)setFramebuffer;
 - (BOOL)presentFramebuffer;

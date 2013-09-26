@@ -202,6 +202,10 @@
 	#define BB_POINTER_INCLUDE "IOSPointer.h"
 	#define BB_POINTER_IMPL new IOSPointer()
 
+
+	#define BB_ACCELEROMETER_IMPL new IOSAccelerometer()
+	#define BB_ACCELEROMETER_INCLUDE "BaconBox/Input/Accelerometer/ios/IOSAccelerometer.h"
+
 	#define BB_MAIN_WINDOW_IMPL new IOSMainWindow()
 	#define BB_MAIN_WINDOW_INCLUDE "BaconBox/Display/Window/ios/IOSMainWindow.h"
 #endif // BB_IPHONE_PLATFORM

@@ -137,6 +137,12 @@ end
   #include "BaconBox/Input/Pointer/Pointer.h"
 
 
+#include "BaconBox/Input/Accelerometer/AccelerometerState.h"
+#include "BaconBox/Input/Accelerometer/AccelerometerSignalData.h"
+#include "BaconBox/Input/Accelerometer/Accelerometer.h"
+
+
+
 	#include "BaconBox/Core/Component.h"
 	#include "BaconBox/Core/Entity.h"
   #include "BaconBox/Display/Color.h"
@@ -375,7 +381,8 @@ class FlashEngine;
 %template(signal_base1_KeyMaskSignalData)sigly::_signal_base1< BaconBox::KeyMaskSignalData,sigly::SingleThreaded >;
 %template(signal_KeyMaskSignalData) sigly::Signal1< BaconBox::KeyMaskSignalData,sigly::SingleThreaded >;
 
-
+%template(signal_base1_AccelerometerSignalData)sigly::_signal_base1< BaconBox::AccelerometerSignalData,sigly::SingleThreaded >;
+%template(signal_AccelerometerSignalData) sigly::Signal1< BaconBox::AccelerometerSignalData,sigly::SingleThreaded >;
 
 %template(signal_base1_PointerSignalData)sigly::_signal_base1< BaconBox::PointerSignalData,sigly::SingleThreaded >;
 %template(signal_PointerSignalData) sigly::Signal1< BaconBox::PointerSignalData,sigly::SingleThreaded >;
@@ -562,6 +569,16 @@ const char *__str__() {
 %immutable BaconBox::Pointer::buttonRelease;
 %immutable BaconBox::Pointer::move;
 %include "BaconBox/Input/Pointer/Pointer.h"
+
+
+%include "BaconBox/Input/Accelerometer/AccelerometerState.h"
+
+%include "BaconBox/Input/Accelerometer/AccelerometerSignalData.h"
+
+%immutable BaconBox::Accelerometer::change;
+%include "BaconBox/Input/Accelerometer/Accelerometer.h"
+
+
 %include "BaconBox/Components/Visibility.h"
 %include "BaconBox/Components/Transform.h"
 %include "BaconBox/AxisAlignedBoundingBox.h"

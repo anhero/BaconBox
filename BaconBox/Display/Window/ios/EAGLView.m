@@ -23,6 +23,10 @@
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
+	
+	
+	
+	
 	if (self) {
         CAEAGLLayer *eaglLayer = (CAEAGLLayer *)self.layer;
         
@@ -32,10 +36,16 @@
                                         kEAGLColorFormatRGBA8, kEAGLDrawablePropertyColorFormat,
                                         nil];
         self.multipleTouchEnabled = YES;
+		
+		
+		
+		
+		
     }
     
     return self;
 }
+
 
 - (void)dealloc
 {

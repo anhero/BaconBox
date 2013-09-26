@@ -7,6 +7,7 @@
 
 #include "BaconBox/Input/InputSignalData.h"
 #include "BaconBox/Input/Accelerometer/AccelerometerState.h"
+#include "BaconBox/Property.h"
 
 namespace BaconBox {
 	/**
@@ -30,6 +31,24 @@ namespace BaconBox {
 		
 		/// State of the accelerometer device that sent the signal.
 		const AccelerometerState& accelerometerState;
+		
+		float getX() const;
+		float getY() const;
+		float getZ() const;
+
+		
+#ifdef SWIG
+		float x;
+		float y;
+		float z;
+#else
+		Property<float, AccelerometerSignalData> x;
+		Property<float, AccelerometerSignalData> y;
+		Property<float, AccelerometerSignalData> z;
+#endif
+
+
+
 	};
 }
 

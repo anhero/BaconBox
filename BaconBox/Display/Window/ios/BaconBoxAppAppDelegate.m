@@ -26,6 +26,10 @@ static BaconBoxAppViewController *baconBoxViewController = nil;
 
 @synthesize viewController;
 
++ (BaconBoxAppViewController*)getViewController{
+	return baconBoxViewController;
+}
+
 + (void)setViewController:(BaconBoxAppViewController*) controller {
     baconBoxViewController = controller;
 }

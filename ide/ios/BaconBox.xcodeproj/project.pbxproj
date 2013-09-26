@@ -178,6 +178,8 @@
 		516A93C5179ED9FD00F483C4 /* Vector2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 516A92F5179ED9FD00F483C4 /* Vector2.cpp */; };
 		516A93C6179ED9FD00F483C4 /* Vector3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 516A92F7179ED9FD00F483C4 /* Vector3.cpp */; };
 		516A93C7179ED9FD00F483C4 /* VertexArray.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 516A92F9179ED9FD00F483C4 /* VertexArray.cpp */; };
+		C75E1E7F17F49F7F00010F59 /* IOSAccelerometer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C75E1E7D17F49F7F00010F59 /* IOSAccelerometer.cpp */; };
+		C75E1E8117F4A1F600010F59 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C75E1E8017F4A1F600010F59 /* CoreMotion.framework */; };
 		C784119217ECF50300FC8929 /* libCocoaHTTPServer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C784119117ECF50300FC8929 /* libCocoaHTTPServer.a */; };
 		C7F3281D17F35451009D7092 /* liblua.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5161F4FF172079A30044226C /* liblua.a */; };
 /* End PBXBuildFile section */
@@ -571,6 +573,9 @@
 		516A92FA179ED9FD00F483C4 /* VertexArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VertexArray.h; sourceTree = "<group>"; };
 		51C0640E17A0960E003BDF37 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		C745EF1A17F0DCF000753FE9 /* libluajit-5.1.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libluajit-5.1.a"; path = "../../../../libraries/BaconBox/libraries/ios/universal/lib/libluajit-5.1.a"; sourceTree = "<group>"; };
+		C75E1E7D17F49F7F00010F59 /* IOSAccelerometer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = IOSAccelerometer.cpp; sourceTree = "<group>"; };
+		C75E1E7E17F49F7F00010F59 /* IOSAccelerometer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IOSAccelerometer.h; sourceTree = "<group>"; };
+		C75E1E8017F4A1F600010F59 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		C784119117ECF50300FC8929 /* libCocoaHTTPServer.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libCocoaHTTPServer.a; path = ../../../../libraries/BaconBox/libraries/ios/universal/lib/libCocoaHTTPServer.a; sourceTree = "<group>"; };
 		C7B75C1317ECBDFD00A056CF /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		C7B75C1517ECBE0D00A056CF /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
@@ -581,6 +586,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C75E1E8117F4A1F600010F59 /* CoreMotion.framework in Frameworks */,
 				5161F42E17204A050044226C /* UIKit.framework in Frameworks */,
 				5161F42C172049FD0044226C /* QuartzCore.framework in Frameworks */,
 				5161F42A172049F50044226C /* OpenAL.framework in Frameworks */,
@@ -621,6 +627,7 @@
 		5161F0E7172037090044226C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C75E1E8017F4A1F600010F59 /* CoreMotion.framework */,
 				C745EF1A17F0DCF000753FE9 /* libluajit-5.1.a */,
 				C784119117ECF50300FC8929 /* libCocoaHTTPServer.a */,
 				C7B75C1517ECBE0D00A056CF /* libxml2.dylib */,
@@ -1119,6 +1126,7 @@
 		516A9268179ED9FD00F483C4 /* Accelerometer */ = {
 			isa = PBXGroup;
 			children = (
+				C75E1E7C17F49F7F00010F59 /* ios */,
 				516A9269179ED9FD00F483C4 /* Accelerometer.cpp */,
 				516A926A179ED9FD00F483C4 /* Accelerometer.h */,
 				516A926B179ED9FD00F483C4 /* AccelerometerSignalData.cpp */,
@@ -1259,6 +1267,15 @@
 			path = Swig;
 			sourceTree = "<group>";
 		};
+		C75E1E7C17F49F7F00010F59 /* ios */ = {
+			isa = PBXGroup;
+			children = (
+				C75E1E7D17F49F7F00010F59 /* IOSAccelerometer.cpp */,
+				C75E1E7E17F49F7F00010F59 /* IOSAccelerometer.h */,
+			);
+			path = ios;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1321,6 +1338,7 @@
 				516A9351179ED9FD00F483C4 /* GLSLShader.cpp in Sources */,
 				516A93C1179ED9FD00F483C4 /* BaconBoxLua.cpp in Sources */,
 				516A938E179ED9FD00F483C4 /* GamePad.cpp in Sources */,
+				C75E1E7F17F49F7F00010F59 /* IOSAccelerometer.cpp in Sources */,
 				516A9362179ED9FD00F483C4 /* BaconBoxAppViewController.m in Sources */,
 				516A93C7179ED9FD00F483C4 /* VertexArray.cpp in Sources */,
 				516A9396179ED9FD00F483C4 /* InputManager.cpp in Sources */,
@@ -1545,7 +1563,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				DSTROOT = /tmp/BaconBox.dst;
-				GCC_OPTIMIZATION_LEVEL = fast;
+				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "";
 				HEADER_SEARCH_PATHS = (
@@ -1559,7 +1577,7 @@
 					/Users/twistedjoe/Documents/Berzerk/BaconBox/FF2/Libraries/BaconBox/libraries/ios/universal/lib,
 				);
 				LLVM_LTO = NO;
-				LLVM_VECTORIZE_LOOPS = YES;
+				LLVM_VECTORIZE_LOOPS = NO;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -1570,7 +1588,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				DSTROOT = /tmp/BaconBox.dst;
-				GCC_OPTIMIZATION_LEVEL = fast;
+				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "";
 				HEADER_SEARCH_PATHS = (
@@ -1584,7 +1602,7 @@
 					/Users/twistedjoe/Documents/Berzerk/BaconBox/FF2/Libraries/BaconBox/libraries/ios/universal/lib,
 				);
 				LLVM_LTO = NO;
-				LLVM_VECTORIZE_LOOPS = YES;
+				LLVM_VECTORIZE_LOOPS = NO;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
