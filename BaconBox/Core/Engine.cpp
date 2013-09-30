@@ -63,6 +63,14 @@ namespace BaconBox {
 		getInstance().setMinFps(newMinFps);
 	}
 	
+	void Engine::setLocal(const std::string &local){
+		getInstance().setLocal(local);
+	}
+	
+	std::map<std::string, std::string> * Engine::getTranslations(){
+		return getInstance().getTranslations();
+	}
+	
 	void Engine::setUpdatesPerSecond(double updatesPerSecond) {
 		getInstance().setUpdatesPerSecond(updatesPerSecond);
 	}

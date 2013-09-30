@@ -121,7 +121,25 @@ TextEntity * EntityFactory::getTextEntity(const std::string &key){
 				Font * font = ResourceManager::getFont(symbol->font);
 				if(font == NULL) Console::error("Missing font " + symbol->font);
 				TextEntity * tf = font->getTextEntity();
-				tf->setText(symbol->text);
+				bool noTextFound = false;
+				std::map<std::string, std::string> * translation = Engine::getTranslations();
+				if(translation){
+					std::map<std::string, std::string>::iterator found = translation->find(symbol->key);
+					if(found != translation->end()){
+						tf->setText(found->second);
+					}
+					else{
+						noTextFound = true;
+					}
+				}
+				else{
+					noTextFound = true;
+				}
+				
+				if(noTextFound){
+					tf->setText(symbol->text);
+				}
+				
 				tf->setAlignment(symbol->alignment);
 				tf->setPixelSize(symbol->fontSize);
 				tf->setSize(Vector2(symbol->textFieldWidth, symbol->textFieldHeight));

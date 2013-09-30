@@ -93,7 +93,6 @@ namespace BaconBox {
 
 		if (it != this->states.end()) {
 			this->nextState = it->second;
-
 		} else {
 			Console::println("State \"" + name +
 			                 "\" doesn't exist so it cannot be played.");
@@ -148,6 +147,16 @@ namespace BaconBox {
 					this->nextState = NULL;
 				}
 
+	}
+
+
+	void BaseEngine::setLocal(const std::string &local){
+		this->local = local;
+		translations = ResourceManager::getTranslations(local);
+	}
+	
+	std::map<std::string, std::string> * BaseEngine::getTranslations(){
+		return translations;
 	}
 
 
@@ -292,7 +301,7 @@ namespace BaconBox {
 	minFps(Engine::DEFAULT_MIN_FRAMES_PER_SECOND), bufferSwapped(false), needsExit(false),
 	tmpExitCode(0), renderedSinceLastUpdate(true), applicationPath(),
 	applicationName(Engine::DEFAULT_APPLICATION_NAME), mainWindow(NULL),
-	graphicDriver(NULL), soundEngine(NULL), musicEngine(NULL) {
+	graphicDriver(NULL), soundEngine(NULL), musicEngine(NULL), translations(NULL) {
 
 		mainWindow = BB_MAIN_WINDOW_IMPL;
 		graphicDriver = BB_GRAPHIC_DRIVER_IMPL;

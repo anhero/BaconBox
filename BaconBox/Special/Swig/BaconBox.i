@@ -692,6 +692,8 @@ namespace BaconBox{
                 const std::string &relativePath,
                 bool overwrite = false);
               
+    static void loadTranslationXML(const std::string &key, const std::string & xmlPath);
+    static std::map<std::string, std::string> * getTranslations(const std::string &key);
 
     static SoundInfo *loadSoundFromBundle(const std::string &key,
                                 const std::string &bundleKey,

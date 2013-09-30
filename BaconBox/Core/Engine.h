@@ -63,6 +63,9 @@ namespace BaconBox {
 		
 		static State *getState(const std::string &name);
 		
+		static void setLocal(const std::string &local);
+		static std::map<std::string, std::string> * getTranslations();
+		
 		/**
 		 * Removes a state from the engine.
 		 * @param name Name of the state to remove from the engine.

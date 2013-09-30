@@ -36,6 +36,10 @@ namespace BaconBox {
 		virtual State *getCurrentState();
 		
 		virtual State *getState(const std::string &name);
+		
+		void setLocal(const std::string &local);
+		std::map<std::string, std::string> * getTranslations();
+
 
 		virtual unsigned int getMinFps();
 		
@@ -144,6 +148,10 @@ namespace BaconBox {
 		 * it updates.
 		 */
 		bool renderedSinceLastUpdate;
+		
+		
+		std::string local;
+		std::map<std::string, std::string> * translations;
 		
 		/// Path to the current application binary.
 		std::string applicationPath;
