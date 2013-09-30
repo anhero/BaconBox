@@ -24,6 +24,7 @@
 
 namespace BaconBox {
 	
+	std::string ResourcePathHandler::debugDocumentPath = "";
 	std::string ResourcePathHandler::debugResourcePath = "";
 
 
@@ -50,6 +51,10 @@ namespace BaconBox {
 #endif //BB_IPHONE_PLATFORM
 		
 		return path;
+	}
+	
+	void ResourcePathHandler::setDebugDocumentPath(const std::string & path){
+		debugDocumentPath = path;
 	}
 
 	void ResourcePathHandler::setDebugResourcePath(const std::string & path){
@@ -87,14 +92,18 @@ resourcePath = Engine::getApplicationPath();
 
 	std::string ResourcePathHandler::getDocumentPath() {
 #ifdef BB_IPHONE_PLATFORM
-
 		NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
 		NSString *documentsDirectory = [paths objectAtIndex: 0];
 	std::string documentPath = [documentsDirectory cStringUsingEncoding: NSASCIIStringEncoding];
 		return documentPath;
-#elif defined(BB_QT)
-		return QDesktopServices::storageLocation(QDesktopServices::DataLocation).toStdString();
-#elif defined(BB_MAC_PLATFORM) || defined(BB_LINUX)
+#else
+		if(debugDocumentPath != ""){
+			return debugDocumentPath;
+		}
+		else{
+#if defined(BB_MAC_PLATFORM) || defined(BB_LINUX)
+		
+		
 #ifdef BB_MAC_PLATFORM
 		const std::string PATH = "/Library/Application Support/";
 #else
@@ -113,7 +122,12 @@ resourcePath = Engine::getApplicationPath();
 		return ss.str();
 #else
 		return std::string();
+		
+		
 #endif
+		}
+#endif
+		
 	}
 
 	bool ResourcePathHandler::createDocumentFolder(const std::string &path) {
