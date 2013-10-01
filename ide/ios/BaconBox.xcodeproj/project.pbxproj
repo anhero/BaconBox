@@ -1572,9 +1572,7 @@
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\\\\\\\"$(SRCROOT)/../../libraries/ios/universal/lib\\\\\\\"",
-					/Users/twistedjoe/Documents/Berzerk/BaconBox/FF2/libraries/BaconBox/libraries/ios/universal/lib,
-					/Users/twistedjoe/Documents/Berzerk/BaconBox/FF2/Libraries/BaconBox/libraries/ios/universal/lib,
+					"\"$(SRCROOT)/../../libraries/ios/universal/lib\"",
 				);
 				LLVM_LTO = NO;
 				LLVM_VECTORIZE_LOOPS = NO;
@@ -1597,9 +1595,7 @@
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\\\\\\\"$(SRCROOT)/../../libraries/ios/universal/lib\\\\\\\"",
-					/Users/twistedjoe/Documents/Berzerk/BaconBox/FF2/libraries/BaconBox/libraries/ios/universal/lib,
-					/Users/twistedjoe/Documents/Berzerk/BaconBox/FF2/Libraries/BaconBox/libraries/ios/universal/lib,
+					"\"$(SRCROOT)/../../libraries/ios/universal/lib\"",
 				);
 				LLVM_LTO = NO;
 				LLVM_VECTORIZE_LOOPS = NO;
