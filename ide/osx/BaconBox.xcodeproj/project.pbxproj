@@ -360,6 +360,8 @@
 		51903D0E17500B7B00814708 /* VertexArray.h in Headers */ = {isa = PBXBuildFile; fileRef = 51903B7517500B7B00814708 /* VertexArray.h */; };
 		51C34E72175E645200960346 /* LuaHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 51C34E70175E645200960346 /* LuaHelper.cpp */; };
 		51C34E73175E645200960346 /* LuaHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 51C34E71175E645200960346 /* LuaHelper.h */; };
+		C721A53517FC831B000B5E71 /* LocalizationManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C721A53317FC831B000B5E71 /* LocalizationManager.cpp */; };
+		C721A53617FC831B000B5E71 /* LocalizationManager.h in Headers */ = {isa = PBXBuildFile; fileRef = C721A53417FC831B000B5E71 /* LocalizationManager.h */; };
 		C75E26D617C6740A00A22316 /* libogg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C75E26CF17C6740A00A22316 /* libogg.a */; };
 		C75E26D717C6740A00A22316 /* libSDL2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C75E26D017C6740A00A22316 /* libSDL2.a */; };
 		C75E26D817C6740A00A22316 /* libSDL2main.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C75E26D117C6740A00A22316 /* libSDL2main.a */; };
@@ -732,6 +734,8 @@
 		51B7424F16345CFF00DB18E1 /* libBaconBox.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libBaconBox.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		51C34E70175E645200960346 /* LuaHelper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LuaHelper.cpp; sourceTree = "<group>"; };
 		51C34E71175E645200960346 /* LuaHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LuaHelper.h; sourceTree = "<group>"; };
+		C721A53317FC831B000B5E71 /* LocalizationManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LocalizationManager.cpp; sourceTree = "<group>"; };
+		C721A53417FC831B000B5E71 /* LocalizationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocalizationManager.h; sourceTree = "<group>"; };
 		C75E26CF17C6740A00A22316 /* libogg.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libogg.a; path = /Users/twistedjoe/Documents/Berzerk/BaconBox/FF2/ide/osx/../../libraries/BaconBox/libraries/Darwin/x86_64/lib/libogg.a; sourceTree = "<absolute>"; };
 		C75E26D017C6740A00A22316 /* libSDL2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSDL2.a; path = /Users/twistedjoe/Documents/Berzerk/BaconBox/FF2/ide/osx/../../libraries/BaconBox/libraries/Darwin/x86_64/lib/libSDL2.a; sourceTree = "<absolute>"; };
 		C75E26D117C6740A00A22316 /* libSDL2main.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSDL2main.a; path = /Users/twistedjoe/Documents/Berzerk/BaconBox/FF2/ide/osx/../../libraries/BaconBox/libraries/Darwin/x86_64/lib/libSDL2main.a; sourceTree = "<absolute>"; };
@@ -796,6 +800,8 @@
 		519039A317500B7B00814708 /* BaconBox */ = {
 			isa = PBXGroup;
 			children = (
+				C721A53317FC831B000B5E71 /* LocalizationManager.cpp */,
+				C721A53417FC831B000B5E71 /* LocalizationManager.h */,
 				519039A417500B7B00814708 /* Audio */,
 				519039DD17500B7B00814708 /* AxisAlignedBoundingBox.cpp */,
 				519039DE17500B7B00814708 /* AxisAlignedBoundingBox.h */,
@@ -1635,6 +1641,7 @@
 				511A55B817623AAD00CBEF43 /* Clickable.h in Headers */,
 				243C9C621764FE89007250BA /* Emitter.h in Headers */,
 				243C9C661764FEA7007250BA /* ParticleEmitter.h in Headers */,
+				C721A53617FC831B000B5E71 /* LocalizationManager.h in Headers */,
 				24B61A85176E0ABC0097F001 /* Speed.h in Headers */,
 				2494A2D1176E44AE00D483A3 /* ParticlePhase.h in Headers */,
 				C79337FC17B5586800D87A1F /* Property.h in Headers */,
@@ -1842,6 +1849,7 @@
 				51903D0B17500B7B00814708 /* Vector3.cpp in Sources */,
 				51903D0D17500B7B00814708 /* VertexArray.cpp in Sources */,
 				51C34E72175E645200960346 /* LuaHelper.cpp in Sources */,
+				C721A53517FC831B000B5E71 /* LocalizationManager.cpp in Sources */,
 				514C46A2175E972B003D098F /* LuaCallback.cpp in Sources */,
 				511A55B3176230C600CBEF43 /* UIManager.cpp in Sources */,
 				511A55B717623AAD00CBEF43 /* Clickable.cpp in Sources */,

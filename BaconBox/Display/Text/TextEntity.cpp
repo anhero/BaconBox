@@ -10,7 +10,7 @@
 #include "BaconBox/Components/Flash/TextFieldHolder.h"
 
 #endif
-
+#include "LocalizationManager.h"
 namespace BaconBox {
     
     BB_ID_IMPL(TextEntity);
@@ -26,6 +26,10 @@ namespace BaconBox {
 #endif
 	    
 	    
+	}
+	
+	TextEntity::~TextEntity(){
+		LocalizationManager::getInstance().removeTextEntity(this);
 	}
 	
 	TextEntity::TextEntity(): MovieClipEntity(), TextComponentProxy(this, NULL)

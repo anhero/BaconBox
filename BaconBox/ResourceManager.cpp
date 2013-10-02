@@ -41,7 +41,6 @@ namespace BaconBox {
 	std::map<std::string, MusicInfo *> ResourceManager::musics = std::map<std::string, MusicInfo *>();
 	std::map<std::string, Font *> ResourceManager::fonts = std::map<std::string, Font *>();
 	std::map<std::string, Symbol *> ResourceManager::symbols = std::map<std::string, Symbol *>();
-	std::map<std::string, std::map<std::string, std::string> > ResourceManager::translations = std::map<std::string, std::map<std::string, std::string> >();
 
 	SubTextureInfo *ResourceManager::addSubTexture(const std::string &key, SubTextureInfo *subTextureInfo, bool overwrite) {
 		SubTextureInfo *subTexInfo = NULL;
@@ -577,39 +576,6 @@ namespace BaconBox {
 	}
 	
 
-	void ResourceManager::loadTranslationXML(const std::string &key, const std::string &xmlPath) {
-		std::map<std::string, std::map<std::string, std::string> >::iterator i = translations.find(key);
-		if( i == translations.end()){
-			i = translations.insert(std::pair<std::string, std::map<std::string, std::string> >(key, std::map<std::string, std::string>())).first;
-		}
-		
-		std::map<std::string, std::string> & translationMap = i->second;
-		
-		rapidxml::xml_document<> doc;
-
-		rapidxml::file<> inputXml(xmlPath.c_str());
-		doc.parse<0>(inputXml.data());
-		rapidxml::xml_node<> *root = doc.first_node();
-		rapidxml::xml_attribute<> *textfield;
-		for (rapidxml::xml_node<> *node = root->first_node("translation"); node; node = node->next_sibling()){
-			textfield = node->first_attribute("key");
-			if (textfield) {
-				translationMap[textfield->value()] = node->first_attribute("text")->value();
-
-			}
-			
-		}
-		
-	}
-	std::map<std::string, std::string> * ResourceManager::getTranslations(const std::string &key){
-		std::map<std::string, std::map<std::string, std::string> >::iterator i = translations.find(key);
-		if( i == translations.end()){
-			return NULL;
-		}
-		else{
-			return &(i->second);
-		}
-	}
 
 
 	void ResourceManager::loadFlashExporterXML(const std::string &xmlPath) {

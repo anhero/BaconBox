@@ -27,7 +27,7 @@
 #include <BaconBox/Display/Text/Font.h>
 
 #include <BaconBox/Console.h>
-
+#include "BaconBox/LocalizationManager.h"
 namespace BaconBox {
 
 	EntityFactory::EntityFactory():movieClipPool(0){
@@ -121,8 +121,9 @@ TextEntity * EntityFactory::getTextEntity(const std::string &key){
 				Font * font = ResourceManager::getFont(symbol->font);
 				if(font == NULL) Console::error("Missing font " + symbol->font);
 				TextEntity * tf = font->getTextEntity();
+				LocalizationManager::getInstance().addTextEntity(tf);
 				bool noTextFound = false;
-				std::map<std::string, std::string> * translation = Engine::getTranslations();
+				std::map<std::string, std::string> * translation = LocalizationManager::getInstance().getCurrentTranslations();
 				if(translation){
 					std::map<std::string, std::string>::iterator found = translation->find(symbol->key);
 					if(found != translation->end()){

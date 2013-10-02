@@ -361,8 +361,7 @@ namespace BaconBox {
 		 */
 		static void savePixMap(const PixMap &pixMap,
 							   const std::string &filePath);
-		static void loadTranslationXML(const std::string &key, const std::string & xmlPath);
-		static std::map<std::string, std::string> * getTranslations(const std::string &key);
+
 		static void loadFlashExporterXML(const std::string & xmlPath);
 		
 		static void loadFlashExporterSymbols(rapidxml::xml_node<> *node);
@@ -418,7 +417,6 @@ namespace BaconBox {
 		static std::map<std::string, Symbol*> symbols;
 		
 		
-		static std::map<std::string, std::map<std::string, std::string> > translations;
 
 	};
 }
