@@ -114,7 +114,8 @@ TextEntity * EntityFactory::getTextEntity(const std::string &key){
 			symbol->subTex = ResourceManager::getSubTexture(symbol->key);
 			symbol->subTex->textureInfo = textureInfo;
 		}
-		entity = getMovieClipEntityFromSubTexture(symbol->subTex, symbol->registrationPoint, symbol->blend);
+			float scale  = 1.0f/symbol->scale;
+		entity = getMovieClipEntityFromSubTexture(symbol->subTex, symbol->registrationPoint , symbol->blend, scale);
 	    }
 	    else{
 			if(symbol->isTextField){
@@ -198,7 +199,7 @@ TextEntity * EntityFactory::getTextEntity(const std::string &key){
 	return entity;
 	}
 
-	MovieClipEntity *EntityFactory::getMovieClipEntityFromSubTexture(SubTextureInfo* subTex, const Vector2 & origin, bool blend){
+	MovieClipEntity *EntityFactory::getMovieClipEntityFromSubTexture(SubTextureInfo* subTex, const Vector2 & origin, bool blend, float scale){
 	    MovieClipEntity *result = NULL;
 
 		if (subTex) {
@@ -210,10 +211,11 @@ TextEntity * EntityFactory::getTextEntity(const std::string &key){
 			mesh->getPreTransformVertices().resize(4);
 	
 
-			mesh->getPreTransformVertices()[1].x = subTex->size.x;
-			mesh->getPreTransformVertices()[2].y = subTex->size.y;
-			mesh->getPreTransformVertices()[3] = subTex->size;
-			mesh->getPreTransformVertices().move(origin.x, origin.y);
+			mesh->getPreTransformVertices()[1].x = subTex->size.x * scale;
+			mesh->getPreTransformVertices()[2].y = subTex->size.y * scale;
+			mesh->getPreTransformVertices()[3] = subTex->size * scale;
+			
+			mesh->getPreTransformVertices().move(origin.x * scale, origin.y * scale);
 
 			result->addComponent(mesh);
 

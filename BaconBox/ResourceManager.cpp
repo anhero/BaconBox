@@ -598,6 +598,11 @@ namespace BaconBox {
 	void ResourceManager::loadFlashExporterTextures(rapidxml::xml_node<> *node, const std::string &dirPath) {
 		std::string textureName = node->first_attribute("name")->value();
 		registerTexture(textureName, dirPath + "/" + node->first_attribute("path")->value());
+		rapidxml::xml_attribute<> * scale  = node->first_attribute("scale");
+		
+		float textureScale = 1;
+		
+		if(scale) textureScale = Parser::stringToDouble(scale->value());
 		
 						
 		for (rapidxml::xml_node<> *subTextNode = node->first_node("SubTexture"); subTextNode; subTextNode = subTextNode->next_sibling()){
@@ -616,6 +621,7 @@ namespace BaconBox {
 
 			symbol->blend = Parser::stringToBool(subTextNode->first_attribute("blend")->value());
 			
+			symbol->scale = textureScale;
 			
 			
 			registrationPoint.x = Parser::stringToDouble(subTextNode->first_attribute("registrationPointX")->value());

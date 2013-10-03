@@ -49,6 +49,7 @@ namespace BaconBox {
 		int textFieldWidth;
 		int textFieldHeight;
 		int fontSize;
+		float scale;
 		TextAlignment::type alignment;
 	    Color color;
 //	Symbol * symbol;
