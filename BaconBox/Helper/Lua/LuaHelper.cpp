@@ -3,18 +3,17 @@
 #include "BaconBox/Core/Entity.h"
 #include "BaconBox/Console.h"
 #include "lua.hpp"
-
+#include "BaconBox/Special/Swig/swigluarun.h"
 using namespace BaconBox;
 
 struct swig_type_info;
 
-int luaUserDataconvertPtr(lua_State *L, int index, void **ptr, swig_type_info *type, int flags);
 
 namespace BaconBox {
 
 	void *LuaHelper::getPointerFromLuaUserData(lua_State *L, bool pop) {
 		void *ptr;
-		luaUserDataconvertPtr(L, -1, (void **)(&ptr), NULL, 0);
+		SWIG_Lua_ConvertPtr(L, -1, (void **)(&ptr), NULL, 0);
 
 		if (pop) {
 			lua_pop(L, 1);

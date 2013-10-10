@@ -362,6 +362,7 @@
 		51C34E73175E645200960346 /* LuaHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 51C34E71175E645200960346 /* LuaHelper.h */; };
 		C721A53517FC831B000B5E71 /* LocalizationManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C721A53317FC831B000B5E71 /* LocalizationManager.cpp */; };
 		C721A53617FC831B000B5E71 /* LocalizationManager.h in Headers */ = {isa = PBXBuildFile; fileRef = C721A53417FC831B000B5E71 /* LocalizationManager.h */; };
+		C73CB6231807501700F0926C /* swigluarun.h in Headers */ = {isa = PBXBuildFile; fileRef = C73CB6221807501700F0926C /* swigluarun.h */; };
 		C75E26D617C6740A00A22316 /* libogg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C75E26CF17C6740A00A22316 /* libogg.a */; };
 		C75E26D717C6740A00A22316 /* libSDL2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C75E26D017C6740A00A22316 /* libSDL2.a */; };
 		C75E26D817C6740A00A22316 /* libSDL2main.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C75E26D117C6740A00A22316 /* libSDL2main.a */; };
@@ -736,6 +737,7 @@
 		51C34E71175E645200960346 /* LuaHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LuaHelper.h; sourceTree = "<group>"; };
 		C721A53317FC831B000B5E71 /* LocalizationManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LocalizationManager.cpp; sourceTree = "<group>"; };
 		C721A53417FC831B000B5E71 /* LocalizationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocalizationManager.h; sourceTree = "<group>"; };
+		C73CB6221807501700F0926C /* swigluarun.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = swigluarun.h; sourceTree = "<group>"; };
 		C75E26CF17C6740A00A22316 /* libogg.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libogg.a; path = /Users/twistedjoe/Documents/Berzerk/BaconBox/FF2/ide/osx/../../libraries/BaconBox/libraries/Darwin/x86_64/lib/libogg.a; sourceTree = "<absolute>"; };
 		C75E26D017C6740A00A22316 /* libSDL2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSDL2.a; path = /Users/twistedjoe/Documents/Berzerk/BaconBox/FF2/ide/osx/../../libraries/BaconBox/libraries/Darwin/x86_64/lib/libSDL2.a; sourceTree = "<absolute>"; };
 		C75E26D117C6740A00A22316 /* libSDL2main.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSDL2main.a; path = /Users/twistedjoe/Documents/Berzerk/BaconBox/FF2/ide/osx/../../libraries/BaconBox/libraries/Darwin/x86_64/lib/libSDL2main.a; sourceTree = "<absolute>"; };
@@ -1412,6 +1414,7 @@
 		51903B6717500B7B00814708 /* Swig */ = {
 			isa = PBXGroup;
 			children = (
+				C73CB6221807501700F0926C /* swigluarun.h */,
 				51903B6917500B7B00814708 /* BaconBoxLua.cpp */,
 			);
 			path = Swig;
@@ -1503,6 +1506,7 @@
 				51903C0217500B7B00814708 /* Entity.h in Headers */,
 				51903C0617500B7B00814708 /* IDManager.h in Headers */,
 				51903C0817500B7B00814708 /* State.h in Headers */,
+				C73CB6231807501700F0926C /* swigluarun.h in Headers */,
 				51903C0A17500B7B00814708 /* BatchedVertexArray.h in Headers */,
 				51903C0C17500B7B00814708 /* BatchManager.h in Headers */,
 				51903C0E17500B7B00814708 /* Camera.h in Headers */,

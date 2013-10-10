@@ -3,12 +3,12 @@
 #include "BaconBox/Console.h"
 #include "lua.hpp"
 #include "BaconBox/Helper/Lua/LuaHelper.h"
+#include "BaconBox/Special/Swig/swigluarun.h"
 using namespace BaconBox;
 
 int LuaCallback::EMPTY_LUA_REF = -1;
 
 swig_type_info * getTypeByName(lua_State* L, const char * name);
-void pushLuaWrapperBySwigType(lua_State* L,void* ptr,swig_type_info *type,int own);
 
 LuaCallback::LuaCallback(lua_State * L, const std::string & type):sigly::HasSlots<sigly::SingleThreaded>(), swigType1(NULL), table_index(EMPTY_LUA_REF), function_index(EMPTY_LUA_REF){
 	this->L = L;
@@ -22,7 +22,7 @@ LuaCallback::LuaCallback(lua_State * L, const std::string & type):sigly::HasSlot
 			lua_getfield(L, -1, "addCWrapper");
 			lua_rawgeti(L, LUA_REGISTRYINDEX,table_index);
 			lua_pushlightuserdata(L, signal);
-			pushLuaWrapperBySwigType(L, static_cast<void*>(this), getTypeByName(L, "LuaCallback"), 0);
+			SWIG_NewPointerObj(L, static_cast<void*>(this), getTypeByName(L, "LuaCallback"), 0);
 			
 			int ret = lua_pcall(L, 3, 0, 0);
 			if(ret !=0){
@@ -46,7 +46,7 @@ LuaCallback::LuaCallback(lua_State * L, const std::string & type):sigly::HasSlot
 void LuaCallback::call(void* param) {
 	lua_rawgeti(L, LUA_REGISTRYINDEX,function_index);
 	lua_rawgeti(L, LUA_REGISTRYINDEX,table_index);
-	pushLuaWrapperBySwigType(L, param, swigType1, 0);
+	SWIG_NewPointerObj(L, param, swigType1, 0);
 	int ret = lua_pcall(L, 2, 0, 0);
 	if(ret !=0){
 		std::cout << "An error occured executing a LuaCallback. " <<std::endl;

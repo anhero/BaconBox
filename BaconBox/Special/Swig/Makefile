@@ -7,6 +7,6 @@ all: BaconBoxLua.cpp
 
 BaconBoxLua.cpp: BaconBox.i
 	$(SWIG) -lua -c++ -module BaconBox -outdir . -ignoremissing  -DBB_OPENGL -DBB_LUA -I../../.. -I$(HEADERS_PATH)  -o BaconBoxLua.cpp BaconBox.i
-
+	$(SWIG) -lua -external-runtime
 clean:
 	rm -rf BaconBoxLua.cpp

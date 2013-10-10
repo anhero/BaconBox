@@ -136,6 +136,7 @@ end
   #include "BaconBox/Input/Pointer/PointerButtonSignalData.h"
   #include "BaconBox/Input/Pointer/Pointer.h"
 
+  #include "BaconBox/TestInterface.h"
 
 #include "BaconBox/Input/Accelerometer/AccelerometerState.h"
 #include "BaconBox/Input/Accelerometer/AccelerometerSignalData.h"
@@ -222,31 +223,34 @@ class FlashEngine;
 // Helper functions
 ///////////////////////
 #if defined(BB_LUA)
-	swig_type_info * getTypeByName(lua_State* L, const char * name){
-		swig_module_info* module=SWIG_GetModule(L);
-		for (int i =0; i < module->size; i++){
-			swig_lua_class* luaclass = (swig_lua_class*) module->types[i]->clientdata;
-			if(luaclass&& strcmp(luaclass->name, name) ==0){
-				return module->types[i];
-			}
-		}
-		return NULL;
-	}
-
-  int luaUserDataconvertPtr(lua_State* L,int index,void** ptr,swig_type_info *type,int flags){
-    return SWIG_Lua_ConvertPtr(L,index,ptr,type,flags);
+	swig_type_info * getTypeByName(swig_module_info *start,
+        swig_module_info *end,
+  const char *name){
+  swig_module_info *iter = start;
+  do {
+  register size_t i = 0;
+  for (; i < iter->size; ++i) {
+    swig_lua_class* luaclass = (swig_lua_class*) iter->types[i]->clientdata;
+    if(luaclass&& strcmp(luaclass->name, name) ==0){
+      return iter->types[i];
+    }
   }
+  iter = iter->next;
+} while (iter != end);
+  return NULL;
+}
 
-  void pushLuaWrapperBySwigType(lua_State* L,void* ptr,swig_type_info *type,int own){
-    SWIG_NewPointerObj(L, ptr, type, own);
-  }
+swig_type_info * getTypeByName(lua_State*L, const char * name){
+  swig_module_info *module =SWIG_GetModule(L);
+  return getTypeByName(module, module, name);
+}
 
-	int luacast(lua_State*L){
-		void * myDataPtr;
+  int luacast(lua_State*L){
+    void * myDataPtr;
         void ** ptrToPtr = &myDataPtr;
 
         const char * type_name = luaL_checkstring(L, 2);
-        swig_type_info * type = getTypeByName(L, type_name);
+    swig_type_info * type = getTypeByName(L, type_name);
 
         SWIG_ConvertPtr(L, 1, ptrToPtr, NULL, 0);
 
@@ -261,13 +265,13 @@ class FlashEngine;
                 lua_pushstring(L,"Failed to find swig_type_info for specified type.");
                 return 2;
         }
-
+    
         // Using the swig_type_info that we found, create a new object on 
         // the stack of the desired data type and return.
         SWIG_Lua_NewPointerObj(L, myDataPtr, type, 0);
 
         return 1;
-	}
+  }
 
   
 	#endif
@@ -445,7 +449,7 @@ class MovieClipEntity;
 
 %include "BaconBox/Helper/SafeEnum.h"
 
-
+%include "BaconBox/TestInterface.h"
 
 %include "BaconBox/Core/Component.h"
 
