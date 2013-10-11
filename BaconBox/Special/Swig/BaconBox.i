@@ -136,7 +136,6 @@ end
   #include "BaconBox/Input/Pointer/PointerButtonSignalData.h"
   #include "BaconBox/Input/Pointer/Pointer.h"
 
-  #include "BaconBox/TestInterface.h"
 
 #include "BaconBox/Input/Accelerometer/AccelerometerState.h"
 #include "BaconBox/Input/Accelerometer/AccelerometerSignalData.h"
@@ -449,7 +448,7 @@ class MovieClipEntity;
 
 %include "BaconBox/Helper/SafeEnum.h"
 
-%include "BaconBox/TestInterface.h"
+
 
 %include "BaconBox/Core/Component.h"
 
