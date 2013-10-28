@@ -11,12 +11,11 @@ namespace BaconBox {
 
 	void SDLMainWindow::onBaconBoxInit(unsigned int resolutionWidth, unsigned int resolutionHeight, float contextWidth, float contextHeight, WindowOrientation::type orientation) {
 		
-		this->MainWindow::setResolution(resolutionWidth, resolutionHeight);
-		this->MainWindow::setContextSize(contextWidth, contextHeight);
+
 		
 		mainWindow = SDL_CreateWindow(Engine::getApplicationName().c_str(),
-		                              SDL_WINDOWPOS_CENTERED,
-		                              SDL_WINDOWPOS_CENTERED,
+		                              -1000,
+		                              0,
 		                              static_cast<int>(resolutionWidth),
 		                              static_cast<int>(resolutionHeight),
 		                              SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN);
@@ -27,6 +26,9 @@ namespace BaconBox {
 		}
 		
 	
+		this->MainWindow::setResolution(resolutionWidth, resolutionHeight);
+		this->MainWindow::setContextSize(contextWidth, contextHeight);
+		
 		this->setOrientation(orientation);
 		
 		InputManager::getInstance().setNbKeyboards(1);

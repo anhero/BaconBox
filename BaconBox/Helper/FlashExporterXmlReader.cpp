@@ -39,7 +39,7 @@ namespace BaconBox {
 	static const char *TX_NODE_NAME = "tx";
 	static const char *TY_NODE_NAME = "ty";
 
-	void readMatrix(rapidxml::xml_node<> *node, Matrix &matrix);
+	void readMatrix(rapidxml::xml_node<> *node, Matrix2D &matrix);
 
 	void FlashExporterXmlReader::readFile(const std::string &path, const std::string &secondPath) {
 		if (!secondPath.empty()) {
@@ -350,7 +350,7 @@ namespace BaconBox {
 
 											part->indexByFrame.insert(std::make_pair(frameIndex, index));
 
-											Matrix matrix;
+											Matrix2D matrix;
 
 											readMatrix(currentChild, matrix);
 
@@ -378,7 +378,7 @@ namespace BaconBox {
 		}
 	}
 
-	void readMatrix(rapidxml::xml_node<> *node, Matrix &matrix) {
+	void readMatrix(rapidxml::xml_node<> *node, Matrix2D &matrix) {
 		rapidxml::xml_node<> *currentNode = node->first_node();
 
 		rapidxml::xml_node<> *aNode = NULL, *bNode = NULL, *cNode = NULL, *dNode = NULL, *txNode = NULL, *tyNode = NULL;

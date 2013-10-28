@@ -788,7 +788,7 @@ namespace BaconBox {
 
 					part->indexByFrame.insert(std::pair<int, int>(frameIndex, index));
 
-					Matrix matrix;
+					Matrix2D matrix;
 					found = childNode->first_attribute("a");
 					if (found) {
 						matrix.a = Parser::stringToDouble(found->value());
@@ -817,7 +817,7 @@ namespace BaconBox {
 					}
 
 					
-					part->matrices.insert(std::pair<int, Matrix>(frameIndex, matrix));
+					part->matrices.insert(std::pair<int, Matrix2D>(frameIndex, matrix));
 
 					ColorMatrix colorMatrix;
 					found = childNode->first_attribute("colorTransform");
@@ -930,16 +930,28 @@ namespace BaconBox {
 		}
 
 		fonts.erase(i);
+		
 	}
+	
+	void ResourceManager::unloadAllTexture() {
+		for (std::map<std::string, TextureInformation *>::iterator i = textures.begin();
+		     i != textures.end(); ++i) {
+			ResourceManager::unloadTexture(i->first);
+		}
+		
+	}
+	
 	void ResourceManager::unloadAll() {
 		// We unload the textures.
+		ResourceManager::unloadAllTexture();
 		for (std::map<std::string, TextureInformation *>::iterator i = textures.begin();
 		     i != textures.end(); ++i) {
 			delete i->second;
 		}
-
+		
 		textures.clear();
-
+		
+		
 		// We unload the sound effects.
 		for (std::map<std::string, SoundInfo *>::iterator i = sounds.begin();
 		     i != sounds.end(); ++i) {

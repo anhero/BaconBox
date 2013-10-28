@@ -1,25 +1,28 @@
 #include "BaconBox/Input/Accelerometer/AccelerometerState.h"
 
 using namespace BaconBox;
-
+using namespace VMATH_NAMESPACE;
 const float AccelerometerState::STARTING_ACCELERATION = 0.0f;
 
-AccelerometerState::AccelerometerState() : InputState(),
-xAcceleration(STARTING_ACCELERATION), yAcceleration(STARTING_ACCELERATION),
-zAcceleration(STARTING_ACCELERATION) {
+AccelerometerState::AccelerometerState() : InputState(), acceleration(STARTING_ACCELERATION, STARTING_ACCELERATION, STARTING_ACCELERATION) {
 }
 
 AccelerometerState::~AccelerometerState() {
 }
 
 float AccelerometerState::getXAcceleration() const {
-	return xAcceleration;
+	return acceleration.x;
 }
 
 float AccelerometerState::getYAcceleration() const {
-	return yAcceleration;
+	return acceleration.y;
 }
 
 float AccelerometerState::getZAcceleration() const {
-	return zAcceleration;
+	return acceleration.z;
+}
+
+
+const Vector3f & AccelerometerState::getAcceleration() const{
+	return acceleration;
 }

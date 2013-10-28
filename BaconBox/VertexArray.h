@@ -11,7 +11,7 @@
 #include "BaconBox/Vector2.h"
 #include "BaconBox/AxisAlignedBoundingBox.h"
 #include "BaconBox/Helper/Serialization/Serializable.h"
-#include "Matrix.h"
+#include "Matrix2D.h"
 
 namespace BaconBox {
 	/**
@@ -323,7 +323,7 @@ namespace BaconBox {
 		                     const Vector2 &rotationPoint);
 		
 		
-		void multiplyWithMatrix(const Matrix & m);
+		void multiplyWithMatrix(const Matrix2D & m);
 		
 		/**
 		 * Checks if a point is inside the polygon represented by the vertices.

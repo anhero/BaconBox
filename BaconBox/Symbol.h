@@ -5,7 +5,7 @@
 #include <set>
 #include <list>
 
-#include "BaconBox/Matrix.h"
+#include "BaconBox/Matrix2D.h"
 #include "BaconBox/ColorMatrix.h"
 
 #include "BaconBox/Display/Color.h"
@@ -27,7 +27,7 @@ namespace BaconBox {
 //	    };
 
 	    Part();
-	    typedef std::map<int, Matrix> MatrixByFrame;
+	    typedef std::map<int, Matrix2D> MatrixByFrame;
 	    typedef std::map<int, ColorMatrix> ColorMatrixByFrame;
 	    typedef std::map<int, int> IndexByFrame;
 	    IndexByFrame indexByFrame;

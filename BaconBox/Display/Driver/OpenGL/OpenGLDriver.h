@@ -70,6 +70,7 @@ namespace BaconBox {
 
 
 		void initializeGraphicDriver();
+		void resetProjection();
 
 		/**
 		 * Pushes the current matrix on the stack.

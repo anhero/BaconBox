@@ -47,7 +47,7 @@ namespace BaconBox {
 												  const Color &color,
 												  const Color &colorOffset, bool blend);
 		
-		
+		void resetProjection();
 		
 		void drawShapeWithTexture(const VertexArray &vertices,
 								  const TextureInformation *textureInformation,

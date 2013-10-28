@@ -7,6 +7,7 @@
 #include "BaconBox/Input/InputManager.h"
 #include "BaconBox/Display/Window/ios/BaconBoxAppAppDelegate.h"
 #import <UIKit/UIKit.h>
+#include "BaconBox/Display/Driver/GraphicDriver.h"
 
 namespace BaconBox {
 	
@@ -22,15 +23,21 @@ namespace BaconBox {
 		CGFloat screenScale = [[UIScreen mainScreen] scale];
 		CGSize screenSize = CGSizeMake(screenBounds.size.width * screenScale, screenBounds.size.height * screenScale);
 		
-		this->MainWindow::setResolution(screenSize.width, screenSize.height);
-		setContextSize(contextWidth, contextHeight);
-		this->setOrientation(orientation);
+
 		
 
 		viewController = [[BaconBoxAppViewController alloc] initWithFrame: screenBounds];
 		[viewController setFrameInterval: 60.0f/Engine::getUpdatesPerSecond()];
 
 		[BaconBoxAppAppDelegate setViewController: viewController];
+		
+		
+		this->MainWindow::setResolution(screenSize.width, screenSize.height);
+		setContextSize(contextWidth, contextHeight);
+		this->setOrientation(orientation);
+		
+		GraphicDriver::getInstance().resetProjection();
+
 		
 		InputManager::getInstance().setNbPointers(1);
 		InputManager::getInstance().setNbKeyboards(1);
@@ -40,18 +47,19 @@ namespace BaconBox {
 	
 	
 	void IOSMainWindow::setContextSize(float newContextWidth, float newContextHeight) {
-		MainWindow::setContextSize(newContextWidth, newContextHeight);
 		float screenScale = 1/[[UIScreen mainScreen] scale];
 
 
 		if (newContextWidth == 0.0f) {
-			contextWidth *= screenScale;
+			newContextWidth = contextWidth * screenScale;
 			
 		}
 		if (newContextHeight == 0.0f) {
-			contextHeight *= screenScale;
+			newContextHeight = contextHeight * screenScale;
 			
 		}
+		MainWindow::setContextSize(newContextWidth, newContextHeight);
+
 	}
 	
 	void IOSMainWindow::setUpdatesPerSecond(double setFrameInterval){

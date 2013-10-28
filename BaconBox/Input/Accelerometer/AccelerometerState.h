@@ -6,7 +6,7 @@
 #define BB_ACCELEROMETER_STATE_H
 
 #include "BaconBox/Input/InputState.h"
-
+#include "BaconBox/vmath.h"
 namespace BaconBox {
 	/**
 	 * Contains the information about the accelerometer.
@@ -42,18 +42,15 @@ namespace BaconBox {
 		 * @return Z acceleration.
 		 */
 		float getZAcceleration() const;
+		
+		const vmath::Vector3f & getAcceleration() const;
+
 	private:
 		/// Initial acceleration values.
 		static const float STARTING_ACCELERATION;
 		
-		/// Accelerometer's x acceleration.
-		float xAcceleration;
-		
-		/// Accelerometer's y acceleration.
-		float yAcceleration;
-		
-		/// Accelerometer's z acceleration.
-		float zAcceleration;
+		VMATH_NAMESPACE::Vector3f acceleration;
+
 	};
 }
 

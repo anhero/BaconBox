@@ -70,9 +70,14 @@ namespace BaconBox {
 								   unsigned int newResolutionHeight) {
 		resolutionWidth = (!orientationIsHorizontal() ? newResolutionWidth: newResolutionHeight);
 		resolutionHeight = (orientationIsHorizontal() ? newResolutionWidth: newResolutionHeight);
+		GraphicDriver::getInstance().resetProjection();
 	}
 	bool MainWindow::orientationIsHorizontal(){
 		return (this->getOrientation() == WindowOrientation::HORIZONTAL_LEFT || this->getOrientation() == WindowOrientation::HORIZONTAL_RIGHT);
+	}
+	
+	void MainWindow::setContextSize(Vector2 size){
+		setContextSize(size.x, size.y);
 	}
 	
 	void MainWindow::setContextSize(float newContextWidth, float newContextHeight) {
@@ -90,20 +95,31 @@ namespace BaconBox {
 		} else {
 			contextHeight = (orientationIsHorizontal() ? newContextWidth: newContextHeight);
 		}
+		GraphicDriver::getInstance().resetProjection();
+
 	}
 	
 	WindowOrientation::type MainWindow::getOrientation() const {
 		return orientation;
 	}
 	
+	
+
 	void MainWindow::setOrientation(WindowOrientation::type newOrientation) {
+		bool wasHoriz = orientationIsHorizontal();
 		if (orientation != newOrientation) {
 			orientation = newOrientation;
 		}
+		if(orientationIsHorizontal() != wasHoriz) {
+			setResolution(this->getResolutionHeight(), this->getResolutionWidth());
+			setContextSize(this->getContextHeight(), this->getContextWidth());
+		}
+		else{
+			setResolution(this->getResolutionWidth(), this->getResolutionHeight());
+			setContextSize(this->getContextWidth(), this->getContextHeight());
+		}
 		
-		setResolution(this->getRealResolutionWidth(), this->getRealResolutionHeight());
-		setContextSize(this->getRealContextWidth(), this->getRealContextHeight());
-	}
+		}
 	
 	MainWindow::MainWindow() : sigly::HasSlots<sigly::SingleThreaded>(), resolutionWidth(0), resolutionHeight(0),
 		contextWidth(0), contextHeight(0), orientation(WindowOrientation::NORMAL) {

@@ -34,6 +34,10 @@ namespace BaconBox {
 		
 	}
 	
+	void resetProjection(){
+		
+	}
+
 	
 	
 	void NullGraphicDriver::drawShapeWithTexture(const VertexArray &vertices,

@@ -5,7 +5,7 @@
 #include "BaconBox/Vector2.h"
 #include "BaconBox/Core/Entity.h"
 #include "BaconBox/Input/Pointer/Pointer.h"
-#include "BaconBox/Matrix.h"
+#include "BaconBox/Matrix2D.h"
 #include "BaconBox/Helper/Vector2ChangedData.h"
 #include "BaconBox/Components/ComponentConnection.h"
 
@@ -24,9 +24,9 @@ namespace BaconBox {
 
 		MatrixComponent();
 
-		virtual void setMatrix(const Matrix &m);
-		virtual Matrix &getMatrix() = 0;
-		virtual Matrix getConcatMatrix() = 0;
+		virtual void setMatrix(const Matrix2D &m);
+		virtual Matrix2D &getMatrix() = 0;
+		virtual Matrix2D getConcatMatrix() = 0;
 
 	protected:
 		void initializeConnections();
@@ -37,9 +37,9 @@ namespace BaconBox {
 	public:
 		MatrixComponentProxy(Entity *entity);
 		MatrixComponent *getMatrixComponent();
-		void setMatrix(const Matrix &m);
-		Matrix &getMatrix();
-		Matrix getConcatMatrix();
+		void setMatrix(const Matrix2D &m);
+		Matrix2D &getMatrix();
+		Matrix2D getConcatMatrix();
 
 	protected:
 		void setMatrixComponent(MatrixComponent *matrixComponent);

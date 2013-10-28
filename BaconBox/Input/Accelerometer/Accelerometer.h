@@ -10,6 +10,7 @@
 #include "BaconBox/Input/InputDevice.h"
 #include "BaconBox/Input/Accelerometer/AccelerometerSignalData.h"
 #include "BaconBox/Input/Accelerometer/AccelerometerState.h"
+#include "BaconBox/vmath.h"
 
 namespace BaconBox {
 	/**
@@ -88,8 +89,16 @@ namespace BaconBox {
 		 * @return Accelerometer's state containing its acceleration values.
 		 */
 		const AccelerometerState& getState() const;
+	
+		const vmath::Vector3f getCalibratedAcceleration();
+		void calibrateFromSelf();
+		void calibrateFromVector(const vmath::Vector3f &vec);
+		const vmath::Vector3f & getAcceleration();
+		void setCalibrationMatrix(const vmath::Matrix4f & calibrationMatrix);
+		const vmath::Matrix4f & getCalibrationMatrix();
+
 	protected:
-		
+		VMATH_NAMESPACE::Matrix4f calibrationMatrix;
 		/// Accelerometer's state containing its acceleration values (x, y z).
 		AccelerometerState state;
 		void setState(float xAcceleration, float yAcceleration, float zAcceleration);

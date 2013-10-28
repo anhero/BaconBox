@@ -141,6 +141,13 @@ end
 #include "BaconBox/Input/Accelerometer/AccelerometerSignalData.h"
 #include "BaconBox/Input/Accelerometer/Accelerometer.h"
 
+#include "BaconBox/Input/GamePad/GamePadState.h"
+#include "BaconBox/Input/GamePad/GamePadSignalData.h"
+#include "BaconBox/Input/GamePad/GamePadThumbstickSignalData.h"
+#include "BaconBox/Input/GamePad/GamePadButtonSignalData.h"
+#include "BaconBox/Input/GamePad/GamePad.h"
+
+  #include "BaconBox/Input/InputManager.h"
 
 
 	#include "BaconBox/Core/Component.h"
@@ -151,6 +158,8 @@ end
   #include "BaconBox/Components/HasName.h"
 
 	#include "BaconBox/Vector2.h"
+    #include "BaconBox/Vector3.h"
+
   #include "BaconBox/Components/Visibility.h"
 	#include "BaconBox/Components/Transform.h"
   #include "BaconBox/Display/ColorFormat.h"
@@ -286,6 +295,8 @@ class SoundInfo;
 #include "BaconBox/Audio/MusicEngine.h"
 #include "BaconBox/Audio/BackgroundMusic.h"
 #include "BaconBox/Display/Driver/GraphicDriver.h"
+#include "BaconBox/vmath.h"
+
 %}
 
 %ignore Color::operator uint32_t() const;
@@ -465,6 +476,23 @@ class MovieClipEntity;
 
 //%include "BaconBox/Vector2.h"
 
+%include "BaconBox/vmath.h"
+
+%template(Vector3f) VMATH_NAMESPACE::Vector3< float >;
+%template(Matrix4f) VMATH_NAMESPACE::Matrix4< float >;
+%template(Quatf) VMATH_NAMESPACE::Quaternion< float >;
+
+%extend VMATH_NAMESPACE::Vector3<float> {
+const char *__str__() {
+       static char tmp[1024];
+       std::stringstream ss;
+        ss << (*self);
+        strcpy(tmp, ss.str().c_str());
+        return tmp;
+   }
+
+}
+
 namespace BaconBox{
 	class Vector2{
 		public:
@@ -511,10 +539,42 @@ namespace BaconBox{
 		float x;
 		float y;
 
-
-
-
 	};
+
+    class Vector3{
+    public:
+    Vector3();
+    Vector3(const Vector3 &);
+
+    #if defined(BB_LUA)
+    Vector3(float x, float y, float z);
+    #endif
+
+    Vector3 operator+(const Vector3 &other) const;
+    Vector3 operator+(float delta) const;
+
+    Vector3 operator-(const Vector3 &other) const;
+    Vector3 operator-(float delta) const;
+
+
+    float operator*(const Vector3 &other) const;
+    Vector3 operator*(float delta) const;
+
+    Vector3 operator/(float delta) const;
+
+
+  
+    float getLength() const;
+    void setLength(float newLength);
+    float getSquaredLength() const;
+    float getDotProduct(const Vector3 &other) const;
+    Vector3 getNormalized() const;
+    void normalize();
+
+    float x;
+    float y;
+    float z;
+  };
 
 }
 
@@ -527,9 +587,20 @@ const char *__str__() {
         return tmp;
    }
 
+}
+
+%extend BaconBox::Vector3 {
+const char *__str__() {
+       static char tmp[1024];
+       std::stringstream ss;
+        ss << (*self);
+        strcpy(tmp, ss.str().c_str());
+        return tmp;
    }
 
-%include "BaconBox/Matrix.h"
+}
+
+%include "BaconBox/Matrix2D.h"
 
 %include "BaconBox/PlatformFlagger.h"
 %include "BaconBox/Platform.h"
@@ -581,6 +652,14 @@ const char *__str__() {
 
 %immutable BaconBox::Accelerometer::change;
 %include "BaconBox/Input/Accelerometer/Accelerometer.h"
+
+%include "BaconBox/Input/GamePad/GamePadState.h"
+%include "BaconBox/Input/GamePad/GamePadSignalData.h"
+%include "BaconBox/Input/GamePad/GamePadThumbstickSignalData.h"
+%include "BaconBox/Input/GamePad/GamePadButtonSignalData.h"
+%include "BaconBox/Input/GamePad/GamePad.h"
+
+%include "BaconBox/Input/InputManager.h"
 
 
 %include "BaconBox/Components/Visibility.h"
@@ -711,7 +790,8 @@ namespace BaconBox{
                                 const std::string &filePath,
                                 bool overwrite = false);
                                 
-
+          static void unloadTexture(const std::string &key);
+    static void unloadAllTexture();
      static MusicInfo *loadMusicRelativePath(const std::string &key,
                                             const std::string &relativePath,
                                             bool overwrite = false);       

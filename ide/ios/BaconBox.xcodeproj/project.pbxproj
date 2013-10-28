@@ -163,7 +163,6 @@
 		516A93A9179ED9FD00F483C4 /* PointerButtonSignalData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 516A92B0179ED9FD00F483C4 /* PointerButtonSignalData.cpp */; };
 		516A93AA179ED9FD00F483C4 /* PointerSignalData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 516A92B2179ED9FD00F483C4 /* PointerSignalData.cpp */; };
 		516A93AB179ED9FD00F483C4 /* PointerState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 516A92B4179ED9FD00F483C4 /* PointerState.cpp */; };
-		516A93AF179ED9FD00F483C4 /* Matrix.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 516A92BF179ED9FD00F483C4 /* Matrix.cpp */; };
 		516A93B0179ED9FD00F483C4 /* MovieClipEntity.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 516A92C2179ED9FD00F483C4 /* MovieClipEntity.cpp */; };
 		516A93B1179ED9FD00F483C4 /* Platform.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 516A92C4179ED9FD00F483C4 /* Platform.cpp */; };
 		516A93B2179ED9FD00F483C4 /* ResourceManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 516A92C7179ED9FD00F483C4 /* ResourceManager.cpp */; };
@@ -183,6 +182,7 @@
 		C75E1E8117F4A1F600010F59 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C75E1E8017F4A1F600010F59 /* CoreMotion.framework */; };
 		C784119217ECF50300FC8929 /* libCocoaHTTPServer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C784119117ECF50300FC8929 /* libCocoaHTTPServer.a */; };
 		C7F3281D17F35451009D7092 /* liblua.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5161F4FF172079A30044226C /* liblua.a */; };
+		C7FA9EC918109C8C000FC6DE /* Matrix2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C7FA9EC718109C8C000FC6DE /* Matrix2D.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -540,8 +540,6 @@
 		516A92B3179ED9FD00F483C4 /* PointerSignalData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PointerSignalData.h; sourceTree = "<group>"; };
 		516A92B4179ED9FD00F483C4 /* PointerState.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PointerState.cpp; sourceTree = "<group>"; };
 		516A92B5179ED9FD00F483C4 /* PointerState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PointerState.h; sourceTree = "<group>"; };
-		516A92BF179ED9FD00F483C4 /* Matrix.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Matrix.cpp; sourceTree = "<group>"; };
-		516A92C0179ED9FD00F483C4 /* Matrix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Matrix.h; sourceTree = "<group>"; };
 		516A92C2179ED9FD00F483C4 /* MovieClipEntity.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MovieClipEntity.cpp; sourceTree = "<group>"; };
 		516A92C3179ED9FD00F483C4 /* MovieClipEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MovieClipEntity.h; sourceTree = "<group>"; };
 		516A92C4179ED9FD00F483C4 /* Platform.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Platform.cpp; sourceTree = "<group>"; };
@@ -582,6 +580,8 @@
 		C784119117ECF50300FC8929 /* libCocoaHTTPServer.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libCocoaHTTPServer.a; path = ../../../../libraries/BaconBox/libraries/ios/universal/lib/libCocoaHTTPServer.a; sourceTree = "<group>"; };
 		C7B75C1317ECBDFD00A056CF /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		C7B75C1517ECBE0D00A056CF /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
+		C7FA9EC718109C8C000FC6DE /* Matrix2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Matrix2D.cpp; sourceTree = "<group>"; };
+		C7FA9EC818109C8C000FC6DE /* Matrix2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Matrix2D.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -656,6 +656,8 @@
 		516A9102179ED9FC00F483C4 /* BaconBox */ = {
 			isa = PBXGroup;
 			children = (
+				C7FA9EC718109C8C000FC6DE /* Matrix2D.cpp */,
+				C7FA9EC818109C8C000FC6DE /* Matrix2D.h */,
 				C721A53C17FCBF5D000B5E71 /* LocalizationManager.cpp */,
 				C721A53D17FCBF5D000B5E71 /* LocalizationManager.h */,
 				516A9103179ED9FC00F483C4 /* Audio */,
@@ -674,8 +676,6 @@
 				516A9206179ED9FC00F483C4 /* EntityFactory.h */,
 				516A9207179ED9FC00F483C4 /* Helper */,
 				516A9267179ED9FD00F483C4 /* Input */,
-				516A92BF179ED9FD00F483C4 /* Matrix.cpp */,
-				516A92C0179ED9FD00F483C4 /* Matrix.h */,
 				516A92C1179ED9FD00F483C4 /* MovieClipEntity */,
 				516A92C4179ED9FD00F483C4 /* Platform.cpp */,
 				516A92C5179ED9FD00F483C4 /* Platform.h */,
@@ -1396,6 +1396,7 @@
 				516A938F179ED9FD00F483C4 /* GamePadButtonSignalData.cpp in Sources */,
 				516A939F179ED9FD00F483C4 /* KeySignalData.cpp in Sources */,
 				516A9340179ED9FD00F483C4 /* UIManager.cpp in Sources */,
+				C7FA9EC918109C8C000FC6DE /* Matrix2D.cpp in Sources */,
 				516A9382179ED9FD00F483C4 /* ShapeFactory.cpp in Sources */,
 				516A93C5179ED9FD00F483C4 /* Vector2.cpp in Sources */,
 				516A93A3179ED9FD00F483C4 /* CursorButton.cpp in Sources */,
@@ -1490,7 +1491,6 @@
 				516A9310179ED9FD00F483C4 /* SoundEngine.cpp in Sources */,
 				516A93B0179ED9FD00F483C4 /* MovieClipEntity.cpp in Sources */,
 				516A93B7179ED9FD00F483C4 /* SignalAnalyzerManager.cpp in Sources */,
-				516A93AF179ED9FD00F483C4 /* Matrix.cpp in Sources */,
 				516A93A7179ED9FD00F483C4 /* NullPointer.cpp in Sources */,
 				516A9378179ED9FD00F483C4 /* ResourcePathHandler.cpp in Sources */,
 			);
@@ -1521,6 +1521,8 @@
 					"$(inherited)",
 					"BB_LUA=1",
 					"SIGLY_DEFAULT_MT_POLICY=SingleThreaded",
+					"VMATH_NAMESPACE=vmath",
+					BB_WEBDAV_SERVER,
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
@@ -1553,6 +1555,7 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"BB_LUA=1",
 					"SIGLY_DEFAULT_MT_POLICY=SingleThreaded",
+					"VMATH_NAMESPACE=vmath",
 				);
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
@@ -1568,8 +1571,9 @@
 		5161F0F4172037090044226C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				DEAD_CODE_STRIPPING = NO;
 				DSTROOT = /tmp/BaconBox.dst;
-				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_OPTIMIZATION_LEVEL = fast;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "";
 				HEADER_SEARCH_PATHS = (
@@ -1581,7 +1585,7 @@
 					"\"$(SRCROOT)/../../libraries/ios/universal/lib\"",
 				);
 				LLVM_LTO = NO;
-				LLVM_VECTORIZE_LOOPS = NO;
+				LLVM_VECTORIZE_LOOPS = YES;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -1591,8 +1595,9 @@
 		5161F0F5172037090044226C /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				DEAD_CODE_STRIPPING = NO;
 				DSTROOT = /tmp/BaconBox.dst;
-				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_OPTIMIZATION_LEVEL = fast;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "";
 				HEADER_SEARCH_PATHS = (
@@ -1604,7 +1609,7 @@
 					"\"$(SRCROOT)/../../libraries/ios/universal/lib\"",
 				);
 				LLVM_LTO = NO;
-				LLVM_VECTORIZE_LOOPS = NO;
+				LLVM_VECTORIZE_LOOPS = YES;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;

@@ -507,27 +507,8 @@ void OpenGLDriver::endRenderToTexture(){
 		glGenFramebuffers(1, &textureFBO);
 		textureFBOInitialized = true;
 		
-		glViewport(0, 0, static_cast<int>(MainWindow::getInstance().getRealResolutionWidth()), static_cast<int>(MainWindow::getInstance().getRealResolutionHeight()));
-
-	
-		float left, right, bottom, top;
-
-			left = 0.0f;
-			right = static_cast<float>(MainWindow::getInstance().getRealContextWidth());
-			bottom = static_cast<float>(MainWindow::getInstance().getRealContextHeight());
-			top = 0.0f;
+		resetProjection();
 		
-
-
-		projectionMatrix[0] = 2.0f / (right - left);
-		projectionMatrix[5] = 2.0f / (top- bottom);
-		projectionMatrix[10] = -1;
-		projectionMatrix[12] = -((right+left)/(right-left));
-		projectionMatrix[13] = -((top+bottom)/(top-bottom));
-//		projectionMatrix[14] = 0;
-		projectionMatrix[15] = 1;
-		
-		program->sendUniform(uniforms.projection, &(projectionMatrix[0]));
 #if defined(BB_MAC_PLATFORM) && defined(BB_SDL)
 		int swapInterval = 1;
 		CGLSetParameter(CGLGetCurrentContext(), kCGLCPSwapInterval, &swapInterval);
@@ -535,6 +516,31 @@ void OpenGLDriver::endRenderToTexture(){
 		
 
 	}
+	
+	void OpenGLDriver::resetProjection(){
+		glViewport(0, 0, static_cast<int>(MainWindow::getInstance().getRealResolutionWidth()), static_cast<int>(MainWindow::getInstance().getRealResolutionHeight()));
+		
+		
+		float left, right, bottom, top;
+		
+		left = 0.0f;
+		right = static_cast<float>(MainWindow::getInstance().getRealContextWidth());
+		bottom = static_cast<float>(MainWindow::getInstance().getRealContextHeight());
+		top = 0.0f;
+		
+		
+		
+		projectionMatrix[0] = 2.0f / (right - left);
+		projectionMatrix[5] = 2.0f / (top- bottom);
+		projectionMatrix[10] = -1;
+		projectionMatrix[12] = -((right+left)/(right-left));
+		projectionMatrix[13] = -((top+bottom)/(top-bottom));
+		//		projectionMatrix[14] = 0;
+		projectionMatrix[15] = 1;
+		
+		program->sendUniform(uniforms.projection, &(projectionMatrix[0]));
+	}
+
 
 	void OpenGLDriver::pushMatrix() {
 	}

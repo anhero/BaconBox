@@ -328,8 +328,6 @@
 		51903CE917500B7B00814708 /* SDLPointer.h in Headers */ = {isa = PBXBuildFile; fileRef = 51903B4317500B7B00814708 /* SDLPointer.h */; };
 		51903CEA17500B7B00814708 /* SDLInputManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 51903B4517500B7B00814708 /* SDLInputManager.cpp */; };
 		51903CEB17500B7B00814708 /* SDLInputManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 51903B4617500B7B00814708 /* SDLInputManager.h */; };
-		51903CEC17500B7B00814708 /* Matrix.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 51903B4717500B7B00814708 /* Matrix.cpp */; };
-		51903CED17500B7B00814708 /* Matrix.h in Headers */ = {isa = PBXBuildFile; fileRef = 51903B4817500B7B00814708 /* Matrix.h */; };
 		51903CEE17500B7B00814708 /* MovieClipEntity.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 51903B4A17500B7B00814708 /* MovieClipEntity.cpp */; };
 		51903CEF17500B7B00814708 /* MovieClipEntity.h in Headers */ = {isa = PBXBuildFile; fileRef = 51903B4B17500B7B00814708 /* MovieClipEntity.h */; };
 		51903CF017500B7B00814708 /* Platform.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 51903B4C17500B7B00814708 /* Platform.cpp */; };
@@ -378,6 +376,10 @@
 		C7B9796717C671460016E86F /* liblua.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C7B9795B17C671460016E86F /* liblua.a */; };
 		C7B9796F17C671460016E86F /* libz.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C7B9796317C671460016E86F /* libz.a */; };
 		C7B9797117C6715A0016E86F /* libpng.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C7B9797017C6715A0016E86F /* libpng.a */; };
+		C7FA9ECD18109E22000FC6DE /* Matrix2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C7FA9ECB18109E22000FC6DE /* Matrix2D.cpp */; };
+		C7FA9ECE18109E22000FC6DE /* Matrix2D.h in Headers */ = {isa = PBXBuildFile; fileRef = C7FA9ECC18109E22000FC6DE /* Matrix2D.h */; };
+		C7FA9ED118109E39000FC6DE /* vmath.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C7FA9ECF18109E39000FC6DE /* vmath.cpp */; };
+		C7FA9ED218109E39000FC6DE /* vmath.h in Headers */ = {isa = PBXBuildFile; fileRef = C7FA9ED018109E39000FC6DE /* vmath.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -702,8 +704,6 @@
 		51903B4317500B7B00814708 /* SDLPointer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDLPointer.h; sourceTree = "<group>"; };
 		51903B4517500B7B00814708 /* SDLInputManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SDLInputManager.cpp; sourceTree = "<group>"; };
 		51903B4617500B7B00814708 /* SDLInputManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDLInputManager.h; sourceTree = "<group>"; };
-		51903B4717500B7B00814708 /* Matrix.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Matrix.cpp; sourceTree = "<group>"; };
-		51903B4817500B7B00814708 /* Matrix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Matrix.h; sourceTree = "<group>"; };
 		51903B4A17500B7B00814708 /* MovieClipEntity.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MovieClipEntity.cpp; sourceTree = "<group>"; };
 		51903B4B17500B7B00814708 /* MovieClipEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MovieClipEntity.h; sourceTree = "<group>"; };
 		51903B4C17500B7B00814708 /* Platform.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Platform.cpp; sourceTree = "<group>"; };
@@ -753,6 +753,10 @@
 		C7B9795B17C671460016E86F /* liblua.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = liblua.a; path = ../../../../libraries/BaconBox/libraries/Darwin/x86_64/lib/liblua.a; sourceTree = "<group>"; };
 		C7B9796317C671460016E86F /* libz.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libz.a; path = ../../../../libraries/BaconBox/libraries/Darwin/x86_64/lib/libz.a; sourceTree = "<group>"; };
 		C7B9797017C6715A0016E86F /* libpng.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpng.a; path = ../../../../libraries/BaconBox/libraries/Darwin/x86_64/lib/libpng.a; sourceTree = "<group>"; };
+		C7FA9ECB18109E22000FC6DE /* Matrix2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Matrix2D.cpp; sourceTree = "<group>"; };
+		C7FA9ECC18109E22000FC6DE /* Matrix2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Matrix2D.h; sourceTree = "<group>"; };
+		C7FA9ECF18109E39000FC6DE /* vmath.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = vmath.cpp; sourceTree = "<group>"; };
+		C7FA9ED018109E39000FC6DE /* vmath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vmath.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -802,6 +806,10 @@
 		519039A317500B7B00814708 /* BaconBox */ = {
 			isa = PBXGroup;
 			children = (
+				C7FA9ECF18109E39000FC6DE /* vmath.cpp */,
+				C7FA9ED018109E39000FC6DE /* vmath.h */,
+				C7FA9ECB18109E22000FC6DE /* Matrix2D.cpp */,
+				C7FA9ECC18109E22000FC6DE /* Matrix2D.h */,
 				C721A53317FC831B000B5E71 /* LocalizationManager.cpp */,
 				C721A53417FC831B000B5E71 /* LocalizationManager.h */,
 				519039A417500B7B00814708 /* Audio */,
@@ -818,8 +826,6 @@
 				51903A9317500B7B00814708 /* EntityFactory.h */,
 				51903A9417500B7B00814708 /* Helper */,
 				51903AEF17500B7B00814708 /* Input */,
-				51903B4717500B7B00814708 /* Matrix.cpp */,
-				51903B4817500B7B00814708 /* Matrix.h */,
 				51903B4917500B7B00814708 /* MovieClipEntity */,
 				51903B4C17500B7B00814708 /* Platform.cpp */,
 				51903B4D17500B7B00814708 /* Platform.h */,
@@ -1564,6 +1570,7 @@
 				51903C7017500B7B00814708 /* Pool.h in Headers */,
 				51903C7217500B7B00814708 /* Random.h in Headers */,
 				51903C7317500B7B00814708 /* Range.h in Headers */,
+				C7FA9ED218109E39000FC6DE /* vmath.h in Headers */,
 				51903C7517500B7B00814708 /* ResourcePathHandler.h in Headers */,
 				51903C7617500B7B00814708 /* SafeEnum.h in Headers */,
 				51903C7817500B7B00814708 /* Array.h in Headers */,
@@ -1623,7 +1630,6 @@
 				51903CE517500B7B00814708 /* PointerState.h in Headers */,
 				51903CE917500B7B00814708 /* SDLPointer.h in Headers */,
 				51903CEB17500B7B00814708 /* SDLInputManager.h in Headers */,
-				51903CED17500B7B00814708 /* Matrix.h in Headers */,
 				51903CEF17500B7B00814708 /* MovieClipEntity.h in Headers */,
 				51903CF117500B7B00814708 /* Platform.h in Headers */,
 				51903CF217500B7B00814708 /* PlatformFlagger.h in Headers */,
@@ -1633,6 +1639,7 @@
 				51903CF917500B7B00814708 /* SignalAnalyzer.h in Headers */,
 				51903CFB17500B7B00814708 /* SignalAnalyzerManager.h in Headers */,
 				51903CFD17500B7B00814708 /* SignalData.h in Headers */,
+				C7FA9ECE18109E22000FC6DE /* Matrix2D.h in Headers */,
 				51903D0517500B7B00814708 /* StandardVertexArray.h in Headers */,
 				51903D0717500B7B00814708 /* Symbol.h in Headers */,
 				51903D0817500B7B00814708 /* TextureCoordinates.h in Headers */,
@@ -1714,6 +1721,7 @@
 				51903B8D17500B7B00814708 /* MusicParameters.cpp in Sources */,
 				51903B8F17500B7B00814708 /* NullAudio.cpp in Sources */,
 				51903B9117500B7B00814708 /* NullAudioEngine.cpp in Sources */,
+				C7FA9ED118109E39000FC6DE /* vmath.cpp in Sources */,
 				51903B9A17500B7B00814708 /* SDLMixerBackgroundMusic.cpp in Sources */,
 				51903B9C17500B7B00814708 /* SDLMixerEngine.cpp in Sources */,
 				51903B9E17500B7B00814708 /* SDLMixerSoundFX.cpp in Sources */,
@@ -1823,6 +1831,7 @@
 				51903CBE17500B7B00814708 /* InputState.cpp in Sources */,
 				51903CC217500B7B00814708 /* Key.cpp in Sources */,
 				51903CC417500B7B00814708 /* Keyboard.cpp in Sources */,
+				C7FA9ECD18109E22000FC6DE /* Matrix2D.cpp in Sources */,
 				51903CC617500B7B00814708 /* KeyboardSignalData.cpp in Sources */,
 				51903CC817500B7B00814708 /* KeyboardState.cpp in Sources */,
 				51903CCA17500B7B00814708 /* KeyMaskSignalData.cpp in Sources */,
@@ -1838,7 +1847,6 @@
 				51903CE417500B7B00814708 /* PointerState.cpp in Sources */,
 				51903CE817500B7B00814708 /* SDLPointer.cpp in Sources */,
 				51903CEA17500B7B00814708 /* SDLInputManager.cpp in Sources */,
-				51903CEC17500B7B00814708 /* Matrix.cpp in Sources */,
 				51903CEE17500B7B00814708 /* MovieClipEntity.cpp in Sources */,
 				51903CF017500B7B00814708 /* Platform.cpp in Sources */,
 				51903CF317500B7B00814708 /* ResourceManager.cpp in Sources */,
@@ -1893,6 +1901,7 @@
 					"DEBUG=1",
 					"$(inherited)",
 					"SIGLY_DEFAULT_MT_POLICY=SingleThreaded",
+					"VMATH_NAMESPACE=vmath",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_VERSION = "";

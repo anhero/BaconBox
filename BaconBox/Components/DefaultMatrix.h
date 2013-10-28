@@ -28,17 +28,17 @@ namespace BaconBox {
 		 */
 		virtual void receiveMessage(int senderID, int destID, int message, void *data);
 
-		void setMatrix(const Matrix & m);
-		Matrix & getMatrix();
-		Matrix getConcatMatrix();
+		void setMatrix(const Matrix2D & m);
+		Matrix2D & getMatrix();
+		Matrix2D getConcatMatrix();
 		void setFrameMatrix(int frame);
 	protected:
 		void initializeConnections();
 	private:
-void internalSetMatrix(const Matrix & m);
-		Matrix matrix;
-		Matrix concatMatrix;
-		std::map<int, Matrix> * matrixByParentFrame;
+void internalSetMatrix(const Matrix2D & m);
+		Matrix2D matrix;
+		Matrix2D concatMatrix;
+		std::map<int, Matrix2D> * matrixByParentFrame;
 		EntityContainer * entityContainer;
 		void updateMatrix(Vector2 position, Vector2 scale, float angle);
 		bool hasCustomMatrix;

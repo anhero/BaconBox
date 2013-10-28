@@ -1,4 +1,4 @@
-#include "Matrix.h"
+#include "Matrix2D.h"
 #include "Vector2.h"
 #include <cmath>
 
@@ -11,13 +11,13 @@
 #include "BaconBox/Helper/Serialization/Serializer.h"
 
 namespace BaconBox {
-	Matrix::Matrix(const Matrix &src) : a(src.a), b(src.b), c(src.c), d(src.d), tx(src.tx), ty(src.ty) {}
+	Matrix2D::Matrix2D(const Matrix2D &src) : a(src.a), b(src.b), c(src.c), d(src.d), tx(src.tx), ty(src.ty) {}
 	
-	Matrix::Matrix():a(1),b(0),c(0),d(1),tx(0),ty(0){}
+	Matrix2D::Matrix2D():a(1),b(0),c(0),d(1),tx(0),ty(0){}
 	
-	Matrix::Matrix(float a, float b, float c, float d, float tx, float ty):a(a),b(b),c(c),d(d),tx(tx),ty(ty){}
+	Matrix2D::Matrix2D(float a, float b, float c, float d, float tx, float ty):a(a),b(b),c(c),d(d),tx(tx),ty(ty){}
 
-	Matrix &Matrix::operator=(const Matrix &src) {
+	Matrix2D &Matrix2D::operator=(const Matrix2D &src) {
 		a = src.a;
 		b = src.b;
 		c = src.c;
@@ -28,8 +28,8 @@ namespace BaconBox {
 	}
 
 	
-	Matrix Matrix::operator*(const Matrix & m) const{
-	    return Matrix(a*m.a + c*m.b, 
+	Matrix2D Matrix2D::operator*(const Matrix2D & m) const{
+	    return Matrix2D(a*m.a + c*m.b, 
 			     b*m.a + d*m.b, 
 			     a*m.c + c*m.d,
 			     b*m.c + d*m.d,
@@ -39,36 +39,36 @@ namespace BaconBox {
 	
 
 	
-	Matrix &Matrix::operator*=(const Matrix& m) {
+	Matrix2D &Matrix2D::operator*=(const Matrix2D& m) {
 		(*this) = (*this) * m;
 		return (*this);
 	}
 	
-	Matrix & Matrix::concat(const Matrix & m){
+	Matrix2D & Matrix2D::concat(const Matrix2D & m){
 	    (*this) = m * (*this);
 	    return (*this);
 	}
 	
-//	bool Matrix::isSkewed() const{
+//	bool Matrix2D::isSkewed() const{
 //	    return !(-b == c);
 //	}
 
 	
 	
-	Vector2 Matrix::multiplyWithVector(const Vector2 & v) const{
+	Vector2 Matrix2D::multiplyWithVector(const Vector2 & v) const{
 	    return Vector2(a*v.x + c*v.y + tx, b*v.x + d*v.y + ty);
 	}
 
 	
-	void Matrix::translate(const Vector2 & v){
-	    Matrix temp;
+	void Matrix2D::translate(const Vector2 & v){
+	    Matrix2D temp;
 	    temp.tx = v.x;
 	    temp.ty = v.y;
 	    (*this) = temp * (*this);
 	}
 	
-	void Matrix::scale(const Vector2 & v){
-	    Matrix temp;
+	void Matrix2D::scale(const Vector2 & v){
+	    Matrix2D temp;
 	    temp.a *= v.x;
 	    temp.d *= v.y;
 	    float tempTx = tx;
@@ -80,24 +80,24 @@ namespace BaconBox {
 	    ty = tempTy;
 	}
 	
-	void Matrix::rotate(float angle){
+	void Matrix2D::rotate(float angle){
 	    angle *=  MathHelper::AngleConvert<float>::DEGREES_TO_RADIANS; 
 	    float cosValue = MathHelper::cos(angle);
 	    float sinValue = MathHelper::sin(angle);
-	    (*this) = (*this) * Matrix(cosValue, -sinValue, sinValue, cosValue,0,0);
+	    (*this) = (*this) * Matrix2D(cosValue, -sinValue, sinValue, cosValue,0,0);
 	
 	}
 	
-	std::ostream &operator<<(std::ostream &output, const Matrix& m) {
+	std::ostream &operator<<(std::ostream &output, const Matrix2D& m) {
 		Value tmpValue;
 		DefaultSerializer::serialize(m, tmpValue);
 		DefaultSerializer::getDefaultSerializer().writeToStream(output, tmpValue);
 		return output;
 	}
 	
-	void Matrix::serialize(Value &node, bool setName) const {
+	void Matrix2D::serialize(Value &node, bool setName) const {
 			if (setName) {
-				node.setName("Matrix2");
+				node.setName("Matrix2D");
 			}
 			node["a"].setDouble(static_cast<double>(a));
 			node["b"].setDouble(static_cast<double>(b));
@@ -108,7 +108,7 @@ namespace BaconBox {
 		}
 
 		
-		bool Matrix::deserialize(const Value &node) {
+		bool Matrix2D::deserialize(const Value &node) {
 			bool result = true;
 			if (node.getArray().size() == 6) {
 				a = static_cast<float>(node.getArray()[0].getDouble());
@@ -153,7 +153,7 @@ namespace BaconBox {
 		}
 
 		
-		bool Matrix::isValidValue(const Value &node) {
+		bool Matrix2D::isValidValue(const Value &node) {
 			Object::const_iterator itA = node.getObject().find("a");
 			Object::const_iterator itB = node.getObject().find("b");
 			Object::const_iterator itC = node.getObject().find("c");

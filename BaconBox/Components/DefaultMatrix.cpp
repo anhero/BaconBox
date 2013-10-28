@@ -29,7 +29,7 @@ namespace BaconBox {
 	    }
 	}
 
-	Matrix & DefaultMatrix::getMatrix(){
+	Matrix2D & DefaultMatrix::getMatrix(){
 	    return matrix;
 	}
 
@@ -41,7 +41,7 @@ namespace BaconBox {
 	}
 
 
-	Matrix DefaultMatrix::getConcatMatrix(){
+	Matrix2D DefaultMatrix::getConcatMatrix(){
 	    if(entityContainer && entityContainer->getParent()){
 		MatrixComponent * matrixComponent  = entityContainer->getParent()->getMatrixComponent();
 		concatMatrix = matrix;
@@ -84,7 +84,7 @@ namespace BaconBox {
 //	    }
 	}
 
-void DefaultMatrix::internalSetMatrix(const Matrix & m){
+void DefaultMatrix::internalSetMatrix(const Matrix2D & m){
 	    MatrixComponent::setMatrix(m);
 	   matrix = m;
 	    Vector2 origin;
@@ -116,7 +116,7 @@ void DefaultMatrix::internalSetMatrix(const Matrix & m){
 //		transform->setRotation(rotation, false);
 	}
 
-	void DefaultMatrix::setMatrix(const Matrix & m){
+	void DefaultMatrix::setMatrix(const Matrix2D & m){
 	   internalSetMatrix(m);
 		hasCustomMatrix = true;
 	}

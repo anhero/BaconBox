@@ -167,6 +167,7 @@ namespace BaconBox {
 		static void removeTexture(const std::string &key);
 	
 	        static void unloadTexture(const std::string &key);
+		static void unloadAllTexture();
 
 
 		/**
@@ -386,6 +387,7 @@ namespace BaconBox {
 		static TextureInformation *addTextureInfo(const std::string &key, TextureInformation *textureInfo,
 		                                      bool overwrite = false);
 	    
+		
 		/**
 		 * Unloads everything in the ResourceManager.
 		 */

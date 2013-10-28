@@ -37,6 +37,8 @@ static BaconBoxAppViewController *baconBoxViewController = nil;
 
 - (void)startServer
 {
+#ifdef BB_WEBDAV_SERVER
+
     // Start the server (and check for problems)
 	
 	NSError *error;
@@ -48,11 +50,14 @@ static BaconBoxAppViewController *baconBoxViewController = nil;
 	{
 		DDLogInfo(@"Error starting HTTP Server: %@", error);
 	}
+#endif
+
 }
 
 
 - (void)initServer
 {
+#ifdef BB_WEBDAV_SERVER
 	[DDLog addLogger:[DDTTYLogger sharedInstance]];
 	httpServer = [[HTTPServer alloc] init];
 	[httpServer setConnectionClass:[DAVConnection class]];
@@ -68,6 +73,7 @@ static BaconBoxAppViewController *baconBoxViewController = nil;
     [self startServer];
 	NSString * ip = [self getIPAddress];
 	std::cout << "HTTP SERVER IP ADDRESS:  " << [ip cStringUsingEncoding:NSUTF8StringEncoding] << std::endl;
+#endif
 }
 
 

@@ -55,7 +55,8 @@ namespace BaconBox {
 								  bool blend) = 0;
 
 		
-		
+		virtual void resetProjection() = 0;
+
 		
         virtual void drawBatchWithTextureColorColorOffset(const VertexArray &vertices,
 												  const TextureInformation *textureInformation,

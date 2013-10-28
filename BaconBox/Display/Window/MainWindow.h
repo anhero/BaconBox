@@ -83,6 +83,9 @@ namespace BaconBox {
 		Vector2 getResolution();
         Vector2 getContextSize();
         
+		
+
+			
         /**
          * Hide the pointer. The pointer still work, but it won't be visible.
          */
@@ -147,6 +150,7 @@ namespace BaconBox {
 		virtual void setContextSize(float newContextWidth,
 									float newContextHeight);
 		
+		void setContextSize(Vector2 size);
 		/**
 		 * Gets the window's current orientation.
 		 * @return Current orientation.
@@ -172,7 +176,6 @@ namespace BaconBox {
 		 */
 		virtual ~MainWindow();
 	protected:
-		
 		bool orientationIsHorizontal();
 		/// Screen's width resolution (or width of the window in window mode).
 		unsigned int resolutionWidth;

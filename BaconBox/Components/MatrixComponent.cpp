@@ -17,8 +17,8 @@ namespace BaconBox {
 		this->refreshConnections();
 	}
 
-	void MatrixComponent::setMatrix(const Matrix & m){
-	    Matrix temp = m;
+	void MatrixComponent::setMatrix(const Matrix2D & m){
+	    Matrix2D temp = m;
 	    sendMessage(Entity::BROADCAST, MESSAGE_MATRIX_CHANGED, &temp);
 	}
 
@@ -27,15 +27,15 @@ namespace BaconBox {
 
 	    }
 
-	    void MatrixComponentProxy::setMatrix(const Matrix & m){
+	    void MatrixComponentProxy::setMatrix(const Matrix2D & m){
 		 reinterpret_cast<MatrixComponent*>(component)->setMatrix(m);
 	    }
 
-	    Matrix & MatrixComponentProxy::getMatrix(){
+	    Matrix2D & MatrixComponentProxy::getMatrix(){
 		 return reinterpret_cast<MatrixComponent*>(component)->getMatrix();
 	    }
 
-	    Matrix MatrixComponentProxy::getConcatMatrix(){
+	    Matrix2D MatrixComponentProxy::getConcatMatrix(){
 		 return reinterpret_cast<MatrixComponent*>(component)->getConcatMatrix();
 	    }
 

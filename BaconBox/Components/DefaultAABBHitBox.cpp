@@ -44,11 +44,11 @@ namespace BaconBox {
 						}
 
 						if (childAABB.getRight() > customAABB.getRight()) {
-							customAABB.setWidth(childAABB.getWidth());
+							customAABB.setWidth(childAABB.getRight() - customAABB.getXPosition());
 						}
 
 						if (childAABB.getBottom() > customAABB.getBottom()) {
-							customAABB.setHeight(childAABB.getHeight());
+							customAABB.setHeight(childAABB.getBottom() - customAABB.getYPosition());
 						}
 
 					} else {

@@ -24,7 +24,7 @@ namespace BaconBox {
 		/// Value equal to one.
 		static const ValueType ONE;
 		
-		/// Type of component, either on the X axis or Y axis.
+		/// Type of component, either on the X axis, Y axis or Z axis.
 		enum ComponentType {
 		    X,
 		    Y,

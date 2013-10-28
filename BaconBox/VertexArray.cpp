@@ -301,7 +301,7 @@ namespace BaconBox {
 		}
 	}
 	
-	void VertexArray::multiplyWithMatrix(const Matrix & m){
+	void VertexArray::multiplyWithMatrix(const Matrix2D & m){
 	   for (Iterator i = getBegin(); i != getEnd(); ++i) {
 		(*i) = m.multiplyWithVector((*i));
 	   } 
