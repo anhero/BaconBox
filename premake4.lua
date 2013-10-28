@@ -156,6 +156,8 @@ config.addIncludeDir(".")
 config.addIncludeDir(config.librariesPath .. "/include")
 
 config.addDefine("SIGLY_DEFAULT_MT_POLICY=sigly::SingleThreaded")
+config.addDefine("VMATH_NAMESPACE=vmath")
+
 
 config.addExclude "**/TinyXML/**"
 config.addExclude "**/OpenAL/**"
@@ -248,6 +250,9 @@ if config.lua and config.setupProject then
 	os.execute(_OPTIONS["swig"] .. 
 		" -lua -c++  -module BaconBox -ignoremissing " .. config.getDefineList() .. config.getIncludeDirList() ..
 		" -o build/BaconBoxLua.cpp BaconBox/Special/Swig/BaconBox.i")
+
+	os.execute(_OPTIONS["swig"] .. 
+		" -lua -external-runtime")
 
 end
 
