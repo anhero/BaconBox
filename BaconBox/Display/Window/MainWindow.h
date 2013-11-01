@@ -125,7 +125,8 @@ namespace BaconBox {
 		 */
 		virtual void setResolution(unsigned int newResolutionWidth,
 								   unsigned int newResolutionHeight);
-		
+		void setResolution(const Vector2 & res);
+
 		/**
 		 * Gets the context width.
 		 * @return Current context width.

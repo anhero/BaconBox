@@ -65,6 +65,9 @@ namespace BaconBox {
 	float MainWindow::getRealContextHeight(){
 		return contextHeight;
 	}
+	void MainWindow::setResolution(const Vector2 & res){
+		setResolution(res.x, res.y);
+	}
 
 	void MainWindow::setResolution(unsigned int newResolutionWidth,
 								   unsigned int newResolutionHeight) {
