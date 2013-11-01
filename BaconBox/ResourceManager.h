@@ -168,6 +168,12 @@ namespace BaconBox {
 	
 	        static void unloadTexture(const std::string &key);
 		static void unloadAllTexture();
+		static void deleteAllTexture();
+		static void deleteAllSubTexture();
+		
+		static void deleteAllSymbol();
+		
+		static void deleteAll();
 
 
 		/**
@@ -391,7 +397,6 @@ namespace BaconBox {
 		/**
 		 * Unloads everything in the ResourceManager.
 		 */
-		static void unloadAll();
 
 		///Create a PixMap from a PNG file at the given path.
 		static PixMap *loadPixMapFromPNG(const std::string &filePath);

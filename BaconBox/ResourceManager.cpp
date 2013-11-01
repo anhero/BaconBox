@@ -527,8 +527,10 @@ namespace BaconBox {
 	}
 
 	void ResourceManager::unloadTexture(const std::string &key) {
-		TextureInformation *textInfo = textures[key];
+		std::map<std::string, TextureInformation *>::iterator i = textures.find(key);
+		TextureInformation *textInfo = i->second;
 		GraphicDriver::getInstance().getInstance().deleteTexture(textInfo);
+		textInfo->textureId = -1;
 	}
 
 	void ResourceManager::removeSound(const std::string &key) {
@@ -933,6 +935,27 @@ namespace BaconBox {
 		
 	}
 	
+	
+	void ResourceManager::deleteAllSubTexture() {
+		for (std::map<std::string, SubTextureInfo *>::iterator i = subTextures.begin();
+		     i != subTextures.end(); ++i) {
+			delete i->second;
+		}
+		
+		subTextures.clear();
+	}
+	
+	void ResourceManager::deleteAllTexture() {
+		for (std::map<std::string, TextureInformation *>::iterator i = textures.begin();
+		     i != textures.end(); ++i) {
+			ResourceManager::unloadTexture(i->first);
+			delete i->second;
+		}
+		
+		textures.clear();
+		ResourceManager::deleteAllSubTexture();
+	}
+
 	void ResourceManager::unloadAllTexture() {
 		for (std::map<std::string, TextureInformation *>::iterator i = textures.begin();
 		     i != textures.end(); ++i) {
@@ -941,16 +964,22 @@ namespace BaconBox {
 		
 	}
 	
-	void ResourceManager::unloadAll() {
-		// We unload the textures.
-		ResourceManager::unloadAllTexture();
-		for (std::map<std::string, TextureInformation *>::iterator i = textures.begin();
-		     i != textures.end(); ++i) {
+	void ResourceManager::deleteAllSymbol() {
+		for (std::map<std::string, Symbol *> ::iterator i = symbols.begin();
+		     i != symbols.end(); ++i) {
 			delete i->second;
 		}
 		
-		textures.clear();
+		symbols.clear();
+	}
+	
+	
+	void ResourceManager::deleteAll() {
 		
+		ResourceManager::deleteAllSymbol();
+		
+		// We unload the textures.
+		ResourceManager::deleteAllTexture();
 		
 		// We unload the sound effects.
 		for (std::map<std::string, SoundInfo *>::iterator i = sounds.begin();

@@ -307,7 +307,7 @@ namespace BaconBox {
 		std::for_each(states.begin(), states.end(), DeletePointerFromPair());
 
 		// We unload the resources.
-		ResourceManager::unloadAll();
+		ResourceManager::deleteAll();
 
 		// We unload the audio engines.
 		if (static_cast<AudioEngine *>(musicEngine) == static_cast<AudioEngine *>(soundEngine)) {
