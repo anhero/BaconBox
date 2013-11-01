@@ -200,6 +200,11 @@ end
 
   #include "BaconBox/Display/Text/Font.h"
   #include "BaconBox/Helper/ResourcePathHandler.h"
+  #include "BaconBox/Display/PixMap.h"
+
+  #include "BaconBox/Audio/SoundParameters.h"
+  #include "BaconBox/Audio/MusicParameters.h"
+
   #include "BaconBox/ResourceManager.h"
 #include "BaconBox/Display/Text/TextAlignment.h"
 #include "BaconBox/Components/TextComponent.h"
@@ -738,10 +743,15 @@ const char *__str__() {
 %ignore getMovieClipEntityFromSymbol;
 %include "BaconBox/EntityFactory.h" 
 %include "BaconBox/Helper/EmitterFactory.h"
+%include "BaconBox/Display/PixMap.h"
 
 %include "BaconBox/Helper/ResourcePathHandler.h"
 
 %include "BaconBox/LocalizationManager.h"
+%include "BaconBox/Audio/MusicParameters.h"
+
+%include "BaconBox/Audio/SoundParameters.h"
+%include "BaconBox/ResourceManager.h"
 
 
 namespace BaconBox{
@@ -758,69 +768,7 @@ namespace BaconBox{
   };
   #endif
   
-  class ResourceManager{
-    public:
-  #if !defined (BB_FLASH_PLATFORM)
-    static TextureInformation *createRenderTexture(const std::string &key,
-                             unsigned int width,
-                             unsigned int height,
-                             ColorFormat::type colorFormat = ColorFormat::RGBA,
-                                          bool overwrite = false);
-    static TextureInformation *getTexture(const std::string &key);
-                                          
-  #endif
-    static SoundInfo *loadSound(const std::string &key,
-                                const std::string &filePath,
-                                bool overwrite = false);
 
-    static SoundInfo *loadSoundRelativePath(const std::string &key,
-                const std::string &relativePath,
-                bool overwrite = false);
-              
-    static SoundInfo *loadSoundFromBundle(const std::string &key,
-                                const std::string &bundleKey,
-                                bool overwrite = false);
-
-    static MusicInfo *loadMusicFromBundle(const std::string &key,
-                                const std::string &bundleKey,
-                                bool overwrite = false);          
-                                
-
-     static MusicInfo *loadMusic(const std::string &key,
-                                const std::string &filePath,
-                                bool overwrite = false);
-                                
-          static void unloadTexture(const std::string &key);
-    static void unloadAllTexture();
-     static MusicInfo *loadMusicRelativePath(const std::string &key,
-                                            const std::string &relativePath,
-                                            bool overwrite = false);       
-
-  static void loadFlashExporterXML(const std::string & xmlPath);
-
-    static SoundInfo *getSound(const std::string &key);
-
-    static MusicInfo *getMusic(const std::string &key);
-
-static void addFontAlias(const std::string &key, const std::string &existingKey);
-static Font *loadFont(const std::string &key,
-                          const std::string &path, bool overwrite = false);
-
-static Font *loadFontRelativePath(const std::string &key,
-                                      const std::string &relativePath,
-                                      bool overwrite = false);
-
-
-    static Font *getFont(const std::string &key);
-
-    static void removeFont(const std::string &key);
-
-        static void removeTexture(const std::string &key);
-
-    static void removeSound(const std::string &key);
-
-    static void removeMusic(const std::string &key);
-  };
 
 
 }

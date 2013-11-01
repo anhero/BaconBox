@@ -1,6 +1,9 @@
 SWIG:=swig
 HEADERS_PATH:=../../../libraries/Darwin/x86_64/include
 
+force:
+	make clean
+	make all
 
 all: BaconBoxLua.cpp
 
