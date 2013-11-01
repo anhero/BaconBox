@@ -5,6 +5,10 @@
 using namespace BaconBox;
 
 int MusicEngine::getMusicVolume() const {
+		return musicVolume;
+}
+
+int MusicEngine::getAbsoluteMusicVolume() const {
 	if(isMuted()) {
 		return muteValue;
 	} else {

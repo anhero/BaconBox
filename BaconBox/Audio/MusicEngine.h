@@ -47,6 +47,7 @@ namespace BaconBox {
 		 * @see BaconBox::AudioEngine::musicVolume
 		 */
 		int getMusicVolume() const;
+		int getAbsoluteMusicVolume() const;
 
 		/**
 		 * Sets the engine's global music volume.
