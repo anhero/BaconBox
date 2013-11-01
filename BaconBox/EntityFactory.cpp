@@ -102,7 +102,7 @@ TextEntity * EntityFactory::getTextEntity(const std::string &key){
 	MovieClipEntity *EntityFactory::getMovieClipEntityFromSymbol(Symbol* symbol, bool autoPlay){
 	MovieClipEntity * entity = NULL;
 	    if(symbol->isTexture){
-		if(!symbol->subTex->textureInfo){
+		if(!symbol->subTex->textureInfo || symbol->subTex->textureInfo->textureId == -1){
 		    std::string textureKey = symbol->textureKey;
 			TextureInformation * textureInfo = NULL;
 			if(ResourceManager::isLoadedTexture(textureKey)){
