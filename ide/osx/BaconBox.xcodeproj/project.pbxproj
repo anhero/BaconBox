@@ -360,6 +360,8 @@
 		51C34E73175E645200960346 /* LuaHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 51C34E71175E645200960346 /* LuaHelper.h */; };
 		C721A53517FC831B000B5E71 /* LocalizationManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C721A53317FC831B000B5E71 /* LocalizationManager.cpp */; };
 		C721A53617FC831B000B5E71 /* LocalizationManager.h in Headers */ = {isa = PBXBuildFile; fileRef = C721A53417FC831B000B5E71 /* LocalizationManager.h */; };
+		C736E65618295F0F00423A6F /* URL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C736E65418295F0F00423A6F /* URL.cpp */; };
+		C736E65718295F0F00423A6F /* URL.h in Headers */ = {isa = PBXBuildFile; fileRef = C736E65518295F0F00423A6F /* URL.h */; };
 		C73CB6231807501700F0926C /* swigluarun.h in Headers */ = {isa = PBXBuildFile; fileRef = C73CB6221807501700F0926C /* swigluarun.h */; };
 		C75E26D617C6740A00A22316 /* libogg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C75E26CF17C6740A00A22316 /* libogg.a */; };
 		C75E26D717C6740A00A22316 /* libSDL2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C75E26D017C6740A00A22316 /* libSDL2.a */; };
@@ -737,6 +739,8 @@
 		51C34E71175E645200960346 /* LuaHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LuaHelper.h; sourceTree = "<group>"; };
 		C721A53317FC831B000B5E71 /* LocalizationManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LocalizationManager.cpp; sourceTree = "<group>"; };
 		C721A53417FC831B000B5E71 /* LocalizationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocalizationManager.h; sourceTree = "<group>"; };
+		C736E65418295F0F00423A6F /* URL.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = URL.cpp; sourceTree = "<group>"; };
+		C736E65518295F0F00423A6F /* URL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = URL.h; sourceTree = "<group>"; };
 		C73CB6221807501700F0926C /* swigluarun.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = swigluarun.h; sourceTree = "<group>"; };
 		C75E26CF17C6740A00A22316 /* libogg.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libogg.a; path = /Users/twistedjoe/Documents/Berzerk/BaconBox/FF2/ide/osx/../../libraries/BaconBox/libraries/Darwin/x86_64/lib/libogg.a; sourceTree = "<absolute>"; };
 		C75E26D017C6740A00A22316 /* libSDL2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSDL2.a; path = /Users/twistedjoe/Documents/Berzerk/BaconBox/FF2/ide/osx/../../libraries/BaconBox/libraries/Darwin/x86_64/lib/libSDL2.a; sourceTree = "<absolute>"; };
@@ -1170,6 +1174,8 @@
 				51903AEB17500B7B00814708 /* Vector2ChangedData.h */,
 				24CA7CFD17748A43000ACF7F /* EmitterFactory.cpp */,
 				24CA7CFE17748A43000ACF7F /* EmitterFactory.h */,
+				C736E65418295F0F00423A6F /* URL.cpp */,
+				C736E65518295F0F00423A6F /* URL.h */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -1593,6 +1599,7 @@
 				51903C9717500B7B00814708 /* Timer.h in Headers */,
 				51903C9917500B7B00814708 /* TimerManager.h in Headers */,
 				51903C9A17500B7B00814708 /* StepTween.h in Headers */,
+				C736E65718295F0F00423A6F /* URL.h in Headers */,
 				51903C9B17500B7B00814708 /* Tween.h in Headers */,
 				51903C9D17500B7B00814708 /* UTFConvert.h in Headers */,
 				51903C9E17500B7B00814708 /* ValueChangedData.h in Headers */,
@@ -1789,6 +1796,7 @@
 				51903C4C17500B7B00814708 /* SDLMainWindow.cpp in Sources */,
 				51903C4F17500B7B00814708 /* EntityFactory.cpp in Sources */,
 				51903C5217500B7B00814708 /* Base64.cpp in Sources */,
+				C736E65618295F0F00423A6F /* URL.cpp in Sources */,
 				51903C5417500B7B00814708 /* BitHelper.cpp in Sources */,
 				51903C5617500B7B00814708 /* CallHelper.cpp in Sources */,
 				51903C5917500B7B00814708 /* Compression.cpp in Sources */,
