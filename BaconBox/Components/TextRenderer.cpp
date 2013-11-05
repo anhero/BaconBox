@@ -20,6 +20,7 @@ namespace BaconBox {
 		Vector2 currentPos;
 	};
 
+
 	BB_ID_IMPL(TextRenderer);
 
 	TextRenderer::TextRenderer(TextureFont *font) : Component(), font(font), needPositionReset(false), needTextReset(false), scaleRatio(1.0f), alignment(TextAlignment::LEFT), textComponent(NULL) {
@@ -89,7 +90,7 @@ namespace BaconBox {
 	}
 
 	bool TextRenderer::isWordJump(Char32 charCode) {
-		std::string wordJump = "\n\t ";
+		std::string wordJump = "\n\r\t ";
 		return wordJump.find(charCode) != std::string::npos;
 	}
 
@@ -234,7 +235,7 @@ namespace BaconBox {
 
 			MovieClipEntity *sprite = NULL;
 
-			if (glyphInfo->charCode == '\n') {
+			if (glyphInfo->charCode == '\n' || *i == '\r') {
 				charSpritesLines.resize(charSpritesLines.size() + 1);
 				charSpritesLines.back().resize(1);
 
