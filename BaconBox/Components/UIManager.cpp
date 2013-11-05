@@ -22,9 +22,16 @@ namespace BaconBox {
 		clickable.push_front(newEntity);
 	}
 	
+	void UIManager::removeClickable(MovieClipEntity *newEntity){
+		clickable.remove(newEntity);
+	}
 #ifdef BB_LUA
 	void UIManager::addClickable(lua_State * L){
 		addClickable(reinterpret_cast<MovieClipEntity*>(LuaHelper::getEntityFromLuaEntity(L)));
+	}
+	
+	void UIManager::removeClickable(lua_State * L){
+		removeClickable(reinterpret_cast<MovieClipEntity*>(LuaHelper::getEntityFromLuaEntity(L)));
 	}
 #endif //BB_LUA
 
@@ -48,6 +55,9 @@ namespace BaconBox {
 				(*i)->released->shoot();
 				currentlyPressed = NULL;
 				return;
+			}
+			else if(lastOver){
+				lastOver->moveOut->shoot();
 			}
 		}
 	}
@@ -104,10 +114,17 @@ namespace BaconBox {
 	void UIManagerProxy::addClickable(lua_State * L){
 	    reinterpret_cast<UIManager*>(component)->addClickable(L);
 	}
+	void UIManagerProxy::removeClickable(lua_State * L){
+	    reinterpret_cast<UIManager*>(component)->removeClickable(L);
+	}
 #endif //BB_LUA
 	
 	void UIManagerProxy::addClickable(MovieClipEntity *newEntity){
 	    reinterpret_cast<UIManager*>(component)->addClickable(newEntity);
+	}
+	
+	void UIManagerProxy::removeClickable(MovieClipEntity *newEntity){
+	    reinterpret_cast<UIManager*>(component)->removeClickable(newEntity);
 	}
 
 }

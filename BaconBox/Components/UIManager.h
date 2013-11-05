@@ -20,8 +20,11 @@ namespace BaconBox {
 				
 		
 		void addClickable(MovieClipEntity *newEntity);
+		void removeClickable(MovieClipEntity *newEntity);
+
 #ifdef BB_LUA
 		void addClickable(lua_State * L);
+		void removeClickable(lua_State * L);
 #endif //BB_LUA
 		
 		virtual void receiveMessage(int senderID, int destID, int message, void *data);
@@ -45,8 +48,10 @@ namespace BaconBox {
 	public:
 		UIManagerProxy(Entity *entity, bool mustAddComponent = true);
 		void addClickable(MovieClipEntity *newEntity);
+		void removeClickable(MovieClipEntity *newEntity);
 #ifdef BB_LUA
 		void addClickable(lua_State * L);
+		void removeClickable(lua_State * L);
 #endif //BB_LUA
 	};
 }
