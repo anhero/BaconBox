@@ -101,6 +101,8 @@ end
     #include "BaconBox/Helper/Lua/LuaHelper.h"
   #endif
 
+    #include "BaconBox/Helper/URL.h"
+
   #include "BaconBox/Helper/SafeEnum.h"
   #include "BaconBox/Platform.h"
 
@@ -606,6 +608,7 @@ const char *__str__() {
 }
 
 %include "BaconBox/Matrix2D.h"
+%include "BaconBox/Helper/URL.h"
 
 %include "BaconBox/PlatformFlagger.h"
 %include "BaconBox/Platform.h"
