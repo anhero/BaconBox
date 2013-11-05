@@ -5,7 +5,7 @@
 #endif
 using namespace BaconBox;
 
-bool URL::openURL(const std::string & url){
+bool URL::open(const std::string & url){
 #ifdef BB_IPHONE_PLATFORM
 	NSString * url_nsstring = [NSString stringWithCString:url.c_str() encoding:NSUTF8StringEncoding];
 	url_nsstring = [url_nsstring stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
