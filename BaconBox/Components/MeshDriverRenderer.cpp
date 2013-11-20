@@ -16,7 +16,7 @@ namespace BaconBox {
 	int MeshDriverRenderer::MESSAGE_GET_RENDER_MODE = IDManager::generateID();
 	int MeshDriverRenderer::MESSAGE_SET_RENDER_MODE = IDManager::generateID();
 
-	MeshDriverRenderer::MeshDriverRenderer(int newRenderMode) : Component(), mesh(NULL), texture(NULL), colorTransform(NULL), visibility(NULL), renderMode(newRenderMode), colorMultiplier(Color::WHITE), colorOffset(Color::NO_COLOR), color(Color::WHITE), graphicDriver(&GraphicDriver::getInstance()) {
+	MeshDriverRenderer::MeshDriverRenderer(int newRenderMode,int degenerationStride, int degenerationJump) : Component(), mesh(NULL), texture(NULL), colorTransform(NULL), visibility(NULL), renderMode(newRenderMode), colorMultiplier(Color::WHITE), colorOffset(Color::NO_COLOR), color(Color::WHITE), graphicDriver(&GraphicDriver::getInstance()), degenerationStride(degenerationStride), degenerationJump(degenerationJump) {
 		this->initializeConnections();
 	}
 
@@ -89,10 +89,10 @@ namespace BaconBox {
 							if (this->texture) {
 								// We render with the texture.
 								if(color == Color::WHITE && colorOffset == Color::NO_COLOR){
-									graphicDriver->drawShapeWithTexture(this->mesh->getPostTransformVertices(), this->texture->getTexture(), this->texture->getTextureCoordinates(), (this->renderMode & RenderMode::BLENDED));
+									graphicDriver->drawShapeWithTexture(this->mesh->getPostTransformVertices(), this->texture->getTexture(), this->texture->getTextureCoordinates(), (this->renderMode & RenderMode::BLENDED), degenerationStride, degenerationJump);
 								}
 								else{
-									graphicDriver->drawShapeWithTextureColorColorOffset(this->mesh->getPostTransformVertices(), this->texture->getTexture(), this->texture->getTextureCoordinates(), color, colorOffset, (this->renderMode & RenderMode::BLENDED));
+									graphicDriver->drawShapeWithTextureColorColorOffset(this->mesh->getPostTransformVertices(), this->texture->getTexture(), this->texture->getTextureCoordinates(), color, colorOffset, (this->renderMode & RenderMode::BLENDED), degenerationStride, degenerationJump);
 								}
 							} else {
 								// We render without the texture.

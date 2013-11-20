@@ -4,7 +4,7 @@
 
 #include "BaconBox/Console.h"
 #include "Color.h"
-
+#include "BaconBox/Helper/MathHelper.h"
 namespace BaconBox {
 	PixMap::PixMap() : width(0), height(0),
 		colorFormat(ColorFormat::RGBA), buffer(NULL) {
@@ -163,19 +163,18 @@ namespace BaconBox {
 	}
 
 	void PixMap::insertSubPixMap(const PixMap &subPixMap, unsigned int xOffset,
-	                             unsigned int yOffset) {
+	                             unsigned int yOffset, bool doubleOutline) {
 		if (subPixMap.getColorFormat() == colorFormat) {
-			insertSubPixMap(subPixMap.getBuffer(), subPixMap.getWidth(), subPixMap.getHeight(), xOffset, yOffset);
+			insertSubPixMap(subPixMap.getBuffer(), subPixMap.getWidth(), subPixMap.getHeight(), xOffset, yOffset, doubleOutline);
 
 		} else {
 			Console::println("Can't insert sub pixmap into current pixmap, because the color format isn't compatible.");
 		}
 	}
 
-
 	void PixMap::insertSubPixMap(const uint8_t *subBuffer, unsigned int subWidth,
 	                             unsigned int subHeight, unsigned int xOffset,
-	                             unsigned int yOffset) {
+	                             unsigned int yOffset, bool doubleOutline) {
 		if (subWidth > 0u && subHeight > 0u) {
 			unsigned int currentWidth = width;
 			unsigned int currentHeight = height;
@@ -192,12 +191,31 @@ namespace BaconBox {
 				} else if (colorFormat == ColorFormat::ALPHA) {
 					pixelByteCount = 1;
 				}
-
-				for (unsigned int i = yOffset; i <= maxY; ++i) {
-					for (unsigned int j = xOffset; j <= maxX; ++j) {
+				
+				
+				for (unsigned int i = (doubleOutline && yOffset > 0 ? yOffset-1: yOffset); i <= (doubleOutline && maxY < height ? maxY+1: maxY); ++i) {
+					for (unsigned int j = (doubleOutline && xOffset > 0 ? xOffset-1: xOffset); j <= (doubleOutline && maxX < width ? maxX+1: maxX); ++j) {
 						for (unsigned int k = 0; k < pixelByteCount; ++k) {
-							buffer[(i * currentWidth + j) * pixelByteCount + k] =
-							    subBuffer[(subWidth * (i - yOffset) + (j - xOffset)) * pixelByteCount + k];
+							unsigned int subI;
+							unsigned int subJ;
+							if(!doubleOutline || (i >= yOffset && i <= maxY)){
+								subI = i;
+							}
+							else{
+								subI = MathHelper::clamp(i, yOffset, maxY);
+							}
+							
+							if(!doubleOutline || (j >= xOffset && j <= maxX)){
+								subJ = j;
+							}
+							else{
+								subJ = MathHelper::clamp(j, xOffset, maxX);
+							}
+							
+							uint8_t byte = subBuffer[(subWidth * (subI - yOffset) + (subJ - xOffset)) * pixelByteCount + k];
+							buffer[(i * currentWidth + j) * pixelByteCount + k] = byte;
+			
+							
 						}
 					}
 				}

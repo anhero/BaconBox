@@ -17,7 +17,7 @@ namespace BaconBox {
 		static int MESSAGE_GET_RENDER_MODE;
 		static int MESSAGE_SET_RENDER_MODE;
 
-		MeshDriverRenderer(int newRenderMode = (RenderMode::SHAPE | RenderMode::COLOR));
+		MeshDriverRenderer(int newRenderMode = (RenderMode::SHAPE | RenderMode::COLOR), int degenerationStride = 3, int degenerationJump = -1);
 
 		MeshDriverRenderer(const MeshDriverRenderer &src);
 
@@ -46,6 +46,8 @@ namespace BaconBox {
 		Color color;
 		Color colorMultiplier;
 		Color colorOffset;
+		int degenerationStride;
+		int degenerationJump;
 
 		int renderMode;
 	};

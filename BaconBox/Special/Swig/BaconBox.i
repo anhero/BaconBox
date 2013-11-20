@@ -185,7 +185,9 @@ end
 #include "BaconBox/Components/ParticleEmitter.h"
 	
 	#include "BaconBox/MovieClipEntity/MovieClipEntity.h"
-	
+	 #include "BaconBox/Line.h"
+
+
 #include "BaconBox/EmitterEntity.h"
 	
 	#include "BaconBox/EntityFactory.h"
@@ -197,7 +199,9 @@ end
   #include "BaconBox/Core/State.h"
   #include "BaconBox/Core/Engine.h"
   #include "BaconBox/Display/Text/FontFormat.h"
-  #include "BaconBox/Components/Timeline.h"
+    #include "BaconBox/Components/Timeline.h"
+
+  #include "BaconBox/Components/LineComponent.h"
   #include "BaconBox/Components/EntityContainer.h"
 
   #include "BaconBox/Display/Text/Font.h"
@@ -682,6 +686,7 @@ const char *__str__() {
 %include "BaconBox/Display/TextureInformation.h"
 %include "BaconBox/Display/SubTextureInfo.h"
 
+%include "BaconBox/Components/LineComponent.h"
 
 %include "BaconBox/Components/Timeline.h"
 %include "BaconBox/Components/EntityContainer.h"
@@ -737,7 +742,8 @@ const char *__str__() {
 	%include "BaconBox/Components/ParticleEmitter.h"
 	
 %include "BaconBox/MovieClipEntity/MovieClipEntity.h"
-	
+	%include "BaconBox/Line.h"
+
 %include "BaconBox/EmitterEntity.h"
 
 %include "BaconBox/Display/Text/TextEntity.h"

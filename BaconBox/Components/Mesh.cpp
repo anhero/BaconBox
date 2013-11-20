@@ -40,7 +40,11 @@ namespace BaconBox {
 //			return StandardVertexArray();
 //		}
 //	}
-
+	void Mesh::resize(int size){
+		preTransformVertices.resize(size);
+		postTransformVertices.resize(size);
+	}
+	
 	void Mesh::initializeConnections() {
 		// We add the connections.
 		this->addConnection(new ComponentConnection<Transform>(&this->transform));
@@ -51,6 +55,7 @@ namespace BaconBox {
 	void Mesh::syncMesh(){
 	    mustSync = false;
 //	    postTransformVertices.clear();
+		
 	    for(int  i  = 0; i < preTransformVertices.getNbVertices(); i++){
 			postTransformVertices[i] = preTransformVertices[i];
 	    }

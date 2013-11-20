@@ -26,33 +26,55 @@ namespace BaconBox {
 	}
 	
 	
-	void DynamicBatch::addItem(const VertexArray &newVertices, const TextureCoordinates &newTextureCoordinates) {
-		for(int i = 0; i<4; i++){
+	void DynamicBatch::addItem(const VertexArray &newVertices, const TextureCoordinates &newTextureCoordinates, int degenerationStride, int degenerationJump) {
+		int size = newVertices.getNbVertices();
+		
+		for(int i = 0; i< size; i++){
 			vertices.pushBack(newVertices[i]);
 			textureCoordinates.push_back(newTextureCoordinates[i]);
 		}
+		
+		createNextIndices(size, degenerationStride, degenerationJump);
+	}
+	void DynamicBatch::createNextIndices(int size, int degenerationStride, int degenerationJump){
 		this->indices.push_back(indiceIterator);
-		this->indices.push_back(++indiceIterator);
-		this->indices.push_back(++indiceIterator);
-		this->indices.push_back(++indiceIterator);
-		this->indices.push_back(indiceIterator);
-		this->indices.push_back(++indiceIterator);
+		bool skipDegeneration = (degenerationStride >= size || degenerationStride == 0);
+		int degenerationCount =0;
+		int i = indiceIterator;
+		int maxSize = size -1+indiceIterator;
+		while (i < (maxSize)) {
+			if(skipDegeneration || degenerationStride-1 != degenerationCount){
+				this->indices.push_back(++indiceIterator);
+				degenerationCount++;
+			}
+			else{
+				degenerationCount =0;
+				this->indices.push_back(indiceIterator);
+				indiceIterator += degenerationJump;
+				this->indices.push_back(indiceIterator);
+				this->indices.push_back(indiceIterator);
+
+			}
+			i = indiceIterator;
+		}
+		
+			this->indices.push_back(indiceIterator);
+			this->indices.push_back(++indiceIterator);
+		
 	}
 	
 	void DynamicBatch::addItem(const VertexArray &newVertices, const Color &newColor,
-                            const Color &newColorOffset, const TextureCoordinates &newTextureCoordinates) {
-            for(int i = 0; i<4; i++){
+                            const Color &newColorOffset, const TextureCoordinates &newTextureCoordinates, int degenerationStride, int degenerationJump) {
+		int size = newVertices.getNbVertices();
+
+            for(int i = 0; i<size; i++){
 				this->colors.push_back(newColor);
 				colorOffsets.push_back(newColorOffset);
 				vertices.pushBack(newVertices[i]);
 				textureCoordinates.push_back(newTextureCoordinates[i]);
             }
-		this->indices.push_back(indiceIterator);
-		this->indices.push_back(++indiceIterator);
-		this->indices.push_back(++indiceIterator);
-		this->indices.push_back(++indiceIterator);
-		this->indices.push_back(indiceIterator);
-		this->indices.push_back(++indiceIterator);
+		
+		createNextIndices(size, degenerationStride, degenerationJump);
 	}
 
 	

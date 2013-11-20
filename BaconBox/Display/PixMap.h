@@ -139,7 +139,7 @@ namespace BaconBox {
 		 * side of the current pixmap.)
 		 */
 		void insertSubPixMap(const PixMap &subPixMap, unsigned int xOffset = 0,
-		                     unsigned int yOffset = 0);
+		                     unsigned int yOffset = 0, bool doubleOutline = true);
 
 		/**
 		 * Insert a sub pixmap into the current pixmap.
@@ -159,7 +159,7 @@ namespace BaconBox {
 		 */
 		void insertSubPixMap(const uint8_t *subBuffer, unsigned int subWidth,
 							 unsigned int subHeight, unsigned int xOffset,
-							 unsigned int yOffset);
+							 unsigned int yOffset, bool doubleOutline = false);
 
 		///Convert the current PixMap to the given format.
 		void convertTo(ColorFormat::type colorFormat);

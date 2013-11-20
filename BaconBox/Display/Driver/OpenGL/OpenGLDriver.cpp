@@ -23,7 +23,7 @@ namespace BaconBox {
                   const TextureInformation *textureInformation,
                   const TextureCoordinates &textureCoordinates,
                   const Color &color,
-                  const Color &colorOffset, bool blend){
+                  const Color &colorOffset, bool blend, int degenerationStride, int degenerationJump){
 		if (this->lastTexture){
 			if(textureInformation != this->lastTexture || blend != lastShapeBlend ||  !lastShapeColorTransform) {
 				this->batch.render(this, this->lastTexture, lastShapeBlend);
@@ -34,7 +34,7 @@ namespace BaconBox {
 			this->batch.prepareRender();
 		}
 		
-						this->batch.addItem(vertices, color, colorOffset, textureCoordinates);
+						this->batch.addItem(vertices, color, colorOffset, textureCoordinates, degenerationStride, degenerationJump);
 						this->lastTexture = textureInformation;
 						lastShapeBlend = blend;
 						lastShapeColorTransform = true;
@@ -45,7 +45,7 @@ namespace BaconBox {
 	void OpenGLDriver::drawShapeWithTexture(const VertexArray &vertices,
 															const TextureInformation *textureInformation,
 															const TextureCoordinates &textureCoordinates,
-															bool blend){
+															bool blend, int degenerationStride, int degenerationJump){
 		if (this->lastTexture){
 			if(textureInformation != this->lastTexture || blend != lastShapeBlend || lastShapeColorTransform) {
 				this->batch.render(this, this->lastTexture, lastShapeBlend);
@@ -56,7 +56,7 @@ namespace BaconBox {
 			this->batch.prepareRender();
 		}
 		
-		this->batch.addItem(vertices, textureCoordinates);
+		this->batch.addItem(vertices, textureCoordinates, degenerationStride, degenerationJump);
 		this->lastTexture = textureInformation;
 		lastShapeBlend = blend;
 		lastShapeColorTransform = false;
@@ -714,7 +714,7 @@ void OpenGLDriver::endRenderToTexture(){
 		PixMap *poweredTo2Pixmap;
 		bool deleteBuffer = false;
 		if (pixMap->getBuffer() && widthPoweredToTwo != pixMap->getWidth() && heightPoweredToTwo != pixMap->getHeight()) {
-			poweredTo2Pixmap = new PixMap(widthPoweredToTwo, heightPoweredToTwo, pixMap->getColorFormat());
+			poweredTo2Pixmap = new PixMap(widthPoweredToTwo, heightPoweredToTwo, 0, pixMap->getColorFormat());
 			poweredTo2Pixmap->insertSubPixMap(*pixMap);
 			deleteBuffer = true;
 		}
@@ -736,6 +736,9 @@ void OpenGLDriver::endRenderToTexture(){
 		if(!deleteBuffer)poweredTo2Pixmap->setBuffer(NULL);
 		delete poweredTo2Pixmap;
 
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+		
 		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 

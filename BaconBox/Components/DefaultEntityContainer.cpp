@@ -179,6 +179,7 @@ namespace BaconBox {
 	}
 
 	void DefaultEntityContainer::addChildAt(MovieClipEntity *newChild, int index, ChildArray::iterator frameIterator){
+		if(newChild->getParent()) newChild->getParent()->removeChild(newChild);
 		std::deque<MovieClipEntity*> & frameChildren =  frameIterator->second;
 		DefaultEntityContainer * container =  reinterpret_cast<DefaultEntityContainer*>(newChild->getComponent(EntityContainer::ID));
 		container->parent = reinterpret_cast<MovieClipEntity*>(getEntity());

@@ -224,14 +224,10 @@ TextEntity * EntityFactory::getTextEntity(const std::string &key){
 			textureComponent->setTexture(subTex->textureInfo);
 
 			textureComponent->getTextureCoordinates().resize(4);
-			textureComponent->getTextureCoordinates()[0].x= subTex->position.x/subTex->textureInfo->poweredWidth;
-			textureComponent->getTextureCoordinates()[0].y= subTex->position.y/subTex->textureInfo->poweredHeight;
-			textureComponent->getTextureCoordinates()[1].x = (subTex->position.x + subTex->size.x)/subTex->textureInfo->poweredWidth;
-			textureComponent->getTextureCoordinates()[1].y = (subTex->position.y)/subTex->textureInfo->poweredHeight;
-			textureComponent->getTextureCoordinates()[2].x = (subTex->position.x)/subTex->textureInfo->poweredWidth;
-			textureComponent->getTextureCoordinates()[2].y = (subTex->position.y + subTex->size.y)/subTex->textureInfo->poweredHeight;
-			textureComponent->getTextureCoordinates()[3].x = (subTex->position.x + subTex->size.x)/subTex->textureInfo->poweredWidth;
-			textureComponent->getTextureCoordinates()[3].y = (subTex->position.y + subTex->size.y)/subTex->textureInfo->poweredHeight;
+			textureComponent->getTextureCoordinates()[0] = subTex->getTopLeftCoord();
+			textureComponent->getTextureCoordinates()[1] = subTex->getTopRightCoord();
+			textureComponent->getTextureCoordinates()[2] = subTex->getDownLeftCoord();
+			textureComponent->getTextureCoordinates()[3] = subTex->getDownRightCoord();
 			result->addComponent(textureComponent);
 
 			result->addComponent(new MeshDriverRenderer(RenderMode::SHAPE | RenderMode::COLOR | RenderMode::TEXTURE | RenderMode::COLOR_TRANSORMED | (blend ? RenderMode::BLENDED : RenderMode::NONE)));

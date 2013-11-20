@@ -179,6 +179,9 @@
 		516A93C7179ED9FD00F483C4 /* VertexArray.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 516A92F9179ED9FD00F483C4 /* VertexArray.cpp */; };
 		C721A53E17FCBF5D000B5E71 /* LocalizationManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C721A53C17FCBF5D000B5E71 /* LocalizationManager.cpp */; };
 		C736E65B182962B400423A6F /* URL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C736E659182962B400423A6F /* URL.cpp */; };
+		C755C8131832F7BA00ADF4E7 /* Line.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C755C8111832F7BA00ADF4E7 /* Line.cpp */; };
+		C755C8191832F7DB00ADF4E7 /* DefaultLineComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C755C8171832F7DB00ADF4E7 /* DefaultLineComponent.cpp */; };
+		C75BA0C1183ACBE2001058A0 /* LineComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C75BA0C0183ACBE2001058A0 /* LineComponent.cpp */; };
 		C75E1E7F17F49F7F00010F59 /* IOSAccelerometer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C75E1E7D17F49F7F00010F59 /* IOSAccelerometer.cpp */; };
 		C75E1E8117F4A1F600010F59 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C75E1E8017F4A1F600010F59 /* CoreMotion.framework */; };
 		C784119217ECF50300FC8929 /* libCocoaHTTPServer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C784119117ECF50300FC8929 /* libCocoaHTTPServer.a */; };
@@ -577,6 +580,12 @@
 		C736E659182962B400423A6F /* URL.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = URL.cpp; sourceTree = "<group>"; };
 		C736E65A182962B400423A6F /* URL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = URL.h; sourceTree = "<group>"; };
 		C745EF1A17F0DCF000753FE9 /* libluajit-5.1.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libluajit-5.1.a"; path = "../../../../libraries/BaconBox/libraries/ios/universal/lib/libluajit-5.1.a"; sourceTree = "<group>"; };
+		C755C8111832F7BA00ADF4E7 /* Line.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Line.cpp; sourceTree = "<group>"; };
+		C755C8121832F7BA00ADF4E7 /* Line.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Line.h; sourceTree = "<group>"; };
+		C755C8151832F7D100ADF4E7 /* LineComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LineComponent.h; sourceTree = "<group>"; };
+		C755C8171832F7DB00ADF4E7 /* DefaultLineComponent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DefaultLineComponent.cpp; sourceTree = "<group>"; };
+		C755C8181832F7DB00ADF4E7 /* DefaultLineComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DefaultLineComponent.h; sourceTree = "<group>"; };
+		C75BA0C0183ACBE2001058A0 /* LineComponent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LineComponent.cpp; sourceTree = "<group>"; };
 		C75E1E7D17F49F7F00010F59 /* IOSAccelerometer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = IOSAccelerometer.cpp; sourceTree = "<group>"; };
 		C75E1E7E17F49F7F00010F59 /* IOSAccelerometer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IOSAccelerometer.h; sourceTree = "<group>"; };
 		C75E1E8017F4A1F600010F59 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
@@ -659,6 +668,8 @@
 		516A9102179ED9FC00F483C4 /* BaconBox */ = {
 			isa = PBXGroup;
 			children = (
+				C755C8111832F7BA00ADF4E7 /* Line.cpp */,
+				C755C8121832F7BA00ADF4E7 /* Line.h */,
 				C7FA9EC718109C8C000FC6DE /* Matrix2D.cpp */,
 				C7FA9EC818109C8C000FC6DE /* Matrix2D.h */,
 				C721A53C17FCBF5D000B5E71 /* LocalizationManager.cpp */,
@@ -769,6 +780,10 @@
 		516A9140179ED9FC00F483C4 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				C755C8171832F7DB00ADF4E7 /* DefaultLineComponent.cpp */,
+				C755C8181832F7DB00ADF4E7 /* DefaultLineComponent.h */,
+				C75BA0C0183ACBE2001058A0 /* LineComponent.cpp */,
+				C755C8151832F7D100ADF4E7 /* LineComponent.h */,
 				5142284A17A858B200CC1E98 /* CameraPositionConverter.cpp */,
 				5142284B17A858B200CC1E98 /* CameraPositionConverter.h */,
 				516A9141179ED9FC00F483C4 /* AABBHitBox.cpp */,
@@ -1348,6 +1363,7 @@
 				516A9351179ED9FD00F483C4 /* GLSLShader.cpp in Sources */,
 				516A93C1179ED9FD00F483C4 /* BaconBoxLua.cpp in Sources */,
 				516A938E179ED9FD00F483C4 /* GamePad.cpp in Sources */,
+				C75BA0C1183ACBE2001058A0 /* LineComponent.cpp in Sources */,
 				C75E1E7F17F49F7F00010F59 /* IOSAccelerometer.cpp in Sources */,
 				516A9362179ED9FD00F483C4 /* BaconBoxAppViewController.m in Sources */,
 				516A93C7179ED9FD00F483C4 /* VertexArray.cpp in Sources */,
@@ -1358,6 +1374,7 @@
 				516A933D179ED9FD00F483C4 /* Texture.cpp in Sources */,
 				516A931C179ED9FD00F483C4 /* ComponentAddedData.cpp in Sources */,
 				516A9307179ED9FD00F483C4 /* NullAudio.cpp in Sources */,
+				C755C8131832F7BA00ADF4E7 /* Line.cpp in Sources */,
 				516A933F179ED9FD00F483C4 /* Transform.cpp in Sources */,
 				516A9337179ED9FD00F483C4 /* Shake.cpp in Sources */,
 				516A93C4179ED9FD00F483C4 /* Symbol.cpp in Sources */,
@@ -1367,6 +1384,7 @@
 				516A93AA179ED9FD00F483C4 /* PointerSignalData.cpp in Sources */,
 				516A9303179ED9FD00F483C4 /* BBAudioPlayerMusicDelegate.m in Sources */,
 				5142284C17A858B200CC1E98 /* CameraPositionConverter.cpp in Sources */,
+				C755C8191832F7DB00ADF4E7 /* DefaultLineComponent.cpp in Sources */,
 				516A9304179ED9FD00F483C4 /* MusicEngine.cpp in Sources */,
 				516A938B179ED9FD00F483C4 /* AccelerometerSignalData.cpp in Sources */,
 				516A937E179ED9FD00F483C4 /* Serializable.cpp in Sources */,

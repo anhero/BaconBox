@@ -38,14 +38,14 @@ namespace BaconBox {
 		virtual void drawShapeWithTexture(const VertexArray &vertices,
 								  const TextureInformation *textureInformation,
 								  const TextureCoordinates &textureCoordinates,
-								  bool blend) = 0;
+								  bool blend, int degenerationStride, int degenerationJump) = 0;
 		
 		
         virtual void drawShapeWithTextureColorColorOffset(const VertexArray &vertices,
 														  const TextureInformation *textureInformation,
 														  const TextureCoordinates &textureCoordinates,
 														  const Color &color,
-														  const Color &colorOffset, bool blend) = 0;
+														  const Color &colorOffset, bool blend, int degenerationStride, int degenerationJump) = 0;
 		
 		
 		virtual void drawBatchWithTexture(const VertexArray &vertices,

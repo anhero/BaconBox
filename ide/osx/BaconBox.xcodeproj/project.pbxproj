@@ -358,11 +358,16 @@
 		51903D0E17500B7B00814708 /* VertexArray.h in Headers */ = {isa = PBXBuildFile; fileRef = 51903B7517500B7B00814708 /* VertexArray.h */; };
 		51C34E72175E645200960346 /* LuaHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 51C34E70175E645200960346 /* LuaHelper.cpp */; };
 		51C34E73175E645200960346 /* LuaHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 51C34E71175E645200960346 /* LuaHelper.h */; };
+		C71B13B7182D470E00BE4AD6 /* LineComponent.h in Headers */ = {isa = PBXBuildFile; fileRef = C71B13B5182D470E00BE4AD6 /* LineComponent.h */; };
+		C71B13BA182D474D00BE4AD6 /* DefaultLineComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C71B13B8182D474D00BE4AD6 /* DefaultLineComponent.cpp */; };
+		C71B13BB182D474D00BE4AD6 /* DefaultLineComponent.h in Headers */ = {isa = PBXBuildFile; fileRef = C71B13B9182D474D00BE4AD6 /* DefaultLineComponent.h */; };
 		C721A53517FC831B000B5E71 /* LocalizationManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C721A53317FC831B000B5E71 /* LocalizationManager.cpp */; };
 		C721A53617FC831B000B5E71 /* LocalizationManager.h in Headers */ = {isa = PBXBuildFile; fileRef = C721A53417FC831B000B5E71 /* LocalizationManager.h */; };
 		C736E65618295F0F00423A6F /* URL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C736E65418295F0F00423A6F /* URL.cpp */; };
 		C736E65718295F0F00423A6F /* URL.h in Headers */ = {isa = PBXBuildFile; fileRef = C736E65518295F0F00423A6F /* URL.h */; };
 		C73CB6231807501700F0926C /* swigluarun.h in Headers */ = {isa = PBXBuildFile; fileRef = C73CB6221807501700F0926C /* swigluarun.h */; };
+		C74B95DC182C0E5B0065E823 /* Line.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C74B95DA182C0E5B0065E823 /* Line.cpp */; };
+		C74B95DD182C0E5B0065E823 /* Line.h in Headers */ = {isa = PBXBuildFile; fileRef = C74B95DB182C0E5B0065E823 /* Line.h */; };
 		C75E26D617C6740A00A22316 /* libogg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C75E26CF17C6740A00A22316 /* libogg.a */; };
 		C75E26D717C6740A00A22316 /* libSDL2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C75E26D017C6740A00A22316 /* libSDL2.a */; };
 		C75E26D817C6740A00A22316 /* libSDL2main.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C75E26D117C6740A00A22316 /* libSDL2main.a */; };
@@ -378,6 +383,7 @@
 		C7B9796717C671460016E86F /* liblua.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C7B9795B17C671460016E86F /* liblua.a */; };
 		C7B9796F17C671460016E86F /* libz.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C7B9796317C671460016E86F /* libz.a */; };
 		C7B9797117C6715A0016E86F /* libpng.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C7B9797017C6715A0016E86F /* libpng.a */; };
+		C7F4B3DC183AC238007A4245 /* LineComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C7F4B3DB183AC238007A4245 /* LineComponent.cpp */; };
 		C7FA9ECD18109E22000FC6DE /* Matrix2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C7FA9ECB18109E22000FC6DE /* Matrix2D.cpp */; };
 		C7FA9ECE18109E22000FC6DE /* Matrix2D.h in Headers */ = {isa = PBXBuildFile; fileRef = C7FA9ECC18109E22000FC6DE /* Matrix2D.h */; };
 		C7FA9ED118109E39000FC6DE /* vmath.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C7FA9ECF18109E39000FC6DE /* vmath.cpp */; };
@@ -737,11 +743,16 @@
 		51B7424F16345CFF00DB18E1 /* libBaconBox.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libBaconBox.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		51C34E70175E645200960346 /* LuaHelper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LuaHelper.cpp; sourceTree = "<group>"; };
 		51C34E71175E645200960346 /* LuaHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LuaHelper.h; sourceTree = "<group>"; };
+		C71B13B5182D470E00BE4AD6 /* LineComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LineComponent.h; sourceTree = "<group>"; };
+		C71B13B8182D474D00BE4AD6 /* DefaultLineComponent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DefaultLineComponent.cpp; sourceTree = "<group>"; };
+		C71B13B9182D474D00BE4AD6 /* DefaultLineComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DefaultLineComponent.h; sourceTree = "<group>"; };
 		C721A53317FC831B000B5E71 /* LocalizationManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LocalizationManager.cpp; sourceTree = "<group>"; };
 		C721A53417FC831B000B5E71 /* LocalizationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocalizationManager.h; sourceTree = "<group>"; };
 		C736E65418295F0F00423A6F /* URL.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = URL.cpp; sourceTree = "<group>"; };
 		C736E65518295F0F00423A6F /* URL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = URL.h; sourceTree = "<group>"; };
 		C73CB6221807501700F0926C /* swigluarun.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = swigluarun.h; sourceTree = "<group>"; };
+		C74B95DA182C0E5B0065E823 /* Line.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Line.cpp; sourceTree = "<group>"; };
+		C74B95DB182C0E5B0065E823 /* Line.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Line.h; sourceTree = "<group>"; };
 		C75E26CF17C6740A00A22316 /* libogg.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libogg.a; path = /Users/twistedjoe/Documents/Berzerk/BaconBox/FF2/ide/osx/../../libraries/BaconBox/libraries/Darwin/x86_64/lib/libogg.a; sourceTree = "<absolute>"; };
 		C75E26D017C6740A00A22316 /* libSDL2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSDL2.a; path = /Users/twistedjoe/Documents/Berzerk/BaconBox/FF2/ide/osx/../../libraries/BaconBox/libraries/Darwin/x86_64/lib/libSDL2.a; sourceTree = "<absolute>"; };
 		C75E26D117C6740A00A22316 /* libSDL2main.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSDL2main.a; path = /Users/twistedjoe/Documents/Berzerk/BaconBox/FF2/ide/osx/../../libraries/BaconBox/libraries/Darwin/x86_64/lib/libSDL2main.a; sourceTree = "<absolute>"; };
@@ -757,6 +768,7 @@
 		C7B9795B17C671460016E86F /* liblua.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = liblua.a; path = ../../../../libraries/BaconBox/libraries/Darwin/x86_64/lib/liblua.a; sourceTree = "<group>"; };
 		C7B9796317C671460016E86F /* libz.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libz.a; path = ../../../../libraries/BaconBox/libraries/Darwin/x86_64/lib/libz.a; sourceTree = "<group>"; };
 		C7B9797017C6715A0016E86F /* libpng.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpng.a; path = ../../../../libraries/BaconBox/libraries/Darwin/x86_64/lib/libpng.a; sourceTree = "<group>"; };
+		C7F4B3DB183AC238007A4245 /* LineComponent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LineComponent.cpp; sourceTree = "<group>"; };
 		C7FA9ECB18109E22000FC6DE /* Matrix2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Matrix2D.cpp; sourceTree = "<group>"; };
 		C7FA9ECC18109E22000FC6DE /* Matrix2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Matrix2D.h; sourceTree = "<group>"; };
 		C7FA9ECF18109E39000FC6DE /* vmath.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = vmath.cpp; sourceTree = "<group>"; };
@@ -810,6 +822,8 @@
 		519039A317500B7B00814708 /* BaconBox */ = {
 			isa = PBXGroup;
 			children = (
+				C74B95DA182C0E5B0065E823 /* Line.cpp */,
+				C74B95DB182C0E5B0065E823 /* Line.h */,
 				C7FA9ECF18109E39000FC6DE /* vmath.cpp */,
 				C7FA9ED018109E39000FC6DE /* vmath.h */,
 				C7FA9ECB18109E22000FC6DE /* Matrix2D.cpp */,
@@ -909,6 +923,10 @@
 		519039E117500B7B00814708 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				C71B13B8182D474D00BE4AD6 /* DefaultLineComponent.cpp */,
+				C71B13B9182D474D00BE4AD6 /* DefaultLineComponent.h */,
+				C7F4B3DB183AC238007A4245 /* LineComponent.cpp */,
+				C71B13B5182D470E00BE4AD6 /* LineComponent.h */,
 				5153401A17760005008DC02E /* DefaultSizeComponent.cpp */,
 				5153401B17760005008DC02E /* DefaultSizeComponent.h */,
 				243C9C631764FEA7007250BA /* ParticleEmitter.cpp */,
@@ -1482,6 +1500,7 @@
 				51903BA717500B7B00814708 /* SoundInfo.h in Headers */,
 				51903BA917500B7B00814708 /* SoundParameters.h in Headers */,
 				51903BAB17500B7B00814708 /* AxisAlignedBoundingBox.h in Headers */,
+				C71B13BB182D474D00BE4AD6 /* DefaultLineComponent.h in Headers */,
 				51903BAD17500B7B00814708 /* ColorMatrix.h in Headers */,
 				51903BAF17500B7B00814708 /* AABBHitBox.h in Headers */,
 				51903BB117500B7B00814708 /* Batch.h in Headers */,
@@ -1597,6 +1616,7 @@
 				51903C9317500B7B00814708 /* StringHelper.h in Headers */,
 				51903C9517500B7B00814708 /* TimeHelper.h in Headers */,
 				51903C9717500B7B00814708 /* Timer.h in Headers */,
+				C71B13B7182D470E00BE4AD6 /* LineComponent.h in Headers */,
 				51903C9917500B7B00814708 /* TimerManager.h in Headers */,
 				51903C9A17500B7B00814708 /* StepTween.h in Headers */,
 				C736E65718295F0F00423A6F /* URL.h in Headers */,
@@ -1639,6 +1659,7 @@
 				51903CEB17500B7B00814708 /* SDLInputManager.h in Headers */,
 				51903CEF17500B7B00814708 /* MovieClipEntity.h in Headers */,
 				51903CF117500B7B00814708 /* Platform.h in Headers */,
+				C74B95DD182C0E5B0065E823 /* Line.h in Headers */,
 				51903CF217500B7B00814708 /* PlatformFlagger.h in Headers */,
 				51903CF417500B7B00814708 /* ResourceManager.h in Headers */,
 				51903CF517500B7B00814708 /* ResourcePointer.h in Headers */,
@@ -1790,6 +1811,7 @@
 				51903C3317500B7B00814708 /* TextEntity.cpp in Sources */,
 				51903C3517500B7B00814708 /* TextureFont.cpp in Sources */,
 				51903C3717500B7B00814708 /* TextureGlyphInformation.cpp in Sources */,
+				C7F4B3DC183AC238007A4245 /* LineComponent.cpp in Sources */,
 				51903C3917500B7B00814708 /* TextureInformation.cpp in Sources */,
 				51903C4617500B7B00814708 /* MainWindow.cpp in Sources */,
 				51903C4817500B7B00814708 /* NullMainWindow.cpp in Sources */,
@@ -1864,6 +1886,7 @@
 				51903CFC17500B7B00814708 /* SignalData.cpp in Sources */,
 				51903D0217500B7B00814708 /* BaconBoxLua.cpp in Sources */,
 				51903D0417500B7B00814708 /* StandardVertexArray.cpp in Sources */,
+				C71B13BA182D474D00BE4AD6 /* DefaultLineComponent.cpp in Sources */,
 				51903D0617500B7B00814708 /* Symbol.cpp in Sources */,
 				51903D0917500B7B00814708 /* Vector2.cpp in Sources */,
 				51903D0B17500B7B00814708 /* Vector3.cpp in Sources */,
@@ -1876,6 +1899,7 @@
 				243C9C611764FE89007250BA /* Emitter.cpp in Sources */,
 				243C9C651764FEA7007250BA /* ParticleEmitter.cpp in Sources */,
 				24B61A84176E0ABC0097F001 /* Speed.cpp in Sources */,
+				C74B95DC182C0E5B0065E823 /* Line.cpp in Sources */,
 				2494A2D0176E44AE00D483A3 /* ParticlePhase.cpp in Sources */,
 				24CA7CFF17748A43000ACF7F /* EmitterFactory.cpp in Sources */,
 				24CA7D0317748F25000ACF7F /* EmitterEntity.cpp in Sources */,

@@ -21,10 +21,10 @@ namespace BaconBox {
 
 		void prepareRender();
 		
-		void addItem(const VertexArray &newVertices, const TextureCoordinates &newTextureCoordinates);
+		void addItem(const VertexArray &newVertices, const TextureCoordinates &newTextureCoordinates, int degenerationStride = 4, int degenerationJump = -1);
 
 		void addItem(const VertexArray &newVertices, const Color &newColor,
-					 const Color &newColorOffset, const TextureCoordinates &newTextureCoordinates);
+					 const Color &newColorOffset, const TextureCoordinates &newTextureCoordinates, int degenerationStride = 4, int degenerationJump = -1);
 
 		void render(GraphicDriver *driver, const TextureInformation *textureInformation, bool blend);
 
@@ -34,6 +34,9 @@ namespace BaconBox {
 		const TextureCoordinates &getTextureCoordinates() const;
 		const Color &getColor() const;
 	private:
+		
+		void createNextIndices(int size, int degenerationStride, int degenerationJump);
+		
 		void refreshIndices();
 
 		void initializeConnections();

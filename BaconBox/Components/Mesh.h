@@ -24,7 +24,7 @@ namespace BaconBox {
 		StandardVertexArray &getPreTransformVertices();
 		StandardVertexArray &getPostTransformVertices();
 		void syncMesh();
-	
+		void resize(int size);
 //		const StandardVertexArray getRelativeVertices() const;
 		
 		virtual void receiveMessage(int senderID, int destID, int message, void *data);
