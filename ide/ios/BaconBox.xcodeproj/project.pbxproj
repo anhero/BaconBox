@@ -179,6 +179,7 @@
 		516A93C7179ED9FD00F483C4 /* VertexArray.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 516A92F9179ED9FD00F483C4 /* VertexArray.cpp */; };
 		C721A53E17FCBF5D000B5E71 /* LocalizationManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C721A53C17FCBF5D000B5E71 /* LocalizationManager.cpp */; };
 		C736E65B182962B400423A6F /* URL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C736E659182962B400423A6F /* URL.cpp */; };
+		C73B5B22184837AD00FA4845 /* UIElement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C73B5B20184837AD00FA4845 /* UIElement.cpp */; };
 		C755C8131832F7BA00ADF4E7 /* Line.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C755C8111832F7BA00ADF4E7 /* Line.cpp */; };
 		C755C8191832F7DB00ADF4E7 /* DefaultLineComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C755C8171832F7DB00ADF4E7 /* DefaultLineComponent.cpp */; };
 		C75BA0C1183ACBE2001058A0 /* LineComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C75BA0C0183ACBE2001058A0 /* LineComponent.cpp */; };
@@ -580,6 +581,8 @@
 		C721A53D17FCBF5D000B5E71 /* LocalizationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocalizationManager.h; sourceTree = "<group>"; };
 		C736E659182962B400423A6F /* URL.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = URL.cpp; sourceTree = "<group>"; };
 		C736E65A182962B400423A6F /* URL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = URL.h; sourceTree = "<group>"; };
+		C73B5B20184837AD00FA4845 /* UIElement.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UIElement.cpp; sourceTree = "<group>"; };
+		C73B5B21184837AD00FA4845 /* UIElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIElement.h; sourceTree = "<group>"; };
 		C745EF1A17F0DCF000753FE9 /* libluajit-5.1.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libluajit-5.1.a"; path = "../../../../libraries/BaconBox/libraries/ios/universal/lib/libluajit-5.1.a"; sourceTree = "<group>"; };
 		C755C8111832F7BA00ADF4E7 /* Line.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Line.cpp; sourceTree = "<group>"; };
 		C755C8121832F7BA00ADF4E7 /* Line.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Line.h; sourceTree = "<group>"; };
@@ -782,6 +785,8 @@
 		516A9140179ED9FC00F483C4 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				C73B5B20184837AD00FA4845 /* UIElement.cpp */,
+				C73B5B21184837AD00FA4845 /* UIElement.h */,
 				C755C8171832F7DB00ADF4E7 /* DefaultLineComponent.cpp */,
 				C755C8181832F7DB00ADF4E7 /* DefaultLineComponent.h */,
 				C75BA0C0183ACBE2001058A0 /* LineComponent.cpp */,
@@ -1404,6 +1409,7 @@
 				516A9330179ED9FD00F483C4 /* HasName.cpp in Sources */,
 				516A9339179ED9FD00F483C4 /* Speed.cpp in Sources */,
 				516A9301179ED9FD00F483C4 /* BBAudioPlayerEngine.cpp in Sources */,
+				C73B5B22184837AD00FA4845 /* UIElement.cpp in Sources */,
 				516A9357179ED9FD00F483C4 /* PixMap.cpp in Sources */,
 				516A9336179ED9FD00F483C4 /* ParticleEmitter.cpp in Sources */,
 				516A937D179ED9FD00F483C4 /* RapidXmlSerializer.cpp in Sources */,
@@ -1543,7 +1549,7 @@
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_INPUT_FILETYPE = sourcecode.cpp.objcpp;
-				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_OPTIMIZATION_LEVEL = fast;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -1557,7 +1563,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				LLVM_LTO = NO;
-				LLVM_VECTORIZE_LOOPS = NO;
+				LLVM_VECTORIZE_LOOPS = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 			};
@@ -1578,7 +1584,7 @@
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_INPUT_FILETYPE = sourcecode.cpp.objcpp;
-				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_OPTIMIZATION_LEVEL = fast;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"BB_LUA=1",
 					"SIGLY_DEFAULT_MT_POLICY=SingleThreaded",
@@ -1589,7 +1595,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				LLVM_LTO = NO;
-				LLVM_VECTORIZE_LOOPS = NO;
+				LLVM_VECTORIZE_LOOPS = YES;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -1653,7 +1659,7 @@
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_INPUT_FILETYPE = sourcecode.cpp.objcpp;
-				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_OPTIMIZATION_LEVEL = fast;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -1668,7 +1674,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				LLVM_LTO = NO;
-				LLVM_VECTORIZE_LOOPS = NO;
+				LLVM_VECTORIZE_LOOPS = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 			};
