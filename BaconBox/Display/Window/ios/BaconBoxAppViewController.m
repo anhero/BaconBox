@@ -52,7 +52,7 @@
         // iOS 6
         [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationSlide];
     }
-	CMMotionManager *test;
+//	CMMotionManager *test;
 
 	
 	//init accelerometer and gyrometer

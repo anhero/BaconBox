@@ -185,6 +185,7 @@
 		C75E1E7F17F49F7F00010F59 /* IOSAccelerometer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C75E1E7D17F49F7F00010F59 /* IOSAccelerometer.cpp */; };
 		C75E1E8117F4A1F600010F59 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C75E1E8017F4A1F600010F59 /* CoreMotion.framework */; };
 		C784119217ECF50300FC8929 /* libCocoaHTTPServer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C784119117ECF50300FC8929 /* libCocoaHTTPServer.a */; };
+		C792D9FC1843BB5E00F17AC4 /* ColorFormat.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C792D9FB1843BB5E00F17AC4 /* ColorFormat.cpp */; };
 		C7F3281D17F35451009D7092 /* liblua.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5161F4FF172079A30044226C /* liblua.a */; };
 		C7FA9EC918109C8C000FC6DE /* Matrix2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C7FA9EC718109C8C000FC6DE /* Matrix2D.cpp */; };
 /* End PBXBuildFile section */
@@ -590,6 +591,7 @@
 		C75E1E7E17F49F7F00010F59 /* IOSAccelerometer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IOSAccelerometer.h; sourceTree = "<group>"; };
 		C75E1E8017F4A1F600010F59 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		C784119117ECF50300FC8929 /* libCocoaHTTPServer.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libCocoaHTTPServer.a; path = ../../../../libraries/BaconBox/libraries/ios/universal/lib/libCocoaHTTPServer.a; sourceTree = "<group>"; };
+		C792D9FB1843BB5E00F17AC4 /* ColorFormat.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ColorFormat.cpp; sourceTree = "<group>"; };
 		C7B75C1317ECBDFD00A056CF /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		C7B75C1517ECBE0D00A056CF /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
 		C7FA9EC718109C8C000FC6DE /* Matrix2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Matrix2D.cpp; sourceTree = "<group>"; };
@@ -893,6 +895,7 @@
 				516A91B4179ED9FC00F483C4 /* Camera.h */,
 				516A91B5179ED9FC00F483C4 /* Color.cpp */,
 				516A91B6179ED9FC00F483C4 /* Color.h */,
+				C792D9FB1843BB5E00F17AC4 /* ColorFormat.cpp */,
 				516A91B7179ED9FC00F483C4 /* ColorFormat.h */,
 				516A91B8179ED9FC00F483C4 /* Driver */,
 				516A91C9179ED9FC00F483C4 /* DynamicBatch.cpp */,
@@ -1388,6 +1391,7 @@
 				516A9304179ED9FD00F483C4 /* MusicEngine.cpp in Sources */,
 				516A938B179ED9FD00F483C4 /* AccelerometerSignalData.cpp in Sources */,
 				516A937E179ED9FD00F483C4 /* Serializable.cpp in Sources */,
+				C792D9FC1843BB5E00F17AC4 /* ColorFormat.cpp in Sources */,
 				516A93B1179ED9FD00F483C4 /* Platform.cpp in Sources */,
 				516A935F179ED9FD00F483C4 /* TextureInformation.cpp in Sources */,
 				516A9353179ED9FD00F483C4 /* OpenGLStaticBatchManager.cpp in Sources */,
@@ -1539,7 +1543,7 @@
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_INPUT_FILETYPE = sourcecode.cpp.objcpp;
-				GCC_OPTIMIZATION_LEVEL = fast;
+				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -1553,7 +1557,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				LLVM_LTO = NO;
-				LLVM_VECTORIZE_LOOPS = YES;
+				LLVM_VECTORIZE_LOOPS = NO;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 			};
@@ -1574,7 +1578,7 @@
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_INPUT_FILETYPE = sourcecode.cpp.objcpp;
-				GCC_OPTIMIZATION_LEVEL = fast;
+				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"BB_LUA=1",
 					"SIGLY_DEFAULT_MT_POLICY=SingleThreaded",
@@ -1585,7 +1589,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				LLVM_LTO = NO;
-				LLVM_VECTORIZE_LOOPS = YES;
+				LLVM_VECTORIZE_LOOPS = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -1649,7 +1653,7 @@
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_INPUT_FILETYPE = sourcecode.cpp.objcpp;
-				GCC_OPTIMIZATION_LEVEL = fast;
+				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -1664,7 +1668,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				LLVM_LTO = NO;
-				LLVM_VECTORIZE_LOOPS = YES;
+				LLVM_VECTORIZE_LOOPS = NO;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 			};

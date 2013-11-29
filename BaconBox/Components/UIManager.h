@@ -17,7 +17,7 @@ namespace BaconBox {
 		BB_ID_HEADER;
 		
 		UIManager();
-				
+		~UIManager();
 		
 		void addClickable(MovieClipEntity *newEntity);
 		void removeClickable(MovieClipEntity *newEntity);

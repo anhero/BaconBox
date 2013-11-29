@@ -701,14 +701,26 @@ void OpenGLDriver::endRenderToTexture(){
 		texInfo->poweredWidth = widthPoweredToTwo;
 		texInfo->poweredHeight = heightPoweredToTwo;
 
-		GLint format;
+		GLenum format;
+		GLenum type;
+
 		texInfo->colorFormat = pixMap->getColorFormat();
 
 		if (pixMap->getColorFormat() == ColorFormat::RGBA) {
 			format = GL_RGBA;
+			type = GL_UNSIGNED_BYTE;
 
-		} else { // if (pixMap->getColorFormat() == ColorFormat::ALPHA)
+		} else if (pixMap->getColorFormat() == ColorFormat::ALPHA){
 			format = GL_ALPHA;
+			type = GL_UNSIGNED_BYTE;
+		}
+		else if(pixMap->getColorFormat() == ColorFormat::RGBA4){
+			format = GL_RGBA;
+			type = GL_UNSIGNED_SHORT_4_4_4_4;
+		}else{
+			format = GL_RGBA;
+			type = GL_UNSIGNED_BYTE;
+			Console::error("Loading texture with unrecognized ColorFormat");
 		}
 
 		PixMap *poweredTo2Pixmap;
@@ -730,7 +742,7 @@ void OpenGLDriver::endRenderToTexture(){
 						 heightPoweredToTwo,
 						 0,
 						 format,
-						 GL_UNSIGNED_BYTE,
+						 type,
 						 poweredTo2Pixmap->getBuffer());
 			
 		if(!deleteBuffer)poweredTo2Pixmap->setBuffer(NULL);

@@ -20,7 +20,7 @@
 #include "BaconBox/Components/SizeComponent.h"
 #include "BaconBox/Components/AABBHitBox.h"
 #include "BaconBox/Components/HasName.h"
-
+#include "BaconBox/Components/UIElement.h"
 #ifdef BB_LUA
 #include "BaconBox/Components/Lua/LuaEntity.h"
 #endif
@@ -37,7 +37,7 @@ namespace BaconBox {
 	class ClickableProxy;
 	class MovieClipEntity : public Entity, public HasNameProxy, public TransformProxy, public ColorTransformProxy, public TimelineProxy,
 	public EntityContainerProxy, public MatrixComponentProxy, public SymbolComponentProxy, public AABBHitBoxProxy, public ClickableProxy,
-	public SizeComponentProxy, public SpeedProxy, public VisibilityProxy
+	public SizeComponentProxy, public SpeedProxy, public VisibilityProxy, public UIElementProxy
 	#ifdef BB_LUA
         , public LuaEntityProxy
     #endif //BB_LUA

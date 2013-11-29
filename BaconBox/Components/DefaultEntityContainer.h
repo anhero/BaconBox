@@ -68,6 +68,8 @@ namespace BaconBox {
 		std::vector<const MovieClipEntity *> getObjectsUnderPoint(const Vector2 &point) const;
 
 		MovieClipEntity *removeChild(MovieClipEntity *child);
+		
+		void deleteAllChildren();
 
 		void removeAllChildren();
 

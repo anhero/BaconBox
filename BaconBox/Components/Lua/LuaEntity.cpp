@@ -21,61 +21,69 @@ namespace BaconBox {
 	}
 	LuaEntity::~LuaEntity(){
             disconnectAll();
-
+			removeSelfFromLuaRegistry();
+	}
+	
+	void LuaEntity::removeSelfFromLuaRegistry(){
 		if(L){
 			if(table_index != EMPTY_LUA_REF){
 				luaL_unref(L, LUA_REGISTRYINDEX, table_index);
+				table_index = EMPTY_LUA_REF;
 			}
 			if(update_index != EMPTY_LUA_REF){
 				luaL_unref(L, LUA_REGISTRYINDEX, update_index);
+				update_index = EMPTY_LUA_REF;
 			}
-
+			
 			if(userData_index != EMPTY_LUA_REF){
 				luaL_unref(L, LUA_REGISTRYINDEX, userData_index);
+				userData_index = EMPTY_LUA_REF;
 			}
 			
 			if(onGetFocus_index != EMPTY_LUA_REF){
 				luaL_unref(L, LUA_REGISTRYINDEX, onGetFocus_index);
+				onGetFocus_index = EMPTY_LUA_REF;
 			}
 			
 			if(onLostFocus_index != EMPTY_LUA_REF){
 				luaL_unref(L, LUA_REGISTRYINDEX, onLostFocus_index);
+				onLostFocus_index = EMPTY_LUA_REF;
 			}
 			
 			if(receiveMessage_index != EMPTY_LUA_REF){
 				luaL_unref(L, LUA_REGISTRYINDEX, receiveMessage_index);
+				receiveMessage_index = EMPTY_LUA_REF;
 			}
 			
-//			if(onPointerButtonPress_index != EMPTY_LUA_REF){
-//				luaL_unref(L, LUA_REGISTRYINDEX, onPointerButtonPress_index);
-//			}
-//			if(onPointerButtonHold_index != EMPTY_LUA_REF){
-//				luaL_unref(L, LUA_REGISTRYINDEX, onPointerButtonHold_index);
-//			}
-//			if(onPointerButtonRelease_index != EMPTY_LUA_REF){
-//				luaL_unref(L, LUA_REGISTRYINDEX, onPointerButtonRelease_index);
-//			}
-//			if(onPointerMove_index != EMPTY_LUA_REF){
-//				luaL_unref(L, LUA_REGISTRYINDEX, onPointerMove_index);
-//			}
-//			if(onPointerMoveOut_index != EMPTY_LUA_REF){
-//				luaL_unref(L, LUA_REGISTRYINDEX, onPointerMoveOut_index);
-//			}
-//
-//
-//
-//			if(onKeyPress_index != EMPTY_LUA_REF){
-//				luaL_unref(L, LUA_REGISTRYINDEX, onKeyPress_index);
-//			}
-//			if(onKeyRelease_index != EMPTY_LUA_REF){
-//				luaL_unref(L, LUA_REGISTRYINDEX, onKeyRelease_index);
-//			}
-//			if(onKeyHold_index != EMPTY_LUA_REF){
-//				luaL_unref(L, LUA_REGISTRYINDEX, onKeyHold_index);
-//			}
+			//			if(onPointerButtonPress_index != EMPTY_LUA_REF){
+			//				luaL_unref(L, LUA_REGISTRYINDEX, onPointerButtonPress_index);
+			//			}
+			//			if(onPointerButtonHold_index != EMPTY_LUA_REF){
+			//				luaL_unref(L, LUA_REGISTRYINDEX, onPointerButtonHold_index);
+			//			}
+			//			if(onPointerButtonRelease_index != EMPTY_LUA_REF){
+			//				luaL_unref(L, LUA_REGISTRYINDEX, onPointerButtonRelease_index);
+			//			}
+			//			if(onPointerMove_index != EMPTY_LUA_REF){
+			//				luaL_unref(L, LUA_REGISTRYINDEX, onPointerMove_index);
+			//			}
+			//			if(onPointerMoveOut_index != EMPTY_LUA_REF){
+			//				luaL_unref(L, LUA_REGISTRYINDEX, onPointerMoveOut_index);
+			//			}
+			//
+			//
+			//
+			//			if(onKeyPress_index != EMPTY_LUA_REF){
+			//				luaL_unref(L, LUA_REGISTRYINDEX, onKeyPress_index);
+			//			}
+			//			if(onKeyRelease_index != EMPTY_LUA_REF){
+			//				luaL_unref(L, LUA_REGISTRYINDEX, onKeyRelease_index);
+			//			}
+			//			if(onKeyHold_index != EMPTY_LUA_REF){
+			//				luaL_unref(L, LUA_REGISTRYINDEX, onKeyHold_index);
+			//			}
 		}
 	}
-
 
 	void LuaEntity::initializeConnections(){
 	    this->addConnection(new ComponentConnection<AABBHitBox>(&this->aabbHitBox));
@@ -357,6 +365,9 @@ namespace BaconBox {
 	}
 
 	LuaEntityProxy::LuaEntityProxy(Entity * entity, bool mustAddComponent): BB_PROXY_CONSTRUCTOR(new LuaEntity()){
+	}
+	void LuaEntityProxy::removeSelfFromLuaRegistry(){
+	    reinterpret_cast<LuaEntity*>(component)->removeSelfFromLuaRegistry();
 	}
 	
 	void LuaEntityProxy::addHitMask(MovieClipEntity* entity){

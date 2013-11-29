@@ -365,6 +365,8 @@
 		C721A53617FC831B000B5E71 /* LocalizationManager.h in Headers */ = {isa = PBXBuildFile; fileRef = C721A53417FC831B000B5E71 /* LocalizationManager.h */; };
 		C736E65618295F0F00423A6F /* URL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C736E65418295F0F00423A6F /* URL.cpp */; };
 		C736E65718295F0F00423A6F /* URL.h in Headers */ = {isa = PBXBuildFile; fileRef = C736E65518295F0F00423A6F /* URL.h */; };
+		C73AA8B01847BE79005E13A4 /* UIElement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C73AA8AE1847BE79005E13A4 /* UIElement.cpp */; };
+		C73AA8B11847BE79005E13A4 /* UIElement.h in Headers */ = {isa = PBXBuildFile; fileRef = C73AA8AF1847BE79005E13A4 /* UIElement.h */; };
 		C73CB6231807501700F0926C /* swigluarun.h in Headers */ = {isa = PBXBuildFile; fileRef = C73CB6221807501700F0926C /* swigluarun.h */; };
 		C74B95DC182C0E5B0065E823 /* Line.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C74B95DA182C0E5B0065E823 /* Line.cpp */; };
 		C74B95DD182C0E5B0065E823 /* Line.h in Headers */ = {isa = PBXBuildFile; fileRef = C74B95DB182C0E5B0065E823 /* Line.h */; };
@@ -377,6 +379,7 @@
 		C75E26DC17C6740A00A22316 /* libvorbisfile.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C75E26D517C6740A00A22316 /* libvorbisfile.a */; };
 		C79337FB17B5586800D87A1F /* Property.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C79337F917B5586800D87A1F /* Property.cpp */; };
 		C79337FC17B5586800D87A1F /* Property.h in Headers */ = {isa = PBXBuildFile; fileRef = C79337FA17B5586800D87A1F /* Property.h */; };
+		C79BB1611842D246009BA29A /* ColorFormat.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C79BB1601842D246009BA29A /* ColorFormat.cpp */; };
 		C7B9796417C671460016E86F /* libfreetype.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C7B9795817C671460016E86F /* libfreetype.a */; };
 		C7B9796517C671460016E86F /* libGLEW.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C7B9795917C671460016E86F /* libGLEW.a */; };
 		C7B9796617C671460016E86F /* libJsonBox.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C7B9795A17C671460016E86F /* libJsonBox.a */; };
@@ -750,6 +753,8 @@
 		C721A53417FC831B000B5E71 /* LocalizationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocalizationManager.h; sourceTree = "<group>"; };
 		C736E65418295F0F00423A6F /* URL.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = URL.cpp; sourceTree = "<group>"; };
 		C736E65518295F0F00423A6F /* URL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = URL.h; sourceTree = "<group>"; };
+		C73AA8AE1847BE79005E13A4 /* UIElement.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UIElement.cpp; sourceTree = "<group>"; };
+		C73AA8AF1847BE79005E13A4 /* UIElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIElement.h; sourceTree = "<group>"; };
 		C73CB6221807501700F0926C /* swigluarun.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = swigluarun.h; sourceTree = "<group>"; };
 		C74B95DA182C0E5B0065E823 /* Line.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Line.cpp; sourceTree = "<group>"; };
 		C74B95DB182C0E5B0065E823 /* Line.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Line.h; sourceTree = "<group>"; };
@@ -762,6 +767,7 @@
 		C75E26D517C6740A00A22316 /* libvorbisfile.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libvorbisfile.a; path = /Users/twistedjoe/Documents/Berzerk/BaconBox/FF2/ide/osx/../../libraries/BaconBox/libraries/Darwin/x86_64/lib/libvorbisfile.a; sourceTree = "<absolute>"; };
 		C79337F917B5586800D87A1F /* Property.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Property.cpp; sourceTree = "<group>"; };
 		C79337FA17B5586800D87A1F /* Property.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Property.h; sourceTree = "<group>"; };
+		C79BB1601842D246009BA29A /* ColorFormat.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ColorFormat.cpp; sourceTree = "<group>"; };
 		C7B9795817C671460016E86F /* libfreetype.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libfreetype.a; path = ../../../../libraries/BaconBox/libraries/Darwin/x86_64/lib/libfreetype.a; sourceTree = "<group>"; };
 		C7B9795917C671460016E86F /* libGLEW.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libGLEW.a; path = ../../../../libraries/BaconBox/libraries/Darwin/x86_64/lib/libGLEW.a; sourceTree = "<group>"; };
 		C7B9795A17C671460016E86F /* libJsonBox.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libJsonBox.a; path = ../../../../libraries/BaconBox/libraries/Darwin/x86_64/lib/libJsonBox.a; sourceTree = "<group>"; };
@@ -923,6 +929,8 @@
 		519039E117500B7B00814708 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				C73AA8AE1847BE79005E13A4 /* UIElement.cpp */,
+				C73AA8AF1847BE79005E13A4 /* UIElement.h */,
 				C71B13B8182D474D00BE4AD6 /* DefaultLineComponent.cpp */,
 				C71B13B9182D474D00BE4AD6 /* DefaultLineComponent.h */,
 				C7F4B3DB183AC238007A4245 /* LineComponent.cpp */,
@@ -1039,6 +1047,7 @@
 				51903A4817500B7B00814708 /* Color.cpp */,
 				51903A4917500B7B00814708 /* Color.h */,
 				51903A4A17500B7B00814708 /* ColorFormat.h */,
+				C79BB1601842D246009BA29A /* ColorFormat.cpp */,
 				51903A4B17500B7B00814708 /* Driver */,
 				51903A5D17500B7B00814708 /* DynamicBatch.cpp */,
 				51903A5E17500B7B00814708 /* DynamicBatch.h */,
@@ -1688,6 +1697,7 @@
 				24CA7D0017748A43000ACF7F /* EmitterFactory.h in Headers */,
 				24CA7D0417748F25000ACF7F /* EmitterEntity.h in Headers */,
 				241C5D9B1775F80D00AC00EA /* Shake.h in Headers */,
+				C73AA8B11847BE79005E13A4 /* UIElement.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1778,10 +1788,12 @@
 				51903BE517500B7B00814708 /* Mesh.cpp in Sources */,
 				51903BE717500B7B00814708 /* MeshDriverRenderer.cpp in Sources */,
 				51903BE917500B7B00814708 /* SizeComponent.cpp in Sources */,
+				C73AA8B01847BE79005E13A4 /* UIElement.cpp in Sources */,
 				51903BEB17500B7B00814708 /* SymbolComponent.cpp in Sources */,
 				51903BED17500B7B00814708 /* TextComponent.cpp in Sources */,
 				51903BEF17500B7B00814708 /* TextRenderer.cpp in Sources */,
 				51903BF117500B7B00814708 /* Texture.cpp in Sources */,
+				C79BB1611842D246009BA29A /* ColorFormat.cpp in Sources */,
 				51903BF317500B7B00814708 /* Timeline.cpp in Sources */,
 				51903BF517500B7B00814708 /* Transform.cpp in Sources */,
 				51903BF717500B7B00814708 /* Visibility.cpp in Sources */,
@@ -1989,9 +2001,10 @@
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\\\\\\\"$(SRCROOT)/../../libraries/Darwin/x86_64/lib\\\\\\\"",
+					"\\\\\\\\\\\\\\\"$(SRCROOT)/../../libraries/Darwin/x86_64/lib\\\\\\\\\\\\\\\"",
 					/Users/twistedjoe/Documents/Berzerk/BaconBox/FF2/libraries/BaconBox/libraries/Darwin/x86_64/lib,
 					/Users/twistedjoe/Documents/Berzerk/BaconBox/FF2/ide/osx/../../libraries/BaconBox/libraries/Darwin/x86_64/lib,
+					/Users/twistedjoe/Documents/Berzerk/BaconBox/FF2/libraries,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)\" \"$(SRCROOT)/libraries/Darwin/x86_64/include\"";
@@ -2009,9 +2022,10 @@
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\\\\\\\"$(SRCROOT)/../../libraries/Darwin/x86_64/lib\\\\\\\"",
+					"\\\\\\\\\\\\\\\"$(SRCROOT)/../../libraries/Darwin/x86_64/lib\\\\\\\\\\\\\\\"",
 					/Users/twistedjoe/Documents/Berzerk/BaconBox/FF2/libraries/BaconBox/libraries/Darwin/x86_64/lib,
 					/Users/twistedjoe/Documents/Berzerk/BaconBox/FF2/ide/osx/../../libraries/BaconBox/libraries/Darwin/x86_64/lib,
+					/Users/twistedjoe/Documents/Berzerk/BaconBox/FF2/libraries,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)\" \"$(SRCROOT)/libraries/Darwin/x86_64/include\"";

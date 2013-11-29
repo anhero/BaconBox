@@ -78,13 +78,8 @@ namespace BaconBox {
 		 * Destructor.
 		 */
 		~PixMap();
-
-		/**
-		 * Assignation operator overload.
-		 * @param src PixMap to make a copy of.
-		 */
-		PixMap &operator=(const PixMap &src);
-
+		static unsigned int getPixelByteSize(ColorFormat::type colorFormat);
+		unsigned int getPixelByteSize();
 		/**
 		 * Gets the PixMap's width.
 		 * @return PixMap's width (in pixels).

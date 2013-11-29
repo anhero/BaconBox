@@ -60,7 +60,7 @@ namespace BaconBox {
 		/**
 		 * Calls the render method on all of the entity's components.
 		 */
-		void update();
+		virtual void update();
 
 		/**
 		 * Gets the name of the entity's type.

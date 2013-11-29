@@ -23,7 +23,7 @@ namespace BaconBox {
 		~LuaEntity();
 		void setLuaClass(lua_State * L);
 		void reloadLuaClass();
-
+		void removeSelfFromLuaRegistry();
 		void update();
 
 		virtual void receiveMessage(int senderID, int destID, int message, void *data);
@@ -93,6 +93,7 @@ namespace BaconBox {
 		LuaEntityProxy(Entity* entity, bool mustAddComponent = true);
 		void addHitMask(MovieClipEntity* entity);
 		void reloadLuaClass();
+		void removeSelfFromLuaRegistry();
 		void setLuaClass(lua_State * L);
 	private:
 

@@ -168,6 +168,9 @@ namespace BaconBox {
 	
 	        static void unloadTexture(const std::string &key);
 		static void unloadAllTexture();
+		static void unloadAllTextureExcept(const std::set<std::string> exceptions);
+
+
 		static void deleteAllTexture();
 		static void deleteAllSubTexture();
 		

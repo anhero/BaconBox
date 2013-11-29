@@ -170,7 +170,7 @@ namespace BaconBox {
 			return ss.str();
 		}
 	private:
-#ifdef BB_HAS_GCC_STACKTRACE
+#if false && defined(BB_HAS_GCC_STACKTRACE)
 		// stacktrace.h (c) 2008, Timo Bingmann from http://idlebox.net/
 		// published under the WTFPL v2.0
 		// Previous credits applies only to private function print_stacktrace.

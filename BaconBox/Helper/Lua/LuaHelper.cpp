@@ -12,7 +12,7 @@ struct swig_type_info;
 namespace BaconBox {
 
 	void *LuaHelper::getPointerFromLuaUserData(lua_State *L, bool pop) {
-		void *ptr;
+		void *ptr = NULL;
 		SWIG_Lua_ConvertPtr(L, -1, (void **)(&ptr), NULL, 0);
 
 		if (pop) {

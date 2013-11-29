@@ -141,7 +141,7 @@ namespace BaconBox {
 		Vector2 advance;
 		Vector2 tempAdvance;
 		Vector2 newLineJump;
-		Char32 previousChar;
+		Char32 previousChar = 0;
 		std::list<CharSprite> charSpritesForAlignmentAdjust;
 
 		//	    Transform* stringTransform = reinterpret_cast<Transform*>(getEntity()->getComponent(Transform::ID));

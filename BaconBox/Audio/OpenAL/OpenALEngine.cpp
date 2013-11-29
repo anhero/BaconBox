@@ -230,7 +230,7 @@ namespace BaconBox {
 
 		ALenum format;
 		ALsizei bufferSize, freq;
-		char *bufferData;
+		char *bufferData = NULL;
 		// We load the wav file.
 		OpenALEngine::loadWav(filePath, bufferData, bufferSize, format,
 		                      freq);

@@ -304,6 +304,18 @@ namespace BaconBox {
 	}
 
 
+	void DefaultEntityContainer::deleteAllChildren(){
+	    std::set<MovieClipEntity*> toDelete;
+	    for(ChildArray::iterator i = children.begin(); i != children.end(); i++){
+			for(std::deque<MovieClipEntity*>::iterator j = i->second.begin(); j != i->second.end(); j++){
+				toDelete.insert(*j);
+			}
+	    }
+	    for(std::set<MovieClipEntity*>::iterator i = toDelete.begin(); i != toDelete.end(); i++){
+            delete (*i);
+        }
+	}
+
 	void DefaultEntityContainer::removeAllChildren(){
 	    children.clear();
 	}

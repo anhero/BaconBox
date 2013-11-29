@@ -3,6 +3,7 @@
 
 #if defined(BB_LUA)
 	%native(cast) int luacast(lua_State*L);
+  %native(own) int luaOwn(lua_State*L);
 
 %luacode {
   function class(base, init)
@@ -263,6 +264,13 @@ swig_type_info * getTypeByName(lua_State*L, const char * name){
   swig_module_info *module =SWIG_GetModule(L);
   return getTypeByName(module, module, name);
 }
+
+ int luaOwn(lua_State*L){
+    swig_lua_userdata* usr;
+    usr=(swig_lua_userdata*)lua_touserdata(L,-1);
+    usr->own = 1;
+    return 0;
+  }
 
   int luacast(lua_State*L){
     void * myDataPtr;
@@ -761,7 +769,20 @@ const char *__str__() {
 
 %include "BaconBox/Audio/SoundParameters.h"
 %include "BaconBox/ResourceManager.h"
+%extend BaconBox::ResourceManager {
+  static void unloadAllTextureExcept(lua_State * L){
+    lua_pushnil(L);
+    std::set<std::string> exceptions;
+    while (lua_next(L, -2) != 0) {
+      std::string key(lua_tostring (L, -1));
+      exceptions.insert(key);
+      lua_pop(L, 1);
+    }
+    BaconBox::ResourceManager::unloadAllTextureExcept(exceptions);
 
+  }
+
+}
 
 namespace BaconBox{
   

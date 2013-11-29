@@ -55,46 +55,28 @@ namespace BaconBox {
 		this->buffer = NULL;
 	}
 
-	PixMap &PixMap::operator=(const PixMap &src) {
-		if (this != &src) {
-			if (buffer) {
-				delete [] buffer;
-			}
 
-			width = src.width;
-			height = src.height;
-			colorFormat = src.colorFormat;
-
-			if (src.buffer) {
-				unsigned int bufferSize = width * height * ((colorFormat == ColorFormat::RGBA) ? (16) : (1));
-				buffer = new uint8_t[bufferSize];
-
-				for (unsigned int i = 0; i < bufferSize; ++i) {
-					buffer[i] = src.buffer[i];
-				}
-			}
-		}
-
-		return *this;
-	}
 
 	void PixMap::convertTo(ColorFormat::type format) {
-		uint8_t *tempBuffer;
+		uint8_t *tempBuffer = NULL;
 		int pixelCount = width * height;
+		unsigned int pixelByteSize = PixMap::getPixelByteSize(format);
+		unsigned int currentPixelByteSize = getPixelByteSize();
+
 		bool successful = false;
 
 		if (this->colorFormat == ColorFormat::RGBA && format == ColorFormat::ALPHA) {
-			tempBuffer = new uint8_t[pixelCount];
+			tempBuffer = new uint8_t[pixelCount * pixelByteSize];
 
 			for (int i = 0; i < pixelCount; i++) {
-				tempBuffer[i] = buffer[i * 4];
+				tempBuffer[i] = buffer[i * currentPixelByteSize];
 			}
 
-			colorFormat = ColorFormat::ALPHA;
+			colorFormat = format;
 			successful = true;
 
 		} else if (this->colorFormat == ColorFormat::ALPHA && format == ColorFormat::RGBA) {
-			tempBuffer = new uint8_t[pixelCount * 4];
+			tempBuffer = new uint8_t[pixelCount * pixelByteSize];
 
 			for (int i = 0; i < pixelCount; i++) {
 				for (int j = 0; j < 3; j++) {
@@ -104,7 +86,24 @@ namespace BaconBox {
 				tempBuffer[i * 4 + 3] = 255;
 			}
 
-			colorFormat = ColorFormat::RGBA;
+			colorFormat = format;
+			successful = true;
+
+		} else if(this->colorFormat == ColorFormat::RGBA && format == ColorFormat::RGBA4){
+			tempBuffer = new uint8_t[pixelCount * 2];
+			
+			for (int i = 0; i < pixelCount; i++) {
+//				unsigned short pixel = (buffer[i*4] & 0xF0) | (buffer[i*4+1] >> 4) | (buffer[i*4+2] & 0xF0) | (buffer[i*4+3] >> 4);
+				uint8_t rg =  (buffer[i*4] & 0xF0) | ((buffer[i*4+1]) >> 4);
+				uint8_t ba = (buffer[i*4+2] & 0xF0) | ((buffer[i*4+3])  >> 4);
+				unsigned short rgba = rg;
+				rgba <<= 8;
+				rgba &= 0xFF00;
+				rgba  |= ba;
+				((unsigned short*)tempBuffer)[i] = rgba;
+			}
+			
+			colorFormat = format;
 			successful = true;
 
 		}
@@ -112,6 +111,10 @@ namespace BaconBox {
 		if (successful) {
 			delete buffer;
 			buffer = tempBuffer;
+		}
+		else{
+			if(tempBuffer) delete tempBuffer;
+			Console::error("PixMap::convertTo did't successfully convert to the given color format.");
 		}
 	}
 
@@ -139,6 +142,9 @@ namespace BaconBox {
 
 				++i;
 			}
+		}
+		else{
+			Console::error("PixMap::makeColorTransparent does not support the given ColorFormat");
 		}
 	}
 
@@ -171,6 +177,23 @@ namespace BaconBox {
 			Console::println("Can't insert sub pixmap into current pixmap, because the color format isn't compatible.");
 		}
 	}
+	unsigned int PixMap::getPixelByteSize(ColorFormat::type colorFormat){
+		unsigned int byteSize = 0;
+		if (colorFormat == ColorFormat::RGBA) {
+			byteSize = 4;
+		}
+		else if (colorFormat == ColorFormat::RGBA4) {
+			byteSize = 2;
+		}
+		else if (colorFormat == ColorFormat::ALPHA) {
+			byteSize = 1;
+		}
+		return byteSize;
+	}
+
+	unsigned int PixMap::getPixelByteSize(){
+		return PixMap::getPixelByteSize(colorFormat);
+	}
 
 	void PixMap::insertSubPixMap(const uint8_t *subBuffer, unsigned int subWidth,
 	                             unsigned int subHeight, unsigned int xOffset,
@@ -183,14 +206,8 @@ namespace BaconBox {
 			unsigned int maxY = std::min(subHeight - 1u  + yOffset, currentHeight);
 
 			if (maxX > xOffset && maxY > yOffset) {
-				unsigned int pixelByteCount;
-
-				if (colorFormat == ColorFormat::RGBA) {
-					pixelByteCount = 4;
-
-				} else if (colorFormat == ColorFormat::ALPHA) {
-					pixelByteCount = 1;
-				}
+				unsigned int pixelByteCount = this->getPixelByteSize();
+			
 				
 				
 				for (unsigned int i = (doubleOutline && yOffset > 0 ? yOffset-1: yOffset); i <= (doubleOutline && maxY < height ? maxY+1: maxY); ++i) {
@@ -213,6 +230,7 @@ namespace BaconBox {
 							}
 							
 							uint8_t byte = subBuffer[(subWidth * (subI - yOffset) + (subJ - xOffset)) * pixelByteCount + k];
+							
 							buffer[(i * currentWidth + j) * pixelByteCount + k] = byte;
 			
 							

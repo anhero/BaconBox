@@ -17,12 +17,21 @@ namespace BaconBox {
 	UIManager::UIManager() : Component(), clickable(), lastOver(NULL), currentlyPressed(NULL) {
 		
 	}
+	
+	UIManager::~UIManager(){
+		for (std::list<MovieClipEntity*>::iterator i =  clickable.begin(); i != clickable.end(); i++) {
+			(*i)->removeUIManagerReference();
+		}
+	}
 
 	void UIManager::addClickable(MovieClipEntity *newEntity){
+		newEntity->addToUIManager(this);
 		clickable.push_front(newEntity);
 	}
 	
 	void UIManager::removeClickable(MovieClipEntity *newEntity){
+		newEntity->removeUIManagerReference();
+		if (lastOver == newEntity) lastOver = NULL;
 		clickable.remove(newEntity);
 	}
 #ifdef BB_LUA

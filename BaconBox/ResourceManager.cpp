@@ -58,7 +58,8 @@ namespace BaconBox {
 				}
 
 				// We load the new texture.
-				subTextures[key] = subTextureInfo;
+				 
+				subTextures[key] = subTexInfo = subTextureInfo;
 				Console::println("Overwrote the existing subtexture named " + key + ".");
 
 			} else {
@@ -154,7 +155,7 @@ namespace BaconBox {
 			ResourceManager::addSubTexture(key, new SubTextureInfo(texInfo, Vector2(), Vector2(texInfo->imageWidth, texInfo->imageHeight)), overwrite);
 		}
 
-
+		if(texInfo)texInfo->key = key;
 		return texInfo;
 	}
 
@@ -599,9 +600,16 @@ namespace BaconBox {
 	
 	void ResourceManager::loadFlashExporterTextures(rapidxml::xml_node<> *node, const std::string &dirPath) {
 		std::string textureName = node->first_attribute("name")->value();
-		registerTexture(textureName, dirPath + "/" + node->first_attribute("path")->value());
-		rapidxml::xml_attribute<> * scale  = node->first_attribute("scale");
+		rapidxml::xml_attribute<> * textureFormat  = node->first_attribute("textureFormat");
+		ColorFormat::type colorFormat = ColorFormat::RGBA;
+		if(textureFormat){
+			colorFormat = ColorFormat::colorFormatFromString(textureFormat->value());
+		}
 		
+		
+		registerTexture(textureName, dirPath + "/" + node->first_attribute("path")->value(), colorFormat);
+		rapidxml::xml_attribute<> * scale  = node->first_attribute("scale");
+
 		float textureScale = 1;
 		
 		if(scale) textureScale = Parser::stringToDouble(scale->value());
@@ -964,6 +972,13 @@ namespace BaconBox {
 		
 	}
 	
+	void ResourceManager::unloadAllTextureExcept(const std::set<std::string> exceptions){
+		for (std::map<std::string, TextureInformation *>::iterator i = textures.begin();
+		     i != textures.end(); ++i) {
+			if(exceptions.find(i->first) == exceptions.end())ResourceManager::unloadTexture(i->first);
+		}
+	}
+	
 	void ResourceManager::deleteAllSymbol() {
 		for (std::map<std::string, Symbol *> ::iterator i = symbols.begin();
 		     i != symbols.end(); ++i) {
@@ -1013,8 +1028,8 @@ namespace BaconBox {
 	PixMap *ResourceManager::loadPixMap(const std::string &filePath, ColorFormat::type colorFormat) {
 		PixMap *pixmap = loadPixMapFromPNG(filePath);
 
-		if (pixmap && colorFormat == ColorFormat::ALPHA) {
-			pixmap->convertTo(ColorFormat::ALPHA);
+		if (pixmap && colorFormat != pixmap->getColorFormat()) {
+			pixmap->convertTo(colorFormat);
 		}
 
 		return pixmap;
