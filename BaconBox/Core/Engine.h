@@ -225,6 +225,8 @@ namespace BaconBox {
 		 * @return Reference to the engine's singleton.
 		 */
 		static BB_ENGINE_IMPL &getInstance();
+		
+
 	private:
 		
 

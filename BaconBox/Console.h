@@ -36,7 +36,8 @@
 #define Console__log(a)      Console::_log(__FILE__, __LINE__, #a, a);
 #define Console__error(a)    std::cerr << "Error: " << a << std::endl;
 
-#define PRLN(a) Console::println(a)
+
+#define PRLN(a) std::cout << a << std::endl
 
 #ifdef BB_ANDROID
 #define PV(x) ;

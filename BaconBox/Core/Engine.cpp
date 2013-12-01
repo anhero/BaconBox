@@ -7,6 +7,7 @@
 
 
 namespace BaconBox {
+
 	const double Engine::DEFAULT_UPDATES_PER_SECOND = 60.0;
 	const std::string Engine::DEFAULT_APPLICATION_NAME = std::string("BaconBoxApp");
 	sigly::Signal5<unsigned int, unsigned int, float, float, WindowOrientation::type> Engine::onInitialize = sigly::Signal5<unsigned int, unsigned int, float, float, WindowOrientation::type>();

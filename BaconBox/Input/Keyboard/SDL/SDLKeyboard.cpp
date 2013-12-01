@@ -19,7 +19,7 @@ SDLKeyboard::~SDLKeyboard() {
 
 void SDLKeyboard::updateDevice() {
 	getPreviousKeys() = getKeys();
-	Uint8* keyStates = SDL_GetKeyboardState(NULL);
+	const Uint8* keyStates = SDL_GetKeyboardState(NULL);
 	for(unsigned int i = 0; i < SDL_NUM_SCANCODES; ++i) {
 		if(mappings[i] != Key::INVALID) {
 			getKeys()[mappings[i]] = static_cast<bool>(keyStates[i]);

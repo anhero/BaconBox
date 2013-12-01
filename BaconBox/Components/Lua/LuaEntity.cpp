@@ -88,17 +88,23 @@ namespace BaconBox {
 	void LuaEntity::initializeConnections(){
 	    this->addConnection(new ComponentConnection<AABBHitBox>(&this->aabbHitBox));
     }
+	
+	
 
 	void LuaEntity::update(){
 	    if(update_index == EMPTY_LUA_REF)return;
+		lua_pushcfunction(L, LuaManager::errorHandler);
 		lua_rawgeti(L, LUA_REGISTRYINDEX,update_index);
 		lua_rawgeti(L, LUA_REGISTRYINDEX,table_index);
 		lua_rawgeti(L, LUA_REGISTRYINDEX,userData_index);
-		int ret = lua_pcall(L, 2, 0, 0);
+		int ret = lua_pcall(L, 2, 0, -4);
 		if(ret !=0){
-			std::cout << "An error occured updating a LuaEntity. " <<std::endl;
-			std::cout << "Error : " << lua_tostring(L, -1) << std::endl;
+//			std::cout << "An error occured updating a LuaEntity. " <<std::endl;
+//			std::cout << "Error : " << lua_tostring(L, -1) << std::endl;
+//			exit(1);
 		}
+		lua_pop(L,1);
+
 	}
 
 	void LuaEntity::addHitMask(MovieClipEntity* entity){
@@ -108,169 +114,35 @@ namespace BaconBox {
 	
 	
 	void LuaEntity::onGetFocus(){
+		lua_pushcfunction(L, LuaManager::errorHandler);
 		lua_rawgeti(L, LUA_REGISTRYINDEX,onGetFocus_index);
 		lua_rawgeti(L, LUA_REGISTRYINDEX,table_index);
 		lua_rawgeti(L, LUA_REGISTRYINDEX,userData_index);
-		int ret = lua_pcall(L, 2, 0, 0);
+		int ret = lua_pcall(L, 2, 0, -4);
+		lua_pop(L,1);
+
 		if(ret !=0){
-			std::cout << "An error occured calling onGetFocus in a LuaEntity. " <<std::endl;
-			std::cout << "Error : " << lua_tostring(L, -1) << std::endl;
+//			std::cout << "An error occured calling onGetFocus in a LuaEntity. " <<std::endl;
+//			std::cout << "Error : " << lua_tostring(L, -1) << std::endl;
+//			exit(1);
 		}
 	}
 	
 	void LuaEntity::onLostFocus(){
+		lua_pushcfunction(L, LuaManager::errorHandler);
 		lua_rawgeti(L, LUA_REGISTRYINDEX,onLostFocus_index);
 		lua_rawgeti(L, LUA_REGISTRYINDEX,table_index);
 		lua_rawgeti(L, LUA_REGISTRYINDEX,userData_index);
-		int ret = lua_pcall(L, 2, 0, 0);
+		int ret = lua_pcall(L, 2, 0, -4);
+		lua_pop(L,1);
+
 		if(ret !=0){
-			std::cout << "An error occured calling onLostFocus in a LuaEntity. " <<std::endl;
-			std::cout << "Error : " << lua_tostring(L, -1) << std::endl;
+//			std::cout << "An error occured calling onLostFocus in a LuaEntity. " <<std::endl;
+//			std::cout << "Error : " << lua_tostring(L, -1) << std::endl;
+
 		}
 	}
-//
-//	void LuaEntity::onKeyRelease(KeySignalData data){
-//		lua_rawgeti(L, LUA_REGISTRYINDEX,onKeyRelease_index);
-//		lua_rawgeti(L, LUA_REGISTRYINDEX,table_index);
-//		pushLuaWrapperBySwigType(L, reinterpret_cast<void*>(&data), keySignalData, 0);
-//		lua_rawgeti(L, LUA_REGISTRYINDEX,userData_index);
-//		int ret = lua_pcall(L, 3, 0, 0);
-//		if(ret !=0){
-//			std::cout << "An error occured calling onKeyRelease in a LuaEntity. " <<std::endl;
-//			std::cout << "Error : " << lua_tostring(L, -1) << std::endl;
-//		}
-//	}
-//	void LuaEntity::onKeyHold(KeySignalData data){
-//		lua_rawgeti(L, LUA_REGISTRYINDEX,onKeyHold_index);
-//		lua_rawgeti(L, LUA_REGISTRYINDEX,table_index);
-//		pushLuaWrapperBySwigType(L, reinterpret_cast<void*>(&data), keySignalData, 0);
-//		lua_rawgeti(L, LUA_REGISTRYINDEX,userData_index);
-//		int ret = lua_pcall(L, 3, 0, 0);
-//		if(ret !=0){
-//			std::cout << "An error occured calling onKeyHold in a LuaEntity. " <<std::endl;
-//			std::cout << "Error : " << lua_tostring(L, -1) << std::endl;
-//		}
-//	}
-//
-//
-//	void LuaEntity::onPointerButtonPress(PointerButtonSignalData data){
-//		bool aabbhit =false;
-//		if(aabbHitBox){
-//			const AxisAlignedBoundingBox & aabb = aabbHitBox->getAABB();
-//			aabbhit = aabb.overlaps(data.getPosition());
-//			if(aabbhit){
-//				for (std::list<MovieClipEntity*>::iterator i = masks.begin(); i != masks.end(); i++) {
-//					if (aabb.isCompletelyInside((*i)->getAABB())) {
-//						aabbhit = false;
-//						break;
-//					}
-//				}
-//			}
-//		}
-//		
-//        if(!aabbHitBox || aabbhit){
-//            lua_rawgeti(L, LUA_REGISTRYINDEX,onPointerButtonPress_index);
-//            lua_rawgeti(L, LUA_REGISTRYINDEX,table_index);
-//            pushLuaWrapperBySwigType(L, reinterpret_cast<void*>(&data), pointerButtonSignalData, 0);
-//            lua_rawgeti(L, LUA_REGISTRYINDEX,userData_index);
-//            int ret = lua_pcall(L, 3, 0, 0);
-//            if(ret !=0){
-//                std::cout << "An error occured calling onPointerButtonPress in a LuaEntity. " <<std::endl;
-//                std::cout << "Error : " << lua_tostring(L, -1) << std::endl;
-//            }
-//        }
-//	}
-//
-//	void LuaEntity::onPointerButtonHold(PointerButtonSignalData data){
-//		bool aabbhit =false;
-//		if(aabbHitBox){
-//			const AxisAlignedBoundingBox & aabb = aabbHitBox->getAABB();
-//			aabbhit = aabb.overlaps(data.getPosition());
-//			if(aabbhit){
-//				for (std::list<MovieClipEntity*>::iterator i = masks.begin(); i != masks.end(); i++) {
-//					if (aabb.isCompletelyInside((*i)->getAABB())) {
-//						aabbhit = false;
-//						break;
-//					}
-//				}
-//			}
-//		}
-//        if(!aabbHitBox || aabbhit){            lua_rawgeti(L, LUA_REGISTRYINDEX,onPointerButtonHold_index);
-//            lua_rawgeti(L, LUA_REGISTRYINDEX,table_index);
-//            pushLuaWrapperBySwigType(L, reinterpret_cast<void*>(&data), pointerButtonSignalData, 0);
-//            lua_rawgeti(L, LUA_REGISTRYINDEX,userData_index);
-//            int ret = lua_pcall(L, 3, 0, 0);
-//            if(ret !=0){
-//                std::cout << "An error occured calling onPointerButtonHold in a LuaEntity. " <<std::endl;
-//                std::cout << "Error : " << lua_tostring(L, -1) << std::endl;
-//            }
-//        }
-//	}
-//
-//	void LuaEntity::onPointerButtonRelease(PointerButtonSignalData data){
-//        bool aabbhit =false;
-//		if(aabbHitBox){
-//			const AxisAlignedBoundingBox & aabb = aabbHitBox->getAABB();
-//			aabbhit = aabb.overlaps(data.getPosition());
-//			if(aabbhit){
-//				for (std::list<MovieClipEntity*>::iterator i = masks.begin(); i != masks.end(); i++) {
-//					if (aabb.isCompletelyInside((*i)->getAABB())) {
-//						aabbhit = false;
-//						break;
-//					}
-//				}
-//			}
-//		}
-//        if(!aabbHitBox || aabbhit){
-//            lua_rawgeti(L, LUA_REGISTRYINDEX,onPointerButtonRelease_index);
-//            lua_rawgeti(L, LUA_REGISTRYINDEX,table_index);
-//            pushLuaWrapperBySwigType(L, reinterpret_cast<void*>(&data), pointerButtonSignalData, 0);
-//            lua_rawgeti(L, LUA_REGISTRYINDEX,userData_index);
-//            int ret = lua_pcall(L, 3, 0, 0);
-//            if(ret !=0){
-//                std::cout << "An error occured calling onPointerButtonRelease in a LuaEntity. " <<std::endl;
-//                std::cout << "Error : " << lua_tostring(L, -1) << std::endl;
-//            }
-//        }
-//	}
-//
-//	void LuaEntity::onPointerMove(PointerSignalData data){
-//		bool aabbhit =false;
-//		if(aabbHitBox){
-//			const AxisAlignedBoundingBox & aabb = aabbHitBox->getAABB();
-//			aabbhit = aabb.overlaps(data.getPosition());
-//			if(aabbhit){
-//				for (std::list<MovieClipEntity*>::iterator i = masks.begin(); i != masks.end(); i++) {
-//					if (aabb.isCompletelyInside((*i)->getAABB())) {
-//						aabbhit = false;
-//						break;
-//					}
-//				}
-//			}
-//		}
-//        if((!aabbHitBox || aabbhit) && onPointerMove_index != EMPTY_LUA_REF){
-//            lua_rawgeti(L, LUA_REGISTRYINDEX,onPointerMove_index);
-//            lua_rawgeti(L, LUA_REGISTRYINDEX,table_index);
-//            pushLuaWrapperBySwigType(L, reinterpret_cast<void*>(&data), pointerSignalData, 0);
-//            lua_rawgeti(L, LUA_REGISTRYINDEX,userData_index);
-//            int ret = lua_pcall(L, 3, 0, 0);
-//            if(ret !=0){
-//                std::cout << "An error occured calling onPointerMove in a LuaEntity. " <<std::endl;
-//                std::cout << "Error : " << lua_tostring(L, -1) << std::endl;
-//            }
-//        }
-//        else if(aabbHitBox && onPointerMoveOut_index != EMPTY_LUA_REF){
-//            lua_rawgeti(L, LUA_REGISTRYINDEX,onPointerMoveOut_index);
-//            lua_rawgeti(L, LUA_REGISTRYINDEX,table_index);
-//            pushLuaWrapperBySwigType(L, reinterpret_cast<void*>(&data), pointerSignalData, 0);
-//            lua_rawgeti(L, LUA_REGISTRYINDEX,userData_index);
-//            int ret = lua_pcall(L, 3, 0, 0);
-//            if(ret !=0){
-//                std::cout << "An error occured calling onPointerMove in a LuaEntity. " <<std::endl;
-//                std::cout << "Error : " << lua_tostring(L, -1) << std::endl;
-//            }
-//        }
-//	}
+
 
 	void LuaEntity::reloadLuaClass(){
 		disconnectAll();

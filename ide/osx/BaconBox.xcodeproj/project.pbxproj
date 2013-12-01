@@ -368,9 +368,9 @@
 		C73AA8B01847BE79005E13A4 /* UIElement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C73AA8AE1847BE79005E13A4 /* UIElement.cpp */; };
 		C73AA8B11847BE79005E13A4 /* UIElement.h in Headers */ = {isa = PBXBuildFile; fileRef = C73AA8AF1847BE79005E13A4 /* UIElement.h */; };
 		C73CB6231807501700F0926C /* swigluarun.h in Headers */ = {isa = PBXBuildFile; fileRef = C73CB6221807501700F0926C /* swigluarun.h */; };
+		C73D76B0184ADF4B0020A013 /* libogg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C75E26CF17C6740A00A22316 /* libogg.a */; };
 		C74B95DC182C0E5B0065E823 /* Line.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C74B95DA182C0E5B0065E823 /* Line.cpp */; };
 		C74B95DD182C0E5B0065E823 /* Line.h in Headers */ = {isa = PBXBuildFile; fileRef = C74B95DB182C0E5B0065E823 /* Line.h */; };
-		C75E26D617C6740A00A22316 /* libogg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C75E26CF17C6740A00A22316 /* libogg.a */; };
 		C75E26D717C6740A00A22316 /* libSDL2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C75E26D017C6740A00A22316 /* libSDL2.a */; };
 		C75E26D817C6740A00A22316 /* libSDL2main.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C75E26D117C6740A00A22316 /* libSDL2main.a */; };
 		C75E26D917C6740A00A22316 /* libSDL2_mixer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C75E26D217C6740A00A22316 /* libSDL2_mixer.a */; };
@@ -380,7 +380,6 @@
 		C79337FB17B5586800D87A1F /* Property.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C79337F917B5586800D87A1F /* Property.cpp */; };
 		C79337FC17B5586800D87A1F /* Property.h in Headers */ = {isa = PBXBuildFile; fileRef = C79337FA17B5586800D87A1F /* Property.h */; };
 		C79BB1611842D246009BA29A /* ColorFormat.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C79BB1601842D246009BA29A /* ColorFormat.cpp */; };
-		C7B9796417C671460016E86F /* libfreetype.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C7B9795817C671460016E86F /* libfreetype.a */; };
 		C7B9796517C671460016E86F /* libGLEW.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C7B9795917C671460016E86F /* libGLEW.a */; };
 		C7B9796617C671460016E86F /* libJsonBox.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C7B9795A17C671460016E86F /* libJsonBox.a */; };
 		C7B9796717C671460016E86F /* liblua.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C7B9795B17C671460016E86F /* liblua.a */; };
@@ -758,17 +757,16 @@
 		C73CB6221807501700F0926C /* swigluarun.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = swigluarun.h; sourceTree = "<group>"; };
 		C74B95DA182C0E5B0065E823 /* Line.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Line.cpp; sourceTree = "<group>"; };
 		C74B95DB182C0E5B0065E823 /* Line.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Line.h; sourceTree = "<group>"; };
-		C75E26CF17C6740A00A22316 /* libogg.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libogg.a; path = ../../../../libraries/BaconBox/libraries/Darwin/x86_64/lib/libogg.a; sourceTree = "<absolute>"; };
-		C75E26D017C6740A00A22316 /* libSDL2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSDL2.a; path = ../../../../libraries/BaconBox/libraries/Darwin/x86_64/lib/libSDL2.a; sourceTree = "<absolute>"; };
-		C75E26D117C6740A00A22316 /* libSDL2main.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSDL2main.a; path = ../../../../libraries/BaconBox/libraries/Darwin/x86_64/lib/libSDL2main.a; sourceTree = "<absolute>"; };
-		C75E26D217C6740A00A22316 /* libSDL2_mixer.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSDL2_mixer.a; path = ../../../../libraries/BaconBox/libraries/Darwin/x86_64/lib/libSDL2_mixer.a; sourceTree = "<absolute>"; };
-		C75E26D317C6740A00A22316 /* libvorbis.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libvorbis.a; path = ../../../../libraries/BaconBox/libraries/Darwin/x86_64/lib/libvorbis.a; sourceTree = "<absolute>"; };
-		C75E26D417C6740A00A22316 /* libvorbisenc.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libvorbisenc.a; path = ../../../../libraries/BaconBox/libraries/Darwin/x86_64/lib/libvorbisenc.a; sourceTree = "<absolute>"; };
-		C75E26D517C6740A00A22316 /* libvorbisfile.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libvorbisfile.a; path = ../../../../libraries/BaconBox/libraries/Darwin/x86_64/lib/libvorbisfile.a; sourceTree = "<absolute>"; };
+		C75E26CF17C6740A00A22316 /* libogg.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libogg.a; path = ../../../../libraries/BaconBox/libraries/Darwin/x86_64/lib/libogg.a; sourceTree = "<group>"; };
+		C75E26D017C6740A00A22316 /* libSDL2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSDL2.a; path = ../../../../libraries/BaconBox/libraries/Darwin/x86_64/lib/libSDL2.a; sourceTree = "<group>"; };
+		C75E26D117C6740A00A22316 /* libSDL2main.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSDL2main.a; path = ../../../../libraries/BaconBox/libraries/Darwin/x86_64/lib/libSDL2main.a; sourceTree = "<group>"; };
+		C75E26D217C6740A00A22316 /* libSDL2_mixer.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSDL2_mixer.a; path = ../../../../libraries/BaconBox/libraries/Darwin/x86_64/lib/libSDL2_mixer.a; sourceTree = "<group>"; };
+		C75E26D317C6740A00A22316 /* libvorbis.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libvorbis.a; path = ../../../../libraries/BaconBox/libraries/Darwin/x86_64/lib/libvorbis.a; sourceTree = "<group>"; };
+		C75E26D417C6740A00A22316 /* libvorbisenc.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libvorbisenc.a; path = ../../../../libraries/BaconBox/libraries/Darwin/x86_64/lib/libvorbisenc.a; sourceTree = "<group>"; };
+		C75E26D517C6740A00A22316 /* libvorbisfile.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libvorbisfile.a; path = ../../../../libraries/BaconBox/libraries/Darwin/x86_64/lib/libvorbisfile.a; sourceTree = "<group>"; };
 		C79337F917B5586800D87A1F /* Property.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Property.cpp; sourceTree = "<group>"; };
 		C79337FA17B5586800D87A1F /* Property.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Property.h; sourceTree = "<group>"; };
 		C79BB1601842D246009BA29A /* ColorFormat.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ColorFormat.cpp; sourceTree = "<group>"; };
-		C7B9795817C671460016E86F /* libfreetype.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libfreetype.a; path = ../../../../libraries/BaconBox/libraries/Darwin/x86_64/lib/libfreetype.a; sourceTree = "<group>"; };
 		C7B9795917C671460016E86F /* libGLEW.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libGLEW.a; path = ../../../../libraries/BaconBox/libraries/Darwin/x86_64/lib/libGLEW.a; sourceTree = "<group>"; };
 		C7B9795A17C671460016E86F /* libJsonBox.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libJsonBox.a; path = ../../../../libraries/BaconBox/libraries/Darwin/x86_64/lib/libJsonBox.a; sourceTree = "<group>"; };
 		C7B9795B17C671460016E86F /* liblua.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = liblua.a; path = ../../../../libraries/BaconBox/libraries/Darwin/x86_64/lib/liblua.a; sourceTree = "<group>"; };
@@ -787,17 +785,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				C75E26D817C6740A00A22316 /* libSDL2main.a in Frameworks */,
-				C75E26D717C6740A00A22316 /* libSDL2.a in Frameworks */,
-				C7B9796717C671460016E86F /* liblua.a in Frameworks */,
-				C7B9796617C671460016E86F /* libJsonBox.a in Frameworks */,
 				C75E26D917C6740A00A22316 /* libSDL2_mixer.a in Frameworks */,
+				C75E26D717C6740A00A22316 /* libSDL2.a in Frameworks */,
 				C75E26DC17C6740A00A22316 /* libvorbisfile.a in Frameworks */,
 				C75E26DB17C6740A00A22316 /* libvorbisenc.a in Frameworks */,
 				C75E26DA17C6740A00A22316 /* libvorbis.a in Frameworks */,
-				C75E26D617C6740A00A22316 /* libogg.a in Frameworks */,
+				C7B9796717C671460016E86F /* liblua.a in Frameworks */,
+				C7B9796617C671460016E86F /* libJsonBox.a in Frameworks */,
+				C73D76B0184ADF4B0020A013 /* libogg.a in Frameworks */,
 				C7B9796517C671460016E86F /* libGLEW.a in Frameworks */,
 				C7B9796F17C671460016E86F /* libz.a in Frameworks */,
-				C7B9796417C671460016E86F /* libfreetype.a in Frameworks */,
 				C7B9797117C6715A0016E86F /* libpng.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -816,7 +813,6 @@
 				C75E26D417C6740A00A22316 /* libvorbisenc.a */,
 				C75E26D517C6740A00A22316 /* libvorbisfile.a */,
 				C7B9797017C6715A0016E86F /* libpng.a */,
-				C7B9795817C671460016E86F /* libfreetype.a */,
 				C7B9795917C671460016E86F /* libGLEW.a */,
 				C7B9795A17C671460016E86F /* libJsonBox.a */,
 				C7B9795B17C671460016E86F /* liblua.a */,
@@ -1953,6 +1949,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				LLVM_VECTORIZE_LOOPS = NO;
 				MACOSX_DEPLOYMENT_TARGET = "";
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
@@ -1985,6 +1982,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				LLVM_VECTORIZE_LOOPS = NO;
 				MACOSX_DEPLOYMENT_TARGET = "";
 				SDKROOT = macosx;
 			};
@@ -2002,6 +2000,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../../libraries/Darwin/x86_64/lib",
+					/Users/twistedjoe/Documents/Berzerk/BaconBox/FF2/libraries/BaconBox/libraries/Darwin/x86_64/lib,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)\" \"$(SRCROOT)/../../libraries/Darwin/x86_64/include\"";
@@ -2020,6 +2019,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../../libraries/Darwin/x86_64/lib",
+					/Users/twistedjoe/Documents/Berzerk/BaconBox/FF2/libraries/BaconBox/libraries/Darwin/x86_64/lib,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)\" \"$(SRCROOT)/../../libraries/Darwin/x86_64/include\"";

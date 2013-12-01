@@ -24,16 +24,48 @@
 #include "BaconBox/ResourceManager.h"
 #include "BaconBox/Console.h"
 #include <libgen.h>
-
+#include <signal.h>
 #include BB_MAIN_WINDOW_INCLUDE
 #include BB_SOUND_ENGINE_INCLUDE
 #include BB_MUSIC_ENGINE_INCLUDE
 #include BB_GRAPHIC_DRIVER_INCLUDE
 
+#ifdef BB_LUA
+#include "BaconBox/Script/Lua/LuaManager.h"
+#endif //BB_LUA
+
 namespace BaconBox {
-
-
+	
+#if defined(BB_LUA) && defined(BB_DEBUG)
+	void
+	handler (int cause, siginfo_t * info, void *uap)
+	{
+		BaconBox::LuaManager::error("SEGFAULT/SIGBUS/SIGILL", true);
+	}
+#endif //defined(BB_LUA) && defined(BB_DEBUG)
+	
 	void BaseEngine::application(int argc, char *argv[], const std::string &name) {
+#if defined(BB_LUA) && defined(BB_DEBUG)
+		struct sigaction sa;
+		sa.sa_sigaction = handler;
+		sigemptyset (&sa.sa_mask);
+		sa.sa_flags = SA_SIGINFO;
+		if (sigaction (SIGBUS, &sa, 0)) {
+			perror ("sigaction");
+			exit(1);
+		}
+		if (sigaction (SIGSEGV, &sa, 0)) {
+			perror ("sigaction");
+			exit(1);
+		}
+		if (sigaction (SIGILL, &sa, 0)) {
+			perror ("sigaction");
+			exit(1);
+		}
+		
+#endif //defined(BB_LUA) && defined(BB_DEBUG)
+
+		
 		this->argc = argc;
 		this->argv = argv;
 		if(argv)this->applicationPath = dirname(argv[0]);
