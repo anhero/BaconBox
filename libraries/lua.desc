@@ -1,26 +1,19 @@
-#!/bin/bash
+library.name = "lua"
+library.license = "MIT license" 
+library.version = "5.1.5"
+library.archive = "#{library.name}-#{library.version}.tar.gz"
+library.url = "http://www.lua.org/ftp/#{library.archive}" 
+library.hash = "2e115fe26e435e33b0d5c022e4490567" #5.1.5
 
-_name="lua"
-_license="MIT license" 
+platform = nil
+platform = 'macosx' if OS.osx?
+platform = 'linux' if OS.linux?
+platform = 'generic' if $options.platform != nil or platform == nil
 
-_version="5.2.2"
-_archive="${_name}-${_version}.tar.gz"
-_archive_url="http://www.lua.org/ftp/${_archive}"
-_hash="efbb645e897eae37cad4344ce8b0a614" #5.2.2
+library.build = lambda do |library, buildOptions| 
+system('make #{platform}')
+end
 
-
-
-load_base http.fetch
-
-function build() {
-
-
-		cd "${lib_workdir}/${_pkgdir}"
-		if [[ ${libs_target-} == "ios" ]]; then
-			make generic CC="${CC}" RANLIB="${RANLIB}" AR="${AR} rcu" && make generic install INSTALL_TOP=${libs_builddir}
-		else
-		make generic && make generic install INSTALL_TOP=${libs_builddir}
-		fi
-}
-
-# vim: ft=sh
+library.install = lambda do |library, buildOptions| 
+system("make #{platform} install INSTALL_TOP=#{buildOptions.prefix}")
+end

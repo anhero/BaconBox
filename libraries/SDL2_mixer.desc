@@ -1,0 +1,6 @@
+library.name = "SDL2_mixer"
+library.license = "zlib" 
+library.version = "2.0.0"
+library.archive = "#{library.name}-#{library.version}.tar.gz"
+library.url = "http://www.libsdl.org/projects/SDL_mixer/release/#{library.archive}"
+library.hash = "65f6d80df073a1fb3bb537fbda031b50" #2.0.0

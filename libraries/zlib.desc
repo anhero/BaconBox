@@ -1,54 +1,6 @@
-#!/bin/bash
-
-_name="zlib"
-_license="zlib license" 
-
-_version="1.2.5"
-_archive="${_name}-${_version}.tar.gz"
-_archive_url="http://downloads.sourceforge.net/sourceforge/libpng/${_archive}"
-_hash="c735eab2d659a96e5a594c9e8541ad63" #1.2.5
-
-#function discover() {
-#	#TODO: If using the system's library, include it, otherwise, locally built
-#	if [ $1 == '--cflags' ]; then
-#		echo -I${libs_builddir}/include/
-#	else
-#		print_error Unrecognized parameter or missing parameter.
-#		exit 1
-#	fi
-#}
-
-load_base http.fetch
-
-function build() {
-	cd "${lib_workdir}"
-	local cmdline=""
-	local libdir="${libs_builddir}/lib/"
-
-	cd "${lib_workdir}/${_pkgdir}/"
-
-	echo -n "Checking for Mingw... "
-
-	#Running on MINGW32?
-	if [ "${MSYSTEM-}" == "MINGW32" ]; then
-		echo MinGW found.
-
-		#Splitting LIBRARY_PATH on ':' and keeping first one...
-		#The win32 makefile is weird (to me)
-		SPLIT_PATH=("${LIBRARY_PATH//:/}")
-		export LIBRARY_PATH="${SPLIT_PATH[0]}"
-
-		make -fwin32/makefile.gcc \
-		&& make -fwin32/makefile.gcc install
-	else
-		echo Other platform found.
-		#@HACK tries to copy sharedlib even when not built... (ios)
-		./configure --prefix="${libs_builddir}" --static \
-			--sharedlibdir="README ${libs_builddir}/share/README.zlib" \
-		&& make \
-		&& make install
-	fi
-
-}
-
-# vim: ft=sh
+library.name = "zlib"
+library.license = "zlib license" 
+library.version = "1.2.5"
+library.archive = "#{library.name}-#{library.version}.tar.gz"
+library.url = "http://downloads.sourceforge.net/sourceforge/libpng/#{library.archive}"
+library.hash = "c735eab2d659a96e5a594c9e8541ad63" #1.2.5

@@ -1,19 +1,15 @@
-#!/bin/bash
+library.name = "glew"
+library.license = "Modified BSD License" 
+library.version = "1.10.0"
+library.archive = "#{library.name}-#{library.version}.zip"
+library.url = "http://sourceforge.net/projects/#{library.name}/files/#{library.name}/#{library.version}/#{library.archive}/download"
 
-_name="glew"
-_license="Modified BSD License" 
+library.hash = "594eb47b4b1210e25438d51825404d5a" #1.10.0
 
-#_version="1.9.0"
-_version="1.9.0"
-_archive="${_name}-${_version}.tgz"
-_archive_url="http://sourceforge.net/projects/${_name}/files/${_name}/${_version}/${_archive}"
-_hash="69ce911decef6249d24742497e6ad06a" #1.9.0
+library.build = lambda do |library, options|
+	system("make")
+end
 
-load_base http.fetch
-
-function build() {
-		cd "${lib_workdir}/${_pkgdir}"
-		make && make install.all GLEW_DEST=${libs_builddir}
-}
-
-# vim: ft=sh
+library.install = lambda do |library, options|
+	system("make install.all GLEW_DEST=#{options.prefix}")
+end
