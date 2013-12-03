@@ -1,0 +1,96 @@
+BaconBox:
+    type: library-static
+  #Local array used as a reference for excluding all platforms.
+    platforms: &platforms
+      - Qt
+      - iOS
+      - ios
+      - SDL
+      - MusicIOS
+      - OpenAL
+      - Windows
+      - Flash
+      - Lua
+      - libc
+    defaultConfiguration: SDL_Lua_debug
+    configurations:
+      core: &core
+        artifacts:
+          CFLAGS:
+            - "-Wno-write-strings" 
+            - "-Wno-trigraphs"
+          CXXFLAGS:
+            - "$(CFLAGS)"
+          Cpp:
+            - ["BaconBox/**/*.cpp", *platforms]
+          Header:
+            - ["BaconBox/**/*.h",   *platforms]
+          IncludesPath:
+            - "."
+          Define:
+            - ["SIGLY_DEFAULT_MT_POLICY", "SingleThreaded"]
+            - ["VMATH_NAMESPACE", "vmath"]
+
+      OSX: &OSX
+         artifacts:
+          Cpp:
+            - "BaconBox/**/libc/*.cpp"
+          Header:
+            - "BaconBox/**/libc/*.h"
+          CXXFLAGS:
+            - "-stdlib=libstdc++"
+          IncludesPath:
+            - "libraries/Darwin/x86_64/include"
+
+      WINDOWS: &WINDOWS
+         artifacts:
+          Cpp:
+            - "BaconBox/**/Windows/*.cpp"
+          Header:
+            - "BaconBox/**/Windows/*.h"
+          IncludesPath:
+            - "libraries/MINGW32_NT-6.1/i686/include"
+
+      native: &native
+        include: [*core,  [*OSX, "OS.osx?"], [*WINDOWS, "OS.windows?"]]
+
+      Lua: &Lua
+        postScriptArtifacts:
+          Cpp:
+            - "<%= project.buildDir %>/swig/BaconBoxLua.cpp"
+          Header:
+            - "<%= project.buildDir %>/swig/swigluarun.h"
+          IncludesPath:
+            - "<%= project.buildDir %>/swig"
+        artifacts:
+          Cpp:
+            - "BaconBox/**/Lua/*.cpp"
+          Header:
+            - "BaconBox/**/Lua/*.h"
+          Define:
+            - BB_LUA
+          PreGenerousScript:
+            - "FileUtils.mkpath \"#{project.buildDir}/swig\"; %x{ #{project.options['swig']} -lua -c++ -module BaconBox -outdir #{project.buildDir}/swig #{project.definesString} #{project.includesString} -o #{project.buildDir}/swig/BaconBoxLua.cpp BaconBox/Special/Swig/BaconBox.i}; %x{ #{project.options['swig']} -lua -external-runtime #{project.buildDir}/swig/swigluarun.h}"
+          Option:
+            - ['swig', "Path to your swig executable", 'swig']
+
+      SDL: &SDL
+        include: [*native]
+        artifacts:
+          Cpp:
+            - "BaconBox/**/SDL/*.cpp"
+          Header:
+            - "BaconBox/**/SDL/*.h"
+          Define:
+            - SDL
+      SDL_Lua: &SDL_Lua
+        include: [*Lua, *SDL]
+      SDL_Lua_debug:
+                include: [*SDL_Lua]
+                Define:
+                  - BB_DEBUG
+                artifacts:
+                  CXXFLAGS:
+                    - "-g"
+                    - "-O0"
+          
