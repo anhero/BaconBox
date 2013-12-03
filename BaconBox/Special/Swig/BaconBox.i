@@ -4,6 +4,7 @@
 #if defined(BB_LUA)
 	%native(cast) int luacast(lua_State*L);
   %native(own) int luaOwn(lua_State*L);
+  %native(disown) int luaDisOwn(lua_State*L);
 
 %luacode {
   function class(base, init)
@@ -264,6 +265,13 @@ swig_type_info * getTypeByName(lua_State*L, const char * name){
   swig_module_info *module =SWIG_GetModule(L);
   return getTypeByName(module, module, name);
 }
+
+ int luaDisOwn(lua_State*L){
+    swig_lua_userdata* usr;
+    usr=(swig_lua_userdata*)lua_touserdata(L,-1);
+    usr->own = 0;
+    return 0;
+  }
 
  int luaOwn(lua_State*L){
     swig_lua_userdata* usr;
