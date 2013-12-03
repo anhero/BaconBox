@@ -3,7 +3,7 @@
 #include <map>
 #include <string>
 #include <set>
-#include "TextEntity.h"
+#include "BaconBox/Display/Text/TextEntity.h"
 namespace BaconBox {
 	
     class LocalizationManager{

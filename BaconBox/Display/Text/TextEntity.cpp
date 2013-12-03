@@ -10,7 +10,7 @@
 #include "BaconBox/Components/Flash/TextFieldHolder.h"
 
 #endif
-#include "LocalizationManager.h"
+#include "BaconBox/LocalizationManager.h"
 namespace BaconBox {
     
     BB_ID_IMPL(TextEntity);

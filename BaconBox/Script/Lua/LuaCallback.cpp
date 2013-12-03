@@ -3,7 +3,7 @@
 #include "BaconBox/Console.h"
 #include "lua.hpp"
 #include "BaconBox/Helper/Lua/LuaHelper.h"
-#include "BaconBox/Special/Swig/swigluarun.h"
+#include "swigluarun.h"
 using namespace BaconBox;
 
 int LuaCallback::EMPTY_LUA_REF = -1;

@@ -3,7 +3,7 @@
 #include "BaconBox/Core/Entity.h"
 #include "BaconBox/Console.h"
 #include "lua.hpp"
-#include "BaconBox/Special/Swig/swigluarun.h"
+#include "swigluarun.h"
 using namespace BaconBox;
 
 struct swig_type_info;
