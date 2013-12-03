@@ -10,7 +10,7 @@
 
 
 namespace BaconBox {
-	DefaultLineComponent::DefaultLineComponent(SubTextureInfo * subTexture, bool inversedSubTex) : LineComponent(),  mesh(NULL), width(0), loopDistance(0), textureCoordLoopDistance(0){
+	DefaultLineComponent::DefaultLineComponent(SubTextureInfo * subTexture, bool inversedSubTex) : LineComponent(),  mesh(NULL), width(0), loopDistance(0), textureCoordLoopDistance(0), patternOverlap(1.0f){
 	    initializeConnections();
 		setSubTexture(subTexture, inversedSubTex);
 	}
@@ -143,22 +143,22 @@ namespace BaconBox {
 					subSegmentLenght -= segmentHeadStart;
 				}
 				subSegmentLenght = std::min(remnantSegmentLenght, subSegmentLenght);
-				
+//				subSegmentLenght += pa
 				subSegment.setLength(subSegmentLenght);
 				
 				Vector2 subP1 = segment;
-				subP1.setLength(segmentLenght - remnantSegmentLenght);
+				subP1.setLength(segmentLenght - remnantSegmentLenght  );
 				subP1 += p1;
 				Vector2 subP2 = subP1 + subSegment;
 				
 				Vector2 crossVector1(middleCrossVector);
 				Vector2 crossVector2(middleCrossVector);
-//				if (!isLastSegment && isLastSubSegment) {
-//					crossVector2 = endCrossVector;
-//				}
-//				if (j == 0){
-//					crossVector1 = startCrossVector;
-//				}
+				if (!isLastSegment && isLastSubSegment) {
+					crossVector2 = endCrossVector;
+				}
+				if (j == 0){
+					crossVector1 = startCrossVector;
+				}
 				v1 = subP1 + crossVector1;
 				v2 = subP1 - crossVector1;
 				v3 = subP2 + crossVector2;

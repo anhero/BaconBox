@@ -37,6 +37,7 @@ namespace BaconBox {
 		void setVerticesCount(int count);
 		float loopDistance;
 		float textureCoordLoopDistance;
+		float patternOverlap;
 		float width;
 		std::vector<Vector2> points;
 		Mesh * mesh;
