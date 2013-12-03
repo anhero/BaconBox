@@ -15,7 +15,7 @@ namespace BaconBox {
     public:
 		BB_ID_HEADER;
 
-		Line(const std::string & patternKey);
+		Line(const std::string & patternKey, bool inversed = false);
 		Line(const Line& src);
 		
 		virtual ~Line();

@@ -17,6 +17,9 @@ namespace BaconBox {
 		Vector2 size;
 		TextureInformation * textureInfo;
 		
+		Vector2 getTextureCoordinatePosition();
+		Vector2 getTextureCoordinateSize();
+		
 		Vector2 getTopLeftCoord();
 		Vector2 getTopRightCoord();
 		Vector2 getDownLeftCoord();

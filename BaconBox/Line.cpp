@@ -14,7 +14,7 @@ namespace BaconBox {
 
     BB_ID_IMPL(Line);
 
-	Line::Line(const std::string & patternKey): MovieClipEntity(), LineComponentProxy(this){
+	Line::Line(const std::string & patternKey, bool inversed): MovieClipEntity(), LineComponentProxy(this){
 #ifdef BB_FLASH_PLATFORM
 		
 #else
@@ -23,7 +23,7 @@ namespace BaconBox {
 		SubTextureInfo * subTex = ResourceManager::getSubTexture(patternKey);
 		texture->setTexture(subTex->textureInfo);
 		addComponent(texture);
-		setLineComponent(new DefaultLineComponent(subTex));
+		setLineComponent(new DefaultLineComponent(subTex, inversed));
 		addComponent(new MeshDriverRenderer(RenderMode::SHAPE | RenderMode::COLOR  | RenderMode::TEXTURE| RenderMode::COLOR_TRANSORMED | RenderMode::BLENDED, 4, 1));
 		
 

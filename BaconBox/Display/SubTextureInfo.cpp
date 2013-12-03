@@ -5,6 +5,14 @@ namespace BaconBox {
 SubTextureInfo::SubTextureInfo(TextureInformation * textureInfo, Vector2 position, Vector2 size): textureInfo(textureInfo), position(position), size(size){
 }
 	
+	Vector2 SubTextureInfo::getTextureCoordinatePosition(){
+		return getTopLeftCoord();
+	}
+	
+	Vector2 SubTextureInfo::getTextureCoordinateSize(){
+		return getDownRightCoord() - getTextureCoordinatePosition();
+	}
+	
 	Vector2 SubTextureInfo::getTopLeftCoord(){
 		Vector2 coord(position.x/textureInfo->poweredWidth, position.y/textureInfo->poweredHeight);
 		return coord;
