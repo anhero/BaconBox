@@ -61,7 +61,8 @@ namespace BaconBox {
 			Vector2 segment = p2 - p1;
 			float segmentLenght = segment.getLength();
 			int currentSegSubSegmentCount = ceilf((segmentLenght+segmentHeadStart) / loopDistance);
-			segmentHeadStart = loopDistance - ((currentSegSubSegmentCount * loopDistance) - segmentLenght);
+//			segmentHeadStart = std::abs(loopDistance - ((currentSegSubSegmentCount * loopDistance) - segmentLenght);
+			segmentHeadStart = std::abs(loopDistance - (((currentSegSubSegmentCount * loopDistance - segmentHeadStart) - segmentLenght)));
 			subSegmentTotal += currentSegSubSegmentCount;
 			subSegmentCount[i] 	= currentSegSubSegmentCount;
 		}
@@ -111,11 +112,13 @@ namespace BaconBox {
 				endCrossVector.setLength(0.5 * width);
 			}
 			else {
-				endCrossVector  = points[i+2] - p2;
+				endCrossVector  = points[i+2] - p1;
 				float temp = endCrossVector.x;
-				endCrossVector.x = - endCrossVector.y;
+				endCrossVector.x = -endCrossVector.y;
 				endCrossVector.y = temp;
 			}
+			startCrossVector.setLength(0.5 * width);
+			endCrossVector.setLength(0.5 * width);
 			nextStartCrossVector = endCrossVector;
 
 			
@@ -147,10 +150,19 @@ namespace BaconBox {
 				subP1.setLength(segmentLenght - remnantSegmentLenght);
 				subP1 += p1;
 				Vector2 subP2 = subP1 + subSegment;
-				v1 = subP1 + middleCrossVector;
-				v2 = subP1 - middleCrossVector;
-				v3 = subP2 + middleCrossVector;
-				v4 = subP2 - middleCrossVector;
+				
+				Vector2 crossVector1(middleCrossVector);
+				Vector2 crossVector2(middleCrossVector);
+//				if (!isLastSegment && isLastSubSegment) {
+//					crossVector2 = endCrossVector;
+//				}
+//				if (j == 0){
+//					crossVector1 = startCrossVector;
+//				}
+				v1 = subP1 + crossVector1;
+				v2 = subP1 - crossVector1;
+				v3 = subP2 + crossVector2;
+				v4 = subP2 - crossVector2;
 				
 				remnantSegmentLenght -= subSegmentLenght;
 				
@@ -203,7 +215,7 @@ namespace BaconBox {
 	
 	void DefaultLineComponent::addPoint(const Vector2 & pos){
 		points.push_back(pos);
-		refreshPoints();
+//		refreshPoints();
 	}
 	
 	DefaultLineComponent *DefaultLineComponent::clone() const {
