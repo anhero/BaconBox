@@ -50,18 +50,25 @@ namespace BaconBox {
 		sa.sa_sigaction = handler;
 		sigemptyset (&sa.sa_mask);
 		sa.sa_flags = SA_SIGINFO;
-		if (sigaction (SIGBUS, &sa, 0)) {
-			perror ("sigaction");
-			exit(1);
+		// if (sigaction (SIGBUS, &sa, 0)) {
+		// 	perror ("sigaction");
+		// 	exit(1);
+		// }
+		// if (sigaction (SIGSEGV, &sa, 0)) {
+		// 	perror ("sigaction");
+		// 	exit(1);
+		// }
+		// if (sigaction (SIGILL, &sa, 0)) {
+		// 	perror ("sigaction");
+		// 	exit(1);
+		// }
+		for(int i = 1; i < 32; i++){
+			if (sigaction (i, &sa, 0)) {
+				perror ("sigaction");
+				exit(1);
+			}		
 		}
-		if (sigaction (SIGSEGV, &sa, 0)) {
-			perror ("sigaction");
-			exit(1);
-		}
-		if (sigaction (SIGILL, &sa, 0)) {
-			perror ("sigaction");
-			exit(1);
-		}
+
 		
 #endif //defined(BB_LUA) && defined(BB_DEBUG)
 
