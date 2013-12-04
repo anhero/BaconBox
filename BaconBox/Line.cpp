@@ -23,7 +23,8 @@ namespace BaconBox {
 		SubTextureInfo * subTex = ResourceManager::getSubTexture(patternKey);
 		texture->setTexture(subTex->textureInfo);
 		addComponent(texture);
-		setLineComponent(new DefaultLineComponent(subTex, inversed));
+		DefaultLineComponent * lineComponent = new DefaultLineComponent(subTex, inversed);
+		setLineComponent(lineComponent);
 		addComponent(new MeshDriverRenderer(RenderMode::SHAPE | RenderMode::COLOR  | RenderMode::TEXTURE| RenderMode::COLOR_TRANSORMED | RenderMode::BLENDED, 4, 1));
 		
 

@@ -36,6 +36,11 @@ namespace BaconBox {
 	void LineComponentProxy::refreshPoints(){
 		reinterpret_cast<LineComponent *>(component)->refreshPoints();
 	}
+	
+	void LineComponentProxy::setPatternSpacing(float patternSpacing){
+		reinterpret_cast<LineComponent *>(component)->setPatternSpacing(patternSpacing);
+	}
+
 
 
 

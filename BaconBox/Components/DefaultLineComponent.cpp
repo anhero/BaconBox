@@ -10,9 +10,9 @@
 
 
 namespace BaconBox {
-	DefaultLineComponent::DefaultLineComponent(SubTextureInfo * subTexture, bool inversedSubTex) : LineComponent(),  mesh(NULL), width(0), loopDistance(0), textureCoordLoopDistance(0), patternOverlap(1.0f){
+	DefaultLineComponent::DefaultLineComponent(SubTextureInfo * subTexture, bool inversedSubTex) : LineComponent(),  mesh(NULL), width(0), loopDistance(0), textureCoordLoopDistance(0), patternSpacing(0.0f){
 	    initializeConnections();
-		setSubTexture(subTexture, inversedSubTex);
+		this->setSubTexture(subTexture, inversedSubTex);
 	}
 	
 	void DefaultLineComponent::setSubTexture(SubTextureInfo * subTexture, bool inversedSubTex){
@@ -47,7 +47,10 @@ namespace BaconBox {
 		mesh->resize(count);
 		textureComponent->getTextureCoordinates().resize(count);
 	}
-	
+	void DefaultLineComponent::setPatternSpacing(float patternSpacing){
+		this->patternSpacing = patternSpacing;
+	}
+
 	void DefaultLineComponent::refreshPoints(){
 		if (points.size() < 2) return;
 		
@@ -61,7 +64,6 @@ namespace BaconBox {
 			Vector2 segment = p2 - p1;
 			float segmentLenght = segment.getLength();
 			int currentSegSubSegmentCount = ceilf((segmentLenght+segmentHeadStart) / loopDistance);
-//			segmentHeadStart = std::abs(loopDistance - ((currentSegSubSegmentCount * loopDistance) - segmentLenght);
 			segmentHeadStart = std::abs(loopDistance - (((currentSegSubSegmentCount * loopDistance - segmentHeadStart) - segmentLenght)));
 			subSegmentTotal += currentSegSubSegmentCount;
 			subSegmentCount[i] 	= currentSegSubSegmentCount;
@@ -72,10 +74,10 @@ namespace BaconBox {
 		int subSegmentIncrement = 0;
 		
 		
-		Vector2 unctouchedTC1 = (inversedSubTex ? subTexture->getTopLeftCoord() : subTexture->getTopLeftCoord());
-		Vector2 unctouchedTC2 = (inversedSubTex ? subTexture->getTopRightCoord() : subTexture->getDownLeftCoord());
-		Vector2 unctouchedTC3 = (inversedSubTex ? subTexture->getDownLeftCoord() : subTexture->getTopRightCoord() );
-		Vector2 unctouchedTC4 = (inversedSubTex ? subTexture->getDownRightCoord() : subTexture->getDownRightCoord() );
+		Vector2 unctouchedTC1 = (inversedSubTex ? subTexture->getTopLeftCoord()   : subTexture->getTopLeftCoord()  );
+		Vector2 unctouchedTC2 = (inversedSubTex ? subTexture->getDownLeftCoord()  : subTexture->getTopRightCoord() );
+		Vector2 unctouchedTC3 = (inversedSubTex ? subTexture->getTopRightCoord()  : subTexture->getDownLeftCoord() );
+		Vector2 unctouchedTC4 = (inversedSubTex ? subTexture->getDownRightCoord() : subTexture->getDownRightCoord());
 		
 		segmentHeadStart = 0.0f;
 		
@@ -143,7 +145,6 @@ namespace BaconBox {
 					subSegmentLenght -= segmentHeadStart;
 				}
 				subSegmentLenght = std::min(remnantSegmentLenght, subSegmentLenght);
-//				subSegmentLenght += pa
 				subSegment.setLength(subSegmentLenght);
 				
 				Vector2 subP1 = segment;

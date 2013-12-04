@@ -15,12 +15,13 @@ namespace BaconBox {
 		LineComponent();
 
 		LineComponent(const LineComponent &src);
-		
 		virtual void addPoint(const Vector2 & point) = 0;
+		virtual void setPatternSpacing(float patternSpacing) = 0;
 		virtual void refreshPoints() = 0;
 		virtual ~LineComponent();
 		virtual Vector2 &getPoint(int index) = 0;
 		virtual void receiveMessage(int senderID, int destID, int message, void *data);
+
 	};
 
 
@@ -29,6 +30,8 @@ namespace BaconBox {
 		LineComponentProxy(Entity *entity);
 		void addPoint(const Vector2 & point);
 		Vector2 &getPoint(int index);
+		void setPatternSpacing(float patternSpacing);
+
 		void refreshPoints();
 	protected:
 	    void setLineComponent(LineComponent * lineComponent);
