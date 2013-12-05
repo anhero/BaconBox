@@ -15,12 +15,10 @@ namespace BaconBox {
 		DefaultLineComponent(SubTextureInfo * subTexture, bool inversedSubTex = false);
 
 		DefaultLineComponent(const DefaultLineComponent &src);
-
+		void setPatternSpacing(float patternSpacing);
+		void addPoint(const Vector2 & pos);
 		void setSubTexture(SubTextureInfo * subTexture, bool inversedSubTex = false);
 		virtual ~DefaultLineComponent();
-		
-		void addPoint(const Vector2 & pos);
-
 
 		DefaultLineComponent &operator=(const DefaultLineComponent &src);
 
@@ -37,7 +35,7 @@ namespace BaconBox {
 		void setVerticesCount(int count);
 		float loopDistance;
 		float textureCoordLoopDistance;
-		float patternOverlap;
+		float patternSpacing;
 		float width;
 		std::vector<Vector2> points;
 		Mesh * mesh;

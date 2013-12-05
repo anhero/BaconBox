@@ -7,8 +7,8 @@
 #include "BaconBox/Display/SubTextureInfo.h"
 
 #include <algorithm>
-
-
+#include <utility> 
+#include <deque>
 namespace BaconBox {
 	DefaultLineComponent::DefaultLineComponent(SubTextureInfo * subTexture, bool inversedSubTex) : LineComponent(),  mesh(NULL), width(0), loopDistance(0), textureCoordLoopDistance(0), patternSpacing(0.0f){
 	    initializeConnections();
@@ -55,37 +55,22 @@ namespace BaconBox {
 		if (points.size() < 2) return;
 		
 		int segmentCount = points.size()-1;
-		std::vector<int> subSegmentCount(segmentCount);
-		int subSegmentTotal = 0;
+		
+		
+		Vector2 untouchedTC1 = (inversedSubTex ? subTexture->getTopLeftCoord()   : subTexture->getTopLeftCoord()  );
+		Vector2 untouchedTC2 = (inversedSubTex ? subTexture->getDownLeftCoord()  : subTexture->getTopRightCoord() );
+		Vector2 untouchedTC3 = (inversedSubTex ? subTexture->getTopRightCoord()  : subTexture->getDownLeftCoord() );
+		Vector2 untouchedTC4 = (inversedSubTex ? subTexture->getDownRightCoord() : subTexture->getDownRightCoord());
+		
+		float textureHeadStart = 0.0f;
 		float segmentHeadStart = 0.0f;
-		for (int i = 0; i < segmentCount; i++) {
-			Vector2 p1 = points[i];
-			Vector2 p2 = points[i+1];
-			Vector2 segment = p2 - p1;
-			float segmentLenght = segment.getLength();
-			int currentSegSubSegmentCount = ceilf((segmentLenght+segmentHeadStart) / loopDistance);
-			segmentHeadStart = std::abs(loopDistance - (((currentSegSubSegmentCount * loopDistance - segmentHeadStart) - segmentLenght)));
-			subSegmentTotal += currentSegSubSegmentCount;
-			subSegmentCount[i] 	= currentSegSubSegmentCount;
-		}
 		
-		setVerticesCount(subSegmentTotal*4);
-		
-		int subSegmentIncrement = 0;
-		
-		
-		Vector2 unctouchedTC1 = (inversedSubTex ? subTexture->getTopLeftCoord()   : subTexture->getTopLeftCoord()  );
-		Vector2 unctouchedTC2 = (inversedSubTex ? subTexture->getDownLeftCoord()  : subTexture->getTopRightCoord() );
-		Vector2 unctouchedTC3 = (inversedSubTex ? subTexture->getTopRightCoord()  : subTexture->getDownLeftCoord() );
-		Vector2 unctouchedTC4 = (inversedSubTex ? subTexture->getDownRightCoord() : subTexture->getDownRightCoord());
-		
-		segmentHeadStart = 0.0f;
-		
+		std::deque<std::pair<Vector2, Vector2> > tempMesh;
 		Vector2 nextStartCrossVector;
-		
+		int verticesIterator = 0;
+
 		for (int i = 0; i < segmentCount; i++) {
 			bool isLastSegment = i == segmentCount -1;
-			int currentSegSubSegmentCount = subSegmentCount[i];
 			const Vector2 p1 = points[i];
 			const Vector2 p2 = points[i+1];
 			const Vector2 segment = p2 - p1;
@@ -122,95 +107,127 @@ namespace BaconBox {
 			startCrossVector.setLength(0.5 * width);
 			endCrossVector.setLength(0.5 * width);
 			nextStartCrossVector = endCrossVector;
-
 			
-			for (int j = 0; j < currentSegSubSegmentCount; j++) {
-				bool isLastSubSegment = j == currentSegSubSegmentCount-1;
+			bool subSegmentInProgress = true;
+			Vector2 subP1;
+			Vector2 subP2;
+			bool firstSubSegment = true;
+			while (subSegmentInProgress) {
+			
+				float tempTextureHeadStart = textureHeadStart;
+				tempMesh.resize(verticesIterator+4);
 
-				int iterator = (subSegmentIncrement + j);
-				int verticesIterator =  iterator * 4;
+				std::pair<Vector2, Vector2> & pair1 = tempMesh[verticesIterator];
+				std::pair<Vector2, Vector2> & pair2 = tempMesh[verticesIterator+1];
+				std::pair<Vector2, Vector2> & pair3 = tempMesh[verticesIterator+2];
+				std::pair<Vector2, Vector2> & pair4 = tempMesh[verticesIterator+3];
+				Vector2 & v1 = tempMesh[verticesIterator].first;
+				Vector2 & v2 = tempMesh[verticesIterator+1].first;
+				Vector2 & v3 = tempMesh[verticesIterator+2].first;
+				Vector2 & v4 = tempMesh[verticesIterator+3].first;
+				Vector2 & tc1 = tempMesh[verticesIterator].second;
+				Vector2 & tc2 = tempMesh[verticesIterator+1].second;
+				Vector2 & tc3 = tempMesh[verticesIterator+2].second;
+				Vector2 & tc4 = tempMesh[verticesIterator+3].second;
+				verticesIterator += 4;
 				
-				//Position
-				Vector2 & v1 = (mesh->getPreTransformVertices()[verticesIterator]);
-				Vector2 & v2 = (mesh->getPreTransformVertices()[verticesIterator+1]);
-				Vector2 & v3 = (mesh->getPreTransformVertices()[verticesIterator+2]);
-				Vector2 & v4 = (mesh->getPreTransformVertices()[verticesIterator+3]);
-
+				subP1 = segment;
+				subP1.setLength(segmentLenght - remnantSegmentLenght);
 				
-
+				bool endPattern = true;
+				bool clearSpacing = true;
+				float subSegmentLenght;
+				bool clearTextureHeadStart = false;
+				float loopWithSpacing = loopDistance + patternSpacing;
+				if (remnantSegmentLenght < loopWithSpacing -textureHeadStart) {
+					clearSpacing = false;
+					subSegmentInProgress = false;
+					
+					if (remnantSegmentLenght < loopDistance) {
+						endPattern = false;
+						subSegmentLenght = remnantSegmentLenght;
+						textureHeadStart = remnantSegmentLenght +textureHeadStart;
+						segmentHeadStart = 0;
+						
+					}
+					else{
+						subSegmentLenght = loopDistance;
+						segmentHeadStart = loopWithSpacing - remnantSegmentLenght;
+						textureHeadStart = 0;
+					}
+				}
+				else{
+					subSegmentLenght = loopDistance - textureHeadStart;
+					segmentHeadStart = 0;
+					remnantSegmentLenght -= subSegmentLenght + patternSpacing;
+					clearTextureHeadStart = true;
+				}
 				
 				Vector2 subSegment = segment;
-				float subSegmentLenght = loopDistance;
-				if (j == 0) {
-					subSegmentLenght -= segmentHeadStart;
-				}
-				subSegmentLenght = std::min(remnantSegmentLenght, subSegmentLenght);
 				subSegment.setLength(subSegmentLenght);
 				
-				Vector2 subP1 = segment;
-				subP1.setLength(segmentLenght - remnantSegmentLenght  );
-				subP1 += p1;
-				Vector2 subP2 = subP1 + subSegment;
+				
+				subP1+=p1;
+				subP2 = subP1 + subSegment;
 				
 				Vector2 crossVector1(middleCrossVector);
 				Vector2 crossVector2(middleCrossVector);
-				if (!isLastSegment && isLastSubSegment) {
+				if (!isLastSegment && !subSegmentInProgress) {
 					crossVector2 = endCrossVector;
 				}
-				if (j == 0){
+				if (firstSubSegment){
 					crossVector1 = startCrossVector;
 				}
+//
+
+				
 				v1 = subP1 + crossVector1;
 				v2 = subP1 - crossVector1;
 				v3 = subP2 + crossVector2;
 				v4 = subP2 - crossVector2;
 				
-				remnantSegmentLenght -= subSegmentLenght;
-				
-				//Texture coordinate
-				Vector2 & tc1 = (textureComponent->getTextureCoordinates()[verticesIterator]);
-				Vector2 & tc2 = (textureComponent->getTextureCoordinates()[verticesIterator+1]);
-				Vector2 & tc3 = (textureComponent->getTextureCoordinates()[verticesIterator+2]);
-				Vector2 & tc4 = (textureComponent->getTextureCoordinates()[verticesIterator+3]);
+				tc1 = untouchedTC1;
+				tc2 = untouchedTC2;
+				tc3 = untouchedTC3;
+				tc4 = untouchedTC4;
 				
 				float loopDistanceRatio = (textureCoordLoopDistance/loopDistance);
-//				float subSegmentLenghtTC = subSegmentLenght * loopDistanceRatio;
-//				float segmentHeadStartTC = segmentHeadStart * loopDistanceRatio;
 
-				Vector2 headStartTC = unctouchedTC3 - unctouchedTC1;
-				Vector2 overTC = headStartTC;
-				
-				tc1 = unctouchedTC1;
-				tc2 = unctouchedTC2;
-				if (j==0) {
-					headStartTC.setLength(segmentHeadStart * loopDistanceRatio);
+				Vector2 headStartTC(untouchedTC3 - untouchedTC1);
+				Vector2 overTC(headStartTC);
 
+				if (tempTextureHeadStart > 0) {
+					headStartTC.setLength(tempTextureHeadStart * loopDistanceRatio);
+					
 					tc1 += headStartTC;
 					tc2 += headStartTC;
 				}
-				tc3 = unctouchedTC3;
-				tc4 = unctouchedTC4;
-				if (isLastSubSegment) {
-//					overTC.setLength(loopDistanceRatio * ((loopDistance *subSegmentCount - segmentHeadStart) - subSegmentLenght));
-					float overTCLenght = (((loopDistance * currentSegSubSegmentCount) - segmentHeadStart) - segmentLenght);
+				
+				tc3 = untouchedTC3;
+				tc4 = untouchedTC4;
+				
+				if (!endPattern) {
+					float overTCLenght = loopDistance - subSegmentLenght - tempTextureHeadStart;
 					overTC.setLength(overTCLenght * loopDistanceRatio);
 					tc3 -= overTC;
 					tc4 -= overTC;
 				}
+				
+				if(clearTextureHeadStart) textureHeadStart = 0;
+				
+				firstSubSegment = false;
 
-				
-				
-				
-				if (isLastSubSegment) {
-					if (j != 0) {
-						segmentHeadStart = 0;
-					}
-					segmentHeadStart += subSegmentLenght;
-					
-				}
-				
 			}
-			subSegmentIncrement += currentSegSubSegmentCount;
+
+		}
+		
+		int tempMeshSize = tempMesh.size();
+		setVerticesCount(tempMeshSize);
+		
+		for (int i = 0; i < tempMeshSize; i++) {
+			std::pair<Vector2, Vector2> & pair = tempMesh[i];
+			mesh->getPreTransformVertices()[i] = pair.first;
+			textureComponent->getTextureCoordinates()[i] = pair.second;
 		}
 	}
 	
