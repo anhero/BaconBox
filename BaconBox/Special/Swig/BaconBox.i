@@ -65,9 +65,11 @@ end
 
 
 LuaState = class(LuaEntity)
-function LuaState:init(name)
+function LuaState:init(name, own)
   LuaEntity.init(self, BaconBox.State(name))
   self.state = self.entity
+    if not own then BaconBox.disown(self.state) end
+
 end
 
 function printTable(table)

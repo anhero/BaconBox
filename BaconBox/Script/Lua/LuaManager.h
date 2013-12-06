@@ -20,7 +20,7 @@ namespace BaconBox {
 		static void addToLuaCPath(const std::string & path );
 
         static void error(const std::string & error, bool critical = false);
-
+		
 		static void printTraceBack();
 		static int errorHandler(lua_State *L);
 		static void stackdump();
@@ -34,7 +34,7 @@ namespace BaconBox {
 	    static LuaManager * instance;
 
 	    LuaManager();
-
+		~LuaManager();
 
 		void internalDoString(const std::string & string);
 		void internalDoFile(const std::string & path);

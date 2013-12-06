@@ -20,7 +20,9 @@ LuaManager * LuaManager::instance = NULL;
 	lua_State * LuaManager::getVM(){
 		return  getDefault().L;
 	}
-
+	LuaManager::~LuaManager(){
+		lua_close(L);
+	}
 
 	void LuaManager::doString(const std::string & string){
         getDefault().internalDoString(string);
@@ -44,6 +46,7 @@ LuaManager * LuaManager::instance = NULL;
             return *instance;
         }
         void LuaManager::destroyVM(){
+			
             if(instance)delete instance;
                 instance = NULL;
         }
