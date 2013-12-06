@@ -16,6 +16,9 @@ namespace BaconBox {
 
 		DefaultLineComponent(const DefaultLineComponent &src);
 		void setPatternSpacing(float patternSpacing);
+		void setTextureHeadStart(float textureHeadStart);
+		void setSegmentHeadStart(float segmentHeadStart);
+		int getPointCount();
 		void addPoint(const Vector2 & pos);
 		void setSubTexture(SubTextureInfo * subTexture, bool inversedSubTex = false);
 		virtual ~DefaultLineComponent();
@@ -25,8 +28,8 @@ namespace BaconBox {
 		DefaultLineComponent *clone() const;
 		
 		Vector2 &getPoint(int index);
-
-
+		float getTextureHeadStartAt(int index);
+//		float getSegmentHeadStartAt(int index);
 		void receiveMessage(int senderID, int destID, int message, void *data);
 		void initializeConnections();
 		void refreshPoints();
@@ -38,10 +41,14 @@ namespace BaconBox {
 		float patternSpacing;
 		float width;
 		std::vector<Vector2> points;
+//		std::deque<float> segmentHeadStarts;
+		std::deque<float> textureHeadStarts;
 		Mesh * mesh;
 		Texture * textureComponent;
 		SubTextureInfo * subTexture;
 		bool inversedSubTex;
+		float textureHeadStart;
+//		float segmentHeadStart;
 	};
 
 

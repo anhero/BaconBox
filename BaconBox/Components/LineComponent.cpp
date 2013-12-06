@@ -40,8 +40,26 @@ namespace BaconBox {
 	void LineComponentProxy::setPatternSpacing(float patternSpacing){
 		reinterpret_cast<LineComponent *>(component)->setPatternSpacing(patternSpacing);
 	}
-
-
+	
+	float LineComponentProxy::getTextureHeadStartAt(int index){
+		return reinterpret_cast<LineComponent *>(component)->getTextureHeadStartAt(index);
+	}
+	
+	
+	int LineComponentProxy::getPointCount(){
+		return reinterpret_cast<LineComponent *>(component)->getPointCount();
+	}
+//	float LineComponentProxy::getSegmentHeadStartAt(int index){
+//		return reinterpret_cast<LineComponent *>(component)->getSegmentHeadStartAt(index);
+//	}
+	
+//	void LineComponentProxy::setSegmentHeadStart(float segmentHeadStart){
+//		reinterpret_cast<LineComponent *>(component)->setSegmentHeadStart(segmentHeadStart);
+//	}
+	
+	void LineComponentProxy::setTextureHeadStart(float textureHeadStart){
+		reinterpret_cast<LineComponent *>(component)->setTextureHeadStart(textureHeadStart);
+	}
 
 
 }

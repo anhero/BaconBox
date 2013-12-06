@@ -17,7 +17,12 @@ namespace BaconBox {
 		LineComponent(const LineComponent &src);
 		virtual void addPoint(const Vector2 & point) = 0;
 		virtual void setPatternSpacing(float patternSpacing) = 0;
+		virtual void setTextureHeadStart(float textureHeadStart) = 0;
+//		virtual void setSegmentHeadStart(float segmentHeadStart) = 0;
+		virtual float getTextureHeadStartAt(int index) = 0;
+//		virtual float getSegmentHeadStartAt(int index) = 0;
 		virtual void refreshPoints() = 0;
+		virtual int getPointCount() = 0;
 		virtual ~LineComponent();
 		virtual Vector2 &getPoint(int index) = 0;
 		virtual void receiveMessage(int senderID, int destID, int message, void *data);
@@ -30,8 +35,13 @@ namespace BaconBox {
 		LineComponentProxy(Entity *entity);
 		void addPoint(const Vector2 & point);
 		Vector2 &getPoint(int index);
-		void setPatternSpacing(float patternSpacing);
+		int getPointCount();
 
+		float getTextureHeadStartAt(int index);
+//		float getSegmentHeadStartAt(int index);
+		void setPatternSpacing(float patternSpacing);
+		void setTextureHeadStart(float textureHeadStart);
+//		void setSegmentHeadStart(float segmentHeadStart);
 		void refreshPoints();
 	protected:
 	    void setLineComponent(LineComponent * lineComponent);

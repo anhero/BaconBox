@@ -10,7 +10,9 @@
 #include <utility> 
 #include <deque>
 namespace BaconBox {
-	DefaultLineComponent::DefaultLineComponent(SubTextureInfo * subTexture, bool inversedSubTex) : LineComponent(),  mesh(NULL), width(0), loopDistance(0), textureCoordLoopDistance(0), patternSpacing(0.0f){
+	DefaultLineComponent::DefaultLineComponent(SubTextureInfo * subTexture, bool inversedSubTex) : LineComponent(),  mesh(NULL), width(0), loopDistance(0), textureCoordLoopDistance(0), patternSpacing(0.0f), textureHeadStart(0.0f)
+//	, segmentHeadStart(0.0f)
+	{
 	    initializeConnections();
 		this->setSubTexture(subTexture, inversedSubTex);
 	}
@@ -50,6 +52,28 @@ namespace BaconBox {
 	void DefaultLineComponent::setPatternSpacing(float patternSpacing){
 		this->patternSpacing = patternSpacing;
 	}
+	
+	void DefaultLineComponent::setTextureHeadStart(float textureHeadStart){
+		this->textureHeadStart = textureHeadStart;
+	}
+	
+//	void DefaultLineComponent::setSegmentHeadStart(float segmentHeadStart){
+//		this->segmentHeadStart = segmentHeadStart;
+//	}
+	
+	float DefaultLineComponent::getTextureHeadStartAt(int index){
+		return textureHeadStarts[index];
+	}
+	
+//	float DefaultLineComponent::getSegmentHeadStartAt(int index){
+//		return segmentHeadS
+//		tarts[index];
+//	}
+	
+	int DefaultLineComponent::getPointCount(){
+		return points.size();
+	}
+
 
 	void DefaultLineComponent::refreshPoints(){
 		if (points.size() < 2) return;
@@ -62,14 +86,20 @@ namespace BaconBox {
 		Vector2 untouchedTC3 = (inversedSubTex ? subTexture->getTopRightCoord()  : subTexture->getDownLeftCoord() );
 		Vector2 untouchedTC4 = (inversedSubTex ? subTexture->getDownRightCoord() : subTexture->getDownRightCoord());
 		
-		float textureHeadStart = 0.0f;
-		float segmentHeadStart = 0.0f;
+		
 		
 		std::deque<std::pair<Vector2, Vector2> > tempMesh;
 		Vector2 nextStartCrossVector;
 		int verticesIterator = 0;
 
+		float textureHeadStart = this->textureHeadStart;
+		float segmentHeadStart = 0;
+		
+		//				segmentHeadStarts.push_back(segmentHeadStart);
+		textureHeadStarts.push_back(textureHeadStart);
+		
 		for (int i = 0; i < segmentCount; i++) {
+			//segment initialization
 			bool isLastSegment = i == segmentCount -1;
 			const Vector2 p1 = points[i];
 			const Vector2 p2 = points[i+1];
@@ -113,7 +143,7 @@ namespace BaconBox {
 			Vector2 subP2;
 			bool firstSubSegment = true;
 			while (subSegmentInProgress) {
-			
+				//preparing stuff...
 				float tempTextureHeadStart = textureHeadStart;
 				tempMesh.resize(verticesIterator+4);
 
@@ -134,6 +164,10 @@ namespace BaconBox {
 				subP1 = segment;
 				subP1.setLength(segmentLenght - remnantSegmentLenght);
 				
+				
+
+				
+				//parameter settings
 				bool endPattern = true;
 				bool clearSpacing = true;
 				float subSegmentLenght;
@@ -163,6 +197,9 @@ namespace BaconBox {
 					clearTextureHeadStart = true;
 				}
 				
+
+				
+				//position
 				Vector2 subSegment = segment;
 				subSegment.setLength(subSegmentLenght);
 				
@@ -186,6 +223,8 @@ namespace BaconBox {
 				v3 = subP2 + crossVector2;
 				v4 = subP2 - crossVector2;
 				
+				
+				//texture coordinates
 				tc1 = untouchedTC1;
 				tc2 = untouchedTC2;
 				tc3 = untouchedTC3;
@@ -218,7 +257,9 @@ namespace BaconBox {
 				firstSubSegment = false;
 
 			}
-
+			
+			//				segmentHeadStarts.push_back(segmentHeadStart);
+			textureHeadStarts.push_back(textureHeadStart);
 		}
 		
 		int tempMeshSize = tempMesh.size();
