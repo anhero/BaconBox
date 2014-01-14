@@ -22,7 +22,7 @@ namespace BaconBox {
 	}
 
 
-	TextureInformation *GraphicDriver::loadTexture(PixMap *pixMap) {
+	TextureInformation *GraphicDriver::loadTexture(PixMap *pixMap, TextureInformation *textureInfo) {
 		if (!isInitialized()) {
 			Console__error("You are trying to load a texture before the GraphicDriver initialization!");
 		}

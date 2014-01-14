@@ -78,162 +78,103 @@ namespace BaconBox {
 	}
 	
 	
+	bool ResourceManager::isLoadedTexture(const std::string & key){
+		std::map<std::string, TextureInformation *>::iterator found  = textures.find(key);
+		if (found != textures.end()) {
+			return found->second->isLoaded();
+		}
+		else{
+			return false;
+		}
+	}
+
+	
 	TextureInformation * ResourceManager::createRenderTexture(const std::string &key,
 															  unsigned int width,
 															  unsigned int height,
 															  ColorFormat::type colorFormat,
 															  bool overwrite){
 		PixMap aPixmap(NULL, width, height, colorFormat);
-		return addTexture(key, &aPixmap, overwrite);
+		return loadTexture(&aPixmap);
+	}
+	
+	
+	TextureInformation * ResourceManager::loadTexture(PixMap *aPixmap, TextureInformation * texture){
+		return GraphicDriver::getInstance().loadTexture(aPixmap, texture);
 	}
 
-	TextureInformation *ResourceManager::addTextureWithPath(const std::string &key, PixMap *aPixmap, const std::string &path, bool overwrite) {
-		TextureInformation *texInfo = addTexture(key, aPixmap, overwrite);
-		texInfo->path = path;
-		return texInfo;
-	}
-
-
-	TextureInformation *ResourceManager::addTexture(const std::string &key, PixMap *aPixmap,
-	                                                bool overwrite) {
-		TextureInformation *texInfo = NULL;
-		if (overwrite || !isExistingTexture(key)) {
-			texInfo = addTextureInfo(key, GraphicDriver::getInstance().loadTexture(aPixmap), overwrite);
-
-		} else {
-			Console::println("Can't load texture with key: " + key +
-			                 " texture is already loaded");
+	TextureInformation *ResourceManager::loadTexture(TextureInformation * texture){
+		if (!texture->isLoaded()) {
+			PixMap * pixmap = loadPixMap(texture->path, texture->colorFormat);
+			loadTexture(pixmap, texture);
+			delete pixmap;
+			
 		}
-
-		return texInfo;
-	}
-
-	bool ResourceManager::isLoadedTexture(const std::string &key) {
-#ifdef BB_OPENGL
-		std::map<std::string, TextureInformation *>::iterator i = textures.find(key);
-		return i != textures.end() && i->second != NULL && i->second->textureId >= 0;
-#else
-		return false;
-#endif
-	}
-
-	bool ResourceManager::isExistingTexture(const std::string &key) {
-		std::map<std::string, TextureInformation *>::iterator i = textures.find(key);
-		return i != textures.end() && i->second != NULL;
-	}
-
-
-	TextureInformation *ResourceManager::addTextureInfo(const std::string &key, TextureInformation *textureInfo,
-	                                                    bool overwrite) {
-		TextureInformation *texInfo = NULL;
-
-		// We check if there is already a texture with this name.
-		if (isExistingTexture(key)) {
-			texInfo = textures[key];
-			// We check if we overwrite the existing texture or not.
-			if (overwrite || textures[key] == NULL) {
-				// We free the allocated memory.
-
-				if (texInfo) {
-					delete texInfo;
-				}
-
-				texInfo = textureInfo;
-				ResourceManager::addSubTexture(key, new SubTextureInfo(texInfo, Vector2(), Vector2(texInfo->imageWidth, texInfo->imageHeight)), overwrite);
-				Console::println("Overwrote the existing texture named " + key + ".");
-
-			} else {
-				Console::println("Can't load texture with key: " + key +
-				                 " texture is already loaded");
-				texInfo = textures[key];
-			}
-
-		} else {
-			// We load the new texture and add it to the map.
-			texInfo = textureInfo;
-			textures[key] = texInfo;
-			ResourceManager::addSubTexture(key, new SubTextureInfo(texInfo, Vector2(), Vector2(texInfo->imageWidth, texInfo->imageHeight)), overwrite);
+		else{
+			Console::error("Trying to load a loaded texture with key : " + texture->key);
 		}
-
-		if(texInfo)texInfo->key = key;
-		return texInfo;
-	}
-
-
-	TextureInformation *ResourceManager::loadTexture(const std::string &key) {
-		TextureInformation *texture = textures[key];
-		textures[key] = NULL;
-		texture = loadTexture(key, texture->path, texture->colorFormat, true);
 		return texture;
 	}
-
-	void ResourceManager::registerTexture(const std::string &key,
-	                                      const std::string &filePath,
-	                                      ColorFormat::type colorFormat,
-	                                      bool overwrite) {
-		TextureInformation *textureInfo = new TextureInformation();
-		textureInfo->path = filePath;
-		textureInfo->colorFormat = colorFormat;
-		addTextureInfo(key, textureInfo, overwrite);
+	
+	TextureInformation *ResourceManager::loadTexture(const std::string &key){
+		std::map<std::string, TextureInformation *>::iterator found  = textures.find(key);
+		if (found != textures.end()) {
+			return loadTexture(found->second);
+		}
+		
+		Console::error("Trying to load unregistered texture with key : " + key);
+		return NULL;
 	}
 
+	
+	TextureInformation * ResourceManager::registerTexture(const std::string &key,
+										 const std::string &filePath,
+										 ColorFormat::type colorFormat){
+		if (textures.find(key) == textures.end()) {
+			TextureInformation * textureInfo = new TextureInformation();
+			textures[key] = textureInfo;
+			textureInfo->path = filePath;
+			textureInfo->colorFormat = colorFormat;
+			
+			return textureInfo;
+		}
+		
+		Console::error("Trying to register texture with existing key : " + key);
+		return NULL;
+	}
+	
+	TextureInformation * ResourceManager::registerTextureRelativePath(const std::string &key,
+														  const std::string &filePath,
+														  ColorFormat::type colorFormat){
+		return registerTexture(key,  ResourcePathHandler::getResourcePathFor(filePath), colorFormat);
+	}
+	
+	
 	TextureInformation *ResourceManager::loadTexture(const std::string &key,
-	                                                 const std::string &filePath,
-	                                                 ColorFormat::type colorFormat,
-	                                                 bool overwrite) {
-		PixMap *pixMap = loadPixMap(filePath, colorFormat);
-
-		if (pixMap) {
-			TextureInformation *result = addTextureWithPath(key, pixMap, filePath, overwrite);
-			delete pixMap;
-			return result;
-
-		} else {
-			return NULL;
-		}
+									const std::string &filePath,
+									ColorFormat::type colorFormat){
+		TextureInformation* texture = registerTexture(key, filePath, colorFormat);
+		return loadTexture(texture);
 	}
-
-	TextureInformation *ResourceManager::loadTextureWithColorKey(const std::string &key,
-	                                                             const std::string &filePath,
-	                                                             const Color &transparentColor,
-	                                                             bool overwrite) {
-		PixMap *pixMap = loadPixMap(filePath, transparentColor);
-
-		if (pixMap) {
-			TextureInformation *result = addTextureWithPath(key, pixMap, filePath, overwrite);
-			delete pixMap;
-			return result;
-
-		} else {
-			return NULL;
-		}
-	}
-
+	
 	TextureInformation *ResourceManager::loadTextureRelativePath(const std::string &key,
-	                                                             const std::string &relativePath,
-	                                                             ColorFormat::type colorFormat,
-	                                                             bool overwrite) {
-		return loadTexture(key,
-		                   ResourcePathHandler::getResourcePathFor(relativePath),
-		                   colorFormat, overwrite);
+													 const std::string &filePath,
+													 ColorFormat::type colorFormat){
+		return loadTextureRelativePath(key, filePath, colorFormat);
 	}
-
-	TextureInformation *ResourceManager::loadTextureRelativePathWithColorKey(const std::string &key,
-	                                                                         const std::string &relativePath,
-	                                                                         const Color &transparentColor,
-	                                                                         bool overwrite) {
-		return loadTextureWithColorKey(key,
-		                               ResourcePathHandler::getResourcePathFor(relativePath),
-		                               transparentColor, overwrite);
-	}
-
+	
+	
 	Symbol *ResourceManager::getSymbol(const std::string &key) {
 		std::map<std::string, Symbol *>::iterator itr = symbols.find(key);
 		return (itr != symbols.end()) ? (itr->second) : (NULL);
 	}
-	SubTextureInfo *ResourceManager::getSubTexture(const std::string &key) {
+	SubTextureInfo *ResourceManager::getSubTexture(const std::string &key, bool loadTextureIfNotLoaded) {
 		std::map<std::string, SubTextureInfo *>::iterator itr = subTextures.find(key);
-		return (itr != subTextures.end()) ? (itr->second) : (NULL);
+		SubTextureInfo * subTex = (itr != subTextures.end()) ? (itr->second) : (NULL);
+		if (loadTextureIfNotLoaded && ! subTex->textureInfo->isLoaded()) {
+			loadTexture(subTex->textureInfo);
+		}
+		return subTex;
 	}
 
 	TextureInformation *ResourceManager::getTexture(const std::string &key) {
@@ -607,7 +548,7 @@ namespace BaconBox {
 		}
 		
 		
-		registerTexture(textureName, dirPath + "/" + node->first_attribute("path")->value(), colorFormat);
+		TextureInformation * textureInfo = registerTexture(textureName, dirPath + "/" + node->first_attribute("path")->value(), colorFormat);
 		rapidxml::xml_attribute<> * scale  = node->first_attribute("scale");
 
 		float textureScale = 1;
@@ -627,7 +568,7 @@ namespace BaconBox {
 			symbol->subTex->position = Vector2(Parser::stringToDouble(subTextNode->first_attribute("x")->value()), Parser::stringToDouble(subTextNode->first_attribute("y")->value()));
 			symbol->subTex->size = Vector2(Parser::stringToDouble(subTextNode->first_attribute("width")->value()), Parser::stringToDouble(subTextNode->first_attribute("height")->value()));
 			
-			symbol->subTex->textureInfo = NULL;
+			symbol->subTex->textureInfo = textureInfo;
 
 			symbol->blend = Parser::stringToBool(subTextNode->first_attribute("blend")->value());
 			

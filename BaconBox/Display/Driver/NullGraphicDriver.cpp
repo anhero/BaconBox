@@ -80,7 +80,7 @@ namespace BaconBox {
 	void NullGraphicDriver::popMatrix() {
 	}
 
-	TextureInformation *NullGraphicDriver::loadTexture(PixMap *) {
+	TextureInformation *NullGraphicDriver::loadTexture(PixMap *, TextureInformation *) {
 		return NULL;
 	}
 

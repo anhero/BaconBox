@@ -685,10 +685,15 @@ void OpenGLDriver::endRenderToTexture(){
 		textureInfo->textureId = -1;
 	}
 
-	TextureInformation *OpenGLDriver::loadTexture(PixMap *pixMap) {
-		GraphicDriver::loadTexture(pixMap);
-
-		TextureInformation *texInfo = new TextureInformation();
+	TextureInformation *OpenGLDriver::loadTexture(PixMap *pixMap, TextureInformation *textureInfo) {
+		GraphicDriver::loadTexture(pixMap, textureInfo);
+		TextureInformation *texInfo;
+		if (textureInfo) {
+			texInfo = textureInfo;
+		}
+		else{
+			texInfo = new TextureInformation();
+		}
 		glGenTextures(1, reinterpret_cast<unsigned int *>(&(texInfo->textureId)));
 		glBindTexture(GL_TEXTURE_2D, texInfo->textureId);
 

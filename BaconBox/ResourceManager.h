@@ -59,108 +59,34 @@ namespace BaconBox {
 													   ColorFormat::type colorFormat = ColorFormat::RGBA,
 		                                      bool overwrite = false);
 	    
-		/**
-		 * Add a texture already loaded as a pixmap into the graphic memory and
-		 * resource manager.
-		 * @param key Key used to identify this new texture.
-		 * @param aPixmap The pixel map you want to use as a texture
-		 * @param overwrite When set to true, it will delete any existing
-		 * texture at the specified key. (False (default) will print an error if
-		 * the key is occupied).
-		 * @return Pointer to the added texture information. Returns NULL if the
-		 * texture failed to be added.
-		 */
-		static TextureInformation *addTexture(const std::string &key, PixMap *aPixmap,
-		                                      bool overwrite = false);
-		
-		static TextureInformation * addTextureWithPath(const std::string &key, PixMap *aPixmap, const std::string & path, bool overwrite);
+
 
 		
-		/**
-		 * Loads a texture from a file and assigns a representative key to it.
-		 * @param key Key used to identify this new texture.
-		 * @param filePath Path to the file containing the texture.
-		 * @param colorFormat Used to select the internal colorFormat of the texture. If you choose ALPHA while loading
-		 * an RGBA image, the engine will use the red channel and strip the 3 other channel.
-		 * @param overwrite When set to true, it will delete any existing
-		 * texture at the specified key. (False (default) will print an error if
-		 * the key is occupied).
-		 * @return Pointer to the loaded texture, NULL if the texture failed to
-		 * load.
-		 */
+		
+		static TextureInformation * loadTexture(PixMap *aPixmap, TextureInformation * texture = NULL);
+
 		static TextureInformation *loadTexture(const std::string &key,
 		                                       const std::string &filePath,
-		                                       ColorFormat::type colorFormat = ColorFormat::RGBA,
-		                                       bool overwrite = false);
+		                                       ColorFormat::type colorFormat = ColorFormat::RGBA);
+		
+		static TextureInformation *loadTextureRelativePath(const std::string &key,
+		                                       const std::string &filePath,
+		                                       ColorFormat::type colorFormat = ColorFormat::RGBA);
+		
+		static TextureInformation *loadTexture(TextureInformation * texture);
+
 		
 		static TextureInformation *loadTexture(const std::string &key);
 		
 		
-		static void registerTexture(const std::string &key,
+		static TextureInformation * registerTexture(const std::string &key,
 		                                       const std::string &filePath,
-		                                       ColorFormat::type colorFormat = ColorFormat::RGBA,
-		                                       bool overwrite = false);
-
-		/**
-		 * Loads a texture from a file and assigns a representative key to it.
-		 * Color format is automatically RGBA.
-		 * @param key Key used to identify this new texture.
-		 * @param filePath Path to the file containing the texture.
-		 * @param transparentColor Color to be read as transparent.
-		 * @param overwrite When set to true, it will delete any existing
-		 * texture at the specified key. (False (default) will print an error if
-		 * the key is occupied).
-		 * @return Pointer to the loaded texture, NULL if the texture failed to
-		 * load.
-		 */
-		static TextureInformation *loadTextureWithColorKey(const std::string &key,
-		                                                   const std::string &filePath,
-		                                                   const Color &transparentColor,
-		                                                   bool overwrite = false);
-
-		/**
-		 * Loads a texture from a file and assigns a representative key to it.
-		 * This version of the loadTexture function needs a relative path from
-		 * the resource folder, you cannot use an absolute path or pass your
-		 * filename through ResourcePathHandler::getResourcePathFor.
-		 * @param key Key used to identify this new texture.
-		 * @param relativePath Relative path (relative to the resources folder)
-		 * to the file containing the texture.
-		 * @param colorFormat Used to select the internal colorFormat of the
-		 * texture. If you choose ALPHA while loading an RGBA image, the engine
-		 * will use the red channel and strip the 3 other channel.
-		 * @param overwrite When set to true, it will delete any existing
-		 * texture at the specified key. (False (default) will print an error if
-		 * the key is occupied).
-		 * @return Pointer to the loaded texture, NULL if the texture failed to
-		 * load.
-		 */
-		static TextureInformation *loadTextureRelativePath(const std::string &key,
-		                                                   const std::string &relativePath,
-		                                                   ColorFormat::type colorFormat = ColorFormat::RGBA,
-		                                                   bool overwrite = false);
-
-		/**
-		 * Loads a texture from a file and assigns a representative key to it.
-		 * This version of the loadTexture function needs a relative path from
-		 * the resource folder, you cannot use an absolute path or pass your
-		 * filename through ResourcePathHandler::getResourcePathFor.
-		 * @param key Key used to identify this new texture.
-		 * @param relativePath Relative path (relative to the resources folder)
-		 * to the file containing the texture.
-		 * @param transparentColor Color to be read as transparent.
-		 * @param overwrite When set to true, it will delete any existing
-		 * texture at the specified key. (False (default) will print an error if
-		 * the key is occupied).
-		 * @return Pointer to the loaded texture, NULL if the texture failed to
-		 * load.
-		 */
-		static TextureInformation *loadTextureRelativePathWithColorKey(const std::string &key,
-		                                                               const std::string &relativePath,
-		                                                               const Color &transparentColor,
-		                                                               bool overwrite = false);
-        
-        
+		                                       ColorFormat::type colorFormat = ColorFormat::RGBA);
+		
+		
+		static TextureInformation * registerTextureRelativePath(const std::string &key,
+													const std::string &filePath,
+													ColorFormat::type colorFormat = ColorFormat::RGBA);
         
         
 
@@ -187,7 +113,7 @@ namespace BaconBox {
 		 * associated with the given key.
 		 */
 		static TextureInformation *getTexture(const std::string &key);
-		static SubTextureInfo *getSubTexture(const std::string &key);
+		static SubTextureInfo *getSubTexture(const std::string &key, bool loadTextureIfNotLoaded = true);
 		static Symbol *getSymbol(const std::string &key);
 		/**
 		 * Gets a pointer to the asked sound effect.
@@ -377,9 +303,7 @@ namespace BaconBox {
 		static void loadFlashExporterSymbols(rapidxml::xml_node<> *node);
 		
 		static void loadFlashExporterTextures(rapidxml::xml_node<> *node,  const std::string & dirPath);
-		
 		static bool isLoadedTexture(const std::string & key);
-		static bool isExistingTexture(const std::string & key);
 	private:
 	    
 	    

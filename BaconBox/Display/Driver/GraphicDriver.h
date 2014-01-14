@@ -112,7 +112,7 @@ namespace BaconBox {
 		 * Load a texture into graphic memory.
 		 * @param pixMap A pixmap object containing the buffer the driver must load.
 		 */
-		virtual TextureInformation *loadTexture(PixMap *pixMap);
+		virtual TextureInformation *loadTexture(PixMap *pixMap, TextureInformation *textureInfo = NULL);
 
         /**
          *  Remove a texture from graphic memory
