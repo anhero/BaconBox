@@ -56,7 +56,7 @@ namespace BaconBox {
 	std::list<Part> parts;
 	Vector2 registrationPoint;
 	std::map<std::string, std::pair<int, int> > label;
-
+		bool hasLabel(const std::string & labelName);
 
     };
 }
