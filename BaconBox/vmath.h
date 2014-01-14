@@ -155,6 +155,8 @@ public:
 #ifdef SWIG
 	T x, y;
 	T s, t;
+	T w, h;
+
 #else
 	union
 	{
@@ -168,6 +170,12 @@ public:
 		 * For textures notation.
 		 */
 		T s;
+		
+		/**
+		 * First element of vector, alias for width.
+		 */
+		T w;
+
 	};
 
 	union
@@ -182,6 +190,12 @@ public:
 		 * For textures notation.
 		 */
 		T t;
+		
+		/**
+		 * First element of vector, alias for height.
+		 */
+		T h;
+
 	};
 	
 #endif
