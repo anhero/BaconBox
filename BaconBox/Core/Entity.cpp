@@ -67,8 +67,14 @@ namespace BaconBox {
 	}
 
 
-	Component *Entity::addComponent(Component *newComponent) {
-		components.push_back(newComponent);
+	Component *Entity::addComponent(Component *newComponent, bool pushFront) {
+		if(pushFront){
+			components.push_front(newComponent);
+		}
+		else{
+			components.push_back(newComponent);
+		}
+		
 		newComponent->setEntity(this);
 		
 		ComponentAddedData data(newComponent->getID(), newComponent);

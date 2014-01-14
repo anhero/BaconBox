@@ -83,8 +83,7 @@ namespace BaconBox {
 		 * Adds a component to the entity.
 		 * @return Returns the component that was added.
 		 */
-		Component *addComponent(Component *newComponent);
-		
+		Component *addComponent(Component *newComponent, bool pushFront = false);
 		
 		/**
 		 * Removes the given component.
