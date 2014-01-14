@@ -1,6 +1,6 @@
 library.name = "zlib"
 library.license = "zlib license" 
-library.version = "1.2.5"
+library.version = "1.2.8"
 library.archive = "#{library.name}-#{library.version}.tar.gz"
 library.url = "http://downloads.sourceforge.net/sourceforge/libpng/#{library.archive}"
-library.hash = "c735eab2d659a96e5a594c9e8541ad63" #1.2.5
+library.hash = "44d667c142d7cda120332623eab69f40" #1.2.8
