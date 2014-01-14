@@ -13,6 +13,7 @@ namespace BaconBox {
 
 	struct SubTextureInfo {
 		SubTextureInfo(TextureInformation * textureInfo = NULL, Vector2 position = Vector2(), Vector2 size = Vector2());
+		SubTextureInfo(const SubTextureInfo& src);
 		Vector2 position;
 		Vector2 size;
 		TextureInformation * textureInfo;
