@@ -1,3 +1,4 @@
+libraries << 'zlib'
 libraries << 'libpng'
 libraries << 'lua'
 libraries << 'jsonbox'
@@ -8,5 +9,4 @@ libraries << 'libvorbis'
 libraries << 'rapidxml'
 libraries << 'sigly'
 libraries << 'glew'
-libraries << 'zlib'
 
