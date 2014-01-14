@@ -11,13 +11,19 @@
 #include "BaconBox/Components/Shake.h"
 #include "BaconBox/Components/MatrixComponent.h"
 #include "BaconBox/Components/CameraPositionConverter.h"
-
+#ifdef BB_LUA
+#include "BaconBox/Components/Lua/LuaEntity.h"
+#endif
 namespace BaconBox {
 	/**
 	 * Represents a camera. Its position determines what the player sees on his
 	 * screen.
 	 */
-	class Camera : public Entity, public TransformProxy, public ColorTransformProxy, public MatrixComponentProxy, public ShakeProxy, public CameraPositionConverterProxy {
+	class Camera : public Entity, public TransformProxy, public ColorTransformProxy, public MatrixComponentProxy, public ShakeProxy, public CameraPositionConverterProxy
+#ifdef BB_LUA
+	, public LuaEntityProxy
+#endif //BB_LUA
+	{
     public:
 		Camera();
 

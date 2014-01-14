@@ -10,7 +10,11 @@
 
 #include "BaconBox/Components/DefaultMatrix.h"
 namespace BaconBox {
-	Camera::Camera() : Entity(), TransformProxy(this), ColorTransformProxy(this), MatrixComponentProxy(this), ShakeProxy(this), CameraPositionConverterProxy(this) {
+	Camera::Camera() : Entity(), TransformProxy(this), ColorTransformProxy(this), MatrixComponentProxy(this), ShakeProxy(this), CameraPositionConverterProxy(this)
+#ifdef BB_LUA
+	, LuaEntityProxy(this)
+#endif //BB_LUA
+	{
 	    #ifdef BB_FLASH_PLATFORM
                 setColorTransform(new FlashColorTransform());
                 addComponent(new FlashCameraManager());
