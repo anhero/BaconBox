@@ -279,6 +279,39 @@ namespace BaconBox {
 				case Z:
 					result = 'z';
 					break;
+				case D0:
+					result = '0';
+					break;
+				case D1:
+					result = '1';
+					break;
+				case D2:
+					result = '2';
+					break;
+				case D3:
+					result = '3';
+					break;
+				case D4:
+					result = '4';
+					break;
+				case D5:
+					result = '5';
+					break;
+				case D6:
+					result = '6';
+					break;
+				case D7:
+					result = '7';
+					break;
+				case D8:
+					result = '8';
+					break;
+				case D9:
+					result = '9';
+					break;
+				case PERIOD:
+					result = '.';
+					break;
 				default:
 					break;
 			}
