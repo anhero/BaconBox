@@ -1,10 +1,9 @@
 library.name = "sigly"
 library.license = "MIT" 
-library.version = "0.1.2"
-library.archive = "#{library.name}-#{library.version}-src.tar.gz"
-library.url = "https://github.com/downloads/anhero/#{library.name}/#{library.archive}"
-library.hash = "928542aaae9bf818e089c45dba26e3f2" #0.1.2
-
+library.version = "0.1.3"
+library.archive = "#{library.version}.zip"
+library.url = "https://github.com/anhero/#{library.name}/archive/#{library.archive}"
+library.hash = "6241c05c4ea4d6071f58d3db3348daf3" #0.1.3
 
 library.build = nil
 library.install = Install.copyHeaders
