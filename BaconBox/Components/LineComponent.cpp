@@ -44,7 +44,10 @@ namespace BaconBox {
 	float LineComponentProxy::getTextureHeadStartAt(int index){
 		return reinterpret_cast<LineComponent *>(component)->getTextureHeadStartAt(index);
 	}
-	
+	std::vector<Vector2> & LineComponentProxy::getPoints(){
+		return reinterpret_cast<LineComponent *>(component)->getPoints();
+	}
+
 	
 	int LineComponentProxy::getPointCount(){
 		return reinterpret_cast<LineComponent *>(component)->getPointCount();

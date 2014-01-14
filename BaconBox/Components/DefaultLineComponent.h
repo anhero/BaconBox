@@ -8,8 +8,8 @@
 namespace BaconBox {
 	class Mesh;
 	class Texture;
-	class SubTextureInfo
-;
+	class SubTextureInfo;
+	
 	class DefaultLineComponent : public LineComponent {
 	public:
 		DefaultLineComponent(SubTextureInfo * subTexture, bool inversedSubTex = false);
@@ -34,6 +34,7 @@ namespace BaconBox {
 		void initializeConnections();
 		void refreshPoints();
 		void update();
+		std::vector<Vector2> & getPoints();
 	private:
 		void setVerticesCount(int count);
 		float loopDistance;
@@ -49,6 +50,7 @@ namespace BaconBox {
 		bool inversedSubTex;
 		float textureHeadStart;
 //		float segmentHeadStart;
+		float crossSectionOffset;
 	};
 
 

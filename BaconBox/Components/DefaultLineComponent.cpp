@@ -10,7 +10,7 @@
 #include <utility> 
 #include <deque>
 namespace BaconBox {
-	DefaultLineComponent::DefaultLineComponent(SubTextureInfo * subTexture, bool inversedSubTex) : LineComponent(),  mesh(NULL), width(0), loopDistance(0), textureCoordLoopDistance(0), patternSpacing(0.0f), textureHeadStart(0.0f)
+	DefaultLineComponent::DefaultLineComponent(SubTextureInfo * subTexture, bool inversedSubTex) : LineComponent(),  mesh(NULL), textureComponent(NULL), width(0), loopDistance(0), textureCoordLoopDistance(0), patternSpacing(0.0f), textureHeadStart(0.0f), crossSectionOffset(1.0f)
 //	, segmentHeadStart(0.0f)
 	{
 	    initializeConnections();
@@ -73,6 +73,10 @@ namespace BaconBox {
 	int DefaultLineComponent::getPointCount(){
 		return points.size();
 	}
+	
+	std::vector<Vector2> & DefaultLineComponent::getPoints(){
+		return points;
+	}
 
 
 	void DefaultLineComponent::refreshPoints(){
@@ -81,10 +85,10 @@ namespace BaconBox {
 		int segmentCount = points.size()-1;
 		
 		
-		Vector2 untouchedTC1 = (inversedSubTex ? subTexture->getTopLeftCoord()   : subTexture->getTopLeftCoord()  );
-		Vector2 untouchedTC2 = (inversedSubTex ? subTexture->getDownLeftCoord()  : subTexture->getTopRightCoord() );
-		Vector2 untouchedTC3 = (inversedSubTex ? subTexture->getTopRightCoord()  : subTexture->getDownLeftCoord() );
-		Vector2 untouchedTC4 = (inversedSubTex ? subTexture->getDownRightCoord() : subTexture->getDownRightCoord());
+		Vector2 untouchedTC1 = (inversedSubTex ? subTexture->getDownLeftCoord()   : subTexture->getTopLeftCoord()  );
+		Vector2 untouchedTC2 = (inversedSubTex ? subTexture->getTopLeftCoord()  : subTexture->getTopRightCoord() );
+		Vector2 untouchedTC3 = (inversedSubTex ? subTexture->getDownRightCoord()  : subTexture->getDownLeftCoord() );
+		Vector2 untouchedTC4 = (inversedSubTex ? subTexture->getTopRightCoord() : subTexture->getDownRightCoord());
 		
 		
 		
@@ -114,7 +118,7 @@ namespace BaconBox {
 			
 			middleCrossVector.x = - segment.y;
 			middleCrossVector.y = segment.x;
-			middleCrossVector.setLength(0.5 * width);
+			middleCrossVector.setLength(width);
 			
 			if (i == 0) {
 				startCrossVector = middleCrossVector;
@@ -126,7 +130,7 @@ namespace BaconBox {
 			if (isLastSegment) {
 				endCrossVector.x = - segment.y;
 				endCrossVector.y = segment.x;
-				endCrossVector.setLength(0.5 * width);
+				endCrossVector.setLength(width);
 			}
 			else {
 				endCrossVector  = points[i+2] - p1;
@@ -134,8 +138,8 @@ namespace BaconBox {
 				endCrossVector.x = -endCrossVector.y;
 				endCrossVector.y = temp;
 			}
-			startCrossVector.setLength(0.5 * width);
-			endCrossVector.setLength(0.5 * width);
+			startCrossVector.setLength(width);
+			endCrossVector.setLength(width);
 			nextStartCrossVector = endCrossVector;
 			
 			bool subSegmentInProgress = true;
@@ -147,10 +151,6 @@ namespace BaconBox {
 				float tempTextureHeadStart = textureHeadStart;
 				tempMesh.resize(verticesIterator+4);
 
-				std::pair<Vector2, Vector2> & pair1 = tempMesh[verticesIterator];
-				std::pair<Vector2, Vector2> & pair2 = tempMesh[verticesIterator+1];
-				std::pair<Vector2, Vector2> & pair3 = tempMesh[verticesIterator+2];
-				std::pair<Vector2, Vector2> & pair4 = tempMesh[verticesIterator+3];
 				Vector2 & v1 = tempMesh[verticesIterator].first;
 				Vector2 & v2 = tempMesh[verticesIterator+1].first;
 				Vector2 & v3 = tempMesh[verticesIterator+2].first;
@@ -207,21 +207,25 @@ namespace BaconBox {
 				subP1+=p1;
 				subP2 = subP1 + subSegment;
 				
-				Vector2 crossVector1(middleCrossVector);
-				Vector2 crossVector2(middleCrossVector);
+				Vector2 crossVector11(middleCrossVector);
+				Vector2 crossVector21(middleCrossVector);
 				if (!isLastSegment && !subSegmentInProgress) {
-					crossVector2 = endCrossVector;
+					crossVector21 = endCrossVector;
 				}
 				if (firstSubSegment){
-					crossVector1 = startCrossVector;
+					crossVector11 = startCrossVector;
 				}
-//
-
+				Vector2 crossVector12(crossVector11);
+				Vector2 crossVector22(crossVector21);
+				crossVector11.setLength(width * crossSectionOffset);
+				crossVector21.setLength(width * crossSectionOffset);
+				crossVector12.setLength(width * (1.0f - crossSectionOffset));
+				crossVector22.setLength(width * (1.0f - crossSectionOffset));
 				
-				v1 = subP1 + crossVector1;
-				v2 = subP1 - crossVector1;
-				v3 = subP2 + crossVector2;
-				v4 = subP2 - crossVector2;
+				v1 = subP1 + crossVector11;
+				v2 = subP1 - crossVector12;
+				v3 = subP2 + crossVector21;
+				v4 = subP2 - crossVector22;
 				
 				
 				//texture coordinates

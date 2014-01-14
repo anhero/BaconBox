@@ -4,9 +4,6 @@
 #include "BaconBox/Core/Component.h"
 #include "BaconBox/Vector2.h"
 namespace BaconBox {
-	/**
-	 * Base class for components that manage the animations and its frames.
-	 */
 	class LineComponent : public Component {
 	public:
 		BB_ID_HEADER;
@@ -25,6 +22,7 @@ namespace BaconBox {
 		virtual int getPointCount() = 0;
 		virtual ~LineComponent();
 		virtual Vector2 &getPoint(int index) = 0;
+		virtual std::vector<Vector2> & getPoints() = 0;
 		virtual void receiveMessage(int senderID, int destID, int message, void *data);
 
 	};
@@ -36,7 +34,7 @@ namespace BaconBox {
 		void addPoint(const Vector2 & point);
 		Vector2 &getPoint(int index);
 		int getPointCount();
-
+		std::vector<Vector2> & getPoints();
 		float getTextureHeadStartAt(int index);
 //		float getSegmentHeadStartAt(int index);
 		void setPatternSpacing(float patternSpacing);
