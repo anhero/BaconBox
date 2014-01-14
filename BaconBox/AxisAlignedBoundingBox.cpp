@@ -7,6 +7,10 @@
 namespace BaconBox {
 	AxisAlignedBoundingBox::AxisAlignedBoundingBox() : position(), size() {
 	}
+	
+	AxisAlignedBoundingBox::AxisAlignedBoundingBox(float x, float y, float width, float height): position(x,y), size(width, height) {
+	
+	}
 
 	AxisAlignedBoundingBox::AxisAlignedBoundingBox(const Vector2 &newPosition,
 	                                               const Vector2 &newSize) :

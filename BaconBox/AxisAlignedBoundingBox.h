@@ -28,6 +28,8 @@ namespace BaconBox {
 		 */
 		AxisAlignedBoundingBox(const Vector2 &newPosition,
 		                       const Vector2 &newSize);
+		
+		AxisAlignedBoundingBox(float x, float y, float width, float height);
 
 		/**
 		 * Copy constructor.
