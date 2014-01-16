@@ -60,7 +60,7 @@ namespace BaconBox {
 				    textureFilename = font["pages"]["page"]["file"].getString();
 				    textureFilename.insert(0, 1, '/');
 				    textureFilename.insert(0, path);
-				    textureInfos.push_back(ResourceManager::loadTexture(font["pages"]["page"]["file"].getString(),textureFilename, ColorFormat::ALPHA));
+				    textureInfos.push_back(ResourceManager::loadTexture(font["pages"]["page"]["file"].getString(),textureFilename, ColorFormat::RGBA));
 			     }
 			     else{
 			     //if there is more than one texture for the font.
@@ -69,7 +69,7 @@ namespace BaconBox {
 				    textureFilename = (*i)["file"].getString();
 				    textureFilename.insert(0, 1, '/');
 				      textureFilename.insert(0, path);
-				    textureInfos.push_back(ResourceManager::loadTexture((*i)["file"].getString(),textureFilename, ColorFormat::ALPHA));
+				    textureInfos.push_back(ResourceManager::loadTexture((*i)["file"].getString(),textureFilename, ColorFormat::RGBA));
 				}  
 			     }
 			     

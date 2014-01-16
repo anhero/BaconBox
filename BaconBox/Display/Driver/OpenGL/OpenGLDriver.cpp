@@ -738,6 +738,14 @@ void OpenGLDriver::endRenderToTexture(){
 		else{
 			poweredTo2Pixmap= new PixMap(pixMap->getBuffer(), widthPoweredToTwo, heightPoweredToTwo, pixMap->getColorFormat());
 		}
+		
+		
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+		
+		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
 
 			glTexImage2D(
 						 GL_TEXTURE_2D,
@@ -753,12 +761,7 @@ void OpenGLDriver::endRenderToTexture(){
 		if(!deleteBuffer)poweredTo2Pixmap->setBuffer(NULL);
 		delete poweredTo2Pixmap;
 
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-		
-		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
+	
 		return texInfo;
 	}
 
