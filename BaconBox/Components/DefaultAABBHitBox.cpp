@@ -36,15 +36,17 @@ namespace BaconBox {
 
 					if (i != 0) {
 						if (childAABB.getLeft() < customAABB.getLeft()) {
+							customAABB.setWidth(customAABB.getWidth() + (customAABB.getXPosition() - childAABB.getXPosition()));
 							customAABB.setXPosition(childAABB.getXPosition());
 						}
 
 						if (childAABB.getTop() < customAABB.getTop()) {
+							customAABB.setHeight(customAABB.getHeight() - (customAABB.getYPosition() - childAABB.getYPosition()));
 							customAABB.setYPosition(childAABB.getYPosition());
 						}
 
 						if (childAABB.getRight() > customAABB.getRight()) {
-							customAABB.setWidth(childAABB.getRight() - customAABB.getXPosition());
+							customAABB.setWidth(childAABB.getRight() - customAABB.getLeft());
 						}
 
 						if (childAABB.getBottom() > customAABB.getBottom()) {
