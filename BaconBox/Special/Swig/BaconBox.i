@@ -192,19 +192,15 @@ end
 #include "BaconBox/Components/Speed.h"
 #include "BaconBox/Components/Shake.h"
 
-#include "BaconBox/Display/ParticlePhase.h"
-#include "BaconBox/Display/Particle.h"
-#include "BaconBox/Display/Emitter.h"
-#include "BaconBox/Components/ParticleEmitter.h"
-	
+ #include "BaconBox/ParticleEmitter.h"
+	#include "BaconBox/Components/ParticleEmitterComponent.h"
+  #include "BaconBox/Components/ParticleComponent.h"
+
 	#include "BaconBox/MovieClipEntity/MovieClipEntity.h"
 	 #include "BaconBox/Line.h"
 
 
-#include "BaconBox/EmitterEntity.h"
-	
-	#include "BaconBox/EntityFactory.h"
-#include "BaconBox/Helper/EmitterFactory.h"
+#include "BaconBox/EntityFactory.h"
   #include "BaconBox/Components/HasName.h"
   #include "BaconBox/Components/CameraPositionConverter.h"
 
@@ -368,7 +364,7 @@ class FlashEngine;
 
 
    %typecheck(SWIG_TYPECHECK_POINTER)lua_State* {
-      $1 = lua_istable(L,$input);
+      $1 = 1;
     }
 
   %typemap(arginit) lua_State* %{
@@ -500,6 +496,7 @@ class MovieClipEntity;
 
 
 %include "BaconBox/Core/Component.h"
+%include "BaconBox/Components/UIElement.h"
 
 %include "BaconBox/Components/UIManager.h"
 %include "BaconBox/Components/Clickable.h"
@@ -535,6 +532,7 @@ namespace BaconBox{
 	class Vector2{
 		public:
 		Vector2();
+    Vector(const Vector2 &src);
 		#if defined(BB_LUA)
 		Vector2(float x, float y);
 		#endif
@@ -722,6 +720,8 @@ const char *__str__() {
 
 #if defined(BB_LUA)
 %include "BaconBox/Components/Lua/LuaEntity.h"
+%include "BaconBox/Helper/Lua/LuaHelper.h"
+
 #endif
 
 
@@ -763,22 +763,24 @@ const char *__str__() {
 %include "BaconBox/Components/TextComponent.h"
 %include "BaconBox/Components/Speed.h"
 
-	%include "BaconBox/Display/ParticlePhase.h"
-	%include "BaconBox/Display/Particle.h"
-	%include "BaconBox/Display/Emitter.h"
-	%include "BaconBox/Components/ParticleEmitter.h"
-	
+
 %include "BaconBox/MovieClipEntity/MovieClipEntity.h"
+
+%include "BaconBox/Components/ParticleEmitterComponent.h"
+
+%include "BaconBox/ParticleEmitter.h"
+%include "BaconBox/Components/ParticleComponent.h"
+
+%template(getParticleEmitter)    BaconBox::ParticleEmitter::getParticleEmitter<BaconBox::DefaultParticleComponent>;
+
 	%include "BaconBox/Line.h"
 
-%include "BaconBox/EmitterEntity.h"
 
 %include "BaconBox/Display/Text/TextEntity.h"
 
 
 %ignore getMovieClipEntityFromSymbol;
 %include "BaconBox/EntityFactory.h" 
-%include "BaconBox/Helper/EmitterFactory.h"
 %include "BaconBox/Display/PixMap.h"
 
 %include "BaconBox/Helper/ResourcePathHandler.h"
