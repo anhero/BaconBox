@@ -1,14 +1,15 @@
 library.name = "JsonBox"
 library.license = "MIT license" 
-library.version = "0.4.1"
-library.archive = "#{library.name}-#{library.version}-src.tar.gz"
-library.url = "https://github.com/downloads/anhero/JsonBox/#{library.archive}" 
-library.hash = "0c36f0f50ec413ca067bf02f587fe529" #0.4.1
-
+library.version = "0.4.4"
+library.archive = "#{library.name}-#{library.version}.zip"
+library.url = "https://github.com/anhero/#{library.name}/archive/#{library.version}.zip"
+library.hash = "eeffa55d020de57b34232be8dfaf3b5b" #0.4.4
 
 library.build = lambda do |library, options| 
 	failed = false
-	failed ||= (not system("make CXXFLAGS=\"-I./include/ #{(OS.osx? ? '-stdlib=libstdc++' : '')}\""))
+	CXX = ""
+	CXX = "CXX=#{options.CXX}" if defined? options.CXX
+	failed ||= (not system("make #{CXX} CXXFLAGS=\"-I./include/ #{(OS.osx? ? '-stdlib=libstdc++' : '')}\""))
 	FileUtils.mkdir_p "#{options.prefix}/lib"
 	failed ||= (not system("cp build/*.a #{options.prefix}/lib"))
 	FileUtils.mkdir_p "#{options.prefix}/include"

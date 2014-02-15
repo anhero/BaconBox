@@ -1,8 +1,8 @@
 library.name = "sigly"
 library.license = "MIT" 
 library.version = "0.1.3"
-library.archive = "#{library.version}.zip"
-library.url = "https://github.com/anhero/#{library.name}/archive/#{library.archive}"
+library.archive = "#{library.name}-#{library.version}.zip"
+library.url = "https://github.com/anhero/#{library.name}/archive/#{library.version}.zip"
 library.hash = "6241c05c4ea4d6071f58d3db3348daf3" #0.1.3
 
 library.build = nil

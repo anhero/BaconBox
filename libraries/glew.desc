@@ -7,9 +7,18 @@ library.url = "http://sourceforge.net/projects/#{library.name}/files/#{library.n
 library.hash = "594eb47b4b1210e25438d51825404d5a" #1.10.0
 
 library.build = lambda do |library, options|
-	system("make")
+	buildCommand = "make"
+	buildCommand = "SYSTEM=\"mingw\" #{buildCommand}" if $options.platformName == "CygwinMingw"
+	buildCommand = "#{buildCommand} CC=\"#{options.CC}\" LD=\"#{options.CC}\"" if defined? options.CC
+	puts buildCommand
+	system(buildCommand)
 end
 
 library.install = lambda do |library, options|
-	system("make install.all GLEW_DEST=#{options.prefix}")
+
+	buildCommand = "make install.all GLEW_DEST=#{options.prefix}"
+	buildCommand = "SYSTEM=\"mingw\" #{buildCommand}" if $options.platformName == "CygwinMingw"
+	buildCommand = "#{buildCommand} CC=\"#{options.CC}\" LD=\"#{options.CC}\"" if defined? options.CC
+	puts buildCommand
+	system(buildCommand)
 end

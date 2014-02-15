@@ -6,14 +6,27 @@ library.url = "http://www.lua.org/ftp/#{library.archive}"
 library.hash = "2e115fe26e435e33b0d5c022e4490567" #5.1.5
 
 platform = nil
-platform = 'macosx' if OS.osx?
-platform = 'linux' if OS.linux?
-platform = 'generic' if $options.platform != nil or platform == nil
 
-library.build = lambda do |library, buildOptions| 
-system('make #{platform}')
+if $options.platform
+	platform = 'generic'
+elsif OS.osx?
+	platform = 'macosx'
+elsif OS.linux?
+	platform = 'linux'
+else
+	platform = 'generic'
 end
 
-library.install = lambda do |library, buildOptions| 
-system("make #{platform} install INSTALL_TOP=#{buildOptions.prefix}")
+library.build = lambda do |library, options|
+	buildCommand = "make #{platform}"
+	buildCommand = "#{buildCommand} CC=#{options.CC}" if defined? options.CC  
+	result = system(buildCommand)
+	puts result
+	puts buildCommand
+	return result
 end
+
+library.install = lambda do |library, options| 
+system("make #{platform} install INSTALL_TOP=#{options.prefix}")
+end
+

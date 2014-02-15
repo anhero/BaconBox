@@ -4,3 +4,27 @@ library.version = "2.0.0"
 library.archive = "#{library.name}-#{library.version}.tar.gz"
 library.url = "http://www.libsdl.org/projects/SDL_mixer/release/#{library.archive}"
 library.hash = "65f6d80df073a1fb3bb537fbda031b50" #2.0.0
+
+# buildOptions.CFLAGS = "-L../../../../CYGWIN_NT-6.1/i686/bin"  
+# buildOptions.LDFLAGS = "-L../../../../CYGWIN_NT-6.1/i686/bin"
+buildOptions.configureOptions = "--enable-shared=no --with-sdl-prefix=#{$options.install_dir}"
+# buildOptions.environment = "LD_LIBRARY_PATH=../../../../CYGWIN_NT-6.1/i686/bin LIBRARY_PATH=../../../../CYGWIN_NT-6.1/i686/bin"
+
+
+library.prepareBuild = lambda do |library, options|
+		result = system('patch -p1 <<\'EOF\'
+--- old/SDL2_mixer-2.0.0/configure	2013-08-10 13:39:55.000000000 -0400
++++ new/SDL2_mixer-2.0.0/configure	2014-01-20 01:51:25.000000000 -0500
+@@ -10916,2 +10916,2 @@
+-        BASE_CFLAGS="-I/usr/include/mingw -mno-cygwin"
+-        BASE_LDFLAGS="-mno-cygwin"
++        BASE_CFLAGS="-I/usr/include/mingw"
++        BASE_LDFLAGS=""
+		EOF')
+		moved = Dir.gotoSubDir()
+
+		FileUtils.cp("#{$options.install_dir}/bin/SDL2.dll", '.') if $options.platformName == "CygwinMingw" #TODO BUILD WITHOUT MOVING SDL2.dll
+
+		return (result and moved)
+	end
+
