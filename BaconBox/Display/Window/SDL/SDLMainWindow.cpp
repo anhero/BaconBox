@@ -14,8 +14,8 @@ namespace BaconBox {
 
 		
 		mainWindow = SDL_CreateWindow(Engine::getApplicationName().c_str(),
-		                              -1000,
-		                              0,
+		                              SDL_WINDOWPOS_UNDEFINED,
+		                              SDL_WINDOWPOS_UNDEFINED,
 		                              static_cast<int>(resolutionWidth),
 		                              static_cast<int>(resolutionHeight),
 		                              SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN);
