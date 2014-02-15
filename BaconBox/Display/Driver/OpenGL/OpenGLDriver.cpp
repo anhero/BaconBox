@@ -428,8 +428,8 @@ void OpenGLDriver::endRenderToTexture(){
 		std::string fragmentShader;
 		
 #ifdef BB_IPHONE_PLATFORM
-		std::string GLESPrecisionVertex = "precision mediump float;\n";
-		std::string GLESPrecisionFragment = "precision lowp float;\n";
+		std::string GLESPrecisionVertex = "precision highp float;\n";
+		std::string GLESPrecisionFragment = "precision highp float;\n";
 		vertexShaderNoColor += GLESPrecisionVertex;
 		vertexShader += GLESPrecisionVertex;
 		
