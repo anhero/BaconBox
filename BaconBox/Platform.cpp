@@ -16,6 +16,8 @@ Platform::Platform(){
 	isIOSWide = false;
 	isIpad = false;
 	isFlash = false;
+	isMobile = false;
+
 #ifdef BB_IPHONE_PLATFORM
 	
 	NSString * device = [UIDevice currentDevice].model;
@@ -26,6 +28,7 @@ Platform::Platform(){
 	isRetina = [[UIScreen mainScreen] scale] == 2;
 	isIphone = [device  isEqual: @"iPhone"];
 	isIOSWide = [[ UIScreen mainScreen ] bounds ].size.height == 568;
+	isMobile = true;
 #endif
 	
 	

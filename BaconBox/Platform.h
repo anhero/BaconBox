@@ -7,6 +7,7 @@ namespace BaconBox {
 
 		
 		bool isRetina;
+		bool isMobile;
 		bool isIOS;
 		bool isIphone;
 		bool isIOSWide;
