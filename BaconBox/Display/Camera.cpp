@@ -15,6 +15,9 @@ namespace BaconBox {
 	, LuaEntityProxy(this)
 #endif //BB_LUA
 	{
+		
+		this->setMatrixComponent(new DefaultMatrix());
+
 	    #ifdef BB_FLASH_PLATFORM
                 setColorTransform(new FlashColorTransform());
                 addComponent(new FlashCameraManager());
@@ -24,7 +27,6 @@ namespace BaconBox {
 
         #endif
 		
-		this->setMatrixComponent(new DefaultMatrix());
 	}
 
 	Camera::~Camera() {
