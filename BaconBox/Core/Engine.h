@@ -28,6 +28,7 @@ namespace BaconBox {
 	class Engine {
 		friend class ResourcePathHandler;
 	public:
+		
 		static const double DEFAULT_UPDATES_PER_SECOND;
 		static const unsigned int DEFAULT_MIN_FRAMES_PER_SECOND = 5;
 		
@@ -45,6 +46,9 @@ namespace BaconBox {
 		static void application(int argc, char *argv[],
 		                        const std::string &name = DEFAULT_APPLICATION_NAME);
 		
+		
+		
+		static sigly::Signal0<> update;
 		
 		/// Signal sent when the BaconBox engine is initialized.
 		static sigly::Signal5<unsigned int, unsigned int, float, float, WindowOrientation::type> onInitialize;
