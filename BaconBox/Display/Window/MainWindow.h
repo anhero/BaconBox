@@ -11,6 +11,8 @@
 
 #include "BaconBox/Display/Window/WindowOrientation.h"
 #include "BaconBox/Vector2.h"
+#include "BaconBox/Input/Accelerometer/Accelerometer.h"
+
 namespace BaconBox {
 	/**
 	 * Represents the application's main window. This class is used to control
@@ -22,6 +24,9 @@ namespace BaconBox {
 	public:
 		/// Default name given to all new main windows.
 		static const std::string DEFAULT_NAME;
+		
+		sigly::Signal1<WindowOrientation::type> orientationChanged;
+		sigly::Signal0<> gotFocus;
 
 		/**
 		 * Gets the singleton instance of the currently implemented
@@ -159,6 +164,8 @@ namespace BaconBox {
 		 */
 		WindowOrientation::type getOrientation() const;
 		
+		
+		virtual void setAutoOrientation(WindowAutoOrientation::type autoOrientation);
 		/**
 		 * Sets the window's current orientation.
 		 * @param newOrientation New orientation to set.
@@ -166,6 +173,8 @@ namespace BaconBox {
 		 */
 		virtual void setOrientation(WindowOrientation::type newOrientation);
 	protected:
+		void accelChange(AccelerometerSignalData data);
+		
 		/**
 		 * The constructor. When implementing a MainWindow, do any
 		 * initialization in here.
@@ -198,6 +207,9 @@ namespace BaconBox {
 		
 		/// Window's orientation. NORMAL by default.
 		WindowOrientation::type orientation;
+		WindowAutoOrientation::type autoOrientation;
+		int inversedOrientationIncr;
+		int inversedOrientationTreshold;
 	};
 }
 

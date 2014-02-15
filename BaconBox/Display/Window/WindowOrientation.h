@@ -15,7 +15,18 @@ namespace BaconBox {
 		private:
 			WindowOrientation();
 		};
-		
+	
+	struct WindowAutoOrientation {
+		enum type {
+			NONE,
+//			ALL_ORIENTATION,
+			LANDSCAPE,
+//			PORTRAIT,
+//			LANDSCAPE_PORTRAIT_UPSIDE
+		};
+	private:
+		WindowAutoOrientation();
+	};
 }
 
 

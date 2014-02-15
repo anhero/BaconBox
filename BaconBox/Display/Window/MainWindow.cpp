@@ -2,7 +2,7 @@
 
 #include "BaconBox/Core/Engine.h"
 #include "BaconBox/Display/Driver/GraphicDriver.h"
-
+#include "BaconBox/Input/Accelerometer/Accelerometer.h"
 namespace BaconBox {
 	const std::string MainWindow::DEFAULT_NAME = std::string("An unnamed BaconBox application");
 
@@ -106,9 +106,52 @@ namespace BaconBox {
 		return orientation;
 	}
 	
+	void MainWindow::accelChange(AccelerometerSignalData data){
+		if (autoOrientation = WindowAutoOrientation::LANDSCAPE) {
+		if (orientation == WindowOrientation::HORIZONTAL_LEFT) {
+			if(data.getX() < 0){
+				inversedOrientationIncr++;
+			}
+			else{
+				inversedOrientationIncr = 0;
+			}
+			if (inversedOrientationIncr > inversedOrientationTreshold) {
+				inversedOrientationIncr = 0;
+				setOrientation(WindowOrientation::HORIZONTAL_RIGHT);
+			}
+		}
+		else if (orientation == WindowOrientation::HORIZONTAL_RIGHT) {
+			if(data.getX() > 0){
+				inversedOrientationIncr++;
+			}
+			else{
+				inversedOrientationIncr = 0;
+			}
+			if (inversedOrientationIncr > inversedOrientationTreshold) {
+				inversedOrientationIncr = 0;
+				setOrientation(WindowOrientation::HORIZONTAL_LEFT);
+			}
+		}
+		}
+	}
+
 	
+	void MainWindow::setAutoOrientation(WindowAutoOrientation::type autoOrientation){
+		Accelerometer * accel = Accelerometer::getDefault();
+		if(accel){
+			accel->activate();
+			accel->activateSignals();
+			accel->change.disconnect(this);
+			if (autoOrientation != WindowAutoOrientation::NONE) {
+				accel->change.connect(this, &MainWindow::accelChange);
+			}
+		}
+		this->autoOrientation = autoOrientation;
+		
+	}
 
 	void MainWindow::setOrientation(WindowOrientation::type newOrientation) {
+		orientationChanged.shoot(newOrientation);
 		bool wasHoriz = orientationIsHorizontal();
 		if (orientation != newOrientation) {
 			orientation = newOrientation;
@@ -124,8 +167,8 @@ namespace BaconBox {
 		
 		}
 	
-	MainWindow::MainWindow() : sigly::HasSlots<sigly::SingleThreaded>(), resolutionWidth(0), resolutionHeight(0),
-		contextWidth(0), contextHeight(0), orientation(WindowOrientation::NORMAL) {
+	MainWindow::MainWindow() : sigly::HasSlots<sigly::SingleThreaded>(), inversedOrientationIncr(0), inversedOrientationTreshold(3), resolutionWidth(0), resolutionHeight(0),
+	contextWidth(0), contextHeight(0), autoOrientation(WindowAutoOrientation::NONE), orientation(WindowOrientation::NORMAL) {
 		Engine::onInitialize.connect(this, &MainWindow::onBaconBoxInit);
 	}
 	

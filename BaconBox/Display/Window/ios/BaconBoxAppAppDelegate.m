@@ -13,7 +13,7 @@
 #import "DAVConnection.h"
 #import <ifaddrs.h>
 #import <arpa/inet.h>
-
+#include "BaconBox/Display/Window/MainWindow.h"
 static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 
 
@@ -97,6 +97,8 @@ static BaconBoxAppViewController *baconBoxViewController = nil;
     return YES;
 }
 
+
+
 - (void)applicationWillResignActive:(UIApplication *)application
 {
 	/*
@@ -157,8 +159,8 @@ static BaconBoxAppViewController *baconBoxViewController = nil;
 
 }
 
-- (void)applicationDidBecomeActive:(UIApplication *)application
-{
+- (void)applicationDidBecomeActive:(UIApplication *)application {
+	BaconBox::MainWindow::getInstance().gotFocus.shoot();
 	[self.viewController startAnimation];
 }
 
