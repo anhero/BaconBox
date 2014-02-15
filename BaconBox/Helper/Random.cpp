@@ -4,7 +4,6 @@
 
 #include <cstdlib>
 #include <ctime>
-
 namespace BaconBox {
 	double Random::D_RAND_MAX = static_cast<double>(RAND_MAX);
 	bool Random::initialized = false;
@@ -35,6 +34,19 @@ namespace BaconBox {
 #endif
 	}
 
+	Vector2 Random::getRandomVector2(const Vector2 & min, const Vector2 & max, bool keepRatio){
+		Vector2 randomVec;
+		randomVec.x = Random::getRandomFloat(min.x, max.x);
+		if (keepRatio) {
+			randomVec.y = min.y/min.x * randomVec.x;
+		}
+		else{
+			randomVec.y = Random::getRandomFloat(min.y, max.y);
+
+		}
+		return randomVec;
+	}
+
 	double Random::getRandomDouble(double min, double max) {
 		if (!initialized) {
 			init();
@@ -43,7 +55,7 @@ namespace BaconBox {
 		return (static_cast<double>(rand()) / Random::D_RAND_MAX) * (max - min) + min;
 	}
 
-	double Random::getRandomFloat(float min, float max) {
+	float Random::getRandomFloat(float min, float max) {
 		if (!initialized) {
 			init();
 		}
