@@ -232,7 +232,7 @@ end
 
 
 #include "BaconBox/Symbol.h"
-
+#include "BaconBox/Helper/Timer.h"
 
 #include <sstream>
 
@@ -790,6 +790,9 @@ const char *__str__() {
 
 %include "BaconBox/Audio/SoundParameters.h"
 %include "BaconBox/ResourceManager.h"
+
+%include "BaconBox/Helper/Timer.h"
+
 %extend BaconBox::ResourceManager {
   static void unloadAllTextureExcept(lua_State * L){
     lua_pushnil(L);
