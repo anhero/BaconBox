@@ -9,7 +9,7 @@ using namespace BaconBox;
 
 	BB_ID_IMPL(ParticleEmitterComponent);
 	
-ParticleEmitterComponent::ParticleEmitterComponent() : Component(), updateCount(0), completionRatio(0.0f), phases(), isOn(false), minEmited(1), maxEmited(1), emitCycle(NONE),particles() {
+ParticleEmitterComponent::ParticleEmitterComponent() : Component(), emitCount(0), emitMax(-1), updateCount(0), completionRatio(0.0f), phases(), isOn(false), minEmited(1), maxEmited(1), emitCycle(NONE),particles() {
 		this->initializeConnections();
 	}
 
@@ -73,6 +73,12 @@ void ParticleEmitterComponent::update(){
 		updateCount++;
 		if(emitCycle == UPDATE){
 			if(cycleParams.updateParams.updateIncr % cycleParams.updateParams.nextUpdate == 0){
+				if (emitMax >0){
+					emitCount++;
+					if(emitMax <= emitCount){
+						this->stop();
+					}
+				}
 				emit();
 				cycleParams.updateParams.nextUpdate = Random::getRandomInteger(cycleParams.updateParams.minUpdate, cycleParams.updateParams.maxUpdate);
 				cycleParams.updateParams.updateIncr = 1;
@@ -91,12 +97,14 @@ void ParticleEmitterComponent::update(){
 }
 
 
-void ParticleEmitterComponent::start(){
+void ParticleEmitterComponent::start(int emitMax){
+	this->emitMax = emitMax;
 	isOn = true;
 }
 
 void ParticleEmitterComponent::stop(){
 	isOn = false;
+	emitCount = 0;
 	updateCount = 0;
 }
 
@@ -105,6 +113,7 @@ void ParticleEmitterComponent::reset(){
 		ParticleComponent * particle = (*i);
 		particle->status = ParticleComponent::STANDBY;
 	}
+	this->stop();
 
 }
 
@@ -112,8 +121,8 @@ void ParticleEmitterComponent::reset(){
 	ParticleEmitterComponentProxy::ParticleEmitterComponentProxy(Entity *entity, bool mustAddComponent) : BB_PROXY_CONSTRUCTOR(new ParticleEmitterComponent()) {
 	}
 
-void ParticleEmitterComponentProxy::start(){
-	reinterpret_cast<ParticleEmitterComponent *>(component)->start();
+void ParticleEmitterComponentProxy::start(int emitMax){
+	reinterpret_cast<ParticleEmitterComponent *>(component)->start(emitMax);
 }
 void ParticleEmitterComponentProxy::stop(){
 	reinterpret_cast<ParticleEmitterComponent *>(component)->stop();

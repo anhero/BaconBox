@@ -23,7 +23,7 @@ namespace BaconBox {
 		
 		virtual ~ParticleEmitterComponent();
 		
-		void start();
+		void start(int emitMax = -1);
 		void stop();
 		
 		void setUpdateCycle(int minUpdate, int maxUpdate = -1);
@@ -55,7 +55,8 @@ namespace BaconBox {
 		} cycleParams;
 		
 	private:
-		
+		int emitMax;
+		int emitCount; 
 		std::vector<ParticleComponent*> particles;
 		void initializeConnections();
 
@@ -67,7 +68,7 @@ namespace BaconBox {
 		ParticleEmitterComponentProxy(Entity *entity, bool mustAddComponent = true);
 		void setParticles(std::vector<MovieClipEntity*> & mcs, MovieClipEntity * parent = NULL);
 		
-		void start();
+		void start(int emitMax = -1);
 		void stop();
 		void reset();
 		
