@@ -30,6 +30,7 @@ namespace BaconBox {
 		void setNbEmited(int minEmited, int maxEmited = -1);
 		void update();
 		void emit();
+		void reset();
 		void addPhase(ParicleInitInfo * initializationData);
 	protected:
 		int minEmited;
@@ -68,6 +69,7 @@ namespace BaconBox {
 		
 		void start();
 		void stop();
+		void reset();
 		
 		void setUpdateCycle(int minUpdate, int maxUpdate = -1);
 		void setNbEmited(int minEmited, int maxEmited = -1);

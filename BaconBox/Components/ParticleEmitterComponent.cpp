@@ -100,6 +100,15 @@ void ParticleEmitterComponent::stop(){
 	updateCount = 0;
 }
 
+void ParticleEmitterComponent::reset(){
+	for (std::vector<ParticleComponent*>::iterator i = particles.begin(); i != particles.end(); i++) {
+		ParticleComponent * particle = (*i);
+		particle->status = ParticleComponent::STANDBY;
+	}
+
+}
+
+
 	ParticleEmitterComponentProxy::ParticleEmitterComponentProxy(Entity *entity, bool mustAddComponent) : BB_PROXY_CONSTRUCTOR(new ParticleEmitterComponent()) {
 	}
 
@@ -108,6 +117,10 @@ void ParticleEmitterComponentProxy::start(){
 }
 void ParticleEmitterComponentProxy::stop(){
 	reinterpret_cast<ParticleEmitterComponent *>(component)->stop();
+}
+
+void ParticleEmitterComponentProxy::reset(){
+	reinterpret_cast<ParticleEmitterComponent *>(component)->reset();
 }
 
 void ParticleEmitterComponentProxy::setUpdateCycle(int minUpdate, int maxUpdate){

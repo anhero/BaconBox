@@ -20,7 +20,8 @@ void ParticleComponent::setPhases(std::vector<ParicleInitInfo*> & phases){
 	this->phases = &phases;
 }
 
-DefaultParticleComponent::~DefaultParticleComponent(){}
+DefaultParticleComponent::~DefaultParticleComponent(){
+}
 
 
 DefaultParticleComponent::DefaultParticleComponent():ParticleComponent(), phasesIterator(0), speed(NULL), colorTransform(NULL), transform(NULL), visibility(NULL){
@@ -46,21 +47,44 @@ void DefaultParticleComponent::initParticle(){
 	float maxSpeedLength = data->maxSpeedLength;
 	float minSpeedAngle = data->minSpeedAngle;
 	float maxSpeedAngle = data->maxSpeedAngle;
+	
+	
+	float minAccelLength = data->minAccelLength;
+	float maxAccelLength = data->maxAccelLength;
+	float minAccelAngle = data->minAccelAngle;
+	float maxAccelAngle = data->maxAccelAngle;
+	
+	
 	int minUpdateLife = data->minUpdateLife;
 	int maxUpdateLife = data->maxUpdateLife;
 	
 	if (maxSpeedLength < minSpeedLength)maxSpeedLength = minSpeedLength;
 	if (maxSpeedAngle < minSpeedAngle)maxSpeedAngle = minSpeedAngle;
+	
+	if (maxAccelLength < minAccelLength)maxAccelLength = minAccelLength;
+	if (maxAccelAngle < minAccelAngle)maxAccelAngle = minAccelAngle;
+	
+	
 	if (maxUpdateLife < minUpdateLife)maxUpdateLife = minUpdateLife;
 
 	float speedLength = Random::getRandomFloat(minSpeedLength, maxSpeedLength);
 	float speedAngle = Random::getRandomFloat(minSpeedAngle, maxSpeedAngle);
+	
+	float accelLength = Random::getRandomFloat(minAccelLength, maxAccelLength);
+	float accelAngle = Random::getRandomFloat(minAccelAngle, maxAccelAngle);
+	
 	updateLife = Random::getRandomInteger(minUpdateLife, maxUpdateLife);
 	initialUpdateLife = updateLife;
 	Vector2 velocity(1.0f, 1.0f);
 	velocity.setLength(speedLength);
 	velocity.setAngle(speedAngle);
 	speed->setVelocity(velocity);
+	
+	Vector2 accel(1.0f, 1.0f);
+	velocity.setLength(accelLength);
+	velocity.setAngle(accelAngle);
+	speed->setAcceleration(accel);
+	
 	Vector2 minStartScale = data->minStartScale;
 	Vector2 maxStartScale = data->maxStartScale;
 	if (maxStartScale == Vector2())maxStartScale = minStartScale;
