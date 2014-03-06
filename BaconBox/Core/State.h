@@ -56,7 +56,9 @@ namespace BaconBox {
 		Entity * add(lua_State * L);
 #endif //BB_LUA
 		void remove(Entity *newEntity);
-
+#ifdef BB_LUA
+		void remove(lua_State * L);
+#endif //BB_LUA
 		Camera &getCamera();
 
 		const Camera &getCamera() const;

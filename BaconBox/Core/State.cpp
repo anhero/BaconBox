@@ -68,6 +68,12 @@ namespace BaconBox {
 		sendMessage(State::ID, Entity::BROADCAST, State::MESSAGE_REMOVED_ENTITY,  newEntity);
 	    }
 	}
+	
+#ifdef BB_LUA
+	void State::remove(lua_State * L){
+		remove(LuaHelper::getEntityFromLuaEntity(L));
+	}
+#endif //BB_LUA
 
 	Camera &State::getCamera() {
 		return *this->camera;
