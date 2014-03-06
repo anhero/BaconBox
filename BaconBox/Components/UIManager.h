@@ -39,6 +39,7 @@ namespace BaconBox {
 		void pointerMove(PointerSignalData data);
 		MovieClipEntity* lastOver;
 		MovieClipEntity* currentlyPressed;
+		Vector2 lastPressed;
 
 		std::list<MovieClipEntity*> clickable;
 

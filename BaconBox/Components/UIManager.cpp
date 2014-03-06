@@ -59,6 +59,8 @@ namespace BaconBox {
 	
 	
 	void UIManager::pointerButtonRelease(PointerButtonSignalData data){
+		Vector2 diff(lastPressed - data.getPosition());
+		if (diff.getLength() < 10){
 		for(std::list<MovieClipEntity*>::iterator i = clickable.begin(); i != clickable.end(); i++){
 			if((*i)->getAABB().overlaps(data.getPosition())){
 				(*i)->released->shoot();
@@ -69,9 +71,11 @@ namespace BaconBox {
 				lastOver->moveOut->shoot();
 			}
 		}
+		}
 	}
 	
 	void UIManager::pointerButtonPress(PointerButtonSignalData data){
+		lastPressed = data.getPosition();
 		for(std::list<MovieClipEntity*>::iterator i = clickable.begin(); i != clickable.end(); i++){
 			if((*i)->getAABB().overlaps(data.getPosition())){
 				(*i)->pressed->shoot();
