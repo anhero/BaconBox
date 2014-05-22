@@ -23,7 +23,8 @@ namespace BaconBox {
 		
 		static void printTraceBack();
 		static int errorHandler(lua_State *L);
-		static void stackdump();
+		static int print(lua_State* L);
+		static void stackdump(lua_State* l = NULL);
 
         static LuaManager& getDefault();
         static void destroyVM();

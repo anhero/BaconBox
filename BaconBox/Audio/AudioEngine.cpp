@@ -39,6 +39,11 @@ namespace BaconBox {
 		}
 	}
 
+
+	bool AudioEngine::managedByEngine(){
+		return true;
+	}
+
 	AudioEngine::AudioEngine() {
 	}
 

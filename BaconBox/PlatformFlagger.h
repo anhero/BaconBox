@@ -53,9 +53,22 @@
  * System-specific defines
  ******************************************************************************/
 //Android platform
-#ifdef __ANDROID__
-	#define BB_ANDROID
+#ifdef BB_ANDROID
+	// #define BB_ANDROID
 	#define BB_OPENGLES
+
+	#define BB_SOUND_ENGINE_IMPL (&OpenSLEngine::getInstance())
+	#define BB_SOUND_ENGINE_INCLUDE "BaconBox/Audio/Android/OpenSLEngine.h"
+	#define BB_MUSIC_ENGINE_IMPL (&OpenSLEngine::getInstance())
+	#define BB_MUSIC_ENGINE_INCLUDE "BaconBox/Audio/Android/OpenSLEngine.h"
+
+#define BB_INPUT_MANAGER_IMPL BaconBox::AndroidInputManager
+#define BB_INPUT_MANAGER_INCLUDE "BaconBox/Input/Android/AndroidInputManager.h"
+ 	#define BB_POINTER_IMPL new AndroidPointer()
+	#define BB_POINTER_INCLUDE "BaconBox/Input/Pointer/Android/AndroidPointer.h"
+#define BB_MAIN_WINDOW_IMPL new AndroidMainWindow()
+#define BB_MAIN_WINDOW_INCLUDE "BaconBox/Display/Window/Android/AndroidMainWindow.h"
+
 #endif // __ANDROID__
 
 //Linux systems
@@ -109,7 +122,6 @@
 	#endif
 
 	#ifdef BB_IPHONE_PLATFORM
-		#define BB_OPENGL
         #define BB_OPENGLES
 		//Time on iOS
 		#define BB_TIME_HELPER_IMPL BaconBox::IOSTimeHelper

@@ -8,7 +8,7 @@
 #include "BaconBox/Display/Window/ios/BaconBoxAppAppDelegate.h"
 #import <UIKit/UIKit.h>
 #include "BaconBox/Display/Driver/GraphicDriver.h"
-
+#include "BaconBox/Console.h"
 namespace BaconBox {
 	
 	void IOSMainWindow::onBaconBoxInit(unsigned int resolutionWidth,
@@ -22,9 +22,7 @@ namespace BaconBox {
 		CGRect screenBounds = [[UIScreen mainScreen] bounds];
 		CGFloat screenScale = [[UIScreen mainScreen] scale];
 		CGSize screenSize = CGSizeMake(screenBounds.size.width * screenScale, screenBounds.size.height * screenScale);
-		
 
-		
 
 		viewController = [[BaconBoxAppViewController alloc] initWithFrame: screenBounds];
 		[viewController setFrameInterval: 60.0f/Engine::getUpdatesPerSecond()];
@@ -34,7 +32,7 @@ namespace BaconBox {
 		
 		this->MainWindow::setResolution(screenSize.width, screenSize.height);
 		setContextSize(contextWidth, contextHeight);
-		this->setOrientation(orientation);
+//		this->setOrientation(orientation);
 		
 		GraphicDriver::getInstance().resetProjection();
 
@@ -42,8 +40,22 @@ namespace BaconBox {
 		InputManager::getInstance().setNbPointers(1);
 		InputManager::getInstance().setNbKeyboards(1);
 		InputManager::getInstance().setNbAccelerometers(1);
-		
 	}
+//	WindowOrientation::type IOSMainWindow::getOrientation() const{
+//		if(orientation == 0 || orientation == UIInterfaceOrientationPortrait){
+//			return WindowOrientation::NORMAL;
+//		}
+//		else if(orientation == UIDeviceOrientationPortraitUpsideDown){
+//			return WindowOrientation::UPSIDE_DOWN;
+//		}
+//		else if(orientation == UIInterfaceOrientationLandscapeLeft){
+//			return WindowOrientation::HORIZONTAL_LEFT;
+//		}
+//		else if (orientation == UIInterfaceOrientationLandscapeRight){
+//			return WindowOrientation::HORIZONTAL_RIGHT;
+//		}
+//	}
+//	void IOSMainWindow::setOrientation(WindowOrientation::type newOrientation){}
 	
 	
 	void IOSMainWindow::setContextSize(float newContextWidth, float newContextHeight) {
@@ -51,11 +63,11 @@ namespace BaconBox {
 
 
 		if (newContextWidth == 0.0f) {
-			newContextWidth = contextWidth * screenScale;
+			newContextWidth = context.x * screenScale;
 			
 		}
 		if (newContextHeight == 0.0f) {
-			newContextHeight = contextHeight * screenScale;
+			newContextHeight = context.y * screenScale;
 			
 		}
 		MainWindow::setContextSize(newContextWidth, newContextHeight);

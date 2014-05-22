@@ -52,6 +52,9 @@ namespace BaconBox {
 		 */
 		static bool createDocumentFolder(const std::string &path);
 
+		
+		static bool removeDirectory(const std::string &path);
+
 		/**
 		 * Creates a folder at the specified path. Prints a message in the
 		 * console and returns true if there was an error creating the folder.

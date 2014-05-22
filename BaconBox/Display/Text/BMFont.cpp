@@ -34,7 +34,7 @@ namespace BaconBox {
 
 	
 		void BMFont::setPixelSize(int pixelSize){
-		    Console__error("You can't set the pixel size on this font: " << name << ". BMFont are prerendered.")
+		    Console__error("You can't set the pixel size on this font: " << name << ". BMFont are prerendered.");
 		}
 		
 		void BMFont::loadFontFile(const std::string &filename){
@@ -58,7 +58,7 @@ namespace BaconBox {
 			     std::vector<TextureInformation*> textureInfos;
 			     if(font["pages"]["page"].isObject()){
 				    textureFilename = font["pages"]["page"]["file"].getString();
-				    textureFilename.insert(0, 1, '/');
+				    textureFilename.insert((size_t)0, (int)1, (char)'/');
 				    textureFilename.insert(0, path);
 				    textureInfos.push_back(ResourceManager::loadTexture(font["pages"]["page"]["file"].getString(),textureFilename, ColorFormat::RGBA));
 			     }
@@ -67,7 +67,7 @@ namespace BaconBox {
 				Array pages = font["pages"]["page"].getArray();
 				for(Array::iterator i = pages.begin(); i != pages.end(); i++){
 				    textureFilename = (*i)["file"].getString();
-				    textureFilename.insert(0, 1, '/');
+				    textureFilename.insert((size_t)0, (int)1, (char)'/');
 				      textureFilename.insert(0, path);
 				    textureInfos.push_back(ResourceManager::loadTexture((*i)["file"].getString(),textureFilename, ColorFormat::RGBA));
 				}  

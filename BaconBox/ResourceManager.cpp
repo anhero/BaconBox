@@ -39,7 +39,7 @@ namespace BaconBox {
 	std::map<std::string, SubTextureInfo *> ResourceManager::subTextures = std::map<std::string, SubTextureInfo *>();
 	std::map<std::string, SoundInfo *> ResourceManager::sounds = std::map<std::string, SoundInfo *>();
 	std::map<std::string, MusicInfo *> ResourceManager::musics = std::map<std::string, MusicInfo *>();
-	std::map<std::string, Font *> ResourceManager::fonts = std::map<std::string, Font *>();
+	std::map<std::string, std::map<int, Font *> > ResourceManager::fonts = std::map<std::string, std::map<int, Font *> >();
 	std::map<std::string, Symbol *> ResourceManager::symbols = std::map<std::string, Symbol *>();
 
 	SubTextureInfo *ResourceManager::addSubTexture(const std::string &key, SubTextureInfo *subTextureInfo, bool overwrite) {
@@ -113,6 +113,11 @@ namespace BaconBox {
 		else{
 			Console::error("Trying to load a loaded texture with key : " + texture->key);
 		}
+		SubTextureInfo * subTex =  new SubTextureInfo();
+		subTex->size.x = texture->imageWidth;
+		subTex->size.y = texture->imageHeight;
+		subTex->textureInfo = texture;
+		addSubTexture(texture->key, subTex);
 		return texture;
 	}
 	
@@ -133,6 +138,7 @@ namespace BaconBox {
 		if (textures.find(key) == textures.end()) {
 			TextureInformation * textureInfo = new TextureInformation();
 			textures[key] = textureInfo;
+			textureInfo->key = key;
 			textureInfo->path = filePath;
 			textureInfo->colorFormat = colorFormat;
 			
@@ -829,59 +835,43 @@ namespace BaconBox {
 	}
 
 
-	Font *ResourceManager::loadFont(const std::string &key, const std::string &path, bool overwrite) {
+	Font *ResourceManager::loadFont(const std::string &key, const std::string &path, int fontSize) {
 		Font *aFont = NULL;
-
-		// We check if there is already a font with this name.
-		if (fonts.find(key) != fonts.end()) {
-			// We check if we overwrite the existing font or not.
-			if (overwrite) {
-				// We free the allocated memory.
-				aFont = fonts[key];
-
-				if (aFont) {
-					delete aFont;
-				}
-
-				// We load the new font.
-				aFont = fonts[key] = initFontFromPath(key, path);
-				Console::println("Overwrote the existing font named " + key + ".");
-
-			} else {
-				Console::println("Can't load font with key: " + key +
-				                 " font is already loaded");
-				aFont = fonts[key];
-			}
-
-		} else {
-			// We load the new texture and add it to the map.
+	
 			aFont = initFontFromPath(key, path);
-			fonts.insert(std::pair<std::string, Font *>(key, aFont));
-		}
+			fonts[key][fontSize] = aFont;
 
 		return aFont;
 	}
 
 	Font *ResourceManager::loadFontRelativePath(const std::string &key,
-	                                            const std::string &relativePath,
-	                                            bool overwrite) {
-		return loadFont(key, ResourcePathHandler::getResourcePathFor(relativePath), overwrite);
+	                                            const std::string &relativePath, int fontSize) {
+		return loadFont(key, ResourcePathHandler::getResourcePathFor(relativePath), fontSize);
 	}
 
-	Font *ResourceManager::getFont(const std::string &key) {
-		std::map<std::string, Font *>::iterator itr = fonts.find(key);
-		return (itr != fonts.end()) ? (itr->second) : (NULL);
-	}
-
-	void ResourceManager::removeFont(const std::string &key) {
-		std::map<std::string, Font *>::iterator i = fonts.find(key);
-
-		if (i != fonts.end()) {
-			delete(*i).second;
+	Font *ResourceManager::getFont(const std::string &key, int fontSize) {
+		std::map<std::string, std::map<int, Font *> >::iterator itr = fonts.find(key);
+		std::map<int, Font *>::iterator i;
+		for (i = itr->second.begin(); i != itr->second.end(); i++) {
+			if(i->first >= fontSize)break;
 		}
-
-		fonts.erase(i);
 		
+		return (i  != itr->second.end()) ? (i->second) : (NULL);
+	}
+
+	void ResourceManager::removeFont(const std::string &key, int fontSize) {
+		std::map<std::string, std::map<int, Font *> >::iterator itr = fonts.find(key);
+		std::map<int, Font *>::iterator i;
+		for (i = itr->second.begin(); i != itr->second.end(); i++) {
+			if(fontSize == i->first || fontSize < 0) delete i->second;
+				if(fontSize == i->first){
+					itr->second.erase(i);
+				}
+		}
+		
+		if (fontSize < 0) {
+			fonts.erase(itr);
+		}
 	}
 	
 	
@@ -954,16 +944,19 @@ namespace BaconBox {
 		}
 
 		musics.clear();
-#ifndef BB_ANDROID
 
 		// We unload the fonts.
-		for (std::map<std::string, Font *>::iterator i = fonts.begin();
-		     i != fonts.end(); ++i) {
+	
+		
+		for(std::map<std::string, std::map<int, Font *> >::iterator itr  = fonts.begin();
+		itr != fonts.end(); ++itr) {
+		std::map<int, Font *>::iterator i;
+		for (i = itr->second.begin(); i != itr->second.end(); i++) {
 			delete i->second;
 		}
-
+		}
+		
 		fonts.clear();
-#endif
 	}
 
 	PixMap *ResourceManager::loadPixMap(const std::string &filePath, ColorFormat::type colorFormat) {
@@ -1130,32 +1123,26 @@ namespace BaconBox {
 
 								} else {
 									Console::println("Error during end of write to PNG file.");
-									Console::printTrace();
 								}
 
 							} else {
 								Console::println("Error while writing bytes to PNG file.");
-								Console::printTrace();
 							}
 
 						} else {
 							Console::println("Error while writing PNG header.");
-							Console::printTrace();
 						}
 
 					} else {
 						Console::println("Error during init_io.");
-						Console::printTrace();
 					}
 
 				} else {
 					Console::println("png_create_info_struct failed.");
-					Console::printTrace();
 				}
 
 			} else {
 				Console::println("png_create_write_struct failed.");
-				Console::printTrace();
 			}
 
 			fclose(fp);
@@ -1164,7 +1151,6 @@ namespace BaconBox {
 			Console::print("Could not write the PixMap to the PNG file ");
 			Console::print(filePath);
 			Console::println(".");
-			Console::printTrace();
 		}
 	}
 }

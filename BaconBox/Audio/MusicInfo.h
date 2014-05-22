@@ -7,7 +7,7 @@
 
 #include "BaconBox/PlatformFlagger.h"
 
-#ifdef BB_AV_AUDIO_PLAYER
+#if defined(BB_AV_AUDIO_PLAYER) || defined(BB_ANDROID)
 #include <string>
 #endif
 
@@ -29,7 +29,7 @@ namespace BaconBox {
 	 * @ingroup Audio
 	 */
 	struct MusicInfo {
-#ifdef BB_AV_AUDIO_PLAYER
+#if defined(BB_AV_AUDIO_PLAYER) || defined(BB_ANDROID)
 		/// Path to the music file.
 		std::string filePath;
 #endif

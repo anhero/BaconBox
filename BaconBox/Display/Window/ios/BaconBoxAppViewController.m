@@ -14,6 +14,10 @@
 
 @synthesize animating, context, displayLink, motionManager, accelData;
 
+
+- (BOOL)shouldAutorotate{
+	return false;
+}
 - (id)initWithFrame:(CGRect)frame
 {
     self.view = [[EAGLView alloc] initWithFrame:frame];

@@ -10,7 +10,7 @@
 
 #include "BaconBox/Helper/Random.h"
 #include "BaconBox/AxisAlignedBoundingBox.h"
-
+#include "BaconBox/Console.h"
 using namespace BaconBox;
 
 	BB_ID_IMPL(ParticleComponent);
@@ -86,15 +86,20 @@ void DefaultParticleComponent::initParticle(){
 	
 	updateLife = Random::getRandomInteger(minUpdateLife, maxUpdateLife);
 	initialUpdateLife = updateLife;
-	Vector2 velocity(1.0f, 1.0f);
-	velocity.setLength(speedLength);
-	velocity.setAngle(speedAngle);
-	speed->setVelocity(velocity);
-	
-	Vector2 accel(1.0f, 1.0f);
-	velocity.setLength(accelLength);
-	velocity.setAngle(accelAngle);
-	speed->setAcceleration(accel);
+	if(speedLength > 0 ){
+		Vector2 velocity(1.0f, 1.0f);
+		velocity.setLength(speedLength);
+		velocity.setAngle(speedAngle);
+		speed->setVelocity(velocity);
+	}
+
+	if(accelLength > 0){
+		Vector2 accel(1.0f, 1.0f);
+		accel.setLength(accelLength);
+		accel.setAngle(accelAngle);
+		speed->setAcceleration(accel);
+	}
+
 	
 	Vector2 minStartScale = data->minStartScale;
 	Vector2 maxStartScale = data->maxStartScale;

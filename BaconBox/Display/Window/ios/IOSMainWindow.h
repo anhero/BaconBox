@@ -24,6 +24,8 @@ namespace BaconBox {
 		
 		
 		void setUpdatesPerSecond(double updatesPerSecond);
+		
+//		void setOrientation(WindowOrientation::type newOrientation);
 
 		/**
 		 * Checks if the main window grabs the input. Whenà the input is
@@ -42,7 +44,7 @@ namespace BaconBox {
 		 */
 		void setResolution(unsigned int resolutionWidth, unsigned int resolutionHeight);
 		void setContextSize(float newContextWidth, float newContextHeight);
-		
+//		WindowOrientation::type getOrientation() const;
 	private:
 		BaconBoxAppViewController *viewController;
 		IOSMainWindow();

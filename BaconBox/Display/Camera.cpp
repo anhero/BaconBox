@@ -26,6 +26,7 @@ namespace BaconBox {
                 addComponent(new CameraDriverRenderer());
 
         #endif
+                setColor(Color::WHITE);
 		
 	}
 

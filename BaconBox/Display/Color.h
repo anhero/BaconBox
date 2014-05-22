@@ -117,7 +117,7 @@ namespace BaconBox {
 		 * @param colorString String containing the CSS color.
 		 * @see BaconBox::Color::setRGBA(const std::string &colorString)
 		 */
-		Color(const std::string &colorString);
+		// Color(const std::string &colorString);
 
 		/**
 		 * Copy constructor. Simply calls setRGBA() with the given color's
@@ -254,7 +254,7 @@ namespace BaconBox {
 		 * if the given string is invalid.
 		 * @param colorString String containing the CSS color.
 		 */
-		void setRGBA(const std::string &colorString);
+		// void setRGBA(const std::string &colorString);
 
 		/**
 		 * Directly gets the color's array of components.

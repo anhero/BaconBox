@@ -55,10 +55,10 @@ namespace BaconBox {
 		setRGBA(rgba);
 	}
 
-	Color::Color(const std::string &colorString) {
-		operator=(WHITE);
-		setRGBA(colorString);
-	}
+	// Color::Color(const std::string &colorString) {
+	// 	operator=(WHITE);
+	// 	setRGBA(colorString);
+	// }
 
 	Color::Color(const Color &src) {
 		if (this != &src) {
@@ -202,172 +202,172 @@ namespace BaconBox {
 
 	std::map<std::string, Color> createCssColorMap();
 
-	void Color::setRGBA(const std::string &colorString) {
-		static const std::map<std::string, Color> cssColorMap = createCssColorMap();
-		// We remove the whitespaces.
-		std::string tmp(StringHelper::toLower(colorString));
-		StringHelper::trim(tmp);
+	// void Color::setRGBA(const std::string &colorString) {
+	// 	static const std::map<std::string, Color> cssColorMap = createCssColorMap();
+	// 	// We remove the whitespaces.
+	// 	std::string tmp(StringHelper::toLower(colorString));
+	// 	StringHelper::trim(tmp);
 
-		// We make sure the string is not empty.
-		if (!tmp.empty()) {
-			// If it's in hexadecimal.
-			if (tmp[0] == '#') {
-				// We remove the '#'.
-				tmp.erase(0, 1);
+	// 	// We make sure the string is not empty.
+	// 	if (!tmp.empty()) {
+	// 		// If it's in hexadecimal.
+	// 		if (tmp[0] == '#') {
+	// 			// We remove the '#'.
+	// 			tmp.erase(0, 1);
 
-				// We make sure it has a valid size.
-				if (tmp.size() == 3) {
-					// We convert it to the 6 char format.
-					tmp.reserve(8);
-					tmp.resize(6, tmp[2]);
-					tmp[3] = tmp[2] = tmp[1];
-					tmp[1] = tmp[0];
-				}
+	// 			// We make sure it has a valid size.
+	// 			if (tmp.size() == 3) {
+	// 				// We convert it to the 6 char format.
+	// 				tmp.reserve(8);
+	// 				tmp.resize(6, tmp[2]);
+	// 				tmp[3] = tmp[2] = tmp[1];
+	// 				tmp[1] = tmp[0];
+	// 			}
 
-				if (tmp.size() == 6) {
-					// We append the alpha value.
-					tmp.append("ff");
+	// 			if (tmp.size() == 6) {
+	// 				// We append the alpha value.
+	// 				tmp.append("ff");
 
-					// We convert it to an int.
-					uint32_t rgba;
+	// 				// We convert it to an int.
+	// 				uint32_t rgba;
 
-					if (StringHelper::fromString(tmp, rgba, std::hex)) {
-						setRGBA(rgba);
-					}
-				}
+	// 				if (StringHelper::fromString(tmp, rgba, std::hex)) {
+	// 					setRGBA(rgba);
+	// 				}
+	// 			}
 
-			} else if (tmp[0] == 'r') {
-				// It's either for the color "red", rgb or rgba.
-				if (tmp == std::string("red")) {
-					operator=(RED);
+	// 		} else if (tmp[0] == 'r') {
+	// 			// It's either for the color "red", rgb or rgba.
+	// 			if (tmp == std::string("red")) {
+	// 				operator=(RED);
 
-				} else {
-					// We check if the color is in rgba format.
-					bool rgba = tmp.size() >= 13 &&
-					            (tmp.substr(0, 5) == std::string("rgba(")) &&
-					            *tmp.rbegin() == ')';
+	// 			} else {
+	// 				// We check if the color is in rgba format.
+	// 				bool rgba = tmp.size() >= 13 &&
+	// 				            (tmp.substr(0, 5) == std::string("rgba(")) &&
+	// 				            *tmp.rbegin() == ')';
 
-					if (rgba) {
-						tmp.erase(0, 5);
-						tmp.erase(tmp.size() - 1, 1);
+	// 				if (rgba) {
+	// 					tmp.erase(0, 5);
+	// 					tmp.erase(tmp.size() - 1, 1);
 
-					} else if (tmp.size() >= 10 &&
-					           tmp.substr(0, 4) == std::string("rgb(") &&
-					           *tmp.rbegin() == ')') {
-						tmp.erase(0, 4);
-						tmp.erase(tmp.size() - 1, 1);
-					}
+	// 				} else if (tmp.size() >= 10 &&
+	// 				           tmp.substr(0, 4) == std::string("rgb(") &&
+	// 				           *tmp.rbegin() == ')') {
+	// 					tmp.erase(0, 4);
+	// 					tmp.erase(tmp.size() - 1, 1);
+	// 				}
 
-					std::vector<std::string> componentList;
-					componentList.reserve(4);
-					StringHelper::tokenize(tmp, componentList, ",");
+	// 				std::vector<std::string> componentList;
+	// 				componentList.reserve(4);
+	// 				StringHelper::tokenize(tmp, componentList, ",");
 
-					if ((rgba && componentList.size() == 4) ||
-					    (!rgba && componentList.size() == 3)) {
-						// We re-use the rgba variable.
-						rgba = true;
-						// We check if the rgb components use percentages.
-						int r, g, b, a;
+	// 				if ((rgba && componentList.size() == 4) ||
+	// 				    (!rgba && componentList.size() == 3)) {
+	// 					// We re-use the rgba variable.
+	// 					rgba = true;
+	// 					// We check if the rgb components use percentages.
+	// 					int r, g, b, a;
 
-						// We make sure the rgb components are not empty.
-						if (!componentList[0].empty() &&
-						    !componentList[1].empty() &&
-						    !componentList[2].empty()) {
-							if (*componentList[0].rbegin() == '%' &&
-							    *componentList[1].rbegin() == '%' &&
-							    *componentList[2].rbegin() == '%') {
-								// We remove the percentage signs.
-								componentList[0].erase(componentList[0].size() - 1, 1);
-								componentList[1].erase(componentList[1].size() - 1, 1);
-								componentList[2].erase(componentList[2].size() - 1, 1);
+	// 					// We make sure the rgb components are not empty.
+	// 					if (!componentList[0].empty() &&
+	// 					    !componentList[1].empty() &&
+	// 					    !componentList[2].empty()) {
+	// 						if (*componentList[0].rbegin() == '%' &&
+	// 						    *componentList[1].rbegin() == '%' &&
+	// 						    *componentList[2].rbegin() == '%') {
+	// 							// We remove the percentage signs.
+	// 							componentList[0].erase(componentList[0].size() - 1, 1);
+	// 							componentList[1].erase(componentList[1].size() - 1, 1);
+	// 							componentList[2].erase(componentList[2].size() - 1, 1);
 
-								// We convert the percentages to floats.
-								float fr, fg, fb;
+	// 							// We convert the percentages to floats.
+	// 							float fr, fg, fb;
 
-								if (StringHelper::fromString(componentList[0], fr) &&
-								    StringHelper::fromString(componentList[1], fg) &&
-								    StringHelper::fromString(componentList[2], fb)) {
-									r = static_cast<int>(fr * 2.55f);
-									g = static_cast<int>(fg * 2.55f);
-									b = static_cast<int>(fb * 2.55f);
+	// 							if (StringHelper::fromString(componentList[0], fr) &&
+	// 							    StringHelper::fromString(componentList[1], fg) &&
+	// 							    StringHelper::fromString(componentList[2], fb)) {
+	// 								r = static_cast<int>(fr * 2.55f);
+	// 								g = static_cast<int>(fg * 2.55f);
+	// 								b = static_cast<int>(fb * 2.55f);
 
-								} else {
-									rgba = false;
-								}
+	// 							} else {
+	// 								rgba = false;
+	// 							}
 
-							} else if (*componentList[0].rbegin() != '%' &&
-							           *componentList[1].rbegin() != '%' &&
-							           *componentList[2].rbegin() != '%') {
-								// We read the rgb values.
-								if (!(StringHelper::fromString(componentList[0], r) &&
-								      StringHelper::fromString(componentList[1], g) &&
-								      StringHelper::fromString(componentList[2], b))) {
-									rgba = false;
-								}
+	// 						} else if (*componentList[0].rbegin() != '%' &&
+	// 						           *componentList[1].rbegin() != '%' &&
+	// 						           *componentList[2].rbegin() != '%') {
+	// 							// We read the rgb values.
+	// 							if (!(StringHelper::fromString(componentList[0], r) &&
+	// 							      StringHelper::fromString(componentList[1], g) &&
+	// 							      StringHelper::fromString(componentList[2], b))) {
+	// 								rgba = false;
+	// 							}
 
-							} else {
-								rgba = false;
-							}
+	// 						} else {
+	// 							rgba = false;
+	// 						}
 
-						} else {
-							rgba = false;
-						}
+	// 					} else {
+	// 						rgba = false;
+	// 					}
 
-						// If the rgb components were valid.
-						if (rgba) {
-							if (componentList.size() == 4) {
-								// We make sure the alpha value is not empty.
-								if (!componentList[3].empty()) {
-									// We check if the alpha value is in percentage.
-									if (*componentList[3].rbegin() == '%') {
-										// We remove the percentage sign.
-										componentList[3].erase(componentList[3].size() - 1, 1);
-										// We convert the percentage.
-										float fa;
+	// 					// If the rgb components were valid.
+	// 					if (rgba) {
+	// 						if (componentList.size() == 4) {
+	// 							// We make sure the alpha value is not empty.
+	// 							if (!componentList[3].empty()) {
+	// 								// We check if the alpha value is in percentage.
+	// 								if (*componentList[3].rbegin() == '%') {
+	// 									// We remove the percentage sign.
+	// 									componentList[3].erase(componentList[3].size() - 1, 1);
+	// 									// We convert the percentage.
+	// 									float fa;
 
-										if (StringHelper::fromString(componentList[3], fa)) {
-											a = static_cast<int>(fa * 2.55f);
+	// 									if (StringHelper::fromString(componentList[3], fa)) {
+	// 										a = static_cast<int>(fa * 2.55f);
 
-										} else {
-											rgba = false;
-										}
+	// 									} else {
+	// 										rgba = false;
+	// 									}
 
-									} else {
-										float fa;
+	// 								} else {
+	// 									float fa;
 
-										if (StringHelper::fromString(componentList[3], fa)) {
-											a = static_cast<int>(fa * 255.0f);
+	// 									if (StringHelper::fromString(componentList[3], fa)) {
+	// 										a = static_cast<int>(fa * 255.0f);
 
-										} else {
-											rgba = false;
-										}
-									}
+	// 									} else {
+	// 										rgba = false;
+	// 									}
+	// 								}
 
-								} else {
-									rgba = false;
-								}
+	// 							} else {
+	// 								rgba = false;
+	// 							}
 
-							} else {
-								a = 255;
-							}
-						}
+	// 						} else {
+	// 							a = 255;
+	// 						}
+	// 					}
 
-						if (rgba) {
-							setRGBA(r, g, b, a);
-						}
-					}
-				}
+	// 					if (rgba) {
+	// 						setRGBA(r, g, b, a);
+	// 					}
+	// 				}
+	// 			}
 
-			} else {
-				// It's either for a color keyword or invalid.
-				std::map<std::string, Color>::const_iterator colorFound = cssColorMap.find(tmp);
+	// 		} else {
+	// 			// It's either for a color keyword or invalid.
+	// 			std::map<std::string, Color>::const_iterator colorFound = cssColorMap.find(tmp);
 
-				if (colorFound != cssColorMap.end()) {
-					operator=(colorFound->second);
-				}
-			}
-		}
-	}
+	// 			if (colorFound != cssColorMap.end()) {
+	// 				operator=(colorFound->second);
+	// 			}
+	// 		}
+	// 	}
+	// }
 
 
 

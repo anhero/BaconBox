@@ -40,7 +40,7 @@ namespace BaconBox {
 		                  const Vector2 &zoom, const Color &backgroundColor, bool clearScreen);
 
 
-		
+		void tearGraphicDriver();
 		void drawShapeWithTextureColorColorOffset(const VertexArray &vertices,
 												  const TextureInformation *textureInformation,
 												  const TextureCoordinates &textureCoordinates,

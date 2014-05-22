@@ -50,7 +50,7 @@ void SDLMixerBackgroundMusic::play(int nbTimes) {
 			neverPlayed = false;
 		} else {
 			Console::println("Error playing a music with Mix_PlayMusic(): " + std::string(Mix_GetError()));
-			Console::printTrace();
+			
 		}
 	}
 }
@@ -128,7 +128,7 @@ void SDLMixerBackgroundMusic::play(int nbTimes, double fadeIn) {
 			neverPlayed = false;
 		} else {
 			Console::println("Error playing a music with Mix_FadeInMusic(): " + std::string(Mix_GetError()));
-			Console::printTrace();
+			
 		}
 	}
 }

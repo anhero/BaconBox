@@ -3,7 +3,11 @@
 #include "BaconBox/Input/InputManager.h"
 namespace BaconBox {
 
-	void NullMainWindow::onBaconBoxInit(unsigned int resolutionWidth, unsigned int resolutionHeight, float contextWidth, float contextHeight) {
+void NullMainWindow::onBaconBoxInit(unsigned int resolutionWidth,
+			                  unsigned int resolutionHeight,
+			                  float contextWidth,
+			                  float contextHeight,
+								WindowOrientation::type orientation){
 		this->MainWindow::setResolution(resolutionWidth, resolutionHeight);
 		this->MainWindow::setContextSize(contextWidth, contextHeight);
 
@@ -12,6 +16,9 @@ namespace BaconBox {
 		InputManager::getInstance().setNbPointers(1);
 
 	}
+
+	void NullMainWindow::setUpdatesPerSecond(double setFrameInterval){}
+
 
 	void NullMainWindow::show() {
 		

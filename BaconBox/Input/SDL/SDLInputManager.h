@@ -7,7 +7,6 @@
 
 #include "BaconBox/PlatformFlagger.h"
 
-#ifdef BB_SDL
 
 #include "BaconBox/Input/InputManager.h"
 
@@ -27,5 +26,4 @@ namespace BaconBox {
 	};
 }
 
-#endif
 #endif

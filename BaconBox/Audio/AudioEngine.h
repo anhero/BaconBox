@@ -50,6 +50,8 @@ namespace BaconBox {
 		static void playBackgroundMusic(const std::string& key,
 										int nbTimes = -1,
 										double fadeIn = 0.0);
+
+		virtual bool managedByEngine();
 	protected:
 		/**
 		 * Default constructor.

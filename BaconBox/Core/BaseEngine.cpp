@@ -45,11 +45,12 @@ namespace BaconBox {
 #endif //defined(BB_LUA) && defined(BB_DEBUG)
 	
 	void BaseEngine::application(int argc, char *argv[], const std::string &name) {
-#if defined(BB_LUA) && defined(BB_DEBUG)
-		struct sigaction sa;
-		sa.sa_sigaction = handler;
-		sigemptyset (&sa.sa_mask);
-		sa.sa_flags = SA_SIGINFO;
+
+#if false && defined(BB_LUA) && defined(BB_DEBUG) && !defined(BB_ANDROID)
+//		struct sigaction sa;
+//		sa.sa_sigaction = handler;
+//		sigemptyset (&sa.sa_mask);
+//		sa.sa_flags = SA_SIGINFO;
 		// if (sigaction (SIGBUS, &sa, 0)) {
 		// 	perror ("sigaction");
 		// 	exit(1);
@@ -63,6 +64,10 @@ namespace BaconBox {
 		// 	exit(1);
 		// }
 		for(int i = 1; i < 32; i++){
+			struct sigaction sa;
+			sa.sa_sigaction = handler;
+			sigemptyset (&sa.sa_mask);
+			sa.sa_flags = SA_SIGINFO;
 			if (sigaction (i, &sa, 0)) {
 				perror ("sigaction");
 				exit(1);
@@ -71,12 +76,13 @@ namespace BaconBox {
 
 		
 #endif //defined(BB_LUA) && defined(BB_DEBUG)
-
-		
 		this->argc = argc;
 		this->argv = argv;
+
 		if(argv)this->applicationPath = dirname(argv[0]);
+
 		this->applicationName = name;
+
 	}
 
 	State *BaseEngine::addState(State *newState) {
@@ -236,8 +242,9 @@ namespace BaconBox {
 				InputManager::getInstance().update();
 				// We update the timers.
 				TimerManager::update();
-				this->nextUpdate += this->updateDelay;
 				this->lastUpdate = TimeHelper::getInstance().getSinceStartComplete();
+//				this->nextUpdate += this->updateDelay; //This will make the engine try to catch back if it falls behind
+				this->nextUpdate = this->lastUpdate + this->updateDelay; //This one won't try to catch back.
 				++this->loops;
 			}
 			
@@ -268,7 +275,9 @@ namespace BaconBox {
 
 		TimeHelper::getInstance();
 		InputManager::getInstance();
-		Engine::onInitialize.shoot(resolutionWidth, resolutionHeight, contextWidth, contextHeight, orientation);
+
+		// Engine::onInitialize.shoot(resolutionWidth, resolutionHeight, contextWidth, contextHeight, orientation);
+			MainWindow::getInstance().onBaconBoxInit(resolutionWidth, resolutionHeight, contextWidth, contextHeight, orientation);
 
 		this->graphicDriver->initializeGraphicDriver();
 	}
@@ -351,15 +360,15 @@ namespace BaconBox {
 		ResourceManager::deleteAll();
 
 		// We unload the audio engines.
-		if (static_cast<AudioEngine *>(musicEngine) == static_cast<AudioEngine *>(soundEngine)) {
+		if (static_cast<AudioEngine *>(musicEngine) == static_cast<AudioEngine *>(soundEngine) && musicEngine->managedByEngine()) {
 			delete musicEngine;
 
 		} else {
-			if (musicEngine) {
+			if (musicEngine && musicEngine->managedByEngine()) {
 				delete musicEngine;
 			}
 
-			if (soundEngine) {
+			if (soundEngine && soundEngine->managedByEngine()) {
 				delete soundEngine;
 			}
 		}

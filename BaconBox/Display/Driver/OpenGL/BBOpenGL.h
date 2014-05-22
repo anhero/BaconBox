@@ -33,8 +33,8 @@
 #elif defined(BB_MAC_PLATFORM)
 #include <OpenGL/gl.h>
 #elif defined(BB_ANDROID)
-#include <GLES/gl.h>
-#include <GLES/glext.h>
+#include <GLES2/gl2.h>
+#include <GLES2/gl2ext.h>
 
 #endif
 

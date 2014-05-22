@@ -34,11 +34,13 @@ namespace BaconBox {
 		
 	}
 	
-	void resetProjection(){
+	void NullGraphicDriver::resetProjection(){
 		
 	}
 
-	
+		void NullGraphicDriver::tearGraphicDriver(){
+			
+		}
 	
 	void NullGraphicDriver::drawShapeWithTexture(const VertexArray &vertices,
 							  const TextureInformation *textureInformation,

@@ -26,6 +26,8 @@
 @property (strong, nonatomic) CMMotionManager *motionManager;
 @property sigly::Signal1<CMAcceleration *> *accelData;
 
+
+- (BOOL)shouldAutorotate;
 - (void)startAnimation;
 - (void)stopAnimation;
 - (id)initWithFrame:(CGRect)frame;

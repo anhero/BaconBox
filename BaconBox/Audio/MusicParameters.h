@@ -20,7 +20,7 @@ namespace BaconBox {
 	struct MusicParameters {
 		/// Name used by the ResourceManager.
 		std::string name;
-#if defined(BB_AV_AUDIO_PLAYER) || defined(BB_SDL)
+#if defined(BB_AV_AUDIO_PLAYER) || defined(BB_SDL) || defined(BB_ANDROID)
 		/// Path to the music to load.
 		std::string filePath;
 #endif

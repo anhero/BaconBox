@@ -13,7 +13,7 @@ namespace BaconBox {
 	struct SoundParameters {
 		/// Name used by the ResourceManager.
 		std::string name;
-#if defined(BB_OPENAL) || defined(BB_SDL)
+#if defined(BB_OPENAL) || defined(BB_SDL)|| defined(BB_ANDROID)
 		std::string path;
 #endif
 	};

@@ -47,7 +47,7 @@ namespace BaconBox {
 		 * @see BaconBox::SoundEngine::soundVolume;
 		 */
 		int getSoundVolume() const;
-
+		int getAbsoluteSoundVolume() const;
 		/**
 		 * Sets the global sound effects volume.
 		 * @param newSoundVolume New global sound effects volume.

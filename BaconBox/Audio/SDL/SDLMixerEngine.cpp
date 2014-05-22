@@ -11,6 +11,7 @@
 #include "BaconBox/Audio/MusicInfo.h"
 #include "BaconBox/Audio/AudioState.h"
 #include "BaconBox/Audio/NullAudio.h"
+
 #include "BaconBox/Audio/Sound.h"
 
 #include "BaconBox/Audio/SDL/SDLMixerBackgroundMusic.h"
@@ -62,7 +63,7 @@ namespace BaconBox {
 				result = new NullAudio();
 				Console::println("Tried to get a sound effect from an invalid key: "
 				                 + key);
-				Console::printTrace();
+				
 			}
 
 			if (!survive) {
@@ -72,7 +73,7 @@ namespace BaconBox {
 		} else {
 			Console::println("Failed to allocate memory for the new sound effect: "
 			                 + key);
-			Console::printTrace();
+			
 		}
 
 		return result;
@@ -93,7 +94,7 @@ namespace BaconBox {
 				result = new NullAudio();
 				Console::println("Tried to get a background music from an invalid key: "
 				                 + key);
-				Console::printTrace();
+				
 			}
 
 			if (!survive) {
@@ -103,7 +104,7 @@ namespace BaconBox {
 		} else {
 			Console::println("Failed to allocate memory for the new background music: "
 			                 + key);
-			Console::printTrace();
+			
 		}
 
 		return result;
@@ -148,7 +149,7 @@ namespace BaconBox {
 
 		} else {
 			Console::println("Unable to initialize audio: " + std::string(Mix_GetError()));
-			Console::printTrace();
+			
 		}
 	}
 
@@ -201,7 +202,7 @@ namespace BaconBox {
 			result = NULL;
 			Console::println("Unable to load sound effect: " + filePath);
 			Console::println(" with SDL_mixer error: " + std::string(Mix_GetError()));
-			Console::printTrace();
+			
 		}
 
 		return result;
@@ -230,13 +231,13 @@ namespace BaconBox {
 				result = NULL;
 				Console::println("Unable to load music file: " + filePath);
 				Console::println(" with the SDL_mixer error: " + std::string(Mix_GetError()));
-				Console::printTrace();
+				
 			}
 
 		} else {
 			Console::println("Could not allocate memory for the music info for the file: "
 			                 + filePath);
-			Console::printTrace();
+			
 		}
 
 		return result;

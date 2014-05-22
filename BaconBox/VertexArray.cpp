@@ -329,8 +329,7 @@ namespace BaconBox {
 
 	bool VertexArray::overlaps(const Vector2 &point) const {
 		bool result = false;
-
-		for (VertexArray::ConstIterator i = this->getBegin(), j = --this->getEnd(); i != this->getEnd(); ++i) {
+		for (VertexArray::ConstIterator i = this->getBegin(), j = (this->getEnd()-1); i != this->getEnd(); ++i) {
 			if ((i->y < point.y && j->y >= point.y) ||
 			    ((j->y < point.y && i->y >= point.y) &&
 			     (i->x <= point.x || j->x <= point.x))) {

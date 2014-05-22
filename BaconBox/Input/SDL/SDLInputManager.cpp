@@ -1,6 +1,5 @@
 #include "BaconBox/PlatformFlagger.h"
 
-#ifdef BB_SDL
 
 #include "BaconBox/Input/SDL/SDLInputManager.h"
 
@@ -38,4 +37,3 @@ void SDLInputManager::update() {
 	InputManager::update();
 }
 
-#endif

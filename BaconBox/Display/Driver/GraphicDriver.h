@@ -82,6 +82,8 @@ namespace BaconBox {
 
 
 		virtual void initializeGraphicDriver();
+		virtual void tearGraphicDriver() = 0;
+
 		virtual bool isInitialized();
 		/**
 		 * Pushes the current matrix on the stack.

@@ -24,7 +24,7 @@
 #include <rapidxml_utils.hpp>
 #include <rapidxml_print.hpp>
 
-
+#define BB_MAX_FONT_SIZE 9999
 namespace BaconBox {
 	class SoundFX;
 	class Symbol;
@@ -33,9 +33,7 @@ namespace BaconBox {
 	struct MusicInfo;
 	struct TextureInformation;
 	class Color;
-#ifndef BB_ANDROID
 	class Font;
-#endif
 	
 
 	
@@ -248,7 +246,7 @@ namespace BaconBox {
 		 * @return Pointer to the loaded font, NULL if the font failed to load.
 		 */
 		static Font *loadFont(const std::string &key,
-		                      const std::string &path, bool overwrite = false);
+		                      const std::string &path, int fontSize = BB_MAX_FONT_SIZE);
 
 		/**
 		 * Loads the font at the specified path and put it in the fonts' map.
@@ -263,21 +261,20 @@ namespace BaconBox {
 		 * @return Pointer to the loaded font, NULL if the font failed to load.
 		 */
 		static Font *loadFontRelativePath(const std::string &key,
-		                                  const std::string &relativePath,
-		                                  bool overwrite = false);
+		                                  const std::string &relativePath, int fontSize = BB_MAX_FONT_SIZE);
 
 		/**
 		 * Return a pointer to the font specified by the given name.
 		 * @param key Key of the font to get.
 		 * @return Pointer to the specified font, NULL if no font is found.
 		 */
-		static Font *getFont(const std::string &key);
+		static Font *getFont(const std::string &key, int fontSize = -1);
 
 		/**
 		 * Remove the specified font from the fonts' map.
 		 * @param key Key of the font to remove.
 		 */
-		static void removeFont(const std::string &key);
+		static void removeFont(const std::string &key, int fontSize = -1);
 		
 		/// Create a PixMap from an image file at the given path.
 		static PixMap *loadPixMap(const std::string &filePath, ColorFormat::type colorFormat);
@@ -347,7 +344,7 @@ namespace BaconBox {
 		/// Map associating the musics' names and their information.
 		static std::map<std::string, MusicInfo *> musics;
 		/// Map  associating the fonts' names and their information.
-		static std::map<std::string, Font *> fonts;
+		static std::map<std::string, std::map<int, Font *> > fonts;
 		static std::map<std::string, Symbol*> symbols;
 		
 		

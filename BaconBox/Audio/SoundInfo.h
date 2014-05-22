@@ -47,6 +47,10 @@ namespace BaconBox {
 		/// Pointer to SDL's sound data.
 		Mix_Chunk* data;
 #endif
+
+#ifdef BB_ANDROID
+		std::string filePath;
+#endif
 		
 		
 #ifdef BB_FLASH_PLATFORM

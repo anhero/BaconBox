@@ -9,7 +9,8 @@
 #include "BaconBox/Components/Texture.h"
 #include "BaconBox/Components/ComponentConnection.h"
 #include "BaconBox/Components/Visibility.h"
-
+#include "BaconBox/Console.h"
+#include "BaconBox/ResourceManager.h"
 namespace BaconBox {
 	BB_ID_IMPL(MeshDriverRenderer);
 
@@ -59,6 +60,8 @@ namespace BaconBox {
 	}
 
 	void MeshDriverRenderer::update() {
+
+
 		if (!this->visibility || this->visibility->isVisible()) {
 			// We check if we have to render a shape.
 			if (this->renderMode & RenderMode::SHAPE) {
@@ -87,9 +90,14 @@ namespace BaconBox {
 						// We check if we have to render a texture on the shape.
 						if (this->renderMode & RenderMode::TEXTURE) {
 							if (this->texture) {
+								if(! this->texture->getTexture()->isLoaded()){
+									ResourceManager::loadTexture(this->texture->getTexture());
+								}
+
 								// We render with the texture.
 								if(color == Color::WHITE && colorOffset == Color::NO_COLOR){
 									graphicDriver->drawShapeWithTexture(this->mesh->getPostTransformVertices(), this->texture->getTexture(), this->texture->getTextureCoordinates(), (this->renderMode & RenderMode::BLENDED), degenerationStride, degenerationJump);
+
 								}
 								else{
 									graphicDriver->drawShapeWithTextureColorColorOffset(this->mesh->getPostTransformVertices(), this->texture->getTexture(), this->texture->getTextureCoordinates(), color, colorOffset, (this->renderMode & RenderMode::BLENDED), degenerationStride, degenerationJump);

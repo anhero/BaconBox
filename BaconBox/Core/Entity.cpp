@@ -14,7 +14,7 @@ namespace BaconBox {
 	int Entity::MESSAGE_ADD_COMPONENT = IDManager::generateID();
 	int Entity::MESSAGE_REMOVE_COMPONENT = IDManager::generateID();
 
-	Entity::Entity() : components(), sigly::HasSlots<sigly::SingleThreaded>() {
+	Entity::Entity() : components(), sigly::HasSlots<SIGLY_DEFAULT_MT_POLICY>() {
 	}
 
 	Entity::Entity(const Entity &src) : components() {
@@ -62,7 +62,7 @@ namespace BaconBox {
 	
 	void Entity::printComponentsName(){
 	    for(std::list<Component *>::iterator i = components.begin(); i != components.end(); i++){
-		std::cout << " Entity: " << IDManager::getName(this->getID()) << " Component: " << IDManager::getName((*i)->getID()) << std::endl;
+		PRLN(" Entity: " << IDManager::getName(this->getID()) << " Component: " << IDManager::getName((*i)->getID()));
 	    }
 	}
 

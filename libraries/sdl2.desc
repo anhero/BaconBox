@@ -1,6 +1,7 @@
 library.name = "SDL2"
 library.license = "zlib" 
-library.version = "2.0.0"
+library.version = "2.0.2"
 library.archive = "#{library.name}-#{library.version}.tar.gz"
 library.url = "http://www.libsdl.org/release/#{library.archive}"
-library.hash = "beec89afb6edcc6f0abc4114f2e6bcf7" #2.0.0
+library.hash = "e8070e8b6335def073a80cee78f3a7f0" #2.0.2
+

@@ -418,32 +418,32 @@ class FlashEngine;
 
 
 
-%template(HasSlots_SingleThreaded) sigly::HasSlots< sigly::SingleThreaded >;
-%template(signal_base) sigly::_signal_base< sigly::SingleThreaded >;
+%template(HasSlots_DEFAULT) sigly::HasSlots< SIGLY_DEFAULT_MT_POLICY >;
+%template(signal_base) sigly::_signal_base< SIGLY_DEFAULT_MT_POLICY >;
 
-%template(signal_base0)sigly::_signal_base0< sigly::SingleThreaded >;
-%template(signal) sigly::Signal0< sigly::SingleThreaded >;
+%template(signal_base0)sigly::_signal_base0< SIGLY_DEFAULT_MT_POLICY >;
+%template(signal) sigly::Signal0< SIGLY_DEFAULT_MT_POLICY >;
 
-%template(signal_base1_KeySignalData)sigly::_signal_base1< BaconBox::KeySignalData,sigly::SingleThreaded >;
-%template(signal_KeySignalData) sigly::Signal1< BaconBox::KeySignalData,sigly::SingleThreaded >;
+%template(signal_base1_KeySignalData)sigly::_signal_base1< BaconBox::KeySignalData,SIGLY_DEFAULT_MT_POLICY >;
+%template(signal_KeySignalData) sigly::Signal1< BaconBox::KeySignalData,SIGLY_DEFAULT_MT_POLICY >;
 
-%template(signal_base1_KeyMaskSignalData)sigly::_signal_base1< BaconBox::KeyMaskSignalData,sigly::SingleThreaded >;
-%template(signal_KeyMaskSignalData) sigly::Signal1< BaconBox::KeyMaskSignalData,sigly::SingleThreaded >;
+%template(signal_base1_KeyMaskSignalData)sigly::_signal_base1< BaconBox::KeyMaskSignalData,SIGLY_DEFAULT_MT_POLICY >;
+%template(signal_KeyMaskSignalData) sigly::Signal1< BaconBox::KeyMaskSignalData,SIGLY_DEFAULT_MT_POLICY >;
 
-%template(signal_base1_AccelerometerSignalData)sigly::_signal_base1< BaconBox::AccelerometerSignalData,sigly::SingleThreaded >;
-%template(signal_AccelerometerSignalData) sigly::Signal1< BaconBox::AccelerometerSignalData,sigly::SingleThreaded >;
+%template(signal_base1_AccelerometerSignalData)sigly::_signal_base1< BaconBox::AccelerometerSignalData,SIGLY_DEFAULT_MT_POLICY >;
+%template(signal_AccelerometerSignalData) sigly::Signal1< BaconBox::AccelerometerSignalData,SIGLY_DEFAULT_MT_POLICY >;
 
-%template(signal_base1_PointerSignalData)sigly::_signal_base1< BaconBox::PointerSignalData,sigly::SingleThreaded >;
-%template(signal_PointerSignalData) sigly::Signal1< BaconBox::PointerSignalData,sigly::SingleThreaded >;
+%template(signal_base1_PointerSignalData)sigly::_signal_base1< BaconBox::PointerSignalData,SIGLY_DEFAULT_MT_POLICY >;
+%template(signal_PointerSignalData) sigly::Signal1< BaconBox::PointerSignalData,SIGLY_DEFAULT_MT_POLICY >;
 
-%template(signal_base1_PointerButtonSignalData)sigly::_signal_base1< BaconBox::PointerButtonSignalData,sigly::SingleThreaded >;
-%template(signal_PointerButtonSignalData) sigly::Signal1< BaconBox::PointerButtonSignalData,sigly::SingleThreaded >;
+%template(signal_base1_PointerButtonSignalData)sigly::_signal_base1< BaconBox::PointerButtonSignalData,SIGLY_DEFAULT_MT_POLICY >;
+%template(signal_PointerButtonSignalData) sigly::Signal1< BaconBox::PointerButtonSignalData,SIGLY_DEFAULT_MT_POLICY >;
 
 
-%template(signal_base1_void)sigly::_signal_base1< void*,sigly::SingleThreaded >;
-%template(signal_void) sigly::Signal1< void*,sigly::SingleThreaded >;
+%template(signal_base1_void)sigly::_signal_base1< void*,SIGLY_DEFAULT_MT_POLICY >;
+%template(signal_void) sigly::Signal1< void*,SIGLY_DEFAULT_MT_POLICY >;
 
-%extend  sigly::_signal_base<sigly::SingleThreaded> {
+%extend  sigly::_signal_base<SIGLY_DEFAULT_MT_POLICY> {
   void connect(lua_State*L, const std::string & type = ""){
     int paramCount = 0;
     while(lua_isstring(L, -1)) {

@@ -31,6 +31,11 @@ Platform::Platform(){
 	isMobile = true;
 #endif
 	
+
+#ifdef BB_ANDROID
+	this->isAndroid = true;
+	isMobile = true;
+#endif
 	
 	
 #ifdef BB_FLASH_PLATFORM

@@ -17,7 +17,7 @@ namespace BaconBox {
 	class Entity;
 	class IComponentConnection;
 
-	class Component : public sigly::HasSlots<sigly::SingleThreaded> {
+	class Component : public sigly::HasSlots<SIGLY_DEFAULT_MT_POLICY> {
 		friend class Entity;
 	public:
 		BB_ID_HEADER;

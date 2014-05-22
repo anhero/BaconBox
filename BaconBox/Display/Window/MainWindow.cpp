@@ -3,6 +3,8 @@
 #include "BaconBox/Core/Engine.h"
 #include "BaconBox/Display/Driver/GraphicDriver.h"
 #include "BaconBox/Input/Accelerometer/Accelerometer.h"
+#include "BaconBox/Console.h"
+
 namespace BaconBox {
 	const std::string MainWindow::DEFAULT_NAME = std::string("An unnamed BaconBox application");
 
@@ -25,45 +27,62 @@ namespace BaconBox {
     void MainWindow::hideCursor(){
         
     }
-	
+	const Vector2 & MainWindow::getRealResolution(){
+		return resolution;
+	}
+
 	Vector2 MainWindow::getResolution(){
-		return Vector2(static_cast<float>(getResolutionWidth()), static_cast<float>(getResolutionHeight()));
+		if (orientationIsHorizontal()) {
+			return Vector2(resolution.y, resolution.x);
+		}
+		else{
+			return resolution;
+		}
 	}
 	Vector2 MainWindow::getContextSize(){
-		return Vector2(getContextWidth(), getContextHeight());
+		if (orientationIsHorizontal()) {
+			return Vector2(context.y, context.x);
+		}
+		else{
+			return context;
+		}
+	}
+	
+	const Vector2 & MainWindow::getRealContextSize(){
+		return context;
 	}
 	
 	unsigned int MainWindow::getResolutionWidth() {
-		return (orientationIsHorizontal() ? resolutionHeight : resolutionWidth);
+		return getResolution().x;
 	}
 	
 	unsigned int MainWindow::getResolutionHeight() {
-		return (!orientationIsHorizontal() ? resolutionHeight : resolutionWidth);
+		return getResolution().y;
 	}
 	
 	unsigned int MainWindow::getRealResolutionWidth(){
-		return resolutionWidth;
+		return getRealResolution().x;
 	}
 	
 	unsigned int MainWindow::getRealResolutionHeight(){
-		return resolutionHeight;
+		return getRealResolution().y;
 	}
 	
 	
 	float MainWindow::getContextWidth() {
-		return (orientationIsHorizontal() ? contextHeight : contextWidth);
+		return getContextSize().x;
 	}
 	
 	float MainWindow::getContextHeight() {
-		return (!orientationIsHorizontal() ? contextHeight : contextWidth);
+		return getContextSize().y;
 	}
 	
 	float MainWindow::getRealContextWidth(){
-		return contextWidth;
+		return getRealContextSize().x;
 	}
 	
 	float MainWindow::getRealContextHeight(){
-		return contextHeight;
+		return getRealContextSize().y;
 	}
 	void MainWindow::setResolution(const Vector2 & res){
 		setResolution(res.x, res.y);
@@ -71,8 +90,8 @@ namespace BaconBox {
 
 	void MainWindow::setResolution(unsigned int newResolutionWidth,
 								   unsigned int newResolutionHeight) {
-		resolutionWidth = (!orientationIsHorizontal() ? newResolutionWidth: newResolutionHeight);
-		resolutionHeight = (orientationIsHorizontal() ? newResolutionWidth: newResolutionHeight);
+		resolution.x = (!orientationIsHorizontal() ? newResolutionWidth: newResolutionHeight);
+		resolution.y = (orientationIsHorizontal() ? newResolutionWidth: newResolutionHeight);
 		GraphicDriver::getInstance().resetProjection();
 	}
 	bool MainWindow::orientationIsHorizontal(){
@@ -84,22 +103,21 @@ namespace BaconBox {
 	}
 	
 	void MainWindow::setContextSize(float newContextWidth, float newContextHeight) {
-		
 		if (newContextWidth == 0.0f) {
-			contextWidth = resolutionWidth;
+			context.x = resolution.x;
 
 		} else {
-			contextWidth = (!orientationIsHorizontal() ? newContextWidth: newContextHeight);
+			context.x = (!orientationIsHorizontal() ? newContextWidth: newContextHeight);
 		}
 
 		if (newContextHeight == 0.0f) {
-			contextHeight = resolutionHeight;
+			context.y = resolution.y;
 
 		} else {
-			contextHeight = (orientationIsHorizontal() ? newContextWidth: newContextHeight);
+			context.y = (orientationIsHorizontal() ? newContextWidth: newContextHeight);
 		}
-		GraphicDriver::getInstance().resetProjection();
 
+		GraphicDriver::getInstance().resetProjection();
 	}
 	
 	WindowOrientation::type MainWindow::getOrientation() const {
@@ -167,8 +185,7 @@ namespace BaconBox {
 		
 		}
 	
-	MainWindow::MainWindow() : sigly::HasSlots<sigly::SingleThreaded>(), inversedOrientationIncr(0), inversedOrientationTreshold(3), resolutionWidth(0), resolutionHeight(0),
-	contextWidth(0), contextHeight(0), autoOrientation(WindowAutoOrientation::NONE), orientation(WindowOrientation::NORMAL) {
+	MainWindow::MainWindow() : sigly::HasSlots<SIGLY_DEFAULT_MT_POLICY>(), inversedOrientationIncr(0), inversedOrientationTreshold(3), resolution(), context(), autoOrientation(WindowAutoOrientation::NONE), orientation(WindowOrientation::NORMAL) {
 		Engine::onInitialize.connect(this, &MainWindow::onBaconBoxInit);
 	}
 	

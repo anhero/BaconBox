@@ -12,20 +12,25 @@ namespace BaconBox {
 	void SDLMainWindow::onBaconBoxInit(unsigned int resolutionWidth, unsigned int resolutionHeight, float contextWidth, float contextHeight, WindowOrientation::type orientation) {
 		
 
-		
 		mainWindow = SDL_CreateWindow(Engine::getApplicationName().c_str(),
 		                              SDL_WINDOWPOS_UNDEFINED,
 		                              SDL_WINDOWPOS_UNDEFINED,
 		                              static_cast<int>(resolutionWidth),
 		                              static_cast<int>(resolutionHeight),
 		                              SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN);
-		mainContext = SDL_GL_CreateContext(mainWindow);
-
-		if (SDL_GL_SetSwapInterval(1) < 0) {
-			printf("opengl error [SetSwapInterval]: %s\n", SDL_GetError());
+		if (mainWindow == NULL) {
+			PRLN("Could not create window: " << SDL_GetError());
 		}
 		
-	
+		mainContext = SDL_GL_CreateContext(mainWindow);
+		if (mainContext == NULL) {
+			PRLN("Could not create context: " << SDL_GetError());
+		}
+		
+		if (SDL_GL_SetSwapInterval(1) < 0) {
+			PRLN("opengl error [SetSwapInterval]: " << SDL_GetError());
+		}
+		
 		this->MainWindow::setResolution(resolutionWidth, resolutionHeight);
 		this->MainWindow::setContextSize(contextWidth, contextHeight);
 		
@@ -116,38 +121,39 @@ namespace BaconBox {
 		mainContext(NULL) {
 
         SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO);
-
+			PRLN("setting joystick");
             unsigned int  nbJoystick = SDL_NumJoysticks();
             if(nbJoystick){
                 SDL_JoystickEventState(SDL_ENABLE);
         InputManager::getInstance().setNbGamePads(SDL_NumJoysticks());
             }
+			PRLN("joystick set");
 
 
 //            std::cout << SDL_JoystickName(0)<< std::endl;
 
 		if (SDL_GL_SetAttribute(SDL_GL_RED_SIZE,   8) < 0) {
-			printf("opengl error: %s\n", SDL_GetError());
+			PRLN("opengl error: " <<SDL_GetError());
 		}
 
 		if (SDL_GL_SetAttribute(SDL_GL_BLUE_SIZE,  8) < 0) {
-			printf("opengl error: %s\n", SDL_GetError());
+			PRLN("opengl error: " <<SDL_GetError());
 		}
 
 		if (SDL_GL_SetAttribute(SDL_GL_GREEN_SIZE, 8) < 0) {
-			printf("opengl error: %s\n", SDL_GetError());
+			PRLN("opengl error: " <<SDL_GetError());
 		}
 
 		if (SDL_GL_SetAttribute(SDL_GL_ALPHA_SIZE, 8) < 0) {
-			printf("opengl error: %s\n", SDL_GetError());
+			PRLN("opengl error: " <<SDL_GetError());
 		}
 
 		if (SDL_GL_SetAttribute(SDL_GL_BUFFER_SIZE,  32) < 0) {
-			printf("opengl error: %s\n", SDL_GetError());
+			PRLN("opengl error: " <<SDL_GetError());
 		}
 
 		if (SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER,  1) < 0) {
-			printf("Couldn't set double buffering: %s\n", SDL_GetError());
+			PRLN("Couldn't set double buffering: " <<SDL_GetError());
 		}
 	}
 

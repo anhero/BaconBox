@@ -1,6 +1,7 @@
 #include "RapidXmlSerializer.h"
 
 #include <cstring>
+#include <ctype.h>
 
 #include <set>
 #include <sstream>

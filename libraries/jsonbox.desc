@@ -9,7 +9,7 @@ library.build = lambda do |library, options|
 	failed = false
 	CXX = ""
 	CXX = "CXX=#{options.CXX}" if defined? options.CXX
-	failed ||= (not system("make #{CXX} CXXFLAGS=\"-I./include/ #{(OS.osx? ? '-stdlib=libstdc++' : '')}\""))
+	failed ||= (not system("make #{CXX} CXXFLAGS=\"-I./include/ #{(OS.osx? and $options.platform == nil ? '-stdlib=libstdc++' : '')}\""))
 	FileUtils.mkdir_p "#{options.prefix}/lib"
 	failed ||= (not system("cp build/*.a #{options.prefix}/lib"))
 	FileUtils.mkdir_p "#{options.prefix}/include"

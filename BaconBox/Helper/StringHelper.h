@@ -51,12 +51,12 @@ namespace BaconBox {
 		 * @param numericBase Numeric base to use to convert the string to the
 		 * numeric.
 		 */
-		template <typename ValueType, typename CharType>
-		static bool fromString(const std::basic_string<CharType> &str,
-							   ValueType &value,
-							   std::ios_base &(*numericBase)(std::ios_base&) = std::dec) {
-			return !(std::istringstream(str) >> numericBase >> value).fail();
-		}
+		// template <typename ValueType, typename CharType>
+		// static bool fromString(const std::basic_string<CharType> &str,
+		// 					   ValueType &value,
+		// 					   std::ios_base &(*numericBase)(std::ios_base&) = std::dec) {
+		// 	return !(std::istringstream(str) >> numericBase >> value).fail();
+		// }
 		
 		/**
 		 * Converts a string to lower case.

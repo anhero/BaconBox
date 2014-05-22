@@ -8,19 +8,17 @@
 
 #include "BaconBox/PlatformFlagger.h"
 
+#ifdef BB_ANDROID
+#include <android/log.h>
+#else
 #include <cstdio>
 #include <cstdlib>
-
-#ifdef BB_HAS_GCC_STACKTRACE
-#include <execinfo.h>
-#include <cxxabi.h>
-#endif
-
 #include <cstdarg>
 
-#ifndef BB_ANDROID
-#include <iostream>
 #endif
+
+#include <iostream>
+//#endif
 
 #include <string>
 #include <sstream>
@@ -34,13 +32,24 @@
 #define Console__print(a)    Console::_print(__FILE__, __LINE__, a);
 #define Console__printf(...) Console::_printf(__FILE__, __LINE__, __VA_ARGS__);
 #define Console__log(a)      Console::_log(__FILE__, __LINE__, #a, a);
-#define Console__error(a)    std::cerr << "Error: " << a << std::endl;
+
+#ifndef BB_ANDROID
+#define Console__error(a)    std::cerr << "Error: " << a << std::endl
+#else
+#define Console__error(a){std::cerr << "Error: " << a << std::endl; BaconBox::Console::logcatSS.str(""); BaconBox::Console::logcatSS << a; BaconBox::Console::logcatBuffer = BaconBox::Console::logcatSS.str(); __android_log_print(ANDROID_LOG_WARN, LOG_TAG, BaconBox::Console::logcatBuffer.c_str());}
+#endif
 
 
+#ifndef BB_ANDROID
 #define PRLN(a) std::cout << a << std::endl
+#else
+#define  LOG_TAG    "BaconBox"
+#define PRLN(a) {std::cout << a << std::endl; BaconBox::Console::logcatSS.str(""); BaconBox::Console::logcatSS << a; BaconBox::Console::logcatBuffer = BaconBox::Console::logcatSS.str(); __android_log_print(ANDROID_LOG_DEBUG, LOG_TAG, BaconBox::Console::logcatBuffer.c_str());}
+#endif
+
 
 #ifdef BB_ANDROID
-#define PV(x) ;
+#define PV(x) PRLN(#x << ": " << x);
 #else
 
 #define PV(x) std::cout << #x << ": " << x << std::endl
@@ -49,6 +58,11 @@
 namespace BaconBox {
 	class Console {
 	public:
+		
+#ifdef BB_ANDROID
+		static std::stringstream logcatSS;
+		static std::string logcatBuffer;
+#endif
 		/**
 		 * Prints text in the console. Adds a new line at the end.
 		 *
@@ -139,10 +153,7 @@ namespace BaconBox {
 		static void _log(std::string file, int line, std::string varname,
 		                 std::string value);
 
-		/**
-		 * Prints the stack trace from caller's point of view.
-		 */
-		static void printTrace(int max = 63);
+
 
 		/**
 		 * Prints formatted as printf would.
@@ -150,6 +161,7 @@ namespace BaconBox {
 		 * @param formatString Format string, as in printf.
 		 * @param ... Things as parameters.
 		 */
+		 
 		static void printf(std::string formatString, ...);
 
 		/**
@@ -171,88 +183,7 @@ namespace BaconBox {
 			return ss.str();
 		}
 	private:
-#if false && defined(BB_HAS_GCC_STACKTRACE)
-		// stacktrace.h (c) 2008, Timo Bingmann from http://idlebox.net/
-		// published under the WTFPL v2.0
-		// Previous credits applies only to private function print_stacktrace.
-		/** Print a demangled stack backtrace of the caller function to FILE* out. */
-		static inline void print_stacktrace(FILE* out = stderr, unsigned int max_frames = 63) {
-			const int stackOffset = 2;
-			// storage array for stack trace address data
-			void* addrlist[max_frames + stackOffset];
-			// retrieve current stack addresses
-			int addrlen = backtrace(addrlist, static_cast<int>(sizeof(addrlist) / sizeof(void*)));
 
-			if(addrlen == 0) {
-				fprintf(out, "\t<empty, possibly corrupt>\n");
-				return;
-			}
-
-			// resolve addresses into strings containing "filename(function+address)",
-			// this array must be free()-ed
-			char** symbollist = backtrace_symbols(addrlist, addrlen);
-			// allocate string which will be filled with the demangled function name
-			size_t funcnamesize = 256;
-			char* funcname = (char*)malloc(funcnamesize);
-
-			// iterate over the returned symbol lines. skip the first two
-			// they are this function and the calling function (PrintTrace)
-			for(int i = stackOffset; i < addrlen; i++) {
-				char* begin_name = 0, *begin_offset = 0, *end_offset = 0;
-
-				// find parentheses and +address offset surrounding the mangled name:
-				// ./module(function+0x15c) [0x8048a6d]
-				for(char* p = symbollist[i]; *p; ++p) {
-					if(*p == '(') {
-						begin_name = p;
-
-					} else if(*p == '+') {
-						begin_offset = p;
-
-					} else if(*p == ')' && begin_offset) {
-						end_offset = p;
-						break;
-					}
-				}
-
-				if(begin_name && begin_offset && end_offset
-				   && begin_name < begin_offset) {
-					*begin_name++ = '\0';
-					*begin_offset++ = '\0';
-					*end_offset = '\0';
-					// mangled name is now in [begin_name, begin_offset) and caller
-					// offset in [begin_offset, end_offset). now apply
-					// __cxa_demangle():
-					int status;
-					char* ret = abi::__cxa_demangle(begin_name,
-					                                funcname, &funcnamesize, &status);
-
-					if(status == 0) {
-						funcname = ret; // use possibly realloc()-ed string
-						fprintf(out, "\t#%03d %s : %s+%s\n",
-						        i - stackOffset, symbollist[i], funcname, begin_offset);
-
-					} else {
-						// demangling failed. Output function name as a C function with
-						// no arguments.
-						fprintf(out, "\t#%03d %s : %s()+%s\n",
-						        i - stackOffset, symbollist[i], begin_name, begin_offset);
-					}
-
-				} else {
-					// couldn't parse the line? print the whole line.
-					fprintf(out, "\t%s\n", symbollist[i]);
-				}
-			}
-
-			free(funcname);
-			free(symbollist);
-		}
-#else
-		static inline void print_stacktrace(FILE* out = stderr, unsigned int max_frames = 63) {
-			fprintf(out, ">> No stacktrace method available\n");
-		}
-#endif
 	};
 }
 

@@ -21,7 +21,7 @@ namespace BaconBox {
 	 * with a sound channel until the sound is done playing.
 	 * @ingroup Audio
 	 */
-	class SDLMixerSoundFX : public SoundFX, public sigly::HasSlots<sigly::SingleThreaded> {
+	class SDLMixerSoundFX : public SoundFX, public sigly::HasSlots<SIGLY_DEFAULT_MT_POLICY> {
 		friend class SDLMixerEngine;
 		friend class sigly::Signal1<int>;
 		friend class sigly::Signal0<>;

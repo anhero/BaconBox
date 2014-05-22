@@ -29,7 +29,6 @@ SoundFX* NullAudioEngine::getSoundFX(const std::string& key, bool survive) {
 			result = NULL;
 			Console::println("Tried to get a sound effect from an invalid key: " +
 						   key);
-			Console::printTrace();
 		}
 
 		if(!survive) {
@@ -38,7 +37,6 @@ SoundFX* NullAudioEngine::getSoundFX(const std::string& key, bool survive) {
 	} else {
 		Console::println("Failed to allocate memory for the new sound effect: " +
 					   key);
-		Console::printTrace();
 	}
 
 	return result;
@@ -49,7 +47,7 @@ BackgroundMusic* NullAudioEngine::getBackgroundMusic(const std::string& key,
 	NullAudio* result = new NullAudio();
 
 	if(result) {
-		SoundInfo* info = ResourceManager::getSound(key);
+		MusicInfo* info = ResourceManager::getMusic(key);
 
 		if(info) {
 			Console::println("Got a background music from the key: " + key +
@@ -59,7 +57,6 @@ BackgroundMusic* NullAudioEngine::getBackgroundMusic(const std::string& key,
 			delete result;
 			result = NULL;
 			Console::println("Tried to get a music from an invalid key: " + key);
-			Console::printTrace();
 		}
 
 		if(!survive) {
@@ -67,7 +64,6 @@ BackgroundMusic* NullAudioEngine::getBackgroundMusic(const std::string& key,
 		}
 	} else {
 		Console::println("Failed to allocate memory for the new music: " + key);
-		Console::printTrace();
 	}
 
 	return result;

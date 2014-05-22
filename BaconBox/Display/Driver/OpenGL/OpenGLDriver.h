@@ -70,6 +70,7 @@ namespace BaconBox {
 
 
 		void initializeGraphicDriver();
+		void tearGraphicDriver();
 		void resetProjection();
 
 		/**

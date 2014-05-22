@@ -9,6 +9,7 @@
 #include "BaconBox/VertexArray.h"
 #include "BaconBox/Display/Color.h"
 #include "BaconBox/Console.h"
+#include "BaconBox/ResourceManager.h"
 
 #define GET_PTR(vertices) reinterpret_cast<const GLfloat *>(&(*vertices.getBegin()))
 #define GET_TEX_PTR(textureCoordinates) reinterpret_cast<const GLfloat *>(&(*textureCoordinates.begin()))
@@ -70,6 +71,7 @@ namespace BaconBox {
 	const TextureCoordinates &textureCoordinates,
 	const IndiceArray &indices,
 	bool blend){
+
 		currentGPUState.textureID = textureInformation->textureId;
 		currentGPUState.textureCoordinates = GET_TEX_PTR_BATCH(textureCoordinates, 0);
 		currentGPUState.vertices = GET_PTR_BATCH(vertices, 0);
@@ -131,6 +133,7 @@ namespace BaconBox {
 		}
 		
 		glDrawElements(GL_TRIANGLE_STRIP, indices.size(), GL_UNSIGNED_SHORT, &(indices[0]));
+
 		
 	}
 
@@ -141,7 +144,6 @@ namespace BaconBox {
 		                                  const ColorArray &colors,
 		                                  const ColorArray &colorOffsets, bool blend){
 		
-
 			currentGPUState.textureID = textureInformation->textureId;
 			currentGPUState.textureCoordinates = GET_TEX_PTR_BATCH(textureCoordinates, 0);
 			currentGPUState.vertices = GET_PTR_BATCH(vertices, 0);
@@ -149,9 +151,13 @@ namespace BaconBox {
 			currentGPUState.colorOffsets = GET_TEX_PTR_BATCH(colorOffsets, 0);
 			currentGPUState.format = textureInformation->colorFormat;
 			currentGPUState.blend = blend;
-		
+
+				
 		bool notRGBOrAlpha  = (program != rgbProgram && program != alphaProgram);
 			if(! (currentGPUState.format == lastGPUState.format) || notRGBOrAlpha){
+
+							// PRLN("drawBatchWithTextureColorColorOffset 3");
+
 				if(notRGBOrAlpha){
 					glEnableVertexAttribArray(attributes.colorOffset);
 					glEnableVertexAttribArray(attributes.color);
@@ -166,9 +172,11 @@ namespace BaconBox {
 					program = rgbProgram;
 					program->use();
 				}
+
 				program->sendUniform(uniforms.tex, 0);
 				program->sendUniform(uniforms.projection, &(projectionMatrix[0]));
 				program->sendUniform(uniforms.modelView, &(modelViewMatrix[0]));
+
 
 			}
 			if(lastGPUState.blend != currentGPUState.blend){
@@ -218,6 +226,7 @@ namespace BaconBox {
 		              backgroundColor.getAlpha());
 
 		glClear(GL_COLOR_BUFFER_BIT);
+
 		}
 
 		loadIdentity();
@@ -325,8 +334,6 @@ void OpenGLDriver::endRenderToTexture(){
 
 	void OpenGLDriver::initializeGraphicDriver() {
 		GraphicDriver::initializeGraphicDriver();
-
-		
 		#ifdef BB_GLEW
 		 GLenum err;
            err = glewInit();
@@ -427,7 +434,7 @@ void OpenGLDriver::endRenderToTexture(){
 		std::string fragmentShaderNoColor;
 		std::string fragmentShader;
 		
-#ifdef BB_IPHONE_PLATFORM
+#ifdef BB_OPENGLES
 		std::string GLESPrecisionVertex = "precision highp float;\n";
 		std::string GLESPrecisionFragment = "precision highp float;\n";
 		vertexShaderNoColor += GLESPrecisionVertex;
@@ -448,20 +455,21 @@ void OpenGLDriver::endRenderToTexture(){
 		fragmentShader += coreFragmentShader;
 		fragmentShaderAlphaNoColor += coreFragmentShaderAlphaNoColor;
 		
+
+
 			alphaProgram = new GLSLProgram(vertexShader,fragmentShaderAlpha);
 			rgbProgram = new GLSLProgram(vertexShader,fragmentShader);
 			rgbNoTransformProgram = new GLSLProgram(vertexShaderNoColor,fragmentShaderNoColor);
 			alphaNoTransformProgram = new GLSLProgram(vertexShaderNoColor,fragmentShaderAlphaNoColor);
-			
+
 			program = rgbProgram;
     		program->use();
-		
+
 			uniforms.tex = program->getUniformLocation("tex");
 			uniforms.projection = program->getUniformLocation("projection");
 			uniforms.modelView= program->getUniformLocation("modelView");
 		
-    		program->sendUniform(uniforms.tex, 0);
-			program->sendUniform(uniforms.modelView, &(modelViewMatrix[0]));
+
 			attributes.vertices = 0;
 		
 		rgbProgram->setAttributeLocation("position", attributes.vertices);
@@ -479,12 +487,14 @@ void OpenGLDriver::endRenderToTexture(){
 			
 			alphaNoTransformProgram->setAttributeLocation("position", attributes.vertices);
 			alphaNoTransformProgram->setAttributeLocation("texcoordIN", attributes.texCoord);
-			
+
 		rgbProgram->link();
 		alphaProgram->link();
 		rgbNoTransformProgram->link();
 		alphaNoTransformProgram->link();
-			
+
+    		program->sendUniform(uniforms.tex, 0);
+			program->sendUniform(uniforms.modelView, &(modelViewMatrix[0]));
 		}
 
 		
@@ -516,10 +526,30 @@ void OpenGLDriver::endRenderToTexture(){
 		
 
 	}
+
+	void OpenGLDriver::tearGraphicDriver(){
+		ResourceManager::unloadAllTexture();
+
+		lastGPUState = GPUState();
+
+
+		shaderCompiled = false;
+
+		if(alphaProgram) delete alphaProgram;
+		if(rgbProgram) delete rgbProgram;
+		if(rgbNoTransformProgram) delete rgbNoTransformProgram;
+		if(alphaNoTransformProgram) delete alphaNoTransformProgram;
+		alphaProgram = NULL;
+		rgbProgram = NULL;
+		rgbNoTransformProgram = NULL;
+		alphaNoTransformProgram = NULL;
+		program = NULL;
+
+	}
 	
 	void OpenGLDriver::resetProjection(){
 		glViewport(0, 0, static_cast<int>(MainWindow::getInstance().getRealResolutionWidth()), static_cast<int>(MainWindow::getInstance().getRealResolutionHeight()));
-		
+
 		
 		float left, right, bottom, top;
 		
@@ -529,7 +559,6 @@ void OpenGLDriver::endRenderToTexture(){
 		top = 0.0f;
 		
 		
-		
 		projectionMatrix[0] = 2.0f / (right - left);
 		projectionMatrix[5] = 2.0f / (top- bottom);
 		projectionMatrix[10] = -1;
@@ -537,7 +566,7 @@ void OpenGLDriver::endRenderToTexture(){
 		projectionMatrix[13] = -((top+bottom)/(top-bottom));
 		//		projectionMatrix[14] = 0;
 		projectionMatrix[15] = 1;
-		
+
 		program->sendUniform(uniforms.projection, &(projectionMatrix[0]));
 	}
 
@@ -694,6 +723,7 @@ void OpenGLDriver::endRenderToTexture(){
 		else{
 			texInfo = new TextureInformation();
 		}
+		PRLN("Loading texture " << textureInfo->key);
 		glGenTextures(1, reinterpret_cast<unsigned int *>(&(texInfo->textureId)));
 		glBindTexture(GL_TEXTURE_2D, texInfo->textureId);
 
@@ -764,6 +794,8 @@ void OpenGLDriver::endRenderToTexture(){
 	
 		return texInfo;
 	}
+
+	
 
 	void OpenGLDriver::finalizeRender() {
 		if (this->lastTexture) {

@@ -84,6 +84,10 @@ namespace BaconBox {
 		 * Default constructor. Can only be called by the audio engine.
 		 */
 		NullAudio();
+
+		private:
+			AudioState::type state;
+			int nbTimes;
 	};
 }
 

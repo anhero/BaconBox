@@ -5,12 +5,18 @@
 using namespace BaconBox;
 
 int SoundEngine::getSoundVolume() const {
+		return soundVolume;
+}
+
+
+int SoundEngine::getAbsoluteSoundVolume() const{
 	if(isMuted()) {
 		return muteValue;
 	} else {
 		return soundVolume;
 	}
 }
+
 
 void SoundEngine::setSoundVolume(int newSoundVolume) {
 	if(isMuted()) {

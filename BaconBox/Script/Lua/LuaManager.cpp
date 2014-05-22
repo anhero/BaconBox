@@ -3,6 +3,7 @@
 
 #include "lua.hpp"
 #include "BaconBox/Console.h"
+#include <sstream>
 
 extern "C" int luaopen_BaconBox(lua_State* L);
 
@@ -16,6 +17,15 @@ LuaManager * LuaManager::instance = NULL;
 		L=luaL_newstate();
 		luaL_openlibs(L);
         luaopen_BaconBox(L);
+        #ifdef BB_ANDROID
+        	static const struct luaL_reg printlib [] = {
+			  {"print", LuaManager::print},
+			  {NULL, NULL} /* end of array */
+			};
+			  lua_getglobal(L, "_G");
+			  luaL_register(L, NULL, printlib);
+			  lua_pop(L, 1);
+        #endif
 	}
 	lua_State * LuaManager::getVM(){
 		return  getDefault().L;
@@ -23,6 +33,32 @@ LuaManager * LuaManager::instance = NULL;
 	LuaManager::~LuaManager(){
 		lua_close(L);
 	}
+
+	int LuaManager::print(lua_State* L) {
+    int nargs = lua_gettop(L);
+	std::stringstream ss;
+    for (int i=1; i <= nargs; i++) {
+		int t = lua_type(L, i);
+         switch (t) {
+				case LUA_TSTRING:  /* strings */
+					ss << lua_tostring(L, i) << " ";
+					break;
+				case LUA_TBOOLEAN:  /* booleans */
+					ss << (lua_toboolean(L, i) ? "true" : "false") << " ";
+					break;
+				case LUA_TNUMBER:  /* numbers */
+					ss << lua_tonumber(L, i) << " ";
+					break;
+				default:  /* other values */
+					ss << lua_typename(L, t) << " ";
+					break;
+			};
+    }
+
+    PRLN(ss.str());
+
+    return 0;
+}
 
 	void LuaManager::doString(const std::string & string){
         getDefault().internalDoString(string);
@@ -71,16 +107,18 @@ LuaManager * LuaManager::instance = NULL;
 		lua_getfield(L, LUA_GLOBALSINDEX, "print");
 		lua_pushvalue(L,-2);
 		lua_call(L, 1, 0);
+		PRLN(lua_tostring(L, -1));
+
 		if(LuaManager::criticalError){
-			PRLN(lua_tostring(L, -1));
-			exit(1);
+			// PRLN(lua_tostring(L, -1));
+			// exit(1);
 		}
 		return 0;
 	}
 
 	//Taken from http://cc.byexamples.com/2008/11/19/lua-stack-dump-for-c/
-	void LuaManager::stackdump(){
-		lua_State* l = LuaManager::getVM();
+	void LuaManager::stackdump(lua_State* l){
+		if(l == NULL)l = LuaManager::getVM();
 		int i;
 		int top = lua_gettop(l);
 		

@@ -16,7 +16,6 @@ elsif OS.linux?
 else
 	platform = 'generic'
 end
-
 library.build = lambda do |library, options|
 	buildCommand = "make #{platform}"
 	buildCommand = "#{buildCommand} CC=#{options.CC}" if defined? options.CC  
@@ -30,3 +29,22 @@ library.install = lambda do |library, options|
 system("make #{platform} install INSTALL_TOP=#{options.prefix}")
 end
 
+
+
+if $options.platformName == "Android"
+	library.prepareBuild = lambda do |library, options|
+		result = system("patch -p1 <<'EOF'
+--- old/lua-5.1.5/src/llex.c	2009-11-23 09:58:22.000000000 -0500
++++ new/lua-5.1.5/src/llex.c	2014-03-09 16:56:59.000000000 -0400
+@@ -181 +181 @@
+-  struct lconv *cv = localeconv();
++  // struct lconv *cv = localeconv();
+@@ -183 +183 @@
+-  ls->decpoint = (cv ? cv->decimal_point[0] : '.');
++  ls->decpoint = '.';//(cv ? cv->decimal_point[0] : '.');
+		EOF")
+
+		return (result and Dir.gotoSubDir())
+	end
+
+end

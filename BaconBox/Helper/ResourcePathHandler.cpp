@@ -6,12 +6,15 @@
 #ifdef BB_IPHONE_PLATFORM
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#include <stdlib.h>
+#include <sys/stat.h>
+#include <dirent.h>
 #elif defined(BB_MAC_PLATFORM) || defined(BB_LINUX)
 #include <sys/types.h>
 #include <pwd.h>
 #include <unistd.h>
 #include <sys/stat.h>
-
+#include <dirent.h>
 #include <sstream>
 #elif defined(BB_QT)
 #include <QDir>
@@ -22,6 +25,10 @@
 #include "BaconBox/Console.h"
 #include "BaconBox/Core/Engine.h"
 
+#if defined(BB_ANDROID)
+	#include "BaconBox/Helper/Android/AndroidHelper.h"
+#endif
+
 namespace BaconBox {
 	
 	std::string ResourcePathHandler::debugDocumentPath = "";
@@ -29,26 +36,28 @@ namespace BaconBox {
 
 
 	std::string ResourcePathHandler::getResourcePathFor(const std::string &item) {
-		std::string path;
-#ifdef BB_IPHONE_PLATFORM
+		std::string path = getResourcePath() + "/" + item;
+// #ifdef BB_IPHONE_PLATFORM
 
-		NSString *resourceDirectory = [[NSBundle mainBundle] resourcePath];
-	path = ((std::string)[resourceDirectory cStringUsingEncoding: NSASCIIStringEncoding] + "/" + item);
-#else
-		if(debugResourcePath != ""){
-			path = debugResourcePath + "/" + item;
-		}
-		else{
-			path = Engine::getApplicationPath();
+// 		NSString *resourceDirectory = [[NSBundle mainBundle] resourcePath];
+// 	path = ((std::string)[resourceDirectory cStringUsingEncoding: NSASCIIStringEncoding] + "/" + item);
+// #else
+// 		if(debugResourcePath != ""){
+// 			path = debugResourcePath + "/" + item;
+// 		}
+// 		else{
+// 			path = Engine::getApplicationPath();
 		
 
-#ifdef BB_MAC_PLATFORM
-		path = path + "/../Resources/" + item;
-#else
-		path = path + "/Resources/" + item;
-#endif
-}
-#endif //BB_IPHONE_PLATFORM
+// #ifdef BB_MAC_PLATFORM
+// 		path = path + "/../Resources/" + item;
+// #else
+// 		path = path + "/Resources/" + item;
+// #endif
+// }
+// #endif //BB_IPHONE_PLATFORM
+
+
 		
 		return path;
 	}
@@ -63,14 +72,16 @@ namespace BaconBox {
 	
 	std::string ResourcePathHandler::getResourcePath(){
 		std::string resourcePath;
-#ifdef BB_IPHONE_PLATFORM
+#if defined(BB_IPHONE_PLATFORM)
 
 		NSString *resourceDirectory = [[NSBundle mainBundle] resourcePath];
 		resourcePath = [resourceDirectory cStringUsingEncoding: NSASCIIStringEncoding];
+#elif defined(BB_ANDROID)
+		if(debugResourcePath != "") return debugResourcePath;
+		return "/data/data/" + AndroidHelper::getPackageName() + "/";
 #else
 		
-		if(debugResourcePath != "") return debugResourcePath;
-
+if(debugResourcePath != "") return debugResourcePath;
 resourcePath = Engine::getApplicationPath();
 		
 #ifdef BB_MAC_PLATFORM
@@ -78,8 +89,8 @@ resourcePath = Engine::getApplicationPath();
 #else
 		resourcePath = resourcePath + "/Resources";
 #endif
+#endif
 
-#endif //BB_IPHONE_PLATFORM
 		return resourcePath;
 	}
 
@@ -91,20 +102,23 @@ resourcePath = Engine::getApplicationPath();
 	}
 
 	std::string ResourcePathHandler::getDocumentPath() {
-#ifdef BB_IPHONE_PLATFORM
+#if defined(BB_IPHONE_PLATFORM)
 		NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
 		NSString *documentsDirectory = [paths objectAtIndex: 0];
 	std::string documentPath = [documentsDirectory cStringUsingEncoding: NSASCIIStringEncoding];
 		return documentPath;
+
+
 #else
 		if(debugDocumentPath != ""){
 			return debugDocumentPath;
 		}
 		else{
-#if defined(BB_MAC_PLATFORM) || defined(BB_LINUX)
+#if defined(BB_MAC_PLATFORM) || (defined(BB_LINUX) && !defined(BB_ANDROID))
 		
 		
-#ifdef BB_MAC_PLATFORM
+
+#if defined(BB_MAC_PLATFORM)
 		const std::string PATH = "/Library/Application Support/";
 #else
 		const std::string PATH = "/.config/";
@@ -120,6 +134,9 @@ resourcePath = Engine::getApplicationPath();
 		}
 
 		return ss.str();
+
+#elif defined(BB_ANDROID)
+		return "/data/data/" + AndroidHelper::getPackageName() + "/";
 #else
 		return std::string();
 		
@@ -131,14 +148,11 @@ resourcePath = Engine::getApplicationPath();
 	}
 
 	bool ResourcePathHandler::createDocumentFolder(const std::string &path) {
-		return createFolderTree(getDocumentPath() + path);
+		return createFolderTree(getDocumentPath() +"/" + path);
 	}
 
 	bool ResourcePathHandler::createFolder(const std::string &path) {
-#ifdef BB_IPHONE_PLATFORM
-		return false;
-#elif defined(BB_MAC_PLATFORM) || defined(BB_LINUX)
-
+#if defined(BB_MAC_PLATFORM) || defined(BB_LINUX)|| defined(BB_IPHONE_PLATFORM)
 		if (mkdir(path.c_str(), 0755)) {
 			return true;
 
@@ -198,6 +212,71 @@ resourcePath = Engine::getApplicationPath();
 
 		return result;
 	}
+	
+	bool ResourcePathHandler::removeDirectory(const std::string &path){
+		//Took from here: http://stackoverflow.com/questions/2256945/removing-a-non-empty-directory-programmatically-in-c-or-c
+
+		DIR *d = opendir(path.c_str());
+		size_t path_len = strlen(path.c_str());
+		int r = -1;
+		
+		if (d)
+		{
+			struct dirent *p;
+			
+			r = 0;
+			
+			while (!r && (p=readdir(d)))
+			{
+				int r2 = -1;
+				char *buf;
+				size_t len;
+				
+				/* Skip the names "." and ".." as we don't want to recurse on them. */
+				if (!strcmp(p->d_name, ".") || !strcmp(p->d_name, ".."))
+				{
+					continue;
+				}
+				
+				len = path_len + strlen(p->d_name) + 2;
+				buf = (char*)malloc(len);
+				
+				if (buf)
+				{
+					struct stat statbuf;
+					
+					snprintf(buf, len, "%s/%s", path.c_str(), p->d_name);
+					
+					if (!stat(buf, &statbuf))
+					{
+						if (S_ISDIR(statbuf.st_mode))
+						{
+							r2 = removeDirectory(buf);
+						}
+						else
+						{
+							r2 = unlink(buf);
+						}
+					}
+					
+					free(buf);
+				}
+				
+				r = r2;
+			}
+			
+			closedir(d);
+		}
+		
+		if (!r)
+		{
+			r = rmdir(path.c_str());
+		}
+		
+		return r;
+	}
+	
+	
 
 	bool ResourcePathHandler::folderExists(const std::string &path) {
 #ifdef BB_IPHONE_PLATFORM

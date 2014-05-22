@@ -15,7 +15,7 @@ namespace BaconBox {
 	/**
 	 * Represents an entity that has components.
 	 */
-	class Entity : public sigly::HasSlots<sigly::SingleThreaded> {
+	class Entity : public sigly::HasSlots<SIGLY_DEFAULT_MT_POLICY> {
 	public:
 		/// Message ID to use when broadcasting a message to all child components.
 		static int BROADCAST;

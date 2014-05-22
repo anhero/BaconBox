@@ -19,7 +19,7 @@ namespace BaconBox {
 	 * the basic properties of the main window.
 	 * @ingroup WindowDisplay
 	 */
-	class MainWindow : public sigly::HasSlots<sigly::SingleThreaded> {
+	class MainWindow : public sigly::HasSlots<SIGLY_DEFAULT_MT_POLICY> {
 		friend class BaseEngine;
 	public:
 		/// Default name given to all new main windows.
@@ -84,7 +84,9 @@ namespace BaconBox {
 		 * @param newInputGrabbed
 		 */
 		virtual void setInputGrabbed(bool newInputGrabbed) = 0;
-		
+		const Vector2 & getRealResolution();
+		const Vector2 & getRealContextSize();
+
 		Vector2 getResolution();
         Vector2 getContextSize();
         
@@ -162,7 +164,7 @@ namespace BaconBox {
 		 * @return Current orientation.
 		 * @see BaconBox::MainWindow::orientation
 		 */
-		WindowOrientation::type getOrientation() const;
+		virtual WindowOrientation::type getOrientation() const;
 		
 		
 		virtual void setAutoOrientation(WindowAutoOrientation::type autoOrientation);
@@ -187,24 +189,10 @@ namespace BaconBox {
 		virtual ~MainWindow();
 	protected:
 		bool orientationIsHorizontal();
-		/// Screen's width resolution (or width of the window in window mode).
-		unsigned int resolutionWidth;
-
-		/// Screen's height resolution (or height of the window in window mode).
-		unsigned int resolutionHeight;
-
-		/**
-		 * Render context width (if you want to work with pixel set it to the
-		 * same value as resolutionWidth.
-		 */
-		unsigned int contextWidth;
 		
-		/**
-		 * Render context width (if you want to work with pixel set it to the
-		 * same value as resolutionHeight.
-		 */
-		unsigned int contextHeight;
-		
+		Vector2 resolution;
+		Vector2 context;
+
 		/// Window's orientation. NORMAL by default.
 		WindowOrientation::type orientation;
 		WindowAutoOrientation::type autoOrientation;

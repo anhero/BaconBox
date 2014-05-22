@@ -2,9 +2,11 @@ BaconBox:
     type: library-static
   #Local array used as a reference for excluding all platforms.
     platforms: &platforms
+      - Android
       - Qt
       - iOS
       - ios
+      - IOS
       - SDL
       - MusicIOS
       - OpenAL
@@ -12,8 +14,15 @@ BaconBox:
       - Flash
       - Lua
       - libc
+      - SDLMixer
     defaultConfiguration: SDL_Lua_debug
     configurations:
+      O3:
+        artifacts:
+            CFLAGS:
+                - "-O3"
+            CXXFLAGS:
+                - "-O3"
       core: &core
         artifacts:
           CFLAGS:
@@ -28,7 +37,8 @@ BaconBox:
           IncludesPath:
             - "."
           Define:
-            - ["SIGLY_DEFAULT_MT_POLICY", "SingleThreaded"]
+            - ["SIGLY_DEFAULT_MT_POLICY", "sigly::SingleThreaded"]
+            # - SIGLY_USE_POSIX_THREADS
             - ["VMATH_NAMESPACE", "vmath"]
 
       OSX: &OSX
@@ -52,7 +62,7 @@ BaconBox:
             - "libraries/MINGW32_NT-6.1/i686/include"
 
       native: &native
-        include: [*core,  [*OSX, "OS.osx?"], [*WINDOWS, "OS.windows?"]]
+        include: [core,  [OSX, "OS.osx?"], [WINDOWS, "OS.windows?"]]
 
       Lua: &Lua
         postScriptArtifacts:
@@ -73,24 +83,51 @@ BaconBox:
             - "FileUtils.mkpath \"#{project.buildDir}/swig\"; %x{ #{project.options['swig']} -lua -c++ -module BaconBox -outdir #{project.buildDir}/swig #{project.definesString} #{project.includesString} -o #{project.buildDir}/swig/BaconBoxLua.cpp BaconBox/Special/Swig/BaconBox.i}; %x{ #{project.options['swig']} -lua -external-runtime #{project.buildDir}/swig/swigluarun.h}"
           Option:
             - ['swig', "Path to your swig executable", 'swig']
-
+      debug: &debug
+        artifacts:
+          CXXFLAGS:
+            - "-g"
+            - "-O0"
+          Define:
+            - BB_DEBUG
       SDL: &SDL
-        include: [*native]
+        include: [native]
         artifacts:
           Cpp:
             - "BaconBox/**/SDL/*.cpp"
+            - "BaconBox/**/SDLMixer/*.cpp"
           Header:
             - "BaconBox/**/SDL/*.h"
+            - "BaconBox/**/SDLMixer/*.h"
           Define:
             - SDL
       SDL_Lua: &SDL_Lua
-        include: [*Lua, *SDL]
+        include: [Lua, SDL]
       SDL_Lua_debug:
-                include: [*SDL_Lua]
-                Define:
-                  - BB_DEBUG
+                include: [SDL_Lua, debug]
+      Android: &Android
+                include: [core, O3]
                 artifacts:
-                  CXXFLAGS:
-                    - "-g"
-                    - "-O0"
-          
+                  CFLAGS:
+                    - "-stdlib=libstdc++"
+                  C:
+                    - "BaconBox/**/Android/*.c"
+                  Cpp:
+                    - "BaconBox/**/libc/*.cpp"
+                    - "BaconBox/**/Android/*.cpp"
+                  Header:
+                    - "BaconBox/**/libc/*.h"
+                    - "BaconBox/**/Android/*.h"
+                  IncludesPath:
+                    - "libraries/Android/**/include"
+                  Define:
+                    - BB_ANDROID
+      Android_Lua: &Android_Lua
+                include: [Lua, Android]
+      Android_Lua_debug_arm:
+                include: [Android_Lua]
+      Android_Lua_debug_x86:
+                include: [Android_Lua]
+
+
+

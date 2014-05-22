@@ -8,7 +8,7 @@ struct swig_type_info;
 struct lua_State;
 namespace BaconBox {
 	
-	class LuaCallback : public sigly::HasSlots<sigly::SingleThreaded> {
+	class LuaCallback : public sigly::HasSlots<SIGLY_DEFAULT_MT_POLICY> {
 	public:
 		LuaCallback(lua_State * L, const std::string & type = "");
 		void call();

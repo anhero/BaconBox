@@ -1,11 +1,13 @@
 #include "BaconBox/Console.h"
 
 using namespace BaconBox;
-void Console::printTrace(int max) {
-#ifndef BB_ANDROID
-	Console::print_stacktrace(stdout, max);
+
+#ifdef BB_ANDROID
+std::string BaconBox::Console::logcatBuffer = "";
+std::stringstream BaconBox::Console::logcatSS;
+
 #endif
-}
+
 
 void Console::_log(std::string file, int line,std::string varname, std::string value) {
 #ifndef BB_ANDROID

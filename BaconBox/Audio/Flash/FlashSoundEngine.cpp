@@ -29,7 +29,7 @@ SoundFX* FlashSoundEngine::getSoundFX(const std::string& key, bool survive) {
 			result = NULL;
 			Console::println("Tried to get a sound effect from an invalid key: " +
 						   key);
-			Console::printTrace();
+			
 		}
 
 		if(!survive) {
@@ -38,7 +38,7 @@ SoundFX* FlashSoundEngine::getSoundFX(const std::string& key, bool survive) {
 	} else {
 		Console::println("Failed to allocate memory for the new sound effect: " +
 					   key);
-		Console::printTrace();
+		
 	}
 
 	return result;

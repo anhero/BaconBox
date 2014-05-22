@@ -10,7 +10,7 @@ int LuaCallback::EMPTY_LUA_REF = -1;
 
 swig_type_info * getTypeByName(lua_State* L, const char * name);
 
-LuaCallback::LuaCallback(lua_State * L, const std::string & type):sigly::HasSlots<sigly::SingleThreaded>(), swigType1(NULL), table_index(EMPTY_LUA_REF), function_index(EMPTY_LUA_REF){
+LuaCallback::LuaCallback(lua_State * L, const std::string & type):sigly::HasSlots<SIGLY_DEFAULT_MT_POLICY>(), swigType1(NULL), table_index(EMPTY_LUA_REF), function_index(EMPTY_LUA_REF){
 	this->L = L;
 	if(lua_istable(L, -1)){
 		lua_getfield(L, -1, "call");
@@ -26,8 +26,8 @@ LuaCallback::LuaCallback(lua_State * L, const std::string & type):sigly::HasSlot
 			
 			int ret = lua_pcall(L, 3, 0, 0);
 			if(ret !=0){
-				std::cout << "An error occured calling LuaCallback::LuaCallback(...). " <<std::endl;
-				std::cout << "Error : " << lua_tostring(L, -1) << std::endl;
+				PRLN("An error occured calling LuaCallback::LuaCallback(...). ");
+				PRLN( "Error : " << lua_tostring(L, -1));
 			}
 			lua_pop (L, 1);
 
@@ -49,8 +49,8 @@ void LuaCallback::call(void* param) {
 	SWIG_NewPointerObj(L, param, swigType1, 0);
 	int ret = lua_pcall(L, 2, 0, 0);
 	if(ret !=0){
-		std::cout << "An error occured executing a LuaCallback. " <<std::endl;
-		std::cout << "Error : " << lua_tostring(L, -1) << std::endl;
+		PRLN("An error occured executing a LuaCallback. ");
+		PRLN("Error : " << lua_tostring(L, -1));
 	}
 };
 
@@ -61,7 +61,7 @@ void LuaCallback::call(){
 	
 	int ret = lua_pcall(L, 1, 0, 0);
 	if(ret !=0){
-		std::cout << "An error occured executing a LuaCallback. " <<std::endl;
-		std::cout << "Error : " << lua_tostring(L, -1) << std::endl;
+		PRLN("An error occured executing a LuaCallback. ");
+		PRLN("Error : " << lua_tostring(L, -1));
 	}
 }
