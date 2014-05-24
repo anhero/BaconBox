@@ -39,7 +39,7 @@ namespace BaconBox {
 		InputManager::getInstance().setNbKeyboards(1);
 		InputManager::getInstance().setNbPointers(1);
 
-
+		InputManager::getInstance().setNbGamePads(2);
 	}
 	
 	
@@ -120,7 +120,7 @@ namespace BaconBox {
 	SDLMainWindow::SDLMainWindow() : MainWindow(), mainWindow(NULL),
 		mainContext(NULL) {
 
-        SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO);
+        SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_JOYSTICK);
 			PRLN("setting joystick");
             unsigned int  nbJoystick = SDL_NumJoysticks();
             if(nbJoystick){
