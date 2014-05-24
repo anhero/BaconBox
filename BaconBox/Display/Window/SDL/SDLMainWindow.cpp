@@ -39,7 +39,6 @@ namespace BaconBox {
 		InputManager::getInstance().setNbKeyboards(1);
 		InputManager::getInstance().setNbPointers(1);
 
-		InputManager::getInstance().setNbGamePads(2);
 	}
 	
 	
