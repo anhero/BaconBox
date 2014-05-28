@@ -41,10 +41,8 @@ void AndroidMainWindow::onBaconBoxInit(unsigned int resolutionWidth,
 	}
 
 	void AndroidMainWindow::initWindow(){
-					    PRLN("initWindow  pre context");
 
 		if(needContext){
-					    PRLN("initWindow  wxwxwxwx");
 
 			needContext = false;
 
@@ -110,7 +108,6 @@ void AndroidMainWindow::onBaconBoxInit(unsigned int resolutionWidth,
 
 
 	void AndroidMainWindow::termWindow(){
-		    PRLN("termWindow  wxwxwxwx");
 		GraphicDriver::getInstance().tearGraphicDriver();
 		needContext = true;
 		 if (display != EGL_NO_DISPLAY) {
