@@ -243,8 +243,11 @@ namespace BaconBox {
 				// We update the timers.
 				TimerManager::update();
 				this->lastUpdate = TimeHelper::getInstance().getSinceStartComplete();
-//				this->nextUpdate += this->updateDelay; //This will make the engine try to catch back if it falls behind
+#ifdef BB_IPHONE_PLATFORM
+				this->nextUpdate += this->updateDelay; //This will make the engine try to catch back if it falls behind
+#else
 				this->nextUpdate = this->lastUpdate + this->updateDelay; //This one won't try to catch back.
+#endif
 				++this->loops;
 			}
 			
