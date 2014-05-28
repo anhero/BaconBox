@@ -424,6 +424,12 @@ class FlashEngine;
 %template(signal_base0)sigly::_signal_base0< SIGLY_DEFAULT_MT_POLICY >;
 %template(signal) sigly::Signal0< SIGLY_DEFAULT_MT_POLICY >;
 
+%template(signal_base1_GamePadButtonSignalData)sigly::_signal_base1< BaconBox::GamePadButtonSignalData,SIGLY_DEFAULT_MT_POLICY >;
+%template(signal_GamePadButtonSignalData) sigly::Signal1< BaconBox::GamePadButtonSignalData,SIGLY_DEFAULT_MT_POLICY >;
+
+%template(signal_base1_GamePadThumbstickSignalData)sigly::_signal_base1< BaconBox::GamePadThumbstickSignalData,SIGLY_DEFAULT_MT_POLICY >;
+%template(signal_GamePadThumbstickSignalData) sigly::Signal1< BaconBox::GamePadThumbstickSignalData,SIGLY_DEFAULT_MT_POLICY >;
+
 %template(signal_base1_KeySignalData)sigly::_signal_base1< BaconBox::KeySignalData,SIGLY_DEFAULT_MT_POLICY >;
 %template(signal_KeySignalData) sigly::Signal1< BaconBox::KeySignalData,SIGLY_DEFAULT_MT_POLICY >;
 

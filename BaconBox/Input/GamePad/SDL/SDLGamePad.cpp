@@ -1,19 +1,41 @@
 #include "BaconBox/Input/GamePad/SDL/SDLGamePad.h"
 
+#include <iostream>
+
 #define BB_MIN_SDL_JOYSTICK_VALUE 32768.0f
 #define BB_MAX_SDL_JOYSTICK_VALUE 32767.0f
 
 namespace BaconBox {
 
 
-	SDLGamePad::SDLGamePad(size_t index) : GamePad(index) {
-		joystick = SDL_JoystickOpen(static_cast<int>(index));
-		state.init(SDL_JoystickNumButtons(joystick), SDL_JoystickNumAxes(joystick));
-
+	SDLGamePad::SDLGamePad(size_t index) : GamePad(index), joystick(NULL) {
+		this->joystick = SDL_JoystickOpen(static_cast<int>(index));
+		
+		if (this->joystick) {
+			int nbButtons = SDL_JoystickNumButtons(this->joystick);
+			
+			if (nbButtons < 0) {
+				std::cout << "SDL_JoystickNumButtons returned " << nbButtons << ", the error message is:" << std::endl << SDL_GetError() << std::endl;
+			}
+			
+			int nbAxes = SDL_JoystickNumAxes(this->joystick);
+			
+			if (nbAxes < 0) {
+				std::cout << "SDL_JoystickNumAxes returned " << nbAxes << ", the error message is:" << std::endl << SDL_GetError() << std::endl;
+			}
+			
+			if (nbButtons >= 0 && nbAxes >= 0) {
+				state.init(nbButtons, nbAxes);
+			}
+		} else {
+			std::cout << "SDL_JoystickOpen for the game pad '" << index << "' returned NULL, the error message is:" << std::endl << SDL_GetError() << std::endl;
+		}
 	}
 
 	SDLGamePad::~SDLGamePad() {
-		SDL_JoystickClose(joystick);
+		if (this->joystick) {
+			SDL_JoystickClose(this->joystick);
+		}
 	}
 
 	void SDLGamePad::updateDevice() {
@@ -22,7 +44,7 @@ namespace BaconBox {
 		getPreviousThumbstick() = getThumbstick();
 
 		for (int i = 0; i < getButtons().size(); i++) {
-			getButtons()[i] = SDL_JoystickGetButton(joystick, i);
+			getButtons()[i] = SDL_JoystickGetButton(this->joystick, i);
 
 			if (isButtonPressed(i)) {
 				buttonPress(GamePadButtonSignalData(state, i, getIndex()));
@@ -36,7 +58,7 @@ namespace BaconBox {
 		}
 
 		for (std::vector<float>::size_type i = 0; i < getThumbstick().size(); ++i) {
-			float  axisValue = SDL_JoystickGetAxis(joystick, static_cast<int>(i));
+			float  axisValue = SDL_JoystickGetAxis(this->joystick, static_cast<int>(i));
 			float finalAxisValue;
 
 			if (axisValue < 0) {
