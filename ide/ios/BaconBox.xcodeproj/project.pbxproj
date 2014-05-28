@@ -80,8 +80,6 @@
 		C745A5B61889F6AF00383361 /* Entity.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C745A4131889F6AE00383361 /* Entity.cpp */; };
 		C745A5B81889F6AF00383361 /* IDManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C745A4181889F6AE00383361 /* IDManager.cpp */; };
 		C745A5B91889F6AF00383361 /* State.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C745A41A1889F6AE00383361 /* State.cpp */; };
-		C745A5BA1889F6AF00383361 /* BatchedVertexArray.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C745A41D1889F6AE00383361 /* BatchedVertexArray.cpp */; };
-		C745A5BB1889F6AF00383361 /* BatchManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C745A41F1889F6AE00383361 /* BatchManager.cpp */; };
 		C745A5BC1889F6AF00383361 /* Camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C745A4211889F6AE00383361 /* Camera.cpp */; };
 		C745A5BD1889F6AF00383361 /* Color.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C745A4231889F6AE00383361 /* Color.cpp */; };
 		C745A5BE1889F6AF00383361 /* ColorFormat.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C745A4251889F6AE00383361 /* ColorFormat.cpp */; };
@@ -90,7 +88,6 @@
 		C745A5C11889F6AF00383361 /* GLSLProgram.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C745A4301889F6AE00383361 /* GLSLProgram.cpp */; };
 		C745A5C21889F6AF00383361 /* GLSLShader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C745A4321889F6AE00383361 /* GLSLShader.cpp */; };
 		C745A5C31889F6AF00383361 /* OpenGLDriver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C745A4341889F6AE00383361 /* OpenGLDriver.cpp */; };
-		C745A5C41889F6AF00383361 /* OpenGLStaticBatchManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C745A4361889F6AE00383361 /* OpenGLStaticBatchManager.cpp */; };
 		C745A5C51889F6AF00383361 /* DynamicBatch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C745A4381889F6AE00383361 /* DynamicBatch.cpp */; };
 		C745A5C81889F6AF00383361 /* PixMap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C745A43F1889F6AE00383361 /* PixMap.cpp */; };
 		C745A5C91889F6AF00383361 /* SubTextureInfo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C745A4421889F6AE00383361 /* SubTextureInfo.cpp */; };
@@ -111,7 +108,6 @@
 		C745A5DD1889F6AF00383361 /* BitHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C745A47A1889F6AE00383361 /* BitHelper.cpp */; };
 		C745A5DE1889F6AF00383361 /* CallHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C745A47C1889F6AE00383361 /* CallHelper.cpp */; };
 		C745A5DF1889F6AF00383361 /* Compression.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C745A47F1889F6AE00383361 /* Compression.cpp */; };
-		C745A5E21889F6AF00383361 /* FlashExporterXmlReader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C745A48B1889F6AE00383361 /* FlashExporterXmlReader.cpp */; };
 		C745A5E31889F6AF00383361 /* IOSTimeHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C745A48E1889F6AE00383361 /* IOSTimeHelper.cpp */; };
 		C745A5E41889F6AF00383361 /* LibcTimeHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C745A4951889F6AE00383361 /* LibcTimeHelper.cpp */; };
 		C745A5E51889F6AF00383361 /* LuaHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C745A4981889F6AE00383361 /* LuaHelper.cpp */; };
@@ -347,10 +343,6 @@
 		C745A4191889F6AE00383361 /* IDManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IDManager.h; sourceTree = "<group>"; };
 		C745A41A1889F6AE00383361 /* State.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = State.cpp; sourceTree = "<group>"; };
 		C745A41B1889F6AE00383361 /* State.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = State.h; sourceTree = "<group>"; };
-		C745A41D1889F6AE00383361 /* BatchedVertexArray.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BatchedVertexArray.cpp; sourceTree = "<group>"; };
-		C745A41E1889F6AE00383361 /* BatchedVertexArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BatchedVertexArray.h; sourceTree = "<group>"; };
-		C745A41F1889F6AE00383361 /* BatchManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BatchManager.cpp; sourceTree = "<group>"; };
-		C745A4201889F6AE00383361 /* BatchManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BatchManager.h; sourceTree = "<group>"; };
 		C745A4211889F6AE00383361 /* Camera.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Camera.cpp; sourceTree = "<group>"; };
 		C745A4221889F6AE00383361 /* Camera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Camera.h; sourceTree = "<group>"; };
 		C745A4231889F6AE00383361 /* Color.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Color.cpp; sourceTree = "<group>"; };
@@ -370,8 +362,6 @@
 		C745A4331889F6AE00383361 /* GLSLShader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLSLShader.h; sourceTree = "<group>"; };
 		C745A4341889F6AE00383361 /* OpenGLDriver.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OpenGLDriver.cpp; sourceTree = "<group>"; };
 		C745A4351889F6AE00383361 /* OpenGLDriver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenGLDriver.h; sourceTree = "<group>"; };
-		C745A4361889F6AE00383361 /* OpenGLStaticBatchManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OpenGLStaticBatchManager.cpp; sourceTree = "<group>"; };
-		C745A4371889F6AE00383361 /* OpenGLStaticBatchManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenGLStaticBatchManager.h; sourceTree = "<group>"; };
 		C745A4381889F6AE00383361 /* DynamicBatch.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DynamicBatch.cpp; sourceTree = "<group>"; };
 		C745A4391889F6AE00383361 /* DynamicBatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DynamicBatch.h; sourceTree = "<group>"; };
 		C745A43F1889F6AE00383361 /* PixMap.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PixMap.cpp; sourceTree = "<group>"; };
@@ -426,8 +416,6 @@
 		C745A4831889F6AE00383361 /* DynamicPool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DynamicPool.h; sourceTree = "<group>"; };
 		C745A4841889F6AE00383361 /* Ease.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Ease.h; sourceTree = "<group>"; };
 		C745A4871889F6AE00383361 /* FlagSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlagSet.h; sourceTree = "<group>"; };
-		C745A48B1889F6AE00383361 /* FlashExporterXmlReader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FlashExporterXmlReader.cpp; sourceTree = "<group>"; };
-		C745A48C1889F6AE00383361 /* FlashExporterXmlReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlashExporterXmlReader.h; sourceTree = "<group>"; };
 		C745A48E1889F6AE00383361 /* IOSTimeHelper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = IOSTimeHelper.cpp; sourceTree = "<group>"; };
 		C745A48F1889F6AE00383361 /* IOSTimeHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IOSTimeHelper.h; sourceTree = "<group>"; };
 		C745A4901889F6AE00383361 /* IsBaseOf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IsBaseOf.h; sourceTree = "<group>"; };
@@ -901,10 +889,6 @@
 		C745A41C1889F6AE00383361 /* Display */ = {
 			isa = PBXGroup;
 			children = (
-				C745A41D1889F6AE00383361 /* BatchedVertexArray.cpp */,
-				C745A41E1889F6AE00383361 /* BatchedVertexArray.h */,
-				C745A41F1889F6AE00383361 /* BatchManager.cpp */,
-				C745A4201889F6AE00383361 /* BatchManager.h */,
 				C745A4211889F6AE00383361 /* Camera.cpp */,
 				C745A4221889F6AE00383361 /* Camera.h */,
 				C745A4231889F6AE00383361 /* Color.cpp */,
@@ -952,8 +936,6 @@
 				C745A4331889F6AE00383361 /* GLSLShader.h */,
 				C745A4341889F6AE00383361 /* OpenGLDriver.cpp */,
 				C745A4351889F6AE00383361 /* OpenGLDriver.h */,
-				C745A4361889F6AE00383361 /* OpenGLStaticBatchManager.cpp */,
-				C745A4371889F6AE00383361 /* OpenGLStaticBatchManager.h */,
 			);
 			path = OpenGL;
 			sourceTree = "<group>";
@@ -1025,8 +1007,6 @@
 				C745A4831889F6AE00383361 /* DynamicPool.h */,
 				C745A4841889F6AE00383361 /* Ease.h */,
 				C745A4871889F6AE00383361 /* FlagSet.h */,
-				C745A48B1889F6AE00383361 /* FlashExporterXmlReader.cpp */,
-				C745A48C1889F6AE00383361 /* FlashExporterXmlReader.h */,
 				C745A48D1889F6AE00383361 /* ios */,
 				C745A4901889F6AE00383361 /* IsBaseOf.h */,
 				C745A4911889F6AE00383361 /* IsNumber.h */,
@@ -1373,7 +1353,6 @@
 				C745A5AD1889F6AF00383361 /* Timeline.cpp in Sources */,
 				C745A5DF1889F6AF00383361 /* Compression.cpp in Sources */,
 				C745A5AA1889F6AF00383361 /* TextComponent.cpp in Sources */,
-				C745A5BA1889F6AF00383361 /* BatchedVertexArray.cpp in Sources */,
 				C745A59F1889F6AF00383361 /* HasName.cpp in Sources */,
 				C745A5771889F6AF00383361 /* OpenALEngine.cpp in Sources */,
 				C745A5E31889F6AF00383361 /* IOSTimeHelper.cpp in Sources */,
@@ -1462,7 +1441,6 @@
 				C745A58A1889F6AF00383361 /* ComponentAddedData.cpp in Sources */,
 				C745A6231889F6AF00383361 /* Matrix2D.cpp in Sources */,
 				C745A5FB1889F6AF00383361 /* Accelerometer.cpp in Sources */,
-				C745A5E21889F6AF00383361 /* FlashExporterXmlReader.cpp in Sources */,
 				C745A5701889F6AF00383361 /* BBAudioPlayerMusic.cpp in Sources */,
 				C745A62B1889F6AF00383361 /* SignalAnalyzerManager.cpp in Sources */,
 				C745A5D71889F6AF00383361 /* NullMainWindow.cpp in Sources */,
@@ -1505,7 +1483,6 @@
 				C745A5831889F6AF00383361 /* ColorMatrix.cpp in Sources */,
 				C745A60A1889F6AF00383361 /* InputState.cpp in Sources */,
 				C745A62C1889F6AF00383361 /* SignalData.cpp in Sources */,
-				C745A5BB1889F6AF00383361 /* BatchManager.cpp in Sources */,
 				C745A5A41889F6AF00383361 /* MeshDriverRenderer.cpp in Sources */,
 				C745A61A1889F6AF00383361 /* Pointer.cpp in Sources */,
 				C745A6051889F6AF00383361 /* NullGamePad.cpp in Sources */,
@@ -1519,7 +1496,6 @@
 				C745A5CE1889F6AF00383361 /* TextureFont.cpp in Sources */,
 				C745A5FF1889F6AF00383361 /* NullAccelerometer.cpp in Sources */,
 				C745A6281889F6AF00383361 /* LuaCallback.cpp in Sources */,
-				C745A5C41889F6AF00383361 /* OpenGLStaticBatchManager.cpp in Sources */,
 				C745A5731889F6AF00383361 /* MusicInfo.cpp in Sources */,
 				C745A6271889F6AF00383361 /* ResourceManager.cpp in Sources */,
 				C79235A41889FA76008D3492 /* BaconBoxLua.cpp in Sources */,
@@ -1556,12 +1532,12 @@
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_INPUT_FILETYPE = sourcecode.cpp.objcpp;
-				GCC_OPTIMIZATION_LEVEL = fast;
+				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
 					"BB_LUA=1",
-					"SIGLY_DEFAULT_MT_POLICY=SingleThreaded",
+					"SIGLY_DEFAULT_MT_POLICY=sigly::SingleThreaded",
 					"VMATH_NAMESPACE=vmath",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
@@ -1591,7 +1567,7 @@
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_INPUT_FILETYPE = sourcecode.cpp.objcpp;
-				GCC_OPTIMIZATION_LEVEL = fast;
+				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"BB_LUA=1",
 					"SIGLY_DEFAULT_MT_POLICY=SingleThreaded",
@@ -1666,7 +1642,7 @@
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_INPUT_FILETYPE = sourcecode.cpp.objcpp;
-				GCC_OPTIMIZATION_LEVEL = fast;
+				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",

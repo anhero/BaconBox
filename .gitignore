@@ -65,3 +65,4 @@ LSOBackingStore.as
 ide/windows/CodeBlocks/BaconBox.depend
 ide/windows/CodeBlocks/BaconBox.layout
 swigluarun.h
+Makefile
