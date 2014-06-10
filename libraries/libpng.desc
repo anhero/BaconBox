@@ -9,4 +9,4 @@ buildOptions.CPPFLAGS = "-I#{$options.install_dir}/include"  #Libpng use CPPFLAG
 buildOptions.LDFLAGS = "-L#{$options.install_dir}/lib"
 
 
-buildOptions.configureOptions = ' --enable-shared=NO'
+buildOptions.configureOptions << ' --enable-shared=NO'

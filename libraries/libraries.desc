@@ -1,4 +1,6 @@
+if $options.platformName != "Android"
 libraries << 'zlib'
+end
 libraries << 'libpng'
 libraries << 'lua'
 libraries << 'jsonbox'
