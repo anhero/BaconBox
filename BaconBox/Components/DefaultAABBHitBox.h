@@ -16,7 +16,7 @@ namespace BaconBox {
 		
 		DefaultAABBHitBox *clone() const;
 		
-		const AxisAlignedBoundingBox &getAABB();
+		const AABB &getAABB();
 	private:
 		void initializeConnections();
 		

@@ -224,7 +224,7 @@ end
 #include "BaconBox/Display/Text/TextAlignment.h"
 #include "BaconBox/Components/TextComponent.h"
 #include "BaconBox/Display/Text/TextEntity.h"
-#include "BaconBox/AxisAlignedBoundingBox.h"
+#include "BaconBox/AABB.h"
   #include "BaconBox/Components/AABBHitBox.h"
 
   #include "BaconBox/Components/SizeComponent.h"
@@ -707,7 +707,7 @@ const char *__str__() {
 
 %include "BaconBox/Components/Visibility.h"
 %include "BaconBox/Components/Transform.h"
-%include "BaconBox/AxisAlignedBoundingBox.h"
+%include "BaconBox/AABB.h"
  %include "BaconBox/Components/AABBHitbox.h"
   %include "BaconBox/Components/SizeComponent.h"
 

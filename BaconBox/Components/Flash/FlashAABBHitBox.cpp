@@ -14,7 +14,7 @@ namespace BaconBox {
 		this->addConnection(new ComponentConnection<MovieClipHolder>(&this->movieClipHolder));
 	}
 
-	const AxisAlignedBoundingBox &FlashAABBHitBox::getAABB() {
+	const AABB &FlashAABBHitBox::getAABB() {
 		if (!haveCustomAABB) {
 			AS3_DeclareVar(mc, *);
 			AS3::local::var tempMC = movieClipHolder->getMovieClip();
@@ -34,7 +34,7 @@ namespace BaconBox {
 			);
 
 
-			customAABB = AxisAlignedBoundingBox(pos, sizeComponent->getSize());
+			customAABB = AABB(pos, sizeComponent->getSize());
 		}
 
 		return customAABB;

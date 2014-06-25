@@ -3,7 +3,7 @@
 #include "BaconBox/Core/Component.h"
 #include "BaconBox/Core/State.h"
 #include "BaconBox/Input/Pointer/Pointer.h"
-#include "BaconBox/AxisAlignedBoundingBox.h"
+#include "BaconBox/AABB.h"
 
 
 #ifdef BB_LUA

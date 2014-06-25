@@ -6,7 +6,7 @@
 #include "BaconBox/Property.h"
 
 #include "BaconBox/Core/Entity.h"
-#include "BaconBox/AxisAlignedBoundingBox.h"
+#include "BaconBox/AABB.h"
 #include "BaconBox/Display/Text/TextAlignment.h"
 namespace BaconBox {
 	
@@ -42,7 +42,7 @@ namespace BaconBox {
 		std::string text;
 		Font *font;
 		TextAlignment::type alignment;
-		AxisAlignedBoundingBox boundingBox;
+		AABB boundingBox;
 	};
 
 	class TextComponentProxy : public ComponentProxy {

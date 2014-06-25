@@ -27,7 +27,7 @@ namespace BaconBox {
 		this->addConnection(new ComponentConnection<Transform>(&this->transform));
 	}
 
-	void AABBHitBox::setAABB(const AxisAlignedBoundingBox &aabb) {
+	void AABBHitBox::setAABB(const AABB &aabb) {
 		this->haveCustomAABB = true;
 		this->customAABB = aabb;
 	}
@@ -40,11 +40,11 @@ namespace BaconBox {
 		entity->addComponent(aabbHitBox);
 	}
 
-	const AxisAlignedBoundingBox &AABBHitBoxProxy::getAABB() {
+	const AABB &AABBHitBoxProxy::getAABB() {
 		return reinterpret_cast<AABBHitBox *>(component)->getAABB();
 	}
 
-	void AABBHitBoxProxy::setAABB(const AxisAlignedBoundingBox &aabb) {
+	void AABBHitBoxProxy::setAABB(const AABB &aabb) {
 		reinterpret_cast<AABBHitBox *>(component)->setAABB(aabb);
 	}
 }

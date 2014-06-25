@@ -9,7 +9,7 @@
 #include <vector>
 
 #include "BaconBox/Vector2.h"
-#include "BaconBox/AxisAlignedBoundingBox.h"
+#include "BaconBox/AABB.h"
 #include "BaconBox/Helper/Serialization/Serializable.h"
 #include "Matrix2D.h"
 
@@ -336,7 +336,7 @@ namespace BaconBox {
 		 * Gets the axis aligned bounding box that surronds the vertices array.
 		 * @return Axis aligned bounding box for the vertices array.
 		 */
-		AxisAlignedBoundingBox getAxisAlignedBoundingBox() const;
+		AABB getAABB() const;
 
 		/**
 		 * Checks if two polygons are intersecting (touching each other). Uses

@@ -9,7 +9,7 @@
 
 
 #include "BaconBox/Helper/Random.h"
-#include "BaconBox/AxisAlignedBoundingBox.h"
+#include "BaconBox/AABB.h"
 #include "BaconBox/Console.h"
 using namespace BaconBox;
 
@@ -40,7 +40,7 @@ void DefaultParticleComponent::initParticle(){
 	status = USED;
 	DefaultParicleInitInfo * data = (DefaultParicleInitInfo*)(*phases)[phasesIterator];
 	if (!data->skipPosition) {
-	AxisAlignedBoundingBox & aabb = data->aabb;
+	AABB & aabb = data->aabb;
 	transform->setPosition(Vector2(Random::getRandomFloat(aabb.getLeft(), aabb.getRight()), Random::getRandomFloat(aabb.getTop(), aabb.getBottom())));
 	}
 	float minSpeedLength = data->minSpeedLength;

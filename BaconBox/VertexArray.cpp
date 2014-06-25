@@ -344,8 +344,8 @@ namespace BaconBox {
 		return result;
 	}
 
-	AxisAlignedBoundingBox VertexArray::getAxisAlignedBoundingBox() const {
-		AxisAlignedBoundingBox result;
+	AABB VertexArray::getAABB() const {
+		AABB result;
 
 		if (!isEmpty()) {
 			ConstIterator i = getBegin();
@@ -384,7 +384,7 @@ namespace BaconBox {
 		if (getNbVertices() >= 3 && other.getNbVertices() >= 3) {
 			// Useless to check for intersection if the polygons' bounding box
 			// aren't even colliding.
-			if (getAxisAlignedBoundingBox().overlaps(other.getAxisAlignedBoundingBox())) {
+			if (getAABB().overlaps(other.getAABB())) {
 				result = true;
 				Vector2 line;
 				ConstIterator i = getBegin();

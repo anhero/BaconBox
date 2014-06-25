@@ -1,7 +1,7 @@
 #ifndef BB_AABBHITBOX_H
 #define BB_AABBHITBOX_H
 
-#include "BaconBox/AxisAlignedBoundingBox.h"
+#include "BaconBox/AABB.h"
 #include "BaconBox/Core/Component.h"
 #include "BaconBox/Vector2.h"
 #include "BaconBox/Core/Entity.h"
@@ -22,11 +22,11 @@ namespace BaconBox {
 		
 		AABBHitBox &operator=(const AABBHitBox &src);
 		
-		virtual const AxisAlignedBoundingBox &getAABB() = 0;
-		void setAABB(const AxisAlignedBoundingBox &aabb);
+		virtual const AABB &getAABB() = 0;
+		void setAABB(const AABB &aabb);
 	protected:
 		bool haveCustomAABB;
-		AxisAlignedBoundingBox customAABB;
+		AABB customAABB;
 
 		SizeComponent *sizeComponent;
 		Transform *transform;
@@ -37,8 +37,8 @@ namespace BaconBox {
 	class AABBHitBoxProxy : public ComponentProxy {
 	public:
 		AABBHitBoxProxy(Entity *entity, bool mustAddComponent = true);
-		const AxisAlignedBoundingBox &getAABB();
-		void setAABB(const AxisAlignedBoundingBox &aabb);
+		const AABB &getAABB();
+		void setAABB(const AABB &aabb);
 
 	protected:
 		void setAABBHitBox(AABBHitBox *aabbHitBox);

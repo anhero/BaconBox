@@ -99,7 +99,7 @@ namespace BaconBox {
 				setText(*reinterpret_cast<std::string*>(data));
 			}
 			else if(message == TextComponent::MESSAGE_SIZE_CHANGED){
-			    Vector2 & size = reinterpret_cast<AxisAlignedBoundingBox*>(data)->getSize();
+			    Vector2 & size = reinterpret_cast<AABB*>(data)->getSize();
 			    FlashHelper::setProperty(textField, "width", AS3::local::internal::new_Number(size.x));
 				FlashHelper::setProperty(textField, "height", AS3::local::internal::new_Number(size.y));
 			}

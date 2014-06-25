@@ -208,7 +208,7 @@ $(HELPER_SOURCES) \
 $(INPUT_SOURCES) \
 $(MOVIECLIP_SOURCES) \
 $(SIGNALSLOTS_SOURCES) \
-BaconBox/AxisAlignedBoundingBox \
+BaconBox/AABB \
 BaconBox/Console \
 BaconBox/ResourceManager \
 BaconBox/StandardVertexArray \
