@@ -13,7 +13,7 @@
 #include "BaconBox/Components/Flash/FlashColorTransform.h"
 #else
 #include "BaconBox/Components/Mesh.h"
-#include "BaconBox/Components/MeshDriverRenderer.h"
+#include "BaconBox/Components/StandardRenderer/MeshDriverRenderer.h"
 #include "BaconBox/Components/DefaultMatrix.h"
 #include "BaconBox/Components/Timeline.h"
 #include "BaconBox/Components/DefaultEntityContainer.h"

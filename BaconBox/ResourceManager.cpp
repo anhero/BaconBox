@@ -15,7 +15,7 @@
 #include "BaconBox/Display/Color.h"
 
 #include "BaconBox/Display/Text/Font.h"
-#include "Display/Text/BMFont.h"
+#include "Display/Text/StandardRenderer/BMFont.h"
 #include "BaconBox/Helper/Serialization/XmlSerializer.h"
 #include "Symbol.h"
 #include "BaconBox/Helper/Parser.h"
@@ -27,20 +27,24 @@
 
 #endif
 
-
-//For LibPNG
-#include <stdio.h>
-#include <stdlib.h>
-#include <png.h>
-#define PNG_HEADER_SIZE 8
+#if ! defined(BB_FLASH_PLATFORM)
+	//For LibPNG
+	#include <stdio.h>
+	#include <stdlib.h>
+	#include <png.h>
+	#define PNG_HEADER_SIZE 8
+#endif 
 
 namespace BaconBox {
-	std::map<std::string, TextureInformation *> ResourceManager::textures = std::map<std::string, TextureInformation *>();
-	std::map<std::string, SubTextureInfo *> ResourceManager::subTextures = std::map<std::string, SubTextureInfo *>();
 	std::map<std::string, SoundInfo *> ResourceManager::sounds = std::map<std::string, SoundInfo *>();
 	std::map<std::string, MusicInfo *> ResourceManager::musics = std::map<std::string, MusicInfo *>();
 	std::map<std::string, std::map<int, Font *> > ResourceManager::fonts = std::map<std::string, std::map<int, Font *> >();
 	std::map<std::string, Symbol *> ResourceManager::symbols = std::map<std::string, Symbol *>();
+
+
+#if ! defined(BB_FLASH_PLATFORM)
+	std::map<std::string, TextureInformation *> ResourceManager::textures = std::map<std::string, TextureInformation *>();
+	std::map<std::string, SubTextureInfo *> ResourceManager::subTextures = std::map<std::string, SubTextureInfo *>();
 
 	SubTextureInfo *ResourceManager::addSubTexture(const std::string &key, SubTextureInfo *subTextureInfo, bool overwrite) {
 		SubTextureInfo *subTexInfo = NULL;
@@ -168,12 +172,530 @@ namespace BaconBox {
 													 ColorFormat::type colorFormat){
 		return loadTextureRelativePath(key, filePath, colorFormat);
 	}
-	
-	
-	Symbol *ResourceManager::getSymbol(const std::string &key) {
-		std::map<std::string, Symbol *>::iterator itr = symbols.find(key);
-		return (itr != symbols.end()) ? (itr->second) : (NULL);
+
+		TextureInformation *ResourceManager::getTexture(const std::string &key) {
+		std::map<std::string, TextureInformation *>::iterator itr = textures.find(key);
+		return (itr != textures.end()) ? (itr->second) : (NULL);
 	}
+
+
+
+	void ResourceManager::removeTexture(const std::string &key) {
+		unloadTexture(key);
+		textures.erase(key);
+	}
+
+	void ResourceManager::unloadTexture(const std::string &key) {
+		std::map<std::string, TextureInformation *>::iterator i = textures.find(key);
+		TextureInformation *textInfo = i->second;
+		GraphicDriver::getInstance().getInstance().deleteTexture(textInfo);
+		textInfo->textureId = -1;
+	}
+
+
+
+	void ResourceManager::loadFlashExporterXML(const std::string &xmlPath) {
+
+		rapidxml::xml_document<> doc;
+		
+		// We read the document from the stream.
+		rapidxml::file<> inputXml(xmlPath.c_str());
+		
+		doc.parse<0>(inputXml.data());
+		rapidxml::xml_node<> *root = doc.first_node();
+		
+		std::string dirPath = ResourcePathHandler::getPathFromFilename(xmlPath);
+
+		loadFlashExporterTextures(root->first_node("Texture"), dirPath);
+		loadFlashExporterSymbols(root->first_node("Symbols"));
+	}
+	
+	
+	void ResourceManager::loadFlashExporterTextures(rapidxml::xml_node<> *node, const std::string &dirPath) {
+		std::string textureName = node->first_attribute("name")->value();
+		rapidxml::xml_attribute<> * textureFormat  = node->first_attribute("textureFormat");
+		ColorFormat::type colorFormat = ColorFormat::RGBA;
+		if(textureFormat){
+			colorFormat = ColorFormat::colorFormatFromString(textureFormat->value());
+		}
+		
+		
+		TextureInformation * textureInfo = registerTexture(textureName, dirPath + "/" + node->first_attribute("path")->value(), colorFormat);
+		rapidxml::xml_attribute<> * scale  = node->first_attribute("scale");
+
+		float textureScale = 1;
+		
+		if(scale) textureScale = Parser::stringToDouble(scale->value());
+		
+						
+		for (rapidxml::xml_node<> *subTextNode = node->first_node("SubTexture"); subTextNode; subTextNode = subTextNode->next_sibling()){
+			std::string name = subTextNode->first_attribute("name")->value();
+			Symbol *symbol = new Symbol();
+			symbol->isTexture = true;
+			symbol->key = name;
+			symbol->textureKey = textureName;
+			Vector2 registrationPoint;
+			symbol->subTex = addSubTexture(name, new SubTextureInfo());
+			
+			symbol->subTex->position = Vector2(Parser::stringToDouble(subTextNode->first_attribute("x")->value()), Parser::stringToDouble(subTextNode->first_attribute("y")->value()));
+			symbol->subTex->size = Vector2(Parser::stringToDouble(subTextNode->first_attribute("width")->value()), Parser::stringToDouble(subTextNode->first_attribute("height")->value()));
+			
+			symbol->subTex->textureInfo = textureInfo;
+
+			symbol->blend = Parser::stringToBool(subTextNode->first_attribute("blend")->value());
+			
+			symbol->scale = textureScale;
+			
+			
+			registrationPoint.x = Parser::stringToDouble(subTextNode->first_attribute("registrationPointX")->value());
+			registrationPoint.y = Parser::stringToDouble(subTextNode->first_attribute("registrationPointY")->value());
+			
+			symbol->registrationPoint = registrationPoint;
+			symbols[name] = symbol;
+		}
+		
+}
+
+
+	void ResourceManager::loadFlashExporterSymbols(rapidxml::xml_node<> *node) {
+
+		rapidxml::xml_attribute<> * found;
+		for (rapidxml::xml_node<> *symbolNode = node->first_node("Symbol"); symbolNode; symbolNode = symbolNode->next_sibling()){
+				Symbol *symbol = new Symbol();
+
+				found = symbolNode->first_attribute("className");
+				if (found) {
+					symbol->key = found->value();
+				}
+				
+				found = symbolNode->first_attribute("textfield");
+				if (found) {
+					symbol->isTextField = Parser::stringToBool(found->value());
+				}
+
+				if(symbol->isTextField) {
+					found = symbolNode->first_attribute("text");
+					if (found) {
+						symbol->text = found->value();
+					}
+					
+					found = symbolNode->first_attribute("fontSize");
+					if (found) {
+						symbol->fontSize = Parser::stringToInt(found->value());
+					}
+
+					found = symbolNode->first_attribute("color");
+					if (found){
+	                    std::vector<int> temp;
+	                   Parser::parseStringArray<int>(found->value(), temp);
+	                    symbol->color = Color(temp[0], temp[1], temp[2]);
+					}
+
+
+
+					found = symbolNode->first_attribute("font");
+
+					if (found) {
+						symbol->font = found->value();
+					}
+
+					symbol->frameCount  = 1;
+
+					std::string alignment;
+
+					found = symbolNode->first_attribute("alignment");
+					if (found) {
+						alignment = found->value();
+					}
+
+					if(alignment == "left"){
+						symbol->alignment = TextAlignment::LEFT;
+					}
+					else if(alignment == "center"){
+						symbol->alignment = TextAlignment::CENTER;
+					}
+					else if(alignment == "right"){
+						symbol->alignment = TextAlignment::RIGHT;
+					}
+
+					
+					found = symbolNode->first_attribute("width");
+					if (found) {
+						symbol->textFieldWidth = Parser::stringToInt(found->value());
+					}
+					
+					
+					found = symbolNode->first_attribute("height");
+					if (found) {
+						symbol->textFieldHeight = Parser::stringToInt(found->value());
+					}
+
+				} else {
+					found = symbolNode->first_attribute("frameCount");
+					if (found) {
+						symbol->frameCount = Parser::stringToInt(found->value());
+					}
+				}
+
+				symbols[symbol->key] = symbol;
+		}
+
+		for (rapidxml::xml_node<> *symbolNode = node->first_node("Symbol"); symbolNode; symbolNode = symbolNode->next_sibling()){
+	
+			found = symbolNode->first_attribute("className");
+			Symbol *parent = symbols[found->value()];
+			
+			for (rapidxml::xml_node<> *labelNode = symbolNode->first_node("label"); labelNode; labelNode = labelNode->next_sibling("label")){
+
+                            int startFrame = 0;
+                            int endframe = -1;
+                            std::string name;
+
+							found = labelNode->first_attribute("name");
+                            if (found) {
+                                name = found->value();
+                            }
+				
+							found = labelNode->first_attribute("startFrame");
+							if (found) {
+								startFrame = Parser::stringToInt(found->value());
+							}
+				
+							found = labelNode->first_attribute("endFrame");
+							if (found) {
+								endframe = Parser::stringToInt(found->value());
+							}
+
+                
+								parent->label[name] = std::pair<int, int>(startFrame, endframe);
+			}
+
+			
+			std::map<std::string, Symbol::Part*> children;
+			int frameIndex = 0;
+
+			for (rapidxml::xml_node<> *frameNode = symbolNode->first_node("Frame"); frameNode; frameNode = frameNode->next_sibling()){
+
+				int index = 0;
+
+				for (rapidxml::xml_node<> *childNode = frameNode->first_node("Child"); childNode; childNode = childNode->next_sibling()){
+					std::string name;
+
+					found = childNode->first_attribute("name");
+
+					if (found) {
+						name = found->value();
+					}
+
+					std::string className;
+
+					found = childNode->first_attribute("className");
+
+					if (found) {
+						className = found->value();
+					}
+
+					Symbol::Part *part;
+					std::map<std::string, Symbol::Part*>::iterator i = children.find(name);
+					if (i == children.end()) {
+						part = children[name] = new Symbol::Part();
+						part->name = name;
+						part->symbol = symbols[className];
+						if(! part->symbol){
+							Console__error("Trying to add a NULL symbol part with key " << className << " to " << parent->key);
+						}
+					}
+					else{
+						part = i->second;
+					}
+
+					part->indexByFrame.insert(std::pair<int, int>(frameIndex, index));
+
+					Matrix2D matrix;
+					found = childNode->first_attribute("a");
+					if (found) {
+						matrix.a = Parser::stringToDouble(found->value());
+					}
+			
+					
+					found = childNode->first_attribute("b");
+					if (found) {
+						matrix.b = Parser::stringToDouble(found->value());
+					}
+					found = childNode->first_attribute("c");
+					if (found) {
+						matrix.c = Parser::stringToDouble(found->value());
+					}
+					found = childNode->first_attribute("d");
+					if (found) {
+						matrix.d = Parser::stringToDouble(found->value());
+					}
+					found = childNode->first_attribute("tx");
+					if (found) {
+						matrix.tx = Parser::stringToDouble(found->value());
+					}
+					found = childNode->first_attribute("ty");
+					if (found) {
+						matrix.ty = Parser::stringToDouble(found->value());
+					}
+
+					
+					part->matrices.insert(std::pair<int, Matrix2D>(frameIndex, matrix));
+
+					ColorMatrix colorMatrix;
+					found = childNode->first_attribute("colorTransform");
+					if (found) {
+                        std::vector<float> temp;
+                       Parser::parseStringArray<float>(found->value(), temp);
+                       float divider = 1.0f / 255.0f;
+                        colorMatrix.colorMultiplier.setRGBA(temp[0], temp[2], temp[4], temp[6]);
+                        colorMatrix.colorOffset.setRGBA(temp[1] * divider, temp[3] * divider, temp[5] * divider, temp[7] * divider);
+                    }
+					part->colorMatrices.insert(std::pair<int, ColorMatrix>(frameIndex, colorMatrix));
+
+					index++;
+				}
+			
+				frameIndex++;
+			}
+
+			for(std::map<std::string, Symbol::Part*>::iterator j = children.begin(); j != children.end(); j++){
+				parent->parts.push_back(*(j->second));
+			}
+		}
+	}
+
+
+	void ResourceManager::deleteAllSubTexture() {
+		for (std::map<std::string, SubTextureInfo *>::iterator i = subTextures.begin();
+		     i != subTextures.end(); ++i) {
+			delete i->second;
+		}
+		
+		subTextures.clear();
+	}
+	
+	void ResourceManager::deleteAllTexture() {
+		for (std::map<std::string, TextureInformation *>::iterator i = textures.begin();
+		     i != textures.end(); ++i) {
+			ResourceManager::unloadTexture(i->first);
+			delete i->second;
+		}
+		
+		textures.clear();
+		ResourceManager::deleteAllSubTexture();
+	}
+
+	void ResourceManager::unloadAllTexture() {
+		for (std::map<std::string, TextureInformation *>::iterator i = textures.begin();
+		     i != textures.end(); ++i) {
+			ResourceManager::unloadTexture(i->first);
+		}
+		
+	}
+	
+	void ResourceManager::unloadAllTextureExcept(const std::set<std::string> exceptions){
+		for (std::map<std::string, TextureInformation *>::iterator i = textures.begin();
+		     i != textures.end(); ++i) {
+			if(exceptions.find(i->first) == exceptions.end())ResourceManager::unloadTexture(i->first);
+		}
+	}
+
+	PixMap *ResourceManager::loadPixMap(const std::string &filePath, ColorFormat::type colorFormat) {
+		PixMap *pixmap = loadPixMapFromPNG(filePath);
+
+		if (pixmap && colorFormat != pixmap->getColorFormat()) {
+			pixmap->convertTo(colorFormat);
+		}
+
+		return pixmap;
+	}
+
+	PixMap *ResourceManager::loadPixMap(const std::string &filePath,
+	                                    const Color &transparentColor) {
+		PixMap *result = loadPixMap(filePath, ColorFormat::RGBA);
+
+		if (result) {
+			result->makeColorTransparent(transparentColor);
+		}
+
+		return result;
+	}
+
+	void ResourceManager::savePixMap(const BaconBox::PixMap &pixMap,
+	                                 const std::string &filePath) {
+		savePixMapToPNG(pixMap, filePath);
+	}
+
+	PixMap *ResourceManager::loadPixMapFromPNG(const std::string &filePath) {
+		FILE *PNG_file = fopen(filePath.c_str(), "rb");
+
+		if (PNG_file == NULL) {
+			Console::println("Unable to open this png file : " + filePath);
+			return false;
+		}
+
+		uint8_t PNG_header[PNG_HEADER_SIZE];
+		fread(PNG_header, 1, PNG_HEADER_SIZE, PNG_file);
+
+		if (png_sig_cmp(PNG_header, 0, PNG_HEADER_SIZE) != 0) {
+			Console::println("Trying to load a non png file as a png file. Path to file :" + filePath);
+		}
+
+		png_structp PNG_reader
+		    = png_create_read_struct(PNG_LIBPNG_VER_STRING, NULL, NULL, NULL);
+
+		if (PNG_reader == NULL) {
+			Console::println("Cannot read this png file " + filePath);
+		}
+
+		png_infop PNG_info = png_create_info_struct(PNG_reader);
+
+		if (PNG_info == NULL) {
+			Console::println("Cannot extract info from this png file : " + filePath);
+			png_destroy_read_struct(&PNG_reader, NULL, NULL);
+		}
+
+		png_infop PNG_end_info = png_create_info_struct(PNG_reader);
+
+		if (PNG_end_info == NULL) {
+			Console::println("Cannot extract end info from this png file : " + filePath);
+			png_destroy_read_struct(&PNG_reader, &PNG_info, NULL);
+		}
+
+		if (setjmp(png_jmpbuf(PNG_reader))) {
+			Console::println("Cannot load this png file " + filePath);
+			png_destroy_read_struct(&PNG_reader, &PNG_info, &PNG_end_info);
+		}
+
+		png_init_io(PNG_reader, PNG_file);
+		png_set_sig_bytes(PNG_reader, PNG_HEADER_SIZE);
+		png_read_info(PNG_reader, PNG_info);
+		png_uint_32 width, height;
+		width = png_get_image_width(PNG_reader, PNG_info);
+		height = png_get_image_height(PNG_reader, PNG_info);
+		png_uint_32 bit_depth, color_type;
+		bit_depth = png_get_bit_depth(PNG_reader, PNG_info);
+		color_type = png_get_color_type(PNG_reader, PNG_info);
+
+		if (color_type == PNG_COLOR_TYPE_PALETTE) {
+			png_set_palette_to_rgb(PNG_reader);
+		}
+
+		if (color_type == PNG_COLOR_TYPE_GRAY && bit_depth < 8) {
+			png_set_expand_gray_1_2_4_to_8(PNG_reader);
+		}
+
+		if (color_type == PNG_COLOR_TYPE_GRAY ||
+		    color_type == PNG_COLOR_TYPE_GRAY_ALPHA) {
+			png_set_gray_to_rgb(PNG_reader);
+		}
+
+		if (png_get_valid(PNG_reader, PNG_info, PNG_INFO_tRNS)) {
+			png_set_tRNS_to_alpha(PNG_reader);
+
+		} else {
+			png_set_filler(PNG_reader, 0xff, PNG_FILLER_AFTER);
+		}
+
+		if (bit_depth == 16) {
+			png_set_strip_16(PNG_reader);
+		}
+
+		png_read_update_info(PNG_reader, PNG_info);
+		png_byte *PNG_image_buffer = (png_byte *)malloc(4 * width * height);
+		png_byte **PNG_rows = (png_byte **)malloc(height * sizeof(png_byte *));
+		unsigned int row;
+
+		for (row = 0; row < height; ++row) {
+			PNG_rows[row] = PNG_image_buffer + (row * 4 * width);
+		}
+
+		png_read_image(PNG_reader, PNG_rows);
+		free(PNG_rows);
+		png_destroy_read_struct(&PNG_reader, &PNG_info, &PNG_end_info);
+		fclose(PNG_file);
+		PixMap *aPixMap = new PixMap(PNG_image_buffer, width, height);
+		return aPixMap;
+	}
+
+	void ResourceManager::savePixMapToPNG(const PixMap &pixMap, const std::string &filePath) {
+		FILE *fp = fopen(filePath.c_str(), "wb");
+
+		if (fp) {
+			png_structp pngPointer = png_create_write_struct(PNG_LIBPNG_VER_STRING,
+			                                                 NULL, NULL, NULL);
+
+			if (pngPointer) {
+				png_infop infoPointer = png_create_info_struct(pngPointer);
+
+				if (infoPointer) {
+
+					if (!setjmp(png_jmpbuf(pngPointer))) {
+						png_init_io(pngPointer, fp);
+
+						if (!setjmp(png_jmpbuf(pngPointer))) {
+							png_set_IHDR(pngPointer,
+							             infoPointer,
+							             pixMap.getWidth(),
+							             pixMap.getHeight(),
+							             8,
+							             ((pixMap.getColorFormat() == ColorFormat::RGBA) ? (PNG_COLOR_TYPE_RGBA) : (PNG_COLOR_TYPE_GRAY)),
+							             PNG_INTERLACE_NONE,
+							             PNG_COMPRESSION_TYPE_DEFAULT,
+							             PNG_FILTER_TYPE_DEFAULT);
+
+							png_write_info(pngPointer, infoPointer);
+
+							if (!setjmp(png_jmpbuf(pngPointer))) {
+								png_bytepp rows = new png_bytep[pixMap.getHeight()];
+								png_bytep tmpBuffer = const_cast<png_bytep>(pixMap.getBuffer());
+								unsigned int nbChannels = (pixMap.getColorFormat() == ColorFormat::RGBA) ? (4) : (1);
+
+								for (unsigned int i = 0; i < pixMap.getHeight(); ++i) {
+									rows[i] = tmpBuffer + (i * nbChannels * pixMap.getWidth());
+								}
+
+								png_write_image(pngPointer, rows);
+								delete [] rows;
+								rows = NULL;
+
+								if (!setjmp(png_jmpbuf(pngPointer))) {
+									png_write_end(pngPointer, NULL);
+
+								} else {
+									Console::println("Error during end of write to PNG file.");
+								}
+
+							} else {
+								Console::println("Error while writing bytes to PNG file.");
+							}
+
+						} else {
+							Console::println("Error while writing PNG header.");
+						}
+
+					} else {
+						Console::println("Error during init_io.");
+					}
+
+				} else {
+					Console::println("png_create_info_struct failed.");
+				}
+
+			} else {
+				Console::println("png_create_write_struct failed.");
+			}
+
+			fclose(fp);
+
+		} else {
+			Console::print("Could not write the PixMap to the PNG file ");
+			Console::print(filePath);
+			Console::println(".");
+		}
+	}
+
 	SubTextureInfo *ResourceManager::getSubTexture(const std::string &key, bool loadTextureIfNotLoaded) {
 		std::map<std::string, SubTextureInfo *>::iterator itr = subTextures.find(key);
 		SubTextureInfo * subTex = (itr != subTextures.end()) ? (itr->second) : (NULL);
@@ -183,10 +705,13 @@ namespace BaconBox {
 		return subTex;
 	}
 
-	TextureInformation *ResourceManager::getTexture(const std::string &key) {
-		std::map<std::string, TextureInformation *>::iterator itr = textures.find(key);
-		return (itr != textures.end()) ? (itr->second) : (NULL);
+	#endif
+	
+	Symbol *ResourceManager::getSymbol(const std::string &key) {
+		std::map<std::string, Symbol *>::iterator itr = symbols.find(key);
+		return (itr != symbols.end()) ? (itr->second) : (NULL);
 	}
+	
 
 	SoundInfo *ResourceManager::getSound(const std::string &key) {
 		std::map<std::string, SoundInfo *>::iterator itr = sounds.find(key);
@@ -469,17 +994,7 @@ namespace BaconBox {
 		return newBgm;
 	}
 
-	void ResourceManager::removeTexture(const std::string &key) {
-		unloadTexture(key);
-		textures.erase(key);
-	}
-
-	void ResourceManager::unloadTexture(const std::string &key) {
-		std::map<std::string, TextureInformation *>::iterator i = textures.find(key);
-		TextureInformation *textInfo = i->second;
-		GraphicDriver::getInstance().getInstance().deleteTexture(textInfo);
-		textInfo->textureId = -1;
-	}
+	
 
 	void ResourceManager::removeSound(const std::string &key) {
 		// We find the sound effect.
@@ -528,276 +1043,6 @@ namespace BaconBox {
 
 
 
-	void ResourceManager::loadFlashExporterXML(const std::string &xmlPath) {
-
-		rapidxml::xml_document<> doc;
-		
-		// We read the document from the stream.
-		rapidxml::file<> inputXml(xmlPath.c_str());
-		
-		doc.parse<0>(inputXml.data());
-		rapidxml::xml_node<> *root = doc.first_node();
-		
-		std::string dirPath = ResourcePathHandler::getPathFromFilename(xmlPath);
-
-		loadFlashExporterTextures(root->first_node("Texture"), dirPath);
-		loadFlashExporterSymbols(root->first_node("Symbols"));
-	}
-	
-	
-	void ResourceManager::loadFlashExporterTextures(rapidxml::xml_node<> *node, const std::string &dirPath) {
-		std::string textureName = node->first_attribute("name")->value();
-		rapidxml::xml_attribute<> * textureFormat  = node->first_attribute("textureFormat");
-		ColorFormat::type colorFormat = ColorFormat::RGBA;
-		if(textureFormat){
-			colorFormat = ColorFormat::colorFormatFromString(textureFormat->value());
-		}
-		
-		
-		TextureInformation * textureInfo = registerTexture(textureName, dirPath + "/" + node->first_attribute("path")->value(), colorFormat);
-		rapidxml::xml_attribute<> * scale  = node->first_attribute("scale");
-
-		float textureScale = 1;
-		
-		if(scale) textureScale = Parser::stringToDouble(scale->value());
-		
-						
-		for (rapidxml::xml_node<> *subTextNode = node->first_node("SubTexture"); subTextNode; subTextNode = subTextNode->next_sibling()){
-			std::string name = subTextNode->first_attribute("name")->value();
-			Symbol *symbol = new Symbol();
-			symbol->isTexture = true;
-			symbol->key = name;
-			symbol->textureKey = textureName;
-			Vector2 registrationPoint;
-			symbol->subTex = addSubTexture(name, new SubTextureInfo());
-			
-			symbol->subTex->position = Vector2(Parser::stringToDouble(subTextNode->first_attribute("x")->value()), Parser::stringToDouble(subTextNode->first_attribute("y")->value()));
-			symbol->subTex->size = Vector2(Parser::stringToDouble(subTextNode->first_attribute("width")->value()), Parser::stringToDouble(subTextNode->first_attribute("height")->value()));
-			
-			symbol->subTex->textureInfo = textureInfo;
-
-			symbol->blend = Parser::stringToBool(subTextNode->first_attribute("blend")->value());
-			
-			symbol->scale = textureScale;
-			
-			
-			registrationPoint.x = Parser::stringToDouble(subTextNode->first_attribute("registrationPointX")->value());
-			registrationPoint.y = Parser::stringToDouble(subTextNode->first_attribute("registrationPointY")->value());
-			
-			symbol->registrationPoint = registrationPoint;
-			symbols[name] = symbol;
-		}
-		
-}
-
-
-	void ResourceManager::loadFlashExporterSymbols(rapidxml::xml_node<> *node) {
-
-		rapidxml::xml_attribute<> * found;
-		for (rapidxml::xml_node<> *symbolNode = node->first_node("Symbol"); symbolNode; symbolNode = symbolNode->next_sibling()){
-				Symbol *symbol = new Symbol();
-
-				found = symbolNode->first_attribute("className");
-				if (found) {
-					symbol->key = found->value();
-				}
-				
-				found = symbolNode->first_attribute("textfield");
-				if (found) {
-					symbol->isTextField = Parser::stringToBool(found->value());
-				}
-
-				if(symbol->isTextField) {
-					found = symbolNode->first_attribute("text");
-					if (found) {
-						symbol->text = found->value();
-					}
-					
-					found = symbolNode->first_attribute("fontSize");
-					if (found) {
-						symbol->fontSize = Parser::stringToInt(found->value());
-					}
-
-					found = symbolNode->first_attribute("color");
-					if (found){
-	                    std::vector<int> temp;
-	                   Parser::parseStringArray<int>(found->value(), temp);
-	                    symbol->color = Color(temp[0], temp[1], temp[2]);
-					}
-
-
-
-					found = symbolNode->first_attribute("font");
-
-					if (found) {
-						symbol->font = found->value();
-					}
-
-					symbol->frameCount  = 1;
-
-					std::string alignment;
-
-					found = symbolNode->first_attribute("alignment");
-					if (found) {
-						alignment = found->value();
-					}
-
-					if(alignment == "left"){
-						symbol->alignment = TextAlignment::LEFT;
-					}
-					else if(alignment == "center"){
-						symbol->alignment = TextAlignment::CENTER;
-					}
-					else if(alignment == "right"){
-						symbol->alignment = TextAlignment::RIGHT;
-					}
-
-					
-					found = symbolNode->first_attribute("width");
-					if (found) {
-						symbol->textFieldWidth = Parser::stringToInt(found->value());
-					}
-					
-					
-					found = symbolNode->first_attribute("height");
-					if (found) {
-						symbol->textFieldHeight = Parser::stringToInt(found->value());
-					}
-
-				} else {
-					found = symbolNode->first_attribute("frameCount");
-					if (found) {
-						symbol->frameCount = Parser::stringToInt(found->value());
-					}
-				}
-
-				symbols[symbol->key] = symbol;
-		}
-
-		for (rapidxml::xml_node<> *symbolNode = node->first_node("Symbol"); symbolNode; symbolNode = symbolNode->next_sibling()){
-	
-			found = symbolNode->first_attribute("className");
-			Symbol *parent = symbols[found->value()];
-			
-			for (rapidxml::xml_node<> *labelNode = symbolNode->first_node("label"); labelNode; labelNode = labelNode->next_sibling("label")){
-
-                            int startFrame = 0;
-                            int endframe = -1;
-                            std::string name;
-
-							found = labelNode->first_attribute("name");
-                            if (found) {
-                                name = found->value();
-                            }
-				
-							found = labelNode->first_attribute("startFrame");
-							if (found) {
-								startFrame = Parser::stringToInt(found->value());
-							}
-				
-							found = labelNode->first_attribute("endFrame");
-							if (found) {
-								endframe = Parser::stringToInt(found->value());
-							}
-
-                
-								parent->label[name] = std::pair<int, int>(startFrame, endframe);
-			}
-
-			
-			std::map<std::string, Symbol::Part*> children;
-			int frameIndex = 0;
-
-			for (rapidxml::xml_node<> *frameNode = symbolNode->first_node("Frame"); frameNode; frameNode = frameNode->next_sibling()){
-
-				int index = 0;
-
-				for (rapidxml::xml_node<> *childNode = frameNode->first_node("Child"); childNode; childNode = childNode->next_sibling()){
-					std::string name;
-
-					found = childNode->first_attribute("name");
-
-					if (found) {
-						name = found->value();
-					}
-
-					std::string className;
-
-					found = childNode->first_attribute("className");
-
-					if (found) {
-						className = found->value();
-					}
-
-					Symbol::Part *part;
-					std::map<std::string, Symbol::Part*>::iterator i = children.find(name);
-					if (i == children.end()) {
-						part = children[name] = new Symbol::Part();
-						part->name = name;
-						part->symbol = symbols[className];
-						if(! part->symbol){
-							Console__error("Trying to add a NULL symbol part with key " << className << " to " << parent->key);
-						}
-					}
-					else{
-						part = i->second;
-					}
-
-					part->indexByFrame.insert(std::pair<int, int>(frameIndex, index));
-
-					Matrix2D matrix;
-					found = childNode->first_attribute("a");
-					if (found) {
-						matrix.a = Parser::stringToDouble(found->value());
-					}
-			
-					
-					found = childNode->first_attribute("b");
-					if (found) {
-						matrix.b = Parser::stringToDouble(found->value());
-					}
-					found = childNode->first_attribute("c");
-					if (found) {
-						matrix.c = Parser::stringToDouble(found->value());
-					}
-					found = childNode->first_attribute("d");
-					if (found) {
-						matrix.d = Parser::stringToDouble(found->value());
-					}
-					found = childNode->first_attribute("tx");
-					if (found) {
-						matrix.tx = Parser::stringToDouble(found->value());
-					}
-					found = childNode->first_attribute("ty");
-					if (found) {
-						matrix.ty = Parser::stringToDouble(found->value());
-					}
-
-					
-					part->matrices.insert(std::pair<int, Matrix2D>(frameIndex, matrix));
-
-					ColorMatrix colorMatrix;
-					found = childNode->first_attribute("colorTransform");
-					if (found) {
-                        std::vector<float> temp;
-                       Parser::parseStringArray<float>(found->value(), temp);
-                       float divider = 1.0f / 255.0f;
-                        colorMatrix.colorMultiplier.setRGBA(temp[0], temp[2], temp[4], temp[6]);
-                        colorMatrix.colorOffset.setRGBA(temp[1] * divider, temp[3] * divider, temp[5] * divider, temp[7] * divider);
-                    }
-					part->colorMatrices.insert(std::pair<int, ColorMatrix>(frameIndex, colorMatrix));
-
-					index++;
-				}
-			
-				frameIndex++;
-			}
-
-			for(std::map<std::string, Symbol::Part*>::iterator j = children.begin(); j != children.end(); j++){
-				parent->parts.push_back(*(j->second));
-			}
-		}
-	}
 
 
 	Font *ResourceManager::initFontFromPath(const std::string &key,
@@ -875,40 +1120,6 @@ namespace BaconBox {
 	}
 	
 	
-	void ResourceManager::deleteAllSubTexture() {
-		for (std::map<std::string, SubTextureInfo *>::iterator i = subTextures.begin();
-		     i != subTextures.end(); ++i) {
-			delete i->second;
-		}
-		
-		subTextures.clear();
-	}
-	
-	void ResourceManager::deleteAllTexture() {
-		for (std::map<std::string, TextureInformation *>::iterator i = textures.begin();
-		     i != textures.end(); ++i) {
-			ResourceManager::unloadTexture(i->first);
-			delete i->second;
-		}
-		
-		textures.clear();
-		ResourceManager::deleteAllSubTexture();
-	}
-
-	void ResourceManager::unloadAllTexture() {
-		for (std::map<std::string, TextureInformation *>::iterator i = textures.begin();
-		     i != textures.end(); ++i) {
-			ResourceManager::unloadTexture(i->first);
-		}
-		
-	}
-	
-	void ResourceManager::unloadAllTextureExcept(const std::set<std::string> exceptions){
-		for (std::map<std::string, TextureInformation *>::iterator i = textures.begin();
-		     i != textures.end(); ++i) {
-			if(exceptions.find(i->first) == exceptions.end())ResourceManager::unloadTexture(i->first);
-		}
-	}
 	
 	void ResourceManager::deleteAllSymbol() {
 		for (std::map<std::string, Symbol *> ::iterator i = symbols.begin();
@@ -924,9 +1135,10 @@ namespace BaconBox {
 		
 		ResourceManager::deleteAllSymbol();
 		
+		#if ! defined(BB_FLASH_PLATFORM)
 		// We unload the textures.
 		ResourceManager::deleteAllTexture();
-		
+		#endif
 		// We unload the sound effects.
 		for (std::map<std::string, SoundInfo *>::iterator i = sounds.begin();
 		     i != sounds.end(); ++i) {
@@ -959,198 +1171,5 @@ namespace BaconBox {
 		fonts.clear();
 	}
 
-	PixMap *ResourceManager::loadPixMap(const std::string &filePath, ColorFormat::type colorFormat) {
-		PixMap *pixmap = loadPixMapFromPNG(filePath);
-
-		if (pixmap && colorFormat != pixmap->getColorFormat()) {
-			pixmap->convertTo(colorFormat);
-		}
-
-		return pixmap;
-	}
-
-	PixMap *ResourceManager::loadPixMap(const std::string &filePath,
-	                                    const Color &transparentColor) {
-		PixMap *result = loadPixMap(filePath, ColorFormat::RGBA);
-
-		if (result) {
-			result->makeColorTransparent(transparentColor);
-		}
-
-		return result;
-	}
-
-	void ResourceManager::savePixMap(const BaconBox::PixMap &pixMap,
-	                                 const std::string &filePath) {
-		savePixMapToPNG(pixMap, filePath);
-	}
-
-	PixMap *ResourceManager::loadPixMapFromPNG(const std::string &filePath) {
-		FILE *PNG_file = fopen(filePath.c_str(), "rb");
-
-		if (PNG_file == NULL) {
-			Console::println("Unable to open this png file : " + filePath);
-			return false;
-		}
-
-		uint8_t PNG_header[PNG_HEADER_SIZE];
-		fread(PNG_header, 1, PNG_HEADER_SIZE, PNG_file);
-
-		if (png_sig_cmp(PNG_header, 0, PNG_HEADER_SIZE) != 0) {
-			Console::println("Trying to load a non png file as a png file. Path to file :" + filePath);
-		}
-
-		png_structp PNG_reader
-		    = png_create_read_struct(PNG_LIBPNG_VER_STRING, NULL, NULL, NULL);
-
-		if (PNG_reader == NULL) {
-			Console::println("Cannot read this png file " + filePath);
-		}
-
-		png_infop PNG_info = png_create_info_struct(PNG_reader);
-
-		if (PNG_info == NULL) {
-			Console::println("Cannot extract info from this png file : " + filePath);
-			png_destroy_read_struct(&PNG_reader, NULL, NULL);
-		}
-
-		png_infop PNG_end_info = png_create_info_struct(PNG_reader);
-
-		if (PNG_end_info == NULL) {
-			Console::println("Cannot extract end info from this png file : " + filePath);
-			png_destroy_read_struct(&PNG_reader, &PNG_info, NULL);
-		}
-
-		if (setjmp(png_jmpbuf(PNG_reader))) {
-			Console::println("Cannot load this png file " + filePath);
-			png_destroy_read_struct(&PNG_reader, &PNG_info, &PNG_end_info);
-		}
-
-		png_init_io(PNG_reader, PNG_file);
-		png_set_sig_bytes(PNG_reader, PNG_HEADER_SIZE);
-		png_read_info(PNG_reader, PNG_info);
-		png_uint_32 width, height;
-		width = png_get_image_width(PNG_reader, PNG_info);
-		height = png_get_image_height(PNG_reader, PNG_info);
-		png_uint_32 bit_depth, color_type;
-		bit_depth = png_get_bit_depth(PNG_reader, PNG_info);
-		color_type = png_get_color_type(PNG_reader, PNG_info);
-
-		if (color_type == PNG_COLOR_TYPE_PALETTE) {
-			png_set_palette_to_rgb(PNG_reader);
-		}
-
-		if (color_type == PNG_COLOR_TYPE_GRAY && bit_depth < 8) {
-			png_set_expand_gray_1_2_4_to_8(PNG_reader);
-		}
-
-		if (color_type == PNG_COLOR_TYPE_GRAY ||
-		    color_type == PNG_COLOR_TYPE_GRAY_ALPHA) {
-			png_set_gray_to_rgb(PNG_reader);
-		}
-
-		if (png_get_valid(PNG_reader, PNG_info, PNG_INFO_tRNS)) {
-			png_set_tRNS_to_alpha(PNG_reader);
-
-		} else {
-			png_set_filler(PNG_reader, 0xff, PNG_FILLER_AFTER);
-		}
-
-		if (bit_depth == 16) {
-			png_set_strip_16(PNG_reader);
-		}
-
-		png_read_update_info(PNG_reader, PNG_info);
-		png_byte *PNG_image_buffer = (png_byte *)malloc(4 * width * height);
-		png_byte **PNG_rows = (png_byte **)malloc(height * sizeof(png_byte *));
-		unsigned int row;
-
-		for (row = 0; row < height; ++row) {
-			PNG_rows[row] = PNG_image_buffer + (row * 4 * width);
-		}
-
-		png_read_image(PNG_reader, PNG_rows);
-		free(PNG_rows);
-		png_destroy_read_struct(&PNG_reader, &PNG_info, &PNG_end_info);
-		fclose(PNG_file);
-		PixMap *aPixMap = new PixMap(PNG_image_buffer, width, height);
-		return aPixMap;
-	}
-
-	void ResourceManager::savePixMapToPNG(const PixMap &pixMap, const std::string &filePath) {
-		FILE *fp = fopen(filePath.c_str(), "wb");
-
-		if (fp) {
-			png_structp pngPointer = png_create_write_struct(PNG_LIBPNG_VER_STRING,
-			                                                 NULL, NULL, NULL);
-
-			if (pngPointer) {
-				png_infop infoPointer = png_create_info_struct(pngPointer);
-
-				if (infoPointer) {
-
-					if (!setjmp(png_jmpbuf(pngPointer))) {
-						png_init_io(pngPointer, fp);
-
-						if (!setjmp(png_jmpbuf(pngPointer))) {
-							png_set_IHDR(pngPointer,
-							             infoPointer,
-							             pixMap.getWidth(),
-							             pixMap.getHeight(),
-							             8,
-							             ((pixMap.getColorFormat() == ColorFormat::RGBA) ? (PNG_COLOR_TYPE_RGBA) : (PNG_COLOR_TYPE_GRAY)),
-							             PNG_INTERLACE_NONE,
-							             PNG_COMPRESSION_TYPE_DEFAULT,
-							             PNG_FILTER_TYPE_DEFAULT);
-
-							png_write_info(pngPointer, infoPointer);
-
-							if (!setjmp(png_jmpbuf(pngPointer))) {
-								png_bytepp rows = new png_bytep[pixMap.getHeight()];
-								png_bytep tmpBuffer = const_cast<png_bytep>(pixMap.getBuffer());
-								unsigned int nbChannels = (pixMap.getColorFormat() == ColorFormat::RGBA) ? (4) : (1);
-
-								for (unsigned int i = 0; i < pixMap.getHeight(); ++i) {
-									rows[i] = tmpBuffer + (i * nbChannels * pixMap.getWidth());
-								}
-
-								png_write_image(pngPointer, rows);
-								delete [] rows;
-								rows = NULL;
-
-								if (!setjmp(png_jmpbuf(pngPointer))) {
-									png_write_end(pngPointer, NULL);
-
-								} else {
-									Console::println("Error during end of write to PNG file.");
-								}
-
-							} else {
-								Console::println("Error while writing bytes to PNG file.");
-							}
-
-						} else {
-							Console::println("Error while writing PNG header.");
-						}
-
-					} else {
-						Console::println("Error during init_io.");
-					}
-
-				} else {
-					Console::println("png_create_info_struct failed.");
-				}
-
-			} else {
-				Console::println("png_create_write_struct failed.");
-			}
-
-			fclose(fp);
-
-		} else {
-			Console::print("Could not write the PixMap to the PNG file ");
-			Console::print(filePath);
-			Console::println(".");
-		}
-	}
+	
 }

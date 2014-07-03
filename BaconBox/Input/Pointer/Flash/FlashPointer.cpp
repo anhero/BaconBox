@@ -63,7 +63,7 @@ void FlashPointer::updateDevice() {
 	getCursorPreviousPosition(0) = getCursorPosition(0);
 
 	getCursorButtons(0)[CursorButton::LEFT] = mouseState.leftButton;
-	getCursorPosition(0) = mouseState.pos;
+	setCursorPosition(0, mouseState.pos);
 
 		if(isButtonPressed(0)) {
 			buttonPress(PointerButtonSignalData(state, 0, 0));

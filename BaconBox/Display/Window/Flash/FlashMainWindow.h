@@ -21,7 +21,8 @@ namespace BaconBox {
 		void onBaconBoxInit(unsigned int resolutionWidth,
 		                  unsigned int resolutionHeight,
 		                  float contextWidth,
-		                  float contextHeight);
+		                  float contextHeight, 
+		                  BaconBox::WindowOrientation::type);
 
 	
 		void show();
@@ -34,8 +35,9 @@ namespace BaconBox {
 
 
 		void setFullScreen(bool newFullScreen);
+		void setUpdatesPerSecond(double);
 
-
+		
 		bool isInputGrabbed() const;
 
 

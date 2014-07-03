@@ -24,7 +24,7 @@ AS3::local::var FlashHelper::callMethod(const AS3::local::var & var, const std::
 	#ifdef BB_DEBUG
 		}
 		catch(...){
-		Console__error("Error calling method " << functionName << " on an AS3 object in FlashHelper. (See trace)");
+		Console__error("Error calling method " << functionName << " on an AS3 object in FlashHelper with " << argCount << " args. (See trace)");
 		AS3_Trace("Method was called on:");
 		AS3::local::internal::trace(var);
 		if(argCount){
@@ -130,7 +130,7 @@ AS3::local::var FlashHelper::callFunction(const std::string & functionName, cons
 	#ifdef BB_DEBUG
 		}
 		catch(...){
-		Console__error("Error calling callFunction " << functionName << " in FlashHelper.");
+		Console__error("Error calling callFunction " << functionName << " in FlashHelper with " << argCount << " args. (See trace)");
 		if(argCount){
 			AS3_Trace("Args were:");
 			for(int i = 0; i< argCount; i++){

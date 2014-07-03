@@ -28,7 +28,7 @@ namespace BaconBox {
 
 		void setVolume(int newVolume);
 
-		AudioState getCurrentState() const;
+		AudioState::type getCurrentState() const;
 
 		virtual ~FlashSoundFX();
 
@@ -43,7 +43,7 @@ namespace BaconBox {
 		static const int LOOPING = -1;
 		static AS3::local::var loopEventListener(void *arg, AS3::local::var as3Args);
 
-		AudioState currentState;
+		AudioState::type currentState;
 
 		AS3::local::var position;
 

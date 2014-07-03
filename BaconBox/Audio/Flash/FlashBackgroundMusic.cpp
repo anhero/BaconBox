@@ -133,7 +133,7 @@ bool FlashBackgroundMusic::isLooping() {
 	return (nbTimes == LOOPING);
 }
 
-AudioState FlashBackgroundMusic::getCurrentState() const {
+AudioState::type FlashBackgroundMusic::getCurrentState() const {
 	Console::println("Getting a FlashBackgroundMusic object's audio state, returning STOPPED");
 	return currentState;
 }

@@ -3,7 +3,7 @@
 
 #include "BaconBox/Components/Texture.h"
 #include "BaconBox/Components/Mesh.h"
-#include "BaconBox/Components/MeshDriverRenderer.h"
+#include "BaconBox/Components/StandardRenderer/MeshDriverRenderer.h"
 #include "BaconBox/Display/SubTextureInfo.h"
 
 #include <algorithm>

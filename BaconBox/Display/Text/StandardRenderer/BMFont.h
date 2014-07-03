@@ -5,7 +5,7 @@
 #ifndef BB_BMFONT_H
 #define BB_BMFONT_H
 
-#include "BaconBox/Display/Text/TextureFont.h"
+#include "BaconBox/Display/Text/StandardRenderer/TextureFont.h"
 
 
 namespace BaconBox {

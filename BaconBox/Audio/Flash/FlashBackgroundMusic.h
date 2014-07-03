@@ -29,7 +29,7 @@ namespace BaconBox {
 
 		bool isLooping();
 
-		AudioState getCurrentState() const;
+		AudioState::type getCurrentState() const;
 
 		void play(int nbTimes, double fadeIn);
 
@@ -62,7 +62,7 @@ namespace BaconBox {
 		static const int LOOPING = -1;
 		static AS3::local::var loopEventListener(void *arg, AS3::local::var as3Args);
 
-		AudioState currentState;
+		AudioState::type currentState;
 
 		AS3::local::var soundChannel;
 		bool isStopping;

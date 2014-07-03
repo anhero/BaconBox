@@ -16,7 +16,9 @@ namespace BaconBox {
 	public:
 
 		FlashColorTransform();
+		ColorMatrix & getMatrix();
 		ColorMatrix & getConcatColorMatrix();
+
 		void setAlphaMultiplier(float alpha);
 		void setColorMultiplier(float r, float g, float b, float a);
 		void setColorOffset(float r, float g, float b, float a);

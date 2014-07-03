@@ -45,8 +45,9 @@ namespace BaconBox {
 	class ResourceManager {
 		friend class BaseEngine;
 	public:
-	    
-	    
+	    #if !defined(BB_FLASH_PLATFORM)
+sdfasfd
+
 		static SubTextureInfo *addSubTexture(const std::string &key, SubTextureInfo *textureInfo,
 		                                      bool overwrite = false);
 		
@@ -97,11 +98,6 @@ namespace BaconBox {
 
 		static void deleteAllTexture();
 		static void deleteAllSubTexture();
-		
-		static void deleteAllSymbol();
-		
-		static void deleteAll();
-
 
 		/**
 		 * Gets the information about the asked texture. Uses the texture's key
@@ -112,6 +108,42 @@ namespace BaconBox {
 		 */
 		static TextureInformation *getTexture(const std::string &key);
 		static SubTextureInfo *getSubTexture(const std::string &key, bool loadTextureIfNotLoaded = true);
+
+
+		/// Create a PixMap from an image file at the given path.
+		static PixMap *loadPixMap(const std::string &filePath, ColorFormat::type colorFormat);
+		
+		/**
+		 * Loads a pixmap from a file and sets a specific color as transparent.
+		 * @param filePath Path to the file to read.
+		 * @param transparentColor Color to be made transparent.
+		 */
+		static PixMap *loadPixMap(const std::string &filePath,
+		                          const Color &transparentColor);
+		
+		/**
+		 * Saves a PixMap to a file at the given path.
+		 * @param pixMap PixMap to save to a file.
+		 * @param filePath Path to the file to write.
+		 */
+		static void savePixMap(const PixMap &pixMap,
+							   const std::string &filePath);
+
+		static void loadFlashExporterXML(const std::string & xmlPath);
+		
+		static void loadFlashExporterSymbols(rapidxml::xml_node<> *node);
+		
+		static void loadFlashExporterTextures(rapidxml::xml_node<> *node,  const std::string & dirPath);
+		static bool isLoadedTexture(const std::string & key);
+
+		#endif
+
+		static void deleteAllSymbol();
+		
+		static void deleteAll();
+
+
+		
 		static Symbol *getSymbol(const std::string &key);
 		/**
 		 * Gets a pointer to the asked sound effect.
@@ -276,34 +308,29 @@ namespace BaconBox {
 		 */
 		static void removeFont(const std::string &key, int fontSize = -1);
 		
-		/// Create a PixMap from an image file at the given path.
-		static PixMap *loadPixMap(const std::string &filePath, ColorFormat::type colorFormat);
 		
-		/**
-		 * Loads a pixmap from a file and sets a specific color as transparent.
-		 * @param filePath Path to the file to read.
-		 * @param transparentColor Color to be made transparent.
-		 */
-		static PixMap *loadPixMap(const std::string &filePath,
-		                          const Color &transparentColor);
-		
-		/**
-		 * Saves a PixMap to a file at the given path.
-		 * @param pixMap PixMap to save to a file.
-		 * @param filePath Path to the file to write.
-		 */
-		static void savePixMap(const PixMap &pixMap,
-							   const std::string &filePath);
-
-		static void loadFlashExporterXML(const std::string & xmlPath);
-		
-		static void loadFlashExporterSymbols(rapidxml::xml_node<> *node);
-		
-		static void loadFlashExporterTextures(rapidxml::xml_node<> *node,  const std::string & dirPath);
-		static bool isLoadedTexture(const std::string & key);
 	private:
 	    
-	    
+	    #if ! defined(BB_FLASH_PLATFORM)
+			static TextureInformation *addTextureInfo(const std::string &key, TextureInformation *textureInfo,
+					                                      bool overwrite = false);
+
+
+			///Create a PixMap from a PNG file at the given path.
+			static PixMap *loadPixMapFromPNG(const std::string &filePath);
+			
+			/**
+			 * Saves a PixMap to a PNG file.
+			 * @param pixMap PixMap to save to a PNG file.
+			 * @param filePath Path to the PNG file to write.
+			 */
+			static void savePixMapToPNG(const PixMap &pixMap, const std::string &filePath);
+
+			/// Map associating the textures' keys and their information.
+			static std::map<std::string, TextureInformation *> textures;
+			static std::map<std::string, SubTextureInfo *> subTextures;
+
+		#endif
 
 	    
 		static Font *initFontFromPath(const std::string &key,
@@ -314,27 +341,12 @@ namespace BaconBox {
 		
 		
 		
-		static TextureInformation *addTextureInfo(const std::string &key, TextureInformation *textureInfo,
-		                                      bool overwrite = false);
+		
 	    
-		
-		/**
-		 * Unloads everything in the ResourceManager.
-		 */
+	
 
-		///Create a PixMap from a PNG file at the given path.
-		static PixMap *loadPixMapFromPNG(const std::string &filePath);
 		
-		/**
-		 * Saves a PixMap to a PNG file.
-		 * @param pixMap PixMap to save to a PNG file.
-		 * @param filePath Path to the PNG file to write.
-		 */
-		static void savePixMapToPNG(const PixMap &pixMap, const std::string &filePath);
 
-		/// Map associating the textures' keys and their information.
-		static std::map<std::string, TextureInformation *> textures;
-		static std::map<std::string, SubTextureInfo *> subTextures;
 
 		
 

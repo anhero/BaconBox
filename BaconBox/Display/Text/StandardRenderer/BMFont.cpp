@@ -1,6 +1,6 @@
 #include <fstream>
 
-#include "BaconBox/Display/Text/BMFont.h"
+#include "BaconBox/Display/Text/StandardRenderer/BMFont.h"
 #include "BaconBox/Console.h"
 #include <fstream>
 #include "BaconBox/Helper/Serialization/XmlSerializer.h"

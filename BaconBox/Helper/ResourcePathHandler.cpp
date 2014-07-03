@@ -9,7 +9,7 @@
 #include <stdlib.h>
 #include <sys/stat.h>
 #include <dirent.h>
-#elif defined(BB_MAC_PLATFORM) || defined(BB_LINUX)
+#elif defined(BB_MAC_PLATFORM) || defined(BB_LINUX) || defined(BB_FLASH_PLATFORM)
 #include <sys/types.h>
 #include <pwd.h>
 #include <unistd.h>
@@ -214,6 +214,9 @@ resourcePath = Engine::getApplicationPath();
 	}
 	
 	bool ResourcePathHandler::removeDirectory(const std::string &path){
+		// #if defined(BB_FLASH_PLATFORM)
+		// 	return false;
+		// #else
 		//Took from here: http://stackoverflow.com/questions/2256945/removing-a-non-empty-directory-programmatically-in-c-or-c
 
 		DIR *d = opendir(path.c_str());
@@ -274,6 +277,9 @@ resourcePath = Engine::getApplicationPath();
 		}
 		
 		return r;
+		
+
+		// #endif
 	}
 	
 	

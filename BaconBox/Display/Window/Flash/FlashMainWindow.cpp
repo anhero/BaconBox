@@ -4,7 +4,7 @@
 namespace BaconBox {
 
 
-	void FlashMainWindow::onBaconBoxInit(unsigned int resolutionWidth, unsigned int resolutionHeight, float contextWidth, float contextHeight) {
+	void FlashMainWindow::onBaconBoxInit(unsigned int resolutionWidth, unsigned int resolutionHeight, float contextWidth, float contextHeight, BaconBox::WindowOrientation::type) {
 		this->MainWindow::setResolution(resolutionWidth, resolutionHeight);
 		this->MainWindow::setContextSize(contextWidth, contextHeight);
 
@@ -27,6 +27,10 @@ namespace BaconBox {
 	                                   float newContextHeight) {
 		this->MainWindow::setContextSize(newContextWidth, newContextHeight);
 //		GraphicDriver::getInstance().initializeGraphicDriver();
+	}
+
+	void FlashMainWindow::setUpdatesPerSecond(double){
+
 	}
 
 	void FlashMainWindow::setCaption(const std::string &caption) {
