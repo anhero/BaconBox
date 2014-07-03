@@ -101,7 +101,7 @@ bool FlashSoundFX::isLooping() {
 	return (nbTimes == LOOPING);
 }
 
-AudioState FlashSoundFX::getCurrentState() const {
+AudioState::type FlashSoundFX::getCurrentState() const {
 	return currentState;
 }
 

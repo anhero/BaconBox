@@ -4,10 +4,9 @@
 #include "BaconBox/Console.h"
 #include "BaconBox/Helper/StringHelper.h"
 #include "BaconBox/Helper/UTFConvert.h"
-#include "BaconBox/Display/Text/TextureFont.h"
+#include "BaconBox/Display/Text/StandardRenderer/TextureFont.h"
 #include "BaconBox/EntityFactory.h"
 #include "Mesh.h"
-#include "BaconBox/Display/Text/TextureFont.h"
 #include "BaconBox/Components/ComponentConnection.h"
 #include "DefaultEntityContainer.h"
 

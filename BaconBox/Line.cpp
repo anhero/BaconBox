@@ -2,7 +2,7 @@
 #include <string>
 #include "BaconBox/Components/Texture.h"
 #include "BaconBox/Components/Mesh.h"
-#include "BaconBox/Components/MeshDriverRenderer.h"
+#include "BaconBox/Components/StandardRenderer/MeshDriverRenderer.h"
 #include "BaconBox/ResourceManager.h"
 #ifdef BB_FLASH_PLATFORM
 

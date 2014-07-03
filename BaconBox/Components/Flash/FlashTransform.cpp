@@ -16,9 +16,9 @@ namespace BaconBox {
 		inline_as3(
 			 "%0 = mc.x;\n"
 			 "%1 = mc.y;\n"
-			: "=r"(const_cast<FlashTransform*>(this)->position.x), "=r"(const_cast<FlashTransform*>(this)->position.y) :
+			: "=r"(const_cast<FlashTransform*>(this)->_position.x), "=r"(const_cast<FlashTransform*>(this)->_position.y) :
 		);
-		return position;
+		return _position;
 	}
 
 

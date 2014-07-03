@@ -31,7 +31,7 @@ BackgroundMusic* FlashMusicEngine::getBackgroundMusic(const std::string& key,
 			delete result;
 			result = NULL;
 			Console::println("Tried to get a music from an invalid key: " + key);
-			Console::printTrace();
+			// Console::printTrace();
 		}
 			audios.insert(result);
 		if(!survive) {
@@ -39,7 +39,7 @@ BackgroundMusic* FlashMusicEngine::getBackgroundMusic(const std::string& key,
 		}
 	} else {
 		Console::println("Failed to allocate memory for the new music: " + key);
-		Console::printTrace();
+		// Console::printTrace();
 	}
 
 	return result;

@@ -3,7 +3,6 @@
 
 #include "BaconBox/Core/Entity.h"
 #include "BaconBox/MovieClipEntity/MovieClipEntity.h"
-#include "BaconBox/Display/TexturePointer.h"
 #include "BaconBox/Display/Text/TextEntity.h"
 #include "BaconBox/Helper/DynamicPool.h"
 

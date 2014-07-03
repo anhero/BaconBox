@@ -4,7 +4,7 @@
 #include "BaconBox/Components/Transform.h"
 #include "BaconBox/Components/Mesh.h"
 #include "BaconBox/Components/ColorTransform.h"
-#include "BaconBox/Components/MeshDriverRenderer.h"
+#include "BaconBox/Components/StandardRenderer/MeshDriverRenderer.h"
 #include "BaconBox/Components/DefaultEntityContainer.h"
 #include "BaconBox/Components/DefaultTimeline.h"
 
@@ -20,6 +20,8 @@
 #include <AS3/AS3.h>
 #include <AS3/AS3++.h>
 #include "BaconBox/Helper/Flash/FlashHelper.h"
+#else
+#include "BaconBox/Display/StandardRenderer/TexturePointer.h"
 
 #endif
 
@@ -49,7 +51,12 @@ namespace BaconBox {
 	}
 	
 	MovieClipEntity *EntityFactory::internalGetMovieClipEntity() {
-		return movieClipPool.create();
+		#ifdef BB_FLASH_PLATFORM
+			AS3::local::var mc =  FlashHelper::construct("BaconBox.EntityWrapper.EntityHolderMovieClip");
+			return FlashHelper::getMCEntityFromMC(mc);
+		#else	
+			return movieClipPool.create();
+		#endif
 	}
 	
 	EntityFactory &EntityFactory::getInstance(){

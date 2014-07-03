@@ -798,8 +798,10 @@ const char *__str__() {
 %include "BaconBox/ResourceManager.h"
 
 %include "BaconBox/Helper/Timer.h"
+  #if !defined(BB_FLASH_PLATFORM)
 
 %extend BaconBox::ResourceManager {
+
   static void unloadAllTextureExcept(lua_State * L){
     lua_pushnil(L);
     std::set<std::string> exceptions;
@@ -813,6 +815,7 @@ const char *__str__() {
   }
 
 }
+#endif
 
 namespace BaconBox{
   
