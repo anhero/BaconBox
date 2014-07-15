@@ -27,12 +27,12 @@ namespace BaconBox {
 		this->addConnection(new ComponentConnection<Mesh>(&this->mesh));
 	}
 
-	const AxisAlignedBoundingBox &DefaultAABBHitBox::getAABB() {
+	const AABB &DefaultAABBHitBox::getAABB() {
 		if (!haveCustomAABB) {
 			if (!mesh) {
 				for (int i = 0; i < entityContainer->getNbChildren(); i++) {
 					MovieClipEntity *child =  entityContainer->getChildAt(i);
-					AxisAlignedBoundingBox childAABB = child->getAABB();
+					AABB childAABB = child->getAABB();
 
 					if (i != 0) {
 						if (childAABB.getLeft() < customAABB.getLeft()) {
@@ -41,7 +41,7 @@ namespace BaconBox {
 						}
 
 						if (childAABB.getTop() < customAABB.getTop()) {
-							customAABB.setHeight(customAABB.getHeight() - (customAABB.getYPosition() - childAABB.getYPosition()));
+							customAABB.setHeight(customAABB.getHeight() + (customAABB.getYPosition() - childAABB.getYPosition()));
 							customAABB.setYPosition(childAABB.getYPosition());
 						}
 
@@ -60,7 +60,7 @@ namespace BaconBox {
 				}
 
 			} else if (mesh) {
-				customAABB = mesh->getPostTransformVertices().getAxisAlignedBoundingBox();
+				customAABB = mesh->getPostTransformVertices().getAABB();
 			}
 		}
 

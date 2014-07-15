@@ -12,7 +12,7 @@ namespace BaconBox {
 	class FlashAABBHitBox : public AABBHitBox {
 	public:
 		FlashAABBHitBox();
-		const AxisAlignedBoundingBox &getAABB();
+		const AABB &getAABB();
 	private:
 		void initializeConnections();
 		MovieClipHolder *movieClipHolder;

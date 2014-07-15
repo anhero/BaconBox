@@ -12,37 +12,37 @@ namespace BaconBox {
 	 * Represents an axis-aligned bounding box.
 	 * @ingroup Physics
 	 */
-	class AxisAlignedBoundingBox {
+	class AABB {
 	public:
 		/**
 		 * Default constructor.
 		 */
-		AxisAlignedBoundingBox();
+		AABB();
 
 		/**
 		 * Parameterized constructor.
 		 * @param newPosition Starting position.
 		 * @param newSize Starting size.
-		 * @see BaconBox::AxisAlignedBoundingBox::position
-		 * @see BaconBox::AxisAlignedBoundingBox::size
+		 * @see BaconBox::AABB::position
+		 * @see BaconBox::AABB::size
 		 */
-		AxisAlignedBoundingBox(const Vector2 &newPosition,
+		AABB(const Vector2 &newPosition,
 		                       const Vector2 &newSize);
 		
-		AxisAlignedBoundingBox(float x, float y, float width, float height);
+		AABB(float x, float y, float width, float height);
 
 		/**
 		 * Copy constructor.
 		 * @param src AxisAlignedBoundingBox to make a copy of.
 		 */
-		AxisAlignedBoundingBox(const AxisAlignedBoundingBox &src);
+		AABB(const AABB &src);
 
 		/**
 		 * Assignment operator.
 		 * @param src AxisAlignedBoundingBox to make a copy of.
 		 * @return Reference to the modified AxisAlignedBoundingBox.
 		 */
-		AxisAlignedBoundingBox &operator=(const AxisAlignedBoundingBox &src);
+		AABB &operator=(const AABB &src);
 
 		/**
 		 * Comparison operator. Checks if both the boxes are equivalent.
@@ -50,7 +50,7 @@ namespace BaconBox {
 		 * @return True if the boxes have the same position and size, false if
 		 * not.
 		 */
-		bool operator==(const AxisAlignedBoundingBox &other) const;
+		bool operator==(const AABB &other) const;
 
 		/**
 		 * Comparison operator. Checks if two boxes are different.
@@ -58,27 +58,27 @@ namespace BaconBox {
 		 * @return True if the boxes have different position or size, false if
 		 * not.
 		 */
-		bool operator!=(const AxisAlignedBoundingBox &other) const;
+		bool operator!=(const AABB &other) const;
 
 		/**
 		 * Gets the body's horizontal and vertical position.
 		 * @return 2D vector containing the horizontal and vertical position.
-		 * @see BaconBox::AxisAlignedBoundingBox::position
+		 * @see BaconBox::AABB::position
 		 */
 		Vector2 &getPosition();
 
 		/**
 		 * Gets the body's horizontal and vertical position.
 		 * @return 2D vector containing the horizontal and vertical position.
-		 * @see BaconBox::AxisAlignedBoundingBox::position
+		 * @see BaconBox::AABB::position
 		 */
 		const Vector2 &getPosition() const;
 
 		/**
 		 * Sets the AxisAlignedBoundingBox's horizontal and vertical position.
 		 * @param newPosition New horizontal and vertical position.
-		 * @see AxisAlignedBoundingBox::setPosition(float x, float y)
-		 * @see BaconBox::AxisAlignedBoundingBox::position
+		 * @see AABB::setPosition(float x, float y)
+		 * @see BaconBox::AABB::position
 		 */
 		void setPosition(const Vector2 &newPosition);
 
@@ -88,7 +88,7 @@ namespace BaconBox {
 		 * means more to the left.
 		 * @param newYPosition New vertical position (in pixels). Lower value
 		 * means more at the top.
-		 * @see BaconBox::AxisAlignedBoundingBox::position
+		 * @see BaconBox::AABB::position
 		 */
 		void setPosition(float newXPosition, float newYPosition);
 
@@ -96,8 +96,8 @@ namespace BaconBox {
 		 * Moves the AxisAlignedBoundingBox horizontally and vertically.
 		 * @param delta 2D vector to add to the AxisAlignedBoundingBox's position (in
 		 * pixels).
-		 * @see BaconBox::AxisAlignedBoundingBox::move(float deltaX, float deltaY)
-		 * @see BaconBox::AxisAlignedBoundingBox::position
+		 * @see BaconBox::AABB::move(float deltaX, float deltaY)
+		 * @see BaconBox::AABB::position
 		 */
 		void move(const Vector2 &delta);
 
@@ -109,8 +109,8 @@ namespace BaconBox {
 		 * @param yDelta Value to add to the AxisAlignedBoundingBox's vertical position (in
 		 * pixels). Positive value moves the AxisAlignedBoundingBox down and a negative
 		 * value moves the AxisAlignedBoundingBox up.
-		 * @see BaconBox::AxisAlignedBoundingBox::move(const Vector2& delta);
-		 * @see BaconBox::AxisAlignedBoundingBox::position
+		 * @see BaconBox::AABB::move(const Vector2& delta);
+		 * @see BaconBox::AABB::position
 		 */
 		void move(float xDelta, float yDelta);
 
@@ -118,7 +118,7 @@ namespace BaconBox {
 		 * Gets the AxisAlignedBoundingBox's horizontal position.
 		 * @return Horizontal position (in pixels). Lower value means more to
 		 * the left.
-		 * @see BaconBox::AxisAlignedBoundingBox::position
+		 * @see BaconBox::AABB::position
 		 */
 		float getXPosition() const;
 
@@ -126,7 +126,7 @@ namespace BaconBox {
 		 * Sets the AxisAlignedBoundingBox's horizontal position.
 		 * @param newXPosition New horizontal position (in pixels). Lower value
 		 * means more to the left.
-		 * @see BaconBox::AxisAlignedBoundingBox::position
+		 * @see BaconBox::AABB::position
 		 */
 		void setXPosition(float newXPosition);
 
@@ -135,7 +135,7 @@ namespace BaconBox {
 		 * @param xDelta Value to add to the AxisAlignedBoundingBox's horizontal position
 		 * (in pixels). Positive value moves the AxisAlignedBoundingBox to the right and a
 		 * negative value moves the AxisAlignedBoundingBox to the left.
-		 * @see BaconBox::AxisAlignedBoundingBox::position
+		 * @see BaconBox::AABB::position
 		 */
 		void moveX(float xDelta);
 
@@ -143,7 +143,7 @@ namespace BaconBox {
 		 * Gets the body's vertical position.
 		 * @return Vertical position (in pixels). Lower value means more at the
 		 * top.
-		 * @see BaconBox::AxisAlignedBoundingBox::position
+		 * @see BaconBox::AABB::position
 		 */
 		float getYPosition() const;
 
@@ -151,7 +151,7 @@ namespace BaconBox {
 		 * Sets the body's horizontal position.
 		 * @param newYPosition New vertical position (in pixels). Lower value
 		 * means more at the top.
-		 * @see BaconBox::AxisAlignedBoundingBox::position
+		 * @see BaconBox::AABB::position
 		 */
 		void setYPosition(float newYPosition);
 
@@ -160,7 +160,7 @@ namespace BaconBox {
 		 * @param yDelta Value to add to the AxisAlignedBoundingBox's vertical position (in
 		 * pixels). Positive value moves the AxisAlignedBoundingBox down and a negative
 		 * value moves the body up.
-		 * @see BaconBox::AxisAlignedBoundingBox::position
+		 * @see BaconBox::AABB::position
 		 */
 		void moveY(float yDelta);
 
@@ -185,21 +185,21 @@ namespace BaconBox {
 		/**
 		 * Gets the bounding box's size.
 		 * @return Vector2 containing the width and height of the bounding box.
-		 * @see BaconBox::AxisAlignedBoundingBox::size
+		 * @see BaconBox::AABB::size
 		 */
 		Vector2 &getSize();
 
 		/**
 		 * Gets the bounding box's size.
 		 * @return Vector2 containing the width and height of the bounding box.
-		 * @see BaconBox::AxisAlignedBoundingBox::size
+		 * @see BaconBox::AABB::size
 		 */
 		const Vector2 &getSize() const;
 
 		/**
 		 * Sets the bounding box's size.
 		 * @param newSize New size to set.
-		 * @see BaconBox::AxisAlignedBoundingBox::size
+		 * @see BaconBox::AABB::size
 		 */
 		void setSize(const Vector2 &newSize);
 
@@ -207,35 +207,35 @@ namespace BaconBox {
 		 * Sets the bounding box's size.
 		 * @param newWidth New width to set.
 		 * @param newHeight New height to set.
-		 * @see BaconBox::AxisAlignedBoundingBox::size
+		 * @see BaconBox::AABB::size
 		 */
 		void setSize(float newWidth, float newHeight);
 
 		/**
 		 * Gets the bounding box's width.
 		 * @return Width in pixels (by default).
-		 * @see BaconBox::AxisAlignedBoundingBox::size
+		 * @see BaconBox::AABB::size
 		 */
 		float getWidth() const;
 
 		/**
 		 * Sets the bounding box's width.
 		 * @param newWidth New width to set.
-		 * @see BaconBox::AxisAlignedBoundingBox::size
+		 * @see BaconBox::AABB::size
 		 */
 		void setWidth(float newWidth);
 
 		/**
 		 * Gets the bounding box's height.
 		 * @return Height in pixels (by default).
-		 * @see BaconBox::AxisAlignedBoundingBox::size
+		 * @see BaconBox::AABB::size
 		 */
 		float getHeight() const;
 
 		/**
 		 * Sets the bounding box's height.
 		 * @param newHeight New height to set.
-		 * @see BaconBox::AxisAlignedBoundingBox::size
+		 * @see BaconBox::AABB::size
 		 */
 		void setHeight(float newHeight);
 
@@ -268,7 +268,7 @@ namespace BaconBox {
 		 * @param other Bounding box to check overlapping with.
 		 * @return True if the two bounding boxes collide, false if not.
 		 */
-		bool overlaps(const AxisAlignedBoundingBox &other) const;
+		bool overlaps(const AABB &other) const;
 
 		/**
 		 * Checks if a point overlaps with the bounding box.
@@ -344,7 +344,7 @@ namespace BaconBox {
 		 * @return True if the instance is completely inside the given box,
 		 * false if not.
 		 */
-		bool isCompletelyInside(const AxisAlignedBoundingBox &other) const;
+		bool isCompletelyInside(const AABB &other) const;
 	private:
 		/**
 		 * Horizontal and vertical position. Position (0, 0) is at the upper
