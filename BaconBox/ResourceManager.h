@@ -46,7 +46,6 @@ namespace BaconBox {
 		friend class BaseEngine;
 	public:
 	    #if !defined(BB_FLASH_PLATFORM)
-sdfasfd
 
 		static SubTextureInfo *addSubTexture(const std::string &key, SubTextureInfo *textureInfo,
 		                                      bool overwrite = false);

@@ -37,7 +37,6 @@
 		C745A57F1889F6AF00383361 /* SoundFX.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C745A39E1889F6AE00383361 /* SoundFX.cpp */; };
 		C745A5801889F6AF00383361 /* SoundInfo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C745A3A01889F6AE00383361 /* SoundInfo.cpp */; };
 		C745A5811889F6AF00383361 /* SoundParameters.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C745A3A21889F6AE00383361 /* SoundParameters.cpp */; };
-		C745A5821889F6AF00383361 /* AxisAlignedBoundingBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C745A3A41889F6AE00383361 /* AxisAlignedBoundingBox.cpp */; };
 		C745A5831889F6AF00383361 /* ColorMatrix.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C745A3A61889F6AE00383361 /* ColorMatrix.cpp */; };
 		C745A5841889F6AF00383361 /* AABBHitBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C745A3A91889F6AE00383361 /* AABBHitBox.cpp */; };
 		C745A5851889F6AF00383361 /* Batch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C745A3AB1889F6AE00383361 /* Batch.cpp */; };
@@ -60,13 +59,11 @@
 		C745A5A11889F6AF00383361 /* LuaEntity.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C745A3E81889F6AE00383361 /* LuaEntity.cpp */; };
 		C745A5A21889F6AF00383361 /* MatrixComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C745A3EA1889F6AE00383361 /* MatrixComponent.cpp */; };
 		C745A5A31889F6AF00383361 /* Mesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C745A3EC1889F6AE00383361 /* Mesh.cpp */; };
-		C745A5A41889F6AF00383361 /* MeshDriverRenderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C745A3EE1889F6AE00383361 /* MeshDriverRenderer.cpp */; };
 		C745A5A61889F6AF00383361 /* Shake.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C745A3F21889F6AE00383361 /* Shake.cpp */; };
 		C745A5A71889F6AF00383361 /* SizeComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C745A3F41889F6AE00383361 /* SizeComponent.cpp */; };
 		C745A5A81889F6AF00383361 /* Speed.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C745A3F61889F6AE00383361 /* Speed.cpp */; };
 		C745A5A91889F6AF00383361 /* SymbolComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C745A3F81889F6AE00383361 /* SymbolComponent.cpp */; };
 		C745A5AA1889F6AF00383361 /* TextComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C745A3FA1889F6AE00383361 /* TextComponent.cpp */; };
-		C745A5AB1889F6AF00383361 /* TextRenderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C745A3FC1889F6AE00383361 /* TextRenderer.cpp */; };
 		C745A5AC1889F6AF00383361 /* Texture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C745A3FE1889F6AE00383361 /* Texture.cpp */; };
 		C745A5AD1889F6AF00383361 /* Timeline.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C745A4001889F6AE00383361 /* Timeline.cpp */; };
 		C745A5AE1889F6AF00383361 /* Transform.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C745A4021889F6AE00383361 /* Transform.cpp */; };
@@ -91,10 +88,8 @@
 		C745A5C51889F6AF00383361 /* DynamicBatch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C745A4381889F6AE00383361 /* DynamicBatch.cpp */; };
 		C745A5C81889F6AF00383361 /* PixMap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C745A43F1889F6AE00383361 /* PixMap.cpp */; };
 		C745A5C91889F6AF00383361 /* SubTextureInfo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C745A4421889F6AE00383361 /* SubTextureInfo.cpp */; };
-		C745A5CA1889F6AF00383361 /* BMFont.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C745A4451889F6AE00383361 /* BMFont.cpp */; };
 		C745A5CC1889F6AF00383361 /* Font.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C745A44A1889F6AE00383361 /* Font.cpp */; };
 		C745A5CD1889F6AF00383361 /* TextEntity.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C745A4501889F6AE00383361 /* TextEntity.cpp */; };
-		C745A5CE1889F6AF00383361 /* TextureFont.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C745A4521889F6AE00383361 /* TextureFont.cpp */; };
 		C745A5CF1889F6AF00383361 /* TextureGlyphInformation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C745A4541889F6AE00383361 /* TextureGlyphInformation.cpp */; };
 		C745A5D01889F6AF00383361 /* TextureInformation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C745A4561889F6AE00383361 /* TextureInformation.cpp */; };
 		C745A5D21889F6AF00383361 /* BaconBoxAppAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C745A45F1889F6AE00383361 /* BaconBoxAppAppDelegate.m */; };
@@ -186,6 +181,11 @@
 		C787E2E2189C5C0200C2A713 /* ParticleEmitterComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C787E2DF189C5C0200C2A713 /* ParticleEmitterComponent.cpp */; };
 		C79235A41889FA76008D3492 /* BaconBoxLua.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C79235A21889FA76008D3492 /* BaconBoxLua.cpp */; };
 		C7F3281D17F35451009D7092 /* liblua.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5161F4FF172079A30044226C /* liblua.a */; };
+		F9B632A1196DA6BD00D59782 /* AABB.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F9B632A0196DA6BD00D59782 /* AABB.cpp */; };
+		F9B632AE196DA8EE00D59782 /* TextRenderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F9B632AC196DA82500D59782 /* TextRenderer.cpp */; };
+		F9B632AF196DA91E00D59782 /* MeshDriverRenderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F9B632AA196DA82500D59782 /* MeshDriverRenderer.cpp */; };
+		F9B632B0196DA9B500D59782 /* TextureFont.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F9B632A5196DA79900D59782 /* TextureFont.cpp */; };
+		F9B632B1196DA9C300D59782 /* BMFont.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F9B632A3196DA79900D59782 /* BMFont.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -254,8 +254,6 @@
 		C745A3A11889F6AE00383361 /* SoundInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoundInfo.h; sourceTree = "<group>"; };
 		C745A3A21889F6AE00383361 /* SoundParameters.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SoundParameters.cpp; sourceTree = "<group>"; };
 		C745A3A31889F6AE00383361 /* SoundParameters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoundParameters.h; sourceTree = "<group>"; };
-		C745A3A41889F6AE00383361 /* AxisAlignedBoundingBox.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AxisAlignedBoundingBox.cpp; sourceTree = "<group>"; };
-		C745A3A51889F6AE00383361 /* AxisAlignedBoundingBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AxisAlignedBoundingBox.h; sourceTree = "<group>"; };
 		C745A3A61889F6AE00383361 /* ColorMatrix.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ColorMatrix.cpp; sourceTree = "<group>"; };
 		C745A3A71889F6AE00383361 /* ColorMatrix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorMatrix.h; sourceTree = "<group>"; };
 		C745A3A91889F6AE00383361 /* AABBHitBox.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AABBHitBox.cpp; sourceTree = "<group>"; };
@@ -303,8 +301,6 @@
 		C745A3EB1889F6AE00383361 /* MatrixComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MatrixComponent.h; sourceTree = "<group>"; };
 		C745A3EC1889F6AE00383361 /* Mesh.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Mesh.cpp; sourceTree = "<group>"; };
 		C745A3ED1889F6AE00383361 /* Mesh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Mesh.h; sourceTree = "<group>"; };
-		C745A3EE1889F6AE00383361 /* MeshDriverRenderer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MeshDriverRenderer.cpp; sourceTree = "<group>"; };
-		C745A3EF1889F6AE00383361 /* MeshDriverRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeshDriverRenderer.h; sourceTree = "<group>"; };
 		C745A3F21889F6AE00383361 /* Shake.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Shake.cpp; sourceTree = "<group>"; };
 		C745A3F31889F6AE00383361 /* Shake.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Shake.h; sourceTree = "<group>"; };
 		C745A3F41889F6AE00383361 /* SizeComponent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SizeComponent.cpp; sourceTree = "<group>"; };
@@ -315,8 +311,6 @@
 		C745A3F91889F6AE00383361 /* SymbolComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SymbolComponent.h; sourceTree = "<group>"; };
 		C745A3FA1889F6AE00383361 /* TextComponent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TextComponent.cpp; sourceTree = "<group>"; };
 		C745A3FB1889F6AE00383361 /* TextComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextComponent.h; sourceTree = "<group>"; };
-		C745A3FC1889F6AE00383361 /* TextRenderer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TextRenderer.cpp; sourceTree = "<group>"; };
-		C745A3FD1889F6AE00383361 /* TextRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextRenderer.h; sourceTree = "<group>"; };
 		C745A3FE1889F6AE00383361 /* Texture.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Texture.cpp; sourceTree = "<group>"; };
 		C745A3FF1889F6AE00383361 /* Texture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Texture.h; sourceTree = "<group>"; };
 		C745A4001889F6AE00383361 /* Timeline.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Timeline.cpp; sourceTree = "<group>"; };
@@ -369,8 +363,6 @@
 		C745A4411889F6AE00383361 /* RenderMode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RenderMode.h; sourceTree = "<group>"; };
 		C745A4421889F6AE00383361 /* SubTextureInfo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SubTextureInfo.cpp; sourceTree = "<group>"; };
 		C745A4431889F6AE00383361 /* SubTextureInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubTextureInfo.h; sourceTree = "<group>"; };
-		C745A4451889F6AE00383361 /* BMFont.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BMFont.cpp; sourceTree = "<group>"; };
-		C745A4461889F6AE00383361 /* BMFont.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMFont.h; sourceTree = "<group>"; };
 		C745A44A1889F6AE00383361 /* Font.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Font.cpp; sourceTree = "<group>"; };
 		C745A44B1889F6AE00383361 /* Font.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Font.h; sourceTree = "<group>"; };
 		C745A44C1889F6AE00383361 /* FontFormat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FontFormat.h; sourceTree = "<group>"; };
@@ -379,13 +371,10 @@
 		C745A44F1889F6AE00383361 /* TextDirection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextDirection.h; sourceTree = "<group>"; };
 		C745A4501889F6AE00383361 /* TextEntity.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TextEntity.cpp; sourceTree = "<group>"; };
 		C745A4511889F6AE00383361 /* TextEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextEntity.h; sourceTree = "<group>"; };
-		C745A4521889F6AE00383361 /* TextureFont.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TextureFont.cpp; sourceTree = "<group>"; };
-		C745A4531889F6AE00383361 /* TextureFont.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextureFont.h; sourceTree = "<group>"; };
 		C745A4541889F6AE00383361 /* TextureGlyphInformation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TextureGlyphInformation.cpp; sourceTree = "<group>"; };
 		C745A4551889F6AE00383361 /* TextureGlyphInformation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextureGlyphInformation.h; sourceTree = "<group>"; };
 		C745A4561889F6AE00383361 /* TextureInformation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TextureInformation.cpp; sourceTree = "<group>"; };
 		C745A4571889F6AE00383361 /* TextureInformation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextureInformation.h; sourceTree = "<group>"; };
-		C745A4581889F6AE00383361 /* TexturePointer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TexturePointer.h; sourceTree = "<group>"; };
 		C745A45E1889F6AE00383361 /* BaconBoxAppAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaconBoxAppAppDelegate.h; sourceTree = "<group>"; };
 		C745A45F1889F6AE00383361 /* BaconBoxAppAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaconBoxAppAppDelegate.m; sourceTree = "<group>"; };
 		C745A4601889F6AE00383361 /* BaconBoxAppViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaconBoxAppViewController.h; sourceTree = "<group>"; };
@@ -590,6 +579,17 @@
 		C79235A31889FA76008D3492 /* swigluarun.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = swigluarun.h; sourceTree = "<group>"; };
 		C7B75C1317ECBDFD00A056CF /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		C7B75C1517ECBE0D00A056CF /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
+		F9B6329F196DA6BD00D59782 /* AABB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AABB.h; sourceTree = "<group>"; };
+		F9B632A0196DA6BD00D59782 /* AABB.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AABB.cpp; sourceTree = "<group>"; };
+		F9B632A3196DA79900D59782 /* BMFont.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = BMFont.cpp; sourceTree = "<group>"; };
+		F9B632A4196DA79900D59782 /* BMFont.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BMFont.h; sourceTree = "<group>"; };
+		F9B632A5196DA79900D59782 /* TextureFont.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TextureFont.cpp; sourceTree = "<group>"; };
+		F9B632A6196DA79900D59782 /* TextureFont.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TextureFont.h; sourceTree = "<group>"; };
+		F9B632A8196DA7CD00D59782 /* TexturePointer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TexturePointer.h; sourceTree = "<group>"; };
+		F9B632AA196DA82500D59782 /* MeshDriverRenderer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = MeshDriverRenderer.cpp; sourceTree = "<group>"; };
+		F9B632AB196DA82500D59782 /* MeshDriverRenderer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MeshDriverRenderer.h; sourceTree = "<group>"; };
+		F9B632AC196DA82500D59782 /* TextRenderer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TextRenderer.cpp; sourceTree = "<group>"; };
+		F9B632AD196DA82500D59782 /* TextRenderer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TextRenderer.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -665,11 +665,11 @@
 		C745A36A1889F6AE00383361 /* BaconBox */ = {
 			isa = PBXGroup;
 			children = (
+				F9B6329F196DA6BD00D59782 /* AABB.h */,
+				F9B632A0196DA6BD00D59782 /* AABB.cpp */,
 				C787E2DA189C5BE800C2A713 /* ParticleEmitter.cpp */,
 				C787E2DB189C5BE800C2A713 /* ParticleEmitter.h */,
 				C745A36B1889F6AE00383361 /* Audio */,
-				C745A3A41889F6AE00383361 /* AxisAlignedBoundingBox.cpp */,
-				C745A3A51889F6AE00383361 /* AxisAlignedBoundingBox.h */,
 				C745A3A61889F6AE00383361 /* ColorMatrix.cpp */,
 				C745A3A71889F6AE00383361 /* ColorMatrix.h */,
 				C745A3A81889F6AE00383361 /* Components */,
@@ -808,6 +808,7 @@
 				C745A3BE1889F6AE00383361 /* DefaultLineComponent.cpp */,
 				C745A3BF1889F6AE00383361 /* DefaultLineComponent.h */,
 				C745A3C01889F6AE00383361 /* DefaultMatrix.cpp */,
+				F9B632A9196DA82500D59782 /* StandardRenderer */,
 				C745A3C11889F6AE00383361 /* DefaultMatrix.h */,
 				C745A3C21889F6AE00383361 /* DefaultSizeComponent.cpp */,
 				C745A3C31889F6AE00383361 /* DefaultSizeComponent.h */,
@@ -828,8 +829,6 @@
 				C745A3EB1889F6AE00383361 /* MatrixComponent.h */,
 				C745A3EC1889F6AE00383361 /* Mesh.cpp */,
 				C745A3ED1889F6AE00383361 /* Mesh.h */,
-				C745A3EE1889F6AE00383361 /* MeshDriverRenderer.cpp */,
-				C745A3EF1889F6AE00383361 /* MeshDriverRenderer.h */,
 				C745A3F21889F6AE00383361 /* Shake.cpp */,
 				C745A3F31889F6AE00383361 /* Shake.h */,
 				C745A3F41889F6AE00383361 /* SizeComponent.cpp */,
@@ -840,8 +839,6 @@
 				C745A3F91889F6AE00383361 /* SymbolComponent.h */,
 				C745A3FA1889F6AE00383361 /* TextComponent.cpp */,
 				C745A3FB1889F6AE00383361 /* TextComponent.h */,
-				C745A3FC1889F6AE00383361 /* TextRenderer.cpp */,
-				C745A3FD1889F6AE00383361 /* TextRenderer.h */,
 				C745A3FE1889F6AE00383361 /* Texture.cpp */,
 				C745A3FF1889F6AE00383361 /* Texture.h */,
 				C745A4001889F6AE00383361 /* Timeline.cpp */,
@@ -891,6 +888,7 @@
 			children = (
 				C745A4211889F6AE00383361 /* Camera.cpp */,
 				C745A4221889F6AE00383361 /* Camera.h */,
+				F9B632A7196DA7CD00D59782 /* StandardRenderer */,
 				C745A4231889F6AE00383361 /* Color.cpp */,
 				C745A4241889F6AE00383361 /* Color.h */,
 				C745A4251889F6AE00383361 /* ColorFormat.cpp */,
@@ -906,7 +904,6 @@
 				C745A4441889F6AE00383361 /* Text */,
 				C745A4561889F6AE00383361 /* TextureInformation.cpp */,
 				C745A4571889F6AE00383361 /* TextureInformation.h */,
-				C745A4581889F6AE00383361 /* TexturePointer.h */,
 				C745A4591889F6AE00383361 /* Window */,
 			);
 			path = Display;
@@ -943,8 +940,7 @@
 		C745A4441889F6AE00383361 /* Text */ = {
 			isa = PBXGroup;
 			children = (
-				C745A4451889F6AE00383361 /* BMFont.cpp */,
-				C745A4461889F6AE00383361 /* BMFont.h */,
+				F9B632A2196DA79900D59782 /* StandardRenderer */,
 				C745A44A1889F6AE00383361 /* Font.cpp */,
 				C745A44B1889F6AE00383361 /* Font.h */,
 				C745A44C1889F6AE00383361 /* FontFormat.h */,
@@ -953,8 +949,6 @@
 				C745A44F1889F6AE00383361 /* TextDirection.h */,
 				C745A4501889F6AE00383361 /* TextEntity.cpp */,
 				C745A4511889F6AE00383361 /* TextEntity.h */,
-				C745A4521889F6AE00383361 /* TextureFont.cpp */,
-				C745A4531889F6AE00383361 /* TextureFont.h */,
 				C745A4541889F6AE00383361 /* TextureGlyphInformation.cpp */,
 				C745A4551889F6AE00383361 /* TextureGlyphInformation.h */,
 			);
@@ -1295,6 +1289,36 @@
 			path = ../../build/SDL_Lua_debug/swig;
 			sourceTree = "<group>";
 		};
+		F9B632A2196DA79900D59782 /* StandardRenderer */ = {
+			isa = PBXGroup;
+			children = (
+				F9B632A3196DA79900D59782 /* BMFont.cpp */,
+				F9B632A4196DA79900D59782 /* BMFont.h */,
+				F9B632A5196DA79900D59782 /* TextureFont.cpp */,
+				F9B632A6196DA79900D59782 /* TextureFont.h */,
+			);
+			path = StandardRenderer;
+			sourceTree = "<group>";
+		};
+		F9B632A7196DA7CD00D59782 /* StandardRenderer */ = {
+			isa = PBXGroup;
+			children = (
+				F9B632A8196DA7CD00D59782 /* TexturePointer.h */,
+			);
+			path = StandardRenderer;
+			sourceTree = "<group>";
+		};
+		F9B632A9196DA82500D59782 /* StandardRenderer */ = {
+			isa = PBXGroup;
+			children = (
+				F9B632AA196DA82500D59782 /* MeshDriverRenderer.cpp */,
+				F9B632AB196DA82500D59782 /* MeshDriverRenderer.h */,
+				F9B632AC196DA82500D59782 /* TextRenderer.cpp */,
+				F9B632AD196DA82500D59782 /* TextRenderer.h */,
+			);
+			path = StandardRenderer;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1359,12 +1383,12 @@
 				C745A61D1889F6AF00383361 /* PointerState.cpp in Sources */,
 				C745A6031889F6AF00383361 /* GamePadState.cpp in Sources */,
 				C787E2E1189C5C0200C2A713 /* ParticleComponent.cpp in Sources */,
-				C745A5821889F6AF00383361 /* AxisAlignedBoundingBox.cpp in Sources */,
 				C745A5BD1889F6AF00383361 /* Color.cpp in Sources */,
 				C745A5A91889F6AF00383361 /* SymbolComponent.cpp in Sources */,
 				C787E2E2189C5C0200C2A713 /* ParticleEmitterComponent.cpp in Sources */,
 				C745A5751889F6AF00383361 /* NullAudio.cpp in Sources */,
 				C745A5E61889F6AF00383361 /* MathHelper.cpp in Sources */,
+				F9B632B0196DA9B500D59782 /* TextureFont.cpp in Sources */,
 				C745A5B41889F6AF00383361 /* Component.cpp in Sources */,
 				C745A5761889F6AF00383361 /* NullAudioEngine.cpp in Sources */,
 				C745A5B51889F6AF00383361 /* Engine.cpp in Sources */,
@@ -1410,6 +1434,7 @@
 				C745A5C81889F6AF00383361 /* PixMap.cpp in Sources */,
 				C745A5CD1889F6AF00383361 /* TextEntity.cpp in Sources */,
 				C745A5891889F6AF00383361 /* ColorTransform.cpp in Sources */,
+				F9B632A1196DA6BD00D59782 /* AABB.cpp in Sources */,
 				C745A6331889F6AF00383361 /* Symbol.cpp in Sources */,
 				C745A60C1889F6AF00383361 /* Key.cpp in Sources */,
 				C745A5AF1889F6AF00383361 /* UIElement.cpp in Sources */,
@@ -1420,6 +1445,7 @@
 				C745A6101889F6AF00383361 /* KeyMaskSignalData.cpp in Sources */,
 				C745A5781889F6AF00383361 /* OpenALSoundFX.cpp in Sources */,
 				C745A5801889F6AF00383361 /* SoundInfo.cpp in Sources */,
+				F9B632AE196DA8EE00D59782 /* TextRenderer.cpp in Sources */,
 				C745A5811889F6AF00383361 /* SoundParameters.cpp in Sources */,
 				C745A57D1889F6AF00383361 /* Sound.cpp in Sources */,
 				C745A57F1889F6AF00383361 /* SoundFX.cpp in Sources */,
@@ -1444,10 +1470,8 @@
 				C745A5701889F6AF00383361 /* BBAudioPlayerMusic.cpp in Sources */,
 				C745A62B1889F6AF00383361 /* SignalAnalyzerManager.cpp in Sources */,
 				C745A5D71889F6AF00383361 /* NullMainWindow.cpp in Sources */,
-				C745A5CA1889F6AF00383361 /* BMFont.cpp in Sources */,
 				C745A6021889F6AF00383361 /* GamePadSignalData.cpp in Sources */,
 				C745A5B81889F6AF00383361 /* IDManager.cpp in Sources */,
-				C745A5AB1889F6AF00383361 /* TextRenderer.cpp in Sources */,
 				C745A5DC1889F6AF00383361 /* Base64.cpp in Sources */,
 				C745A5ED1889F6AF00383361 /* Object.cpp in Sources */,
 				C745A5A11889F6AF00383361 /* LuaEntity.cpp in Sources */,
@@ -1476,6 +1500,7 @@
 				C745A5A71889F6AF00383361 /* SizeComponent.cpp in Sources */,
 				C745A5C11889F6AF00383361 /* GLSLProgram.cpp in Sources */,
 				C745A5F51889F6AF00383361 /* TimeHelper.cpp in Sources */,
+				F9B632AF196DA91E00D59782 /* MeshDriverRenderer.cpp in Sources */,
 				C745A61C1889F6AF00383361 /* PointerSignalData.cpp in Sources */,
 				C745A6071889F6AF00383361 /* InputDevice.cpp in Sources */,
 				C745A60F1889F6AF00383361 /* KeyboardState.cpp in Sources */,
@@ -1483,17 +1508,16 @@
 				C745A5831889F6AF00383361 /* ColorMatrix.cpp in Sources */,
 				C745A60A1889F6AF00383361 /* InputState.cpp in Sources */,
 				C745A62C1889F6AF00383361 /* SignalData.cpp in Sources */,
-				C745A5A41889F6AF00383361 /* MeshDriverRenderer.cpp in Sources */,
 				C745A61A1889F6AF00383361 /* Pointer.cpp in Sources */,
 				C745A6051889F6AF00383361 /* NullGamePad.cpp in Sources */,
 				C745A5A21889F6AF00383361 /* MatrixComponent.cpp in Sources */,
+				F9B632B1196DA9C300D59782 /* BMFont.cpp in Sources */,
 				C745A58B1889F6AF00383361 /* DefaultAABBHitBox.cpp in Sources */,
 				C745A5FE1889F6AF00383361 /* IOSAccelerometer.cpp in Sources */,
 				C745A56A1889F6AF00383361 /* BackgroundMusic.cpp in Sources */,
 				C745A6041889F6AF00383361 /* GamePadThumbstickSignalData.cpp in Sources */,
 				C745A6241889F6AF00383361 /* MovieClipEntity.cpp in Sources */,
 				C745A6111889F6AF00383361 /* KeySignalData.cpp in Sources */,
-				C745A5CE1889F6AF00383361 /* TextureFont.cpp in Sources */,
 				C745A5FF1889F6AF00383361 /* NullAccelerometer.cpp in Sources */,
 				C745A6281889F6AF00383361 /* LuaCallback.cpp in Sources */,
 				C745A5731889F6AF00383361 /* MusicInfo.cpp in Sources */,

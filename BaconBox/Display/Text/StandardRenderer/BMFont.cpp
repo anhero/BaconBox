@@ -6,7 +6,7 @@
 #include "BaconBox/Helper/Serialization/XmlSerializer.h"
 #include "BaconBox/Helper/ResourcePathHandler.h"
 #include "BaconBox/ResourceManager.h"
-#include "../TextureInformation.h"
+#include "BaconBox/Display/TextureInformation.h"
 #include "BaconBox/Display/SubTextureInfo.h"
 namespace BaconBox {
 		BMFont::BMFont():TextureFont(){}
