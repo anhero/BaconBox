@@ -7,7 +7,7 @@
 
 #include "BaconBox/MovieClipEntity/MovieClipEntity.h"
 #include "BaconBox/Display/Text/TextAlignment.h"
-#include "TextComponent.h"
+#include "BaconBox/Components/TextComponent.h"
 #include "BaconBox/Helper/String32.h"
 
 namespace BaconBox {

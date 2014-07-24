@@ -2,7 +2,7 @@
 #include <string>
 #include "Font.h"
 #if ! defined(BB_FLASH_PLATFORM)
-#include "TextureFont.h"
+#include "BaconBox/Display/Text/StandardRenderer/TextureFont.h"
 #include "BaconBox/Components/StandardRenderer/TextRenderer.h"
 #include "BaconBox/Components/DefaultEntityContainer.h"
 

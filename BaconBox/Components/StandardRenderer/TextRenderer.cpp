@@ -6,9 +6,9 @@
 #include "BaconBox/Helper/UTFConvert.h"
 #include "BaconBox/Display/Text/StandardRenderer/TextureFont.h"
 #include "BaconBox/EntityFactory.h"
-#include "Mesh.h"
+#include "BaconBox/Components/Mesh.h"
 #include "BaconBox/Components/ComponentConnection.h"
-#include "DefaultEntityContainer.h"
+#include "BaconBox/Components/DefaultEntityContainer.h"
 
 namespace BaconBox {
 
