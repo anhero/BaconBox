@@ -71,7 +71,7 @@ namespace BaconBox {
 		 }
 		 else if(senderID == Visibility::ID){
 			 if(message == Visibility::MESSAGE_VISIBILITY_CHANGED){
-				 setProperty("visible", AS3::local::internal::new_Boolean(*reinterpret_cast<bool*>(data)));
+				 setProperty("visible", AS3::local::internal::new_Boolean(reinterpret_cast<ValueChangedData<bool>*>(data)->newValue));
 			 }
 		 }
 
