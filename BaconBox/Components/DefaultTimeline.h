@@ -47,6 +47,9 @@ namespace BaconBox {
 		int getNbFrames() const;
 
 		void setNbFrames(int newNbFrames);
+
+		bool hasLabel(const std::string& label) const;
+
 	private:
 
 	    SymbolComponent * symbolComponent;

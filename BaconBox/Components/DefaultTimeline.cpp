@@ -158,5 +158,8 @@ namespace BaconBox {
 		}
 	}
 
+	bool DefaultTimeline::hasLabel(const std::string& label) const{
+		return this->symbolComponent->getSymbol()->hasLabel(label);
+	}
 
 }

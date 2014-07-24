@@ -86,5 +86,32 @@ namespace BaconBox {
 			AS3::local::var nbFrames = movieClipHolder->getProperty("totalFrames");
 			return AS3::local::internal::int_valueOf(nbFrames);
 		}
+
+		bool FlashTimeline::hasLabel(const std::string& label) const{
+			AS3_DeclareVar(ASlabel, String);
+		    AS3_CopyCStringToVar(ASlabel, label.c_str(), label.length());
+
+			AS3_DeclareVar(mc, *);
+			AS3::local::var tempMC = movieClipHolder->getMovieClip();
+			AS3_CopyVarxxToVar(mc, tempMC);
+
+			bool res;
+
+			inline_as3(
+			    "import flash.display.FrameLabel;"
+				"var i:int;\n"
+				"var k:int = mc.currentLabels.length;\n"
+				"var res:Boolean=false;\n"
+				"for (i; i < k; ++i) {\n"
+				"	var label:FrameLabel = mc.currentLabels[i];\n"
+				"	if (label.name == ASlabel)\n"
+				"		res= true;\n"
+				"}\n"
+			    "%0 = res\n"
+		    : "=r"(res)
+			);
+
+			return res;
+		}
 	
 }

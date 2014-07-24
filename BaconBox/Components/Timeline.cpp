@@ -68,5 +68,8 @@ namespace BaconBox {
 		return reinterpret_cast<Timeline*>(this->component)->getNbFrames();
 	}
 
+	bool TimelineProxy::hasLabel(const std::string& label) const{
+		return reinterpret_cast<Timeline*>(this->component)->hasLabel(label);
+	}
 
 }

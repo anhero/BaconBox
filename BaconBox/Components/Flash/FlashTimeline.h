@@ -38,6 +38,9 @@ namespace BaconBox {
 		bool isPlaying() const;
 		
 		int getNbFrames() const;
+
+		bool hasLabel(const std::string& label) const;
+
 	private:
 		MovieClipHolder * movieClipHolder;
 		bool isPlayingFlag;

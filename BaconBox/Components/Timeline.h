@@ -42,6 +42,8 @@ namespace BaconBox {
 		virtual bool isPlaying() const = 0;
 
 		virtual int getNbFrames() const = 0;
+
+		virtual bool hasLabel(const std::string& label) const = 0;
 	};
 
 
@@ -70,6 +72,8 @@ namespace BaconBox {
 		bool isPlaying() const;
 
 		int getNbFrames() const;
+
+		bool hasLabel(const std::string& label) const;
 
 	protected:
 	    void setTimeline(Timeline * timeline);
