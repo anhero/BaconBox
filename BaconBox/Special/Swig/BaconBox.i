@@ -708,7 +708,7 @@ const char *__str__() {
 %include "BaconBox/Components/Visibility.h"
 %include "BaconBox/Components/Transform.h"
 %include "BaconBox/AABB.h"
- %include "BaconBox/Components/AABBHitbox.h"
+ %include "BaconBox/Components/AABBHitBox.h"
   %include "BaconBox/Components/SizeComponent.h"
 
 %include "BaconBox/Display/ColorFormat.h"

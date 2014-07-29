@@ -15,7 +15,7 @@
 #include "BaconBox/Components/HasName.h"
 
 #include "BaconBox/Input/Pointer/Pointer.h"
-#include "BaconBox/Components/UIManager.H"
+#include "BaconBox/Components/UIManager.h"
 
 
 

@@ -4,7 +4,7 @@
 #include "BaconBox/Core/Component.h"
 #include "BaconBox/Core/Entity.h"
 #include "BaconBox/AABB.h"
-#include "BaconBox/DIsplay/Color.h"
+#include "BaconBox/Display/Color.h"
 
 namespace BaconBox {
 	
