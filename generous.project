@@ -124,7 +124,7 @@ BaconBox:
       SDL_Lua_debug:
                 include: [SDL_Lua, debug]
       Android: &Android
-                include: [core, O3]
+                include: [core, OpenGL, O3]
                 artifacts:
                   CFLAGS:
                     - "-stdlib=libstdc++"
