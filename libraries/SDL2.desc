@@ -1,5 +1,5 @@
 library.name = "SDL2"
-library.license = "zlib" 
+library.license = "zlib"
 library.version = "2.0.2"
 library.archive = "#{library.name}-#{library.version}.tar.gz"
 library.url = "http://www.libsdl.org/release/#{library.archive}"
