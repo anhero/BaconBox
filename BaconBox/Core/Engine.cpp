@@ -5,6 +5,9 @@
 #include "BaconBox/Helper/Lua/LuaHelper.h"
 #endif //BB_LUA
 
+#ifdef BB_LINUX
+#include <signal.h>
+#endif
 
 namespace BaconBox {
 
@@ -137,6 +140,15 @@ namespace BaconBox {
 		return getInstance().getMusicEngine();
 	}
 	
+	void Engine::raiseDebugger() {
+#if defined(BB_DEBUG)
+#if defined(BB_LINUX)
+		raise(SIGINT);
+#endif
+#endif
+	}
+
+
 	BB_ENGINE_IMPL &Engine::getInstance() {
 		static BB_ENGINE_IMPL instance;
 		return instance;

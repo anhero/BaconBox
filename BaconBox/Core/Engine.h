@@ -231,6 +231,11 @@ namespace BaconBox {
 		static BB_ENGINE_IMPL &getInstance();
 		
 
+		/**
+		 * Raises the debugger on supported platforms.
+		 */
+		static void raiseDebugger();
+
 	private:
 		
 
