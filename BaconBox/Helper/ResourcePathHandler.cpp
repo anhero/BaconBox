@@ -16,6 +16,7 @@
 #include <sys/stat.h>
 #include <dirent.h>
 #include <sstream>
+#include <string.h>
 #elif defined(BB_QT)
 #include <QDir>
 #include <iostream>

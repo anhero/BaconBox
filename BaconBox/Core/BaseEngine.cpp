@@ -281,8 +281,6 @@ namespace BaconBox {
 
 		// Engine::onInitialize.shoot(resolutionWidth, resolutionHeight, contextWidth, contextHeight, orientation);
 			MainWindow::getInstance().onBaconBoxInit(resolutionWidth, resolutionHeight, contextWidth, contextHeight, orientation);
-
-		this->graphicDriver->initializeGraphicDriver();
 	}
 
 	double BaseEngine::getSinceLastUpdate() {

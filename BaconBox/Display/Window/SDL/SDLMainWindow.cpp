@@ -31,6 +31,8 @@ namespace BaconBox {
 			PRLN("opengl error [SetSwapInterval]: " << SDL_GetError());
 		}
 		
+		Engine::getGraphicDriver().initializeGraphicDriver();
+
 		this->MainWindow::setResolution(resolutionWidth, resolutionHeight);
 		this->MainWindow::setContextSize(contextWidth, contextHeight);
 		

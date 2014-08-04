@@ -18,7 +18,9 @@
 //#include <gl/glu.h>
 //#include "glext.h"
 #elif defined(BB_LINUX)
-#include <GL/gl.h>
+#define GLEW_STATIC
+#include <GL/glew.h>
+#define BB_GLEW
 #include <GL/glu.h>
 #endif
 #endif
