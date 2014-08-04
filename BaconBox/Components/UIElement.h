@@ -22,6 +22,13 @@ namespace BaconBox {
 
 		virtual void receiveMessage(int senderID, int destID, int message, void *data);
 		
+		void setEnabled(bool isEnabled);
+		void enable();
+		void disable();
+		bool isEnabled();
+
+	protected:
+		bool enabled;
 
 	private:
 		void removeUIManagerReference();
@@ -37,6 +44,12 @@ namespace BaconBox {
 		UIElementProxy(Entity *entity, bool mustAddComponent = true);
 		void addToUIManager(UIManager * uiManager);
 		void removeFromUIManager();
+
+		void setEnabled(bool isEnabled);
+		void enable();
+		void disable();
+		bool isEnabled();
+
 	private:
 		void removeUIManagerReference();
 

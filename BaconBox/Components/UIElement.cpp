@@ -7,7 +7,7 @@
 namespace BaconBox {
 	BB_ID_IMPL(UIElement);
 
-	UIElement::UIElement() : Component(), manager(NULL) {
+	UIElement::UIElement() : Component(), manager(NULL), enabled(true) {
 		
 	}
 		
@@ -34,9 +34,23 @@ namespace BaconBox {
 		}
 	}
 	
+	void UIElement::setEnabled (bool isEnabled) {
+		this->enabled = isEnabled;
+	}
+	void UIElement::disable() {
+		this->enabled = false;
+	}
+	void UIElement::enable() {
+		this->enabled = true;
+	}
+	bool UIElement::isEnabled() {
+		return this->enabled;
+	}
+
+
 	UIElementProxy::UIElementProxy(Entity* entity, bool mustAddComponent): BB_PROXY_CONSTRUCTOR(new UIElement())  {
 	}
-	
+
 
 	void UIElementProxy::addToUIManager(UIManager * uiManager){
 	    reinterpret_cast<UIElement*>(component)->addToUIManager(uiManager);
@@ -47,5 +61,18 @@ namespace BaconBox {
 	}
 	void UIElementProxy::removeUIManagerReference(){
 	    reinterpret_cast<UIElement*>(component)->removeUIManagerReference();
+	}
+
+	void UIElementProxy::setEnabled(bool isEnabled) {
+		reinterpret_cast<UIElement*>(component)->setEnabled(isEnabled);
+	}
+	void UIElementProxy::disable() {
+		reinterpret_cast<UIElement*>(component)->disable();
+	}
+	void UIElementProxy::enable() {
+		reinterpret_cast<UIElement*>(component)->enable();
+	}
+	bool UIElementProxy::isEnabled() {
+		return reinterpret_cast<UIElement*>(component)->isEnabled();
 	}
 }
