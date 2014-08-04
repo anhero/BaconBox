@@ -155,6 +155,9 @@ namespace BaconBox {
 				tf->setSize(Vector2(symbol->textFieldWidth, symbol->textFieldHeight));
 				entity = tf;
                 entity->setColor(symbol->color);
+				// Force the update of the text to make it refresh
+				// itself with internalReset*()
+				tf->update();
 				
 			}
 			else{
