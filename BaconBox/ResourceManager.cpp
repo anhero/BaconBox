@@ -532,7 +532,7 @@ namespace BaconBox {
 
 		if (PNG_file == NULL) {
 			Console::println("Unable to open this png file : " + filePath);
-			return false;
+			return NULL;
 		}
 
 		uint8_t PNG_header[PNG_HEADER_SIZE];
@@ -603,7 +603,7 @@ namespace BaconBox {
 		}
 
 		png_read_update_info(PNG_reader, PNG_info);
-		png_byte *PNG_image_buffer = (png_byte *)malloc(4 * width * height);
+		png_byte *PNG_image_buffer = new png_byte[4 * width * height];
 		png_byte **PNG_rows = (png_byte **)malloc(height * sizeof(png_byte *));
 		unsigned int row;
 
