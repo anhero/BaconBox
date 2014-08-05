@@ -30,7 +30,7 @@
 	#define BB_MAIN_WINDOW_INCLUDE "BaconBox/Display/Window/Flash/FlashMainWindow.h"
 
 
-	#define BB_ENGINE_IMPL FlashEngine
+	#define BB_ENGINE_IMPL BaconBox::FlashEngine()
 	#define BB_ENGINE_INCLUDE "BaconBox/Core/Flash/FlashEngine.h"
 
 
@@ -269,7 +269,7 @@
 #endif
 
 #ifndef BB_ENGINE_IMPL
-	#define BB_ENGINE_IMPL BaseEngine
+	#define BB_ENGINE_IMPL BaconBox::BaseEngine()
 	#define BB_ENGINE_INCLUDE "BaconBox/Core/BaseEngine.h"
 #endif
 

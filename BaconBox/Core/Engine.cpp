@@ -11,6 +11,7 @@
 
 namespace BaconBox {
 
+	BaseEngine * Engine::instance = NULL;
 	const double Engine::DEFAULT_UPDATES_PER_SECOND = 60.0;
 	const std::string Engine::DEFAULT_APPLICATION_NAME = std::string("BaconBoxApp");
 	sigly::Signal5<unsigned int, unsigned int, float, float, WindowOrientation::type> Engine::onInitialize = sigly::Signal5<unsigned int, unsigned int, float, float, WindowOrientation::type>();
@@ -149,9 +150,19 @@ namespace BaconBox {
 	}
 
 
-	BB_ENGINE_IMPL &Engine::getInstance() {
-		static BB_ENGINE_IMPL instance;
-		return instance;
+	void Engine::setInstance(BaseEngine &instance) {
+		Engine::instance = &instance;
+	}
+
+	BaseEngine &Engine::getInstance() {
+		if (instance == NULL) {
+			PRLN("BaconBox::Engine needs to be initialized before being used.");
+			// Give a chance to debug.
+			Engine::raiseDebugger();
+			// Then abort.
+			abort();
+		}
+		return * instance;
 	}
 	
 }

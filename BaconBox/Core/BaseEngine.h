@@ -20,7 +20,17 @@ namespace BaconBox {
 		friend class Engine;
 	public:
 
-		
+		/**
+		 * Default constructor.
+		 */
+		BaseEngine();
+
+		/**
+		 * Destructor.
+		 */
+		~BaseEngine();
+
+
 		virtual void application(int argc, char *argv[],
 		                        const std::string &name);
 		
@@ -85,6 +95,8 @@ namespace BaconBox {
 		virtual SoundEngine &getSoundEngine();
 		
 		virtual MusicEngine &getMusicEngine();
+
+
 	protected:
 		 void switchToNextState();
 	
@@ -94,16 +106,6 @@ namespace BaconBox {
 		
 		/// A copy of argv
 		char **argv;
-		
-		/**
-		 * Default constructor.
-		 */
-		BaseEngine();
-		
-		/**
-		 * Destructor.
-		 */
-		~BaseEngine();
 		
 		/// Map of states in the engine.
 		std::map<std::string, State *> states;

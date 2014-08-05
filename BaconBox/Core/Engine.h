@@ -23,6 +23,11 @@ namespace BaconBox {
 	class MusicEngine;
 	/**
 	 * Class managing the states.
+	 *
+	 * This class is an outside-managed singleton.
+	 * The lifetime of this singleton has to be started and ended
+	 * from outside of this class, generally in the main().
+	 *
 	 * @ingroup StateMachine
 	 */
 	class Engine {
@@ -228,13 +233,20 @@ namespace BaconBox {
 		 * Gets the engine singleton instance.
 		 * @return Reference to the engine's singleton.
 		 */
-		static BB_ENGINE_IMPL &getInstance();
+		static BaseEngine &getInstance();
 		
+		/**
+		 * Sets the instance of the singleton.
+		 */
+		static void setInstance(BaseEngine &instance);
 
 		/**
 		 * Raises the debugger on supported platforms.
 		 */
 		static void raiseDebugger();
+
+	protected:
+		static BaseEngine * instance;
 
 	private:
 		
