@@ -383,6 +383,6 @@ namespace BaconBox {
 		if (mainWindow) {
 			delete mainWindow;
 		}
-		Engine::setInstance(NULL);
+		Engine::setInstance(*(BaseEngine*)NULL);
 	}
 }
