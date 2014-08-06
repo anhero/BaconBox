@@ -62,7 +62,7 @@ namespace BaconBox {
 		Vector2 diff(lastPressed - data.getPosition());
 		if (diff.getLength() < 10){
 		for(std::list<MovieClipEntity*>::iterator i = clickable.begin(); i != clickable.end(); i++){
-			if((*i)->getAABB().overlaps(data.getPosition()) && lastOver->isEnabled()){
+			if((*i)->getAABB().overlaps(data.getPosition()) && (*i)->isEnabled()){
 				(*i)->released->shoot();
 				currentlyPressed = NULL;
 				return;
