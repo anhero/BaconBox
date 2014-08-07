@@ -346,7 +346,7 @@ namespace BaconBox {
 	tmpExitCode(0), renderedSinceLastUpdate(true), applicationPath(),
 	applicationName(Engine::DEFAULT_APPLICATION_NAME), mainWindow(NULL),
 	graphicDriver(NULL), soundEngine(NULL), musicEngine(NULL) {
-
+		Engine::setInstance(*this);
 		mainWindow = BB_MAIN_WINDOW_IMPL;
 		graphicDriver = BB_GRAPHIC_DRIVER_IMPL;
 		soundEngine = BB_SOUND_ENGINE_IMPL;
