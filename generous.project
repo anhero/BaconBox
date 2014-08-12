@@ -86,28 +86,25 @@ BaconBox:
         include: [core,  OpenGL, [OSX, "OS.osx?"], [WINDOWS, "OS.windows?"], [Linux, "OS.linux?"]]
 
       Lua: &Lua
-        postScriptArtifacts:
-          Cpp:
-            - "<%= project.buildDir %>/swig/BaconBoxLua.cpp"
-          Header:
-            - "<%= project.buildDir %>/swig/swigluarun.h"
-          IncludesPath:
-            - "<%= project.buildDir %>/swig"
-        artifacts:
-          Cpp:
-            - "BaconBox/**/Lua/*.cpp"
-          Header:
-            - "BaconBox/**/Lua/*.h"
-          Define:
-            - BB_LUA
-          PreGenerousScript:
+        preGenerousScripts:
             - |
               puts_banner 'Generating Lua swig bindings'
-              FileUtils.mkpath "#{project.buildDir}/swig"
-              puts %x{ #{project.options['swig']} -lua -c++ -module BaconBox -outdir #{project.buildDir}/swig #{project.definesString} #{project.includesString} -o #{project.buildDir}/swig/BaconBoxLua.cpp BaconBox/Special/Swig/BaconBox.i};
-              puts %x{ #{project.options['swig']} -lua -external-runtime #{project.buildDir}/swig/swigluarun.h}
-          Option:
+              FileUtils.mkpath "#{$project.buildDir}/swig"
+              puts %x{ #{$project.options['swig']} -lua -c++ -module BaconBox -outdir #{$project.buildDir}/swig #{$project.definesString} #{$project.includesString} -o #{$project.buildDir}/swig/BaconBoxLua.cpp BaconBox/Special/Swig/BaconBox.i};
+              puts %x{ #{$project.options['swig']} -lua -external-runtime #{$project.buildDir}/swig/swigluarun.h}
+        options:
             - ['swig', "Path to your swig executable", 'swig']
+        artifacts:
+          IncludesPath:
+            - "<%= $project.buildDir %>/swig"
+          Cpp:
+            - "BaconBox/**/Lua/*.cpp"
+            - "<%= $project.buildDir %>/swig/BaconBoxLua.cpp"
+          Header:
+            - "BaconBox/**/Lua/*.h"
+            - "<%= $project.buildDir %>/swig/swigluarun.h"
+          Define:
+            - BB_LUA
       debug: &debug
         artifacts:
           CXXFLAGS:
@@ -133,7 +130,8 @@ BaconBox:
       SDL_Lua: &SDL_Lua
         include: [Lua, SDL]
       SDL_Lua_debug:
-                include: [SDL_Lua, debug]
+                export: true
+                include: [SDL_Lua, debug, debuger]
       Android: &Android
                 include: [core, OpenGL, O3]
                 artifacts:
@@ -154,26 +152,65 @@ BaconBox:
       Android_Lua: &Android_Lua
                 include: [Lua, Android]
       Android_Lua_debug_arm:
+                export: true
                 include: [Android_Lua]
       Android_Lua_debug_x86:
+                export: true
                 include: [Android_Lua]
       Flash:
         include: [core, Lua]
+        export: true
         outputExtension: swc
         outputPrefix: ''
         type: application
+        options:
+            - - crossbridge
+              - "Path to your crossbridge sdk folder"
+              - <%= path = %x{which gcc}; path = path.slice(0..(path.index("/usr/bin/gcc"))) if path.include? '/usr/bin/gcc'; path = path.slice(0..(path.index("/usr/bin//gcc"))) if path.include? '/usr/bin//gcc'; path %>
+            - ["flex", "Path to your <%= sdk folder", ""]
+        preGenerousScripts:
+            - |
+              AS3COMPILERARGS = "java -jar #{$project.options['crossbridge']}/usr/lib/asc2.jar -merge -md "
+              COMPC = "#{$project.options['flex']}/bin/compc"
+              FileUtils.mkpath "#{$project.buildDir}/as3"
+              %x{ chmod 766 "#{$project.options['crossbridge']}/usr/share/LSOBackingStore.as"}
+              %x{ cp "#{$project.options['crossbridge']}/usr/share/LSOBackingStore.as" "#{$project.buildDir}/as3"}
+              %x{ cp "BaconBox/Special/Flash/URLLoaderVFS.as" "#{$project.buildDir}/as3"}
+
+              puts_banner 'Compiling VFS.abc'
+
+              puts %x{#{AS3COMPILERARGS} -import #{$project.options['crossbridge']}/usr/lib/builtin.abc \
+              -import #{$project.options['crossbridge']}/usr/lib/playerglobal.abc \
+              -import #{$project.options['crossbridge']}/usr/lib/BinaryData.abc \
+              -import #{$project.options['crossbridge']}/usr/lib/ISpecialFile.abc \
+              -import #{$project.options['crossbridge']}/usr/lib/IBackingStore.abc \
+              -import #{$project.options['crossbridge']}/usr/lib/IVFS.abc \
+              -import #{$project.options['crossbridge']}/usr/lib/InMemoryBackingStore.abc \
+              -import #{$project.options['crossbridge']}/usr/lib/PlayerKernel.abc \
+              #{$project.buildDir}/as3/URLLoaderVFS.as #{$project.buildDir}/as3/LSOBackingStore.as -outdir #{$project.buildDir}/as3 -out VFS}
+
+              puts_banner 'Compiling BaconBoxAS3.abc'
+              puts %x{#{$project.options['crossbridge']}/usr/bin/swig -as3 -c++ -module BaconBoxAS3 -outdir #{$project.buildDir}/as3 -ignoremissing #{$project.definesString} #{$project.includesString} -package BaconBox -o #{$project.buildDir}/as3/BaconBoxAS3.cpp BaconBox/Special/Flash/BaconBoxAS3.i}
+              puts %x{#{AS3COMPILERARGS} -abcfuture -AS3 -import #{$project.options['crossbridge']}/usr/lib/builtin.abc -import #{$project.options['crossbridge']}/usr/lib/playerglobal.abc #{$project.buildDir}/as3/BaconBoxAS3.as}
+              puts %x{mv #{$project.buildDir}/as3/BaconBoxAS3.as #{$project.buildDir}/as3/BaconBoxAS3.as3}
+
+              puts_banner 'Compiling EntityWrapper.swc'
+              %x{ cp -r "BaconBox/Special/Flash/BaconBox" "#{$project.buildDir}/as3/BaconBox"}
+              puts %x{ #{AS3COMPILERARGS} -abcfuture -AS3 -import #{$project.options['crossbridge']}/usr/lib/builtin.abc -import #{$project.options['crossbridge']}/usr/lib/playerglobal.abc -outdir #{$project.buildDir}/as3 #{$project.buildDir}/as3/BaconBox/EntityWrapper/EntityHolderTextField.as #{$project.buildDir}/as3/BaconBox/EntityWrapper/EntityHolderMovieClip.as }
+              puts %x{#{COMPC} -compiler.source-path #{$project.buildDir}/as3 -include-classes BaconBox.EntityWrapper.EntityHolderTextField BaconBox.EntityWrapper.EntityHolderMovieClip -output #{$project.buildDir}/EntityWrapper.swc}
+
         artifacts:
           Define:
             - BB_FLASH_PLATFORM
           LDFLAGS:
-            - <%= "#{project.buildDir}/as3/VFS.abc" %>
-            - <%= "#{project.buildDir}/as3/BaconBoxAS3.abc" %>
+            - <%= "#{$project.buildDir}/as3/VFS.abc" %>
+            - <%= "#{$project.buildDir}/as3/BaconBoxAS3.abc" %>
             - "-emit-swc=BaconBox"
           CFLAGS:
             - "-emit-swc=BaconBox"
           Cpp:
             - "BaconBox/**/Flash/*.cpp"
-            - "<%= project.buildDir %>/as3/*.cpp"
+            - "<%= $project.buildDir %>/as3/*.cpp"
             - "BaconBox/**/libc/*.cpp"
           Header:
             - "BaconBox/**/Flash/*.h"
@@ -187,43 +224,8 @@ BaconBox:
             - AS3++
           LibrariesPath:
             - "libraries/Flash/lib"
-          PreGenerousScript:
-            - |
-              AS3COMPILERARGS = "java -jar #{project.options['crossbridge']}/usr/lib/asc2.jar -merge -md "
-              COMPC = "#{project.options['flex']}/bin/compc"
-              FileUtils.mkpath "#{project.buildDir}/as3"
-              %x{ chmod 766 "#{project.options['crossbridge']}/usr/share/LSOBackingStore.as"}
-              %x{ cp "#{project.options['crossbridge']}/usr/share/LSOBackingStore.as" "#{project.buildDir}/as3"}
-              %x{ cp "BaconBox/Special/Flash/URLLoaderVFS.as" "#{project.buildDir}/as3"}
-
-              puts_banner 'Compiling VFS.abc'
-
-              puts %x{#{AS3COMPILERARGS} -import #{project.options['crossbridge']}/usr/lib/builtin.abc \
-              -import #{project.options['crossbridge']}/usr/lib/playerglobal.abc \
-              -import #{project.options['crossbridge']}/usr/lib/BinaryData.abc \
-              -import #{project.options['crossbridge']}/usr/lib/ISpecialFile.abc \
-              -import #{project.options['crossbridge']}/usr/lib/IBackingStore.abc \
-              -import #{project.options['crossbridge']}/usr/lib/IVFS.abc \
-              -import #{project.options['crossbridge']}/usr/lib/InMemoryBackingStore.abc \
-              -import #{project.options['crossbridge']}/usr/lib/PlayerKernel.abc \
-              #{project.buildDir}/as3/URLLoaderVFS.as #{project.buildDir}/as3/LSOBackingStore.as -outdir #{project.buildDir}/as3 -out VFS}
-
-              puts_banner 'Compiling BaconBoxAS3.abc'
-              puts %x{#{project.options['crossbridge']}/usr/bin/swig -as3 -c++ -module BaconBoxAS3 -outdir #{project.buildDir}/as3 -ignoremissing #{project.definesString} #{project.includesString} -package BaconBox -o #{project.buildDir}/as3/BaconBoxAS3.cpp BaconBox/Special/Flash/BaconBoxAS3.i}
-              puts %x{#{AS3COMPILERARGS} -abcfuture -AS3 -import #{project.options['crossbridge']}/usr/lib/builtin.abc -import #{project.options['crossbridge']}/usr/lib/playerglobal.abc #{project.buildDir}/as3/BaconBoxAS3.as}
-              puts %x{mv #{project.buildDir}/as3/BaconBoxAS3.as #{project.buildDir}/as3/BaconBoxAS3.as3}
-
-              puts_banner 'Compiling EntityWrapper.swc'
-              %x{ cp -r "BaconBox/Special/Flash/BaconBox" "#{project.buildDir}/as3/BaconBox"}
-              puts %x{ #{AS3COMPILERARGS} -abcfuture -AS3 -import #{project.options['crossbridge']}/usr/lib/builtin.abc -import #{project.options['crossbridge']}/usr/lib/playerglobal.abc -outdir #{project.buildDir}/as3 #{project.buildDir}/as3/BaconBox/EntityWrapper/EntityHolderTextField.as #{project.buildDir}/as3/BaconBox/EntityWrapper/EntityHolderMovieClip.as }
-              puts %x{#{COMPC} -compiler.source-path #{project.buildDir}/as3 -include-classes BaconBox.EntityWrapper.EntityHolderTextField BaconBox.EntityWrapper.EntityHolderMovieClip -output #{project.buildDir}/EntityWrapper.swc}
-          Option:
-            - - crossbridge
-              - "Path to your crossbridge sdk folder"
-              - <%= path = %x{which gcc}; path = path.slice(0..(path.index("/usr/bin/gcc"))) if path.include? '/usr/bin/gcc'; path = path.slice(0..(path.index("/usr/bin//gcc"))) if path.include? '/usr/bin//gcc'; path %>
-            - ["flex", "Path to your <%= sdk folder", ""]
-
       Flash_debug:
+        export: true
         include: [Flash, debug]
 
 
