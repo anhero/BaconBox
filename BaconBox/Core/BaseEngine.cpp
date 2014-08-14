@@ -342,6 +342,14 @@ namespace BaconBox {
 	}
 
 	void BaseEngine::registerSingleton(Singleton * singleton) {
+		PRLN("Registering...");
+		std::deque<Singleton * >::iterator
+			searchIt = std::find(singletons.begin(), singletons.end(), singleton);
+		if (searchIt != singletons.end()) {
+			PRLN("WARNING : Adding a Singleton already registerd!!");
+			PV(singleton);
+			return;
+		}
 		singletons.push_back(singleton);
 	}
 
@@ -377,12 +385,6 @@ namespace BaconBox {
 
 		// We unload the resources.
 		ResourceManager::deleteAll();
-
-		// We unload the scripting engine
-		#ifdef BB_LUA
-		// FIXME : Will need to follow the Singleton specs.
-		LuaManager::destroyVM();
-		#endif
 
 		destroyAllSingletons();
 

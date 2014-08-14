@@ -5,15 +5,24 @@
 #include "BaconBox/Console.h"
 #include <sstream>
 
+#include "BaconBox/Core/Engine.h"
+
 extern "C" int luaopen_BaconBox(lua_State* L);
 
 namespace BaconBox {
 
-bool LuaManager::criticalError = false;
+	BB_SINGLETON_IMPL(LuaManager)
 
-LuaManager * LuaManager::instance = NULL;
+	LuaManager& LuaManager::getDefault() {
+		return getInstance();
+	}
+	void LuaManager::destroyVM(){
+		lua_close(getInstance().L);
+		getInstance().startVM();
+	}
 
-	LuaManager::LuaManager(){
+	bool LuaManager::criticalError = false;
+	void LuaManager::startVM() {
 		L=luaL_newstate();
 		luaL_openlibs(L);
         luaopen_BaconBox(L);
@@ -28,37 +37,42 @@ LuaManager * LuaManager::instance = NULL;
         #endif
 	}
 	lua_State * LuaManager::getVM(){
-		return  getDefault().L;
+		return  getInstance().L;
 	}
+
+	LuaManager::LuaManager(){
+		startVM();
+	}
+
 	LuaManager::~LuaManager(){
 		lua_close(L);
 	}
 
 	int LuaManager::print(lua_State* L) {
-    int nargs = lua_gettop(L);
-	std::stringstream ss;
-    for (int i=1; i <= nargs; i++) {
-		int t = lua_type(L, i);
-         switch (t) {
-				case LUA_TSTRING:  /* strings */
-					ss << lua_tostring(L, i) << " ";
-					break;
-				case LUA_TBOOLEAN:  /* booleans */
-					ss << (lua_toboolean(L, i) ? "true" : "false") << " ";
-					break;
-				case LUA_TNUMBER:  /* numbers */
-					ss << lua_tonumber(L, i) << " ";
-					break;
-				default:  /* other values */
-					ss << lua_typename(L, t) << " ";
-					break;
-			};
-    }
+		int nargs = lua_gettop(L);
+		std::stringstream ss;
+		for (int i=1; i <= nargs; i++) {
+			int t = lua_type(L, i);
+			switch (t) {
+					case LUA_TSTRING:  /* strings */
+						ss << lua_tostring(L, i) << " ";
+						break;
+					case LUA_TBOOLEAN:  /* booleans */
+						ss << (lua_toboolean(L, i) ? "true" : "false") << " ";
+						break;
+					case LUA_TNUMBER:  /* numbers */
+						ss << lua_tonumber(L, i) << " ";
+						break;
+					default:  /* other values */
+						ss << lua_typename(L, t) << " ";
+						break;
+				};
+		}
 
-    PRLN(ss.str());
+		PRLN(ss.str());
 
-    return 0;
-}
+		return 0;
+	}
 
 	void LuaManager::doString(const std::string & string){
         getDefault().internalDoString(string);
@@ -77,15 +91,6 @@ LuaManager * LuaManager::instance = NULL;
         getDefault().internalDoFile(path);
 	}
 
-        LuaManager& LuaManager::getDefault() {
-            if(!instance) instance = new LuaManager();
-            return *instance;
-        }
-        void LuaManager::destroyVM(){
-			
-            if(instance)delete instance;
-                instance = NULL;
-        }
 	void LuaManager::printTraceBack(){
 		lua_State *L = LuaManager::getVM();
 		
