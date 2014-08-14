@@ -28,7 +28,8 @@ namespace BaconBox {
 		[viewController setFrameInterval: 60.0f/Engine::getUpdatesPerSecond()];
 
 		[BaconBoxAppAppDelegate setViewController: viewController];
-		
+        Engine::getGraphicDriver().initializeGraphicDriver();
+
 		
 		this->MainWindow::setResolution(screenSize.width, screenSize.height);
 		setContextSize(contextWidth, contextHeight);
