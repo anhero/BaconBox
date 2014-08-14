@@ -28,12 +28,15 @@ namespace BaconBox {
 	 */
 	class SDLMixerEngine : public MusicEngine, public SoundEngine {
 		friend class BaseEngine;
+		friend class AudioEngine;
 	public:
 		/**
 		 * Gets the singleton instance.
 		 * @return Pointer to the audio engine's instance.
 		 */
-		static SDLMixerEngine *getInstance();
+		static SDLMixerEngine &getInstance();
+
+		void destroyInstance();
 
 		/**
 		 * Converts the SDL volume to its BaconBox equivalent.
@@ -108,6 +111,10 @@ namespace BaconBox {
 		 * @see BaconBox::SoundEngine::soundVolume;
 		 */
 		void setSoundVolume(int newSoundVolume);
+
+	protected:
+		static SDLMixerEngine * instance;
+
 	private:
 		/// Playback frequency
 		static const int AUDIO_RATE = 44100;
@@ -129,9 +136,6 @@ namespace BaconBox {
 		 * fading to pause or resume.
 		 */
 		static const unsigned int NB_TICKS_PER_FADE = 100;
-
-		/// Pointer to the singleton instance.
-		static SDLMixerEngine *instance;
 
 		/// Last tick at which the fade update was called.
 		unsigned int lastFadeTick;

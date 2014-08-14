@@ -17,12 +17,12 @@
 #include "BaconBox/Audio/SDL/SDLMixerBackgroundMusic.h"
 #include "BaconBox/Audio/SDL/SDLMixerSoundFX.h"
 
-namespace BaconBox {
-	SDLMixerEngine *SDLMixerEngine::instance = NULL;
+#include "BaconBox/Core/Engine.h"
 
-	SDLMixerEngine *SDLMixerEngine::getInstance() {
-		return instance;
-	}
+namespace BaconBox {
+
+	BB_SINGLETON_IMPL(SDLMixerEngine)
+
 
 	int SDLMixerEngine::sdlToBaconBoxVolume(int sdlVolume) {
 		if (sdlVolume < 0) {

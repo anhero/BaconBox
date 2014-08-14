@@ -9,6 +9,8 @@
 #include "BaconBox/Console.h"
 namespace BaconBox {
 
+	BB_SINGLETON_IMPL(SDLMainWindow);
+
 	void SDLMainWindow::onBaconBoxInit(unsigned int resolutionWidth, unsigned int resolutionHeight, float contextWidth, float contextHeight, WindowOrientation::type orientation) {
 		
 
@@ -65,7 +67,7 @@ namespace BaconBox {
 	}
 	
 	void SDLMainWindow::show() {
-		while (SDLInputManager::getSDLInstance()->isRunning()) {
+		while (SDLInputManager::getInstance().isRunning()) {
 			Engine::pulse();
 
 			if (!Engine::isBufferSwapped()) {

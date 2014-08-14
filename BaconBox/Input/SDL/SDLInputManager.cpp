@@ -1,24 +1,20 @@
 #include "BaconBox/PlatformFlagger.h"
 
-
 #include "BaconBox/Input/SDL/SDLInputManager.h"
+
+#include "BaconBox/Core/Engine.h"
 
 #include <SDL2/SDL.h>
 
 using namespace BaconBox;
 
-SDLInputManager* SDLInputManager::sdlInstance = NULL;
-
-SDLInputManager* SDLInputManager::getSDLInstance() {
-	return sdlInstance;
-}
+BB_SINGLETON_IMPL(SDLInputManager)
 
 bool SDLInputManager::isRunning() const {
 	return running;
 }
 
 SDLInputManager::SDLInputManager() : InputManager(), running(true) {
-	sdlInstance = this;
 }
 
 SDLInputManager::~SDLInputManager() {

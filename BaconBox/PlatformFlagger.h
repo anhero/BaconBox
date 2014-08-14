@@ -152,10 +152,10 @@
 	#define BB_OPENGL
 
 	//Sound engine for SDL
-	#define BB_SOUND_ENGINE_IMPL new SDLMixerEngine()
+	#define BB_SOUND_ENGINE_IMPL (&SDLMixerEngine::getInstance())
 	#define BB_SOUND_ENGINE_INCLUDE "BaconBox/Audio/SDL/SDLMixerEngine.h"
 
-	#define BB_MUSIC_ENGINE_IMPL SDLMixerEngine::getInstance()
+	#define BB_MUSIC_ENGINE_IMPL (&SDLMixerEngine::getInstance())
 	#define BB_MUSIC_ENGINE_INCLUDE "BaconBox/Audio/SDL/SDLMixerEngine.h"
 
 	//Input engine for SDL
@@ -168,9 +168,9 @@
     #define BB_GAME_PAD_IMPL new SDLGamePad(i)
     #define BB_GAME_PAD_INCLUDE "BaconBox/Input/GamePad/SDL/SDLGamePad.h"
 
-	#define BB_INPUT_MANAGER_IMPL new BaconBox::SDLInputManager()
+	#define BB_INPUT_MANAGER_IMPL (&SDLInputManager::getInstance())
 	#define BB_INPUT_MANAGER_INCLUDE "BaconBox/Input/SDL/SDLInputManager.h"
-	#define BB_MAIN_WINDOW_IMPL new SDLMainWindow()
+	#define BB_MAIN_WINDOW_IMPL (&SDLMainWindow::getInstance())
 	#define BB_MAIN_WINDOW_INCLUDE "BaconBox/Display/Window/SDL/SDLMainWindow.h"
 
 
@@ -294,7 +294,7 @@
 
 // Default input manager
 #ifndef BB_INPUT_MANAGER_IMPL
-	#define BB_INPUT_MANAGER_IMPL new BaconBox::InputManager()
+	#define BB_INPUT_MANAGER_IMPL (&InputManager::getInstance())
 #endif
 
 #endif // BB_PLATFORM_FLAGGER_H

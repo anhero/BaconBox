@@ -15,8 +15,16 @@ namespace BaconBox {
 	 * @ingroup WindowDisplay
 	 */
 	class SDLMainWindow : public MainWindow {
-		friend class BaseEngine;
+		friend class MainWindow;
 	public:
+		/**
+		 * Gets the singleton instance.
+		 * @return Pointer to the audio engine's instance.
+		 */
+		static SDLMainWindow &getInstance();
+
+		void destroyInstance();
+
 		/**
 		 * Method called when the engine is initialized.
 		 * It is used to setup the geometry of the window.
@@ -104,6 +112,10 @@ namespace BaconBox {
 		 */
 		void setContextSize(float newContextWidth,
 		                    float newContextHeight);
+
+	protected:
+		static SDLMainWindow * instance;
+
 	private:
 		/**
 		 * Initializes SDL.
