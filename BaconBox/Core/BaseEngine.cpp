@@ -25,10 +25,7 @@
 #include "BaconBox/Console.h"
 #include <libgen.h>
 #include <signal.h>
-#include BB_MAIN_WINDOW_INCLUDE
-#include BB_SOUND_ENGINE_INCLUDE
-#include BB_MUSIC_ENGINE_INCLUDE
-#include BB_GRAPHIC_DRIVER_INCLUDE
+#include "BaconBox/Display/Window/MainWindow.h"
 
 #ifdef BB_LUA
 #include "BaconBox/Script/Lua/LuaManager.h"
@@ -174,7 +171,7 @@ namespace BaconBox {
 			// Calculate the update delay.
 			this->updateDelay = 1.0 / static_cast<double>(updatesPerSecond);
 		}
-		mainWindow->setUpdatesPerSecond(updatesPerSecond);
+		getMainWindow().setUpdatesPerSecond(updatesPerSecond);
 	}
 
 	void BaseEngine::switchToNextState(){
@@ -259,11 +256,12 @@ namespace BaconBox {
 				this->lastRender = TimeHelper::getInstance().getSinceStartComplete();
 			}
 			
-			if (static_cast<AudioEngine *>(this->soundEngine) != static_cast<AudioEngine *>(this->musicEngine)) {
-				this->soundEngine->update();
+			// TODO : Update logic to de-hardcode checking for SoundEngine equal to MusicEngine, and do /the right thing™/
+			if (static_cast<AudioEngine *>( &(this->getSoundEngine()) ) != static_cast<AudioEngine *>( &(this->getMusicEngine()) )) {
+				this->getSoundEngine().update();
 			}
 			
-			this->musicEngine->update();
+			this->getMusicEngine().update();
 		}
 		
 		if (this->needsExit) {
@@ -275,12 +273,12 @@ namespace BaconBox {
 	                              unsigned int resolutionHeight,
 	                              float contextWidth,
 	                              float contextHeight, WindowOrientation::type orientation) {
-
+		// FIXME : Move to Singleton classes...
 		TimeHelper::getInstance();
 		InputManager::getInstance();
 
 		// Engine::onInitialize.shoot(resolutionWidth, resolutionHeight, contextWidth, contextHeight, orientation);
-			MainWindow::getInstance().onBaconBoxInit(resolutionWidth, resolutionHeight, contextWidth, contextHeight, orientation);
+		MainWindow::getInstance().onBaconBoxInit(resolutionWidth, resolutionHeight, contextWidth, contextHeight, orientation);
 	}
 
 	double BaseEngine::getSinceLastUpdate() {
@@ -324,33 +322,53 @@ namespace BaconBox {
 		return this->argv;
 	}
 
+	// Singleton instance getters
+	// TODO : Deprecate/remove?
+
 	MainWindow &BaseEngine::getMainWindow() {
-		return *this->mainWindow;
+		return MainWindow::getInstance();
 	}
 
 	GraphicDriver &BaseEngine::getGraphicDriver() {
-		return *this->graphicDriver;
+		return GraphicDriver::getInstance();
 	}
 
 	SoundEngine &BaseEngine::getSoundEngine() {
-		return *this->soundEngine;
+		return SoundEngine::getInstance();
 	}
 
 	MusicEngine &BaseEngine::getMusicEngine() {
-		return *this->musicEngine;
+		return MusicEngine::getInstance();
+	}
+
+	void BaseEngine::registerSingleton(Singleton * singleton) {
+		singletons.push_back(singleton);
+	}
+
+	void BaseEngine::destroySingleton (Singleton * toDelete) {
+		std::deque<Singleton * >::iterator
+			searchIt = std::find(singletons.begin(), singletons.end(), toDelete);
+		if (searchIt == singletons.end()) {
+			PRLN("WARNING : Trying to erase Singleton which is not registered.");
+			PV(toDelete);
+		}
+		singletons.erase(searchIt, ++searchIt);
+		toDelete->destroyInstance();
+	}
+	void BaseEngine::destroyAllSingletons() {
+		while (!singletons.empty()) {
+			singletons.back()->destroyInstance();
+			singletons.pop_back();
+		}
 	}
 
 	BaseEngine::BaseEngine() : currentState(NULL), nextState(NULL) , lastUpdate(0.0), lastRender(0.0),
 	loops(0), nextUpdate(0), updateDelay(1.0 / Engine::DEFAULT_UPDATES_PER_SECOND),
 	minFps(Engine::DEFAULT_MIN_FRAMES_PER_SECOND), bufferSwapped(false), needsExit(false),
 	tmpExitCode(0), renderedSinceLastUpdate(true), applicationPath(),
-	applicationName(Engine::DEFAULT_APPLICATION_NAME), mainWindow(NULL),
-	graphicDriver(NULL), soundEngine(NULL), musicEngine(NULL) {
+	applicationName(Engine::DEFAULT_APPLICATION_NAME) {
 		Engine::setInstance(*this);
-		mainWindow = BB_MAIN_WINDOW_IMPL;
-		graphicDriver = BB_GRAPHIC_DRIVER_IMPL;
-		soundEngine = BB_SOUND_ENGINE_IMPL;
-		musicEngine = BB_MUSIC_ENGINE_IMPL;
+
 	}
 
 	BaseEngine::~BaseEngine() {
@@ -360,29 +378,14 @@ namespace BaconBox {
 		// We unload the resources.
 		ResourceManager::deleteAll();
 
-		// We unload the audio engines.
-		if (static_cast<AudioEngine *>(musicEngine) == static_cast<AudioEngine *>(soundEngine) && musicEngine->managedByEngine()) {
-			delete musicEngine;
+		// We unload the scripting engine
+		#ifdef BB_LUA
+		// FIXME : Will need to follow the Singleton specs.
+		LuaManager::destroyVM();
+		#endif
 
-		} else {
-			if (musicEngine && musicEngine->managedByEngine()) {
-				delete musicEngine;
-			}
+		destroyAllSingletons();
 
-			if (soundEngine && soundEngine->managedByEngine()) {
-				delete soundEngine;
-			}
-		}
-
-		// We unload the graphic driver;
-		if (graphicDriver) {
-			delete graphicDriver;
-		}
-
-		// We unload the main window;
-		if (mainWindow) {
-			delete mainWindow;
-		}
 		Engine::setInstance(*(BaseEngine*)NULL);
 	}
 }

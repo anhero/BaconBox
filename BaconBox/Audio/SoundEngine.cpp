@@ -1,8 +1,13 @@
 #include "BaconBox/Audio/SoundEngine.h"
 #include "BaconBox/Audio/SoundFX.h"
 #include "BaconBox/Audio/SoundInfo.h"
+#include BB_SOUND_ENGINE_INCLUDE
 
 using namespace BaconBox;
+
+SoundEngine &SoundEngine::getInstance() {
+	return * static_cast<SoundEngine *>(BB_SOUND_ENGINE_IMPL);
+}
 
 int SoundEngine::getSoundVolume() const {
 		return soundVolume;

@@ -2,9 +2,13 @@
 
 #include "BaconBox/Core/Engine.h"
 #include "BaconBox/Console.h"
+
+#include BB_GRAPHIC_DRIVER_INCLUDE
+
 namespace BaconBox {
+
 	GraphicDriver &GraphicDriver::getInstance() {
-		return Engine::getGraphicDriver();
+		return * static_cast<GraphicDriver *>(BB_GRAPHIC_DRIVER_IMPL);
 	}
 
 	GraphicDriver::GraphicDriver(): initialized(false) {

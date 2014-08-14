@@ -18,7 +18,7 @@ namespace BaconBox {
 	 */
 	class NullAudioEngine : public SoundEngine, public MusicEngine {
 		friend class AudioEngine;
-                friend class BaseEngine;
+		friend class MusicEngine;
 	public:
 		/**
 		 * Gets NullaudioEngine's instance.
@@ -26,6 +26,8 @@ namespace BaconBox {
 		 * isn't constructed.
 		 */
 		static NullAudioEngine& getInstance();
+
+		void destroyInstance();
 
 		/**
 		 * Constructs a sound effect. Gets the sound's data associated with the
@@ -126,6 +128,9 @@ namespace BaconBox {
 		 * @return True if the unloading was successful, false if not.
 		 */
 		bool unloadMusic(MusicInfo* music);
+
+	protected:
+		static NullAudioEngine * instance;
 	};
 }
 

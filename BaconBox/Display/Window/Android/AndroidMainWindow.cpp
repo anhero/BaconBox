@@ -19,93 +19,100 @@ extern int main(int argc, char *argv[]);
 
 namespace BaconBox {
 
+	BB_SINGLETON_IMPL(AndroidMainWindow);
 
 AndroidMainWindow * AndroidMainWindow::androidMainWindow = NULL;
 
 bool AndroidMainWindow::animating =  false;
-bool AndroidMainWindow::pwoopidooo =  false;
+
+// Static values for later deferred initialization.
+bool AndroidMainWindow::deferredInitializationDone = false;
+EGLDisplay AndroidMainWindow::deferredDisplay = EGL_NO_DISPLAY;
+EGLContext AndroidMainWindow::deferredContext = EGL_NO_CONTEXT;
+EGLSurface AndroidMainWindow::deferredSurface = EGL_NO_SURFACE;
+
 
 void AndroidMainWindow::onBaconBoxInit(unsigned int resolutionWidth,
 			                  unsigned int resolutionHeight,
 			                  float contextWidth,
 			                  float contextHeight,
 								WindowOrientation::type orientation){
-
+		GraphicDriver::getInstance().initializeGraphicDriver();
+		this->handleResize();
 
 		InputManager::getInstance().setNbKeyboards(1);
 		InputManager::getInstance().setNbPointers(1);
-		
-
-
-
 	}
 
 	void AndroidMainWindow::initWindow(){
-
 		if(needContext){
-
 			needContext = false;
-
-					const EGLint configAttribs[] = {
-	            EGL_SURFACE_TYPE, EGL_WINDOW_BIT,
-                EGL_RENDERABLE_TYPE, EGL_OPENGL_ES2_BIT,
-	            EGL_BLUE_SIZE, 8,
-	            EGL_GREEN_SIZE, 8,
-	            EGL_RED_SIZE, 8,
-				EGL_NONE
-		    };
-
-		    const EGLint contextAttribs[] = {
-	            EGL_CONTEXT_CLIENT_VERSION, 2, 
-	            EGL_NONE
-		    };
-
-		    EGLint w, h, dummy, format;
-		    EGLint numConfigs;
-		    EGLConfig config;
-		    EGLSurface surface;
-		    EGLContext context;
-
-
-
-
-	        EGLDisplay display = eglGetDisplay(EGL_DEFAULT_DISPLAY);
-	        eglInitialize(display, 0, 0);
-		    eglChooseConfig(display, configAttribs, &config, 1, &numConfigs);
-		    eglGetConfigAttrib(display, config, EGL_NATIVE_VISUAL_ID, &format);
-
-	        ANativeWindow_setBuffersGeometry(AndroidHelper::getAppState()->window, 0, 0, format);
-	        surface = eglCreateWindowSurface(display, config, AndroidHelper::getAppState()->window, NULL);
-		    context = eglCreateContext(display, config, NULL, contextAttribs);
-	
-
-		    if (eglMakeCurrent(display, surface, surface, context) == EGL_FALSE) {
-		        Console__error("Unable to eglMakeCurrent");
-		    }
-
-		    eglQuerySurface(display, surface, EGL_WIDTH, &w);
-		    eglQuerySurface(display, surface, EGL_HEIGHT, &h);
-
-
-			// this->setContextSize(contextWidth, contextHeight);
-
-
-		    this->display = display;
-		    this->context = context;
-		    this->surface = surface;
-		    PV(w);
-		    PV(h);
-		    PRLN("GL version: " << 	glGetString(GL_VERSION));
-		    GraphicDriver::getInstance().initializeGraphicDriver();
-			this->MainWindow::setResolution(w, h);
-
-		    glDisable(GL_DEPTH_TEST);
-        	animating = true;
-
+			display = deferredDisplay;
+			context = deferredContext;
+			surface = deferredSurface;
+			glDisable(GL_DEPTH_TEST);
+			animating = true;
 		}
-
 	}
 
+	void AndroidMainWindow::handleResize() {
+		EGLint w, h;
+		eglQuerySurface(this->display, this->surface, EGL_WIDTH, &w);
+		eglQuerySurface(this->display, this->surface, EGL_HEIGHT, &h);
+		this->MainWindow::setResolution(w, h);
+	}
+
+	void AndroidMainWindow::deferredInitWindow() {
+		if (deferredInitializationDone) {
+			return;
+		}
+
+		const EGLint configAttribs[] = {
+			EGL_SURFACE_TYPE, EGL_WINDOW_BIT,
+			EGL_RENDERABLE_TYPE, EGL_OPENGL_ES2_BIT,
+			EGL_BLUE_SIZE, 8,
+			EGL_GREEN_SIZE, 8,
+			EGL_RED_SIZE, 8,
+			EGL_NONE
+		};
+
+		const EGLint contextAttribs[] = {
+			EGL_CONTEXT_CLIENT_VERSION, 2,
+			EGL_NONE
+		};
+
+		EGLint w, h, dummy, format;
+		EGLint numConfigs;
+		EGLConfig config;
+		EGLSurface surface;
+		EGLContext context;
+
+		EGLDisplay display = eglGetDisplay(EGL_DEFAULT_DISPLAY);
+		eglInitialize(display, 0, 0);
+		eglChooseConfig(display, configAttribs, &config, 1, &numConfigs);
+		eglGetConfigAttrib(display, config, EGL_NATIVE_VISUAL_ID, &format);
+
+		ANativeWindow_setBuffersGeometry(AndroidHelper::getAppState()->window, 0, 0, format);
+		surface = eglCreateWindowSurface(display, config, AndroidHelper::getAppState()->window, NULL);
+		context = eglCreateContext(display, config, NULL, contextAttribs);
+
+		if (eglMakeCurrent(display, surface, surface, context) == EGL_FALSE) {
+			Console__error("Unable to eglMakeCurrent");
+		}
+
+		eglQuerySurface(display, surface, EGL_WIDTH, &w);
+		eglQuerySurface(display, surface, EGL_HEIGHT, &h);
+
+		deferredDisplay = display;
+		deferredContext = context;
+		deferredSurface = surface;
+
+		// Printing some general-purpose information.
+		PRLN(" * GL version: " << 	glGetString(GL_VERSION));
+		PRLN(" * GL context size: "	<< w << "x" << h);
+		PRLN(" * GL vendor: " << 	glGetString(GL_VENDOR));
+		PRLN(" * GL renderer: " << 	glGetString(GL_RENDERER));
+	}
 
 	void AndroidMainWindow::termWindow(){
 		GraphicDriver::getInstance().tearGraphicDriver();
@@ -125,6 +132,10 @@ void AndroidMainWindow::onBaconBoxInit(unsigned int resolutionWidth,
 	    context = EGL_NO_CONTEXT;
 	    surface = EGL_NO_SURFACE;
 
+		AndroidMainWindow::deferredInitializationDone = false;
+		AndroidMainWindow::deferredDisplay = display;
+	    AndroidMainWindow::deferredContext = context;
+	    AndroidMainWindow::deferredSurface = surface;
 	}
 
 	void AndroidMainWindow::handleCmd(struct android_app* app, int32_t cmd) {
@@ -139,7 +150,7 @@ void AndroidMainWindow::onBaconBoxInit(unsigned int resolutionWidth,
         	animating = true;
             // The window is being shown, get it ready.
         	if(AndroidHelper::getAppState()->window != NULL){
-	    		reinterpret_cast<AndroidMainWindow*>(&AndroidMainWindow::getInstance())->initWindow();
+				AndroidMainWindow::deferredInitWindow();
 			}
 			else{
 				Console__error("NO WINDOW");
@@ -147,20 +158,23 @@ void AndroidMainWindow::onBaconBoxInit(unsigned int resolutionWidth,
             break;
         case APP_CMD_TERM_WINDOW:
     	PRLN("APP_CMD_TERM_WINDOW");
-            // The window is being hidden or closed, clean it up.
-        	// AndroidHelper::getAppState()->destroyRequested = 1;
-    		   //  BaconBox::LuaManager::destroyVM();
-        	// pwoopidooo = true;
-
-    		reinterpret_cast<AndroidMainWindow*>(&AndroidMainWindow::getInstance())->termWindow();
+			// The window is being hidden or closed, clean it up.
+			// AndroidHelper::getAppState()->destroyRequested = 1;
+			// BaconBox::LuaManager::destroyVM();
+    		AndroidMainWindow::getInstance().termWindow();
             break;
+		case APP_CMD_WINDOW_RESIZED:
+			AndroidMainWindow::getInstance().handleResize();
+			break;
         case APP_CMD_GAINED_FOCUS:
         PRLN("APP_CMD_GAINED_FOCUS");
             // When our app gains focus, we start monitoring the accelerometer.
         	animating = true;
             // AndroidMainWindow * mainWindow = reinterpret_cast<AndroidMainWindow*>(&AndroidMainWindow::getInstance());
-            Engine::getMusicEngine().setMuted(androidMainWindow->musicMuted);
-            Engine::getSoundEngine().setMuted(androidMainWindow->soundMuted);
+			if (Engine::isReady()) {
+				Engine::getMusicEngine().setMuted(androidMainWindow->musicMuted);
+				Engine::getSoundEngine().setMuted(androidMainWindow->soundMuted);
+			}
             break;
         case APP_CMD_LOST_FOCUS:
 	        PRLN("APP_CMD_LOST_FOCUS");
@@ -175,6 +189,8 @@ void AndroidMainWindow::onBaconBoxInit(unsigned int resolutionWidth,
             PV(Engine::getMusicEngine().isMuted());
         	animating = false;
             break;
+
+		// Commands for which we do not do anything.
 		case APP_CMD_START:
 			PRLN("APP_CMD_START");
 			break;
@@ -196,7 +212,6 @@ void AndroidMainWindow::onBaconBoxInit(unsigned int resolutionWidth,
 			break;
 		case APP_CMD_DESTROY:
 			PRLN("APP_CMD_DESTROY");
-
 			break;
 		default:
 		    PRLN("APP_CMD_ AndroidMainWindow::handleCmd HIT DEFAULT " << cmd);
@@ -278,11 +293,11 @@ void AndroidMainWindow::onBaconBoxInit(unsigned int resolutionWidth,
 					eglSwapBuffers(androidMainWindow->display, androidMainWindow->surface);
 					Engine::setBufferSwapped();
 				}
-			
+
 			}
 			else if(androidMainWindow && animating && androidMainWindow->needContext){
 				androidMainWindow->initWindow();
-
+				Engine::getGraphicDriver().initializeGraphicDriver();
 			}
 			else{
 				// PRLN("NOT DOING STUFF");
@@ -292,14 +307,13 @@ void AndroidMainWindow::onBaconBoxInit(unsigned int resolutionWidth,
 	}
 
 	void AndroidMainWindow::show() {
- 		// while(! AndroidHelper::getAppState()->destroyRequested);
  		loop();
 	}
 
 
 	void AndroidMainWindow::setResolution(unsigned int resolutionWidth,
 	                                  unsigned int resolutionHeight) {
-//		GraphicDriver::getInstance().initializeGraphicDriver();
+		GraphicDriver::getInstance().initializeGraphicDriver();
 	}
 
 	void AndroidMainWindow::setContextSize(float newContextWidth,
@@ -327,17 +341,15 @@ void AndroidMainWindow::onBaconBoxInit(unsigned int resolutionWidth,
 
 	AndroidMainWindow::AndroidMainWindow() : MainWindow(), display(NULL), surface(NULL), context(NULL), needContext(true){
 		androidMainWindow = this;
+		this->initWindow();
 	}
 
 	AndroidMainWindow::~AndroidMainWindow() {
-		
 	}
     
     void AndroidMainWindow::hideCursor(){
-
     }
     
     void AndroidMainWindow::showCursor(){
-
     }
 }

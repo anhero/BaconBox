@@ -11,6 +11,7 @@
 #include "BaconBox/Input/GamePad/GamePad.h"
 #include "BaconBox/Input/Keyboard/Keyboard.h"
 #include "BaconBox/Input/Pointer/Pointer.h"
+#include "BaconBox/Core/Singleton.h"
 
 namespace BaconBox {
 	/**
@@ -18,7 +19,7 @@ namespace BaconBox {
 	 * input devices' states and information.
 	 * @ingroup Input
 	 */
-	class InputManager {
+	class InputManager : public Singleton {
 		friend class BaseEngine;
 		friend class Accelerometer;
 		friend class GamePad;
@@ -174,6 +175,7 @@ namespace BaconBox {
 		 * Specify to delete the pointers when the input manager is destroyed.
 		 */
 		void deletePointersOnQuit();
+
 	protected:
 		/**
 		 * Default constructor.
@@ -189,6 +191,9 @@ namespace BaconBox {
 		 * Updates all input devices' states.
 		 */
 		virtual void update();
+
+		/// Instance of the InputManager
+		static InputManager * instance;
 	private:
 		/// Pointers to the loaded accelerometers.
 		std::vector<Accelerometer*> accelerometers;
@@ -216,6 +221,7 @@ namespace BaconBox {
 
 		/// Flag set to know if the input manager has to delete the pointers.
 		bool deletePointers;
+
 	};
 }
 

@@ -7,9 +7,13 @@
 #include "BaconBox/Input/Pointer/Android/AndroidPointer.h"
 
 #include "BaconBox/Helper/Android/AndroidHelper.h"
+
+#include "BaconBox/Core/Engine.h"
+#include "BaconBox/Core/Singleton.h"
+
 using namespace BaconBox;
 
-
+BB_SINGLETON_IMPL(AndroidInputManager);
 
 // bool AndroidInputManager::isRunning() const {
 // 	return running;
@@ -18,9 +22,11 @@ using namespace BaconBox;
 AndroidInputManager::AndroidInputManager() : InputManager(){
 
 	AndroidHelper::getAppState()->onInputEvent = handleInput;
+
 }
 
 AndroidInputManager::~AndroidInputManager() {
+
 }
 
 

@@ -11,16 +11,19 @@
 #include "BaconBox/Display/PixMap.h"
 
 #include "GLSLProgram.h"
+#include "BaconBox/Core/Singleton.h"
 namespace BaconBox {
 	/**
 	 * OpenGl graphic driver.
 	 * @ingroup GraphicDrivers
 	 */
 	class OpenGLDriver : public GraphicDriver {
-		friend class BaseEngine;
+		friend class GraphicDriver;
 	public:
 		
-		
+		static OpenGLDriver& getInstance();
+		void destroyInstance();
+
 		
 		void renderToTexture(const TextureInformation *textureInformation, unsigned int viewportWidth = 0, unsigned int viewportHeight = 0, unsigned int contextWidth = 0, unsigned int contextHeight = 0);
 		void endRenderToTexture();
@@ -113,6 +116,10 @@ namespace BaconBox {
 		 * Finalizes all pending batches if there are any.
 		 */
 		void finalizeRender();
+
+	protected:
+		static OpenGLDriver * instance;
+
 	private:
 		bool shaderCompiled;
 		bool  textureFBOInitialized;
@@ -183,7 +190,7 @@ namespace BaconBox {
 		bool lastShapeBlend;
 		
 		bool lastShapeColorTransform;
-		
+
 		/**
 		 * Default constructor.
 		 */

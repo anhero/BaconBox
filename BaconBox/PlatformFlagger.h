@@ -62,11 +62,11 @@
 	#define BB_MUSIC_ENGINE_IMPL (&OpenSLEngine::getInstance())
 	#define BB_MUSIC_ENGINE_INCLUDE "BaconBox/Audio/Android/OpenSLEngine.h"
 
-#define BB_INPUT_MANAGER_IMPL BaconBox::AndroidInputManager
+#define BB_INPUT_MANAGER_IMPL (&AndroidInputManager::getInstance())
 #define BB_INPUT_MANAGER_INCLUDE "BaconBox/Input/Android/AndroidInputManager.h"
  	#define BB_POINTER_IMPL new AndroidPointer()
 	#define BB_POINTER_INCLUDE "BaconBox/Input/Pointer/Android/AndroidPointer.h"
-#define BB_MAIN_WINDOW_IMPL new AndroidMainWindow()
+#define BB_MAIN_WINDOW_IMPL (&AndroidMainWindow::getInstance())
 #define BB_MAIN_WINDOW_INCLUDE "BaconBox/Display/Window/Android/AndroidMainWindow.h"
 
 #endif // __ANDROID__
@@ -168,7 +168,7 @@
     #define BB_GAME_PAD_IMPL new SDLGamePad(i)
     #define BB_GAME_PAD_INCLUDE "BaconBox/Input/GamePad/SDL/SDLGamePad.h"
 
-	#define BB_INPUT_MANAGER_IMPL BaconBox::SDLInputManager
+	#define BB_INPUT_MANAGER_IMPL new BaconBox::SDLInputManager()
 	#define BB_INPUT_MANAGER_INCLUDE "BaconBox/Input/SDL/SDLInputManager.h"
 	#define BB_MAIN_WINDOW_IMPL new SDLMainWindow()
 	#define BB_MAIN_WINDOW_INCLUDE "BaconBox/Display/Window/SDL/SDLMainWindow.h"
@@ -223,7 +223,7 @@
 #endif // BB_IPHONE_PLATFORM
 
 #if defined (BB_OPENGL) || defined (BB_OPENGLES)
-	#define BB_GRAPHIC_DRIVER_IMPL new OpenGLDriver()
+	#define BB_GRAPHIC_DRIVER_IMPL (&OpenGLDriver::getInstance())
 	#define BB_GRAPHIC_DRIVER_INCLUDE "BaconBox/Display/Driver/OpenGL/OpenGLDriver.h"
 #endif
 
@@ -264,7 +264,7 @@
 
 // For NULL main window.
 #ifndef BB_MAIN_WINDOW_IMPL
-	#define BB_MAIN_WINDOW_IMPL new NullMainWindow()
+	#define BB_MAIN_WINDOW_IMPL (&NullMainWindow::getInstance())
 	#define BB_MAIN_WINDOW_INCLUDE "BaconBox/Display/Window/NullMainWindow.h"
 #endif
 
@@ -276,25 +276,25 @@
 
 // For NULL sound engine
 #ifndef BB_SOUND_ENGINE_IMPL
-	#define BB_SOUND_ENGINE_IMPL new NullAudioEngine()
+	#define BB_SOUND_ENGINE_IMPL (&NullAudioEngine::getInstance())
 	#define BB_SOUND_ENGINE_INCLUDE "BaconBox/Audio/NullAudioEngine.h"
 #endif // BB_SOUND_ENGINE_IMPL
 
 // For NULL music engine
 #ifndef BB_MUSIC_ENGINE_IMPL
-	#define BB_MUSIC_ENGINE_IMPL new NullAudioEngine()
+	#define BB_MUSIC_ENGINE_IMPL (&NullAudioEngine::getInstance())
 	#define BB_MUSIC_ENGINE_INCLUDE "BaconBox/Audio/NullAudioEngine.h"
 #endif // BB_MUSIC_ENGINE_IMPL
 
 // For NULL graphic driver.
 #ifndef BB_GRAPHIC_DRIVER_IMPL
-	#define BB_GRAPHIC_DRIVER_IMPL new NullGraphicDriver()
+	#define BB_GRAPHIC_DRIVER_IMPL (&NullGraphicDriver::getInstance())
 	#define BB_GRAPHIC_DRIVER_INCLUDE "BaconBox/Display/Driver/NullGraphicDriver.h"
 #endif
 
 // Default input manager
 #ifndef BB_INPUT_MANAGER_IMPL
-	#define BB_INPUT_MANAGER_IMPL BaconBox::InputManager
+	#define BB_INPUT_MANAGER_IMPL new BaconBox::InputManager()
 #endif
 
 #endif // BB_PLATFORM_FLAGGER_H

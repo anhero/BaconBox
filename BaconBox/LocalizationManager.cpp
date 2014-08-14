@@ -2,8 +2,12 @@
 #include <rapidxml.hpp>
 #include <rapidxml_utils.hpp>
 #include <rapidxml_print.hpp>
+#include "BaconBox/Console.h"
+#include "BaconBox/Core/Engine.h"
 
 using namespace BaconBox;
+
+BB_SINGLETON_IMPL(LocalizationManager);
 
 LocalizationManager::LocalizationManager(): currentTranslations(NULL), translations(), managedTextEntities(){
 
@@ -70,13 +74,9 @@ void LocalizationManager::removeTextEntity(TextEntity * tf){
 	managedTextEntities.erase(tf);
 }
 
-
-LocalizationManager &LocalizationManager::getInstance() {
-	static LocalizationManager instance;
-	return instance;
+LocalizationManager::~LocalizationManager() {
+	PRLN("LocalizationManager::~LocalizationManager()");
 }
-
-
 
 
 

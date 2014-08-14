@@ -1,3 +1,4 @@
+#include "BaconBox/PlatformFlagger.h"
 #include "BaconBox/Display/Window/MainWindow.h"
 
 #include "BaconBox/Core/Engine.h"
@@ -5,11 +6,13 @@
 #include "BaconBox/Input/Accelerometer/Accelerometer.h"
 #include "BaconBox/Console.h"
 
+#include BB_MAIN_WINDOW_INCLUDE
+
 namespace BaconBox {
 	const std::string MainWindow::DEFAULT_NAME = std::string("An unnamed BaconBox application");
 
 	MainWindow &MainWindow::getInstance() {
-		return Engine::getMainWindow();
+		return * static_cast<MainWindow *>(BB_MAIN_WINDOW_IMPL);
 	}
 
 	void MainWindow::grabInput() {

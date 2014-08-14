@@ -5,10 +5,13 @@
 #ifndef BB_GRAPHIC_DRIVER_H
 #define BB_GRAPHIC_DRIVER_H
 
+#include "BaconBox/PlatformFlagger.h"
 #include "BaconBox/Display/Driver/ColorArray.h"
 #include "BaconBox/Display/Driver/IndiceArray.h"
 
 #include "BaconBox/TextureCoordinates.h"
+
+#include "BaconBox/Core/Singleton.h"
 
 namespace BaconBox {
 	class VertexArray;
@@ -22,7 +25,7 @@ namespace BaconBox {
 	 * @class GraphicDriver
 	 * @ingroup Driver
 	 */
-	class GraphicDriver {
+	class GraphicDriver : public Singleton {
 		friend class BaseEngine;
 	public:
 		/**
@@ -125,6 +128,7 @@ namespace BaconBox {
 		 * Finalizes all pending batches if there are any.
 		 */
 		virtual void finalizeRender() = 0;
+
 	protected:
 
 		 bool initialized;
@@ -137,6 +141,7 @@ namespace BaconBox {
 		 * Destructor.
 		 */
 		virtual ~GraphicDriver();
+
 	};
 
 }

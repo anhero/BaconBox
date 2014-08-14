@@ -6,6 +6,7 @@
 #define BB_AUDIO_ENGINE_H
 
 #include <string>
+#include "BaconBox/Core/Singleton.h"
 
 namespace BaconBox {
 	class SoundFX;
@@ -17,7 +18,7 @@ namespace BaconBox {
 	 * engines derive from this class.
 	 * @ingroup Audio
 	 */
-	class AudioEngine {
+	class AudioEngine : public Singleton {
 		friend class ResourceManager;
 		friend class BaseEngine;
 	public:

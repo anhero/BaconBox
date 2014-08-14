@@ -77,6 +77,8 @@ namespace BaconBox {
 		 * Unmutes the music engine.
 		 */
 		void unmute();
+
+		static MusicEngine &getInstance();
 	protected:
 		/**
 		 * Default constructor.
@@ -111,6 +113,7 @@ namespace BaconBox {
 		 * @return True if the unloading was successful, false if not.
 		 */
 		virtual bool unloadMusic(MusicInfo* music) = 0;
+
 	private:
 		/// Value between 0 and 100 for the volume level. 100 is the maximum.
 		int musicVolume;

@@ -143,7 +143,7 @@ namespace BaconBox {
 	
 	void Engine::raiseDebugger() {
 #if defined(BB_DEBUG)
-#if defined(BB_LINUX)
+#if defined(BB_LINUX) || defined(BB_ANDROID)
 		raise(SIGINT);
 #endif
 #endif
@@ -163,6 +163,9 @@ namespace BaconBox {
 			abort();
 		}
 		return * instance;
+	}
+	bool Engine::isReady() {
+		return (instance != NULL);
 	}
 	
 }

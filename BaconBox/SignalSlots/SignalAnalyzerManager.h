@@ -9,19 +9,21 @@
 #include <string>
 
 #include "BaconBox/SignalSlots/SignalAnalyzer.h"
+#include "BaconBox/Core/Singleton.h"
 
 namespace BaconBox {
 	/**
 	 * Manages signal analyzers.
 	 * @ingroup Events
 	 */
-	class SignalAnalyzerManager {
+	class SignalAnalyzerManager : public Singleton {
 	public:
 		/**
 		 * Gets the singleton's instance.
 		 * @return Pointer to the singleton's instance.
 		 */
-		static SignalAnalyzerManager* getInstance();
+		static SignalAnalyzerManager &getInstance();
+		void destroyInstance();
 
 		/**
 		 * Adds a signal analyzer to the manager. From the time the analyzer is

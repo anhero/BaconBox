@@ -12,6 +12,7 @@
 #include "BaconBox/Display/Window/WindowOrientation.h"
 #include "BaconBox/Vector2.h"
 #include "BaconBox/Input/Accelerometer/Accelerometer.h"
+#include "BaconBox/Core/Singleton.h"
 
 namespace BaconBox {
 	/**
@@ -19,7 +20,7 @@ namespace BaconBox {
 	 * the basic properties of the main window.
 	 * @ingroup WindowDisplay
 	 */
-	class MainWindow : public sigly::HasSlots<SIGLY_DEFAULT_MT_POLICY> {
+	class MainWindow : public sigly::HasSlots<SIGLY_DEFAULT_MT_POLICY>, public Singleton {
 		friend class BaseEngine;
 	public:
 		/// Default name given to all new main windows.
@@ -187,6 +188,8 @@ namespace BaconBox {
 		 * Destructor.
 		 */
 		virtual ~MainWindow();
+
+		static MainWindow * instance;
 	protected:
 		bool orientationIsHorizontal();
 		

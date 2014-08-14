@@ -1,16 +1,9 @@
 #include "BaconBox/SignalSlots/SignalAnalyzerManager.h"
+#include "BaconBox/Core/Engine.h"
 
 using namespace BaconBox;
 
-SignalAnalyzerManager* SignalAnalyzerManager::instance = NULL;
-
-SignalAnalyzerManager* SignalAnalyzerManager::getInstance() {
-	if(!instance) {
-		instance = new SignalAnalyzerManager();
-	}
-
-	return instance;
-}
+BB_SINGLETON_IMPL(SignalAnalyzerManager);
 
 void SignalAnalyzerManager::addSignalAnalyzer(const std::string& analyzerName, SignalAnalyzer* analyzer, bool overwrite) {
 	std::pair<std::map<std::string, SignalAnalyzer*>::iterator, bool> insertResult = analyzers.insert(std::pair<std::string, SignalAnalyzer*>(analyzerName, analyzer));

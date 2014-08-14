@@ -10,6 +10,7 @@
 #include "BaconBox/Display/Color.h"
 #include "BaconBox/Console.h"
 #include "BaconBox/ResourceManager.h"
+#include "BaconBox/Core/Engine.h"
 
 #define GET_PTR(vertices) reinterpret_cast<const GLfloat *>(&(*vertices.getBegin()))
 #define GET_TEX_PTR(textureCoordinates) reinterpret_cast<const GLfloat *>(&(*textureCoordinates.begin()))
@@ -19,6 +20,7 @@
 
 namespace BaconBox {
 
+	BB_SINGLETON_IMPL(OpenGLDriver)
 
 	void OpenGLDriver::drawShapeWithTextureColorColorOffset(const VertexArray &vertices,
                   const TextureInformation *textureInformation,
@@ -810,6 +812,5 @@ void OpenGLDriver::endRenderToTexture(){
 	}
 
 	OpenGLDriver::~OpenGLDriver() {
-
 	}
 }

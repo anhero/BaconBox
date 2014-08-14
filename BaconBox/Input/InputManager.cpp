@@ -24,9 +24,9 @@
 
 using namespace BaconBox;
 
-InputManager& InputManager::getInstance() {
-	static BB_INPUT_MANAGER_IMPL instance;
-	return instance;
+
+InputManager &InputManager::getInstance() {
+	return * static_cast<InputManager *>(BB_INPUT_MANAGER_IMPL);
 }
 
 Accelerometer* InputManager::getDefaultAccelerometer() {

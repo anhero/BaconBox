@@ -1,16 +1,9 @@
 #include "BaconBox/Display/Driver/NullGraphicDriver.h"
+#include "BaconBox/Core/Engine.h"
 
 namespace BaconBox {
-	NullGraphicDriver &NullGraphicDriver::getInstance() {
-		static NullGraphicDriver instance;
-		return instance;
-	}
 
-    void NullGraphicDriver::deleteTexture(TextureInformation * textureInfo){
-
-    }
-
-	
+	BB_SINGLETON_IMPL(NullGraphicDriver)
 	
 	void NullGraphicDriver::renderToTexture(const TextureInformation *textureInformation, unsigned int viewportWidth, unsigned int viewportHeight, unsigned int contextWidth, unsigned int contextHeight){}
 	void NullGraphicDriver::endRenderToTexture(){}

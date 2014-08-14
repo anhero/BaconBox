@@ -6,13 +6,12 @@
 #include "BaconBox/Audio/MusicInfo.h"
 #include "BaconBox/Audio/Android/OpenSLAudio.h"
 #include "BaconBox/ResourceManager.h"
+#include "BaconBox/Core/Singleton.h"
+#include "BaconBox/Core/Engine.h"
 
 using namespace BaconBox;
 
-OpenSLEngine& OpenSLEngine::getInstance() {
-	static OpenSLEngine instance;
-	return instance;
-}
+BB_SINGLETON_IMPL(OpenSLEngine)
 
 SoundFX* OpenSLEngine::getSoundFX(const std::string& key, bool survive) {
 	OpenSLAudio* result = new OpenSLAudio();

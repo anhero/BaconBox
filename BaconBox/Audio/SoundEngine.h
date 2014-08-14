@@ -76,6 +76,8 @@ namespace BaconBox {
 		 * Unmutes the sound engine.
 		 */
 		void unmute();
+
+		static SoundEngine &getInstance();
 	protected:
 		/**
 		 * Default constructor. Engine initialization is specifically done in
@@ -111,6 +113,7 @@ namespace BaconBox {
 		 * @return True if the unloading was successful, false if not.
 		 */
 		virtual bool unloadSound(SoundInfo* sound) = 0;
+
 	private:
 		/// Value between 0 and 100 for the volume level. 100 is the maximum.
 		int soundVolume;

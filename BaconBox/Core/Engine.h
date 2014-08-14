@@ -241,6 +241,11 @@ namespace BaconBox {
 		static void setInstance(BaseEngine &instance);
 
 		/**
+		 * True when the engine singleton instance exists.
+		 */
+		static bool isReady();
+
+		/**
 		 * Raises the debugger on supported platforms.
 		 */
 		static void raiseDebugger();

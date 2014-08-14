@@ -36,6 +36,8 @@ namespace BaconBox {
 		 */
 		static OpenSLEngine& getInstance();
 
+		void destroyInstance();
+
 		/**
 		 * Constructs a sound effect. Gets the sound's data associated with the
 		 * key.
@@ -143,6 +145,8 @@ namespace BaconBox {
 
 		bool managedByEngine();
 
+	protected:
+		static OpenSLEngine * instance;
 
 
 	private:

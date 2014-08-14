@@ -17,15 +17,16 @@ namespace BaconBox {
 	
 
 	class AndroidMainWindow : public MainWindow {
-		friend class BaseEngine;
+		friend class MainWindow;
 	public:
+		static AndroidMainWindow& getInstance();
+		void destroyInstance();
 
 	void onBaconBoxInit(unsigned int resolutionWidth,
 			                  unsigned int resolutionHeight,
 			                  float contextWidth,
 			                  float contextHeight,
 								WindowOrientation::type orientation);
-
 
 		void setUpdatesPerSecond(double setFrameInterval);
 
@@ -94,6 +95,22 @@ namespace BaconBox {
 		static void handleCmd(struct android_app* app, int32_t cmd);
 
 		static void loop();
+
+		void handleResize();
+
+	protected:
+		/**
+		 * Inits the properties of the window Android-side, but leaves stuff to be
+		 * picked up at object initialization for engine-side stuff.
+		 */
+		static void deferredInitWindow();
+		static bool deferredInitializationDone;
+		static EGLDisplay deferredDisplay;
+		static EGLSurface deferredSurface;
+		static EGLContext deferredContext;
+
+		static AndroidMainWindow * instance;
+
 	private:
 
 		void termWindow();
@@ -104,14 +121,12 @@ namespace BaconBox {
 	    EGLContext context;
 	    bool needContext;
 	   	static bool animating;	
-	   	static bool pwoopidooo;
 	   	bool soundMuted;
 	   	bool musicMuted;
 		AndroidMainWindow();
 
 	
 		~AndroidMainWindow();
-
 	};
 }
 

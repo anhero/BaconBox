@@ -10,6 +10,7 @@ namespace BaconBox {
 	#define ANDROID_MAX_POINTERS 10
 
 	AndroidPointer::AndroidPointer(): Pointer(ANDROID_MAX_POINTERS), touchPos(ANDROID_MAX_POINTERS), touchPressed(ANDROID_MAX_POINTERS) {
+		PRLN("AndroidPointer::AndroidPointer(): !!");
         for(int i = 0; i < ANDROID_MAX_POINTERS; i++){
         	touchPressed[i] = false;
         }

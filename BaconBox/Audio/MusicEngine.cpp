@@ -1,8 +1,13 @@
 #include "BaconBox/Audio/MusicEngine.h"
 #include "BaconBox/Audio/BackgroundMusic.h"
 #include "BaconBox/Audio/MusicInfo.h"
+#include BB_MUSIC_ENGINE_INCLUDE
 
 using namespace BaconBox;
+
+MusicEngine &MusicEngine::getInstance() {
+	return * static_cast<MusicEngine *>(BB_MUSIC_ENGINE_IMPL);
+}
 
 int MusicEngine::getMusicVolume() const {
 		return musicVolume;

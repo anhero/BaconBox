@@ -6,13 +6,11 @@
 #include "BaconBox/Audio/MusicInfo.h"
 #include "BaconBox/Audio/NullAudio.h"
 #include "BaconBox/ResourceManager.h"
+#include "BaconBox/Core/Engine.h"
 
 using namespace BaconBox;
 
-NullAudioEngine& NullAudioEngine::getInstance() {
-	static NullAudioEngine instance;
-	return instance;
-}
+BB_SINGLETON_IMPL(NullAudioEngine)
 
 SoundFX* NullAudioEngine::getSoundFX(const std::string& key, bool survive) {
 	NullAudio* result = new NullAudio();

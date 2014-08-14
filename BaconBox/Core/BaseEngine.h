@@ -8,6 +8,7 @@
 #include "BaconBox/PlatformFlagger.h"
 #include "BaconBox/Core/State.h"
 #include "BaconBox/Display/Window/WindowOrientation.h"
+#include "BaconBox/Core/Singleton.h"
 
 namespace BaconBox {
 	class MainWindow;
@@ -96,10 +97,20 @@ namespace BaconBox {
 		
 		virtual MusicEngine &getMusicEngine();
 
+		/// Properly gets rid of a Singleton by its reference ID.
+		virtual void destroySingleton(Singleton * toDelete);
+
+		/// Registers a Singleton to the registry.
+		/// This orders the Singletons to be deleted LIFO.
+		virtual void registerSingleton(Singleton * singleton);
+
+		/// Destroys singletons in the registry.
+		/// This destroys from in LIFO order.
+		virtual void destroyAllSingletons();
 
 	protected:
 		 void switchToNextState();
-	
+
 		
 		/// A copy of argc
 		int argc;
@@ -154,18 +165,10 @@ namespace BaconBox {
 		
 		/// Name of the application.
 		std::string applicationName;
-		
-		/// Pointer to the main window.
-		MainWindow *mainWindow;
-		
-		/// Pointer to the graphic driver.
-		GraphicDriver *graphicDriver;
-		
-		/// Pointer to the sound engine instance.
-		SoundEngine *soundEngine;
-		
-		/// Pointer to the music engine instance.
-		MusicEngine *musicEngine;
+
+		/// Registry of all the Singletons, to later destroy them in (reverse) order.
+		std::deque<Singleton * > singletons;
+
 	};
 }
 
