@@ -13,20 +13,13 @@
 namespace BaconBox {
 	class SDLInputManager : public InputManager {
 		friend class InputManager;
+		BB_SINGLETON_DECL(SDLInputManager);
 	public:
-		/**
-		 * Gets the singleton instance.
-		 * @return Pointer to the instance.
-		 */
-		static SDLInputManager &getInstance();
-		void destroyInstance();
-
 		bool isRunning() const;
 	protected:
 		SDLInputManager();
 		~SDLInputManager();
 		void update();
-		static SDLInputManager * instance;
 	private:
 		bool running;
 	};

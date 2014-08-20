@@ -29,15 +29,8 @@ namespace BaconBox {
 	class SDLMixerEngine : public MusicEngine, public SoundEngine {
 		friend class BaseEngine;
 		friend class AudioEngine;
+		BB_SINGLETON_DECL(SDLMixerEngine);
 	public:
-		/**
-		 * Gets the singleton instance.
-		 * @return Pointer to the audio engine's instance.
-		 */
-		static SDLMixerEngine &getInstance();
-
-		void destroyInstance();
-
 		/**
 		 * Converts the SDL volume to its BaconBox equivalent.
 		 * @param sdlVolume SDL volume to convert.
@@ -111,9 +104,6 @@ namespace BaconBox {
 		 * @see BaconBox::SoundEngine::soundVolume;
 		 */
 		void setSoundVolume(int newSoundVolume);
-
-	protected:
-		static SDLMixerEngine * instance;
 
 	private:
 		/// Playback frequency
