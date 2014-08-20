@@ -169,11 +169,6 @@ void AndroidMainWindow::onBaconBoxInit(unsigned int resolutionWidth,
 			break;
         case APP_CMD_GAINED_FOCUS:
         PRLN("APP_CMD_GAINED_FOCUS");
-			// Some cases off focus while initialized with a smaller context (android navigation buttons shown)
-			// will only call GAINED_FOCUS, even if the window was resized.
-			if (Engine::isReady()) {
-				AndroidMainWindow::getInstance().handleResize();
-			}
             // When our app gains focus, we start monitoring the accelerometer.
         	animating = true;
             // AndroidMainWindow * mainWindow = reinterpret_cast<AndroidMainWindow*>(&AndroidMainWindow::getInstance());
