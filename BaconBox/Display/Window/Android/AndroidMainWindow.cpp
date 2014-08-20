@@ -144,6 +144,7 @@ void AndroidMainWindow::onBaconBoxInit(unsigned int resolutionWidth,
         case APP_CMD_SAVE_STATE:
             // The system has asked us to save our current state.  Do so.
         	PRLN("APP_CMD_SAVE_STATE");
+			Engine::saveState.shoot();
             break;
         case APP_CMD_INIT_WINDOW:
         	PRLN("APP_CMD_INIT_WINDOW");
