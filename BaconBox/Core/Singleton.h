@@ -17,13 +17,27 @@
 	void cls::destroyInstance() { \
 		if (cls::instance) delete cls::instance; \
 		cls::instance = NULL; \
-	}
+	} \
+	bool cls::hasInstance() { \
+		return (cls::instance != NULL); \
+	} \
+
+#define BB_SINGLETON_DECL(cls) \
+	public:\
+	static cls &getInstance(); \
+	void destroyInstance(); \
+	static bool hasInstance(); \
+	protected: \
+	static cls * instance;
+
+
 
 namespace BaconBox {
 	class Singleton {
 	public:
 		static Singleton& getInstance();
 		virtual void destroyInstance() = 0;
+		static bool hasInstance();
 	};
 }
 

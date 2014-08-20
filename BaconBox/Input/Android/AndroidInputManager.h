@@ -15,15 +15,11 @@
 namespace BaconBox {
 	class AndroidInputManager : public InputManager {
 		friend class InputManager;
-	public:
-		static AndroidInputManager& getInstance();
-		void destroyInstance();
-
+		BB_SINGLETON_DECL(AndroidInputManager);
 	protected:
 		AndroidInputManager();
 		~AndroidInputManager();
 		void update();
-		static AndroidInputManager * instance;
 	private:
 		static int32_t handleInput(struct android_app* app, AInputEvent* event);
 		// struct android_app* appState;

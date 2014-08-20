@@ -19,16 +19,8 @@ namespace BaconBox {
 	class NullAudioEngine : public SoundEngine, public MusicEngine {
 		friend class AudioEngine;
 		friend class MusicEngine;
+		BB_SINGLETON_DECL(NullAudioEngine);
 	public:
-		/**
-		 * Gets NullaudioEngine's instance.
-		 * @return Reference to the Null audio engine's instance or NULL if it
-		 * isn't constructed.
-		 */
-		static NullAudioEngine& getInstance();
-
-		void destroyInstance();
-
 		/**
 		 * Constructs a sound effect. Gets the sound's data associated with the
 		 * key.
@@ -129,8 +121,6 @@ namespace BaconBox {
 		 */
 		bool unloadMusic(MusicInfo* music);
 
-	protected:
-		static NullAudioEngine * instance;
 	};
 }
 

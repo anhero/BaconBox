@@ -19,12 +19,8 @@ namespace BaconBox {
 	 */
 	class OpenGLDriver : public GraphicDriver {
 		friend class GraphicDriver;
+		BB_SINGLETON_DECL(OpenGLDriver);
 	public:
-		
-		static OpenGLDriver& getInstance();
-		void destroyInstance();
-
-		
 		void renderToTexture(const TextureInformation *textureInformation, unsigned int viewportWidth = 0, unsigned int viewportHeight = 0, unsigned int contextWidth = 0, unsigned int contextHeight = 0);
 		void endRenderToTexture();
 
@@ -116,9 +112,6 @@ namespace BaconBox {
 		 * Finalizes all pending batches if there are any.
 		 */
 		void finalizeRender();
-
-	protected:
-		static OpenGLDriver * instance;
 
 	private:
 		bool shaderCompiled;

@@ -11,7 +11,7 @@ extern "C" int luaopen_BaconBox(lua_State* L);
 
 namespace BaconBox {
 
-	BB_SINGLETON_IMPL(LuaManager)
+	BB_SINGLETON_IMPL(LuaManager);
 
 	LuaManager& LuaManager::getDefault() {
 		return getInstance();

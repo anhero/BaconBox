@@ -17,14 +17,8 @@ namespace BaconBox {
 	 * @ingroup Events
 	 */
 	class SignalAnalyzerManager : public Singleton {
+		BB_SINGLETON_DECL(SignalAnalyzerManager);
 	public:
-		/**
-		 * Gets the singleton's instance.
-		 * @return Pointer to the singleton's instance.
-		 */
-		static SignalAnalyzerManager &getInstance();
-		void destroyInstance();
-
 		/**
 		 * Adds a signal analyzer to the manager. From the time the analyzer is
 		 * passed to the manager, the manager takes care of freeing up the
@@ -55,9 +49,6 @@ namespace BaconBox {
 		SignalAnalyzer* getSignalAnalyzer(const std::string& analyzerName);
 
 	private:
-		/// Singleton's instance.
-		static SignalAnalyzerManager* instance;
-
 		/// Analyzers and their name.
 		std::map<std::string, SignalAnalyzer*> analyzers;
 

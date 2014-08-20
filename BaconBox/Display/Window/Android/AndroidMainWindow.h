@@ -18,10 +18,8 @@ namespace BaconBox {
 
 	class AndroidMainWindow : public MainWindow {
 		friend class MainWindow;
+		BB_SINGLETON_DECL(AndroidMainWindow);
 	public:
-		static AndroidMainWindow& getInstance();
-		void destroyInstance();
-
 	void onBaconBoxInit(unsigned int resolutionWidth,
 			                  unsigned int resolutionHeight,
 			                  float contextWidth,
@@ -108,8 +106,6 @@ namespace BaconBox {
 		static EGLDisplay deferredDisplay;
 		static EGLSurface deferredSurface;
 		static EGLContext deferredContext;
-
-		static AndroidMainWindow * instance;
 
 	private:
 

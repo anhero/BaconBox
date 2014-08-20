@@ -25,18 +25,10 @@ namespace BaconBox {
 		friend class AudioEngine;
         friend class BaseEngine;
         friend class OpenSLAudio;
+		BB_SINGLETON_DECL(OpenSLEngine);
 	public:
 		sigly::Signal0<> soundVolumeChange;
 		sigly::Signal0<> musicVolumeChange;
-
-		/**
-		 * Gets OpenSLEngine's instance.
-		 * @return Reference to the Null audio engine's instance or NULL if it
-		 * isn't constructed.
-		 */
-		static OpenSLEngine& getInstance();
-
-		void destroyInstance();
 
 		/**
 		 * Constructs a sound effect. Gets the sound's data associated with the
@@ -144,10 +136,6 @@ namespace BaconBox {
 
 
 		bool managedByEngine();
-
-	protected:
-		static OpenSLEngine * instance;
-
 
 	private:
 		SLObjectItf engineObject;

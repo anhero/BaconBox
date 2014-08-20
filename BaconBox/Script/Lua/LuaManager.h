@@ -14,9 +14,8 @@ struct lua_State;
 namespace BaconBox {
 
 	class LuaManager : public Singleton {
+		BB_SINGLETON_DECL(LuaManager);
 	public:
-		static LuaManager &getInstance();
-		void destroyInstance();
 
 		static void doString(const std::string & string);
 		static void doFile(const std::string & path);
@@ -39,8 +38,6 @@ namespace BaconBox {
 		static bool criticalError;
 
 	private:
-		static LuaManager * instance;
-
 	    LuaManager();
 		~LuaManager();
 

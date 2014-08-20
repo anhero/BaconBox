@@ -8,11 +8,8 @@
 namespace BaconBox {
 	
     class LocalizationManager : public Singleton {
+		BB_SINGLETON_DECL(LocalizationManager);
 	public:
-
-		static LocalizationManager& getInstance();
-		void destroyInstance();
-
 		void loadTranslationXML(const std::string &key, const std::string & xmlPath);
 		std::map<std::string, std::string> * getTranslations(const std::string &key);
 
@@ -21,9 +18,6 @@ namespace BaconBox {
 		
 		void addTextEntity(TextEntity * tf);
 		void removeTextEntity(TextEntity * tf);
-		
-	protected:
-		static LocalizationManager * instance;
 		
 	private:
 		typedef std::set<TextEntity*> ManagedTextEntities;
