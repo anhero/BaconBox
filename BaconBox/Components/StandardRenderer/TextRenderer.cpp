@@ -155,7 +155,7 @@ namespace BaconBox {
 
 				tempAdvance += wordTempAdvances *scaleRatio;
 
-				if (tempAdvance.x > textComponent->getSize().x) {
+				if (tempAdvance.x > textComponent->getSize().x && j != i->begin()) {
 					tempAdvance = wordTempAdvances;
 					lineJump(newLineJump, advance, charSpritesForAlignmentAdjust);
 				}

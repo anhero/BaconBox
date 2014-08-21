@@ -35,9 +35,9 @@
 namespace BaconBox {
 	class Singleton {
 	public:
-		static Singleton& getInstance();
+		// static Singleton& getInstance() = 0;
 		virtual void destroyInstance() = 0;
-		static bool hasInstance();
+		// static bool hasInstance() = 0;
 	};
 }
 

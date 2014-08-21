@@ -114,6 +114,9 @@ end
     #include "BaconBox/Helper/Lua/LuaHelper.h"
   #endif
 
+
+
+
     #include "BaconBox/Helper/URL.h"
 
   #include "BaconBox/Helper/SafeEnum.h"
@@ -121,6 +124,9 @@ end
 
 	#include "BaconBox/PlatformFlagger.h"
 	#include "BaconBox/Core/IDManager.h"
+
+      #include "BaconBox/Core/Singleton.h"
+
   #ifdef BB_FLASH_PLATFORM
 	#include <AS3/AS3.h>
 	#include <AS3/AS3++.h>
@@ -345,7 +351,10 @@ class FlashEngine;
 
 }
 
+
+
 %include "BaconBox/Core/IDManager.h"
+  %include "BaconBox/Core/Singleton.h"
 
 %ignore onPointerMove(PointerButtonSignalData);
 
