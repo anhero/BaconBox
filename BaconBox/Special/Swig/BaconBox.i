@@ -5,6 +5,7 @@
 	%native(cast) int luacast(lua_State*L);
   %native(own) int luaOwn(lua_State*L);
   %native(disown) int luaDisOwn(lua_State*L);
+  %native(getPointer) int luaGetPointer(lua_State*L);
 
 %luacode {
   function class(base, init)
@@ -278,6 +279,16 @@ swig_type_info * getTypeByName(lua_State*L, const char * name){
   swig_module_info *module =SWIG_GetModule(L);
   return getTypeByName(module, module, name);
 }
+
+
+int luaGetPointer(lua_State*L){
+    swig_lua_userdata* usr;
+    usr=(swig_lua_userdata*)lua_touserdata(L,-1);
+    std::stringstream ss;
+    ss << usr->ptr;
+    lua_pushstring(L, ss.str().c_str());
+    return 1;
+  }
 
  int luaDisOwn(lua_State*L){
     swig_lua_userdata* usr;
