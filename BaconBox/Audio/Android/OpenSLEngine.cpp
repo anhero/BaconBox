@@ -107,6 +107,20 @@ OpenSLEngine::OpenSLEngine() : SoundEngine(), MusicEngine() {
  }
 
 OpenSLEngine::~OpenSLEngine() {
+	// Cleans up behind the user, just in case.
+	std::list<OpenSLAudio*>::iterator i = audios.begin();
+	while(i != audios.end()) {
+		// We make sure the pointer is valid.
+		if(*i) {
+			Console__error("Got audio not cleaned: *" << *i);
+			delete *i;
+			i = audios.erase(i);
+		} else {
+			// If the pointer is invalid (which should not happen), we remove
+			// it from the list.
+			i = audios.erase(i);
+		}
+	}
 	(*outputMixObject)->Destroy(outputMixObject);
 	(*engineObject)->Destroy(engineObject);
 }
