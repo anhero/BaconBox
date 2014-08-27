@@ -14,7 +14,8 @@ namespace BaconBox {
 	 * @ingroup WindowDisplay
 	 */
 	class IOSMainWindow : public MainWindow {
-		friend class BaseEngine;
+		friend class MainWindow;
+		BB_SINGLETON_DECL(IOSMainWindow);
 	public:
 		void onBaconBoxInit(unsigned int resolutionWidth, unsigned int resolutionHeight, float contextWidth, float contextHeight, WindowOrientation::type orientation);
 		void show();

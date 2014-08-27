@@ -22,6 +22,10 @@ namespace BaconBox {
 	 */
 	class BBAudioPlayerEngine : public MusicEngine {
 		friend class BaseEngine;
+		friend class MusicEngine;
+
+		BB_SINGLETON_DECL(BBAudioPlayerEngine);
+
 	public:
 		/**
 		 * Constructs a background music. Gets the music's data associated with

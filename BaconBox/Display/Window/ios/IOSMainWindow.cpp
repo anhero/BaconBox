@@ -10,6 +10,9 @@
 #include "BaconBox/Display/Driver/GraphicDriver.h"
 #include "BaconBox/Console.h"
 namespace BaconBox {
+
+		BB_SINGLETON_IMPL(IOSMainWindow);
+
 	
 	void IOSMainWindow::onBaconBoxInit(unsigned int resolutionWidth,
 									 unsigned int resolutionHeight,

@@ -9,8 +9,11 @@
 #include "BaconBox/Audio/NullAudio.h"
 
 #include "BaconBox/Console.h"
+#include "BaconBox/Core/Engine.h"
 
 namespace BaconBox {
+	BB_SINGLETON_IMPL(BBAudioPlayerEngine)
+
 	BackgroundMusic* BBAudioPlayerEngine::getBackgroundMusic(std::string const &key,
 															 bool survive) {
 		MusicInfo* bgmInfo = ResourceManager::getMusic(key);

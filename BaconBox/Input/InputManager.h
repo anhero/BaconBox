@@ -6,13 +6,13 @@
 #define BB_INPUT_MANAGER_H
 
 #include <vector>
-
+#include "BaconBox/PlatformFlagger.h"
 #include "BaconBox/Input/Accelerometer/Accelerometer.h"
 #include "BaconBox/Input/GamePad/GamePad.h"
 #include "BaconBox/Input/Keyboard/Keyboard.h"
 #include "BaconBox/Input/Pointer/Pointer.h"
 #include "BaconBox/Core/Singleton.h"
-
+#include "BaconBox/Core/Engine.h"
 namespace BaconBox {
 	/**
 	 * Singleton class that manages all input devices. Lets you access all
@@ -31,7 +31,7 @@ namespace BaconBox {
 		 * @return Pointer to the instance.
 		 */
 		static InputManager& getInstance();
-
+		
 		/**
 		 * Gets a pointer to the default accelerometer device.
 		 * @return Pointer to the default accelerometer device. Null if none are
@@ -194,6 +194,7 @@ namespace BaconBox {
 
 		/// Instance of the InputManager
 		static InputManager * instance;
+
 	private:
 		/// Pointers to the loaded accelerometers.
 		std::vector<Accelerometer*> accelerometers;
@@ -222,6 +223,11 @@ namespace BaconBox {
 		/// Flag set to know if the input manager has to delete the pointers.
 		bool deletePointers;
 
+	};
+
+
+	class BaseInputManager : public InputManager {
+		BB_SINGLETON_DECL(BaseInputManager);
 	};
 }
 

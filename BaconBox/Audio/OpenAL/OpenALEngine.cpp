@@ -20,8 +20,11 @@
 #include "BaconBox/Audio/OpenAL/OpenALSoundFX.h"
 
 #include "BaconBox/ResourceManager.h"
-
+#include "BaconBox/Core/Engine.h"
 namespace BaconBox {
+
+	BB_SINGLETON_IMPL(OpenALEngine)
+
 	int OpenALEngine::openALToBaconBoxVolume(float openALVolume) {
 		if (openALVolume < 0.0f) {
 			return Sound::MIN_VOLUME;

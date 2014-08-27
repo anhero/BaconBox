@@ -201,12 +201,12 @@
 #ifdef BB_IPHONE_PLATFORM
 	//Sound engine for iOS
 	#define BB_OPENAL
-	#define BB_SOUND_ENGINE_IMPL new OpenALEngine()
+	#define BB_SOUND_ENGINE_IMPL (&OpenALEngine::getInstance())
 	#define BB_SOUND_ENGINE_INCLUDE "BaconBox/Audio/OpenAL/OpenALEngine.h"
 
 	//Music engine for iOS
 	#define BB_AV_AUDIO_PLAYER
-	#define BB_MUSIC_ENGINE_IMPL new BBAudioPlayerEngine()
+	#define BB_MUSIC_ENGINE_IMPL (&BBAudioPlayerEngine::getInstance())
 	#define BB_MUSIC_ENGINE_INCLUDE "BaconBox/Audio/ios/BBAudioPlayerEngine.h"
 
 
@@ -218,7 +218,7 @@
 	#define BB_ACCELEROMETER_IMPL new IOSAccelerometer()
 	#define BB_ACCELEROMETER_INCLUDE "BaconBox/Input/Accelerometer/ios/IOSAccelerometer.h"
 
-	#define BB_MAIN_WINDOW_IMPL new IOSMainWindow()
+	#define BB_MAIN_WINDOW_IMPL (&IOSMainWindow::getInstance())
 	#define BB_MAIN_WINDOW_INCLUDE "BaconBox/Display/Window/ios/IOSMainWindow.h"
 #endif // BB_IPHONE_PLATFORM
 
@@ -294,7 +294,7 @@
 
 // Default input manager
 #ifndef BB_INPUT_MANAGER_IMPL
-	#define BB_INPUT_MANAGER_IMPL (&InputManager::getInstance())
+	#define BB_INPUT_MANAGER_IMPL (&BaseInputManager::getInstance())
 #endif
 
 #endif // BB_PLATFORM_FLAGGER_H

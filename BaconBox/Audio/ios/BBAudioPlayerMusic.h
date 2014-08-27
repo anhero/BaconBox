@@ -23,6 +23,7 @@ namespace BaconBox {
 	 */
 	class BBAudioPlayerMusic : public BackgroundMusic {
 		friend class BBAudioPlayerEngine;
+
 	public:
 		/**
 		 * Plays the music a given number of times.

@@ -28,6 +28,8 @@ namespace BaconBox {
 	 */
 	class OpenALEngine: public SoundEngine {
 		friend class BaseEngine;
+		friend class SoundEngine;
+		BB_SINGLETON_DECL(OpenALEngine);
 	public:
 		/**
 		 * Converts the BaconBox volume to its OpenAL equivalent.

@@ -24,10 +24,13 @@
 
 using namespace BaconBox;
 
+	BB_SINGLETON_IMPL(BaseInputManager)
+
 
 InputManager &InputManager::getInstance() {
 	return * static_cast<InputManager *>(BB_INPUT_MANAGER_IMPL);
-}
+}		
+
 
 Accelerometer* InputManager::getDefaultAccelerometer() {
 	return InputManager::getInstance().getAccelerometer();
