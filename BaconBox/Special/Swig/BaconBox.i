@@ -247,8 +247,9 @@ end
   #include "BaconBox/Components/Lua/LuaEntity.h"
 #endif
 
+#include "BaconBox/Core/BaseEngine.h"
+
 namespace BaconBox{
-class BaseEngine;
 #ifdef BB_FLASH_PLATFORM
 class FlashEngine;
 #endif
@@ -354,7 +355,10 @@ class SoundInfo;
 
 
 namespace BaconBox{
-class BaseEngine;
+class BaseEngine {
+public:
+	sigly::Signal0<> saveState;
+};
 
 #ifdef BB_FLASH_PLATFORM
 class FlashEngine;

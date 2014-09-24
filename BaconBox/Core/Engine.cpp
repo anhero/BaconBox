@@ -16,7 +16,6 @@ namespace BaconBox {
 	const std::string Engine::DEFAULT_APPLICATION_NAME = std::string("BaconBoxApp");
 	sigly::Signal5<unsigned int, unsigned int, float, float, WindowOrientation::type> Engine::onInitialize = sigly::Signal5<unsigned int, unsigned int, float, float, WindowOrientation::type>();
 	sigly::Signal0<> Engine::update = sigly::Signal0<>();
-	sigly::Signal0<> Engine::saveState = sigly::Signal0<>();
 
 	void Engine::application(int argc, char *argv[], const std::string &name) {
 		getInstance().application(argc,argv,name);
