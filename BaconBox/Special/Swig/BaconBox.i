@@ -345,7 +345,7 @@ class SoundInfo;
 
 #include "BaconBox/Audio/MusicEngine.h"
 #include "BaconBox/Audio/BackgroundMusic.h"
-#include "BaconBox/Display/Driver/GraphicDriver.h"
+#include "BaconBox/Display/StandardRenderer/Driver/GraphicDriver.h"
 #include "BaconBox/vmath.h"
 
 %}

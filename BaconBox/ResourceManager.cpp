@@ -10,7 +10,7 @@
 #include "BaconBox/Audio/AudioEngine.h"
 #include "BaconBox/Audio/SoundEngine.h"
 #include "BaconBox/Audio/MusicEngine.h"
-#include "BaconBox/Display/Driver/GraphicDriver.h"
+#include "BaconBox/Display/StandardRenderer/Driver/GraphicDriver.h"
 #include "BaconBox/Helper/ResourcePathHandler.h"
 #include "BaconBox/Display/Color.h"
 

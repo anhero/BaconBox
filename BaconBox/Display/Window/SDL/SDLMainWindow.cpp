@@ -3,9 +3,9 @@
 #include "BaconBox/PlatformFlagger.h"
 
 #include "BaconBox/Input/SDL/SDLInputManager.h"
-#include "BaconBox/Display/Driver/OpenGL/BBOpenGL.h"
+#include "BaconBox/Display/StandardRenderer/Driver/OpenGL/BBOpenGL.h"
 #include "BaconBox/Core/Engine.h"
-#include "BaconBox/Display/Driver/GraphicDriver.h"
+#include "BaconBox/Display/StandardRenderer/Driver/GraphicDriver.h"
 #include "BaconBox/Console.h"
 namespace BaconBox {
 

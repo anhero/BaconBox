@@ -2,12 +2,12 @@
 
 #include "BaconBox/PlatformFlagger.h"
 
-#include "BaconBox/Display/Driver/OpenGL/BBOpenGL.h"
+#include "BaconBox/Display/StandardRenderer/Driver/OpenGL/BBOpenGL.h"
 #include "BaconBox/Core/Engine.h"
 #include "BaconBox/Input/InputManager.h"
 #include "BaconBox/Display/Window/ios/BaconBoxAppAppDelegate.h"
 #import <UIKit/UIKit.h>
-#include "BaconBox/Display/Driver/GraphicDriver.h"
+#include "BaconBox/Display/StandardRenderer/Driver/GraphicDriver.h"
 #include "BaconBox/Console.h"
 namespace BaconBox {
 

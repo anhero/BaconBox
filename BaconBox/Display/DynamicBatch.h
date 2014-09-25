@@ -4,9 +4,9 @@
 #include "BaconBox/StandardVertexArray.h"
 #include "BaconBox/Display/Color.h"
 #include "BaconBox/TextureCoordinates.h"
-#include "BaconBox/Display/Driver/IndiceArray.h"
-#include "BaconBox/Display/Driver/ColorArray.h"
-#include "BaconBox/Display/Driver/ColorArray.h"
+#include "BaconBox/Display/StandardRenderer/Driver/IndiceArray.h"
+#include "BaconBox/Display/StandardRenderer/Driver/ColorArray.h"
+#include "BaconBox/Display/StandardRenderer/Driver/ColorArray.h"
 
 
 namespace BaconBox {

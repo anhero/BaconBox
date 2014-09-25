@@ -15,6 +15,8 @@ namespace BaconBox {
 	
 	class FlashMainWindow : public MainWindow {
 		friend class BaseEngine;
+		friend class MainWindow;
+		BB_SINGLETON_DECL(FlashMainWindow);
 	public:
 
 
@@ -44,7 +46,7 @@ namespace BaconBox {
 		void setInputGrabbed(bool newInputGrabbed);
 
 
-		void setResolution(unsigned int resolutionWidth, unsigned int resolutionHeight);
+		// void setResolution(unsigned int resolutionWidth, unsigned int resolutionHeight);
         
 
         void hideCursor();
@@ -53,8 +55,8 @@ namespace BaconBox {
         void showCursor();
 
 
-		void setContextSize(float newContextWidth,
-		                    float newContextHeight);
+		// void setContextSize(float newContextWidth,
+		//                     float newContextHeight);
 	private:
 
 		FlashMainWindow();

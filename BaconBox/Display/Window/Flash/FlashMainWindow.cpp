@@ -1,13 +1,14 @@
 #include "BaconBox/Display/Window/Flash/FlashMainWindow.h"
 
 #include "BaconBox/Input/InputManager.h"
+#include "BaconBox/Console.h"
 namespace BaconBox {
 
+	BB_SINGLETON_IMPL(FlashMainWindow);
 
 	void FlashMainWindow::onBaconBoxInit(unsigned int resolutionWidth, unsigned int resolutionHeight, float contextWidth, float contextHeight, BaconBox::WindowOrientation::type) {
 		this->MainWindow::setResolution(resolutionWidth, resolutionHeight);
 		this->MainWindow::setContextSize(contextWidth, contextHeight);
-
 		InputManager::getInstance().setNbKeyboards(1);
 		InputManager::getInstance().setNbPointers(1);
 
@@ -17,17 +18,17 @@ namespace BaconBox {
 		
 	}
 
-	void FlashMainWindow::setResolution(unsigned int resolutionWidth,
-	                                  unsigned int resolutionHeight) {
-		this->MainWindow::setResolution(resolutionWidth, resolutionHeight);
-//		GraphicDriver::getInstance().initializeGraphicDriver();
-	}
+// 	void FlashMainWindow::setResolution(unsigned int resolutionWidth,
+// 	                                  unsigned int resolutionHeight) {
+// 		this->MainWindow::setResolution(resolutionWidth, resolutionHeight);
+// //		GraphicDriver::getInstance().initializeGraphicDriver();
+// 	}
 
-	void FlashMainWindow::setContextSize(float newContextWidth,
-	                                   float newContextHeight) {
-		this->MainWindow::setContextSize(newContextWidth, newContextHeight);
-//		GraphicDriver::getInstance().initializeGraphicDriver();
-	}
+// 	void FlashMainWindow::setContextSize(float newContextWidth,
+// 	                                   float newContextHeight) {
+// 		this->MainWindow::setContextSize(newContextWidth, newContextHeight);
+// //		GraphicDriver::getInstance().initializeGraphicDriver();
+// 	}
 
 	void FlashMainWindow::setUpdatesPerSecond(double){
 

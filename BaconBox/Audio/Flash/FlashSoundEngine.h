@@ -18,11 +18,13 @@ namespace BaconBox {
 
 	class FlashSoundEngine : public SoundEngine {
 		friend class AudioEngine;
-                friend class BaseEngine;
-                friend class ResourceManager;
+        friend class BaseEngine;
+        friend class ResourceManager;
+		friend class SoundEngine;
+		BB_SINGLETON_DECL(FlashSoundEngine);
+
 	public:
 
-		static FlashSoundEngine& getInstance();
 
 		SoundFX* getSoundFX(const std::string& key, bool survive = true);
 

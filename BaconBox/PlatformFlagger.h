@@ -26,7 +26,7 @@
         #define BB_TIME_HELPER_IMPL BaconBox::LibcTimeHelper
 	#define BB_TIME_HELPER_INCLUDE "BaconBox/Helper/libc/LibcTimeHelper.h"
 
-	#define BB_MAIN_WINDOW_IMPL new BaconBox::FlashMainWindow()
+	#define BB_MAIN_WINDOW_IMPL (&FlashMainWindow::getInstance())
 	#define BB_MAIN_WINDOW_INCLUDE "BaconBox/Display/Window/Flash/FlashMainWindow.h"
 
 
@@ -41,9 +41,9 @@
 	#define BB_KEYBOARD_INCLUDE "BaconBox/Input/Keyboard/Flash/FlashKeyboard.h"
 
 
-	#define BB_SOUND_ENGINE_IMPL new FlashSoundEngine()
+	#define BB_SOUND_ENGINE_IMPL (&FlashSoundEngine::getInstance())
 	#define BB_SOUND_ENGINE_INCLUDE "BaconBox/Audio/Flash/FlashSoundEngine.h"
-	#define BB_MUSIC_ENGINE_IMPL new FlashMusicEngine()
+	#define BB_MUSIC_ENGINE_IMPL (&FlashMusicEngine::getInstance())
 	#define BB_MUSIC_ENGINE_INCLUDE "BaconBox/Audio/Flash/FlashMusicEngine.h"
 
 #endif
@@ -224,7 +224,7 @@
 
 #if defined (BB_OPENGL) || defined (BB_OPENGLES)
 	#define BB_GRAPHIC_DRIVER_IMPL (&OpenGLDriver::getInstance())
-	#define BB_GRAPHIC_DRIVER_INCLUDE "BaconBox/Display/Driver/OpenGL/OpenGLDriver.h"
+	#define BB_GRAPHIC_DRIVER_INCLUDE "BaconBox/Display/StandardRenderer/Driver/OpenGL/OpenGLDriver.h"
 #endif
 
 /*
@@ -286,11 +286,14 @@
 	#define BB_MUSIC_ENGINE_INCLUDE "BaconBox/Audio/NullAudioEngine.h"
 #endif // BB_MUSIC_ENGINE_IMPL
 
-// For NULL graphic driver.
+#ifndef BB_FLASH_PLATFORM
+#define BB_USE_STANDARD_RENDERER
 #ifndef BB_GRAPHIC_DRIVER_IMPL
 	#define BB_GRAPHIC_DRIVER_IMPL (&NullGraphicDriver::getInstance())
-	#define BB_GRAPHIC_DRIVER_INCLUDE "BaconBox/Display/Driver/NullGraphicDriver.h"
+	#define BB_GRAPHIC_DRIVER_INCLUDE "BaconBox/Display/StandardRenderer/Driver/NullGraphicDriver.h"
 #endif
+#endif
+
 
 // Default input manager
 #ifndef BB_INPUT_MANAGER_IMPL

@@ -1,5 +1,5 @@
 #include "Camera.h"
-#include "BaconBox/Components/CameraDriverRenderer.h"
+#include "BaconBox/Components/StandardRenderer/CameraDriverRenderer.h"
 
 #ifdef BB_FLASH_PLATFORM
 #include "BaconBox/Components/Flash/FlashColorTransform.h"

@@ -6,8 +6,8 @@
 #define BB_GRAPHIC_DRIVER_H
 
 #include "BaconBox/PlatformFlagger.h"
-#include "BaconBox/Display/Driver/ColorArray.h"
-#include "BaconBox/Display/Driver/IndiceArray.h"
+#include "BaconBox/Display/StandardRenderer/Driver/ColorArray.h"
+#include "BaconBox/Display/StandardRenderer/Driver/IndiceArray.h"
 
 #include "BaconBox/TextureCoordinates.h"
 

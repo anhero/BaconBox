@@ -8,13 +8,14 @@
 
 #include "BaconBox/ResourceManager.h"
 #include "BaconBox/Helper/Flash/FlashHelper.h"
+#include "BaconBox/Core/Engine.h"
 
 using namespace BaconBox;
 
-FlashSoundEngine& FlashSoundEngine::getInstance() {
-	static FlashSoundEngine instance;
-	return instance;
-}
+
+
+BB_SINGLETON_IMPL(FlashSoundEngine);
+
 
 SoundFX* FlashSoundEngine::getSoundFX(const std::string& key, bool survive) {
 	FlashSoundFX* result = new FlashSoundFX();

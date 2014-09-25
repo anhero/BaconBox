@@ -4,10 +4,10 @@
 #include "BaconBox/Console.h"
 
 #include "android_native_app_glue.h"
-#include "BaconBox/Display/Driver/OpenGL/BBOpenGL.h"
+#include "BaconBox/Display/StandardRenderer/Driver/OpenGL/BBOpenGL.h"
 #include "BaconBox/Core/Engine.h"
 	#include "BaconBox/Helper/Android/AndroidHelper.h"
-#include "BaconBox/Display/Driver/GraphicDriver.h"
+#include "BaconBox/Display/StandardRenderer/Driver/GraphicDriver.h"
 #include <android/native_window.h>
 #include "BaconBox/Audio/SoundEngine.h"
 #include "BaconBox/Audio/MusicEngine.h"

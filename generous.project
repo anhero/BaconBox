@@ -47,10 +47,10 @@ BaconBox:
          artifacts:
           Cpp:
             - "BaconBox/**/OpenGL/*.cpp"
-            - "BaconBox/**/StandardRenderer/*.cpp"
+            - "BaconBox/**/StandardRenderer/**/*.cpp"
           Header:
             - "BaconBox/**/OpenGL/*.h"   
-            - "BaconBox/**/StandardRenderer/*.h"   
+            - "BaconBox/**/StandardRenderer/**/*.h"   
       OSX: &OSX
          artifacts:
           Cpp:
@@ -157,12 +157,8 @@ BaconBox:
       Android_Lua_debug_x86:
                 export: true
                 include: [Android_Lua]
-      Flash:
+      Flash_Base:
         include: [core, Lua]
-        export: true
-        outputExtension: swc
-        outputPrefix: ''
-        type: application
         options:
             - - crossbridge
               - "Path to your crossbridge sdk folder"
@@ -170,6 +166,8 @@ BaconBox:
             - ["flex", "Path to your <%= sdk folder", ""]
         preGenerousScripts:
             - |
+              FileUtils.mkpath "#{$project.buildDir}/share"
+
               AS3COMPILERARGS = "java -jar #{$project.options['crossbridge']}/usr/lib/asc2.jar -merge -md "
               COMPC = "#{$project.options['flex']}/bin/compc"
               FileUtils.mkpath "#{$project.buildDir}/as3"
@@ -189,43 +187,41 @@ BaconBox:
               -import #{$project.options['crossbridge']}/usr/lib/PlayerKernel.abc \
               #{$project.buildDir}/as3/URLLoaderVFS.as #{$project.buildDir}/as3/LSOBackingStore.as -outdir #{$project.buildDir}/as3 -out VFS}
 
+              FileUtils.cp "#{$project.buildDir}/as3/VFS.abc", "#{$project.buildDir}/share"
+
               puts_banner 'Compiling BaconBoxAS3.abc'
               puts %x{#{$project.options['crossbridge']}/usr/bin/swig -as3 -c++ -module BaconBoxAS3 -outdir #{$project.buildDir}/as3 -ignoremissing #{$project.definesString} #{$project.includesString} -package BaconBox -o #{$project.buildDir}/as3/BaconBoxAS3.cpp BaconBox/Special/Flash/BaconBoxAS3.i}
               puts %x{#{AS3COMPILERARGS} -abcfuture -AS3 -import #{$project.options['crossbridge']}/usr/lib/builtin.abc -import #{$project.options['crossbridge']}/usr/lib/playerglobal.abc #{$project.buildDir}/as3/BaconBoxAS3.as}
               puts %x{mv #{$project.buildDir}/as3/BaconBoxAS3.as #{$project.buildDir}/as3/BaconBoxAS3.as3}
+              FileUtils.cp "#{$project.buildDir}/as3/BaconBoxAS3.abc", "#{$project.buildDir}/share"
 
               puts_banner 'Compiling EntityWrapper.swc'
               %x{ cp -r "BaconBox/Special/Flash/BaconBox" "#{$project.buildDir}/as3/BaconBox"}
               puts %x{ #{AS3COMPILERARGS} -abcfuture -AS3 -import #{$project.options['crossbridge']}/usr/lib/builtin.abc -import #{$project.options['crossbridge']}/usr/lib/playerglobal.abc -outdir #{$project.buildDir}/as3 #{$project.buildDir}/as3/BaconBox/EntityWrapper/EntityHolderTextField.as #{$project.buildDir}/as3/BaconBox/EntityWrapper/EntityHolderMovieClip.as }
-              puts %x{#{COMPC} -compiler.source-path #{$project.buildDir}/as3 -include-classes BaconBox.EntityWrapper.EntityHolderTextField BaconBox.EntityWrapper.EntityHolderMovieClip -output #{$project.buildDir}/EntityWrapper.swc}
-
+              # puts %x{#{COMPC} -compiler.source-path #{$project.buildDir}/as3 -include-classes BaconBox.EntityWrapper.EntityHolderTextField BaconBox.EntityWrapper.EntityHolderMovieClip -output #{$project.buildDir}/share/EntityWrapper.swc}
+              FileUtils.cp "#{$project.buildDir}/as3/EntityHolderMovieClip.abc", "#{$project.buildDir}/share"
         artifacts:
+          CFLAGS:
+            - "-emit-swf"
+            # - "-emit-llvm"
           Define:
             - BB_FLASH_PLATFORM
-          LDFLAGS:
-            - <%= "#{$project.buildDir}/as3/VFS.abc" %>
-            - <%= "#{$project.buildDir}/as3/BaconBoxAS3.abc" %>
-            - "-emit-swc=BaconBox"
-          CFLAGS:
-            - "-emit-swc=BaconBox"
           Cpp:
+            - "-flto-api=/Users/twistedjoe/Documents/Anhero/Jeux/JumpingJimmy/JumpingJimmy/exports.txt"
             - "BaconBox/**/Flash/*.cpp"
             - "<%= $project.buildDir %>/as3/*.cpp"
             - "BaconBox/**/libc/*.cpp"
+            # - "-emit-llvm"
           Header:
             - "BaconBox/**/Flash/*.h"
             - "BaconBox/**/libc/*.h"
           IncludesPath:
             - "libraries/Flash/include"
-          Library:
-            - JsonBox
-            - lua
-            - z
-            - AS3++
-          LibrariesPath:
-            - "libraries/Flash/lib"
+      Flash:
+        include: [Flash_Base, O3]
+        export: true
       Flash_debug:
         export: true
-        include: [Flash, debug]
+        include: [Flash_Base, debug]
 
 

@@ -7,13 +7,11 @@ using namespace BaconBox;
 
 FlashPointer::FlashPointer() : Pointer() {
 	 inline_as3("import flash.events.MouseEvent; \n");
-
 	AS3::local::var stage = FlashEngine::getStage();
 	AS3::local::var eventType;
 	AS3::local::var args[2];
 
 	mouseFun = args[1] = AS3::local::internal::new_Function(mouseEventListener, reinterpret_cast<void*>(this));
-
 
 	AS3_GetVarxxFromVar(args[0], MouseEvent.MOUSE_UP);
 	FlashHelper::callMethod(stage, "addEventListener", 2, args);
@@ -55,6 +53,7 @@ FlashPointer::~FlashPointer() {
 	int y = AS3::local::internal::int_valueOf(FlashHelper::getProperty(event, "stageY"));
 	reinterpret_cast<FlashPointer*>(arg)->mouseState.pos = Vector2(static_cast<float>(x), static_cast<float>(y));
 	reinterpret_cast<FlashPointer*>(arg)->mouseState.leftButton = AS3::local::internal::bool_valueOf(FlashHelper::getProperty(event, "buttonDown"));
+
 	return AS3::local::internal::_null;
 }
 

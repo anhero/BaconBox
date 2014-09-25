@@ -1,7 +1,7 @@
 #include "DynamicBatch.h"
 
 #include "BaconBox/Console.h"
-#include "BaconBox/Display/Driver/GraphicDriver.h"
+#include "BaconBox/Display/StandardRenderer/Driver/GraphicDriver.h"
 #include <limits>
 namespace BaconBox {
 	DynamicBatch::DynamicBatch():indiceIterator(0) {

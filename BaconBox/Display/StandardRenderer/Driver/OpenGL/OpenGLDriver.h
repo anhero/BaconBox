@@ -5,8 +5,8 @@
 #ifndef BB_OPENGLDRIVER
 #define BB_OPENGLDRIVER
 
-#include "BaconBox/Display/Driver/GraphicDriver.h"
-#include "BaconBox/Display/Driver/OpenGL/BBOpenGL.h"
+#include "BaconBox/Display/StandardRenderer/Driver/GraphicDriver.h"
+#include "BaconBox/Display/StandardRenderer/Driver/OpenGL/BBOpenGL.h"
 #include "BaconBox/Display/DynamicBatch.h"
 #include "BaconBox/Display/PixMap.h"
 

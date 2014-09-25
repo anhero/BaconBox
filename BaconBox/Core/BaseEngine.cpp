@@ -9,7 +9,11 @@
 #include <algorithm>
 
 #include "BaconBox/Helper/TimeHelper.h"
-#include "BaconBox/Display/Driver/GraphicDriver.h"
+
+#ifdef BB_USE_STANDARD_RENDERER
+#include "BaconBox/Display/StandardRenderer/Driver/GraphicDriver.h"
+#endif
+
 #include "BaconBox/Helper/DeleteHelper.h"
 
 #ifndef BB_ANDROID
@@ -250,7 +254,9 @@ namespace BaconBox {
 			
 			if (!this->renderedSinceLastUpdate) {
 //				this->currentState->internalRender();
-				GraphicDriver::getInstance().finalizeRender();
+				#ifdef BB_USE_STANDARD_RENDERER
+					GraphicDriver::getInstance().finalizeRender();
+				#endif
 				this->renderedSinceLastUpdate = true;
 				this->bufferSwapped = false;
 				this->lastRender = TimeHelper::getInstance().getSinceStartComplete();
@@ -328,11 +334,11 @@ namespace BaconBox {
 	MainWindow &BaseEngine::getMainWindow() {
 		return MainWindow::getInstance();
 	}
-
+#ifdef BB_USE_STANDARD_RENDERER
 	GraphicDriver &BaseEngine::getGraphicDriver() {
 		return GraphicDriver::getInstance();
 	}
-
+#endif
 	SoundEngine &BaseEngine::getSoundEngine() {
 		return SoundEngine::getInstance();
 	}

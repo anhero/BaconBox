@@ -8,14 +8,11 @@
 
 #include "BaconBox/ResourceManager.h"
 #include "BaconBox/Helper/Flash/FlashHelper.h"
-
+#include "BaconBox/Core/Engine.h"
 using namespace BaconBox;
 
-FlashMusicEngine& FlashMusicEngine::getInstance() {
-	static FlashMusicEngine instance;
-	return instance;
-}
 
+BB_SINGLETON_IMPL(FlashMusicEngine);
 
 
 

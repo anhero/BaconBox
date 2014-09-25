@@ -54,14 +54,14 @@ void PointerState::setCursorPosition(unsigned int index, Vector2 pos) {
 		default:
 			break;
 	}
-	
 	pos.rotate(windowOrientationAngleOffset);
+
 	pos +=(windowOrientationOffset);
-	
-	Vector2 v(MainWindow::getInstance().getContextWidth(), MainWindow::getInstance().getContextHeight());
-	
+
+	Vector2 v(MainWindow::getInstance().getContextSize());
+
 	pos.coordinatesMultiply(v.getCoordinatesDivision(Vector2(static_cast<float>(MainWindow::getInstance().getResolutionWidth()), static_cast<float>(MainWindow::getInstance().getResolutionHeight()))));
-	
+
 	
 	cursors[index].position = pos;
 }

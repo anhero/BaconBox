@@ -6,7 +6,7 @@
 
 //Inspired by the book More OpenGL game programming by Dave Astle
 //http://glbook.gamedev.net/
-#include "BaconBox/Display/Driver/OpenGL/BBOpenGL.h"
+#include "BaconBox/Display/StandardRenderer/Driver/OpenGL/BBOpenGL.h"
 #include <string>
 namespace BaconBox{
     class GLSLProgram

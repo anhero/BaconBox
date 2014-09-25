@@ -77,7 +77,7 @@ namespace BaconBox {
 	void FlashEntityManager::receiveMessage(int senderID, int destID, int message, void *data) {
 		if(senderID != State::ID)return;
 		if(message == State::MESSAGE_GET_FOCUS){
-		   Engine::getInstance().swapActiveMovieClip(movieClipManager);
+		   ((FlashEngine*) & Engine::getInstance())->swapActiveMovieClip(movieClipManager);
 		}		
 		else if(message == State::MESSAGE_ADDED_ENTITY){
 		    add(reinterpret_cast<Entity*>(data));

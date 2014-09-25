@@ -19,11 +19,12 @@ namespace BaconBox {
 
 	class FlashMusicEngine : public MusicEngine {
 		friend class AudioEngine;
-                friend class BaseEngine;
-                friend class ResourceManager;
+		friend class BaseEngine;
+		friend class ResourceManager;
+		friend class MusicEngine;
+		BB_SINGLETON_DECL(FlashMusicEngine);
 	public:
 
-		static FlashMusicEngine& getInstance();
 
 
 		BackgroundMusic* getBackgroundMusic(const std::string& key,

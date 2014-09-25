@@ -18,7 +18,9 @@
 
 namespace BaconBox {
 	class MainWindow;
+#ifdef BB_USE_STANDARD_RENDERER
 	class GraphicDriver;
+#endif
 	class SoundEngine;
 	class MusicEngine;
 	/**
@@ -215,12 +217,9 @@ namespace BaconBox {
 		 */
 		static MainWindow &getMainWindow();
 		
-		/**
-		 * Gets the graphic driver.
-		 * @return Reference to the graphic driver.
-		 */
+#ifdef BB_USE_STANDARD_RENDERER
 		static GraphicDriver &getGraphicDriver();
-		
+#endif
 		/**
 		 * Gets the sound engine.
 		 * @return Reference to the sound engine.

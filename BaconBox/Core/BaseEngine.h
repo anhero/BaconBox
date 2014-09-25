@@ -12,7 +12,9 @@
 
 namespace BaconBox {
 	class MainWindow;
+	#ifdef BB_USE_STANDARD_RENDERER
 	class GraphicDriver;
+	#endif
 	class SoundEngine;
 	class MusicEngine;
 	
@@ -90,9 +92,9 @@ namespace BaconBox {
 		virtual char **getApplicationArgv();
 		
 		virtual MainWindow &getMainWindow();
-		
+		#ifdef BB_USE_STANDARD_RENDERER
 		virtual GraphicDriver &getGraphicDriver();
-		
+		#endif
 		virtual SoundEngine &getSoundEngine();
 		
 		virtual MusicEngine &getMusicEngine();

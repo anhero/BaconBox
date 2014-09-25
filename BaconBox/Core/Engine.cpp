@@ -129,10 +129,11 @@ namespace BaconBox {
 	MainWindow &Engine::getMainWindow() {
 		return getInstance().getMainWindow();
 	}
-	
+#ifdef BB_USE_STANDARD_RENDERER
 	GraphicDriver &Engine::getGraphicDriver() {
 		return getInstance().getGraphicDriver();
 	}
+#endif
 	
 	SoundEngine &Engine::getSoundEngine() {
 		return getInstance().getSoundEngine();

@@ -1,6 +1,6 @@
 #ifndef BB_GLSLSHADER_H
 #define BB_GLSLSHADER_H
-#include "BaconBox/Display/Driver/OpenGL/BBOpenGL.h"
+#include "BaconBox/Display/StandardRenderer/Driver/OpenGL/BBOpenGL.h"
 #include <string>
 
 //Inspired by the book More OpenGL game programming by Dave Astle

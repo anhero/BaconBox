@@ -2,7 +2,9 @@
 #include "BaconBox/Display/Window/MainWindow.h"
 
 #include "BaconBox/Core/Engine.h"
-#include "BaconBox/Display/Driver/GraphicDriver.h"
+#ifdef BB_USE_STANDARD_RENDERER
+#include "BaconBox/Display/StandardRenderer/Driver/GraphicDriver.h"
+#endif
 #include "BaconBox/Input/Accelerometer/Accelerometer.h"
 #include "BaconBox/Console.h"
 
@@ -95,7 +97,9 @@ namespace BaconBox {
 								   unsigned int newResolutionHeight) {
 		resolution.x = (!orientationIsHorizontal() ? newResolutionWidth: newResolutionHeight);
 		resolution.y = (orientationIsHorizontal() ? newResolutionWidth: newResolutionHeight);
+		#ifdef BB_USE_STANDARD_RENDERER
 		GraphicDriver::getInstance().resetProjection();
+		#endif
 	}
 	bool MainWindow::orientationIsHorizontal(){
 		return (this->getOrientation() == WindowOrientation::HORIZONTAL_LEFT || this->getOrientation() == WindowOrientation::HORIZONTAL_RIGHT);
@@ -120,7 +124,9 @@ namespace BaconBox {
 			context.y = (orientationIsHorizontal() ? newContextWidth: newContextHeight);
 		}
 
+		#ifdef BB_USE_STANDARD_RENDERER
 		GraphicDriver::getInstance().resetProjection();
+		#endif	
 	}
 	
 	WindowOrientation::type MainWindow::getOrientation() const {
