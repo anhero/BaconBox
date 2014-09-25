@@ -110,6 +110,10 @@ namespace BaconBox {
 		/// This destroys from in LIFO order.
 		virtual void destroyAllSingletons();
 
+		// FIXME : Detail platforms needing this signal.
+		/// Signal sent when the game needs to save some state before pausing on some platforms.
+		sigly::Signal0<> saveState;
+
 	protected:
 		 void switchToNextState();
 

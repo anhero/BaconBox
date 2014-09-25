@@ -24,7 +24,7 @@ namespace BaconBox {
 
         static void error(const std::string & error, bool critical = false);
 		
-		static void printTraceBack();
+		static void printTraceBack(lua_State *L = NULL);
 		static int errorHandler(lua_State *L);
 		static int print(lua_State* L);
 		static void stackdump(lua_State* l = NULL);

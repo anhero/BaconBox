@@ -47,10 +47,7 @@ namespace BaconBox {
 	void AndroidPointer::receiveInput(struct android_app* app, AInputEvent* event){
 		int nbTouch = AMotionEvent_getPointerCount(event);
 		if(nbTouch > ANDROID_MAX_POINTERS) nbTouch = ANDROID_MAX_POINTERS;
-        for(int i = 0; i < nbTouch; i++){
-	        touchPos[i].x = AMotionEvent_getX(event, i);// / MainWindow::getInstance().getResolutionWidth() * MainWindow::getInstance().getContextWidth();
-	        touchPos[i].y = AMotionEvent_getY(event, i);// / MainWindow::getInstance().getResolutionHeight() * MainWindow::getInstance().getContextHeight();
-	    }
+        
 
         	int32_t compositedAction = AMotionEvent_getAction(event);
         	size_t pointerIndex = (compositedAction & AMOTION_EVENT_ACTION_POINTER_INDEX_MASK)
@@ -70,7 +67,14 @@ namespace BaconBox {
 	        else if(action == AMOTION_EVENT_ACTION_UP || action == AMOTION_EVENT_ACTION_POINTER_UP){ 
 	        	touchPressed[pointerId] = false;
 	        }
-			// PRLN("Pointer " << pointerId << " is " << touchPressed[pointerId] << " action "  << action);
+
+	        for(int i = 0; i < nbTouch; i++){
+	        	if(action <= AMOTION_EVENT_ACTION_POINTER_UP){
+    		        touchPos[i].x = AMotionEvent_getX(event, i);// / MainWindow::getInstance().getResolutionWidth() * MainWindow::getInstance().getContextWidth();
+    		        touchPos[i].y = AMotionEvent_getY(event, i);// / MainWindow::getInstance().getResolutionHeight() * MainWindow::getInstance().getContextHeight();
+	        	}
+	    	}
+			// PRLN("Pointer " << pointerId << " is " << touchPressed[pointerId] << " action "  << action << " compositedAction " << compositedAction);
 
 
         // }

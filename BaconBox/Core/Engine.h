@@ -60,10 +60,6 @@ namespace BaconBox {
 		/// Signal sent when the BaconBox engine is initialized.
 		static sigly::Signal5<unsigned int, unsigned int, float, float, WindowOrientation::type> onInitialize;
 
-		// FIXME : Detail platforms needing this signal.
-		/// Signal sent when the game needs to save some state before pausing on some platforms.
-		static sigly::Signal0<> saveState;
-
 		/**
 		 * Adds a state to the engine's list.
 		 * @param newState Pointer to the state to add to the engine.

@@ -91,16 +91,24 @@ namespace BaconBox {
         getDefault().internalDoFile(path);
 	}
 
-	void LuaManager::printTraceBack(){
-		lua_State *L = LuaManager::getVM();
-		
+	void LuaManager::printTraceBack(lua_State *L){
+		if (L == NULL) {
+			L = LuaManager::getVM();
+		}
+
 		lua_getfield(L, LUA_GLOBALSINDEX, "debug");
 		lua_getfield(L, -1, "traceback");
 		
 		lua_pushvalue(L, 1);  /* pass error message */
 		lua_pushinteger(L, 2);  /* skip this function and traceback */
-		lua_call(L, 2, 1);  /* call debug.traceback */
-		fprintf(stderr, "%s\n", lua_tostring(L, -1));
+		lua_call(L, 0, 1);  /* call debug.traceback */
+		const char * tb = lua_tostring(L, -1);
+		if (tb == NULL) {
+			PRLN("ERROR: Lua traceback is null.");
+		}
+		else {
+			PV(tb);
+		}
 	}
 	
 	int LuaManager::errorHandler(lua_State *L) {
