@@ -6,13 +6,12 @@ libraries << 'lua'
 libraries << 'jsonbox'
 
 if $options.platformName != "Android" and $options.platformName != "Flash"
-	libraries << 'SDL2'
-	libraries << 'SDL2_mixer'
 	libraries << 'libogg'
 	libraries << 'libvorbis'
+	libraries << 'SDL2'
+	libraries << 'SDL2_mixer'
 	libraries << 'glew'
 end
-
 
 libraries << 'rapidxml'
 libraries << 'sigly'

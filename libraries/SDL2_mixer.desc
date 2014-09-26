@@ -7,7 +7,7 @@ library.hash = "65f6d80df073a1fb3bb537fbda031b50" #2.0.0
 
 # buildOptions.CFLAGS = "-L../../../../CYGWIN_NT-6.1/i686/bin"  
 # buildOptions.LDFLAGS = "-L../../../../CYGWIN_NT-6.1/i686/bin"
-buildOptions.configureOptions = "--enable-shared=no --disable-music-midi --enable-music-ogg --with-sdl-prefix=#{$options.install_dir} --disable-music-mod"
+buildOptions.configureOptions = "--disable-shared --disable-music-midi --enable-music-ogg=yes --with-sdl-prefix=#{$options.install_dir} --disable-music-mod LIBS=-L#{$options.install_dir}/lib CFLAGS=-I#{$options.install_dir}/include"
 # buildOptions.environment = "LD_LIBRARY_PATH=../../../../CYGWIN_NT-6.1/i686/bin LIBRARY_PATH=../../../../CYGWIN_NT-6.1/i686/bin"
 
 
