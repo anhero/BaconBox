@@ -163,13 +163,11 @@ BaconBox:
             - - crossbridge
               - "Path to your crossbridge sdk folder"
               - <%= path = %x{which gcc}; path = path.slice(0..(path.index("/usr/bin/gcc"))) if path.include? '/usr/bin/gcc'; path = path.slice(0..(path.index("/usr/bin//gcc"))) if path.include? '/usr/bin//gcc'; path %>
-            - ["flex", "Path to your <%= sdk folder", ""]
         preGenerousScripts:
             - |
               FileUtils.mkpath "#{$project.buildDir}/share"
 
               AS3COMPILERARGS = "java -jar #{$project.options['crossbridge']}/usr/lib/asc2.jar -merge -md "
-              COMPC = "#{$project.options['flex']}/bin/compc"
               FileUtils.mkpath "#{$project.buildDir}/as3"
               %x{ chmod 766 "#{$project.options['crossbridge']}/usr/share/LSOBackingStore.as"}
               %x{ cp "#{$project.options['crossbridge']}/usr/share/LSOBackingStore.as" "#{$project.buildDir}/as3"}
@@ -198,7 +196,6 @@ BaconBox:
               puts_banner 'Compiling EntityWrapper.swc'
               %x{ cp -r "BaconBox/Special/Flash/BaconBox" "#{$project.buildDir}/as3/BaconBox"}
               puts %x{ #{AS3COMPILERARGS} -abcfuture -AS3 -import #{$project.options['crossbridge']}/usr/lib/builtin.abc -import #{$project.options['crossbridge']}/usr/lib/playerglobal.abc -outdir #{$project.buildDir}/as3 #{$project.buildDir}/as3/BaconBox/EntityWrapper/EntityHolderTextField.as #{$project.buildDir}/as3/BaconBox/EntityWrapper/EntityHolderMovieClip.as }
-              # puts %x{#{COMPC} -compiler.source-path #{$project.buildDir}/as3 -include-classes BaconBox.EntityWrapper.EntityHolderTextField BaconBox.EntityWrapper.EntityHolderMovieClip -output #{$project.buildDir}/share/EntityWrapper.swc}
               FileUtils.cp "#{$project.buildDir}/as3/EntityHolderMovieClip.abc", "#{$project.buildDir}/share"
         artifacts:
           CFLAGS:
