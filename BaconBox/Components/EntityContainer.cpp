@@ -46,6 +46,10 @@ namespace BaconBox {
 	void EntityContainerProxy::addChild(lua_State * L){
 		reinterpret_cast<EntityContainer*>(this->component)->addChild(LuaHelper::getMovieClipEntityFromLuaEntity(L));
 	}
+
+	MovieClipEntity *EntityContainerProxy::removeChild(lua_State * L) {
+		return reinterpret_cast<EntityContainer*>(this->component)->removeChild(LuaHelper::getMovieClipEntityFromLuaEntity(L));
+	}
 #endif //BB_LUA
 
 	void EntityContainerProxy::addChildAt(MovieClipEntity *newChild, int index) {

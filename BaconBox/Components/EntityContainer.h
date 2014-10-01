@@ -79,6 +79,7 @@ namespace BaconBox {
 		
 #ifdef BB_LUA
 		void addChild(lua_State *L);
+		MovieClipEntity *removeChild(lua_State *L);
 #endif //BB_LUA
 
 		void addChildAt(MovieClipEntity *newChild, int index);
@@ -100,6 +101,9 @@ namespace BaconBox {
 		std::vector<const MovieClipEntity *> getObjectsUnderPoint(const Vector2 &point) const;
 
 		MovieClipEntity *removeChild(MovieClipEntity *child);
+
+
+
 
 		MovieClipEntity *removeChildAt(int index);
 
