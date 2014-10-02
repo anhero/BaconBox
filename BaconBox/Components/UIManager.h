@@ -12,6 +12,7 @@
 struct lua_State;
 #endif //BB_LUA
 namespace BaconBox {
+    class Camera;
 	class UIManager : public Component {
 	public:
 		BB_ID_HEADER;
@@ -29,7 +30,7 @@ namespace BaconBox {
 		
 		virtual void receiveMessage(int senderID, int destID, int message, void *data);
 		
-
+		void update();
 	private:
 		void disconnect();
 		void connect();
@@ -42,7 +43,8 @@ namespace BaconBox {
 		Vector2 lastPressed;
 
 		std::list<MovieClipEntity*> clickable;
-
+		Pointer* pointer;
+		Camera * camera;
 	};
 	
 	class UIManagerProxy : public ComponentProxy {
