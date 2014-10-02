@@ -23,11 +23,14 @@ namespace BaconBox {
 			AS3_DeclareVar(stage, *);
 			AS3_CopyVarxxToVar(stage, stage);
 
+			AS3_DeclareVar(stateMC, *);
+			AS3_CopyVarxxToVar(stateMC, FlashEngine::getCurrentStateMC());
+
 			Vector2 pos;
 
 			inline_as3(
 			    "import flash.geom.Rectangle;"
-			    "var bounds:Rectangle = mc.getBounds(stage)\n"
+			    "var bounds:Rectangle = mc.getBounds(stateMC)\n"
 			    "%0 = bounds.left\n"
 			    "%1 = bounds.top\n"
 		    : "=r"(pos.x), "=r"(pos.y)

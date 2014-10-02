@@ -1,7 +1,7 @@
 #include "BaconBox/Core/Flash/FlashEngine.h"
 #include "BaconBox/Helper/Flash/FlashHelper.h"
 #include "BaconBox/Components/Flash/FlashEntityManager.h"
-
+#include "BaconBox/Core/Engine.h"
 namespace BaconBox {
 AS3::local::var FlashEngine::stage;
 
@@ -22,6 +22,11 @@ AS3::local::var FlashEngine::stage;
 			AS3_GetVarxxFromVar(stage, theStage);	
 
 		}
+
+		AS3::local::var FlashEngine::getCurrentStateMC(){
+			return static_cast<FlashEngine*>(&Engine::getInstance())->currentStateMovieClip;
+		} 
+
 
 		AS3::local::var FlashEngine::getStage(){
 			return stage;
