@@ -55,7 +55,6 @@ namespace BaconBox {
 
 			lastPressed = pointer->getPosition();
 			for(std::list<MovieClipEntity*>::iterator i = clickable.begin(); i != clickable.end(); i++){
-                PV(pos); PV((*i)->getAABB().getPosition()); PV((*i)->getAABB().getSize());
 				if((*i)->getAABB().overlaps(pos)){
 					(*i)->pressed->shoot();
 					currentlyPressed = (*i);
