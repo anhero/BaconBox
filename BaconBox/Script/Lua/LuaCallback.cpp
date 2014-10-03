@@ -44,10 +44,11 @@ LuaCallback::LuaCallback(lua_State * L, const std::string & type):sigly::HasSlot
 }
 
 void LuaCallback::call(void* param) {
+	lua_pushcfunction(L, LuaManager::errorHandler);
 	lua_rawgeti(L, LUA_REGISTRYINDEX,function_index);
 	lua_rawgeti(L, LUA_REGISTRYINDEX,table_index);
 	SWIG_NewPointerObj(L, param, swigType1, 0);
-	int ret = lua_pcall(L, 2, 0, 0);
+	int ret = lua_pcall(L, 2, 0, -4);
 	if(ret !=0){
 		PRLN("An error occured executing a LuaCallback. ");
 		PRLN("Error : " << lua_tostring(L, -1));
@@ -56,10 +57,11 @@ void LuaCallback::call(void* param) {
 
 void LuaCallback::call(){
 	if(function_index == EMPTY_LUA_REF)return;
+	lua_pushcfunction(L, LuaManager::errorHandler);
 	lua_rawgeti(L, LUA_REGISTRYINDEX,function_index);
 	lua_rawgeti(L, LUA_REGISTRYINDEX,table_index);
 	
-	int ret = lua_pcall(L, 1, 0, 0);
+	int ret = lua_pcall(L, 1, 0, -3);
 	if(ret !=0){
 		PRLN("An error occured executing a LuaCallback. ");
 		PRLN("Error : " << lua_tostring(L, -1));
