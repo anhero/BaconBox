@@ -10,6 +10,8 @@
 
 namespace BaconBox {
 
+	int MovieClipHolder::MESSAGE_SET_MOVIECLIP = IDManager::generateID();
+
 	BB_ID_IMPL(MovieClipHolder);
 	
    	MovieClipHolder::~MovieClipHolder(){
@@ -22,6 +24,10 @@ namespace BaconBox {
 			"mc.destroy() \n");
    		 //AS3::local::internal::_delete(mc); 	
 	}
+
+    MovieClipHolder::MovieClipHolder() : Component(), mc(AS3::local::internal::_null){}
+
+
 	MovieClipHolder::MovieClipHolder(AS3::local::var aMC) : Component(){
 		setMovieClip(aMC);
 		//AS3::local::var args[1] = {AS3::local::internal::new_int(1)};
@@ -30,6 +36,7 @@ namespace BaconBox {
 
 	void MovieClipHolder::setMovieClip(AS3::local::var aMC){
 		mc = aMC;
+		sendMessage(Entity::BROADCAST, MovieClipHolder::MESSAGE_SET_MOVIECLIP, reinterpret_cast<void *>(&mc));
 	}
 	
 	AS3::local::var MovieClipHolder::getMovieClip(){

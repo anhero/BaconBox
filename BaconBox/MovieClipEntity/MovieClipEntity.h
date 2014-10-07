@@ -53,7 +53,7 @@ namespace BaconBox {
 		MovieClipEntity &operator=(const MovieClipEntity &src);
 
 #ifdef BB_FLASH_PLATFORM
-		virtual void setMovieClip(AS3::local::var aMC);
+		void setMovieClip(AS3::local::var aMC);
 #endif
 
 

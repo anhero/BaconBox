@@ -27,9 +27,7 @@ class TextEntity : public MovieClipEntity, public TextComponentProxy {
 	TextEntity();
 	TextEntity(Font * font);
 	~TextEntity();
-	#ifdef BB_FLASH_PLATFORM
-		void setMovieClip(AS3::local::var aMC);
-	#endif
+
 	
 
 		

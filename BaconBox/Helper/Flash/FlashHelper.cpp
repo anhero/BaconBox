@@ -63,7 +63,7 @@ MovieClipEntity * FlashHelper::getMCEntityFromMC(AS3::local::var mc){
 			FlashHelper::callMethod(entity, "setMovieClip", 1, args);
 		}
 		AS3::local::var entityPointerAS3 = FlashHelper::getProperty(entity, "swigCPtr");
-		MovieClipEntity *entityPointer = (MovieClipEntity *)AS3::local::internal::int_valueOf(entityPointerAS3);
+		MovieClipEntity *entityPointer = reinterpret_cast<MovieClipEntity *>(AS3::local::internal::int_valueOf(entityPointerAS3));
 		return entityPointer;
 	}
 

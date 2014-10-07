@@ -15,9 +15,10 @@ namespace BaconBox {
 	 */
 	class MovieClipHolder  : public Component{
     public:
-    	
+		static int MESSAGE_SET_MOVIECLIP;
+
     	BB_ID_HEADER;
-    	
+        MovieClipHolder();
         MovieClipHolder(AS3::local::var aMC);
        	~MovieClipHolder();
 		void setMovieClip(AS3::local::var aMC);

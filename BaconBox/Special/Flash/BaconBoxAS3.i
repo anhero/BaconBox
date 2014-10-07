@@ -47,11 +47,7 @@
 		FlashFont(const std::string &newName = "");
 		};
 
-		class TextEntity { 
-    	public:
-    		TextEntity(Font * font);
-			void setMovieClip(AS3::local::var aMC);
-		};
+		
 
 
 		class FlashEngine{
@@ -64,6 +60,11 @@
     	public:
     		MovieClipEntity();
 			void setMovieClip(AS3::local::var aMC);
+		};
+
+		class TextEntity : public MovieClipEntity { 
+    	public:
+    		TextEntity(Font * font);
 		};
 
 		class Engine {

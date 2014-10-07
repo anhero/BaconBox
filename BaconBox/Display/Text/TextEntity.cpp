@@ -7,7 +7,7 @@
 #include "BaconBox/Components/DefaultEntityContainer.h"
 
 #else
-#include "BaconBox/Components/Flash/TextFieldHolder.h"
+#include "BaconBox/Components/Flash/FlashTextManager.h"
 
 #endif
 #include "BaconBox/LocalizationManager.h"
@@ -17,12 +17,12 @@ namespace BaconBox {
 	TextEntity::TextEntity(Font * font): MovieClipEntity(), TextComponentProxy(this, font)
 	{
 	    
-#if ! defined(BB_FLASH_PLATFORM)
+#if defined(BB_FLASH_PLATFORM)
+	    addComponent(new FlashTextManager());
+#else
 	    if(font->getFormat() == FontFormat::BMFONT){
 		addComponent(new TextRenderer(reinterpret_cast<TextureFont*>(font)));
 	    }
-#else
-
 #endif
 	    
 	    
@@ -40,13 +40,7 @@ namespace BaconBox {
 	#endif	
 	}
 
-	#ifdef BB_FLASH_PLATFORM
-	void TextEntity::setMovieClip(AS3::local::var aMC) {
-		TextFieldHolder *tfHolder = new TextFieldHolder(aMC);
-		addComponent(tfHolder);   
-		
-	}
-	#endif
+
 
 
 }

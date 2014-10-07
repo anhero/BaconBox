@@ -8,7 +8,6 @@
 #include "BaconBox/Core/Engine.h"
 #include "BaconBox/Core/Flash/FlashEngine.h"
 #include "BaconBox/Console.h"
-#include "BaconBox/Components/Flash/TextFieldHolder.h"
 
 #include "BaconBox/Display/Text/TextEntity.h"
 #include "BaconBox/MovieClipEntity/MovieClipEntity.h"
@@ -46,12 +45,7 @@ namespace BaconBox {
 	void FlashEntityManager::add(Entity *newEntity) {
 	    if(newEntity){
 	    	AS3::local::var mc;
-	    	if(newEntity->getID() == MovieClipEntity::ID){
-	    		mc = reinterpret_cast<MovieClipHolder*>(newEntity->getComponent(MovieClipHolder::ID))->getMovieClip();
-	    	}
-	    	else if(newEntity->getID() == TextEntity::ID){
-	    		mc = reinterpret_cast<TextFieldHolder*>(newEntity->getComponent(TextFieldHolder::ID))->getMovieClip();
-	    	}
+    		mc = reinterpret_cast<MovieClipHolder*>(newEntity->getComponent(MovieClipHolder::ID))->getMovieClip();
 	    	AS3::local::var args[1] = {mc};
 	    	FlashHelper::callMethod(movieClipManager, "addChild", 1, args);
 	    }
@@ -60,12 +54,7 @@ namespace BaconBox {
 	void FlashEntityManager::remove(Entity *newEntity) {
 		if (newEntity) {
 			AS3::local::var mc;
-	    	if(newEntity->getID() == MovieClipEntity::ID){
-	    		mc = reinterpret_cast<MovieClipHolder*>(newEntity->getComponent(MovieClipHolder::ID))->getMovieClip();
-	    	}
-	    	else if(newEntity->getID() == TextEntity::ID){
-	    		mc = reinterpret_cast<TextFieldHolder*>(newEntity->getComponent(TextFieldHolder::ID))->getMovieClip();
-	    	}
+    		mc = reinterpret_cast<MovieClipHolder*>(newEntity->getComponent(MovieClipHolder::ID))->getMovieClip();
 	    	AS3::local::var args[1] = {mc};
 	    	FlashHelper::callMethod(movieClipManager, "removeChild", 1, args);
 		}

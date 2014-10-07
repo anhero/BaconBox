@@ -40,6 +40,7 @@ namespace BaconBox {
 	    setTransform(new FlashTransform());
 	    setAABBHitBox(new FlashAABBHitBox());
 	   setColorTransform(new FlashColorTransform());
+		addComponent(new MovieClipHolder());
 
 #else
 	    	    setHasName(new HasName(""));
@@ -92,8 +93,8 @@ namespace BaconBox {
 
 #ifdef BB_FLASH_PLATFORM
 	void MovieClipEntity::setMovieClip(AS3::local::var aMC) {
-		MovieClipHolder *mcHolder = new MovieClipHolder(aMC);
-		addComponent(mcHolder);
+		MovieClipHolder *mcHolder = this->getComponent<MovieClipHolder>();
+		mcHolder->setMovieClip(aMC);
 
 	}
 #endif

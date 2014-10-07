@@ -11,9 +11,6 @@
 #include "BaconBox/Display/Text/TextAlignment.h"
 #include "BaconBox/Helper/Vector2ChangedData.h"
 
-#ifdef BB_FLASH_PLATFORM
-#include "BaconBox/Components/Flash/TextFieldHolder.h"
-#endif
 
 #include "BaconBox/Script/Lua/LuaManager.h"
 
@@ -88,13 +85,7 @@ namespace BaconBox {
 
 	Font *TextComponent::getFont() {
 
-#ifdef BB_FLASH_PLATFORM
 
-		if (font == NULL) {
-			reinterpret_cast<TextFieldHolder *>(getEntity()->getComponent(TextFieldHolder::ID))->createFontFromTextField();
-		}
-
-#endif
 
 		return font;
 	}
