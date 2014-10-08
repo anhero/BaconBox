@@ -22,6 +22,7 @@ void SDLMixerSoundFX::play(int nbTimes) {
 	}
 }
 
+
 void SDLMixerSoundFX::stop() {
 	if(data && channel > INVALID_CHANNEL) {
 		Mix_HaltChannel(channel);
@@ -52,6 +53,7 @@ void SDLMixerSoundFX::setVolume(int newVolume) {
 	refreshVolume(getVolume());
 }
 
+
 AudioState::type SDLMixerSoundFX::getCurrentState() const {
 	AudioState::type result = AudioState::INITIAL;
 
@@ -71,6 +73,7 @@ AudioState::type SDLMixerSoundFX::getCurrentState() const {
 }
 
 SDLMixerSoundFX::~SDLMixerSoundFX() {
+	haltChannel.disconnect(this);
 }
 
 SDLMixerSoundFX::SDLMixerSoundFX() : SoundFX(), looping(false), channel(-1),
