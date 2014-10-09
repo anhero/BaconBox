@@ -59,9 +59,15 @@ void DefaultParticleComponent::initParticle(){
 	int maxUpdateLife = data->maxUpdateLife;
 	
 	
-	float minAngularVelocity = data->minAngularVelocity;
-	float maxAngularVelocity = data->maxAngularVelocity;
+	float minStartAngle = data->minStartAngle;
+	float maxStartAngle = data->maxStartAngle;
 	
+    
+    float minAngularVelocity = data->minAngularVelocity;
+	float maxAngularVelocity = data->maxAngularVelocity;
+    
+    if (maxStartAngle < minStartAngle)maxStartAngle = minStartAngle;
+
 	if (maxAngularVelocity < minAngularVelocity)maxAngularVelocity = minAngularVelocity;
 
 	
@@ -80,9 +86,11 @@ void DefaultParticleComponent::initParticle(){
 	float accelLength = Random::getRandomFloat(minAccelLength, maxAccelLength);
 	float accelAngle = Random::getRandomFloat(minAccelAngle, maxAccelAngle);
 	
-	
-	speed->setAngularVelocity(Random::getRandomFloat(minAngularVelocity, maxAngularVelocity));
+    if (!data->skipRotation) {
+        transform->setRotation(Random::getRandomFloat(minStartAngle, maxStartAngle));
+    }
 
+	speed->setAngularVelocity(Random::getRandomFloat(minAngularVelocity, maxAngularVelocity));
 	
 	updateLife = Random::getRandomInteger(minUpdateLife, maxUpdateLife);
 	initialUpdateLife = updateLife;

@@ -48,9 +48,10 @@ namespace BaconBox {
 	};
 
 	struct DefaultParicleInitInfo : public ParicleInitInfo{
-		DefaultParicleInitInfo():skipPosition(false), reuseColorMultiplier(false), minStartScale(1.0f,1.0f), maxStartScale(0.0f,0.0f), minEndScale(1.0f,1.0f), maxEndScale(0.0f,0.0f), minSpeedLength(0.0f), maxSpeedLength(0.0f), minSpeedAngle(0.0f), maxSpeedAngle(0.0f), minAccelLength(0.0f), maxAccelLength(0.0f), minAccelAngle(0.0f), maxAccelAngle(0.0f), minUpdateLife(-1), maxUpdateLife(-1), minStartColorMultiplier(Color::WHITE), maxStartColorMultiplier(Color::NO_COLOR), minEndColorMultiplier(Color::WHITE), maxEndColorMultiplier(Color::NO_COLOR), keepScaleRatio(true), reuseScale(false), minAngularVelocity(0.0f), maxAngularVelocity(-1.0f){}
+		DefaultParicleInitInfo():skipPosition(false), skipRotation(false), reuseColorMultiplier(false), minStartScale(1.0f,1.0f), maxStartScale(0.0f,0.0f), minEndScale(1.0f,1.0f), maxEndScale(0.0f,0.0f), minSpeedLength(0.0f), maxSpeedLength(0.0f), minSpeedAngle(0.0f), maxSpeedAngle(0.0f), minAccelLength(0.0f), maxAccelLength(0.0f), minAccelAngle(0.0f), maxAccelAngle(0.0f), minUpdateLife(-1), maxUpdateLife(-1), minStartColorMultiplier(Color::WHITE), maxStartColorMultiplier(Color::NO_COLOR), minEndColorMultiplier(Color::WHITE), maxEndColorMultiplier(Color::NO_COLOR), keepScaleRatio(true), reuseScale(false), minAngularVelocity(0.0f), maxAngularVelocity(-1.0f),minStartAngle(0.0f), maxStartAngle(-1.0f){}
 		AABB aabb;
 		bool skipPosition;
+        bool skipRotation;
 		bool reuseScale;
 		bool reuseColorMultiplier;
 		bool keepScaleRatio;
@@ -65,7 +66,10 @@ namespace BaconBox {
 		float minAccelLength;
 		float maxAccelLength;
 		float minAccelAngle;
-		
+        
+        float minStartAngle;
+		float maxStartAngle;
+        
 		float minAngularVelocity;
 		float maxAngularVelocity;
 		

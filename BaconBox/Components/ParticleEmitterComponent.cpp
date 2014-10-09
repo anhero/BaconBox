@@ -67,7 +67,7 @@ void ParticleEmitterComponent::setUpdateCycle(int minUpdate, int maxUpdate){
 	cycleParams.updateParams.nextUpdate = Random::getRandomInteger(minUpdate, maxUpdate);
 	cycleParams.updateParams.updateIncr = 1;
 }
-//
+
 void ParticleEmitterComponent::update(){
 	if(isOn){
 		updateCount++;
