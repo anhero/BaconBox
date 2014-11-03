@@ -40,7 +40,7 @@ BaconBox:
           IncludesPath:
             - "."
           Define:
-            - ["SIGLY_DEFAULT_MT_POLICY", "sigly::MultiThreadedLocal"]
+            - ["SIGLY_DEFAULT_MT_POLICY", "sigly::SingleThreaded"]
             # - SIGLY_USE_POSIX_THREADS
             - ["VMATH_NAMESPACE", "vmath"]
       OpenGL: &OpenGL
