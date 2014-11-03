@@ -20,8 +20,8 @@ namespace BaconBox {
 			AS3::local::var tempMC = movieClipHolder->getMovieClip();
 			AS3_CopyVarxxToVar(mc, tempMC);
 
-			AS3_DeclareVar(stage, *);
-			AS3_CopyVarxxToVar(stage, stage);
+			// AS3_DeclareVar(stage, *);
+			// AS3_CopyVarxxToVar(stage, stage);
 
 			AS3_DeclareVar(stateMC, *);
 			AS3_CopyVarxxToVar(stateMC, FlashEngine::getCurrentStateMC());

@@ -11,6 +11,8 @@
 #include "BaconBox/Components/Flash/FlashTransform.h"
 #include "BaconBox/Components/Flash/FlashAABBHitBox.h"
 #include "BaconBox/Components/Flash/FlashColorTransform.h"
+#include "BaconBox/Components/Flash/FlashMatrixComponent.h"
+
 #else
 #include "BaconBox/Components/Mesh.h"
 #include "BaconBox/Components/StandardRenderer/MeshDriverRenderer.h"
@@ -41,7 +43,8 @@ namespace BaconBox {
 	    setAABBHitBox(new FlashAABBHitBox());
 	   setColorTransform(new FlashColorTransform());
 		addComponent(new MovieClipHolder());
-
+	    setMatrixComponent(new FlashMatrixComponent());
+	    
 #else
 	    	    setHasName(new HasName(""));
 
