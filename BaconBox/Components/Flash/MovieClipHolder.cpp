@@ -60,10 +60,19 @@ namespace BaconBox {
 		 if(destID != Entity::BROADCAST && destID != MovieClipHolder::ID ) return;
 
 		 if(senderID == Transform::ID){
+		 	AS3_DeclareVar(mc, *);
+			AS3_CopyVarxxToVar(mc, mc);
+
 		 	if(message == Transform::MESSAGE_POSITION_CHANGED)	{
 				Vector2ChangedData * pos = (reinterpret_cast<Vector2ChangedData *>(data));
-				setProperty("x", AS3::local::internal::new_Number(pos->newValue.x));
-				setProperty("y", AS3::local::internal::new_Number(pos->newValue.y));
+
+				inline_as3(
+				    "mc.x = %0;\n"
+				    "mc.y = %1;\n"
+				    :: "r"(pos->newValue.x), "r"(pos->newValue.y)
+				);
+				// setProperty("x", AS3::local::internal::new_Number(pos->newValue.x));
+				// setProperty("y", AS3::local::internal::new_Number(pos->newValue.y));
 		 	}	
 		 	else if(message == Transform::MESSAGE_ROTATION_CHANGED){
 		 		ValueChangedData<float>* rotation= reinterpret_cast<ValueChangedData<float>*>(data);
