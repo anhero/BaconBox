@@ -7,10 +7,13 @@
 #include "BaconBox/Script/Lua/LuaManager.h"
 #endif
 
+#include "BaconBox/ResourceManager.h"
+
 using namespace BaconBox;
 
 
 AS3::local::var FlashHelper::MOVIECLIP_CLASS = FlashHelper::getDefinitionByName("flash.display.MovieClip");
+
 
 
 AS3::local::var FlashHelper::callMethod(const AS3::local::var & var, const std::string & functionName, int argCount, AS3::local::var *args){
@@ -42,8 +45,31 @@ AS3::local::var FlashHelper::callMethod(const AS3::local::var & var, const std::
 MovieClipEntity * FlashHelper::getMCEntityFromMC(AS3::local::var mc){
 		if(mc == AS3::local::internal::_null) return NULL;
 		if(AS3::local::internal::equals(mc, AS3::local::internal::_undefined) ||!AS3::local::internal::is(mc, MOVIECLIP_CLASS)) return NULL;
+
+
 		inline_as3("import BaconBox.MovieClipEntity;");
 		inline_as3("import BaconBox.TextEntity;");
+		inline_as3("import flash.utils.getQualifiedClassName;");
+
+		AS3_DeclareVar(mc, *);
+		AS3_CopyVarxxToVar(mc, mc);
+		inline_as3("var className = flash.utils.getQualifiedClassName(mc);");
+		std::string className;
+	    char *tempClassName = NULL;
+		AS3_MallocString(tempClassName, className);
+		className = tempClassName;
+		free(tempClassName);
+
+		Symbol * symbol = ResourceManager::getSymbol(className);
+		if(symbol == NULL){
+
+			if(className.find("EntityHolderMovieClip") != std::string::npos || className.find("EntityHolderTextField") != std::string::npos){
+				className = "";
+				symbol = ResourceManager::getSymbol(className);
+			}
+			if(symbol== NULL)symbol = ResourceManager::addSymbol(className);
+		}
+
 		AS3::local::var entity = FlashHelper::getProperty(mc, "entity");
 		if( AS3::local::internal::equals(entity, AS3::local::internal::_undefined)){
 			AS3::local::var args[1] = {AS3::local::internal::new_String("text")};
@@ -64,6 +90,8 @@ MovieClipEntity * FlashHelper::getMCEntityFromMC(AS3::local::var mc){
 		}
 		AS3::local::var entityPointerAS3 = FlashHelper::getProperty(entity, "swigCPtr");
 		MovieClipEntity *entityPointer = reinterpret_cast<MovieClipEntity *>(AS3::local::internal::int_valueOf(entityPointerAS3));
+		
+		entityPointer->setSymbol(symbol);
 		return entityPointer;
 	}
 

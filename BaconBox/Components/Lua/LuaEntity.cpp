@@ -9,8 +9,7 @@
 
 
 #include "BaconBox/MovieClipEntity/MovieClipEntity.h"
-swig_type_info * getTypeByName(lua_State* L, const char * name);
-void pushLuaWrapperBySwigType(lua_State* L,void* ptr,swig_type_info *type,int own);
+//swig_type_info * getTypeByName(lua_State* L, const char * name);
 namespace BaconBox {
 	 BB_ID_IMPL(LuaEntity);
 
@@ -209,9 +208,9 @@ namespace BaconBox {
 
 
 		//Swig types
-		pointerButtonSignalData = getTypeByName(L, "PointerButtonSignalData");
-		pointerSignalData = getTypeByName(L, "PointerSignalData");
-		keySignalData = getTypeByName(L, "KeySignalData");
+//		pointerButtonSignalData = getTypeByName(L, "PointerButtonSignalData");
+//		pointerSignalData = getTypeByName(L, "PointerSignalData");
+//		keySignalData = getTypeByName(L, "KeySignalData");
 	    this->reloadLuaClass();
 	}
 

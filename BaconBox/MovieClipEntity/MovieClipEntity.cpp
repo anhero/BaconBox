@@ -24,6 +24,9 @@
 #include "BaconBox/Components/DefaultSizeComponent.h"
 
 #endif
+
+#include "BaconBox/Debug.h"
+
 namespace BaconBox {
 
     BB_ID_IMPL(MovieClipEntity);
@@ -83,6 +86,7 @@ namespace BaconBox {
 	}
 	
 	MovieClipEntity::~MovieClipEntity() {
+		Debug::getInstance().destroyMovieClip(this->getKey());
 	}
 
 	MovieClipEntity &MovieClipEntity::operator=(const MovieClipEntity &src) {
@@ -98,7 +102,6 @@ namespace BaconBox {
 	void MovieClipEntity::setMovieClip(AS3::local::var aMC) {
 		MovieClipHolder *mcHolder = this->getComponent<MovieClipHolder>();
 		mcHolder->setMovieClip(aMC);
-
 	}
 #endif
 

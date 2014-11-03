@@ -711,6 +711,49 @@ namespace BaconBox {
 		std::map<std::string, Symbol *>::iterator itr = symbols.find(key);
 		return (itr != symbols.end()) ? (itr->second) : (NULL);
 	}
+
+	Symbol *ResourceManager::addSymbol(const std::string &key, Symbol * symbol, bool overwrite){
+
+		
+		Symbol * tempSymbol;
+		// We check if there is already a texture with this name.
+		if (symbols.find(key) != symbols.end()) {
+			// We check if we overwrite the existing texture or not.
+			if (overwrite) {
+				if(symbol == NULL){
+					symbol = new Symbol();
+					symbol->key = key;
+				}
+				// We free the allocated memory.
+				tempSymbol = symbols[key];
+
+				if (tempSymbol) {
+					delete tempSymbol;
+				}
+
+				// We load the new texture.
+				 
+				symbols[key] = tempSymbol = symbol;
+				Console::println("Overwrote the existing symbol named " + key + ".");
+
+			} else {
+				Console::println("Can't overwrite symbol with key: " + key);
+				tempSymbol = symbols[key];
+			}
+
+		} else {
+			if(symbol == NULL){
+				symbol = new Symbol();
+				symbol->key = key;
+			}
+			tempSymbol = symbol;
+			// We load the new texture and add it to the map.
+			symbols.insert(std::pair<std::string, Symbol *>(key, symbol));
+		}
+
+		return tempSymbol;
+	}
+
 	
 
 	SoundInfo *ResourceManager::getSound(const std::string &key) {

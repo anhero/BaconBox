@@ -38,16 +38,36 @@ namespace BaconBox {
 		
 	}
 	
+    void EntityFactory::claimMovieClipEntity(MovieClipEntity * mc){
+        getInstance().internalClaimMovieClipEntity(mc);
+    }
+    
+    void EntityFactory::internalClaimMovieClipEntity(MovieClipEntity * mc){
+        delete mc;
+    }
+
 	
 	void EntityFactory::initMovieClipPool(int size){
 		getInstance().movieClipPool.setNbAvailableObjects(size);
 	}
 	
 	MovieClipEntity *EntityFactory::getMovieClipEntity(const std::string &key, bool autoPlay) {
-		return getInstance().internalGetMovieClipEntity(key, autoPlay);
+		MovieClipEntity * temp = getInstance().internalGetMovieClipEntity(key, autoPlay);
+		if(temp->getSymbol() == NULL){
+			ResourceManager::addSymbol(key);
+		}
+		return temp; 
 	}
 	MovieClipEntity *EntityFactory::getMovieClipEntity() {
-		return getInstance().internalGetMovieClipEntity();
+		MovieClipEntity * temp = getInstance().internalGetMovieClipEntity();
+		if(temp->getSymbol() == NULL){
+            Symbol * symbol = ResourceManager::getSymbol("");
+            if (!symbol) {
+                symbol = ResourceManager::addSymbol("");
+            }
+			temp->setSymbol(symbol);
+		}
+		return temp; 
 	}
 	
 	MovieClipEntity *EntityFactory::internalGetMovieClipEntity() {

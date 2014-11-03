@@ -142,7 +142,7 @@ namespace BaconBox {
 		static void deleteAll();
 
 
-		
+		static Symbol *addSymbol(const std::string &key, Symbol * symbol = NULL, bool overwrite = false);
 		static Symbol *getSymbol(const std::string &key);
 		/**
 		 * Gets a pointer to the asked sound effect.

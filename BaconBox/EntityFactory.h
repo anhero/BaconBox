@@ -14,11 +14,14 @@ namespace BaconBox {
 	    static void initMovieClipPool(int size);
 		static MovieClipEntity *getMovieClipEntity();
 		static MovieClipEntity *getMovieClipEntity(const std::string &key, bool autoPlay = false);
+        static void claimMovieClipEntity(MovieClipEntity * mc);
+        
 #if defined(BB_FLASH_PLATFORM)
 		static TextEntity *getTextEntity(const std::string &key);
 #endif
 		static EntityFactory &getInstance();
-
+        
+        void internalClaimMovieClipEntity(MovieClipEntity * mc);
 		MovieClipEntity *internalGetMovieClipEntity();
 		MovieClipEntity *internalGetMovieClipEntity(const std::string &key, bool autoPlay = false);
 #if ! defined(BB_FLASH_PLATFORM)

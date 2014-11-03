@@ -14,9 +14,9 @@ namespace BaconBox {
 	    friend class DefaultMatrix;
 	public:
 		BB_ID_HEADER;
-		
+        static const std::string NO_KEY;
 		SymbolComponent();
-		
+		const std::string & getKey();
 		Symbol * getSymbol();
 		void setSymbol(Symbol * symbol);
 	private:
@@ -29,6 +29,7 @@ namespace BaconBox {
 	public:
 		SymbolComponentProxy(Entity *entity, bool mustAddComponent = true);
 		Symbol * getSymbol();
+		const std::string & getKey();
 		void setSymbol(Symbol * symbol);
 
 	private:
