@@ -8,8 +8,8 @@
   %native(getPointer) int luaGetPointer(lua_State*L);
 
 %luacode {
-  function class(base, init)
-   local c = {}    -- a new class instance
+ function class(base, init)
+   local c = {className = 'class'}    -- a new class instance
    if not init and type(base) == 'function' then
       init = base
       base = nil
@@ -23,6 +23,17 @@
    -- the class will be the metatable for all its objects,
    -- and they will look up their methods in it.
    c.__index = c
+
+   c.__tostringx = function(object)
+      local mt = getmetatable(object)
+     mt.__tostring = nil
+     local s = string.gsub(tostring(object), "table", "")
+     s = object.className .. s
+     mt.__tostring = mt.__tostringx
+     return s
+   end
+
+   c.__tostring = c.__tostringx
 
    -- expose a constructor which can be called by <classname>(<args>)
    local mt = {}
@@ -236,6 +247,7 @@ end
 
   #include "BaconBox/Components/SizeComponent.h"
 #include "BaconBox/LocalizationManager.h"
+#include "BaconBox/Debug.h"
 
 
 #include "BaconBox/Symbol.h"
@@ -754,6 +766,7 @@ const char *__str__() {
 
 #endif
 
+%include "BaconBox/Debug.h"
 
 %include "BaconBox/Components/MatrixComponent.h"
 %include "BaconBox/Helper/Ease.h"
