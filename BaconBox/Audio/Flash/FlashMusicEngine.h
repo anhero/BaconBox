@@ -12,6 +12,7 @@
 
 #include <AS3/AS3.h>
 #include <AS3/AS3++.h>
+#include <sigly.h>
 
 namespace BaconBox {
 	class FlashBackgroundMusic;
@@ -25,10 +26,15 @@ namespace BaconBox {
 		BB_SINGLETON_DECL(FlashMusicEngine);
 	public:
 
+		sigly::Signal0<> musicVolumeChange;
 
 
 		BackgroundMusic* getBackgroundMusic(const std::string& key,
 		                                    bool survive = true);
+
+
+		void setMusicVolume(int newMusicVolume);
+
 	private:
 		std::set<FlashBackgroundMusic*> audios;
 		std::list<FlashBackgroundMusic*> audiosToBeDeleted;

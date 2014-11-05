@@ -42,6 +42,15 @@ BackgroundMusic* FlashMusicEngine::getBackgroundMusic(const std::string& key,
 	return result;
 }
 
+void FlashMusicEngine::setMusicVolume(int newMusicVolume) {
+		this->MusicEngine::setMusicVolume(newMusicVolume);
+
+		if (!this->MusicEngine::isMuted()) {
+			musicVolumeChange();
+		}
+	}
+
+
 FlashMusicEngine::FlashMusicEngine() : MusicEngine(){
 	Console::println("FlashMusicEngine::FlashMusicEngine()");
 }

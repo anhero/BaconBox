@@ -7,29 +7,44 @@
 #include "BaconBox/Helper/Ease.h"
 
 
+#include "BaconBox/Audio/Flash/FlashMusicEngine.h"
 
 
 using namespace BaconBox;
 
 void FlashBackgroundMusic::play(int nbTimes) {
 inline_as3("import flash.events.Event; \n");
-	if(nbTimes == 0) return;
-	this->resetPosition();
-	this->nbTimes = nbTimes;
-	currentState = AudioState::PLAYING;
-	soundChannel = FlashHelper::callMethod(sound, "play", 0, NULL);
-	if(soundChannel == AS3::local::internal::_null){
-		soundChannel = FlashHelper::construct("flash.media.SoundChannel");
+	if(nbTimes == 0){
+		currentState = AudioState::STOPPED;
 	}
-	FlashHelper::setProperty(soundChannel, "soundTransform", soundTransform);
-	if(this->nbTimes != 0 ){
-		AS3::local::var args[2];
-		AS3_GetVarxxFromVar(args[0], Event.SOUND_COMPLETE);
-		args[1] = loopEventListenerAS3;
-		FlashHelper::callMethod(soundChannel, "addEventListener", 2, args);
+	else{
+		this->resetPosition();
+		this->nbTimes = nbTimes;
+		currentState = AudioState::PLAYING;
+		soundChannel = FlashHelper::callMethod(sound, "play", 0, NULL);
+		if(soundChannel == AS3::local::internal::_null){
+			soundChannel = FlashHelper::construct("flash.media.SoundChannel");
+		}
+		FlashHelper::setProperty(soundChannel, "soundTransform", soundTransform);
+		if(this->nbTimes != 0 ){
+			AS3::local::var args[2];
+			AS3_GetVarxxFromVar(args[0], Event.SOUND_COMPLETE);
+			args[1] = loopEventListenerAS3;
+			FlashHelper::callMethod(soundChannel, "addEventListener", 2, args);
+		}
+		refreshVolume(volume);
 	}
 }
 
+
+void FlashBackgroundMusic::refreshVolume(int newVolume){
+	FlashHelper::setProperty(soundTransform, "volume", AS3::local::internal::new_Number(((float)this->volume/MAX_VOLUME) * (MusicEngine::getInstance().getMusicVolume()/MAX_VOLUME)));
+	FlashHelper::setProperty(soundChannel, "soundTransform", soundTransform);
+}
+
+void FlashBackgroundMusic::musicVolumeChanged() {
+	refreshVolume(getVolume());
+}
 
  AS3::local::var FlashBackgroundMusic::loopEventListener(void *arg, AS3::local::var as3Args){
  	inline_as3("import flash.events.Event; \n");
@@ -46,6 +61,9 @@ inline_as3("import flash.events.Event; \n");
 	}
 	if(music->nbTimes !=0){
 		music->play(music->nbTimes);
+	}
+	else{
+		music->stop();
 	}
 	return AS3::local::internal::_null; 
 }
@@ -101,8 +119,7 @@ void FlashBackgroundMusic::pause() {
 
 
 void FlashBackgroundMusic::setVolume(int newVolume){
-	BackgroundMusic::setVolume(newVolume);
-	setFlashVolume(this->volume);
+	refreshVolume(newVolume);
 }
 
 void FlashBackgroundMusic::setFlashVolume(int newVolume){
@@ -134,7 +151,6 @@ bool FlashBackgroundMusic::isLooping() {
 }
 
 AudioState::type FlashBackgroundMusic::getCurrentState() const {
-	Console::println("Getting a FlashBackgroundMusic object's audio state, returning STOPPED");
 	return currentState;
 }
 
@@ -168,10 +184,11 @@ void FlashBackgroundMusic::resume(double fadeIn) {
 }
 
 FlashBackgroundMusic::~FlashBackgroundMusic() {
-	Console::println("Destroying a FlashBackgroundMusic object.");
+	FlashMusicEngine::getInstance().musicVolumeChange.disconnect(this);
 }
 
 FlashBackgroundMusic::FlashBackgroundMusic() :BackgroundMusic(), currentState(AudioState::INITIAL){
 		loopEventListenerAS3 =AS3::local::internal::new_Function(loopEventListener, reinterpret_cast<void*>(this));
 		soundTransform = FlashHelper::construct("flash.media.SoundTransform");
+		FlashMusicEngine::getInstance().musicVolumeChange.connect(this, &FlashBackgroundMusic::musicVolumeChanged);
 }

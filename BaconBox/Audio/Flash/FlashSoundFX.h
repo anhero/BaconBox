@@ -9,10 +9,11 @@
 
 #include <AS3/AS3.h>
 #include <AS3/AS3++.h>
+#include <sigly.h>
 
 namespace BaconBox {
 
-	class FlashSoundFX : public SoundFX {
+	class FlashSoundFX : public SoundFX, public sigly::HasSlots<SIGLY_DEFAULT_MT_POLICY>  {
 		friend class AudioEngine;
 		friend class FlashSoundEngine;
 	public:
@@ -35,6 +36,10 @@ namespace BaconBox {
 		FlashSoundFX();
 
 	private:
+
+		void refreshVolume(int newVolume);
+		void soundVolumeChanged();
+		
 		int nbTimes;
 		AS3::local::var sound;
 		AS3::local::var soundChannel;

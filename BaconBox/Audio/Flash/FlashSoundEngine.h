@@ -12,6 +12,7 @@
 
 #include <AS3/AS3.h>
 #include <AS3/AS3++.h>
+#include <sigly.h>
 
 namespace BaconBox {
 	class FlashSoundFX;
@@ -24,12 +25,16 @@ namespace BaconBox {
 		BB_SINGLETON_DECL(FlashSoundEngine);
 
 	public:
+		sigly::Signal0<> soundVolumeChange;
 
 
 		SoundFX* getSoundFX(const std::string& key, bool survive = true);
+		void setSoundVolume(int newSoundVolume);
 
 	private:
 		std::list<FlashSoundFX*> audios;
+
+		
 
 
 		FlashSoundEngine();

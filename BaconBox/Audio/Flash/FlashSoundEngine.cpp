@@ -75,6 +75,14 @@ void FlashSoundEngine::update() {
 	}
 }
 
+void FlashSoundEngine::setSoundVolume(int newSoundVolume) {
+		this->SoundEngine::setSoundVolume(newSoundVolume);
+
+		if (!this->SoundEngine::isMuted()) {
+			soundVolumeChange();
+		}
+	}
+
 SoundInfo* FlashSoundEngine::loadSound(const std::string& filePath) {
 	Console::println(" FlashSoundEngine::loadSound not implemented.");
 	return new SoundInfo();
