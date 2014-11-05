@@ -74,6 +74,7 @@ AudioState::type SDLMixerSoundFX::getCurrentState() const {
 
 SDLMixerSoundFX::~SDLMixerSoundFX() {
 	haltChannel.disconnect(this);
+	SDLMixerEngine::getInstance().soundVolumeChange.disconnect(this);
 }
 
 SDLMixerSoundFX::SDLMixerSoundFX() : SoundFX(), looping(false), channel(-1),
