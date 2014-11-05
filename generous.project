@@ -26,6 +26,12 @@ BaconBox:
                 - "-O3"
             CXXFLAGS:
                 - "-O3"
+      O4:
+        artifacts:
+            CFLAGS:
+                - "-O4"
+            CXXFLAGS:
+                - "-O4"
       core: &core
         artifacts:
           CFLAGS:
@@ -215,7 +221,7 @@ BaconBox:
           IncludesPath:
             - "libraries/Flash/include"
       Flash:
-        include: [Flash_Base, O3]
+        include: [Flash_Base, O4]
         export: true
       Flash_debug:
         export: true
