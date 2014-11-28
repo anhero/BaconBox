@@ -6,6 +6,7 @@ namespace BaconBox {
 	class URL {
 	public:
 		static bool open(const std::string & url);
+		static std::string getURL();
 	};
 }
 
