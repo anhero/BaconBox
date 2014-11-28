@@ -4,7 +4,7 @@
 
 
 #include "BaconBox/PlatformFlagger.h"
-#ifdef BB_FLASH_PLATEFORM	
+#ifdef BB_FLASH_PLATFORM	
 	#include <AS3/AS3.h>
 	#include <AS3/AS3++.h>
 #endif	
