@@ -53,7 +53,10 @@ FlashPointer::~FlashPointer() {
 	int y = AS3::local::internal::int_valueOf(FlashHelper::getProperty(event, "stageY"));
 	reinterpret_cast<FlashPointer*>(arg)->mouseState.pos = Vector2(static_cast<float>(x), static_cast<float>(y));
 	reinterpret_cast<FlashPointer*>(arg)->mouseState.leftButton = AS3::local::internal::bool_valueOf(FlashHelper::getProperty(event, "buttonDown"));
+	AS3_DeclareVar(stage, *);
+	AS3_CopyVarxxToVar(stage, FlashEngine::getStage());
 
+	inline_as3("stage.focus = stage");
 	return AS3::local::internal::_null;
 }
 
