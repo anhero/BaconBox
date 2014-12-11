@@ -170,7 +170,7 @@ namespace BaconBox {
 	TextureInformation *ResourceManager::loadTextureRelativePath(const std::string &key,
 													 const std::string &filePath,
 													 ColorFormat::type colorFormat){
-		return loadTextureRelativePath(key, filePath, colorFormat);
+		return loadTexture(key, ResourcePathHandler::getResourcePathFor(filePath), colorFormat);
 	}
 
 		TextureInformation *ResourceManager::getTexture(const std::string &key) {
