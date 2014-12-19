@@ -102,16 +102,33 @@ end
 
 function printUserData(userdata)
   local meta = getmetatable(userdata)
+  if not meta then
+      print("Userdata without metatable")
+      return
+  end
+
   print("Printing function of", userdata)
-  print("--- Function ---")
-  printTable(meta[".fn"])
+  local to_print = {}
+  to_print.Functions = meta[".fn"]
+  to_print.Set       = meta[".set"]
+  to_print.Get       = meta[".get"]
 
-  print("--- Set ---")
-  printTable(meta[".set"])
-
-  print("--- Get ---")
-  printTable(meta[".get"]) 
-
+  -- I re-index by field name because otherwise it is printed in
+  -- a non-deterministic order.
+  for j,name in pairs({ "Functions", "Get", "Set" }) do
+    if to_print[name] then
+      local subtable = to_print[name]
+      print("--- " .. name .. " ---")
+      local keys = {}
+      for k,v in pairs(subtable) do
+        table.insert(keys, k)
+      end
+      table.sort(keys)
+      for k,key in pairs(keys) do
+        print(' > ' .. key, subtable[key])
+      end
+    end
+  end
 end
 
 }
