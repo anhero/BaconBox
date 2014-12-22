@@ -128,6 +128,10 @@ namespace BaconBox {
 #else
 	
 	MovieClipEntity *EntityFactory::getMovieClipEntityFromSymbol(Symbol* symbol, bool autoPlay){
+		if (symbol == NULL) {
+			Console__error("FATAL : symbol is NULL");
+			return NULL;
+		}
 		MovieClipEntity * entity = NULL;
 	    if(symbol->isTexture){
 			if(!symbol->subTex->textureInfo || symbol->subTex->textureInfo->textureId == -1){
@@ -200,9 +204,14 @@ namespace BaconBox {
 				i != orderedPart.end(); i++){
 				entity->gotoAndStop(i->first);
 				for(std::map <int, Symbol::Part*>::iterator j = i->second.begin(); j != i->second.end(); j++){
-					MovieClipEntity * childEntity;
+					MovieClipEntity * childEntity = NULL;
 					std::map<std::string, MovieClipEntity*>::iterator currentMovieClip = childByName.find(j->second->name);
 					if(currentMovieClip == childByName.end()){
+						if (j->second->symbol == NULL) {
+							Console__error("FATAL : Symbol '" << j->second->name <<
+									"' in " << entity->getEntityName() << " '" <<
+									symbol->key << "' is not found.");
+						}
 						childEntity = getMovieClipEntityFromSymbol(j->second->symbol, autoPlay);
 						childByName[j->second->name] = childEntity;
 					}
