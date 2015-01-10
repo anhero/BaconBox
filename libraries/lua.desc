@@ -17,6 +17,7 @@ else
 	platform = 'generic'
 end
 library.build = lambda do |library, options|
+	Dir.chdir "#{library.work_dir}/#{library.build_subdir}"
 	env = {}
 	env["CC"] = options.CC.join if options.CC.length > 0
 	result = Exec.run(env, "make", platform)
@@ -25,17 +26,19 @@ library.build = lambda do |library, options|
 end
 
 library.install = lambda do |library, options| 
+	Dir.chdir "#{library.work_dir}/#{library.build_subdir}"
 	Exec.run "make", platform, "install", "INSTALL_TOP=#{options.prefix.join}"
 end
 
 
 
-if $options.platformName == "Android"
-	library.prepareBuild = lambda do |library, options|
+if $options.platform_name == "Android"
+	Dir.chdir "#{library.work_dir}/#{library.build_subdir}"
+	library.prepare_build = lambda do |library, options|
 		patches = []
 			patches << %q{
---- old/lua-5.1.5/src/llex.c	2009-11-23 09:58:22.000000000 -0500
-+++ new/lua-5.1.5/src/llex.c	2014-03-09 16:56:59.000000000 -0400
+--- old/src/llex.c	2009-11-23 09:58:22.000000000 -0500
++++ new/src/llex.c	2014-03-09 16:56:59.000000000 -0400
 @@ -181 +181 @@
 -  struct lconv *cv = localeconv();
 +  // struct lconv *cv = localeconv();
@@ -50,6 +53,5 @@ if $options.platformName == "Android"
 				raise "One patch failed to apply."
 			end
 		end
-		Dir.gotoSubDir()
 	end
 end

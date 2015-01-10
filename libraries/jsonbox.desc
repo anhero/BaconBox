@@ -6,6 +6,7 @@ library.url = "https://github.com/anhero/#{library.name}/archive/#{library.versi
 library.hash = "eeffa55d020de57b34232be8dfaf3b5b" #0.4.4
 
 library.build = lambda do |library, options| 
+	Dir.chdir "#{library.work_dir}/#{library.build_subdir}"
 	prefix = options.prefix.join()
 	command = []
 	command = ["make"]

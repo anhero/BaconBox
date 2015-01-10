@@ -5,7 +5,7 @@ library.archive = "#{library.name}-#{library.version}.tar.gz"
 library.url = "http://downloads.sourceforge.net/sourceforge/libpng/#{library.archive}"
 library.hash = "29b7065906e2551508a0d7eacd19174e" #1.6.8
 
-buildOptions.CPPFLAGS = "-I#{$options.install_dir}/include"  #Libpng use CPPFLAGS even though it's written in C
-buildOptions.LDFLAGS = "-L#{$options.install_dir}/lib"
+build_options.CPPFLAGS = "-I#{$options.install_dir}/include"  #Libpng use CPPFLAGS even though it's written in C
+build_options.LDFLAGS = "-L#{$options.install_dir}/lib"
 
-buildOptions.configureOptions << '--enable-shared=NO'
+build_options.configure_options << '--enable-shared=NO'

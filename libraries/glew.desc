@@ -9,27 +9,29 @@ library.url = "http://sourceforge.net/projects/#{library.name}/files/#{library.n
 library.hash = "594eb47b4b1210e25438d51825404d5a" #1.10.0
 
 library.build = lambda do |library, options|
+	Dir.chdir "#{library.work_dir}/#{library.build_subdir}"
 	env = {}
-	env["SYSTEM"] = "mingw" if $options.platformName == "CygwinMingw"
+	env["SYSTEM"] = "mingw" if $options.platform_name == "CygwinMingw"
 
-	buildCommand = []
-	buildCommand << "make"
-	buildCommand << "CC=#{options.CC}" if defined? options.CC
-	buildCommand << "LD=#{options.CC}" if defined? options.CC
-	puts buildCommand.join(" ")
-	Exec.run(env, *buildCommand)
+	build_command = []
+	build_command << "make"
+	build_command << "CC=#{options.CC}" if defined? options.CC
+	build_command << "LD=#{options.CC}" if defined? options.CC
+	puts build_command.join(" ")
+	Exec.run(env, *build_command)
 end
 
 library.install = lambda do |library, options|
+	Dir.chdir "#{library.work_dir}/#{library.build_subdir}"
 	env = {}
-	env["SYSTEM"] = "mingw" if $options.platformName == "CygwinMingw"
+	env["SYSTEM"] = "mingw" if $options.platform_name == "CygwinMingw"
 
-	buildCommand = []
-	buildCommand << "make"
-	buildCommand << "install.all"
-	buildCommand << "GLEW_DEST=#{options.prefix}"
-	buildCommand << "CC=#{options.CC}" if defined? options.CC
-	buildCommand << "LD=#{options.CC}" if defined? options.CC
-	puts buildCommand.join(" ")
-	Exec.run(env, *buildCommand)
+	build_command = []
+	build_command << "make"
+	build_command << "install.all"
+	build_command << "GLEW_DEST=#{options.prefix}"
+	build_command << "CC=#{options.CC}" if defined? options.CC
+	build_command << "LD=#{options.CC}" if defined? options.CC
+	puts build_command.join(" ")
+	Exec.run(env, *build_command)
 end
