@@ -17,23 +17,23 @@ else
 	platform = 'generic'
 end
 library.build = lambda do |library, options|
-	buildCommand = "make #{platform}"
-	buildCommand = "#{buildCommand} CC=#{options.CC}" if defined? options.CC  
-	result = system(buildCommand)
+	env = {}
+	env["CC"] = options.CC.join if options.CC.length > 0
+	result = Exec.run(env, "make", platform)
 	puts result
-	puts buildCommand
 	return result
 end
 
 library.install = lambda do |library, options| 
-system("make #{platform} install INSTALL_TOP=#{options.prefix}")
+	Exec.run "make", platform, "install", "INSTALL_TOP=#{options.prefix.join}"
 end
 
 
 
 if $options.platformName == "Android"
 	library.prepareBuild = lambda do |library, options|
-		result = system("patch -p1 <<'EOF'
+		patches = []
+			patches << %q{
 --- old/lua-5.1.5/src/llex.c	2009-11-23 09:58:22.000000000 -0500
 +++ new/lua-5.1.5/src/llex.c	2014-03-09 16:56:59.000000000 -0400
 @@ -181 +181 @@
@@ -42,9 +42,14 @@ if $options.platformName == "Android"
 @@ -183 +183 @@
 -  ls->decpoint = (cv ? cv->decimal_point[0] : '.');
 +  ls->decpoint = '.';//(cv ? cv->decimal_point[0] : '.');
-		EOF")
-
-		return (result and Dir.gotoSubDir())
+	}
+		patches.each do |p|
+			puts "Applying patch "
+			ok = Exec.run "patch", "-p1", {:stdin => p}
+			unless ok
+				raise "One patch failed to apply."
+			end
+		end
+		Dir.gotoSubDir()
 	end
-
 end

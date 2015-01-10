@@ -6,15 +6,22 @@ library.url = "https://github.com/anhero/#{library.name}/archive/#{library.versi
 library.hash = "eeffa55d020de57b34232be8dfaf3b5b" #0.4.4
 
 library.build = lambda do |library, options| 
-	failed = false
-	CXX = ""
-	CXX = "CXX=#{options.CXX}" if defined? options.CXX
-	failed ||= (not system("make #{CXX} CXXFLAGS=\"-I./include/ #{((OS.osx? and $options.platform == nil) ? '-stdlib=libstdc++' : '')}\""))
-	FileUtils.mkdir_p "#{options.prefix}/lib"
-	failed ||= (not system("cp build/*.a #{options.prefix}/lib"))
-	FileUtils.mkdir_p "#{options.prefix}/include"
-	failed ||= (not system("cp -prf include/* #{options.prefix}/include"))
-	return (not failed)
+	prefix = options.prefix.join()
+	command = []
+	command = ["make"]
+	command << "CXX=#{options.CXX.join(" ")}" if options.CXX.length > 0
+	command << "CXXFLAGS=\"-I./include/"
+	command << "-stdlib=libstdc++" if (OS.osx? and $options.platform == nil)
+
+	Exec.run command
+
+	# FIXME : calls to cp should be handled with FileUtils...
+	FileUtils.mkdir_p "#{prefix}/lib"
+	FileUtils.cp Dir.glob("build/*.a"), "#{prefix}/lib"
+	FileUtils.mkdir_p "#{prefix}/include"
+	FileUtils.cp_r Dir.glob("include/*"), "#{prefix}/include"
+	
+	return true
 end
 
 library.install = nil

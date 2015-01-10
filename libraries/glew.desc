@@ -3,22 +3,33 @@ library.license = "Modified BSD License"
 library.version = "1.10.0"
 library.archive = "#{library.name}-#{library.version}.zip"
 library.url = "http://sourceforge.net/projects/#{library.name}/files/#{library.name}/#{library.version}/#{library.archive}/download"
+# Hardcoded mirror for hard times,
+#library.url = "http://download2.polytechnic.edu.na/pub4/sourceforge/#{library.name[0]}/project/#{library.name[0..1]}/#{library.name}/#{library.name}/#{library.version}/#{library.archive}"
 
 library.hash = "594eb47b4b1210e25438d51825404d5a" #1.10.0
 
 library.build = lambda do |library, options|
-	buildCommand = "make"
-	buildCommand = "SYSTEM=\"mingw\" #{buildCommand}" if $options.platformName == "CygwinMingw"
-	buildCommand = "#{buildCommand} CC=\"#{options.CC}\" LD=\"#{options.CC}\"" if defined? options.CC
-	puts buildCommand
-	system(buildCommand)
+	env = {}
+	env["SYSTEM"] = "mingw" if $options.platformName == "CygwinMingw"
+
+	buildCommand = []
+	buildCommand << "make"
+	buildCommand << "CC=#{options.CC}" if defined? options.CC
+	buildCommand << "LD=#{options.CC}" if defined? options.CC
+	puts buildCommand.join(" ")
+	Exec.run(env, *buildCommand)
 end
 
 library.install = lambda do |library, options|
+	env = {}
+	env["SYSTEM"] = "mingw" if $options.platformName == "CygwinMingw"
 
-	buildCommand = "make install.all GLEW_DEST=#{options.prefix}"
-	buildCommand = "SYSTEM=\"mingw\" #{buildCommand}" if $options.platformName == "CygwinMingw"
-	buildCommand = "#{buildCommand} CC=\"#{options.CC}\" LD=\"#{options.CC}\"" if defined? options.CC
-	puts buildCommand
-	system(buildCommand)
+	buildCommand = []
+	buildCommand << "make"
+	buildCommand << "install.all"
+	buildCommand << "GLEW_DEST=#{options.prefix}"
+	buildCommand << "CC=#{options.CC}" if defined? options.CC
+	buildCommand << "LD=#{options.CC}" if defined? options.CC
+	puts buildCommand.join(" ")
+	Exec.run(env, *buildCommand)
 end

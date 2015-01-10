@@ -5,14 +5,24 @@ library.archive = "#{library.name}-#{library.version}.tar.gz"
 library.url = "http://www.libsdl.org/projects/SDL_mixer/release/#{library.archive}"
 library.hash = "65f6d80df073a1fb3bb537fbda031b50" #2.0.0
 
+# Those will break with the latest changes in libbuildtool.
 # buildOptions.CFLAGS = "-L../../../../CYGWIN_NT-6.1/i686/bin"  
 # buildOptions.LDFLAGS = "-L../../../../CYGWIN_NT-6.1/i686/bin"
-buildOptions.configureOptions = "--disable-shared --disable-music-midi --enable-music-ogg=yes --with-sdl-prefix=#{$options.install_dir} --disable-music-mod LIBS=-L#{$options.install_dir}/lib CFLAGS=-I#{$options.install_dir}/include"
 # buildOptions.environment = "LD_LIBRARY_PATH=../../../../CYGWIN_NT-6.1/i686/bin LIBRARY_PATH=../../../../CYGWIN_NT-6.1/i686/bin"
 
+# To have the proper include path for SDL
+buildOptions.CFLAGS << "-I#{$options.install_dir}/include"
+
+buildOptions.configureOptions << "--disable-shared"
+buildOptions.configureOptions << "--disable-music-midi"
+buildOptions.configureOptions << "--enable-music-ogg=yes"
+buildOptions.configureOptions << "--with-sdl-prefix=#{$options.install_dir}"
+buildOptions.configureOptions << "--disable-music-mod"
+buildOptions.configureOptions << "LIBS=-L#{$options.install_dir}/lib"
 
 library.prepareBuild = lambda do |library, options|
-		result = system('patch -p1 <<\'EOF\'
+	patches = []
+		patches << %q{
 --- old/SDL2_mixer-2.0.0/configure	2013-08-10 13:39:55.000000000 -0400
 +++ new/SDL2_mixer-2.0.0/configure	2014-01-20 01:51:25.000000000 -0500
 @@ -10916,2 +10916,2 @@
@@ -20,11 +30,20 @@ library.prepareBuild = lambda do |library, options|
 -        BASE_LDFLAGS="-mno-cygwin"
 +        BASE_CFLAGS="-I/usr/include/mingw"
 +        BASE_LDFLAGS=""
-		EOF')
-		moved = Dir.gotoSubDir()
-
-		FileUtils.cp("#{$options.install_dir}/bin/SDL2.dll", '.') if $options.platformName == "CygwinMingw" #TODO BUILD WITHOUT MOVING SDL2.dll
-
-		return (result and moved)
+}
+	patches.each do |p|
+		puts "Applying patch "
+		ok = Exec.run "patch", "-p1", {:stdin => p}
+		unless ok
+			raise "One patch failed to apply."
+		end
 	end
+
+	# TODO BUILD WITHOUT MOVING SDL2.dll
+	if $options.platformName == "CygwinMingw" 
+		FileUtils.cp("#{$options.install_dir}/bin/SDL2.dll", '.') or raise "Could not copy SDL2.dll"
+	end
+
+	Dir.gotoSubDir()
+end
 
