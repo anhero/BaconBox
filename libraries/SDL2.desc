@@ -1,7 +1,8 @@
-library.name = "SDL2"
-library.license = "zlib"
-library.version = "2.0.2"
-library.archive = "#{library.name}-#{library.version}.tar.gz"
-library.url = "http://www.libsdl.org/release/#{library.archive}"
-library.hash = "e8070e8b6335def073a80cee78f3a7f0" #2.0.2
-
+library = Library.new(name: "SDL2", version: "2.0.2")
+library.license   = Licenses::Zlib
+library.archive   = "#{library.name}-#{library.version}.tar.gz"
+library.url       = "http://www.libsdl.org/release/#{library.archive}"
+library.fetcher   = Fetcher::HTTP(library.url)
+library.verifier  = Verifier::MD5("e8070e8b6335def073a80cee78f3a7f0") # 2.0.2
+library.builder   = Builder::ConfigureMake()
+library.installer = Installer::MakeInstall()

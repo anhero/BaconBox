@@ -1,57 +1,72 @@
-library.name = "lua"
-library.license = "MIT license" 
-library.version = "5.1.5"
-library.archive = "#{library.name}-#{library.version}.tar.gz"
-library.url = "http://www.lua.org/ftp/#{library.archive}" 
-library.hash = "2e115fe26e435e33b0d5c022e4490567" #5.1.5
+library = Library.new(name: "lua", version: "5.1.5")
+library.license   = Licenses::MIT
+library.archive   = "#{library.name}-#{library.version}.tar.gz"
+library.url       = "http://www.lua.org/ftp/#{library.archive}" 
+library.fetcher   = Fetcher::HTTP(library.url)
+library.verifier  = Verifier::MD5("2e115fe26e435e33b0d5c022e4490567") #5.1.5
 
-platform = nil
+# Anonymous block for environment preservation
+begin
+	platform = nil
 
-if $options.platform
-	platform = 'generic'
-elsif OS.osx?
-	platform = 'macosx'
-elsif OS.linux?
-	platform = 'linux'
-else
-	platform = 'generic'
-end
-library.build = lambda do |library, options|
-	Dir.chdir "#{library.work_dir}/#{library.build_subdir}"
-	env = {}
-	env["CC"] = options.CC.join if options.CC.length > 0
-	result = Exec.run(env, "make", platform)
-	puts result
-	return result
-end
+	#if $options.platform
+	#	platform = 'generic'
+	#els
+	if OS.osx?
+		platform = 'macosx'
+	elsif OS.linux?
+		platform = 'linux'
+	else
+		platform = 'generic'
+	end
 
-library.install = lambda do |library, options| 
-	Dir.chdir "#{library.work_dir}/#{library.build_subdir}"
-	Exec.run "make", platform, "install", "INSTALL_TOP=#{options.prefix.join}"
-end
-
-
-
-if $options.platform_name == "Android"
-	Dir.chdir "#{library.work_dir}/#{library.build_subdir}"
-	library.prepare_build = lambda do |library, options|
-		patches = []
-			patches << %q{
---- old/src/llex.c	2009-11-23 09:58:22.000000000 -0500
-+++ new/src/llex.c	2014-03-09 16:56:59.000000000 -0400
-@@ -181 +181 @@
--  struct lconv *cv = localeconv();
-+  // struct lconv *cv = localeconv();
-@@ -183 +183 @@
--  ls->decpoint = (cv ? cv->decimal_point[0] : '.');
-+  ls->decpoint = '.';//(cv ? cv->decimal_point[0] : '.');
-	}
-		patches.each do |p|
-			puts "Applying patch "
-			ok = Exec.run "patch", "-p1", {:stdin => p}
-			unless ok
-				raise "One patch failed to apply."
-			end
+	class LuaBuilder < LBT::Step
+		def initialize platform
+			@platform = platform
+		end
+		def run
+			Dir.chdir "#{@library.work_dir}/#{@library.build_subdir}"
+			env = {}
+			env["CC"] = @library.options.CC.join if @library.options.CC.length > 0
+			Exec.run(env, "make", @platform)
 		end
 	end
+	class LuaInstaller < LBT::Step
+		def initialize platform
+			@platform = platform
+		end
+		def run
+			Dir.chdir "#{@library.work_dir}/#{@library.build_subdir}"
+			Exec.run "make", @platform, "install", "INSTALL_TOP=#{@library.options.install_dir.join}"
+		end
+	end
+
+	library.builder   = LuaBuilder.new(platform)
+	library.installer = LuaInstaller.new(platform)
 end
+
+# FIXME : Add a patcher.
+#if $options.platform_name == "Android"
+#	Dir.chdir "#{library.work_dir}/#{library.build_subdir}"
+#	library.prepare_build = lambda do |library, options|
+#		patches = []
+#			patches << %q{
+#--- old/src/llex.c	2009-11-23 09:58:22.000000000 -0500
+#+++ new/src/llex.c	2014-03-09 16:56:59.000000000 -0400
+#@@ -181 +181 @@
+#-  struct lconv *cv = localeconv();
+#+  // struct lconv *cv = localeconv();
+#@@ -183 +183 @@
+#-  ls->decpoint = (cv ? cv->decimal_point[0] : '.');
+#+  ls->decpoint = '.';//(cv ? cv->decimal_point[0] : '.');
+#	}
+#		patches.each do |p|
+#			puts "Applying patch "
+#			ok = Exec.run "patch", "-p1", {:stdin => p}
+#			unless ok
+#				raise "One patch failed to apply."
+#			end
+#		end
+#	end
+#end
+

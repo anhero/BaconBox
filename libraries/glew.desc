@@ -1,37 +1,44 @@
-library.name = "glew"
-library.license = "Modified BSD License" 
-library.version = "1.10.0"
-library.archive = "#{library.name}-#{library.version}.zip"
-library.url = "http://sourceforge.net/projects/#{library.name}/files/#{library.name}/#{library.version}/#{library.archive}/download"
+library = Library.new(name: "glew", version: "1.10.0")
+# FIXME : library.license = "Modified BSD License" 
+library.archive   = "#{library.name}-#{library.version}.zip"
+library.url       = "http://sourceforge.net/projects/#{library.name}/files/#{library.name}/#{library.version}/#{library.archive}/download"
 # Hardcoded mirror for hard times,
-#library.url = "http://download2.polytechnic.edu.na/pub4/sourceforge/#{library.name[0]}/project/#{library.name[0..1]}/#{library.name}/#{library.name}/#{library.version}/#{library.archive}"
+#library.url      = "http://download2.polytechnic.edu.na/pub4/sourceforge/#{library.name[0]}/project/#{library.name[0..1]}/#{library.name}/#{library.name}/#{library.version}/#{library.archive}"
+library.fetcher   = Fetcher::HTTP(library.url)
+library.verifier  = Verifier::MD5("594eb47b4b1210e25438d51825404d5a") # 1.10.0
 
-library.hash = "594eb47b4b1210e25438d51825404d5a" #1.10.0
+begin
+	class GlewBuilder < LBT::Step
+		def run
+			Dir.chdir "#{@library.work_dir}/#{@library.build_subdir}"
+			env = {}
+			env["SYSTEM"] = "mingw" if $libbuildtool_params.platform_name == "CygwinMingw"
 
-library.build = lambda do |library, options|
-	Dir.chdir "#{library.work_dir}/#{library.build_subdir}"
-	env = {}
-	env["SYSTEM"] = "mingw" if $options.platform_name == "CygwinMingw"
+			build_command = []
+			build_command << "make"
+			build_command << "CC=#{@library.options.CC}" if defined? @library.options.CC
+			build_command << "LD=#{@library.options.CC}" if defined? @library.options.CC
+			puts build_command.join(" ")
+			Exec.run(env, *build_command)
+		end
+	end
+	class GlewInstaller < LBT::Step
+		def run
+			Dir.chdir "#{@library.work_dir}/#{@library.build_subdir}"
+			env = {}
+			env["SYSTEM"] = "mingw" if $libbuildtool_params.platform_name == "CygwinMingw"
 
-	build_command = []
-	build_command << "make"
-	build_command << "CC=#{options.CC}" if defined? options.CC
-	build_command << "LD=#{options.CC}" if defined? options.CC
-	puts build_command.join(" ")
-	Exec.run(env, *build_command)
-end
+			build_command = []
+			build_command << "make"
+			build_command << "install.all"
+			build_command << "GLEW_DEST=#{@library.options.install_dir}"
+			build_command << "CC=#{@library.options.CC}" if defined? @library.options.CC
+			build_command << "LD=#{@library.options.CC}" if defined? @library.options.CC
+			puts build_command.join(" ")
+			Exec.run(env, *build_command)
+		end
+	end
 
-library.install = lambda do |library, options|
-	Dir.chdir "#{library.work_dir}/#{library.build_subdir}"
-	env = {}
-	env["SYSTEM"] = "mingw" if $options.platform_name == "CygwinMingw"
-
-	build_command = []
-	build_command << "make"
-	build_command << "install.all"
-	build_command << "GLEW_DEST=#{options.prefix}"
-	build_command << "CC=#{options.CC}" if defined? options.CC
-	build_command << "LD=#{options.CC}" if defined? options.CC
-	puts build_command.join(" ")
-	Exec.run(env, *build_command)
+	library.builder   = GlewBuilder.new()
+	library.installer = GlewInstaller.new()
 end

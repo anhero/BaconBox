@@ -1,17 +1,17 @@
-if $options.platform_name != "Android"
+#if $options.platform_name != "Android"
 libraries << 'zlib.desc'
-end
-libraries << 'libpng.desc' if $options.platform_name != "Flash"
+#end
+libraries << 'libpng.desc' #if $options.platform_name != "Flash"
 libraries << 'lua.desc'
 libraries << 'jsonbox.desc'
 
-if $options.platform_name != "Android" and $options.platform_name != "Flash"
+#if $options.platform_name != "Android" and $options.platform_name != "Flash"
 	libraries << 'libogg.desc'
 	libraries << 'libvorbis.desc'
 	libraries << 'SDL2.desc'
 	libraries << 'SDL2_mixer.desc'
 	libraries << 'glew.desc'
-end
+#end
 
 libraries << 'rapidxml.desc'
 libraries << 'sigly.desc'

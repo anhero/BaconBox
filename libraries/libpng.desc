@@ -1,11 +1,12 @@
-library.name = "libpng"
-library.license = "libpng License" 
-library.version = "1.6.8"
-library.archive = "#{library.name}-#{library.version}.tar.gz"
-library.url = "http://downloads.sourceforge.net/sourceforge/libpng/#{library.archive}"
-library.hash = "29b7065906e2551508a0d7eacd19174e" #1.6.8
+library = Library.new(name: "libpng", version: "1.6.8")
+# FIXME : library.license = License::Custom("libpng")
+library.archive   = "#{library.name}-#{library.version}.tar.gz"
+library.url       = "http://downloads.sourceforge.net/sourceforge/libpng/#{library.archive}"
+library.fetcher   = Fetcher::HTTP(library.url)
+library.verifier  = Verifier::MD5("29b7065906e2551508a0d7eacd19174e") #1.6.8
+library.builder   = Builder::ConfigureMake()
+library.installer = Installer::MakeInstall()
 
-build_options.CPPFLAGS = "-I#{$options.install_dir}/include"  #Libpng use CPPFLAGS even though it's written in C
-build_options.LDFLAGS = "-L#{$options.install_dir}/lib"
-
-build_options.configure_options << '--enable-shared=NO'
+library.options.CPPFLAGS = "-I#{library.options.install_dir}/include"
+library.options.LDFLAGS  = "-L#{library.options.install_dir}/lib"
+library.options.configure_options << '--enable-shared=NO'

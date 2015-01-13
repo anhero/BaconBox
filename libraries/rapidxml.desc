@@ -1,12 +1,7 @@
-library.name = "rapidxml"
-library.license = "MIT" 
-library.version = "1.13"
-library.archive = "#{library.name}-#{library.version}.zip"
-library.url = "http://sourceforge.net/projects/rapidxml/files/rapidxml/rapidxml%201.13/#{library.archive}"
-# In case sourceforge crashes again, here's a hardcoded mirror.
-#library.url = "http://download2.polytechnic.edu.na/pub4/sourceforge/#{library.name[0]}/project/#{library.name[0..1]}/#{library.name}/#{library.name}/#{library.name}%20#{library.version}/#{library.archive}"
-
-library.hash = "7b4b42c9331c90aded23bb55dc725d6a" #1.13
-
-library.build = nil
-library.install = Install.copyHeaders
+library = Library.new(name: "rapidxml", version: "1.13")
+library.license   = Licenses::MIT
+library.archive   = "#{library.name}-#{library.version}.zip"
+library.url       = "http://sourceforge.net/projects/rapidxml/files/rapidxml/rapidxml%201.13/#{library.archive}"
+library.fetcher   = Fetcher::HTTP(library.url)
+library.verifier  = Verifier::MD5("7b4b42c9331c90aded23bb55dc725d6a") # 1.13
+library.installer = Installer::CopyHeaders()

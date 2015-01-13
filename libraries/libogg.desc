@@ -1,6 +1,8 @@
-library.name = "libogg"
-library.license = "BSD-style"
-library.version = "1.2.2"
-library.archive = "#{library.name}-#{library.version}.tar.gz"
-library.url = "http://downloads.xiph.org/releases/ogg/#{library.archive}"
-library.hash = "5a9fcabc9a1b7c6f1cd75ddc78f36c56" #1.2.2
+library = Library.new(name: "libogg", version: "1.2.2")
+# FIXME : library.license = "Custom? / BSD-style"
+library.archive   = "#{library.name}-#{library.version}.tar.gz"
+library.url       = "http://downloads.xiph.org/releases/ogg/#{library.archive}"
+library.fetcher   = Fetcher::HTTP(library.url)
+library.verifier  = Verifier::MD5("5a9fcabc9a1b7c6f1cd75ddc78f36c56") # 1.2.2
+library.builder   = Builder::ConfigureMake()
+library.installer = Installer::MakeInstall()

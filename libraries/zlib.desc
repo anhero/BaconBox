@@ -1,34 +1,37 @@
-library.name = "zlib"
-library.license = "zlib license" 
-library.version = "1.2.8"
-library.archive = "#{library.name}-#{library.version}.tar.gz"
-library.url = "http://downloads.sourceforge.net/sourceforge/libpng/#{library.archive}"
-library.hash = "44d667c142d7cda120332623eab69f40" #1.2.8
+library = Library.new(name: "zlib", version: "1.2.8")
+library.license   = Licenses::Zlib
+library.archive   = "#{library.name}-#{library.version}.tar.gz"
+library.url       = "http://downloads.sourceforge.net/sourceforge/libpng/#{library.archive}"
+library.fetcher   = Fetcher::HTTP(library.url)
+library.verifier  = Verifier::MD5("44d667c142d7cda120332623eab69f40") #1.2.8
+library.builder   = Builder::ConfigureMake()
+library.installer = Installer::MakeInstall()
 
-if $options.platform_name == "CygwinMingw"
-
-	library.prepare_build = lambda do |library, options|
-		compiler_prefix = String.new options.CC
-		compiler_prefix.slice! 'gcc'
-
-		result = system("patch -p1 <<'EOF'
-		--- old/zlib-1.2.8/win32/Makefile.gcc	2012-05-02 23:17:59.000000000 -0400
-		+++ new/zlib-1.2.8/win32/Makefile.gcc	2014-01-19 19:16:04.000000000 -0500
-		@@ -44 +44 @@
-		-PREFIX =
-		+PREFIX = #{compiler_prefix}
-		EOF")
-
-		return (result and Dir.gotoSubDir())
-	end
-
-	library.build = lambda do |library, options|
-		return system("make -fwin32/Makefile.gcc")
-	end
-
-	library.install = lambda do |library, options|
-		return system("BINARY_PATH=\"#{$options.install_dir}/bin\" INCLUDE_PATH=\"#{$options.install_dir}/include\" LIBRARY_PATH=\"#{$options.install_dir}/lib\" make install -fwin32/Makefile.gcc")
-	end
-
-end
-
+# FIXME This part is now broken
+##if $options.platform_name == "CygwinMingw"
+##
+##	library.prepare_build = lambda do |library, options|
+##		compiler_prefix = String.new options.CC
+##		compiler_prefix.slice! 'gcc'
+##
+##		# FIXME : Proper patching...
+##		result = system("patch -p1 <<'EOF'
+##		--- old/zlib-1.2.8/win32/Makefile.gcc	2012-05-02 23:17:59.000000000 -0400
+##		+++ new/zlib-1.2.8/win32/Makefile.gcc	2014-01-19 19:16:04.000000000 -0500
+##		@@ -44 +44 @@
+##		-PREFIX =
+##		+PREFIX = #{compiler_prefix}
+##		EOF")
+##
+##		return (result and Dir.gotoSubDir())
+##	end
+##
+##	library.build = lambda do |library, options|
+##		return system("make -fwin32/Makefile.gcc")
+##	end
+##
+##	library.install = lambda do |library, options|
+##		return system("BINARY_PATH=\"#{$options.install_dir}/bin\" INCLUDE_PATH=\"#{$options.install_dir}/include\" LIBRARY_PATH=\"#{$options.install_dir}/lib\" make install -fwin32/Makefile.gcc")
+##	end
+##
+##end

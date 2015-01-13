@@ -1,8 +1,10 @@
-library.name = "libvorbis"
-library.license = "BSD-style"
-library.version = "1.3.2"
-library.archive = "#{library.name}-#{library.version}.tar.gz"
-library.url = "http://downloads.xiph.org/releases/vorbis/#{library.archive}"
-library.hash = "c870b9bd5858a0ecb5275c14486d9554" #1.3.2
+library = Library.new(name: "libvorbis", version: "1.3.2")
+# FIXME : library.license = "Custom? / BSD-style"
+library.archive   = "#{library.name}-#{library.version}.tar.gz"
+library.url       = "http://downloads.xiph.org/releases/vorbis/#{library.archive}"
+library.fetcher   = Fetcher::HTTP(library.url)
+library.verifier  = Verifier::MD5("c870b9bd5858a0ecb5275c14486d9554") # 1.3.2
+library.builder   = Builder::ConfigureMake()
+library.installer = Installer::MakeInstall()
 
-build_options.configure_options << "--disable-shared"
+library.options.configure_options << "--disable-shared"
