@@ -335,6 +335,12 @@ namespace BaconBox {
 					if (found) {
 						symbol->frameCount = Parser::stringToInt(found->value());
 					}
+					found = symbolNode->first_attribute("autoPlay");
+					symbol->autoPlay = false;
+					if (found) {
+						symbol->autoPlay = Parser::stringToBool(found->value());
+					}
+
 				}
 
 				symbols[symbol->key] = symbol;

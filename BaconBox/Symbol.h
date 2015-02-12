@@ -38,6 +38,7 @@ namespace BaconBox {
 	};
 	Symbol();
 	int frameCount;
+	bool autoPlay;
 	std::string key;
 	std::string textureKey;
 	SubTextureInfo * subTex;

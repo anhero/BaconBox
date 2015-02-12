@@ -226,6 +226,10 @@ namespace BaconBox {
 				}
 			}
 
+			if (symbol->autoPlay) {
+				autoPlay = true;
+			}
+
 			if(autoPlay){
 				entity->gotoAndPlay(0);
 			}
