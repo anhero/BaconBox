@@ -35,6 +35,8 @@
 	#define PNG_HEADER_SIZE 8
 #endif 
 
+#include <iostream>
+
 namespace BaconBox {
 	std::map<std::string, SoundInfo *> ResourceManager::sounds = std::map<std::string, SoundInfo *>();
 	std::map<std::string, MusicInfo *> ResourceManager::musics = std::map<std::string, MusicInfo *>();
@@ -1133,10 +1135,15 @@ namespace BaconBox {
 
 
 	Font *ResourceManager::loadFont(const std::string &key, const std::string &path, int fontSize) {
+		if (!fileExists(path)) {
+			Console__error("Font could not be loaded, path seems invalid,");
+			Console__error(" -> " << path);
+			return NULL;
+		}
 		Font *aFont = NULL;
-	
-			aFont = initFontFromPath(key, path);
-			fonts[key][fontSize] = aFont;
+
+		aFont = initFontFromPath(key, path);
+		fonts[key][fontSize] = aFont;
 
 		return aFont;
 	}
@@ -1149,6 +1156,14 @@ namespace BaconBox {
 	Font *ResourceManager::getFont(const std::string &key, int fontSize) {
 		std::map<std::string, std::map<int, Font *> >::iterator itr = fonts.find(key);
 		std::map<int, Font *>::iterator i;
+
+		// Font is not found in the registry.
+		if (itr == fonts.end()) {
+			Console__error("Font '" << key << "' could not be found.");
+			Console__error("Please ensure that it was loaded.");
+			return NULL;
+		}
+
 		for (i = itr->second.begin(); i != itr->second.end(); i++) {
 			if(i->first >= fontSize)break;
 		}
@@ -1221,6 +1236,11 @@ namespace BaconBox {
 		}
 		
 		fonts.clear();
+	}
+
+	bool ResourceManager::fileExists(const std::string& path) {
+		std::ifstream infile(path.c_str());
+		return infile.good();
 	}
 
 	

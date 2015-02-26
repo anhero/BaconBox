@@ -308,6 +308,12 @@ namespace BaconBox {
 		static void removeFont(const std::string &key, int fontSize = -1);
 		
 		
+		/**
+		 * Validates the existence of a file.
+		 * @param path Path to the file to test.
+		 */
+		static bool fileExists(const std::string &path);
+
 	private:
 	    
 	    #if ! defined(BB_FLASH_PLATFORM)
