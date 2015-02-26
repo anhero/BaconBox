@@ -42,7 +42,13 @@ namespace BaconBox {
 			return entity;
 		}
 
-		Console__error("Can't return an entity in LuaHelper::getEntityFromLuaEntity.");
+		if (lua_isuserdata(L, -1)) {
+			MovieClipEntity *entity = reinterpret_cast<MovieClipEntity *>(getPointerFromLuaUserData(L));
+
+			return entity;
+		}
+
+		Console__error("Can't return a MovieClipEntity in LuaHelper::getMovieClipEntityFromLuaEntity.");
 		return NULL;
 	}
 
