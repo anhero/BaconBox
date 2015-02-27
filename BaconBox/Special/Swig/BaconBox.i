@@ -415,10 +415,12 @@ class FlashEngine;
 %}
 
 
-
-   %typecheck(SWIG_TYPECHECK_POINTER)lua_State* {
-      $1 = 1;
-    }
+#define BB_SWIG_TYPECHECK_LOWEST_PRECEDENCE 99999
+	// Using this typecheck for lowest precedence makes it so the "native" functions
+	// will always be outputted before the functions that accept a lua_State.
+	%typecheck(BB_SWIG_TYPECHECK_LOWEST_PRECEDENCE)lua_State* {
+		$1 = 1;
+	}
 
   %typemap(arginit) lua_State* %{
     #ifdef IMPOSSIBLE_MACRO_JUST_TO_SKIP_SWIG_ARG_COUNT_CHECK_I_SHOULD_REALLY_FIND_A_FIX_IN_THE_NEAR_FUTURE
