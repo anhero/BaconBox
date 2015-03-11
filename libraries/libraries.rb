@@ -1,18 +1,18 @@
-#if $options.platform_name != "Android"
-libraries << 'zlib.desc'
-#end
-libraries << 'libpng.desc' #if $options.platform_name != "Flash"
-libraries << 'lua.desc'
-libraries << 'jsonbox.desc'
+if $libbuildtool_params.platform_name != "Android"
+build 'zlib.desc'
+end
+build 'libpng.desc' #if $libbuildtool_params.platform_name != "Flash"
+build 'lua.desc'
+build 'jsonbox.desc'
 
-#if $options.platform_name != "Android" and $options.platform_name != "Flash"
-	libraries << 'libogg.desc'
-	libraries << 'libvorbis.desc'
-	libraries << 'SDL2.desc'
-	libraries << 'SDL2_mixer.desc'
-	libraries << 'glew.desc'
-#end
+if $libbuildtool_params.platform_name != "Android" and $libbuildtool_params.platform_name != "Flash"
+	build 'libogg.desc'
+	build 'libvorbis.desc'
+	build 'SDL2.desc'
+	build 'SDL2_mixer.desc'
+	build 'glew.desc'
+end
 
-libraries << 'rapidxml.desc'
-libraries << 'sigly.desc'
+build 'rapidxml.desc'
+build 'sigly.desc'
 
