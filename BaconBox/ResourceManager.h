@@ -144,6 +144,8 @@ namespace BaconBox {
 
 		static Symbol *addSymbol(const std::string &key, Symbol * symbol = NULL, bool overwrite = false);
 		static Symbol *getSymbol(const std::string &key);
+		/// Checks whether a symbol exists for the given key.
+		static bool symbolExists(const std::string &key);
 		/**
 		 * Gets a pointer to the asked sound effect.
 		 * @param key Name of the sound effect to get a pointer of.
