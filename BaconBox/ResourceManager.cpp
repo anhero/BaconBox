@@ -723,6 +723,10 @@ namespace BaconBox {
 		return (itr != symbols.end()) ? (itr->second) : (NULL);
 	}
 
+	bool ResourceManager::symbolExists(const std::string &key) {
+		return ( getSymbol(key) ? true : false );
+	}
+
 	Symbol *ResourceManager::addSymbol(const std::string &key, Symbol * symbol, bool overwrite){
 
 		
