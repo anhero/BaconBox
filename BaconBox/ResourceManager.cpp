@@ -708,7 +708,7 @@ namespace BaconBox {
 		std::map<std::string, SubTextureInfo *>::iterator itr = subTextures.find(key);
 		SubTextureInfo * subTex = (itr != subTextures.end()) ? (itr->second) : (NULL);
 		if (!subTex) {
-			Console__error("FATAL : Could not find subtexture in getSubTexture for key: `" << key << "`");
+			return subTex;
 		}
 		if (loadTextureIfNotLoaded && ! subTex->textureInfo->isLoaded()) {
 			loadTexture(subTex->textureInfo);
