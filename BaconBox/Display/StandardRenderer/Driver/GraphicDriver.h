@@ -49,8 +49,12 @@ namespace BaconBox {
 														  const TextureCoordinates &textureCoordinates,
 														  const Color &color,
 														  const Color &colorOffset, bool blend, int degenerationStride, int degenerationJump) = 0;
-		
-		
+
+        virtual void drawShapeWithColorColorOffset(const VertexArray &vertices,
+                                                   const Color &color,
+                                                   const Color &colorOffset,
+                                                   bool blend, int degenerationStride, int degenerationJump) = 0;
+
 		virtual void drawBatchWithTexture(const VertexArray &vertices,
 								  const TextureInformation *textureInformation,
 								  const TextureCoordinates &textureCoordinates,

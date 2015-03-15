@@ -51,6 +51,12 @@ namespace BaconBox {
 		
 	}
 	
+    void NullGraphicDriver::drawShapeWithColorColorOffset(const VertexArray &vertices,
+                                              const Color &color,
+                                              const Color &colorOffset,
+                                              bool blend, int degenerationStride, int degenerationJump) {
+    }
+
 
 	void NullGraphicDriver::prepareScene(const Vector2 &, float,
 	                                     const Vector2 &, const Color &, bool ) {

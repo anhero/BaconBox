@@ -35,7 +35,11 @@ namespace BaconBox {
 							 const TextureCoordinates &textureCoordinates,
 							 bool blend, int degenerationStride, int degenerationJump);
 
-		
+        void drawShapeWithColorColorOffset(const VertexArray &vertices,
+                                                  const Color &color,
+                                                  const Color &colorOffset,
+                                                  bool blend, int degenerationStride, int degenerationJump);
+
 		void drawBatchWithTexture(const VertexArray &vertices,
 												  const TextureInformation *textureInformation,
 												  const TextureCoordinates &textureCoordinates,
@@ -132,8 +136,9 @@ namespace BaconBox {
 		DynamicBatch batch;
 
         GLSLProgram *program;
-       GLSLProgram *rgbProgram;
-        GLSLProgram *alphaProgram;
+		GLSLProgram *rgbProgram;
+		GLSLProgram *rgbWithoutTextureProgram;
+		GLSLProgram *alphaProgram;
 		GLSLProgram *rgbNoTransformProgram;
 		GLSLProgram * alphaNoTransformProgram;
 		struct GPUState{

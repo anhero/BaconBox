@@ -29,6 +29,10 @@ namespace BaconBox {
 		MovieClipEntity *getMovieClipEntityFromSubTexture(SubTextureInfo* subTex, const Vector2 & origin = Vector2(), bool blend = true, float scale = 1.0f);
 #endif
 
+		/// Creates a MovieClip with no Texture component, with width `w` and height `h`.
+		static MovieClipEntity *getShapeRectangle(float w, float h, const Vector2 & origin = Vector2(), bool blend = true, float scale = 1.0f);
+		MovieClipEntity *internalGetShapeRectangle(float w, float h, const Vector2 & origin = Vector2(), bool blend = true, float scale = 1.0f);
+
 	private:
 		
 		EntityFactory();

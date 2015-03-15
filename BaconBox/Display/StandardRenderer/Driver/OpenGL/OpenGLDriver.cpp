@@ -66,8 +66,110 @@ namespace BaconBox {
 		
 	}
 
-	
-	
+	void OpenGLDriver::drawShapeWithColorColorOffset(const VertexArray &vertices,
+													 const Color &color,
+													 const Color &colorOffset,
+													 bool blend, int degenerationStride, int degenerationJump) {
+		// Intermediary arrays.
+		ColorArray colors;
+		ColorArray colorOffsets;
+
+		// Fill said arrays
+		for(int i = 0; i<vertices.getNbVertices(); i++){
+			colors.push_back(color);
+			colorOffsets.push_back(colorOffset);
+		}
+
+		// Binds to "default" OpenGL texture ID.
+		currentGPUState.textureID = 0;
+		currentGPUState.vertices = GET_PTR_BATCH(vertices, 0);
+		currentGPUState.colors = GET_TEX_PTR_BATCH(colors, 0);
+		currentGPUState.colorOffsets = GET_TEX_PTR_BATCH(colorOffsets, 0);
+		// Shapes are always RGBA.
+		currentGPUState.format = ColorFormat::RGBA;
+		currentGPUState.blend = blend;
+
+		bool wrongProgram = (program != rgbWithoutTextureProgram);
+		if (currentGPUState.format != lastGPUState.format || wrongProgram) {
+			if (wrongProgram) {
+				glEnableVertexAttribArray(attributes.colorOffset);
+				glEnableVertexAttribArray(attributes.color);
+			}
+			lastGPUState.format = currentGPUState.format;
+			program = rgbWithoutTextureProgram;
+			program->use();
+
+			program->sendUniform(uniforms.tex, 0);
+			program->sendUniform(uniforms.projection, &(projectionMatrix[0]));
+			program->sendUniform(uniforms.modelView, &(modelViewMatrix[0]));
+		}
+
+		if (lastGPUState.blend != currentGPUState.blend) {
+			if (blend) {
+				glEnable(GL_BLEND);
+			}
+			else {
+				glDisable(GL_BLEND);
+			}
+			lastGPUState.blend = currentGPUState.blend;
+		}
+
+		if (currentGPUState.textureID != lastGPUState.textureID){
+			lastGPUState.textureID = currentGPUState.textureID;
+			glBindTexture(GL_TEXTURE_2D, currentGPUState.textureID);
+		}
+		if (currentGPUState.vertices != lastGPUState.vertices){
+			lastGPUState.vertices = currentGPUState.vertices;
+			glVertexAttribPointer(attributes.vertices, 2, GL_FLOAT, GL_FALSE, 0, currentGPUState.vertices);
+		}
+		if (currentGPUState.colors != lastGPUState.colors){
+			lastGPUState.colors = currentGPUState.colors;
+			glVertexAttribPointer(attributes.color, 4, GL_FLOAT, GL_FALSE, 0,  currentGPUState.colors);
+		}
+		if (currentGPUState.colorOffsets != lastGPUState.colorOffsets){
+			lastGPUState.colorOffsets = currentGPUState.colorOffsets;
+			glVertexAttribPointer(attributes.colorOffset, 4, GL_FLOAT, GL_FALSE, 0, currentGPUState.colorOffsets);
+		}
+
+		// This indices building block was lifted from DynamicBatch.cpp
+		// It shoud maybe be generalized into a separate function.
+
+		// Building a list of indices
+		IndiceArray indices;
+		{
+			IndiceArray::value_type indiceIterator = 0;
+			// TODO : push_back each vertex into indices, one coord at a time?
+			indices.push_back(indiceIterator);
+			int size = vertices.getNbVertices();
+			bool skipDegeneration = (degenerationStride >= size || degenerationStride == 0);
+			int degenerationCount =0;
+			int i = indiceIterator;
+			int maxSize = size -1+indiceIterator;
+			while (i < (maxSize)) {
+				if(skipDegeneration || degenerationStride-1 != degenerationCount){
+					indices.push_back(++indiceIterator);
+					degenerationCount++;
+				}
+				else{
+					degenerationCount =0;
+					indices.push_back(indiceIterator);
+					indiceIterator += degenerationJump;
+					indices.push_back(indiceIterator);
+					indices.push_back(indiceIterator);
+
+				}
+				i = indiceIterator;
+			}
+
+			indices.push_back(indiceIterator);
+			indices.push_back(++indiceIterator);
+		}
+
+		glDrawElements(GL_TRIANGLE_STRIP, indices.size(), GL_UNSIGNED_SHORT, &(indices[0]));
+
+		lastShapeColorTransform = true;
+	}
+
 	void OpenGLDriver::drawBatchWithTexture(const VertexArray &vertices,
 	const TextureInformation *textureInformation,
 	const TextureCoordinates &textureCoordinates,
@@ -426,6 +528,14 @@ void OpenGLDriver::endRenderToTexture(){
 		vec4 texColor = texture2D(tex, texcoord);\
 		gl_FragColor = (texColor * color) +colorOffset;\
 		}";
+
+		std::string coreFragmentShaderWithoutTexture =
+		"uniform bool  alphaFormat;\
+		varying vec4 colorOffset;\
+		varying vec4 color;\
+		void main(void) {\
+		gl_FragColor = color + colorOffset;\
+		}";
 		
 		
 		
@@ -435,7 +545,8 @@ void OpenGLDriver::endRenderToTexture(){
 		std::string fragmentShaderAlphaNoColor;
 		std::string fragmentShaderNoColor;
 		std::string fragmentShader;
-		
+		std::string fragmentShaderWithoutTexture;
+
 #ifdef BB_OPENGLES
 		std::string GLESPrecisionVertex = "precision highp float;\n";
 		std::string GLESPrecisionFragment = "precision highp float;\n";
@@ -445,6 +556,7 @@ void OpenGLDriver::endRenderToTexture(){
 		fragmentShaderAlpha += GLESPrecisionFragment;
 		fragmentShaderNoColor += GLESPrecisionFragment;
 		fragmentShader += GLESPrecisionFragment;
+		fragmentShaderWithoutTexture += GLESPrecisionFragment;
 		fragmentShaderAlphaNoColor += GLESPrecisionFragment;
 		
 #endif
@@ -455,12 +567,14 @@ void OpenGLDriver::endRenderToTexture(){
 		fragmentShaderAlpha += coreFragmentShaderAlpha;
 		fragmentShaderNoColor += coreFragmentShaderNoColor;
 		fragmentShader += coreFragmentShader;
+		fragmentShaderWithoutTexture += coreFragmentShaderWithoutTexture;
 		fragmentShaderAlphaNoColor += coreFragmentShaderAlphaNoColor;
 		
 
 
 			alphaProgram = new GLSLProgram(vertexShader,fragmentShaderAlpha);
 			rgbProgram = new GLSLProgram(vertexShader,fragmentShader);
+			rgbWithoutTextureProgram = new GLSLProgram(vertexShader,fragmentShaderWithoutTexture);
 			rgbNoTransformProgram = new GLSLProgram(vertexShaderNoColor,fragmentShaderNoColor);
 			alphaNoTransformProgram = new GLSLProgram(vertexShaderNoColor,fragmentShaderAlphaNoColor);
 
@@ -478,7 +592,11 @@ void OpenGLDriver::endRenderToTexture(){
 		rgbProgram->setAttributeLocation("texcoordIN", attributes.texCoord);
 		rgbProgram->setAttributeLocation("colorIN", attributes.color);
 		rgbProgram->setAttributeLocation("colorOffsetIN", attributes.colorOffset);
-			
+
+		rgbWithoutTextureProgram->setAttributeLocation("position", attributes.vertices);
+		rgbWithoutTextureProgram->setAttributeLocation("colorIN", attributes.color);
+		rgbWithoutTextureProgram->setAttributeLocation("colorOffsetIN", attributes.colorOffset);
+
 			alphaProgram->setAttributeLocation("position", attributes.vertices);
 			alphaProgram->setAttributeLocation("texcoordIN", attributes.texCoord);
 			alphaProgram->setAttributeLocation("colorIN", attributes.color);
@@ -491,6 +609,7 @@ void OpenGLDriver::endRenderToTexture(){
 			alphaNoTransformProgram->setAttributeLocation("texcoordIN", attributes.texCoord);
 
 		rgbProgram->link();
+		rgbWithoutTextureProgram->link();
 		alphaProgram->link();
 		rgbNoTransformProgram->link();
 		alphaNoTransformProgram->link();

@@ -1,4 +1,5 @@
 #include "MeshDriverRenderer.h"
+#include "BaconBox/Console.h"
 
 #include "BaconBox/Core/IDManager.h"
 #include "BaconBox/Components/Mesh.h"
@@ -104,11 +105,15 @@ namespace BaconBox {
 								}
 							} else {
 								// We render without the texture.
-								throw "Not implemented yet";
+								Console::error("Rendering mesh with RenderMode::TEXTURE, but without texture not implemented.");
 							}
 						} else {
-							// We render the mesh with the given color.
-							throw "Not implemented yet";
+							graphicDriver->drawShapeWithColorColorOffset(
+										this->mesh->getPostTransformVertices(),
+										color, colorOffset,
+										(this->renderMode & RenderMode::BLENDED),
+										degenerationStride, degenerationJump
+										);
 						}
 					}
 				}

@@ -280,6 +280,40 @@ namespace BaconBox {
 		
 		return result;
 	}
+
+	MovieClipEntity *EntityFactory::getShapeRectangle(float w, float h, const Vector2 & origin, bool blend, float scale){
+		getInstance().internalGetShapeRectangle(w, h, origin, blend, scale);
+	}
+
+	MovieClipEntity *EntityFactory::internalGetShapeRectangle(float w, float h, const Vector2 & origin, bool blend, float scale){
+		MovieClipEntity *result = movieClipPool.create();
+		Mesh *mesh = new Mesh();
+
+		// Mesh vertices
+		//
+		// 0_____1
+		// |     |
+		// |     |
+		// |_____|
+		// 2     3
+		//
+		
+		mesh->getPreTransformVertices().resize(4);
+		mesh->getPreTransformVertices()[1].x = w * scale;
+		mesh->getPreTransformVertices()[2].y = h * scale;
+		mesh->getPreTransformVertices()[3].x = w * scale;
+		mesh->getPreTransformVertices()[3].y = h * scale;
+		mesh->getPreTransformVertices().move(origin.x * scale, origin.y * scale);
+		
+		result->addComponent(mesh);
+		
+		result->addComponent(new MeshDriverRenderer(
+								 RenderMode::SHAPE | RenderMode::COLOR |
+								 RenderMode::COLOR_TRANSORMED | (blend ? RenderMode::BLENDED : RenderMode::NONE)
+								 ));
+		
+		return result;
+	}
 #endif
 	
 }
