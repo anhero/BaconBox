@@ -116,6 +116,9 @@ namespace BaconBox {
 							   bool blend, int degenerationStride, int degenerationJump,
 							   bool colorTransform = false);
 
+		/// Handles the common behaviour of making the internal shaders.
+		inline GLSLProgram * internalMakeProgram(std::string vertexShader, std::string fragmentShader, bool hasColorTransform = true);
+
 		bool shaderCompiled;
 		bool textureFBOInitialized;
 

@@ -403,134 +403,111 @@ namespace BaconBox {
 
 		if(!shaderCompiled){
 			shaderCompiled = true;
-		std::string coreVertexShader =
-		"uniform mat4 projection;\
-		uniform mat4 modelView;\
-		\
-		attribute vec2 position;\
-		attribute vec2 texcoordIN;\
-		attribute vec4 colorOffsetIN;\
-		attribute vec4 colorIN;\
-		varying vec2 texcoord;\
-		varying vec4 colorOffset;\
-		varying vec4 color;\
-		void main(void) {\
-		mat4 modelViewProjection = (projection * modelView);\
-		texcoord = texcoordIN;\
-		colorOffset = colorOffsetIN;\
-		color = colorIN;\
-		gl_Position =   modelViewProjection * vec4(position, 0.0, 1.0);\
-		}";
 
+			std::string vertexShader =
+			"uniform mat4 projection;\
+			uniform mat4 modelView;\
+			\
+			attribute vec2 position;\
+			attribute vec2 texcoordIN;\
+			attribute vec4 colorOffsetIN;\
+			attribute vec4 colorIN;\
+			varying vec2 texcoord;\
+			varying vec4 colorOffset;\
+			varying vec4 color;\
+			void main(void) {\
+			mat4 modelViewProjection = (projection * modelView);\
+			texcoord = texcoordIN;\
+			colorOffset = colorOffsetIN;\
+			color = colorIN;\
+			gl_Position =   modelViewProjection * vec4(position, 0.0, 1.0);\
+			}";
 
-		std::string coreVertexNoColorShader =
-		"uniform mat4 projection;\
-		uniform mat4 modelView;\
-		\
-		attribute vec2 position;\
-		attribute vec2 texcoordIN;\
-		varying vec2 texcoord;\
-		void main(void) {\
-		mat4 modelViewProjection = (projection * modelView);\
-		texcoord = texcoordIN;\
-		gl_Position =   modelViewProjection * vec4(position, 0.0, 1.0);\
-		}";
+			std::string vertexShaderNoColor =
+			"uniform mat4 projection;\
+			uniform mat4 modelView;\
+			\
+			attribute vec2 position;\
+			attribute vec2 texcoordIN;\
+			varying vec2 texcoord;\
+			void main(void) {\
+			mat4 modelViewProjection = (projection * modelView);\
+			texcoord = texcoordIN;\
+			gl_Position =   modelViewProjection * vec4(position, 0.0, 1.0);\
+			}";
 
+			std::string fragmentShaderAlpha =
+			"uniform bool  alphaFormat;\
+			uniform sampler2D  tex;\
+			varying vec2 texcoord;\
+			varying vec4 colorOffset;\
+			varying vec4 color;\
+			void main(void) {\
+			vec4 texColor = texture2D(tex, texcoord);\
+			texColor = vec4(vec3(1.0), texColor.a); \
+			gl_FragColor = (texColor * color) +colorOffset;\
+			}";
 
-		std::string coreFragmentShaderAlpha =
-		"uniform bool  alphaFormat;\
-		uniform sampler2D  tex;\
-		varying vec2 texcoord;\
-		varying vec4 colorOffset;\
-		varying vec4 color;\
-		void main(void) {\
-		vec4 texColor = texture2D(tex, texcoord);\
-		texColor = vec4(vec3(1.0), texColor.a); \
-		gl_FragColor = (texColor * color) +colorOffset;\
-		}";
+			std::string fragmentShaderAlphaNoColor =
+			"uniform bool  alphaFormat;\
+			uniform sampler2D  tex;\
+			varying vec2 texcoord;\
+			void main(void) {\
+			vec4 texColor = texture2D(tex, texcoord);\
+			texColor = vec4(vec3(1.0), texColor.a); \
+			gl_FragColor = (texColor);\
+			}";
 
-		std::string coreFragmentShaderAlphaNoColor =
-		"uniform bool  alphaFormat;\
-		uniform sampler2D  tex;\
-		varying vec2 texcoord;\
-		void main(void) {\
-		vec4 texColor = texture2D(tex, texcoord);\
-		texColor = vec4(vec3(1.0), texColor.a); \
-		gl_FragColor = (texColor);\
-		}";
+			std::string fragmentShaderNoColor =
+			"uniform bool  alphaFormat;\
+			uniform sampler2D  tex;\
+			varying vec2 texcoord;\
+			void main(void) {\
+			vec4 texColor = texture2D(tex, texcoord);\
+			gl_FragColor = texColor;\
+			}";
 
+			std::string fragmentShader =
+			"uniform bool  alphaFormat;\
+			uniform sampler2D  tex;\
+			varying vec2 texcoord;\
+			varying vec4 colorOffset;\
+			varying vec4 color;\
+			void main(void) {\
+			vec4 texColor = texture2D(tex, texcoord);\
+			gl_FragColor = (texColor * color) +colorOffset;\
+			}";
 
-
-		std::string coreFragmentShaderNoColor =
-		"uniform bool  alphaFormat;\
-		uniform sampler2D  tex;\
-		varying vec2 texcoord;\
-		void main(void) {\
-		vec4 texColor = texture2D(tex, texcoord);\
-		gl_FragColor = texColor;\
-		}";
-
-
-		std::string coreFragmentShader =
-		"uniform bool  alphaFormat;\
-		uniform sampler2D  tex;\
-		varying vec2 texcoord;\
-		varying vec4 colorOffset;\
-		varying vec4 color;\
-		void main(void) {\
-		vec4 texColor = texture2D(tex, texcoord);\
-		gl_FragColor = (texColor * color) +colorOffset;\
-		}";
-
-		std::string coreFragmentShaderWithoutTexture =
-		"uniform bool  alphaFormat;\
-		varying vec4 colorOffset;\
-		varying vec4 color;\
-		void main(void) {\
-		gl_FragColor = color + colorOffset;\
-		}";
-
-
-
-		std::string vertexShaderNoColor;
-		std::string vertexShader;
-		std::string fragmentShaderAlpha;
-		std::string fragmentShaderAlphaNoColor;
-		std::string fragmentShaderNoColor;
-		std::string fragmentShader;
-		std::string fragmentShaderWithoutTexture;
+			std::string fragmentShaderWithoutTexture =
+			"uniform bool  alphaFormat;\
+			varying vec4 colorOffset;\
+			varying vec4 color;\
+			void main(void) {\
+			gl_FragColor = color + colorOffset;\
+			}";
 
 #ifdef BB_OPENGLES
-		std::string GLESPrecisionVertex = "precision highp float;\n";
-		std::string GLESPrecisionFragment = "precision highp float;\n";
-		vertexShaderNoColor += GLESPrecisionVertex;
-		vertexShader += GLESPrecisionVertex;
+			// For OpenGL ES, sets the float precision by prepending to all programs.
+			std::string GLESPrecisionVertex = "precision highp float;\n";
+			std::string GLESPrecisionFragment = "precision highp float;\n";
 
-		fragmentShaderAlpha += GLESPrecisionFragment;
-		fragmentShaderNoColor += GLESPrecisionFragment;
-		fragmentShader += GLESPrecisionFragment;
-		fragmentShaderWithoutTexture += GLESPrecisionFragment;
-		fragmentShaderAlphaNoColor += GLESPrecisionFragment;
+			vertexShaderNoColor.insert(0, GLESPrecisionVertex);
+			vertexShader       .insert(0, GLESPrecisionVertex);
 
+			fragmentShaderAlpha          .insert(0, GLESPrecisionFragment);
+			fragmentShaderNoColor        .insert(0, GLESPrecisionFragment);
+			fragmentShader               .insert(0, GLESPrecisionFragment);
+			fragmentShaderWithoutTexture .insert(0, GLESPrecisionFragment);
+			fragmentShaderAlphaNoColor   .insert(0, GLESPrecisionFragment);
 #endif
 
+			alphaProgram             = internalMakeProgram(vertexShader,       fragmentShaderAlpha);
+			rgbProgram               = internalMakeProgram(vertexShader,       fragmentShader);
+			rgbWithoutTextureProgram = internalMakeProgram(vertexShader,       fragmentShaderWithoutTexture);
+			rgbNoTransformProgram    = internalMakeProgram(vertexShaderNoColor,fragmentShaderNoColor, false);
+			alphaNoTransformProgram  = internalMakeProgram(vertexShaderNoColor,fragmentShaderAlphaNoColor, false);
 
-		vertexShaderNoColor += coreVertexNoColorShader;
-		vertexShader += coreVertexShader;
-		fragmentShaderAlpha += coreFragmentShaderAlpha;
-		fragmentShaderNoColor += coreFragmentShaderNoColor;
-		fragmentShader += coreFragmentShader;
-		fragmentShaderWithoutTexture += coreFragmentShaderWithoutTexture;
-		fragmentShaderAlphaNoColor += coreFragmentShaderAlphaNoColor;
-
-
-
-			alphaProgram = new GLSLProgram(vertexShader,fragmentShaderAlpha);
-			rgbProgram = new GLSLProgram(vertexShader,fragmentShader);
-			rgbWithoutTextureProgram = new GLSLProgram(vertexShader,fragmentShaderWithoutTexture);
-			rgbNoTransformProgram = new GLSLProgram(vertexShaderNoColor,fragmentShaderNoColor);
-			alphaNoTransformProgram = new GLSLProgram(vertexShaderNoColor,fragmentShaderAlphaNoColor);
-
+			// Default/first program.
 			program = rgbProgram;
 			program->use();
 
@@ -538,37 +515,9 @@ namespace BaconBox {
 			uniforms.projection = program->getUniformLocation("projection");
 			uniforms.modelView= program->getUniformLocation("modelView");
 
-			rgbProgram->setAttributeLocation("position", attributes.vertices);
-			rgbProgram->setAttributeLocation("texcoordIN", attributes.texCoord);
-			rgbProgram->setAttributeLocation("colorIN", attributes.color);
-			rgbProgram->setAttributeLocation("colorOffsetIN", attributes.colorOffset);
-
-			rgbWithoutTextureProgram->setAttributeLocation("position", attributes.vertices);
-			rgbWithoutTextureProgram->setAttributeLocation("texcoordIN", attributes.texCoord);
-			rgbWithoutTextureProgram->setAttributeLocation("colorIN", attributes.color);
-			rgbWithoutTextureProgram->setAttributeLocation("colorOffsetIN", attributes.colorOffset);
-
-			alphaProgram->setAttributeLocation("position", attributes.vertices);
-			alphaProgram->setAttributeLocation("texcoordIN", attributes.texCoord);
-			alphaProgram->setAttributeLocation("colorIN", attributes.color);
-			alphaProgram->setAttributeLocation("colorOffsetIN", attributes.colorOffset);
-
-			rgbNoTransformProgram->setAttributeLocation("position", attributes.vertices);
-			rgbNoTransformProgram->setAttributeLocation("texcoordIN", attributes.texCoord);
-
-			alphaNoTransformProgram->setAttributeLocation("position", attributes.vertices);
-			alphaNoTransformProgram->setAttributeLocation("texcoordIN", attributes.texCoord);
-
-			rgbProgram->link();
-			rgbWithoutTextureProgram->link();
-			alphaProgram->link();
-			rgbNoTransformProgram->link();
-			alphaNoTransformProgram->link();
-
 			program->sendUniform(uniforms.tex, 0);
 			program->sendUniform(uniforms.modelView, &(modelViewMatrix[0]));
 		}
-
 
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -595,8 +544,21 @@ namespace BaconBox {
 		int swapInterval = 1;
 		CGLSetParameter(CGLGetCurrentContext(), kCGLCPSwapInterval, &swapInterval);
 #endif
+	}
 
+	inline GLSLProgram * OpenGLDriver::internalMakeProgram(std::string vertexShader, std::string fragmentShader, bool hasColorTransform) {
+		GLSLProgram * program = new GLSLProgram(vertexShader, fragmentShader);
 
+		program->setAttributeLocation("position", attributes.vertices);
+		program->setAttributeLocation("texcoordIN", attributes.texCoord);
+		if (hasColorTransform) {
+			program->setAttributeLocation("colorIN", attributes.color);
+			program->setAttributeLocation("colorOffsetIN", attributes.colorOffset);
+		}
+
+		program->link();
+
+		return program;
 	}
 
 	void OpenGLDriver::tearGraphicDriver(){
