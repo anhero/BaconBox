@@ -348,7 +348,6 @@ namespace BaconBox {
 	}
 
 	void BaseEngine::registerSingleton(Singleton * singleton) {
-		PRLN("Registering...");
 		std::deque<Singleton * >::iterator
 			searchIt = std::find(singletons.begin(), singletons.end(), singleton);
 		if (searchIt != singletons.end()) {
