@@ -19,28 +19,39 @@ namespace BaconBox {
 
 		~DynamicBatch();
 
+		/// Resets the state of the batch for a clean new batch.
 		void prepareRender();
 		
-		void addItem(const VertexArray &newVertices, const TextureCoordinates &newTextureCoordinates, int degenerationStride = 4, int degenerationJump = -1);
+		/// Adds an item to the batch.
+		void addItem(const VertexArray &newVertices,
+					 const TextureCoordinates &newTextureCoordinates,
+					 int degenerationStride = 4, int degenerationJump = -1);
 
-		void addItem(const VertexArray &newVertices, const Color &newColor,
-					 const Color &newColorOffset, const TextureCoordinates &newTextureCoordinates, int degenerationStride = 4, int degenerationJump = -1);
+		/// Color-aware item adding to the batch
+		void addItem(const VertexArray &newVertices,
+					 const Color &newColor, const Color &newColorOffset,
+					 const TextureCoordinates &newTextureCoordinates,
+					 int degenerationStride = 4, int degenerationJump = -1);
 
+		/// Renders the current batch to the GraphicDriver.
 		void render(GraphicDriver *driver, const TextureInformation *textureInformation, bool blend);
 
-		bool isSingle() const;
+		// Unused?
+		//bool isSingle() const;
 
+		/// Gets the vertices for the current batch
 		const StandardVertexArray &getVertices() const;
+		/// Gets the texture coordinates for the current batch
 		const TextureCoordinates &getTextureCoordinates() const;
+		/// Gets the color for the current batch, assuming a single color.
 		const Color &getColor() const;
+
 	private:
-		
 		void createNextIndices(int size, int degenerationStride, int degenerationJump);
-		
 		void refreshIndices();
 
-		void initializeConnections();
-
+		// Unused?
+		//void initializeConnections();
 
 		StandardVertexArray vertices;
 
@@ -48,8 +59,8 @@ namespace BaconBox {
 
 		ColorArray colors;
         ColorArray colorOffsets;
-		IndiceArray indices;
 
+		IndiceArray indices;
 		IndiceArray::value_type indiceIterator;
 
 	};

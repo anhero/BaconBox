@@ -11,7 +11,6 @@ namespace BaconBox {
 		textureCoordinates.reserve(reserveSize);
 		vertices.reserve(reserveSize);
 		indices.reserve(reserveSize);
-	
 	}
 
 	DynamicBatch::~DynamicBatch() {
@@ -25,8 +24,9 @@ namespace BaconBox {
 		this->indices.resize(0);
 	}
 	
-	
-	void DynamicBatch::addItem(const VertexArray &newVertices, const TextureCoordinates &newTextureCoordinates, int degenerationStride, int degenerationJump) {
+	void DynamicBatch::addItem(const VertexArray &newVertices,
+							   const TextureCoordinates &newTextureCoordinates,
+							   int degenerationStride, int degenerationJump) {
 		int size = newVertices.getNbVertices();
 		
 		for(int i = 0; i< size; i++){
@@ -36,6 +36,20 @@ namespace BaconBox {
 		
 		createNextIndices(size, degenerationStride, degenerationJump);
 	}
+
+	void DynamicBatch::addItem(const VertexArray &newVertices,
+							   const Color &newColor, const Color &newColorOffset,
+							   const TextureCoordinates &newTextureCoordinates,
+							   int degenerationStride, int degenerationJump) {
+		// Only insert color-specific stuff here.
+		for(int i = 0; i < newVertices.getNbVertices(); i++){
+			colors.push_back(newColor);
+			colorOffsets.push_back(newColorOffset);
+		}
+		// Everything else is handed out to the other addItem()
+		addItem(newVertices, newTextureCoordinates, degenerationStride, degenerationJump);
+	}
+
 	void DynamicBatch::createNextIndices(int size, int degenerationStride, int degenerationJump){
 		this->indices.push_back(indiceIterator);
 		bool skipDegeneration = (degenerationStride >= size || degenerationStride == 0);
@@ -57,28 +71,10 @@ namespace BaconBox {
 			}
 			i = indiceIterator;
 		}
-		
-			this->indices.push_back(indiceIterator);
-			this->indices.push_back(++indiceIterator);
-		
-	}
-	
-	void DynamicBatch::addItem(const VertexArray &newVertices, const Color &newColor,
-                            const Color &newColorOffset, const TextureCoordinates &newTextureCoordinates, int degenerationStride, int degenerationJump) {
-		int size = newVertices.getNbVertices();
-
-            for(int i = 0; i<size; i++){
-				this->colors.push_back(newColor);
-				colorOffsets.push_back(newColorOffset);
-				vertices.pushBack(newVertices[i]);
-				textureCoordinates.push_back(newTextureCoordinates[i]);
-            }
-		
-		createNextIndices(size, degenerationStride, degenerationJump);
+		this->indices.push_back(indiceIterator);
+		this->indices.push_back(++indiceIterator);
 	}
 
-	
-	
 	void DynamicBatch::render(GraphicDriver *driver, const TextureInformation *textureInformation, bool blend) {
 		this->indices.pop_back();
 		indiceIterator = 0;
@@ -89,8 +85,6 @@ namespace BaconBox {
 			driver->drawBatchWithTexture(this->vertices, textureInformation, this->textureCoordinates, this->indices, blend);
 		}
     }
-
-
 
 	const StandardVertexArray &DynamicBatch::getVertices() const {
 		return this->vertices;
