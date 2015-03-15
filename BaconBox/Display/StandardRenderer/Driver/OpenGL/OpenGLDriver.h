@@ -109,6 +109,13 @@ namespace BaconBox {
 		void finalizeRender();
 
 	private:
+
+		/// Common behaviour between draw__() functions.
+		void internalDrawShape(const VertexArray &vertices,
+							   const TextureInformation *textureInformation, const TextureCoordinates &textureCoordinates,
+							   bool blend, int degenerationStride, int degenerationJump,
+							   bool colorTransform = false);
+
 		bool shaderCompiled;
 		bool textureFBOInitialized;
 
@@ -205,6 +212,9 @@ namespace BaconBox {
 		
 		/// Whether the last shape had a color transform.
 		bool lastShapeColorTransform;
+
+		// Used to represent informations when no texture is applied.
+		TextureInformation *noTexture;
 
 		/**
 		 * Default constructor.

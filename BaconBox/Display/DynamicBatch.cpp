@@ -30,11 +30,19 @@ namespace BaconBox {
 							   int degenerationStride, int degenerationJump) {
 		int size = newVertices.getNbVertices();
 		
-		for(int i = 0; i< size; i++){
-			vertices.pushBack(newVertices[i]);
-			textureCoordinates.push_back(newTextureCoordinates[i]);
+		if (newTextureCoordinates.size() > 0) {
+			for (int i = 0; i< size; i++){
+				vertices.pushBack(newVertices[i]);
+				textureCoordinates.push_back(newTextureCoordinates[i]);
+			}
 		}
-		
+		else {
+			// Mainly for textureless shapes.
+			for (int i = 0; i< size; i++){
+				vertices.pushBack(newVertices[i]);
+			}
+		}
+
 		createNextIndices(size, degenerationStride, degenerationJump);
 	}
 
