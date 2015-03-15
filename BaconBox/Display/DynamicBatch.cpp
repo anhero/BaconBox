@@ -78,12 +78,9 @@ namespace BaconBox {
 
 	void DynamicBatch::render(GraphicDriver *driver, const TextureInformation *textureInformation, bool blend) {
 		this->indices.pop_back();
-		if(colors.size()){
-			driver->drawBatchWithTextureColorColorOffset(this->vertices, textureInformation, this->textureCoordinates, this->indices, this->colors, this->colorOffsets, blend);
-		}
-		else {
-			driver->drawBatchWithTexture(this->vertices, textureInformation, this->textureCoordinates, this->indices, blend);
-		}
+
+		// Let the driver handle the differing cases
+		driver->drawBatch(this, textureInformation, blend);
     }
 
 	const StandardVertexArray &DynamicBatch::getVertices() const {
@@ -92,6 +89,18 @@ namespace BaconBox {
 
 	const TextureCoordinates &DynamicBatch::getTextureCoordinates() const {
 		return this->textureCoordinates;
+	}
+
+	const IndiceArray &DynamicBatch::getIndices() const {
+		return this->indices;
+	}
+
+	const ColorArray &DynamicBatch::getColors() const {
+		return this->colors;
+	}
+
+	const ColorArray &DynamicBatch::getColorOffsets() const {
+		return this->colorOffsets;
 	}
 
 	const Color &DynamicBatch::getColor() const {

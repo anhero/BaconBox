@@ -53,20 +53,8 @@ namespace BaconBox {
                                            bool blend, int degenerationStride, int degenerationJump);
 
 
-		void drawBatchWithTexture(const VertexArray &vertices,
-								  const TextureInformation *textureInformation,
-								  const TextureCoordinates &textureCoordinates,
-								  const IndiceArray &indices,
-								  bool blend);
-		
-        void drawBatchWithTextureColorColorOffset(const VertexArray &vertices,
-												  const TextureInformation *textureInformation,
-												  const TextureCoordinates &textureCoordinates,
-												  const IndiceArray &indices,
-												  const ColorArray &colors,
-												  const ColorArray &colorOffsets, bool blend);
+		void drawBatch(const DynamicBatch *batch, const TextureInformation *texInfo, const bool blend);
 
-		
 		void initializeGraphicDriver();
 
 		/**

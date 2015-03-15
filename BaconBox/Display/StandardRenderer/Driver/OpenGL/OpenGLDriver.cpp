@@ -169,153 +169,104 @@ namespace BaconBox {
 		lastShapeColorTransform = true;
 	}
 
-	void OpenGLDriver::drawBatchWithTexture(const VertexArray &vertices,
-	const TextureInformation *textureInformation,
-	const TextureCoordinates &textureCoordinates,
-	const IndiceArray &indices,
-	bool blend){
 
+	void OpenGLDriver::drawBatch(const DynamicBatch *batch, const TextureInformation *textureInformation, const bool blend) {
+
+		const IndiceArray &indices = batch->getIndices();
+
+		// Whether we need color transforms
+		bool withColorTransforms = ( batch->getColors().size() > 0 );
+
+		// Sets up the new states
 		currentGPUState.textureID = textureInformation->textureId;
-		currentGPUState.textureCoordinates = GET_TEX_PTR_BATCH(textureCoordinates, 0);
-		currentGPUState.vertices = GET_PTR_BATCH(vertices, 0);
+		currentGPUState.textureCoordinates = GET_TEX_PTR_BATCH(batch->getTextureCoordinates(), 0);
+		currentGPUState.vertices = GET_PTR_BATCH(batch->getVertices(), 0);
 		currentGPUState.format = textureInformation->colorFormat;
 		currentGPUState.blend = blend;
-		
-		bool wrongProgram  = (program != rgbNoTransformProgram && program != alphaNoTransformProgram);
-		if(! (currentGPUState.format == lastGPUState.format) || wrongProgram){
-			if(wrongProgram){
-				glDisableVertexAttribArray(attributes.colorOffset);
-				glDisableVertexAttribArray(attributes.color);
+
+		if (withColorTransforms) {
+			currentGPUState.colors = GET_TEX_PTR_BATCH(batch->getColors(), 0);
+			currentGPUState.colorOffsets = GET_TEX_PTR_BATCH(batch->getColorOffsets(), 0);
+		}
+
+		// Shader program handling
+		{
+			// First, handle selecting the right program.
+
+			// Default programs, without color transforms
+			GLSLProgram *localRGBA  = rgbNoTransformProgram;
+			GLSLProgram *localAlpha = alphaNoTransformProgram;
+
+			// If we need the color transforms, select those programs
+			if (withColorTransforms) {
+				localRGBA = rgbProgram;
+				localAlpha = alphaProgram;
 			}
-			
-			lastGPUState.format = currentGPUState.format;
-			if(textureInformation->colorFormat == ColorFormat::ALPHA){
-				program = alphaNoTransformProgram;
+
+			// Check whether we need to change and reset the programs
+			bool wrongProgramType = (program != localRGBA && program != localAlpha);
+			// Whether the program needs to change
+			bool programChanging = ((currentGPUState.format != lastGPUState.format) || wrongProgramType);
+
+			if (programChanging) {
+				// Prepare the vertex attributes
+				if (wrongProgramType) {
+					if (withColorTransforms) {
+						glEnableVertexAttribArray(attributes.colorOffset);
+						glEnableVertexAttribArray(attributes.color);
+					}
+					else {
+						glDisableVertexAttribArray(attributes.colorOffset);
+						glDisableVertexAttribArray(attributes.color);
+					}
+				}
+
+				// Choose the appropriate program
+				if (textureInformation->colorFormat == ColorFormat::ALPHA) {
+					program = localAlpha;
+				}
+				else {
+					program = localRGBA;
+				}
+
+				// Lastly, prepare the program for use.
 				program->use();
-				
-			}
-			else{
-				program = rgbNoTransformProgram;
-				program->use();
-			}
-    		program->sendUniform(uniforms.tex, 0);
-			program->sendUniform(uniforms.projection, &(projectionMatrix[0]));
-			program->sendUniform(uniforms.modelView, &(modelViewMatrix[0]));
-
-		}
-		if(lastGPUState.blend != currentGPUState.blend){
-			if(blend){
-				glEnable(GL_BLEND);
-				
-			}
-			else{
-				glDisable(GL_BLEND);
-			}
-			lastGPUState.blend = currentGPUState.blend;
-		}
-		
-		if(! (currentGPUState.textureID == lastGPUState.textureID) ){
-			lastGPUState.textureID = currentGPUState.textureID;
-			glBindTexture(GL_TEXTURE_2D, textureInformation->textureId);
-		}
-		if(! (currentGPUState.textureCoordinates == lastGPUState.textureCoordinates) ){
-			lastGPUState.textureCoordinates = currentGPUState.textureCoordinates;
-			glVertexAttribPointer(attributes.texCoord, 2, GL_FLOAT, GL_FALSE, 0, currentGPUState.textureCoordinates);
-		}
-		if(! (currentGPUState.vertices == lastGPUState.vertices) ){
-			lastGPUState.vertices = currentGPUState.vertices;
-			glVertexAttribPointer(attributes.vertices, 2, GL_FLOAT, GL_FALSE, 0, currentGPUState.vertices);
-		}
-		if(! (currentGPUState.colors == lastGPUState.colors) ){
-			lastGPUState.colors = currentGPUState.colors;
-			glVertexAttribPointer(attributes.color, 4, GL_FLOAT, GL_FALSE, 0,  currentGPUState.colors);
-		}
-		if(! (currentGPUState.colorOffsets == lastGPUState.colorOffsets) ){
-			lastGPUState.colorOffsets = currentGPUState.colorOffsets;
-			glVertexAttribPointer(attributes.colorOffset, 4, GL_FLOAT, GL_FALSE, 0, currentGPUState.colorOffsets);
-		}
-		
-		glDrawElements(GL_TRIANGLE_STRIP, indices.size(), GL_UNSIGNED_SHORT, &(indices[0]));
-
-		
-	}
-
-	void OpenGLDriver::drawBatchWithTextureColorColorOffset(const VertexArray &vertices,
-		                                  const TextureInformation *textureInformation,
-		                                  const TextureCoordinates &textureCoordinates,
-		                                  const IndiceArray &indices,
-		                                  const ColorArray &colors,
-		                                  const ColorArray &colorOffsets, bool blend){
-		
-			currentGPUState.textureID = textureInformation->textureId;
-			currentGPUState.textureCoordinates = GET_TEX_PTR_BATCH(textureCoordinates, 0);
-			currentGPUState.vertices = GET_PTR_BATCH(vertices, 0);
-			currentGPUState.colors = GET_TEX_PTR_BATCH(colors, 0);
-			currentGPUState.colorOffsets = GET_TEX_PTR_BATCH(colorOffsets, 0);
-			currentGPUState.format = textureInformation->colorFormat;
-			currentGPUState.blend = blend;
-
-				
-		bool notRGBOrAlpha  = (program != rgbProgram && program != alphaProgram);
-			if(! (currentGPUState.format == lastGPUState.format) || notRGBOrAlpha){
-
-							// PRLN("drawBatchWithTextureColorColorOffset 3");
-
-				if(notRGBOrAlpha){
-					glEnableVertexAttribArray(attributes.colorOffset);
-					glEnableVertexAttribArray(attributes.color);
-				}
-				lastGPUState.format = currentGPUState.format;
-				if(textureInformation->colorFormat == ColorFormat::ALPHA){
-					program = alphaProgram;
-					program->use();
-					
-				}
-				else{
-					program = rgbProgram;
-					program->use();
-				}
-
 				program->sendUniform(uniforms.tex, 0);
 				program->sendUniform(uniforms.projection, &(projectionMatrix[0]));
 				program->sendUniform(uniforms.modelView, &(modelViewMatrix[0]));
 
+			}
+		}
 
-			}
-			if(lastGPUState.blend != currentGPUState.blend){
-				if(blend){
-					glEnable(GL_BLEND);
+		// Synchronizing states.
 
-				}
-				else{
-					glDisable(GL_BLEND);
-				}
-				lastGPUState.blend = currentGPUState.blend;
-			}
-			
-			if(! (currentGPUState.textureID == lastGPUState.textureID) ){
-				lastGPUState.textureID = currentGPUState.textureID;
-				glBindTexture(GL_TEXTURE_2D, textureInformation->textureId);
-			}
-			if(! (currentGPUState.textureCoordinates == lastGPUState.textureCoordinates) ){
-				lastGPUState.textureCoordinates = currentGPUState.textureCoordinates;
-				glVertexAttribPointer(attributes.texCoord, 2, GL_FLOAT, GL_FALSE, 0, currentGPUState.textureCoordinates);
-			}
-			if(! (currentGPUState.vertices == lastGPUState.vertices) ){
-				lastGPUState.vertices = currentGPUState.vertices;
-				glVertexAttribPointer(attributes.vertices, 2, GL_FLOAT, GL_FALSE, 0, currentGPUState.vertices);
-			}
-			if(! (currentGPUState.colors == lastGPUState.colors) ){
-				lastGPUState.colors = currentGPUState.colors;
-				glVertexAttribPointer(attributes.color, 4, GL_FLOAT, GL_FALSE, 0,  currentGPUState.colors);
-			}
-			if(! (currentGPUState.colorOffsets == lastGPUState.colorOffsets) ){
-				lastGPUState.colorOffsets = currentGPUState.colorOffsets;
-				glVertexAttribPointer(attributes.colorOffset, 4, GL_FLOAT, GL_FALSE, 0, currentGPUState.colorOffsets);
-			}
+		if (lastGPUState.blend != currentGPUState.blend) {
+			if (blend) { glEnable(GL_BLEND); }
+			else { glDisable(GL_BLEND); }
+		}
 
-			glDrawElements(GL_TRIANGLE_STRIP, indices.size(), GL_UNSIGNED_SHORT, &(indices[0]));
-  }
+		if (currentGPUState.textureID != lastGPUState.textureID) {
+			glBindTexture(GL_TEXTURE_2D, currentGPUState.textureID);
+		}
+		if (currentGPUState.textureCoordinates != lastGPUState.textureCoordinates) {
+			glVertexAttribPointer(attributes.texCoord, 2, GL_FLOAT, GL_FALSE, 0, currentGPUState.textureCoordinates);
+		}
+		if (currentGPUState.vertices != lastGPUState.vertices) {
+			glVertexAttribPointer(attributes.vertices, 2, GL_FLOAT, GL_FALSE, 0, currentGPUState.vertices);
+		}
+		if (currentGPUState.colors != lastGPUState.colors) {
+			glVertexAttribPointer(attributes.color,    4, GL_FLOAT, GL_FALSE, 0, currentGPUState.colors);
+		}
+		if (currentGPUState.colorOffsets != lastGPUState.colorOffsets) {
+			glVertexAttribPointer(attributes.colorOffset, 4, GL_FLOAT, GL_FALSE, 0, currentGPUState.colorOffsets);
+		}
+
+		lastGPUState = currentGPUState;
+
+		// Drawing the batch.
+		glDrawElements(GL_TRIANGLE_STRIP, indices.size(), GL_UNSIGNED_SHORT, &(indices[0]));
+
+	}
 
 	void OpenGLDriver::prepareScene(const Vector2 &position, float angle,
 	                                const Vector2 &zoom,

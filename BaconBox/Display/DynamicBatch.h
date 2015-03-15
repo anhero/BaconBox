@@ -39,10 +39,20 @@ namespace BaconBox {
 		// Unused?
 		//bool isSingle() const;
 
-		/// Gets the vertices for the current batch
+		/// Gets the vertices for the current batch.
 		const StandardVertexArray &getVertices() const;
-		/// Gets the texture coordinates for the current batch
+		/// Gets the texture coordinates for the current batch.
 		const TextureCoordinates &getTextureCoordinates() const;
+
+		/// Gets the indices array for the current batch.
+		const IndiceArray &getIndices() const;
+
+		/// Gets the Color array for the current batch.
+		const ColorArray &getColors() const;
+
+		/// Gets the Color Offsets for the current batch.
+		const ColorArray &getColorOffsets() const;
+
 		/// Gets the color for the current batch, assuming a single color.
 		const Color &getColor() const;
 

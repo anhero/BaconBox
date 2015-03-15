@@ -13,6 +13,8 @@
 
 #include "BaconBox/Core/Singleton.h"
 
+#include "BaconBox/Display/DynamicBatch.h"
+
 namespace BaconBox {
 	class VertexArray;
 	struct TextureInformation;
@@ -55,23 +57,10 @@ namespace BaconBox {
                                                    const Color &colorOffset,
                                                    bool blend, int degenerationStride, int degenerationJump) = 0;
 
-		virtual void drawBatchWithTexture(const VertexArray &vertices,
-								  const TextureInformation *textureInformation,
-								  const TextureCoordinates &textureCoordinates,
-								  const IndiceArray &indices,
-								  bool blend) = 0;
+		/// Handles drawing a batch with whatever methods needed.
+		virtual void drawBatch(const DynamicBatch *batch, const TextureInformation *texInfo, const bool blend) = 0;
 
-		
 		virtual void resetProjection() = 0;
-
-		
-        virtual void drawBatchWithTextureColorColorOffset(const VertexArray &vertices,
-												  const TextureInformation *textureInformation,
-												  const TextureCoordinates &textureCoordinates,
-												  const IndiceArray &indices,
-												  const ColorArray &colors,
-												  const ColorArray &colorOffsets, bool blend) = 0;
-
 
 		/**
 		 * Prepare the scene before rendering object.
