@@ -22,6 +22,7 @@ namespace BaconBox {
 		this->colors.resize(0);
 		this->colorOffsets.resize(0);
 		this->indices.resize(0);
+		indiceIterator = 0;
 	}
 	
 	void DynamicBatch::addItem(const VertexArray &newVertices,
@@ -77,7 +78,6 @@ namespace BaconBox {
 
 	void DynamicBatch::render(GraphicDriver *driver, const TextureInformation *textureInformation, bool blend) {
 		this->indices.pop_back();
-		indiceIterator = 0;
 		if(colors.size()){
 			driver->drawBatchWithTextureColorColorOffset(this->vertices, textureInformation, this->textureCoordinates, this->indices, this->colors, this->colorOffsets, blend);
 		}
