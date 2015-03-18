@@ -11,7 +11,7 @@ library.builder = make_step do
 	command = ["make"]
 	command << "CXX=#{@library.options.CXX.join(" ")}" if @library.options.CXX.length > 0
 	command << "CXXFLAGS=\"-I./include/"
-	command << "-stdlib=libstdc++" if (OS.osx? and $options.platform == nil)
+	command << "-stdlib=libstdc++" if (OS.osx? and $libbuildtool_params == nil)
 
 	Exec.run command
 
