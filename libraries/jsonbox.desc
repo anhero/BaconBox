@@ -13,7 +13,7 @@ library.builder = make_step do
 	command << "CXXFLAGS=\"-I./include/"
 	command << "-stdlib=libstdc++" if (OS.osx? and $libbuildtool_params.platform == nil)
 
-	Exec.run command
+	Exec.run *command
 
 	# FIXME : calls to cp should be handled with FileUtils...
 	FileUtils.mkdir_p "#{prefix}/lib"
