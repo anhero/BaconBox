@@ -33,6 +33,8 @@ namespace BaconBox {
 		void receiveMessage(int senderID, int destID, int message, void *data);
 		void initializeConnections();
 		void refreshPoints();
+		void setCrossOffset(float crossOffset);
+
 		void update();
 		std::vector<Vector2> & getPoints();
 	private:

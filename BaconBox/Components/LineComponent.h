@@ -15,7 +15,10 @@ namespace BaconBox {
 		virtual void addPoint(const Vector2 & point) = 0;
 		virtual void setPatternSpacing(float patternSpacing) = 0;
 		virtual void setTextureHeadStart(float textureHeadStart) = 0;
+		virtual void setCrossOffset(float crossOffset) = 0;
+
 //		virtual void setSegmentHeadStart(float segmentHeadStart) = 0;
+
 		virtual float getTextureHeadStartAt(int index) = 0;
 //		virtual float getSegmentHeadStartAt(int index) = 0;
 		virtual void refreshPoints() = 0;
@@ -39,6 +42,7 @@ namespace BaconBox {
 //		float getSegmentHeadStartAt(int index);
 		void setPatternSpacing(float patternSpacing);
 		void setTextureHeadStart(float textureHeadStart);
+		void setCrossOffset(float crossOffset);
 //		void setSegmentHeadStart(float segmentHeadStart);
 		void refreshPoints();
 	protected:

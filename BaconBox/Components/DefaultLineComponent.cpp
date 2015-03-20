@@ -78,6 +78,11 @@ namespace BaconBox {
 		return points;
 	}
 
+	void DefaultLineComponent::setCrossOffset(float crossOffset){
+		crossSectionOffset = crossOffset; 
+	}
+
+
 
 	void DefaultLineComponent::refreshPoints(){
 		if (points.size() < 2) return;
