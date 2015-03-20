@@ -50,7 +50,9 @@ namespace BaconBox {
 	std::vector<Vector2> & LineComponentProxy::getPoints(){
 		return reinterpret_cast<LineComponent *>(component)->getPoints();
 	}
-
+	void LineComponentProxy::clearPoints(){
+		reinterpret_cast<LineComponent *>(component)->clearPoints();
+	}
 	
 	int LineComponentProxy::getPointCount(){
 		return reinterpret_cast<LineComponent *>(component)->getPointCount();

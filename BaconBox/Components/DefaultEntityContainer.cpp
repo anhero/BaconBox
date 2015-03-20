@@ -311,13 +311,16 @@ namespace BaconBox {
 				toDelete.insert(*j);
 			}
 	    }
+
 	    for(std::set<MovieClipEntity*>::iterator i = toDelete.begin(); i != toDelete.end(); i++){
+            this->removeChild(*i);
             delete (*i);
         }
 	}
 
 	void DefaultEntityContainer::removeAllChildren(){
 	    children.clear();
+        frameIterator = children.begin();
 	}
 
 	MovieClipEntity *DefaultEntityContainer::removeChildAt(int index) {

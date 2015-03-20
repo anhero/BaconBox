@@ -34,7 +34,7 @@ namespace BaconBox {
 		void initializeConnections();
 		void refreshPoints();
 		void setCrossOffset(float crossOffset);
-
+		void clearPoints();
 		void update();
 		std::vector<Vector2> & getPoints();
 	private:

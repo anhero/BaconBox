@@ -67,6 +67,9 @@ namespace BaconBox {
 		virtual MovieClipEntity * getParent() const = 0;
 
 
+		virtual void deleteAllChildren() = 0;
+		virtual void removeAllChildren() = 0;
+
 	private:
 	};
 
@@ -102,7 +105,9 @@ namespace BaconBox {
 
 		MovieClipEntity *removeChild(MovieClipEntity *child);
 
+		void deleteAllChildren();
 
+		void removeAllChildren();
 
 
 		MovieClipEntity *removeChildAt(int index);
