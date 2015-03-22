@@ -40,8 +40,9 @@ namespace BaconBox {
 
 		/**
 		 * Touchscreen specifics
+		 * Returns true when touch events are happening.
 		 */
-		void updateTouchScreen();
+		bool updateTouchScreen();
 
 		/**
 		 * List of SDL IDs in relationship of BaconBox pointers, for the last

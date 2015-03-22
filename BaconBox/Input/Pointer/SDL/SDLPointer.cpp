@@ -23,6 +23,15 @@ SDLPointer::~SDLPointer() {
 }
 
 void SDLPointer::updateDevice() {
+	// Touch screen event handling
+	if (hasTouchscreen) {
+		// Overrides mouse inputs when touching, otherwise the mouse works fine.
+		if (updateTouchScreen()) {
+			return;
+		}
+	}
+
+	// Mouse event handling
 	getCursorPreviousButtons(0) = getCursorButtons(0);
 	getCursorPreviousPosition(0) = getCursorPosition(0);
 	int x, y; // For the mouse position.
@@ -51,30 +60,33 @@ void SDLPointer::updateDevice() {
 	if(hasMoved()) {
 		Pointer::move.shoot(PointerSignalData(state, 0));
 	}
-
-	// Touch screen event handling
-	if (hasTouchscreen) {
-		updateTouchScreen();
-	}
 }
 
-void SDLPointer::updateTouchScreen() {
+bool SDLPointer::updateTouchScreen() {
 	// Wrongly, but ususally rightly, assume one touchscreen
 	SDL_TouchID touchscreenID = SDL_GetTouchDevice(0);
 	if (!touchscreenID) {
 		Console__error(SDL_GetError());
-		return;
+		return false;
 	}
 
 	// Check the number of fingers currently active.
 	// Used to track if a new finger is pressed or an old finger is released.
 	int num_active_touches = SDL_GetNumTouchFingers(touchscreenID);
 
+	if (!num_active_touches and !touchCache.size()) {
+		// No touches, return early to not override the last clicks.
+		return false;
+	}
+
 	// Build the set of current touches.
 	// Used to determine what's new and what's gone.
-	std::set<SDL_FingerID> currTouches;
+	std::map<SDL_FingerID, SDL_Finger*> currTouches;
 	for (int i = 0; i < num_active_touches; i++) {
-		currTouches.insert(SDL_GetTouchFinger(touchscreenID, i)->id);
+		currTouches.insert(std::pair<SDL_FingerID, SDL_Finger*>(
+				SDL_GetTouchFinger(touchscreenID, i)->id,
+				SDL_GetTouchFinger(touchscreenID, i)
+				));
 	}
 
 	// Map of removed touches
@@ -89,14 +101,14 @@ void SDLPointer::updateTouchScreen() {
 	}
 	// Map of added touches
 	std::map<SDL_FingerID, unsigned int> addedTouches;
-	for (std::set<SDL_FingerID>::iterator it=currTouches.begin();
+	for (std::map<SDL_FingerID, SDL_Finger*>::iterator it=currTouches.begin();
 		 it!=currTouches.end(); ++it) {
 		if (availIDs.size() > 0) {
-			if (!touchCache.count(*it)) {
+			if (!touchCache.count(it->first)) {
 				unsigned int id = *(availIDs.begin());
 				availIDs.erase(id);
 				addedTouches.insert(std::pair<SDL_FingerID, unsigned int>(
-					(*it), id
+					(it->first), id
 				));
 			}
 		}
@@ -136,8 +148,8 @@ void SDLPointer::updateTouchScreen() {
 	// Update the cursor positions with all touches
 	for (std::map<SDL_FingerID, unsigned int>::iterator it=touchCache.begin();
 		 it!=touchCache.end(); ++it) {
-			int x,y = 0;
-			Vector2 pos = Vector2(x, y);
+			SDL_Finger* finger = currTouches.find(it->first)->second;
+			Vector2 pos = Vector2(finger->x, finger->y);
 			setCursorPosition(it->second, pos);
 	}
 
@@ -156,6 +168,5 @@ void SDLPointer::updateTouchScreen() {
 			Pointer::move.shoot(PointerSignalData(state, i));
 		}
 	}
-
-
+	return true;
 }
