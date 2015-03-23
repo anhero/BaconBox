@@ -53,7 +53,7 @@ namespace BaconBox {
 	
 	MovieClipEntity *EntityFactory::getMovieClipEntity(const std::string &key, bool autoPlay) {
 		MovieClipEntity * temp = getInstance().internalGetMovieClipEntity(key, autoPlay);
-		if(temp->getSymbol() == NULL){
+		if (temp && temp->getSymbol() == NULL){
 			ResourceManager::addSymbol(key);
 		}
 		return temp; 
@@ -101,9 +101,11 @@ namespace BaconBox {
 			else{
 				entity = getMovieClipEntityFromSubTexture(ResourceManager::getSubTexture(key));
 			}
+#ifdef BB_DEBUG
 			if(!entity){
-				Console__error("EntityFactory::getMovieClipEntity can't return entity with key: " << key);
+				PRLN("[Warning] EntityFactory::getMovieClipEntity() can't return entity with key: " << key);
 			}
+#endif
 			return entity;
 			//		SubTextureInfo* subTex = ResourceManager::getSubTexture(key);
 			//		return getMovieClipEntityFromSubTexture(subTex);

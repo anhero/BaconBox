@@ -2,7 +2,6 @@ library = Library.new(name: "zlib", version: "1.2.8")
 library.license   = Licenses::Zlib
 library.archive   = "#{library.name}-#{library.version}.tar.gz"
 library.url       = "http://downloads.sourceforge.net/sourceforge/libpng/#{library.archive}"
-library.fetcher   = Fetcher::HTTP(library.url)
 library.verifier  = Verifier::MD5("44d667c142d7cda120332623eab69f40") #1.2.8
 library.builder   = Builder::ConfigureMake()
 library.installer = Installer::MakeInstall()

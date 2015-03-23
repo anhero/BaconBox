@@ -708,7 +708,7 @@ namespace BaconBox {
 		std::map<std::string, SubTextureInfo *>::iterator itr = subTextures.find(key);
 		SubTextureInfo * subTex = (itr != subTextures.end()) ? (itr->second) : (NULL);
 		if (!subTex) {
-			Console__error("FATAL : Could not find subtexture in getSubTexture for key: `" << key << "`");
+			return subTex;
 		}
 		if (loadTextureIfNotLoaded && ! subTex->textureInfo->isLoaded()) {
 			loadTexture(subTex->textureInfo);
@@ -721,6 +721,10 @@ namespace BaconBox {
 	Symbol *ResourceManager::getSymbol(const std::string &key) {
 		std::map<std::string, Symbol *>::iterator itr = symbols.find(key);
 		return (itr != symbols.end()) ? (itr->second) : (NULL);
+	}
+
+	bool ResourceManager::symbolExists(const std::string &key) {
+		return ( getSymbol(key) ? true : false );
 	}
 
 	Symbol *ResourceManager::addSymbol(const std::string &key, Symbol * symbol, bool overwrite){

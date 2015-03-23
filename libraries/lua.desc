@@ -2,7 +2,6 @@ library = Library.new(name: "lua", version: "5.1.5")
 library.license   = Licenses::MIT
 library.archive   = "#{library.name}-#{library.version}.tar.gz"
 library.url       = "http://www.lua.org/ftp/#{library.archive}" 
-library.fetcher   = Fetcher::HTTP(library.url)
 library.verifier  = Verifier::MD5("2e115fe26e435e33b0d5c022e4490567") #5.1.5
 
 # Anonymous block for environment preservation
@@ -17,6 +16,38 @@ begin
 			Dir.chdir "#{@library.work_dir}/#{@library.build_subdir}"
 			env = {}
 			env["CC"] = @library.options.CC.join if @library.options.CC.length > 0
+
+			# For Android...
+			#http://lua-users.org/lists/lua-l/2012-08/msg00094.html
+			# This would work for 5.2 I guess...
+			#File.open("src/luaconf.h", "a") do |file|
+			#	file.puts "#define getlocaledecpoint() '.' "
+			#end
+
+			# HACK !
+			if $libbuildtool_params.platform_name == "Android"
+				@platform = "generic"
+				patches = []
+					patches << %q{
+--- old/src/llex.c	2009-11-23 09:58:22.000000000 -0500
++++ new/src/llex.c	2014-03-09 16:56:59.000000000 -0400
+@@ -181 +181 @@
+-  struct lconv *cv = localeconv();
++  // struct lconv *cv = localeconv();
+@@ -183 +183 @@
+-  ls->decpoint = (cv ? cv->decimal_point[0] : '.');
++  ls->decpoint = '.';//(cv ? cv->decimal_point[0] : '.');
+			}
+				patches.each do |p|
+					puts "Applying patch "
+					ok = Exec.run "patch", "-p1", {:stdin => p}
+					unless ok
+						raise "One patch failed to apply."
+					end
+				end
+			end
+
+
 			Exec.run(env, "make", @platform)
 		end
 	end
@@ -33,29 +64,3 @@ begin
 	library.builder   = LuaBuilder.new(platform)
 	library.installer = LuaInstaller.new(platform)
 end
-
-# FIXME : Add a patcher.
-#if $options.platform_name == "Android"
-#	Dir.chdir "#{library.work_dir}/#{library.build_subdir}"
-#	library.prepare_build = lambda do |library, options|
-#		patches = []
-#			patches << %q{
-#--- old/src/llex.c	2009-11-23 09:58:22.000000000 -0500
-#+++ new/src/llex.c	2014-03-09 16:56:59.000000000 -0400
-#@@ -181 +181 @@
-#-  struct lconv *cv = localeconv();
-#+  // struct lconv *cv = localeconv();
-#@@ -183 +183 @@
-#-  ls->decpoint = (cv ? cv->decimal_point[0] : '.');
-#+  ls->decpoint = '.';//(cv ? cv->decimal_point[0] : '.');
-#	}
-#		patches.each do |p|
-#			puts "Applying patch "
-#			ok = Exec.run "patch", "-p1", {:stdin => p}
-#			unless ok
-#				raise "One patch failed to apply."
-#			end
-#		end
-#	end
-#end
-
