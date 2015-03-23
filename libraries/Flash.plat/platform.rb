@@ -3,7 +3,7 @@ module Platforms
 
 
 		def initialize
-      $options.install_dir = "#{Dir.pwd}/Flash/"
+      $libbuildtool_params.install_dir = "#{Dir.pwd}/Flash/"
 
     end
 
