@@ -1,10 +1,10 @@
-library = Library.new(name: "glew", version: "1.10.0")
+library = Library.new(name: "glew", version: "1.12.0")
 # FIXME : library.license = "Modified BSD License" 
 library.archive   = "#{library.name}-#{library.version}.zip"
 library.url       = "http://sourceforge.net/projects/#{library.name}/files/#{library.name}/#{library.version}/#{library.archive}/download"
 # Hardcoded mirror for hard times,
 #library.url      = "http://download2.polytechnic.edu.na/pub4/sourceforge/#{library.name[0]}/project/#{library.name[0..1]}/#{library.name}/#{library.name}/#{library.version}/#{library.archive}"
-library.verifier  = Verifier::MD5("594eb47b4b1210e25438d51825404d5a") # 1.10.0
+library.verifier  = Verifier::MD5("3941e9cab2f4f9d8faee3e8d57ae7664") # 1.12.0
 
 begin
 	class GlewBuilder < LBT::Step

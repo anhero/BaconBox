@@ -1,8 +1,8 @@
-library = Library.new(name: "libpng", version: "1.6.8")
+library = Library.new(name: "libpng", version: "1.6.16")
 # FIXME : library.license = License::Custom("libpng")
 library.archive   = "#{library.name}-#{library.version}.tar.gz"
 library.url       = "http://downloads.sourceforge.net/sourceforge/libpng/#{library.archive}"
-library.verifier  = Verifier::MD5("29b7065906e2551508a0d7eacd19174e") #1.6.8
+library.verifier  = Verifier::MD5("1a4ad377919ab15b54f6cb6a3ae2622d") #1.6.16
 library.builder   = Builder::ConfigureMake()
 library.installer = Installer::MakeInstall()
 

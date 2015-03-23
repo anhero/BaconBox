@@ -697,6 +697,13 @@ const char *__str__() {
 
 }
 
+%include "std_vector.i"
+
+  namespace std {
+    %template(VectorVector2) vector<BaconBox::Vector2>;
+  }
+
+
 %include "BaconBox/Matrix2D.h"
 %include "BaconBox/Helper/URL.h"
 
