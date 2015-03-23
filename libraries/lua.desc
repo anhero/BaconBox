@@ -7,18 +7,7 @@ library.verifier  = Verifier::MD5("2e115fe26e435e33b0d5c022e4490567") #5.1.5
 
 # Anonymous block for environment preservation
 begin
-	platform = nil
-
-	#if $options.platform
-	#	platform = 'generic'
-	#els
-	if OS.osx?
-		platform = 'macosx'
-	elsif OS.linux?
-		platform = 'linux'
-	else
-		platform = 'generic'
-	end
+	platform = 'generic'
 
 	class LuaBuilder < LBT::Step
 		def initialize platform
