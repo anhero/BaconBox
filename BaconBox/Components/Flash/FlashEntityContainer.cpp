@@ -162,4 +162,20 @@ namespace BaconBox {
 		return FlashHelper::getMCEntityFromMC(result);
 	}
 
+	void FlashEntityContainer::removeAllChildren(){
+		AS3_DeclareVar(mc, *);
+		AS3::local::var tempMC = movieClipHolder->getMovieClip();
+		AS3_CopyVarxxToVar(mc, tempMC);
+		inline_as3(
+			"while (mc.numChildren > 0) {\n"
+				"mc.removeChildAt(0);\n"
+			"}\n"
+		);
+
+	}
+
+	void FlashEntityContainer::deleteAllChildren(){
+		removeAllChildren();
+	}
+
 }

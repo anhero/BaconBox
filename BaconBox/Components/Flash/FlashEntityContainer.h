@@ -60,6 +60,9 @@ namespace BaconBox {
 		
 		MovieClipEntity * getParent() const;
 
+		void deleteAllChildren();
+		void removeAllChildren();
+
 
 	private:
 		MovieClipHolder * movieClipHolder;
