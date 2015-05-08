@@ -37,7 +37,7 @@
 
 namespace BaconBox {
 	
-#if defined(BB_LUA) && defined(BB_DEBUG)
+#if defined(BB_LUA) && defined(BB_DEBUG) && !defined(BB_WINDOWS_PLATFORM)
 	void
 	handler (int cause, siginfo_t * info, void *uap)
 	{
@@ -47,7 +47,7 @@ namespace BaconBox {
 	
 	void BaseEngine::application(int argc, char *argv[], const std::string &name) {
 
-#if defined(BB_LUA) && defined(BB_DEBUG) && !defined(BB_ANDROID)
+#if defined(BB_LUA) && defined(BB_DEBUG) && !defined(BB_ANDROID) && !defined(BB_WINDOWS_PLATFORM)
 		struct sigaction sa;
 		sa.sa_sigaction = handler;
 		sigemptyset (&sa.sa_mask);
