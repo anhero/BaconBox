@@ -6,31 +6,26 @@ library.verifier  = Verifier::MD5("44d667c142d7cda120332623eab69f40") #1.2.8
 library.builder   = Builder::ConfigureMake()
 library.installer = Installer::MakeInstall()
 
-# FIXME This part is now broken
-##if $options.platform_name == "CygwinMingw"
-##
-##	library.prepare_build = lambda do |library, options|
-##		compiler_prefix = String.new options.CC
-##		compiler_prefix.slice! 'gcc'
-##
-##		# FIXME : Proper patching...
-##		result = system("patch -p1 <<'EOF'
-##		--- old/zlib-1.2.8/win32/Makefile.gcc	2012-05-02 23:17:59.000000000 -0400
-##		+++ new/zlib-1.2.8/win32/Makefile.gcc	2014-01-19 19:16:04.000000000 -0500
-##		@@ -44 +44 @@
-##		-PREFIX =
-##		+PREFIX = #{compiler_prefix}
-##		EOF")
-##
-##		return (result and Dir.gotoSubDir())
-##	end
-##
-##	library.build = lambda do |library, options|
-##		return system("make -fwin32/Makefile.gcc")
-##	end
-##
-##	library.install = lambda do |library, options|
-##		return system("BINARY_PATH=\"#{$options.install_dir}/bin\" INCLUDE_PATH=\"#{$options.install_dir}/include\" LIBRARY_PATH=\"#{$options.install_dir}/lib\" make install -fwin32/Makefile.gcc")
-##	end
-##
-##end
+if (ENV['MSYSTEM']||"").match(/MINGW.*/) then
+	class ZlibWinBuilder < LBT::Step
+		def run
+			Dir.chdir "#{@library.work_dir}/#{@library.build_subdir}"
+			env = {}
+			env["CC"] = @library.options.CC.join if @library.options.CC.length > 0
+
+			Exec.run(env, "mingw32-make", "-fwin32/makefile.gcc")
+		end
+	end
+	class ZlibWinInstaller < LBT::Step
+		def run
+			Dir.chdir "#{@library.work_dir}/#{@library.build_subdir}"
+			env = {}
+			env["BINARY_PATH"] = "#{@library.options.install_dir.join}/bin"
+			env["INCLUDE_PATH"] = "#{@library.options.install_dir.join}/include"
+			env["LIBRARY_PATH"] = "#{@library.options.install_dir.join}/lib"
+			Exec.run(env, "mingw32-make", "-fwin32/makefile.gcc", "install")
+		end
+	end
+	library.builder  = ZlibWinBuilder.new()
+	library.installer  = ZlibWinInstaller.new()
+end

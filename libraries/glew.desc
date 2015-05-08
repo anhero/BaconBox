@@ -12,9 +12,18 @@ begin
 			Dir.chdir "#{@library.work_dir}/#{@library.build_subdir}"
 			env = {}
 			env["SYSTEM"] = "mingw" if $libbuildtool_params.platform_name == "CygwinMingw"
+			env["SYSTEM"] = "mingw" if (ENV['MSYSTEM']||"").match(/MINGW.*/)
+
+			make = "make"
+			if (ENV['MSYSTEM']||"").match(/MINGW32/) then
+				make = "mingw32-make"
+			elsif (ENV['MSYSTEM']||"").match(/MINGW64/) then
+				make = "mingw64-make"
+			end
+			env['MAKE'] = make unless env and not env['MAKE'].nil?
 
 			build_command = []
-			build_command << "make"
+			build_command << make
 			build_command << "CC=#{@library.options.CC}" if defined? @library.options.CC
 			build_command << "LD=#{@library.options.CC}" if defined? @library.options.CC
 			puts build_command.join(" ")
@@ -26,9 +35,18 @@ begin
 			Dir.chdir "#{@library.work_dir}/#{@library.build_subdir}"
 			env = {}
 			env["SYSTEM"] = "mingw" if $libbuildtool_params.platform_name == "CygwinMingw"
+			env["SYSTEM"] = "mingw" if (ENV['MSYSTEM']||"").match(/MINGW.*/)
+
+			make = "make"
+			if (ENV['MSYSTEM']||"").match(/MINGW32/) then
+				make = "mingw32-make"
+			elsif (ENV['MSYSTEM']||"").match(/MINGW64/) then
+				make = "mingw64-make"
+			end
+			env['MAKE'] = make unless env and not env['MAKE'].nil?
 
 			build_command = []
-			build_command << "make"
+			build_command << make
 			build_command << "install.all"
 			build_command << "GLEW_DEST=#{@library.options.install_dir}"
 			build_command << "CC=#{@library.options.CC}" if defined? @library.options.CC

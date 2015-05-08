@@ -87,6 +87,7 @@ BaconBox:
             - "BaconBox/**/Windows/*.h"
           IncludesPath:
             - "libraries/MINGW32_NT-6.1/i686/include"
+            - "libraries/MINGW32_NT-6.1-WOW/i686/include"
 
       native: &native
         include: [core,  OpenGL, [OSX, "OS.osx?"], [WINDOWS, "OS.windows?"], [Linux, "OS.linux?"]]
