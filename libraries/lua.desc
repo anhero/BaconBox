@@ -6,16 +6,26 @@ library.verifier  = Verifier::MD5("2e115fe26e435e33b0d5c022e4490567") #5.1.5
 
 # Anonymous block for environment preservation
 begin
+	make = "make"
+	if (ENV['MSYSTEM']||"").match(/MINGW32/) then
+		make = "mingw32-make"
+	elsif (ENV['MSYSTEM']||"").match(/MINGW64/) then
+		make = "mingw64-make"
+	end
+	
+
 	platform = 'generic'
 
 	class LuaBuilder < LBT::Step
-		def initialize platform
+		def initialize platform, make
 			@platform = platform
+			@make = make
 		end
 		def run
 			Dir.chdir "#{@library.work_dir}/#{@library.build_subdir}"
 			env = {}
 			env["CC"] = @library.options.CC.join if @library.options.CC.length > 0
+			env['MAKE'] = @make unless env and not env['MAKE'].nil?
 
 			# For Android...
 			#http://lua-users.org/lists/lua-l/2012-08/msg00094.html
@@ -48,19 +58,20 @@ begin
 			end
 
 
-			Exec.run(env, "make", @platform)
+			Exec.run(env, @make, @platform)
 		end
 	end
 	class LuaInstaller < LBT::Step
-		def initialize platform
+		def initialize platform, make
 			@platform = platform
+			@make = make
 		end
 		def run
 			Dir.chdir "#{@library.work_dir}/#{@library.build_subdir}"
-			Exec.run "make", @platform, "install", "INSTALL_TOP=#{@library.options.install_dir.join}"
+			Exec.run @make, @platform, "install", "INSTALL_TOP=#{@library.options.install_dir.join}"
 		end
 	end
 
-	library.builder   = LuaBuilder.new(platform)
-	library.installer = LuaInstaller.new(platform)
+	library.builder   = LuaBuilder.new(platform, make)
+	library.installer = LuaInstaller.new(platform, make)
 end

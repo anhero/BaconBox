@@ -8,7 +8,13 @@ library.builder = make_step do
 	Dir.chdir "#{@library.work_dir}/#{@library.build_subdir}"
 	prefix = @library.options.install_dir.join()
 	command = []
-	command = ["make"]
+	make = "make"
+	if (ENV['MSYSTEM']||"").match(/MINGW32/) then
+		make = "mingw32-make"
+	elsif (ENV['MSYSTEM']||"").match(/MINGW64/) then
+		make = "mingw64-make"
+	end
+	command = [make]
 	command << "CXX=#{@library.options.CXX.join(" ")}" if @library.options.CXX.length > 0
 	flags = ""
 	flags << "-I./include"
