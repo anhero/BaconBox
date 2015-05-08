@@ -337,13 +337,44 @@ void OpenGLDriver::endRenderToTexture(){
 	void OpenGLDriver::initializeGraphicDriver() {
 		GraphicDriver::initializeGraphicDriver();
 		#ifdef BB_GLEW
-		 GLenum err;
-           err = glewInit();
-            if (GLEW_OK != err)
-            {
-                Console__error("GLEW INIT FAILED!");
-            }
+			glewExperimental = GL_TRUE;
+			GLenum err;
+			err = glewInit();
+			if (GLEW_OK != err)
+			{
+			Console__error("GLEW initialization failed.");
+			}
 
+			// Then, we check for some features we need
+			if (!glewIsSupported("GL_ARB_framebuffer_object")) {
+				Console__print("GL_ARB_framebuffer_object is not supported on your hardware.");
+				Console__print("Checking for GL_EXT_framebuffer_object...");
+				if (!glewIsSupported("GL_EXT_framebuffer_object")) {
+					Console__error("GL_EXT_framebuffer_object is not supported on your hardware.");
+				}
+				else {
+					Console__print("GL_EXT_framebuffer_object is supported.");
+					Console__print("Remapping framebuffer extension...");
+					glBindFramebuffer = glBindFramebufferEXT;
+					glBindRenderbuffer = glBindRenderbufferEXT;
+					glCheckFramebufferStatus = glCheckFramebufferStatusEXT;
+					glDeleteFramebuffers = glDeleteFramebuffersEXT;
+					glDeleteRenderbuffers = glDeleteRenderbuffersEXT;
+					glFramebufferRenderbuffer = glFramebufferRenderbufferEXT;
+					glFramebufferTexture1D = glFramebufferTexture1DEXT;
+					glFramebufferTexture2D = glFramebufferTexture2DEXT;
+					glFramebufferTexture3D = glFramebufferTexture3DEXT;
+					glGenFramebuffers = glGenFramebuffersEXT;
+					glGenRenderbuffers = glGenRenderbuffersEXT;
+					glGenerateMipmap = glGenerateMipmapEXT;
+					glGetFramebufferAttachmentParameteriv = glGetFramebufferAttachmentParameterivEXT;
+					glGetRenderbufferParameteriv = glGetRenderbufferParameterivEXT;
+					glIsFramebuffer = glIsFramebufferEXT;
+					glIsRenderbuffer = glIsRenderbufferEXT;
+					glRenderbufferStorage = glRenderbufferStorageEXT;
+					Console__print("All done!");
+				}
+			}
 		#endif // BB_GLEW
 		
 		if(!shaderCompiled){
