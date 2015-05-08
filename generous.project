@@ -74,8 +74,6 @@ BaconBox:
             - "BaconBox/**/libc/*.cpp"
           Header:
             - "BaconBox/**/libc/*.h"
-          CXXFLAGS:
-            - "-stdlib=libstdc++"
           IncludesPath:
             - "libraries/Linux/x86_64/include"
 
