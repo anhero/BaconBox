@@ -19,6 +19,8 @@
 
 #include "BaconBox/Core/Engine.h"
 
+#include "BaconBox/FileSystem/FileSystem.h"
+
 namespace BaconBox {
 
 	BB_SINGLETON_IMPL(SDLMixerEngine)
@@ -193,7 +195,17 @@ namespace BaconBox {
 
 	SoundInfo *SDLMixerEngine::loadSound(const std::string &filePath) {
 		SoundInfo *result = new SoundInfo();
-		result->data = Mix_LoadWAV(filePath.c_str());
+
+		// Open the file
+		File* file = FileSystem::open(filePath);
+		// Read in some information
+		unsigned int size = file->size();
+		unsigned char * filebuf = file->toBuffer();
+		// Pass it around
+		result->data = Mix_LoadWAV_RW(SDL_RWFromMem(filebuf, size), true);
+		// Delete all
+		delete[] filebuf;
+		delete file;
 
 		// We make sure the sound file is correctly loaded.
 		if (!result->data) {
