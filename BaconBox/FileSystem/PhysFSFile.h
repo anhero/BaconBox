@@ -12,7 +12,7 @@ namespace BaconBox {
 	class PhysFSFile : public File {
 		friend class FileSystem;
 	public:
-		~PhysFSFile();
+		virtual ~PhysFSFile();
 		virtual unsigned char* toBuffer(unsigned int offset = 0, unsigned int length = 0);
 		virtual size_t size();
 	protected:

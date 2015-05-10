@@ -18,6 +18,7 @@ namespace BaconBox {
 		 * @return The file size in bytes.
 		 */
 		virtual size_t size();
+		virtual ~File();
 	protected:
 		File(const std::string& path, const std::string& mode);
 		std::string path;
