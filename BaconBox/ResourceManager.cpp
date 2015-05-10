@@ -39,6 +39,7 @@
 #endif 
 
 #include <iostream>
+#include <istream>
 
 namespace BaconBox {
 	std::map<std::string, SoundInfo *> ResourceManager::sounds = std::map<std::string, SoundInfo *>();
@@ -202,10 +203,14 @@ namespace BaconBox {
 	void ResourceManager::loadFlashExporterXML(const std::string &xmlPath) {
 
 		rapidxml::xml_document<> doc;
-		
+		File * file = FileSystem::open(xmlPath);
+		File::MemBuf sbuf(file);
+		delete file;
+		std::istream xmlstream(&sbuf);
+
 		// We read the document from the stream.
-		rapidxml::file<> inputXml(xmlPath.c_str());
-		
+		rapidxml::file<> inputXml(xmlstream);
+
 		doc.parse<0>(inputXml.data());
 		rapidxml::xml_node<> *root = doc.first_node();
 		
