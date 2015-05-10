@@ -13,6 +13,7 @@ if $libbuildtool_params.platform_name != "Android" and $libbuildtool_params.plat
 	build 'glew.desc'
 end
 
+build 'physicsfs.desc'
 build 'rapidxml.desc'
 build 'sigly.desc'
 
