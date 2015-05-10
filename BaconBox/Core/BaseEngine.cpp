@@ -47,6 +47,7 @@ namespace BaconBox {
 	
 	void BaseEngine::application(int argc, char *argv[], const std::string &name) {
 
+		// POSIX Signal handler.
 #if defined(BB_LUA) && defined(BB_DEBUG) && !defined(BB_ANDROID) && !defined(BB_WINDOWS_PLATFORM)
 		struct sigaction sa;
 		sa.sa_sigaction = handler;
@@ -80,10 +81,11 @@ namespace BaconBox {
 		this->argc = argc;
 		this->argv = argv;
 
-		if(argv)this->applicationPath = dirname(argv[0]);
+		if (argv) {
+			this->applicationPath = dirname(argv[0]);
+		}
 
 		this->applicationName = name;
-
 	}
 
 	State *BaseEngine::addState(State *newState) {
