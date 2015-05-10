@@ -348,11 +348,11 @@ namespace BaconBox {
 	}
 
 	void BaseEngine::registerSingleton(Singleton * singleton) {
-		PRLN("Registering...");
+		PRLN("Registering `" + singleton->getName() + "` singleton.");
 		std::deque<Singleton * >::iterator
 			searchIt = std::find(singletons.begin(), singletons.end(), singleton);
 		if (searchIt != singletons.end()) {
-			PRLN("WARNING : Adding a Singleton already registerd!!");
+			PRLN("WARNING : Adding a Singleton already registered!! (" + singleton->getName() + ")");
 			PV(singleton);
 			return;
 		}
@@ -371,6 +371,7 @@ namespace BaconBox {
 	}
 	void BaseEngine::destroyAllSingletons() {
 		while (!singletons.empty()) {
+			PRLN("Detroying `" + singletons.back()->getName() + "` singleton.");
 			singletons.back()->destroyInstance();
 			singletons.pop_back();
 		}

@@ -21,12 +21,16 @@
 	bool cls::hasInstance() { \
 		return (cls::instance != NULL); \
 	} \
+	std::string cls::getName() { \
+		return std::string(#cls); \
+	} \
 
 #define BB_SINGLETON_DECL(cls) \
 	public:\
 	static cls &getInstance(); \
 	void destroyInstance(); \
 	static bool hasInstance(); \
+	std::string getName(); \
 	protected: \
 	static cls * instance;
 
@@ -38,6 +42,7 @@ namespace BaconBox {
 		// static Singleton& getInstance() = 0;
 		virtual void destroyInstance() = 0;
 		// static bool hasInstance() = 0;
+		virtual std::string getName() = 0;
 	};
 }
 
