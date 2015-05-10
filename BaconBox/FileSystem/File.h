@@ -1,12 +1,29 @@
 #ifndef FILE_H
 #define FILE_H
 #include <string>
+#include <streambuf>
 
 namespace BaconBox {
 	class FileSystem;
 	class File {
 		friend class FileSystem;
 	public:
+		/**
+		 * Implementation of a streambuf that works on a C-style array.
+		 * This is a quick and dirty hack, mostly.
+		 */
+		struct MemBuf : std::streambuf {
+		public:
+			/**
+			 * Creates an internal buffer from the file passed.
+			 * @param f Pointer to a file, no reference is kept.
+			 */
+			MemBuf(File* f);
+			~MemBuf();
+		private:
+			char* buf;
+		};
+
 		/**
 		 * Loads a file to a C-style buffer.
 		 * @param offset Offset to start at, in bytes

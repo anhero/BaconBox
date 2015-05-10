@@ -11,3 +11,15 @@ File::~File() {}
 size_t File::size() {return 0;}
 unsigned char* File::toBuffer(unsigned int offset, unsigned int length) {return NULL;}
 
+// /////////////////////////////////////////////////////////////////////////////
+// MemBuf
+
+File::MemBuf::MemBuf(File *f) : buf(NULL) {
+	char* begin = (char*)f->toBuffer();
+	char* end = begin + f->size();
+	this->setg(begin, begin, end);
+}
+
+File::MemBuf::~MemBuf() {
+	delete buf;
+}
