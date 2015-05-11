@@ -593,7 +593,7 @@ namespace BaconBox{
 	class Vector2{
 		public:
 		Vector2();
-    Vector(const Vector2 &src);
+    void Vector(const Vector2 &src);
 		#if defined(BB_LUA)
 		Vector2(float x, float y);
 		#endif
