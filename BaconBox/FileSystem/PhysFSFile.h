@@ -14,6 +14,7 @@ namespace BaconBox {
 	public:
 		virtual ~PhysFSFile();
 		virtual unsigned char* toBuffer(unsigned int offset = 0, unsigned int length = 0);
+		virtual int fillBuffer(void* buffer, unsigned int offset = 0, unsigned int length = 0);
 		virtual size_t size();
 	protected:
 		PhysFSFile(const std::string& path, const std::string& mode);

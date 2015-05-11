@@ -36,3 +36,7 @@ unsigned char* PhysFSFile::toBuffer(unsigned int offset, unsigned int length) {
 	PHYSFS_read(internal_file, buf, 1, length);
 	return buf;
 }
+int PhysFSFile::fillBuffer(void* buffer, unsigned int offset, unsigned int length) {
+	PHYSFS_seek(internal_file, offset);
+	return PHYSFS_read(internal_file, buffer, 1, length);
+}

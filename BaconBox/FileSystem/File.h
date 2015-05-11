@@ -32,6 +32,14 @@ namespace BaconBox {
 		 */
 		virtual unsigned char* toBuffer(unsigned int offset = 0, unsigned int length = 0);
 		/**
+		 * Loads a file to a passed C-style buffer.
+		 * This can be dangerous if you read all into a buffer not sized properly.
+		 * @param offset Offset to start at, in bytes
+		 * @param length Length to read. Zero (0) means read all. (CAUTION!)
+		 * @return The amount of data read.
+		 */
+		virtual int fillBuffer(void* buffer, unsigned int offset = 0, unsigned int length = 0);
+		/**
 		 * @return The file size in bytes.
 		 */
 		virtual size_t size();
