@@ -208,7 +208,7 @@ namespace BaconBox {
 		Vector(XComponent newX);
 
 		/**
-		 * Initializes the vector with the given x component.
+		 * Initializes the vector with the given y component.
 		 * @param newY Y component to use.
 		 */
 		Vector(YComponent newY);
