@@ -38,8 +38,6 @@ namespace BaconBox {
 		lua_pop(L, 1);
 		#endif
 
-		// TODO : Implement 'io' to use FileSystem.
-
 		// Register our custom loadfile and custom open.
 		static const luaL_reg bb_fs_loadfile_open[] = {
 			{"loadfile", LuaManager::loadfile},
@@ -64,6 +62,22 @@ namespace BaconBox {
 		lua_pushcfunction(L, LuaManager::packageloader);
 		LuaManager::table_insert(L, -2, -1, 2);
 		lua_pop(L, 3);
+
+		// Run this code at first.
+		// It basically destroys io, file and some functions of os.
+		// If we want to de-sandbox the lua interpreter, this would be here.
+		// The user will need to use the BaconBox FileSystem/File API for file manipulations.
+		const std::string code_str(
+			"for k,v in pairs(io) do io[k] = nil end;"
+			"io = nil;"
+			"for k,v in pairs(file) do file[k] = nil end;"
+			"file = nil;"
+			// Remove os.[execute|remove|rename]
+			"os.execute = nil;"
+			"os.remove = nil;"
+			"os.rename = nil;"
+		);
+		LuaManager::internalDoString(L, code_str);
 	}
 
 	lua_State * LuaManager::getVM(){
@@ -308,7 +322,15 @@ namespace BaconBox {
 		getDefault().internalError(error, critical);
 	}
 
-	void LuaManager::internalDoString(const std::string & string){
+	void LuaManager::internalDoString(const std::string & string) {
+		LuaManager::internalDoString(L, string);
+	}
+	void LuaManager::internalDoString(lua_State* L, const std::string & string) {
+		if (L == NULL) {
+			Console__error("Call to LuaManger::internalDoString without a lua_State");
+			return;
+		}
+
 		lua_pushcfunction(L, LuaManager::errorHandler);
 		int ret = (luaL_loadstring(L, string.c_str()) || lua_pcall(L, 0, LUA_MULTRET, -2));
 		// TODO : Implement error handling/logging
@@ -317,7 +339,6 @@ namespace BaconBox {
 //			std::cout << "Error : " << lua_tostring(L, -1) << std::endl;
 //		}
 		lua_pop(L,1);
-
 	}
 
 	void LuaManager::internalDoFile(const std::string & path){

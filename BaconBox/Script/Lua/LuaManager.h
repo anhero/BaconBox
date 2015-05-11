@@ -75,6 +75,8 @@ namespace BaconBox {
 
 		// Internal implementations of the functions.
 
+		/// Special implementation to be used while constructing.
+		void internalDoString(lua_State* L = NULL, const std::string & string = "");
 		void internalDoString(const std::string & string);
 		void internalDoFile(const std::string & path);
 		void internalAddToLuaPath(const std::string & path );
