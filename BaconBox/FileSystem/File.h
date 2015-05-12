@@ -56,6 +56,13 @@ namespace BaconBox {
 		 */
 		virtual int tell();
 		/**
+		 * Reads the file from currently seeked position, for to_read bytes.
+		 * An amount of data to read of zero means until the end of the file.
+		 * @param to_read Amount of data to read.
+		 * @return A string with the contents needed.
+		 */
+		virtual std::string read(unsigned int to_read = 0);
+		/**
 		 * Closes the file.
 		 */
 		virtual void close();

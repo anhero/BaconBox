@@ -57,16 +57,39 @@ int PhysFSFile::tell() {
 }
 
 unsigned char* PhysFSFile::toBuffer(unsigned int offset, unsigned int length) {
+	// If the length is zero, assume read all.
 	if (length == 0) {
 		PHYSFS_sint64 max_length = size();
 		length = max_length - offset;
 	}
-	unsigned char* buf = new unsigned char [length];
+	// If still, the length is zero, this is a zero-length read.
+	if (length == 0) {
+		return NULL;
+	}
+	unsigned char* buf = new unsigned char [length]();
 	PHYSFS_seek(internal_file, offset);
-	PHYSFS_read(internal_file, buf, 1, length);
+	int amount_read = PHYSFS_read(internal_file, buf, 1, length);
+	if (amount_read < 0) {
+		PRLN(PHYSFS_getLastError());
+		return NULL;
+	}
 	return buf;
 }
+
 int PhysFSFile::fillBuffer(void* buffer, unsigned int offset, unsigned int length) {
 	PHYSFS_seek(internal_file, offset);
 	return PHYSFS_read(internal_file, buffer, 1, length);
+}
+
+std::string PhysFSFile::read(unsigned int to_read) {
+	unsigned int bytes_left = size() - tell();
+	if (to_read == 0 || to_read > bytes_left) {
+		to_read = bytes_left;
+	}
+	char * buf = (char*)toBuffer(tell(), to_read);
+	// On empty read, the buf* is NULL.
+	if (!buf) { buf = new char[1](); }
+	std::string str(buf);
+	delete[] buf;
+	return str;
 }

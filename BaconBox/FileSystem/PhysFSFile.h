@@ -18,6 +18,8 @@ namespace BaconBox {
 		virtual size_t size();
 		virtual int seek(unsigned int offset = 0);
 		virtual int tell();
+		virtual std::string read(unsigned int to_read = 0);
+
 		static File * open(const std::string& path, const std::string& mode);
 		virtual void close();
 	protected:

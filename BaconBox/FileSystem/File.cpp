@@ -17,6 +17,7 @@ unsigned char* File::toBuffer(unsigned int offset, unsigned int length) {return 
 int File::fillBuffer(void* buffer, unsigned int offset, unsigned int length) {return 0;}
 int File::tell() {return 0;}
 int File::seek(unsigned int offset) {return 0;}
+std::string File::read(unsigned int to_read) {return "";}
 void File::close() {}
 
 // /////////////////////////////////////////////////////////////////////////////
