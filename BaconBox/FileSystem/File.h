@@ -43,6 +43,10 @@ namespace BaconBox {
 		 * @return The file size in bytes.
 		 */
 		virtual size_t size();
+		/**
+		 * Closes the file.
+		 */
+		virtual void close();
 		virtual ~File();
 
 		/**

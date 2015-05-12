@@ -17,6 +17,7 @@ namespace BaconBox {
 		virtual int fillBuffer(void* buffer, unsigned int offset = 0, unsigned int length = 0);
 		virtual size_t size();
 		static File * open(const std::string& path, const std::string& mode);
+		virtual void close();
 	protected:
 		PhysFSFile(const std::string& path, const std::string& mode);
 		PHYSFS_file* internal_file;

@@ -24,6 +24,10 @@ File* PhysFSFile::open(const std::string& path, const std::string& mode) {
 }
 
 PhysFSFile::~PhysFSFile() {
+	this->close();
+}
+
+void PhysFSFile::close() {
 	PHYSFS_close(internal_file);
 	internal_file = NULL;
 }
