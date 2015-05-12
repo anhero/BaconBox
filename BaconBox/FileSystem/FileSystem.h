@@ -30,16 +30,21 @@ namespace BaconBox {
 		 * Mounts a "thing" to the VFS.
 		 * The "thing" is dependent on the VFS backend.
 		 *
+		 * Most VFS allow mounting multiple read-only "things".
+		 * Some (most?) VFS will not allow multiple write "things".
+		 * In that case, the second call will /change/ the writing directory.
+		 *
 		 * @param what The "thing" to mount.
 		 * @param where Where to mount it (defaults to /).
+		 * @param append Whether it is a writable directory.
 		 * @param append Priority, defaults to first. Set to true for last.
 		 * @return Whether it succeeded or not.
 		 */
-		static bool mount(const std::string& what, const std::string& where = "/", const bool append = false);
+		static bool mount(const std::string& what, const std::string& where = "/", const bool write = false, const bool append = false);
 	protected:
 		File* _open(const std::string& path, const std::string& mode);
 		bool _exists(const std::string& path);
-		bool _mount(const std::string& what, const std::string& where, const bool append);
+		bool _mount(const std::string& what, const std::string& where, const bool write, const bool append);
 	private:
 		FileSystem();
 	};

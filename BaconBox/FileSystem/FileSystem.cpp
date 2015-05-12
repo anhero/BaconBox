@@ -37,12 +37,15 @@ bool FileSystem::exists(const std::string &path) {
 }
 
 bool FileSystem::_exists(const std::string &path) {
+#ifdef BB_WITH_PHYSFS
 	return (bool)PHYSFS_exists(path.c_str());
+#endif
 }
 
-bool FileSystem::mount(const std::string& what, const std::string& where, const bool append) {
-	return FileSystem::getInstance()._mount(what, where, append);
+bool FileSystem::mount(const std::string& what, const std::string& where, const bool write, const bool append) {
+	return FileSystem::getInstance()._mount(what, where, write, append);
 }
-bool FileSystem::_mount(const std::string& what, const std::string& where, const bool append) {
+
+bool FileSystem::_mount(const std::string& what, const std::string& where, const bool write, const bool append) {
 	return (bool)PHYSFS_mount(what.c_str(), where.c_str(), append);
 }
