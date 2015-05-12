@@ -6,7 +6,7 @@
 #ifndef BB_MATRIX2D_H
 #define BB_MATRIX2D_H
 
-#include "Vector2.h"
+#include "vmath.h"
 
 
 namespace BaconBox {
@@ -33,13 +33,13 @@ namespace BaconBox {
 	
 //	bool isSkewed() const;
 	
-	Vector2 multiplyWithVector(const Vector2 & v) const;
+	VMATH_NAMESPACE::Vector2f multiplyWithVector(const VMATH_NAMESPACE::Vector2f & v) const;
 	
 	Matrix2D & concat(const Matrix2D & m);
 	
-	void translate(const Vector2 & v);
+	void translate(const VMATH_NAMESPACE::Vector2f & v);
 	
-	void scale(const Vector2 & v);
+	void scale(const VMATH_NAMESPACE::Vector2f & v);
 	
 	void rotate(float angle);
 	void serialize(Value &node, bool setName = true) const;

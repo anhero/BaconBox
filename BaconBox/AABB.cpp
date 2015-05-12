@@ -12,8 +12,8 @@ namespace BaconBox {
 	
 	}
 
-	AABB::AABB(const Vector2 &newPosition,
-	                                               const Vector2 &newSize) :
+	AABB::AABB(const VMATH_NAMESPACE::Vector2f &newPosition,
+	                                               const VMATH_NAMESPACE::Vector2f &newSize) :
 		position(newPosition), size(newSize) {
 	}
 
@@ -38,15 +38,15 @@ namespace BaconBox {
 		return !(*this == other);
 	}
 
-	Vector2 &AABB::getPosition() {
+	VMATH_NAMESPACE::Vector2f &AABB::getPosition() {
 		return position;
 	}
 
-	const Vector2 &AABB::getPosition() const {
+	const VMATH_NAMESPACE::Vector2f &AABB::getPosition() const {
 		return position;
 	}
 
-	void AABB::setPosition(const Vector2 &newPosition) {
+	void AABB::setPosition(const VMATH_NAMESPACE::Vector2f &newPosition) {
 		position = newPosition;
 	}
 
@@ -55,7 +55,7 @@ namespace BaconBox {
 		position.y = newYPosition;
 	}
 
-	void AABB::move(const Vector2 &delta) {
+	void AABB::move(const VMATH_NAMESPACE::Vector2f &delta) {
 		position += delta;
 	}
 
@@ -88,8 +88,8 @@ namespace BaconBox {
 		position.y += yDelta;
 	}
 
-	const Vector2 AABB::getPositionCenter() const {
-		return Vector2(position + size * 0.5f);
+	const VMATH_NAMESPACE::Vector2f AABB::getPositionCenter() const {
+		return VMATH_NAMESPACE::Vector2f(position + size * 0.5f);
 	}
 
 	float AABB::getXPositionCenter() const {
@@ -100,15 +100,15 @@ namespace BaconBox {
 		return position.y + size.y * 0.5f;
 	}
 
-	Vector2 &AABB::getSize() {
+	VMATH_NAMESPACE::Vector2f &AABB::getSize() {
 		return size;
 	}
 
-	const Vector2 &AABB::getSize() const {
+	const VMATH_NAMESPACE::Vector2f &AABB::getSize() const {
 		return size;
 	}
 
-	void AABB::setSize(const Vector2 &newSize) {
+	void AABB::setSize(const VMATH_NAMESPACE::Vector2f &newSize) {
 		size = newSize;
 	}
 
@@ -154,13 +154,13 @@ namespace BaconBox {
 		       getBottom() > other.getTop() && getTop() < other.getBottom();
 	}
 
-	bool AABB::overlaps(const Vector2 &point) const {
+	bool AABB::overlaps(const VMATH_NAMESPACE::Vector2f &point) const {
 		return overlaps(point.x, point.y);
 	}
 	
-	bool AABB::overlaps(const Vector2 &point, float radius) const{
+	bool AABB::overlaps(const VMATH_NAMESPACE::Vector2f &point, float radius) const{
 	
-		return overlaps(AABB(Vector2(point.x - radius, point.y - radius), Vector2(radius*2, radius*2)));
+		return overlaps(AABB(VMATH_NAMESPACE::Vector2f(point.x - radius, point.y - radius), VMATH_NAMESPACE::Vector2f(radius*2, radius*2)));
 	}
 
 

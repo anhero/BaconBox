@@ -55,7 +55,7 @@ namespace BaconBox {
 
 
 
-	void DefaultMatrix::updateMatrix(Vector2 position, Vector2 scale, float angle){
+	void DefaultMatrix::updateMatrix(VMATH_NAMESPACE::Vector2f position, VMATH_NAMESPACE::Vector2f scale, float angle){
 //	    if(matrix.isSkewed(scale.oldValue)){
 //		throw; // TODO IMPLEMENT ME! This branch of the condition is broken.
 //		matrix.rotate(-angle.oldValue);
@@ -87,9 +87,9 @@ namespace BaconBox {
 void DefaultMatrix::internalSetMatrix(const Matrix2D & m){
 	    MatrixComponent::setMatrix(m);
 	   matrix = m;
-	    Vector2 origin;
-	    Vector2 width(1,0);
-	    Vector2 height(0,1);
+	    VMATH_NAMESPACE::Vector2f origin;
+	    VMATH_NAMESPACE::Vector2f width(1,0);
+	    VMATH_NAMESPACE::Vector2f height(0,1);
 
 
 	    origin = m.multiplyWithVector(origin);

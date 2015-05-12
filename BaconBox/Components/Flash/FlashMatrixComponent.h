@@ -4,7 +4,7 @@
 #include "BaconBox/Core/Component.h"
 
 #include "BaconBox/Components/MatrixComponent.h"
-#include "BaconBox/Vector2.h"
+#include "BaconBox/vmath.h"
 #include "BaconBox/Core/Entity.h"
 #include "BaconBox/Input/Pointer/Pointer.h"
 #include "BaconBox/Matrix2D.h"

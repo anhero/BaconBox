@@ -178,7 +178,7 @@ namespace BaconBox {
 				
 				tf->setAlignment(symbol->alignment);
 				tf->setPixelSize(symbol->fontSize);
-				tf->setSize(Vector2(symbol->textFieldWidth, symbol->textFieldHeight));
+				tf->setSize(VMATH_NAMESPACE::Vector2f(symbol->textFieldWidth, symbol->textFieldHeight));
 				entity = tf;
                 entity->setColor(symbol->color);
 				// Force the update of the text to make it refresh
@@ -245,7 +245,7 @@ namespace BaconBox {
 		return entity;
 	}
 	
-	MovieClipEntity *EntityFactory::getMovieClipEntityFromSubTexture(SubTextureInfo* subTex, const Vector2 & origin, bool blend, float scale){
+	MovieClipEntity *EntityFactory::getMovieClipEntityFromSubTexture(SubTextureInfo* subTex, const VMATH_NAMESPACE::Vector2f & origin, bool blend, float scale){
 	    MovieClipEntity *result = NULL;
 		if (subTex) {
 			result = movieClipPool.create();

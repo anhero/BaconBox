@@ -126,12 +126,12 @@ namespace BaconBox {
 		}
 	}
 
-	const Vector2 &Transform::getPosition() const {
+	const VMATH_NAMESPACE::Vector2f &Transform::getPosition() const {
 		return this->_position;
 	}
 
 
-	const Vector2 &Transform::getRealPosition() {
+	const VMATH_NAMESPACE::Vector2f &Transform::getRealPosition() {
 		if (matrixComponent) {
 			realPosition = matrixComponent->getConcatMatrix().multiplyWithVector(Vector2());
 			return realPosition;
@@ -141,7 +141,7 @@ namespace BaconBox {
 		}
 	}
 
-	void Transform::setPosition(const Vector2 &newPosition, bool withMessage) {
+	void Transform::setPosition(const VMATH_NAMESPACE::Vector2f &newPosition, bool withMessage) {
 		Vector2ChangedData data(this->_position, newPosition);
 		this->_position = newPosition;
 
@@ -163,11 +163,11 @@ namespace BaconBox {
 		}
 	}
 
-	const Vector2 &Transform::getScale() const {
+	const VMATH_NAMESPACE::Vector2f &Transform::getScale() const {
 		return this->_scale;
 	}
 
-	void Transform::setScale(const Vector2 &newScale, bool withMessage) {
+	void Transform::setScale(const VMATH_NAMESPACE::Vector2f &newScale, bool withMessage) {
 		Vector2ChangedData data(this->_scale, newScale);
 		this->_scale = newScale;
 
@@ -196,15 +196,15 @@ namespace BaconBox {
 		setProperties(static_cast<Transform*>(this->component));
 	}
 
-	const Vector2 &TransformProxy::getPosition() const {
+	const VMATH_NAMESPACE::Vector2f &TransformProxy::getPosition() const {
 		return reinterpret_cast<Transform *>(component)->getPosition();
 	}
 
-	const Vector2 &TransformProxy::getRealPosition() const {
+	const VMATH_NAMESPACE::Vector2f &TransformProxy::getRealPosition() const {
 		return reinterpret_cast<Transform *>(component)->getRealPosition();
 	}
 
-	void TransformProxy::setPosition(const Vector2 &newPosition) {
+	void TransformProxy::setPosition(const VMATH_NAMESPACE::Vector2f &newPosition) {
 		reinterpret_cast<Transform *>(component)->setPosition(newPosition);
 	}
 	
@@ -231,11 +231,11 @@ namespace BaconBox {
 		reinterpret_cast<Transform *>(component)->setRotation(newRotation);
 	}
 
-	const Vector2 &TransformProxy::getScale() const {
+	const VMATH_NAMESPACE::Vector2f &TransformProxy::getScale() const {
 		return reinterpret_cast<Transform *>(component)->getScale();
 	}
 
-	void TransformProxy::setScale(const Vector2 &newScale) {
+	void TransformProxy::setScale(const VMATH_NAMESPACE::Vector2f &newScale) {
 		reinterpret_cast<Transform *>(component)->setScale(newScale);
 	}
 

@@ -1964,6 +1964,17 @@ public:
 	 * Multiplication operator
 	 * @param rhs Right hand side argument of binary operator.
 	 */
+	Vector3<T> operator*(const Vector2<T>& rhs) const
+	{
+		return Vector3<T>(data[0] * rhs.x + data[3] * rhs.y,
+				data[1] * rhs.x + data[4] * rhs.y;
+	}
+
+	//--------------------[ multiply operators ]--------------------------------
+	/**
+	 * Multiplication operator
+	 * @param rhs Right hand side argument of binary operator.
+	 */
 	Vector3<T> operator*(const Vector3<T>& rhs) const
 	{
 		return Vector3<T>(data[0] * rhs.x + data[3] * rhs.y + data[6] * rhs.z,

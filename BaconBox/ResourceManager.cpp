@@ -236,11 +236,11 @@ namespace BaconBox {
 			symbol->isTexture = true;
 			symbol->key = name;
 			symbol->textureKey = textureName;
-			Vector2 registrationPoint;
+			VMATH_NAMESPACE::Vector2f registrationPoint;
 			symbol->subTex = addSubTexture(name, new SubTextureInfo());
 			
-			symbol->subTex->position = Vector2(Parser::stringToDouble(subTextNode->first_attribute("x")->value()), Parser::stringToDouble(subTextNode->first_attribute("y")->value()));
-			symbol->subTex->size = Vector2(Parser::stringToDouble(subTextNode->first_attribute("width")->value()), Parser::stringToDouble(subTextNode->first_attribute("height")->value()));
+			symbol->subTex->position = VMATH_NAMESPACE::Vector2f(Parser::stringToDouble(subTextNode->first_attribute("x")->value()), Parser::stringToDouble(subTextNode->first_attribute("y")->value()));
+			symbol->subTex->size = VMATH_NAMESPACE::Vector2f(Parser::stringToDouble(subTextNode->first_attribute("width")->value()), Parser::stringToDouble(subTextNode->first_attribute("height")->value()));
 			
 			symbol->subTex->textureInfo = textureInfo;
 
@@ -288,7 +288,7 @@ namespace BaconBox {
 
 					found = symbolNode->first_attribute("color");
 					if (found){
-	                    std::vector<int> temp;
+	                    VMATH_NAMESPACE::Vector2<int> temp;
 	                   Parser::parseStringArray<int>(found->value(), temp);
 	                    symbol->color = Color(temp[0], temp[1], temp[2]);
 					}
@@ -453,7 +453,7 @@ namespace BaconBox {
 					ColorMatrix colorMatrix;
 					found = childNode->first_attribute("colorTransform");
 					if (found) {
-                        std::vector<float> temp;
+                        VMATH_NAMESPACE::Vector2<float> temp;
                        Parser::parseStringArray<float>(found->value(), temp);
                        float divider = 1.0f / 255.0f;
                         colorMatrix.colorMultiplier.setRGBA(temp[0], temp[2], temp[4], temp[6]);

@@ -2,7 +2,7 @@
 #define BB_TRANSFORM_H
 
 #include "BaconBox/Core/Component.h"
-#include "BaconBox/Vector2.h"
+#include "BaconBox/vmath.h"
 #include "BaconBox/Core/Entity.h"
 #include "BaconBox/Input/Pointer/Pointer.h"
 #include "BaconBox/Matrix2D.h"
@@ -82,16 +82,16 @@ namespace BaconBox {
 		 * @return Vector2 containing the entity's position.
 		 * @see BaconBox::Transform::position
 		ç */
-		virtual const Vector2 &getPosition() const;
+		virtual const VMATH_NAMESPACE::Vector2f &getPosition() const;
 		
 
-		virtual const Vector2 &getRealPosition();
+		virtual const VMATH_NAMESPACE::Vector2f &getRealPosition();
 
 		/**
 		 * Sets the entity's position.
 		 * @param newPosition Vector2 containing the entity's new position.
 		 */
-		void setPosition(const Vector2 &newPosition, bool withMessage = true);
+		void setPosition(const VMATH_NAMESPACE::Vector2f &newPosition, bool withMessage = true);
 
 		/**
 		 * Gets the entity's rotation angle.
@@ -107,13 +107,13 @@ namespace BaconBox {
 		 * Gets the entity's scale values.
 		 * @return Entity's current scale values.
 		 */
-		const Vector2 &getScale() const;
+		const VMATH_NAMESPACE::Vector2f &getScale() const;
 
 		/**
 		 * Sets the entity's scale values.
 		 * @param newScale Vector2 containing the entity's new scale values.
 		 */
-		void setScale(const Vector2 &newScale, bool withMessage = true);
+		void setScale(const VMATH_NAMESPACE::Vector2f &newScale, bool withMessage = true);
 		
 #ifdef SWIG
 		float x;
@@ -145,9 +145,9 @@ namespace BaconBox {
 		float getScaleY() const;
 		
 
-		Vector2 _position;
+		VMATH_NAMESPACE::Vector2f _position;
 
-		Vector2 realPosition;
+		VMATH_NAMESPACE::Vector2f realPosition;
 
 		/**
 		 * Entity's rotation angle (in degrees, from -180 to 180).
@@ -157,7 +157,7 @@ namespace BaconBox {
 		/**
 		 * Entity's horizontal and vertical scale values.
 		 */
-		Vector2 _scale;
+		VMATH_NAMESPACE::Vector2f _scale;
 
 	private:
 		MatrixComponent *matrixComponent;
@@ -167,8 +167,8 @@ namespace BaconBox {
 	public:
 		TransformProxy(Entity *entity, bool mustAddComponent = true);
 
-		const Vector2 &getPosition() const;
-		void setPosition(const Vector2 &newPosition);
+		const VMATH_NAMESPACE::Vector2f &getPosition() const;
+		void setPosition(const VMATH_NAMESPACE::Vector2f &newPosition);
 		
 		float getXPosition() const;
 		float getYPosition() const;
@@ -176,13 +176,13 @@ namespace BaconBox {
 		void setXPosition(float newXPosition);
 		void setYPosition(float newYPosition);
 
-		const Vector2 &getRealPosition() const;
+		const VMATH_NAMESPACE::Vector2f &getRealPosition() const;
 
 		float getRotation() const;
 		void setRotation(float newRotation);
 
-		const Vector2 &getScale() const;
-		void setScale(const Vector2 &newScale);
+		const VMATH_NAMESPACE::Vector2f &getScale() const;
+		void setScale(const VMATH_NAMESPACE::Vector2f &newScale);
 #ifdef SWIG
 		float  x;
 		float  y;

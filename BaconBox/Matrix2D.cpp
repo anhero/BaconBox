@@ -1,5 +1,5 @@
 #include "Matrix2D.h"
-#include "Vector2.h"
+#include "vmath.h"
 #include <cmath>
 
 #include "BaconBox/Helper/MathHelper.h"
@@ -55,19 +55,19 @@ namespace BaconBox {
 
 	
 	
-	Vector2 Matrix2D::multiplyWithVector(const Vector2 & v) const{
-	    return Vector2(a*v.x + c*v.y + tx, b*v.x + d*v.y + ty);
+	VMATH_NAMESPACE::Vector2f Matrix2D::multiplyWithVector(const VMATH_NAMESPACE::Vector2f & v) const{
+	    return VMATH_NAMESPACE::Vector2f(a*v.x + c*v.y + tx, b*v.x + d*v.y + ty);
 	}
 
 	
-	void Matrix2D::translate(const Vector2 & v){
+	void Matrix2D::translate(const VMATH_NAMESPACE::Vector2f & v){
 	    Matrix2D temp;
 	    temp.tx = v.x;
 	    temp.ty = v.y;
 	    (*this) = temp * (*this);
 	}
 	
-	void Matrix2D::scale(const Vector2 & v){
+	void Matrix2D::scale(const VMATH_NAMESPACE::Vector2f & v){
 	    Matrix2D temp;
 	    temp.a *= v.x;
 	    temp.d *= v.y;

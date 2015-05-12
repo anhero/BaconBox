@@ -12,7 +12,7 @@ namespace BaconBox {
 		Array::size_type i = 0;
 
 		while (result && i < tmpArray.size()) {
-			if (Vector2::isValidValue(tmpArray[i])) {
+			if (VMATH_NAMESPACE::Vector2f::isValidValue(tmpArray[i])) {
 				++i;
 
 			} else {
@@ -64,13 +64,13 @@ namespace BaconBox {
 		return *(getBegin() + index);
 	}
 
-	const Vector2 VertexArray::getMinimumXY() const {
+	const VMATH_NAMESPACE::Vector2f VertexArray::getMinimumXY() const {
 		if (isEmpty()) {
-			return Vector2(0.0f, 0.0f);
+			return VMATH_NAMESPACE::Vector2f(0.0f, 0.0f);
 
 		} else {
 			ConstIterator i = getBegin();
-			Vector2 result = *i;
+			VMATH_NAMESPACE::Vector2f result = *i;
 			++i;
 
 			while (i != getEnd()) {
@@ -131,13 +131,13 @@ namespace BaconBox {
 		}
 	}
 
-	const Vector2 VertexArray::getMaximumXY() const {
+	const VMATH_NAMESPACE::Vector2f VertexArray::getMaximumXY() const {
 		if (isEmpty()) {
-			return Vector2(0.0f, 0.0f);
+			return VMATH_NAMESPACE::Vector2f(0.0f, 0.0f);
 
 		} else {
 			ConstIterator i = getBegin();
-			Vector2 result = *i;
+			VMATH_NAMESPACE::Vector2f result = *i;
 			++i;
 
 			while (i != getEnd()) {
@@ -198,14 +198,14 @@ namespace BaconBox {
 		}
 	}
 
-	const Vector2 VertexArray::getSize() const {
+	const VMATH_NAMESPACE::Vector2f VertexArray::getSize() const {
 		if (isEmpty()) {
-			return Vector2(0.0f, 0.0f);
+			return VMATH_NAMESPACE::Vector2f(0.0f, 0.0f);
 
 		} else {
 			ConstIterator i = getBegin();
-			Vector2 min = *i;
-			Vector2 max = *i;
+			VMATH_NAMESPACE::Vector2f min = *i;
+			VMATH_NAMESPACE::Vector2f max = *i;
 			++i;
 
 			while (i != getEnd()) {
@@ -280,12 +280,12 @@ namespace BaconBox {
 		}
 	}
 
-	const Vector2 VertexArray::getCentroid() const {
+	const VMATH_NAMESPACE::Vector2f VertexArray::getCentroid() const {
 		return getSumOfVertices() / static_cast<float>(getNbVertices());
 	}
 
-	const Vector2 VertexArray::getSumOfVertices() const {
-		Vector2 result;
+	const VMATH_NAMESPACE::Vector2f VertexArray::getSumOfVertices() const {
+		VMATH_NAMESPACE::Vector2f result;
 
 		for (ConstIterator i = getBegin(); i != getEnd(); ++i) {
 			result += *i;
@@ -309,7 +309,7 @@ namespace BaconBox {
 
 
 	void VertexArray::scaleFromPoint(float xScaling, float yScaling,
-	                                 const Vector2 &fromPoint) {
+	                                 const VMATH_NAMESPACE::Vector2f &fromPoint) {
 		for (Iterator i = getBegin(); i != getEnd(); ++i) {
 			*i -= fromPoint;
 			i->x *= xScaling;
@@ -319,7 +319,7 @@ namespace BaconBox {
 	}
 
 	void VertexArray::rotateFromPoint(float rotationAngle,
-	                                  const Vector2 &rotationPoint) {
+	                                  const VMATH_NAMESPACE::Vector2f &rotationPoint) {
 		for (Iterator i = getBegin(); i != getEnd(); ++i) {
 			*i -= rotationPoint;
 			i->rotate(rotationAngle);
@@ -327,7 +327,7 @@ namespace BaconBox {
 		}
 	}
 
-	bool VertexArray::overlaps(const Vector2 &point) const {
+	bool VertexArray::overlaps(const VMATH_NAMESPACE::Vector2f &point) const {
 		bool result = false;
 		for (VertexArray::ConstIterator i = this->getBegin(), j = (this->getEnd()-1); i != this->getEnd(); ++i) {
 			if ((i->y < point.y && j->y >= point.y) ||
@@ -386,7 +386,7 @@ namespace BaconBox {
 			// aren't even colliding.
 			if (getAABB().overlaps(other.getAABB())) {
 				result = true;
-				Vector2 line;
+				VMATH_NAMESPACE::Vector2f line;
 				ConstIterator i = getBegin();
 				ConstIterator iNext = getBegin();
 				++iNext;

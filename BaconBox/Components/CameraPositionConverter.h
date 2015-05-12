@@ -2,7 +2,7 @@
 #define BB_CAMERAPOSITIONCONVERTER_H
 
 #include "BaconBox/Core/Component.h"
-#include "BaconBox/Vector2.h"
+#include "BaconBox/vmath.h"
 
 namespace BaconBox {
 	class Transform;
@@ -14,8 +14,8 @@ namespace BaconBox {
 	public:
 		BB_ID_HEADER;
 		CameraPositionConverter();
-		const Vector2 screenToWorld(const Vector2 &positionOnScreen) const;
-		const Vector2 worldToScreen(const Vector2 &positionInWorld) const;
+		const VMATH_NAMESPACE::Vector2f screenToWorld(const VMATH_NAMESPACE::Vector2f &positionOnScreen) const;
+		const VMATH_NAMESPACE::Vector2f worldToScreen(const VMATH_NAMESPACE::Vector2f &positionInWorld) const;
 		
 	protected:
 		void initializeConnections();
@@ -31,8 +31,8 @@ namespace BaconBox {
 	public:
 		CameraPositionConverterProxy(Entity *entity, bool mustAddComponent = true);
 		
-		const Vector2 screenToWorld(const Vector2 &positionOnScreen) const;
-		const Vector2 worldToScreen(const Vector2 &positionInWorld) const;
+		const VMATH_NAMESPACE::Vector2f screenToWorld(const VMATH_NAMESPACE::Vector2f &positionOnScreen) const;
+		const VMATH_NAMESPACE::Vector2f worldToScreen(const VMATH_NAMESPACE::Vector2f &positionInWorld) const;
 	protected:
 	};
 }

@@ -40,7 +40,7 @@ void internalSetMatrix(const Matrix2D & m);
 		Matrix2D concatMatrix;
 		std::map<int, Matrix2D> * matrixByParentFrame;
 		EntityContainer * entityContainer;
-		void updateMatrix(Vector2 position, Vector2 scale, float angle);
+		void updateMatrix(VMATH_NAMESPACE::Vector2f position, VMATH_NAMESPACE::Vector2f scale, float angle);
 		bool hasCustomMatrix;
 	};
 }

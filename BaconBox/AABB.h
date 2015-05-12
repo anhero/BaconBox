@@ -5,7 +5,7 @@
 #ifndef BB_AXIS_ALIGNED_BOUNDING_BOX_H
 #define BB_AXIS_ALIGNED_BOUNDING_BOX_H
 
-#include "BaconBox/Vector2.h"
+#include "BaconBox/vmath.h"
 
 namespace BaconBox {
 	/**
@@ -26,8 +26,8 @@ namespace BaconBox {
 		 * @see BaconBox::AABB::position
 		 * @see BaconBox::AABB::size
 		 */
-		AABB(const Vector2 &newPosition,
-		                       const Vector2 &newSize);
+		AABB(const VMATH_NAMESPACE::Vector2f &newPosition,
+		                       const VMATH_NAMESPACE::Vector2f &newSize);
 		
 		AABB(float x, float y, float width, float height);
 
@@ -65,14 +65,14 @@ namespace BaconBox {
 		 * @return 2D vector containing the horizontal and vertical position.
 		 * @see BaconBox::AABB::position
 		 */
-		Vector2 &getPosition();
+		VMATH_NAMESPACE::Vector2f &getPosition();
 
 		/**
 		 * Gets the body's horizontal and vertical position.
 		 * @return 2D vector containing the horizontal and vertical position.
 		 * @see BaconBox::AABB::position
 		 */
-		const Vector2 &getPosition() const;
+		const VMATH_NAMESPACE::Vector2f &getPosition() const;
 
 		/**
 		 * Sets the AxisAlignedBoundingBox's horizontal and vertical position.
@@ -80,7 +80,7 @@ namespace BaconBox {
 		 * @see AABB::setPosition(float x, float y)
 		 * @see BaconBox::AABB::position
 		 */
-		void setPosition(const Vector2 &newPosition);
+		void setPosition(const VMATH_NAMESPACE::Vector2f &newPosition);
 
 		/**
 		 * Sets the AxisAlignedBoundingBox's horizontal and vertical position.
@@ -99,7 +99,7 @@ namespace BaconBox {
 		 * @see BaconBox::AABB::move(float deltaX, float deltaY)
 		 * @see BaconBox::AABB::position
 		 */
-		void move(const Vector2 &delta);
+		void move(const VMATH_NAMESPACE::Vector2f &delta);
 
 		/**
 		 * Moves the AxisAlignedBoundingBox horizontally and vertically.
@@ -168,7 +168,7 @@ namespace BaconBox {
 		 * Gets the body's center's position.
 		 * @return 2D vector containing the body's center's position.
 		 */
-		const Vector2 getPositionCenter() const;
+		const VMATH_NAMESPACE::Vector2f getPositionCenter() const;
 
 		/**
 		 * Gets the body's center's horizontal position.
@@ -187,21 +187,21 @@ namespace BaconBox {
 		 * @return Vector2 containing the width and height of the bounding box.
 		 * @see BaconBox::AABB::size
 		 */
-		Vector2 &getSize();
+		VMATH_NAMESPACE::Vector2f &getSize();
 
 		/**
 		 * Gets the bounding box's size.
 		 * @return Vector2 containing the width and height of the bounding box.
 		 * @see BaconBox::AABB::size
 		 */
-		const Vector2 &getSize() const;
+		const VMATH_NAMESPACE::Vector2f &getSize() const;
 
 		/**
 		 * Sets the bounding box's size.
 		 * @param newSize New size to set.
 		 * @see BaconBox::AABB::size
 		 */
-		void setSize(const Vector2 &newSize);
+		void setSize(const VMATH_NAMESPACE::Vector2f &newSize);
 
 		/**
 		 * Sets the bounding box's size.
@@ -275,9 +275,9 @@ namespace BaconBox {
 		 * @param point Point to check overlapping with.
 		 * @return True if the point is inside the bounding box, false if not.
 		 */
-		bool overlaps(const Vector2 &point) const;
+		bool overlaps(const VMATH_NAMESPACE::Vector2f &point) const;
 		
-		bool overlaps(const Vector2 &point, float radius) const;
+		bool overlaps(const VMATH_NAMESPACE::Vector2f &point, float radius) const;
 
 
 		/**
@@ -352,10 +352,10 @@ namespace BaconBox {
 		 * the body is. The higher the vertical value, the more to the bottom
 		 * the body is.
 		 */
-		Vector2 position;
+		VMATH_NAMESPACE::Vector2f position;
 
 		/// Size in pixels (by default) of the bounding box.
-		Vector2 size;
+		VMATH_NAMESPACE::Vector2f size;
 	};
 
 }

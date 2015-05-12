@@ -55,7 +55,7 @@ namespace BaconBox {
 	    Color color;
 //	Symbol * symbol;
 	std::list<Part> parts;
-	Vector2 registrationPoint;
+	VMATH_NAMESPACE::Vector2f registrationPoint;
 	std::map<std::string, std::pair<int, int> > label;
 		bool hasLabel(const std::string & labelName);
 

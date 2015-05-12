@@ -8,7 +8,7 @@
 #include <iostream>
 #include <vector>
 
-#include "BaconBox/Vector2.h"
+#include "BaconBox/vmath.h"
 #include "BaconBox/AABB.h"
 #include "BaconBox/Helper/Serialization/Serializable.h"
 #include "Matrix2D.h"
@@ -244,7 +244,7 @@ namespace BaconBox {
 		 * @return Vector2 containing the maximum horizontal and maximum
 		 * vertical positions (array's bottom right corner's position).
 		 */
-		const Vector2 getMaximumXY() const;
+		const VMATH_NAMESPACE::Vector2f getMaximumXY() const;
 
 		/**
 		 * Gets the maximum horizontal position.
@@ -263,7 +263,7 @@ namespace BaconBox {
 		 * @return Vector2 containing the width and the height of the array's
 		 * vertices.
 		 */
-		const Vector2 getSize() const;
+		const VMATH_NAMESPACE::Vector2f getSize() const;
 
 		/**
 		 * Gets the maximum minus the minimum horizontal position.
@@ -283,14 +283,14 @@ namespace BaconBox {
 		 * support irregular polygons.
 		 * @return Geometric center of the body (barycenter).
 		 */
-		const Vector2 getCentroid() const;
+		const VMATH_NAMESPACE::Vector2f getCentroid() const;
 
 		/**
 		 * Gets the sum of all its vertices. Adds all the vertices together and
 		 * returns the result.
 		 * @return Sum of all the array's vertices.
 		 */
-		const Vector2 getSumOfVertices() const;
+		const VMATH_NAMESPACE::Vector2f getSumOfVertices() const;
 
 		/**
 		 * Moves the vertices horizontally and vertically.
@@ -312,7 +312,7 @@ namespace BaconBox {
 		 * @param fromPoint Anchor point from which to apply the scaling.
 		 */
 		void scaleFromPoint(float xScaling, float yScaling,
-		                    const Vector2 &fromPoint);
+		                    const VMATH_NAMESPACE::Vector2f &fromPoint);
 
 		/**
 		 * Rotates the vertices from a point.
@@ -320,7 +320,7 @@ namespace BaconBox {
 		 * @param rotationPoint Origin point on which to apply the rotation.
 		 */
 		void rotateFromPoint(float rotationAngle,
-		                     const Vector2 &rotationPoint);
+		                     const VMATH_NAMESPACE::Vector2f &rotationPoint);
 		
 		
 		void multiplyWithMatrix(const Matrix2D & m);
@@ -330,7 +330,7 @@ namespace BaconBox {
 		 * @param point Point to check if it is inside the polygon.
 		 * @return True if the point is inside the polygon, false if not.
 		 */
-		bool overlaps(const Vector2 &point) const;
+		bool overlaps(const VMATH_NAMESPACE::Vector2f &point) const;
 
 		/**
 		 * Gets the axis aligned bounding box that surronds the vertices array.
