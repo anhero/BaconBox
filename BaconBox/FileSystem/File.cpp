@@ -21,11 +21,12 @@ void File::close() {}
 // MemBuf
 
 File::MemBuf::MemBuf(File *f) : buf(NULL) {
-	char* begin = (char*)f->toBuffer();
+	buf = (char*)f->toBuffer();
+	char* begin = buf;
 	char* end = begin + f->size();
 	this->setg(begin, begin, end);
 }
 
 File::MemBuf::~MemBuf() {
-	delete buf;
+	delete[] buf;
 }
