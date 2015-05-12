@@ -47,5 +47,21 @@ bool FileSystem::mount(const std::string& what, const std::string& where, const 
 }
 
 bool FileSystem::_mount(const std::string& what, const std::string& where, const bool write, const bool append) {
-	return (bool)PHYSFS_mount(what.c_str(), where.c_str(), append);
+#ifdef BB_WITH_PHYSFS
+	// TODO : Error handling
+	if (!(bool)PHYSFS_mount(what.c_str(), where.c_str(), append)) {
+		PRLN("Mounting with PHYSFS_mount failed.");
+		PRLN("Reason: '" << PHYSFS_getLastError() << "'");
+		return false;
+	}
+	if (write) {
+		if (PHYSFS_setWriteDir(what.c_str()) == 0) {
+			PRLN("Mounting for write failed; PHYSFS_setWriteDir failed.");
+			PRLN("Reason: '" << PHYSFS_getLastError() << "'");
+			return false;
+		}
+		PhysFSFile::setWriteMount(where);
+	}
+	return true;
+#endif
 }

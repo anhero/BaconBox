@@ -22,9 +22,15 @@ namespace BaconBox {
 
 		static File * open(const std::string& path, const std::string& mode);
 		virtual void close();
+
+		/// Used internally to keep the writedir and readdir "mounted" at the same place.
+		static void setWriteMount(const std::string& where);
 	protected:
 		PhysFSFile(const std::string& path, const std::string& mode);
 		PHYSFS_file* internal_file;
+
+		/// Used internally, see: setWriteMount();
+		static std::string write_mount_point;
 	};
 }
 

@@ -3,6 +3,12 @@
 
 using namespace BaconBox;
 
+std::string PhysFSFile::write_mount_point;
+
+void PhysFSFile::setWriteMount(const std::string &where) {
+	PhysFSFile::write_mount_point = where;
+}
+
 PhysFSFile::PhysFSFile(const std::string& path, const std::string& mode) : File(path, mode) {
 	// TODO : Use mode for r/w/a...
 	internal_file = PHYSFS_openRead(path.c_str());
