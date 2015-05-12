@@ -18,6 +18,7 @@ int File::fillBuffer(void* buffer, unsigned int offset, unsigned int length) {re
 int File::tell() {return 0;}
 int File::seek(unsigned int offset) {return 0;}
 std::string File::read(unsigned int to_read) {return "";}
+bool File::write(const std::string data) {return false;}
 void File::close() {}
 
 // /////////////////////////////////////////////////////////////////////////////

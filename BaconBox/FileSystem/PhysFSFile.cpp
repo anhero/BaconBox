@@ -9,9 +9,40 @@ void PhysFSFile::setWriteMount(const std::string &where) {
 	PhysFSFile::write_mount_point = where;
 }
 
-PhysFSFile::PhysFSFile(const std::string& path, const std::string& mode) : File(path, mode) {
-	// TODO : Use mode for r/w/a...
-	internal_file = PHYSFS_openRead(path.c_str());
+PhysFSFile::PhysFSFile(const std::string& path, const std::string& mode) : File(path, mode), internal_file(NULL) {
+	// When in w or a, the file to open must have the 'writedir' prefix removed,
+	// as PhysFS does not resolve to the mounted point.
+	// In PhysicsFS, a saveDir is a complete separated concept from the other directories.
+	// Files in openWrite/openAppend are all absolute to that dir.
+
+	std::string write_path;
+	if (mode == "w" || mode == "wb" || mode == "a" || mode == "ab") {
+		if ( path.substr(0, write_mount_point.length()) != write_mount_point ) {
+#ifdef BB_DEBUG
+			Console__error("Could not open file `" +path+ "` for writing or appending.");
+			Console__error("Its path is not in the write mount point : " + write_mount_point);
+#endif
+			return;
+		}
+		write_path = path.substr(write_mount_point.length());
+	}
+
+	if (mode == "r" || mode == "rb") {
+		internal_file = PHYSFS_openRead(path.c_str());
+	}
+	else if (mode == "w" || mode == "wb") {
+		internal_file = PHYSFS_openWrite(write_path.c_str());
+	}
+	else if (mode == "a" || mode == "ab") {
+		internal_file = PHYSFS_openAppend(write_path.c_str());
+	}
+	else {
+#ifdef BB_DEBUG
+		Console__error("Could not open file `" +path+ "`.");
+		Console__error("Mode `"+mode+"` is invalid. for PhysFSFile.");
+#endif
+		return;
+	}
 	if (!internal_file) {
 		// TODO : Release-mode logger.
 #ifdef BB_DEBUG
@@ -98,4 +129,17 @@ std::string PhysFSFile::read(unsigned int to_read) {
 	std::string str(buf);
 	delete[] buf;
 	return str;
+}
+
+bool PhysFSFile::write(const std::string data) {
+	int ret = PHYSFS_write(internal_file, data.c_str(), data.length(), 1);
+	if (ret < 0) {
+		// TODO : Release-mode logger.
+#ifdef BB_DEBUG
+		PRLN("Writing to `"+path+"` failed.");
+		PRLN("Reason: '" << PHYSFS_getLastError() << "'");
+#endif
+		return false;
+	}
+	return true;
 }

@@ -63,6 +63,13 @@ namespace BaconBox {
 		 */
 		virtual std::string read(unsigned int to_read = 0);
 		/**
+		 * Writes a data string to a file.
+		 * @param data String of data to write.
+		 * @return Whether it succeded or not.
+		 */
+		virtual bool write(const std::string data);
+
+		/**
 		 * Closes the file.
 		 */
 		virtual void close();
