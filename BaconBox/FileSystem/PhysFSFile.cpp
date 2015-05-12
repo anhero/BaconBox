@@ -38,6 +38,24 @@ size_t PhysFSFile::size() {
 	return len;
 }
 
+int PhysFSFile::seek(unsigned int offset) {
+	int ret = PHYSFS_seek(internal_file, offset);
+	if (ret == 0) {
+		return offset;
+	}
+	// TODO : Error handling/logging.
+	return -1;
+}
+
+int PhysFSFile::tell() {
+	int ret = PHYSFS_tell(internal_file);
+	if (ret >= 0) {
+		return ret;
+	}
+	// TODO : Error handling/logging.
+	return -1;
+}
+
 unsigned char* PhysFSFile::toBuffer(unsigned int offset, unsigned int length) {
 	if (length == 0) {
 		PHYSFS_sint64 max_length = size();

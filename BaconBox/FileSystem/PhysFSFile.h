@@ -16,6 +16,8 @@ namespace BaconBox {
 		virtual unsigned char* toBuffer(unsigned int offset = 0, unsigned int length = 0);
 		virtual int fillBuffer(void* buffer, unsigned int offset = 0, unsigned int length = 0);
 		virtual size_t size();
+		virtual int seek(unsigned int offset = 0);
+		virtual int tell();
 		static File * open(const std::string& path, const std::string& mode);
 		virtual void close();
 	protected:

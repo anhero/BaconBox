@@ -15,6 +15,8 @@ File::~File() {}
 size_t File::size() {return 0;}
 unsigned char* File::toBuffer(unsigned int offset, unsigned int length) {return NULL;}
 int File::fillBuffer(void* buffer, unsigned int offset, unsigned int length) {return 0;}
+int File::tell() {return 0;}
+int File::seek(unsigned int offset) {return 0;}
 void File::close() {}
 
 // /////////////////////////////////////////////////////////////////////////////

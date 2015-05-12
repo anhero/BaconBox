@@ -44,6 +44,18 @@ namespace BaconBox {
 		 */
 		virtual size_t size();
 		/**
+		 * Gets the internal file pointer to a certain offset in the file.
+		 * The seek is relative to the start of the file.
+		 * @param offset Offset to go to.
+		 * @return
+		 */
+		virtual int seek(unsigned int offset = 0);
+		/**
+		 * Gets where we are seeked in the file.
+		 * @return Amount of bytes in.
+		 */
+		virtual int tell();
+		/**
 		 * Closes the file.
 		 */
 		virtual void close();
