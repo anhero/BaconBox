@@ -43,6 +43,7 @@ namespace BaconBox {
 		virtual void destroyInstance() = 0;
 		// static bool hasInstance() = 0;
 		virtual std::string getName() = 0;
+		virtual ~Singleton(){}
 	};
 }
 
