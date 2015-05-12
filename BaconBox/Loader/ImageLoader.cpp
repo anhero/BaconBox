@@ -136,7 +136,7 @@ void ImageLoader::png_read_data(png_structp png_ptr, png_bytep data, png_size_t 
 	// Get back what we stowed away in the reader
 	png_buf_read_status * status = (png_buf_read_status *)png_get_io_ptr(png_ptr);
 	// Fill in a C-style array with the wanted offset
-	unsigned char * png_data = status->file->toBuffer(status->bytes_read, length);
+	unsigned char* png_data = status->file->toBuffer(status->bytes_read, length);
 	// Copy it over
 	memcpy(data, png_data, length);
 	//

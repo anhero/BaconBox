@@ -200,7 +200,7 @@ namespace BaconBox {
 		File* file = FileSystem::open(filePath);
 		// Read in some information
 		unsigned int size = file->size();
-		unsigned char * filebuf = file->toBuffer();
+		unsigned char* filebuf = file->toBuffer();
 		// Pass it around
 		result->data = Mix_LoadWAV_RW(SDL_RWFromMem(filebuf, size), true);
 		// Delete all

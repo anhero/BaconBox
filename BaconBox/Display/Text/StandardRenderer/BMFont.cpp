@@ -51,7 +51,7 @@ namespace BaconBox {
 		char firstChar = buf[0];
 
 		// Cleanup
-		delete buf;
+		delete[] buf;
 		delete file;
 
 		if (firstChar == 'i') {

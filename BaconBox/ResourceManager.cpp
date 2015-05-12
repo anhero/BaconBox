@@ -1163,7 +1163,7 @@ namespace BaconBox {
 	}
 
 	bool ResourceManager::fileExists(const std::string& path) {
-		FileSystem::exists(path);
+		return FileSystem::exists(path);
 	}
 
 	
