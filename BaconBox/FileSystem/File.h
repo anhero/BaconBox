@@ -44,6 +44,14 @@ namespace BaconBox {
 		 */
 		virtual size_t size();
 		virtual ~File();
+
+		/**
+		 * Opens a File on the VFS.
+		 * @param path Path to open.
+		 * @param mode Mode to open, "r", "w" or "a". Defaults to "r".
+		 * @return The pointer to the opened File.
+		 */
+		static File * open(const std::string& path, const std::string& mode);
 	protected:
 		File(const std::string& path, const std::string& mode);
 		std::string path;

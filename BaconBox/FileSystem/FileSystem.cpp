@@ -29,7 +29,7 @@ File* FileSystem::open(const std::string &path, const std::string& mode) {
 	return FileSystem::getInstance()._open(path, mode);
 }
 File* FileSystem::_open(const std::string &path, const std::string &mode) {
-	return new FILE_IMPL(path, mode);
+	return FILE_IMPL::open(path, mode);
 }
 
 bool FileSystem::exists(const std::string &path) {

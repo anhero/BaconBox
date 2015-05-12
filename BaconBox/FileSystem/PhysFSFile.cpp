@@ -15,6 +15,14 @@ PhysFSFile::PhysFSFile(const std::string& path, const std::string& mode) : File(
 	}
 }
 
+File* PhysFSFile::open(const std::string& path, const std::string& mode) {
+	PhysFSFile * file = new PhysFSFile(path, mode);
+	if (file->internal_file) {
+		return file;
+	}
+	return NULL;
+}
+
 PhysFSFile::~PhysFSFile() {
 	PHYSFS_close(internal_file);
 	internal_file = NULL;

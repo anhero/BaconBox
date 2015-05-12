@@ -2,6 +2,10 @@
 
 using namespace BaconBox;
 
+File* File::open(const std::string &path, const std::string &mode) {
+	return NULL;
+}
+
 File::File(const std::string& path, const std::string &mode) {
 	this->path = path;
 	this->mode = mode;
