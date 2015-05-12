@@ -68,9 +68,9 @@ namespace BaconBox {
 		// If we want to de-sandbox the lua interpreter, this would be here.
 		// The user will need to use the BaconBox FileSystem/File API for file manipulations.
 		const std::string code_str(
-			"for k,v in pairs(io) do io[k] = nil end;"
+			"if io then for k,v in pairs(io) do io[k] = nil end; end"
 			"io = nil;"
-			"for k,v in pairs(file) do file[k] = nil end;"
+			"if file then for k,v in pairs(file) do file[k] = nil end; end"
 			"file = nil;"
 			// Remove os.[execute|remove|rename]
 			"os.execute = nil;"
