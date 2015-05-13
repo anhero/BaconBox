@@ -77,7 +77,7 @@ bool FileSystem::_mount(const std::string& what, const std::string& where, const
 			}
 		}
 		if (PHYSFS_setWriteDir(what.c_str()) == 0) {
-			PRLN("Mounting for write failed; PHYSFS_setWriteDir failed.");
+			PRLN("Mounting for write failed; (`" << what << "`)  PHYSFS_setWriteDir failed.");
 			PRLN("Reason: '" << PHYSFS_getLastError() << "'");
 			return false;
 		}
