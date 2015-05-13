@@ -100,6 +100,7 @@ bool FileSystem::mountDefaultSavePath(const std::string &where) {
 // FIXME : 'Dirty', this implements multiple platforms through ifdefs.
 // FIXME : 'Dirty', this should only give a path to use, and should not create it.
 // Furthermore, I'm pretty sure this is not the right place API-wise to have this.
+// FIXME : No windows implementation yet!
 std::string FileSystem::getPlatformSavePath() {
 #if defined(BB_IPHONE_PLATFORM)
 	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
