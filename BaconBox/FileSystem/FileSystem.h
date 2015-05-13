@@ -44,6 +44,15 @@ namespace BaconBox {
 		 */
 		static bool mount(const std::string& what, const std::string& where = "/", const bool write = false, const bool append = false);
 
+		/**
+		 * Mounts the default platform-specific save path.
+		 * If you need a specific save path, mount it manually.
+		 *
+		 * @param where Where to mount it (defaults to /Save/).
+		 * @return Whether it succeeded or not.
+		 */
+		static bool mountDefaultSavePath(const std::string& where = "/Save");
+
 		/// Gets the platform-specific save path.
 		static std::string getPlatformSavePath();
 	protected:

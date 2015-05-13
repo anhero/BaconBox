@@ -92,6 +92,10 @@ bool FileSystem::_mount(const std::string& what, const std::string& where, const
 #endif
 }
 
+bool FileSystem::mountDefaultSavePath(const std::string &where) {
+	return FileSystem::mount(FileSystem::getPlatformSavePath(), where, true, false);
+}
+
 // This might need a bit of refactoring. Especially with regards to the VFS.
 // FIXME : 'Dirty', this implements multiple platforms through ifdefs.
 // FIXME : 'Dirty', this should only give a path to use, and should not create it.
