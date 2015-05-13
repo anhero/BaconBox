@@ -5,6 +5,8 @@
 #include "BaconBox/FileSystem/File.h"
 #include <string>
 
+// FIXME : This should be a generic interface to use, and should use a proper specific implementation.
+
 namespace BaconBox {
 	/**
 	 * Wraps access to a filesystem-like thing.
@@ -41,6 +43,9 @@ namespace BaconBox {
 		 * @return Whether it succeeded or not.
 		 */
 		static bool mount(const std::string& what, const std::string& where = "/", const bool write = false, const bool append = false);
+
+		/// Gets the platform-specific save path.
+		static std::string getPlatformSavePath();
 	protected:
 		File* _open(const std::string& path, const std::string& mode);
 		bool _exists(const std::string& path);

@@ -19,6 +19,20 @@
 #define FILE_IMPL NullFile
 #endif
 
+// For the platform save path...
+#ifdef BB_IPHONE_PLATFORM
+#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
+#include <stdlib.h>
+//#include <sys/stat.h>
+//#include <dirent.h>
+#elif defined(BB_MAC_PLATFORM) || defined(BB_LINUX) || defined(BB_FLASH_PLATFORM)
+#include <pwd.h>
+#include <unistd.h>
+#endif
+
+#include <sstream>
+
 using namespace BaconBox;
 
 BB_SINGLETON_IMPL(FileSystem);
@@ -75,5 +89,49 @@ bool FileSystem::_mount(const std::string& what, const std::string& where, const
 		return false;
 	}
 	return true;
+#endif
+}
+
+// This might need a bit of refactoring. Especially with regards to the VFS.
+// FIXME : 'Dirty', this implements multiple platforms through ifdefs.
+// FIXME : 'Dirty', this should only give a path to use, and should not create it.
+// Furthermore, I'm pretty sure this is not the right place API-wise to have this.
+std::string FileSystem::getPlatformSavePath() {
+#if defined(BB_IPHONE_PLATFORM)
+	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+	NSString *documentsDirectory = [paths objectAtIndex: 0];
+	std::string documentPath = [documentsDirectory cStringUsingEncoding: NSASCIIStringEncoding];
+	return documentPath;
+#else
+	// FIXME : Add back a way to detect a debug document path. Through specific VFS write mounting?
+	if (false ) {} //debugDocumentPath != "") { return debugDocumentPath; }
+	else {
+#if defined(BB_MAC_PLATFORM) || (defined(BB_LINUX) && !defined(BB_ANDROID))
+
+		// Paths relative to the home directory
+#if defined(BB_MAC_PLATFORM)
+		const std::string conf_dir = "/Library/Application Support/";
+#else
+		// TODO: Implement XDG Basedir properly.
+		const std::string conf_dir = "/.config/";
+#endif
+		// Basically does this :
+		//      $HOME/conf_dir/$APPLICATION_NAME/
+		static bool firstTime = true;
+		std::stringstream ss;
+		ss << getpwuid(getuid())->pw_dir << conf_dir << Engine::getApplicationName() << "/";
+		// Always tries to create the folder the first time this is ran.
+		if (firstTime) {
+			SystemFS::createDirectory(ss.str());
+			firstTime = false;
+		}
+		return ss.str();
+
+#elif defined(BB_ANDROID)
+		return "/data/data/" + AndroidHelper::getPackageName() + "/";
+#else
+		return std::string();
+#endif
+	}
 #endif
 }
