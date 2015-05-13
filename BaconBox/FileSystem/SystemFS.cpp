@@ -64,7 +64,7 @@ bool SystemFS::createDirectory(const std::string &path) {
 }
 
 bool SystemFS::createDirectoryTree(const std::string &path) {
-	bool result = false;
+	bool failed = false;
 
 	// We make sure the path isn't empty.
 	if (!path.empty()) {
@@ -81,7 +81,7 @@ bool SystemFS::createDirectoryTree(const std::string &path) {
 #endif
 
 		// For each character in the path.
-		while (!result && i != path.end()) {
+		while (!failed && i != path.end()) {
 			tmpPath.append(1, *i);
 			// If we encounter a slash and the folder doesn't already exist,
 			// we try to create the folder.
@@ -89,22 +89,22 @@ bool SystemFS::createDirectoryTree(const std::string &path) {
 				Console::print("Failed to create the following directory \"");
 				Console::print(tmpPath);
 				Console::println("\".");
-				result = true;
+				failed = true;
 			}
 			++i;
 		}
 
 		// If the path didn't end with a slash, we try to create the last
 		// folder.
-		if (!result && tmpPath.at(tmpPath.size() - 1) != '/' && !isDirectory(tmpPath) && createDirectory(tmpPath)) {
+		if (!failed && tmpPath.at(tmpPath.size() - 1) != '/' && !isDirectory(tmpPath) && createDirectory(tmpPath)) {
 			Console::print("Failed to create the following directory \"");
 			Console::print(tmpPath);
 			Console::println("\".");
-			result = true;
+			failed = true;
 		}
 	}
 
-	return result;
+	return !failed;
 }
 
 // TODO : Refactor using SystemFS traversal and delete functions.

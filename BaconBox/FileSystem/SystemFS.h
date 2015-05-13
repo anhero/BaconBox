@@ -20,7 +20,12 @@ namespace BaconBox {
 		static bool isDirectory(const std::string &path);
 		/// Creates a directory on the system's filesystem (mkdir).
 		static bool createDirectory(const std::string &path);
-		/// Creates a directory tree on the system's filesystem (mkdir -p).
+		//
+		/**
+		 * Creates a directory tree on the system's filesystem (mkdir -p).
+		 * @param path Path to create
+		 * @return Whether it failed to create a directory or not. An already existing directory is not a failure.
+		 */
 		static bool createDirectoryTree(const std::string &path);
 
 		/// Deletes a directory (rm -rf dir/)
