@@ -4,11 +4,10 @@
 
 
 #if defined(BB_MAC_PLATFORM) || defined(BB_LINUX)
-#include <errno.h>
 #include <string.h>
 #include <sys/stat.h>
-#include <sys/types.h>
 #include <unistd.h>
+#include <dirent.h>
 #endif
 
 using namespace BaconBox;
@@ -53,7 +52,7 @@ bool SystemFS::isDirectory(const std::string &path) {
 
 bool SystemFS::createDirectory(const std::string &path) {
 #if defined(BB_MAC_PLATFORM) || defined(BB_LINUX)|| defined(BB_IPHONE_PLATFORM)
-	if (mkdir(path.c_str(), 0755)) {
+	if (::mkdir(path.c_str(), 0755)) {
 		return true;
 	} else {
 		return false;
@@ -108,3 +107,54 @@ bool SystemFS::createDirectoryTree(const std::string &path) {
 	return result;
 }
 
+// TODO : Refactor using SystemFS traversal and delete functions.
+bool SystemFS::removeDirectoryTree(const std::string &path) {
+	// #if defined(BB_FLASH_PLATFORM)
+	// 	return false;
+	// #else
+	// Took from here: http://stackoverflow.com/questions/2256945/removing-a-non-empty-directory-programmatically-in-c-or-c
+	DIR *d = opendir(path.c_str());
+	size_t path_len = strlen(path.c_str());
+	int r = -1;
+	if (d) {
+		struct dirent *p;
+		r = 0;
+		while (!r && (p=readdir(d))) {
+			int r2 = -1;
+			char *buf;
+			size_t len;
+			/* Skip the names "." and ".." as we don't want to recurse on them. */
+			if (!strcmp(p->d_name, ".") || !strcmp(p->d_name, "..")) {
+				continue;
+			}
+			len = path_len + strlen(p->d_name) + 2;
+			buf = (char*)malloc(len);
+			if (buf) {
+				struct stat statbuf;
+				snprintf(buf, len, "%s/%s", path.c_str(), p->d_name);
+				if (!stat(buf, &statbuf)) {
+					if (S_ISDIR(statbuf.st_mode)) {
+						// If it's a directory, recurse with this function in it.
+						r2 = removeDirectoryTree(buf);
+					}
+					else {
+						r2 = unlink(buf);
+					}
+				}
+				free(buf);
+			}
+			r = r2;
+		}
+		closedir(d);
+	}
+	if (!r) {
+		r = rmdir(path.c_str());
+	}
+	return r;
+	// #endif
+}
+
+
+// Aliases
+bool SystemFS::mkdir(const std::string &path) { return createDirectory(path); }
+bool SystemFS::mkdir_p(const std::string &path) { return createDirectoryTree(path); }
