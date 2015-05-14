@@ -1,11 +1,17 @@
-library = Library.new(name: "physfs", version: "2.0.3")
+library = Library.new(name: "physfs", version: "bb-2.0.3a")
 library.license   = Licenses::Zlib
-library.archive   = "#{library.name}-#{library.version}.tar.bz2"
-library.url       = "https://icculus.org/physfs/downloads/#{library.archive}"
-library.verifier  = Verifier::MD5("c2c727a8a8deb623b521b52d0080f613") # 2.0.3
+library.archive   = "#{library.name}-#{library.version}.zip"
+library.url       = "https://github.com/samueldr/#{library.name}/archive/#{library.version}.zip"
+library.verifier  = Verifier::MD5("8d5825c068fc0354791d9c4408cd1117") # bb-2.0.3a
 library.builder   = Builder::CMakeMake()
 library.installer = Installer::MakeInstall()
 
 # MinRelSize default CMAKE_BUILD_TYPE fails because of too much optimizations.
 library.options.CMAKE_BUILD_TYPE = "Release"
 library.options.cmake_options = [ "-DPHYSFS_BUILD_TEST=OFF", "-DPHYSFS_BUILD_WX_TEST=OFF" ]
+
+library.options.cmake_options << "-DPHYSFS_BUILD_SHARED=false"
+library.options.cmake_options << "-DPHYSFS_BUILD_STATIC=true"
+if $libbuildtool_params.platform_name == "Android"
+	library.options.cmake_options << "-DIS_ANDROID=true"
+end
