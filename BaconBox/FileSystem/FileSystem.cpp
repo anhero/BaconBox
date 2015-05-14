@@ -31,6 +31,10 @@
 #include <unistd.h>
 #endif
 
+#ifdef BB_ANDROID
+#include "BaconBox/Helper/Android/AndroidHelper.h"
+#endif
+
 #include <sstream>
 
 using namespace BaconBox;
@@ -38,7 +42,18 @@ using namespace BaconBox;
 BB_SINGLETON_IMPL(FileSystem);
 
 FileSystem::FileSystem() {
-	PHYSFS_init(BaconBox::Engine::getApplicationArgv()[0]);
+	int ret;
+	// Some platforms might not have an Argv.
+	if (BaconBox::Engine::getApplicationArgv()) {
+		ret = PHYSFS_init(BaconBox::Engine::getApplicationArgv()[0]);
+	}
+	else {
+		ret = PHYSFS_init(NULL);
+	}
+	if (ret == 0) {
+		PRLN("Initialization of PhysicsFS failed:");
+		PRLN("	Reason: '" << PHYSFS_getLastError() << "'");
+	}
 }
 
 File* FileSystem::open(const std::string &path, const std::string& mode) {
