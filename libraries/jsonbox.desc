@@ -1,34 +1,10 @@
-library = Library.new(name: "JsonBox", version: "0.4.4")
+library = Library.new(name: "JsonBox", version: "0.6.1")
 library.license   = Licenses::MIT
 library.archive   = "#{library.name}-#{library.version}.zip"
 library.url       = "https://github.com/anhero/#{library.name}/archive/#{library.version}.zip"
-library.verifier  = Verifier::MD5("eeffa55d020de57b34232be8dfaf3b5b") #0.4.4
+#library.verifier  = Verifier::MD5("eeffa55d020de57b34232be8dfaf3b5b")
+library.builder   = Builder::CMakeMake()
+library.installer = Installer::MakeInstall()
 
-library.builder = make_step do
-	Dir.chdir "#{@library.work_dir}/#{@library.build_subdir}"
-	prefix = @library.options.install_dir.join()
-	command = []
-	make = "make"
-	if (ENV['MSYSTEM']||"").match(/MINGW32/) then
-		make = "mingw32-make"
-	elsif (ENV['MSYSTEM']||"").match(/MINGW64/) then
-		make = "mingw64-make"
-	end
-	command = [make]
-	command << "CXX=#{@library.options.CXX.join(" ")}" if @library.options.CXX.length > 0
-	flags = ""
-	flags << "-I./include"
-	flags << " -stdlib=libstdc++" if (OS.osx? and $libbuildtool_params.platform == nil)
-	command << "CXXFLAGS=#{flags}"
-
-	Exec.run *command
-
-	# FIXME : calls to cp should be handled with FileUtils...
-	FileUtils.mkdir_p "#{prefix}/lib"
-	FileUtils.cp Dir.glob("build/*.a"), "#{prefix}/lib"
-	FileUtils.mkdir_p "#{prefix}/include"
-	FileUtils.cp_r Dir.glob("include/*"), "#{prefix}/include"
-
-	# FIXME : We should not blindly return true!
-	true
-end
+# MinRelSize default CMAKE_BUILD_TYPE fails because of too much optimizations.
+library.options.CMAKE_BUILD_TYPE = "Release"
