@@ -19,7 +19,10 @@ library.builder = make_step do
 	flags = ""
 	flags << "-I./include"
 	flags << " -stdlib=libstdc++" if (OS.osx? and $libbuildtool_params.platform == nil)
-	command << "CXXFLAGS=#{flags}"
+
+	cxxflags = ""
+	cxxflags = " #{@library.options.CXXFLAGS.join(" ")}" if @library.options.CXXFLAGS.length > 0
+	command << "CXXFLAGS=#{flags}#{cxxflags}"
 
 	Exec.run *command
 
