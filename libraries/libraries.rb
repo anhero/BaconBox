@@ -2,27 +2,37 @@ puts ":: BaconBox libraries.rb ::"
 puts "   Debug information."
 puts "   Platform : #{$PLATFORM}"
 
-
-if $PLATFORM != "Android"
-build 'zlib.desc'
-end
-build 'libpng.desc' #if $libbuildtool_params.platform_name != "Flash"
+# First, platform indepenent dependencies
 build 'lua.desc'
 build 'jsonbox.desc'
+build 'rapidxml.desc'
+build 'sigly.desc'
 
-if $PLATFORM != "Android" and $PLATFORM != "Flash"
+
+# PhysicsFS is not used for Flash builds.
+if $PLATFORM != "Flash"
+	build 'physicsfs.desc'
+end
+
+# We will use the platform-dependent zlib on iOS and Android.
+if $PLATFORM != "Android" and $PLATFORM != "IOS"
+	build 'zlib.desc'
+end
+
+# libPNG is not used for Flash builds.
+if $PLATFORM != "Flash"
+	build 'libpng.desc' 
+end
+
+# Finally, mobile and Flash builds will not use those libraries.
+if $PLATFORM != "Android" and $PLATFORM != "Flash" and $PLATFORM != "IOS"
 	build 'libogg.desc'
 	build 'libvorbis.desc'
 	build 'SDL2.desc'
 	build 'SDL2_mixer.desc'
 
-	# We are not using glew on Darwin.
+	# Furthermore, we are not using glew on OSX.
 	unless $PLATFORM == "Darwin"
 		build 'glew.desc'
 	end
 end
-
-build 'physicsfs.desc'
-build 'rapidxml.desc'
-build 'sigly.desc'
-
