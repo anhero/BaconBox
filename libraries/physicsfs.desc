@@ -10,6 +10,10 @@ library.installer = Installer::MakeInstall()
 library.options.CMAKE_BUILD_TYPE = "Release"
 library.options.cmake_options = [ "-DPHYSFS_BUILD_TEST=OFF", "-DPHYSFS_BUILD_WX_TEST=OFF" ]
 
+# For now, building only the static version.
+# The dynamic linking causes issues on Mac OS X, cmake changes the install 
+# name for the bare library name; the library needs to be in the CWD or
+# the linking needs fixing with install_name_tool.
 library.options.cmake_options << "-DPHYSFS_BUILD_SHARED=false"
 library.options.cmake_options << "-DPHYSFS_BUILD_STATIC=true"
 if $libbuildtool_params.platform_name == "Android"
