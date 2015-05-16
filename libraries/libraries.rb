@@ -8,15 +8,14 @@ build 'jsonbox.desc'
 build 'rapidxml.desc'
 build 'sigly.desc'
 
+# We will use the platform-dependent zlib on iOS and Android.
+if $PLATFORM != "Android" and $PLATFORM != "IOS"
+	build 'zlib.desc'
+end
 
 # PhysicsFS is not used for Flash builds.
 if $PLATFORM != "Flash"
 	build 'physicsfs.desc'
-end
-
-# We will use the platform-dependent zlib on iOS and Android.
-if $PLATFORM != "Android" and $PLATFORM != "IOS"
-	build 'zlib.desc'
 end
 
 # libPNG is not used for Flash builds.
