@@ -13,6 +13,7 @@ library.options.configure_options << "--disable-music-midi"
 library.options.configure_options << "--enable-music-ogg=yes"
 library.options.configure_options << "--with-sdl-prefix=#{library.options.install_dir}"
 library.options.configure_options << "--disable-music-mod"
+library.options.configure_options << "--disable-music-mp3"
 library.options.configure_options << "LIBS=-L#{library.options.install_dir}/lib"
 
 # The Xcode subfolder holds symlinks that breaks the extraction on windows.
