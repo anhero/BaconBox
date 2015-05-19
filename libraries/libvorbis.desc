@@ -9,4 +9,4 @@ library.installer = Installer::MakeInstall()
 library.options.configure_options << "--disable-shared"
 
 # For some weird reasons, it seems it does not search in the prefix when cross-compiling for Windows on Linux...
-library.options.configure_options << "CFLAGS=-I#{$libbuildtool_params.platform.build_options.install_dir.join}/include"
+library.options.configure_options << "CFLAGS=-I#{library.options.install_dir.join}/include"
