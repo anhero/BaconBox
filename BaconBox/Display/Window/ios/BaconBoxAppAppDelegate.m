@@ -6,16 +6,20 @@
 #include <BaconBox/Display/StandardRenderer/Driver/GraphicDriver.h>
 #include "MainWindow.h"
 
-
+#ifdef BB_WEBDAV_SERVER
 #import "DDLog.h"
 #import "DDTTYLogger.h"
 #import "HTTPServer.h"
 #import "DAVConnection.h"
 #import <ifaddrs.h>
 #import <arpa/inet.h>
-#include "BaconBox/Display/Window/MainWindow.h"
-static const int ddLogLevel = LOG_LEVEL_VERBOSE;
+#endif
 
+#include "BaconBox/Display/Window/MainWindow.h"
+
+#ifdef BB_WEBDAV_SERVER
+static const int ddLogLevel = LOG_LEVEL_VERBOSE;
+#endif
 
 static BaconBoxAppViewController *baconBoxViewController = nil;
 
@@ -109,6 +113,7 @@ static BaconBoxAppViewController *baconBoxViewController = nil;
 }
 
 
+#ifdef BB_WEBDAV_SERVER
 // Get IP Address
 - (NSString *)getIPAddress {
     NSString *address = @"error";
@@ -136,11 +141,14 @@ static BaconBoxAppViewController *baconBoxViewController = nil;
     return address;
 	
 }
+#endif
 
 - (void)applicationWillTerminate:(UIApplication *)application
 {
+#ifdef BB_WEBDAV_SERVER
     [httpServer stop];
-	// Save data if appropriate.
+#endif
+    // Save data if appropriate.
 	[self.viewController stopAnimation];
 }
 
@@ -152,7 +160,9 @@ static BaconBoxAppViewController *baconBoxViewController = nil;
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
 
+#ifdef BB_WEBDAV_SERVER
     [httpServer stop];
+#endif
 }
 
 - (void)dealloc {
