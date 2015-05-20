@@ -1,5 +1,5 @@
-#ifndef PHYSFSFILE_H
-#define PHYSFSFILE_H
+#ifndef PhysFSVFSFile_H
+#define PhysFSVFSFile_H
 
 #include "BaconBox/FileSystem/File.h"
 #include <physfs.h>
@@ -9,10 +9,10 @@ namespace BaconBox {
 	/**
 	 * Implementation of BaconBox::File for PhysicsFS.
 	 */
-	class PhysFSFile : public File {
+	class PhysFSVFSFile : public File {
 		friend class FileSystem;
 	public:
-		virtual ~PhysFSFile();
+		virtual ~PhysFSVFSFile();
 		virtual unsigned char* toBuffer(unsigned int offset = 0, unsigned int length = 0);
 		virtual int fillBuffer(void* buffer, unsigned int offset = 0, unsigned int length = 0);
 		virtual size_t size();
@@ -27,7 +27,7 @@ namespace BaconBox {
 		/// Used internally to keep the writedir and readdir "mounted" at the same place.
 		static void setWriteMount(const std::string& where);
 	protected:
-		PhysFSFile(const std::string& path, const std::string& mode);
+		PhysFSVFSFile(const std::string& path, const std::string& mode);
 		PHYSFS_file* internal_file;
 
 		/// Used internally, see: setWriteMount();
@@ -35,4 +35,4 @@ namespace BaconBox {
 	};
 }
 
-#endif // PHYSFSFILE_H
+#endif // PhysFSVFSFile_H

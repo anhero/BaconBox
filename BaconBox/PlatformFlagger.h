@@ -300,4 +300,10 @@
 	#define BB_INPUT_MANAGER_IMPL (&BaseInputManager::getInstance())
 #endif
 
+// Default VFS. (PhysicsFS)
+#ifndef BB_VFS_IMPL
+	#define BB_VFS_IMPL (&PhysFSVFS::getInstance())
+	#define BB_VFS_INCLUDE "BaconBox/FileSystem/PhysFSVFS.h"
+#endif
+
 #endif // BB_PLATFORM_FLAGGER_H

@@ -1,5 +1,5 @@
-#ifndef FILESYSTEM_H
-#define FILESYSTEM_H
+#ifndef BASEVFS_H
+#define BASEVFS_H
 
 #include "BaconBox/Core/Singleton.h"
 #include "BaconBox/FileSystem/File.h"
@@ -7,10 +7,9 @@
 
 namespace BaconBox {
 	/**
-	 * Wraps access to an implementation of the BaconBox VFS.
-	 * This is basically a static proxy class.
+	 * Base BaconBox VFS interface.
 	 */
-	class FileSystem {
+	class BaseVFS : public Singleton {
 	public:
 		/**
 		 * Opens a File on the VFS. Returns a File, but is actually of a
@@ -19,13 +18,13 @@ namespace BaconBox {
 		 * @param mode Mode to open, "r", "w" or "a". Defaults to "r".
 		 * @return The File pointer of the opened file.
 		 */
-		static File* open(const std::string& path, const std::string& mode = "r");
+		virtual File* open(const std::string& path, const std::string& mode) = 0;
 		/**
 		 * Checks the file or path asked exists on the VFS.
 		 * @param path Path to check for.
 		 * @return Whether it exists or not.
 		 */
-		static bool exists(const std::string& path);
+		virtual bool exists(const std::string& path) = 0;
 		/**
 		 * Mounts a "thing" to the VFS.
 		 * The "thing" is dependent on the VFS backend.
@@ -40,21 +39,10 @@ namespace BaconBox {
 		 * @param append Priority, defaults to first. Set to true for last.
 		 * @return Whether it succeeded or not.
 		 */
-		static bool mount(const std::string& what, const std::string& where = "/", const bool write = false, const bool append = false);
+		virtual bool mount(const std::string& what, const std::string& where = "/", const bool write = false, const bool append = false) = 0;
 
-		/**
-		 * Mounts the default platform-specific save path.
-		 * If you need a specific save path, mount it manually.
-		 *
-		 * @param where Where to mount it (defaults to /Save/).
-		 * @return Whether it succeeded or not.
-		 */
-		static bool mountDefaultSavePath(const std::string& where = "/Save");
-
-		/// Gets the platform-specific save path.
-		static std::string getPlatformSavePath();
-	private:
-		FileSystem();
+	protected:
+		BaseVFS();
 	};
 }
-#endif // FILESYSTEM_H
+#endif // BASEVFS_H

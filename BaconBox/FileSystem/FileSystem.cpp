@@ -1,23 +1,32 @@
-#include <physfs.h>
-#include "FileSystem.h"
+#include "BaconBox/FileSystem/FileSystem.h"
 #include "BaconBox/Core/Engine.h"
 #include "BaconBox/Console.h"
 
-#include "BaconBox/FileSystem/SystemFS.h"
+#include "BaconBox/PlatformFlagger.h"
 
-// TODO : Move to configuration.
-#define BB_WITH_PHYSFS
+#include BB_VFS_INCLUDE
 
-#ifdef BB_WITH_PHYSFS
-#include "BaconBox/FileSystem/PhysFSFile.h"
-#define FILE_IMPL PhysFSFile
-#endif
+using namespace BaconBox;
 
-#ifndef FILE_IMPL
-#include "BaconBox/FileSystem/NullFile.h"
-// TODO : Make NullFile
-#define FILE_IMPL NullFile
-#endif
+FileSystem::FileSystem() {}
+
+File* FileSystem::open(const std::string &path, const std::string& mode) {
+	return BB_VFS_IMPL->open(path, mode);
+}
+bool FileSystem::exists(const std::string &path) {
+	return BB_VFS_IMPL->exists(path);
+}
+bool FileSystem::mount(const std::string& what, const std::string& where, const bool write, const bool append) {
+	return BB_VFS_IMPL->mount(what, where, write, append);
+}
+
+/******************************************************************************/
+/*                      Platform-dependent save path                          */
+/******************************************************************************/
+
+bool FileSystem::mountDefaultSavePath(const std::string &where) {
+	return FileSystem::mount(FileSystem::getPlatformSavePath(), where, true, false);
+}
 
 // For the platform save path...
 #ifdef BB_IPHONE_PLATFORM
@@ -35,81 +44,10 @@
 #include "BaconBox/Helper/Android/AndroidHelper.h"
 #endif
 
+// Force include the SystemFS as it is needed for some operations.
+#include "BaconBox/FileSystem/SystemFS.h"
+
 #include <sstream>
-
-using namespace BaconBox;
-
-BB_SINGLETON_IMPL(FileSystem);
-
-FileSystem::FileSystem() {
-	int ret;
-	// Some platforms might not have an Argv.
-	if (BaconBox::Engine::getApplicationArgv()) {
-		ret = PHYSFS_init(BaconBox::Engine::getApplicationArgv()[0]);
-	}
-	else {
-		ret = PHYSFS_init(NULL);
-	}
-	if (ret == 0) {
-		PRLN("Initialization of PhysicsFS failed:");
-		PRLN("	Reason: '" << PHYSFS_getLastError() << "'");
-	}
-}
-
-File* FileSystem::open(const std::string &path, const std::string& mode) {
-	return FileSystem::getInstance()._open(path, mode);
-}
-File* FileSystem::_open(const std::string &path, const std::string &mode) {
-	return FILE_IMPL::open(path, mode);
-}
-
-bool FileSystem::exists(const std::string &path) {
-	return FileSystem::getInstance()._exists(path);
-}
-
-bool FileSystem::_exists(const std::string &path) {
-#ifdef BB_WITH_PHYSFS
-	return (bool)PHYSFS_exists(path.c_str());
-#endif
-}
-
-bool FileSystem::mount(const std::string& what, const std::string& where, const bool write, const bool append) {
-	return FileSystem::getInstance()._mount(what, where, write, append);
-}
-
-bool FileSystem::_mount(const std::string& what, const std::string& where, const bool write, const bool append) {
-#ifdef BB_WITH_PHYSFS
-	// TODO : Error handling
-	if (write) {
-		if (!SystemFS::isDirectory(what)) {
-			if (SystemFS::exists(what)) {
-				PRLN("Mounting for write failed; `" << what << "` exists, but is not a directory.");
-				return false;
-			}
-			if (!SystemFS::createDirectoryTree(what)) {
-				PRLN("Mounting for write failed; `" << what << "` could not create directory tree.");
-				return false;
-			}
-		}
-		if (PHYSFS_setWriteDir(what.c_str()) == 0) {
-			PRLN("Mounting for write failed; (`" << what << "`)  PHYSFS_setWriteDir failed.");
-			PRLN("Reason: '" << PHYSFS_getLastError() << "'");
-			return false;
-		}
-		PhysFSFile::setWriteMount(where);
-	}
-	if (!(bool)PHYSFS_mount(what.c_str(), where.c_str(), append)) {
-		PRLN("Mounting `" << what << "` with PHYSFS_mount failed.");
-		PRLN("Reason: '" << PHYSFS_getLastError() << "'");
-		return false;
-	}
-	return true;
-#endif
-}
-
-bool FileSystem::mountDefaultSavePath(const std::string &where) {
-	return FileSystem::mount(FileSystem::getPlatformSavePath(), where, true, false);
-}
 
 // This might need a bit of refactoring. Especially with regards to the VFS.
 // FIXME : 'Dirty', this implements multiple platforms through ifdefs.
@@ -142,7 +80,7 @@ std::string FileSystem::getPlatformSavePath() {
 		ss << getpwuid(getuid())->pw_dir << conf_dir << Engine::getApplicationName() << "/";
 		// Always tries to create the folder the first time this is ran.
 		if (firstTime) {
-			SystemFS::createDirectory(ss.str());
+			SystemFS::createDirectoryTree(ss.str());
 			firstTime = false;
 		}
 		return ss.str();

@@ -1,10 +1,12 @@
 #include "BaconBox/FileSystem/SystemFS.h"
 
+#include "BaconBox/Core/Engine.h"
 #include "BaconBox/Console.h"
 
-// Windows platform is basically mingw.
-// FIXME : Make a MINGW32 platform and use it.
-#if defined(BB_MAC_PLATFORM) || defined(BB_LINUX) || defined(BB_WINDOWS_PLATFORM)
+#if defined(BB_MAC_PLATFORM) \
+	|| defined(BB_LINUX) \
+	|| defined(BB_WINDOWS_PLATFORM) // Windows platform is for mingw.
+									// FIXME : Make a MINGW32 platform and use it.
 #include <string.h>
 #include <sys/stat.h>
 #include <unistd.h>

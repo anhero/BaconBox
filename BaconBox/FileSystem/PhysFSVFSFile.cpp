@@ -1,15 +1,15 @@
-#include "PhysFSFile.h"
+#include "PhysFSVFSFile.h"
 #include "BaconBox/Console.h"
 
 using namespace BaconBox;
 
-std::string PhysFSFile::write_mount_point;
+std::string PhysFSVFSFile::write_mount_point;
 
-void PhysFSFile::setWriteMount(const std::string &where) {
-	PhysFSFile::write_mount_point = where;
+void PhysFSVFSFile::setWriteMount(const std::string &where) {
+	PhysFSVFSFile::write_mount_point = where;
 }
 
-PhysFSFile::PhysFSFile(const std::string& path, const std::string& mode) : File(path, mode), internal_file(NULL) {
+PhysFSVFSFile::PhysFSVFSFile(const std::string& path, const std::string& mode) : File(path, mode), internal_file(NULL) {
 	// When in w or a, the file to open must have the 'writedir' prefix removed,
 	// as PhysFS does not resolve to the mounted point.
 	// In PhysicsFS, a saveDir is a complete separated concept from the other directories.
@@ -39,7 +39,7 @@ PhysFSFile::PhysFSFile(const std::string& path, const std::string& mode) : File(
 	else {
 #ifdef BB_DEBUG
 		Console__error("Could not open file `" +path+ "`.");
-		Console__error("Mode `"+mode+"` is invalid. for PhysFSFile.");
+		Console__error("Mode `"+mode+"` is invalid. for PhysFSVFSFile.");
 #endif
 		return;
 	}
@@ -52,30 +52,30 @@ PhysFSFile::PhysFSFile(const std::string& path, const std::string& mode) : File(
 	}
 }
 
-File* PhysFSFile::open(const std::string& path, const std::string& mode) {
-	PhysFSFile * file = new PhysFSFile(path, mode);
+File* PhysFSVFSFile::open(const std::string& path, const std::string& mode) {
+	PhysFSVFSFile * file = new PhysFSVFSFile(path, mode);
 	if (file->internal_file) {
 		return file;
 	}
 	return NULL;
 }
 
-PhysFSFile::~PhysFSFile() {
+PhysFSVFSFile::~PhysFSVFSFile() {
 	this->close();
 }
 
-void PhysFSFile::close() {
+void PhysFSVFSFile::close() {
 	PHYSFS_close(internal_file);
 	internal_file = NULL;
 }
 
-size_t PhysFSFile::size() {
+size_t PhysFSVFSFile::size() {
 	PHYSFS_sint64 len = 0;
 	len = PHYSFS_fileLength(internal_file);
 	return len;
 }
 
-int PhysFSFile::seek(unsigned int offset) {
+int PhysFSVFSFile::seek(unsigned int offset) {
 	int ret = PHYSFS_seek(internal_file, offset);
 	if (ret == 0) {
 		return offset;
@@ -84,7 +84,7 @@ int PhysFSFile::seek(unsigned int offset) {
 	return -1;
 }
 
-int PhysFSFile::tell() {
+int PhysFSVFSFile::tell() {
 	int ret = PHYSFS_tell(internal_file);
 	if (ret >= 0) {
 		return ret;
@@ -93,7 +93,7 @@ int PhysFSFile::tell() {
 	return -1;
 }
 
-unsigned char* PhysFSFile::toBuffer(unsigned int offset, unsigned int length) {
+unsigned char* PhysFSVFSFile::toBuffer(unsigned int offset, unsigned int length) {
 	// If the length is zero, assume read all.
 	if (length == 0) {
 		PHYSFS_sint64 max_length = size();
@@ -113,12 +113,12 @@ unsigned char* PhysFSFile::toBuffer(unsigned int offset, unsigned int length) {
 	return buf;
 }
 
-int PhysFSFile::fillBuffer(void* buffer, unsigned int offset, unsigned int length) {
+int PhysFSVFSFile::fillBuffer(void* buffer, unsigned int offset, unsigned int length) {
 	PHYSFS_seek(internal_file, offset);
 	return PHYSFS_read(internal_file, buffer, 1, length);
 }
 
-std::string PhysFSFile::read(unsigned int to_read) {
+std::string PhysFSVFSFile::read(unsigned int to_read) {
 	unsigned int bytes_left = size() - tell();
 	if (to_read == 0 || to_read > bytes_left) {
 		to_read = bytes_left;
@@ -131,7 +131,7 @@ std::string PhysFSFile::read(unsigned int to_read) {
 	return str;
 }
 
-bool PhysFSFile::write(const std::string data) {
+bool PhysFSVFSFile::write(const std::string data) {
 	int ret = PHYSFS_write(internal_file, data.c_str(), data.length(), 1);
 	if (ret < 0) {
 		// TODO : Release-mode logger.
