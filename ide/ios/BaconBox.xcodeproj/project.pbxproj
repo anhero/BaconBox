@@ -19,6 +19,12 @@
 		5161F503172079A30044226C /* libJsonBox.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5161F4FE172079A30044226C /* libJsonBox.a */; };
 		5161F505172079A30044226C /* libpng.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5161F500172079A30044226C /* libpng.a */; };
 		7E711CD11B0D197100B9B706 /* libphysfs.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E711CD01B0D197100B9B706 /* libphysfs.a */; };
+		7E711CDF1B0D1E6400B9B706 /* BaseVFS.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7E711CD31B0D1E6400B9B706 /* BaseVFS.cpp */; };
+		7E711CE01B0D1E6400B9B706 /* File.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7E711CD51B0D1E6400B9B706 /* File.cpp */; };
+		7E711CE11B0D1E6400B9B706 /* FileSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7E711CD71B0D1E6400B9B706 /* FileSystem.cpp */; };
+		7E711CE21B0D1E6400B9B706 /* PhysFSVFS.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7E711CD91B0D1E6400B9B706 /* PhysFSVFS.cpp */; };
+		7E711CE31B0D1E6400B9B706 /* PhysFSVFSFile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7E711CDB1B0D1E6400B9B706 /* PhysFSVFSFile.cpp */; };
+		7E711CE41B0D1E6400B9B706 /* SystemFS.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7E711CDD1B0D1E6400B9B706 /* SystemFS.cpp */; };
 		7EB13B471B0BD40A00ED8684 /* BaconBoxLua.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7EB13B451B0BD40A00ED8684 /* BaconBoxLua.cpp */; };
 		7EB13D641B0CDA2200ED8684 /* AABB.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7EB13B4B1B0CDA2000ED8684 /* AABB.cpp */; };
 		7EB13D671B0CDA2200ED8684 /* AudioEngine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7EB13B531B0CDA2000ED8684 /* AudioEngine.cpp */; };
@@ -107,10 +113,6 @@
 		7EB13DD51B0CDA2200ED8684 /* MainWindow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7EB13C511B0CDA2100ED8684 /* MainWindow.cpp */; };
 		7EB13DD61B0CDA2200ED8684 /* NullMainWindow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7EB13C531B0CDA2100ED8684 /* NullMainWindow.cpp */; };
 		7EB13DD91B0CDA2200ED8684 /* EntityFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7EB13C5D1B0CDA2100ED8684 /* EntityFactory.cpp */; };
-		7EB13DDA1B0CDA2200ED8684 /* File.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7EB13C601B0CDA2100ED8684 /* File.cpp */; };
-		7EB13DDB1B0CDA2200ED8684 /* FileSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7EB13C621B0CDA2100ED8684 /* FileSystem.cpp */; };
-		7EB13DDC1B0CDA2200ED8684 /* PhysFSFile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7EB13C641B0CDA2100ED8684 /* PhysFSFile.cpp */; };
-		7EB13DDD1B0CDA2200ED8684 /* SystemFS.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7EB13C661B0CDA2100ED8684 /* SystemFS.cpp */; };
 		7EB13DDF1B0CDA2200ED8684 /* Base64.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7EB13C6D1B0CDA2100ED8684 /* Base64.cpp */; };
 		7EB13DE01B0CDA2200ED8684 /* BitHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7EB13C6F1B0CDA2100ED8684 /* BitHelper.cpp */; };
 		7EB13DE11B0CDA2200ED8684 /* CallHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7EB13C711B0CDA2100ED8684 /* CallHelper.cpp */; };
@@ -223,6 +225,18 @@
 		5161F500172079A30044226C /* libpng.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpng.a; path = ../../libraries/ios/universal/lib/libpng.a; sourceTree = "<group>"; };
 		51C0640E17A0960E003BDF37 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		7E711CD01B0D197100B9B706 /* libphysfs.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libphysfs.a; path = ../../libraries/iOS/universal/lib/libphysfs.a; sourceTree = SOURCE_ROOT; };
+		7E711CD31B0D1E6400B9B706 /* BaseVFS.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BaseVFS.cpp; sourceTree = "<group>"; };
+		7E711CD41B0D1E6400B9B706 /* BaseVFS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseVFS.h; sourceTree = "<group>"; };
+		7E711CD51B0D1E6400B9B706 /* File.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = File.cpp; sourceTree = "<group>"; };
+		7E711CD61B0D1E6400B9B706 /* File.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = File.h; sourceTree = "<group>"; };
+		7E711CD71B0D1E6400B9B706 /* FileSystem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FileSystem.cpp; sourceTree = "<group>"; };
+		7E711CD81B0D1E6400B9B706 /* FileSystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileSystem.h; sourceTree = "<group>"; };
+		7E711CD91B0D1E6400B9B706 /* PhysFSVFS.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PhysFSVFS.cpp; sourceTree = "<group>"; };
+		7E711CDA1B0D1E6400B9B706 /* PhysFSVFS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhysFSVFS.h; sourceTree = "<group>"; };
+		7E711CDB1B0D1E6400B9B706 /* PhysFSVFSFile.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PhysFSVFSFile.cpp; sourceTree = "<group>"; };
+		7E711CDC1B0D1E6400B9B706 /* PhysFSVFSFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhysFSVFSFile.h; sourceTree = "<group>"; };
+		7E711CDD1B0D1E6400B9B706 /* SystemFS.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SystemFS.cpp; sourceTree = "<group>"; };
+		7E711CDE1B0D1E6400B9B706 /* SystemFS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SystemFS.h; sourceTree = "<group>"; };
 		7EB13B451B0BD40A00ED8684 /* BaconBoxLua.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BaconBoxLua.cpp; sourceTree = "<group>"; };
 		7EB13B461B0BD40A00ED8684 /* swigluarun.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = swigluarun.h; sourceTree = "<group>"; };
 		7EB13B4B1B0CDA2000ED8684 /* AABB.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AABB.cpp; sourceTree = "<group>"; };
@@ -413,14 +427,6 @@
 		7EB13C5C1B0CDA2100ED8684 /* WindowOrientation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WindowOrientation.h; sourceTree = "<group>"; };
 		7EB13C5D1B0CDA2100ED8684 /* EntityFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EntityFactory.cpp; sourceTree = "<group>"; };
 		7EB13C5E1B0CDA2100ED8684 /* EntityFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EntityFactory.h; sourceTree = "<group>"; };
-		7EB13C601B0CDA2100ED8684 /* File.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = File.cpp; sourceTree = "<group>"; };
-		7EB13C611B0CDA2100ED8684 /* File.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = File.h; sourceTree = "<group>"; };
-		7EB13C621B0CDA2100ED8684 /* FileSystem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FileSystem.cpp; sourceTree = "<group>"; };
-		7EB13C631B0CDA2100ED8684 /* FileSystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileSystem.h; sourceTree = "<group>"; };
-		7EB13C641B0CDA2100ED8684 /* PhysFSFile.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PhysFSFile.cpp; sourceTree = "<group>"; };
-		7EB13C651B0CDA2100ED8684 /* PhysFSFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhysFSFile.h; sourceTree = "<group>"; };
-		7EB13C661B0CDA2100ED8684 /* SystemFS.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SystemFS.cpp; sourceTree = "<group>"; };
-		7EB13C671B0CDA2100ED8684 /* SystemFS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SystemFS.h; sourceTree = "<group>"; };
 		7EB13C691B0CDA2100ED8684 /* AlgorithmHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlgorithmHelper.h; sourceTree = "<group>"; };
 		7EB13C6D1B0CDA2100ED8684 /* Base64.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Base64.cpp; sourceTree = "<group>"; };
 		7EB13C6E1B0CDA2100ED8684 /* Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Base64.h; sourceTree = "<group>"; };
@@ -680,6 +686,25 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		7E711CD21B0D1E6400B9B706 /* FileSystem */ = {
+			isa = PBXGroup;
+			children = (
+				7E711CD31B0D1E6400B9B706 /* BaseVFS.cpp */,
+				7E711CD41B0D1E6400B9B706 /* BaseVFS.h */,
+				7E711CD51B0D1E6400B9B706 /* File.cpp */,
+				7E711CD61B0D1E6400B9B706 /* File.h */,
+				7E711CD71B0D1E6400B9B706 /* FileSystem.cpp */,
+				7E711CD81B0D1E6400B9B706 /* FileSystem.h */,
+				7E711CD91B0D1E6400B9B706 /* PhysFSVFS.cpp */,
+				7E711CDA1B0D1E6400B9B706 /* PhysFSVFS.h */,
+				7E711CDB1B0D1E6400B9B706 /* PhysFSVFSFile.cpp */,
+				7E711CDC1B0D1E6400B9B706 /* PhysFSVFSFile.h */,
+				7E711CDD1B0D1E6400B9B706 /* SystemFS.cpp */,
+				7E711CDE1B0D1E6400B9B706 /* SystemFS.h */,
+			);
+			path = FileSystem;
+			sourceTree = "<group>";
+		};
 		7EB13B441B0BD40A00ED8684 /* swig */ = {
 			isa = PBXGroup;
 			children = (
@@ -706,8 +731,8 @@
 				7EB13C091B0CDA2100ED8684 /* Debug.h */,
 				7EB13C0A1B0CDA2100ED8684 /* Display */,
 				7EB13C5D1B0CDA2100ED8684 /* EntityFactory.cpp */,
+				7E711CD21B0D1E6400B9B706 /* FileSystem */,
 				7EB13C5E1B0CDA2100ED8684 /* EntityFactory.h */,
-				7EB13C5F1B0CDA2100ED8684 /* FileSystem */,
 				7EB13C681B0CDA2100ED8684 /* Helper */,
 				7EB13CC61B0CDA2100ED8684 /* Input */,
 				7EB13D271B0CDA2100ED8684 /* Line.cpp */,
@@ -1041,21 +1066,6 @@
 				7EB13C501B0CDA2100ED8684 /* IOSMainWindow.h */,
 			);
 			path = ios;
-			sourceTree = "<group>";
-		};
-		7EB13C5F1B0CDA2100ED8684 /* FileSystem */ = {
-			isa = PBXGroup;
-			children = (
-				7EB13C601B0CDA2100ED8684 /* File.cpp */,
-				7EB13C611B0CDA2100ED8684 /* File.h */,
-				7EB13C621B0CDA2100ED8684 /* FileSystem.cpp */,
-				7EB13C631B0CDA2100ED8684 /* FileSystem.h */,
-				7EB13C641B0CDA2100ED8684 /* PhysFSFile.cpp */,
-				7EB13C651B0CDA2100ED8684 /* PhysFSFile.h */,
-				7EB13C661B0CDA2100ED8684 /* SystemFS.cpp */,
-				7EB13C671B0CDA2100ED8684 /* SystemFS.h */,
-			);
-			path = FileSystem;
 			sourceTree = "<group>";
 		};
 		7EB13C681B0CDA2100ED8684 /* Helper */ = {
@@ -1432,13 +1442,14 @@
 				7EB13DF61B0CDA2200ED8684 /* TimeHelper.cpp in Sources */,
 				7EB13D8A1B0CDA2200ED8684 /* DefaultLineComponent.cpp in Sources */,
 				7EB13DA41B0CDA2200ED8684 /* SizeComponent.cpp in Sources */,
+				7E711CE31B0D1E6400B9B706 /* PhysFSVFSFile.cpp in Sources */,
 				7EB13E071B0CDA2200ED8684 /* NullGamePad.cpp in Sources */,
 				7EB13E281B0CDA2200ED8684 /* MovieClipEntity.cpp in Sources */,
 				7EB13DED1B0CDA2200ED8684 /* JsonBoxSerializer.cpp in Sources */,
 				7EB13E271B0CDA2200ED8684 /* Matrix2D.cpp in Sources */,
 				7EB13DBC1B0CDA2200ED8684 /* Color.cpp in Sources */,
 				7EB13D801B0CDA2200ED8684 /* ColorMatrix.cpp in Sources */,
-				7EB13DDA1B0CDA2200ED8684 /* File.cpp in Sources */,
+				7E711CDF1B0D1E6400B9B706 /* BaseVFS.cpp in Sources */,
 				7EB13DF11B0CDA2200ED8684 /* Serializer.cpp in Sources */,
 				7EB13E141B0CDA2200ED8684 /* NullKeyboard.cpp in Sources */,
 				7EB13DF51B0CDA2200ED8684 /* StringHelper.cpp in Sources */,
@@ -1526,8 +1537,6 @@
 				7EB13DE11B0CDA2200ED8684 /* CallHelper.cpp in Sources */,
 				7EB13D831B0CDA2200ED8684 /* CameraPositionConverter.cpp in Sources */,
 				7EB13E261B0CDA2200ED8684 /* LocalizationManager.cpp in Sources */,
-				7EB13DDD1B0CDA2200ED8684 /* SystemFS.cpp in Sources */,
-				7EB13DDB1B0CDA2200ED8684 /* FileSystem.cpp in Sources */,
 				7EB13DA81B0CDA2200ED8684 /* TextRenderer.cpp in Sources */,
 				7EB13D6E1B0CDA2200ED8684 /* BBAudioPlayerMusic.cpp in Sources */,
 				7EB13E031B0CDA2200ED8684 /* GamePadButtonSignalData.cpp in Sources */,
@@ -1558,19 +1567,21 @@
 				7EB13D711B0CDA2200ED8684 /* MusicInfo.cpp in Sources */,
 				7EB13E201B0CDA2200ED8684 /* PointerState.cpp in Sources */,
 				7EB13DC81B0CDA2200ED8684 /* BMFont.cpp in Sources */,
-				7EB13DDC1B0CDA2200ED8684 /* PhysFSFile.cpp in Sources */,
 				7EB13D721B0CDA2200ED8684 /* MusicParameters.cpp in Sources */,
 				7EB13E001B0CDA2200ED8684 /* NullAccelerometer.cpp in Sources */,
 				7EB13E351B0CDA2200ED8684 /* StandardVertexArray.cpp in Sources */,
 				7EB13E131B0CDA2200ED8684 /* KeySignalData.cpp in Sources */,
 				7EB13D891B0CDA2200ED8684 /* DefaultEntityContainer.cpp in Sources */,
 				7EB13E121B0CDA2200ED8684 /* KeyMaskSignalData.cpp in Sources */,
+				7E711CE21B0D1E6400B9B706 /* PhysFSVFS.cpp in Sources */,
 				7EB13E0E1B0CDA2200ED8684 /* Key.cpp in Sources */,
 				7EB13E091B0CDA2200ED8684 /* InputDevice.cpp in Sources */,
 				7EB13DCB1B0CDA2200ED8684 /* TextureGlyphInformation.cpp in Sources */,
 				7EB13DD21B0CDA2200ED8684 /* BaconBoxAppViewController.m in Sources */,
 				7EB13DBB1B0CDA2200ED8684 /* Camera.cpp in Sources */,
+				7E711CE11B0D1E6400B9B706 /* FileSystem.cpp in Sources */,
 				7EB13E241B0CDA2200ED8684 /* Line.cpp in Sources */,
+				7E711CE41B0D1E6400B9B706 /* SystemFS.cpp in Sources */,
 				7EB13E0F1B0CDA2200ED8684 /* Keyboard.cpp in Sources */,
 				7EB13DC21B0CDA2200ED8684 /* GLSLProgram.cpp in Sources */,
 				7EB13DB11B0CDA2200ED8684 /* Console.cpp in Sources */,
@@ -1600,6 +1611,7 @@
 				7EB13DD11B0CDA2200ED8684 /* BaconBoxAppAppDelegate.m in Sources */,
 				7EB13D8C1B0CDA2200ED8684 /* DefaultSizeComponent.cpp in Sources */,
 				7EB13E1F1B0CDA2200ED8684 /* PointerSignalData.cpp in Sources */,
+				7E711CE01B0D1E6400B9B706 /* File.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
