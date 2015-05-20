@@ -11,7 +11,6 @@ using namespace BaconBox;
 BB_SINGLETON_IMPL(PhysFSVFS)
 
 PhysFSVFS::PhysFSVFS() {
-	Console__log("PhysFS::PhysFS()");
 	int ret;
 	// Some platforms might not have an Argv.
 	if (BaconBox::Engine::getApplicationArgv()) {
