@@ -21,33 +21,73 @@ bool FileSystem::mount(const std::string& what, const std::string& where, const 
 }
 
 /******************************************************************************/
-/*                      Platform-dependent save path                          */
+/*                         Platform-dependent paths                           */
 /******************************************************************************/
-
-bool FileSystem::mountDefaultSavePath(const std::string &where) {
-	return FileSystem::mount(FileSystem::getPlatformSavePath(), where, true, false);
-}
-
-// For the platform save path...
+// iOS includes
 #ifdef BB_IPHONE_PLATFORM
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 #include <stdlib.h>
-//#include <sys/stat.h>
-//#include <dirent.h>
+// UNIX-like
 #elif defined(BB_MAC_PLATFORM) || defined(BB_LINUX) || defined(BB_FLASH_PLATFORM)
 #include <pwd.h>
 #include <unistd.h>
 #endif
 
+// Android includes
 #ifdef BB_ANDROID
 #include "BaconBox/Helper/Android/AndroidHelper.h"
 #endif
 
+// Generic includes
+#include <sstream>
+
 // Force include the SystemFS as it is needed for some operations.
 #include "BaconBox/FileSystem/SystemFS.h"
 
-#include <sstream>
+/*                      Platform-dependent mount path                         */
+
+#ifdef BB_IPHONE_PLATFORM
+#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
+#endif
+
+
+bool FileSystem::mountFromResources(const std::string &what, const std::string &where) {
+	// FIXME : For android, mount from the APK zip...
+
+	std::string to_mount = FileSystem::getResourcePath() + what;
+	return FileSystem::mount(to_mount, where, false, false);
+}
+
+std::string FileSystem::getResourcePath(){
+	// FIXME : Make the sub-directory configurable.
+	
+	std::string resourcePath;
+#if defined(BB_IPHONE_PLATFORM)
+	NSString *resourceDirectory = [[NSBundle mainBundle] resourcePath];
+	resourcePath = [resourceDirectory cStringUsingEncoding: NSASCIIStringEncoding];
+#elif defined(BB_ANDROID)
+	// Irrelevant for Android as the resources path is the APK.
+#else
+	resourcePath = Engine::getApplicationPath();
+	
+#ifdef BB_MAC_PLATFORM
+	// Relative to the binary in the bundle
+	resourcePath = resourcePath + "/../Resources";
+#else
+	// Relative to the binary
+	resourcePath = resourcePath + "/../Resources";
+#endif
+#endif
+	return resourcePath;
+}
+
+/*                      Platform-dependent save path                          */
+
+bool FileSystem::mountDefaultSavePath(const std::string &where) {
+	return FileSystem::mount(FileSystem::getPlatformSavePath(), where, true, false);
+}
 
 // This might need a bit of refactoring. Especially with regards to the VFS.
 // FIXME : 'Dirty', this implements multiple platforms through ifdefs.

@@ -31,10 +31,7 @@ bool SystemFS::exists(const std::string &path) {
 }
 
 bool SystemFS::isDirectory(const std::string &path) {
-#ifdef BB_IPHONE_PLATFORM
-	// TODO (2015-05-12) : Should we really always return false on iOS?
-	return false;
-#elif defined(BB_MAC_PLATFORM) || defined(BB_LINUX) || defined(BB_WINDOWS_PLATFORM)
+#if defined(BB_MAC_PLATFORM) || defined(BB_LINUX) || defined(BB_WINDOWS_PLATFORM) || defined(BB_IPHONE_PLATFORM)
 	struct stat st;
 	if (stat(path.c_str(), &st) != 0) {
 		// TODO : Error handling; it would be nice to give the error to the user.

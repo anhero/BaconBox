@@ -41,6 +41,19 @@ namespace BaconBox {
 		 * @return Whether it succeeded or not.
 		 */
 		static bool mount(const std::string& what, const std::string& where = "/", const bool write = false, const bool append = false);
+		
+		/**
+		 * Mounts in relationship to the platform's default resource path.
+		 * This uses a platform-dependent method to mount the asked resource.
+		 */
+		static bool mountFromResources(const std::string& what, const std::string& where = "/");
+		
+		/**
+		 * Gets a platform-specific resource base folder.
+		 * This is mostly relevant for platforms where the application is *installed* in
+		 * a location that is discoverable through various methods.
+		 */
+		static std::string getResourcePath();
 
 		/**
 		 * Mounts the default platform-specific save path.
