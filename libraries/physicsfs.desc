@@ -16,6 +16,9 @@ library.options.cmake_options = [ "-DPHYSFS_BUILD_TEST=OFF", "-DPHYSFS_BUILD_WX_
 # the linking needs fixing with install_name_tool.
 library.options.cmake_options << "-DPHYSFS_BUILD_SHARED=false"
 library.options.cmake_options << "-DPHYSFS_BUILD_STATIC=true"
+# Can cause issues when statically linking with zlib
+library.options.cmake_options << "-DPHYSFS_INTERNAL_ZLIB=false"
+#library.options.cmake_options << "-DZLIB_ROOT=#{library.options.install_dir}"
 if $libbuildtool_params.platform_name == "Android"
 	library.options.cmake_options << "-DIS_ANDROID=true"
 end
