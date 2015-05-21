@@ -59,3 +59,7 @@ bool PhysFSVFS::mount(const std::string &what, const std::string &where, const b
 File* PhysFSVFS::open(const std::string &path, const std::string &mode) {
 	return PhysFSVFSFile::open(path, mode);
 }
+
+const std::string PhysFSVFS::getBaseDir() {
+	return std::string( PHYSFS_getBaseDir() );
+}

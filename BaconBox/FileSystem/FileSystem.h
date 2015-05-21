@@ -26,34 +26,35 @@ namespace BaconBox {
 		 * @return Whether it exists or not.
 		 */
 		static bool exists(const std::string& path);
+
+		/**
+		 * Mounts (as read-only) a path to the VFS. In the end, this is platform-dependent.
+		 *
+		 * @param what The "thing" to mount.
+		 * @param where Where to mount it (defaults to /).
+		 * @param append Priority, defaults to first. Set to true for last.
+		 * @return Whether it succeeded or not.
+		 */
+		static bool mount(const std::string& what, const std::string& where = "/", const bool append = false);
+
 		/**
 		 * Mounts a "thing" to the VFS.
 		 * The "thing" is dependent on the VFS backend.
 		 *
-		 * Most VFS allow mounting multiple read-only "things".
-		 * Some (most?) VFS will not allow multiple write "things".
-		 * In that case, the second call will /change/ the writing directory.
-		 *
 		 * @param what The "thing" to mount.
 		 * @param where Where to mount it (defaults to /).
-		 * @param append Whether it is a writable directory.
+		 * @param write Whether it is a writable directory.
 		 * @param append Priority, defaults to first. Set to true for last.
 		 * @return Whether it succeeded or not.
 		 */
-		static bool mount(const std::string& what, const std::string& where = "/", const bool write = false, const bool append = false);
-		
-		/**
-		 * Mounts in relationship to the platform's default resource path.
-		 * This uses a platform-dependent method to mount the asked resource.
-		 */
-		static bool mountFromResources(const std::string& what, const std::string& where = "/");
-		
+		static bool rawMount(const std::string& what, const std::string& where = "/", const bool write = false, const bool append = false);
+
 		/**
 		 * Gets a platform-specific resource base folder.
 		 * This is mostly relevant for platforms where the application is *installed* in
 		 * a location that is discoverable through various methods.
 		 */
-		static std::string getResourcePath();
+		static std::string getBaseDir();
 
 		/**
 		 * Mounts the default platform-specific save path.
@@ -64,8 +65,18 @@ namespace BaconBox {
 		 */
 		static bool mountDefaultSavePath(const std::string& where = "/Save");
 
+		/**
+		 * Configure the VFS to use the CWD as the base directory for mounting
+		 * instead of using the platform-dependent base directory.
+		 *
+		 * @param useCWD Whether to use the CWD as baseDir.
+		 */
+		static void useCWD(const bool useCWD = true);
+
 		/// Gets the platform-specific save path.
 		static std::string getPlatformSavePath();
+
+		static bool use_cwd;
 	private:
 		FileSystem();
 	};

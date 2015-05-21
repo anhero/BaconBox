@@ -41,6 +41,12 @@ namespace BaconBox {
 		 */
 		virtual bool mount(const std::string& what, const std::string& where = "/", const bool write = false, const bool append = false) = 0;
 
+		/**
+		 * A platform-dependent base directory to use to mount in relationship with the application.
+		 * @return A string with the base dir.
+		 */
+		virtual const std::string getBaseDir() = 0;
+
 	protected:
 		BaseVFS();
 	};
