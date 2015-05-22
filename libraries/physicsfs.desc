@@ -2,7 +2,7 @@ library = Library.new(name: "physfs", version: "bb-2.0.3a")
 library.license   = Licenses::Zlib
 library.archive   = "#{library.name}-#{library.version}.zip"
 library.url       = "https://github.com/samueldr/#{library.name}/archive/#{library.version}.zip"
-library.verifier  = Verifier::MD5("8d5825c068fc0354791d9c4408cd1117") # bb-2.0.3a
+library.verifier  = Verifier::MD5("842f4b1cc97de8e645373a0f039e1eeb") # bb-2.0.3a
 library.builder   = Builder::CMakeMake()
 library.installer = Installer::MakeInstall()
 
