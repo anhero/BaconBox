@@ -143,3 +143,41 @@ bool PhysFSVFSFile::write(const std::string data) {
 	}
 	return true;
 }
+
+#ifdef BB_ANDROID
+#include "BaconBox/Helper/Android/AndroidHelper.h"
+#include <android/asset_manager.h>
+#include <cassert>
+
+int PhysFSVFSFile::toAndroidFD(off_t *outStart, off_t *outLength) {
+	// TODO: Verify that this is from the APK or from an OBB.
+	// PHYSFS_getRealDir(this->path.c_str());
+
+	// First, find out what's the file underlying.
+	std::string filename = this->path;
+
+	// For now, assume the apk is mounted to /.
+	// Otherwise, we'll need to figure out a way to find the mount points.
+	// If it was mounted elsewhere than /, we would need to remove the prefixed part.
+
+	PRLN("toAndroidFD : ");
+	PRLN(filename);
+
+	// use asset manager to open asset by filename
+	AAssetManager* mgr = AndroidHelper::getAssetManager();
+	assert(NULL != mgr);
+	AAsset* asset = AAssetManager_open(mgr, filename.c_str(), AASSET_MODE_UNKNOWN);
+
+	// FIXME : Verify error handling...
+	//	// the asset might not be found
+	//	if (NULL == asset) {
+	//		return JNI_FALSE;
+	//	}
+
+	int fd = AAsset_openFileDescriptor(asset, outStart, outLength);
+	AAsset_close(asset);
+
+	return fd;
+}
+
+#endif

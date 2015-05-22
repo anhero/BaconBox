@@ -4,6 +4,10 @@
 #include "BaconBox/FileSystem/File.h"
 #include <physfs.h>
 
+#ifdef BB_ANDROID
+#include <android/asset_manager.h>
+#endif
+
 namespace BaconBox {
 	class FileSystem;
 	/**
@@ -26,6 +30,21 @@ namespace BaconBox {
 
 		/// Used internally to keep the writedir and readdir "mounted" at the same place.
 		static void setWriteMount(const std::string& where);
+
+#ifdef BB_ANDROID
+		/**
+		 * Used to get a FD on Android with the Android Assets Manager.
+		 * This is particular in that this will work only on uncompressed files.
+		 * See include/android/asset_manager.h, comment for AAsset_openFileDescriptor.
+		 * To add files other than the defaults, look at configuring aapt.
+		 * It defaults to uncompressed for a couple of default media files.
+		 *
+		 * @param outStart Out value of the start of the FD
+		 * @param outLength Out value of the length of the FD
+		 */
+		int toAndroidFD(off_t* outStart, off_t* outLength);
+#endif
+
 	protected:
 		PhysFSVFSFile(const std::string& path, const std::string& mode);
 		PHYSFS_file* internal_file;
