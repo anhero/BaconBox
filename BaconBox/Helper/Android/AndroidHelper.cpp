@@ -85,8 +85,10 @@ AAssetManager* AndroidHelper::assets_manager = NULL;
 			JNIEnv* env=0;
 			ANativeActivity* activity = appState->activity;
 			(activity->vm)->AttachCurrentThread(&env, 0);
+			jclass activity_class = env->GetObjectClass(activity->clazz);
+
 			// Find the method getAssets on the activity
-			jmethodID activity_class_getAssets = env->GetMethodID(activity->clazz, "getAssets", "()Landroid/content/res/AssetManager;");
+			jmethodID activity_class_getAssets = env->GetMethodID(activity_class, "getAssets", "()Landroid/content/res/AssetManager;");
 			// [java] activity.getAssets();
 			jobject asset_manager = env->CallObjectMethod(activity->clazz, activity_class_getAssets);
 			// Keep a global ref to keep it not GCed
