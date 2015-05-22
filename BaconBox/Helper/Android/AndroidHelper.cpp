@@ -6,6 +6,7 @@ using namespace BaconBox;
 std::string AndroidHelper::packageName = std::string();
 std::string AndroidHelper::pathToAPK = std::string();
 struct android_app* AndroidHelper::appState = NULL;
+AAssetManager* AndroidHelper::assets_manager = NULL;
 
 
 	struct android_app* AndroidHelper::getAppState(){
@@ -76,5 +77,24 @@ struct android_app* AndroidHelper::appState = NULL;
 		return classIWant;
 	}
 
+	AAssetManager * AndroidHelper::getAssetManager() {
+		// Right now, assumes it works.
+		// FIXME : Needs some error checking.
+
+		if (!assets_manager) {
+			JNIEnv* env=0;
+			ANativeActivity* activity = appState->activity;
+			(activity->vm)->AttachCurrentThread(&env, 0);
+			// Find the method getAssets on the activity
+			jmethodID activity_class_getAssets = env->GetMethodID(activity->clazz, "getAssets", "()Landroid/content/res/AssetManager;");
+			// [java] activity.getAssets();
+			jobject asset_manager = env->CallObjectMethod(activity->clazz, activity_class_getAssets);
+			// Keep a global ref to keep it not GCed
+			jobject global_asset_manager = env->NewGlobalRef(asset_manager);
+			// Build the native AAssetManager
+			assets_manager = AAssetManager_fromJava(env, global_asset_manager);
+		}
+		return assets_manager;
+	}
 
 
