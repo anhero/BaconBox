@@ -63,8 +63,6 @@ BaconBox:
             - "BaconBox/**/libc/*.cpp"
           Header:
             - "BaconBox/**/libc/*.h"
-          CXXFLAGS:
-            - "-stdlib=libstdc++"
           IncludesPath:
             - "libraries/Darwin/x86_64/include"
 
@@ -146,8 +144,6 @@ BaconBox:
       Android: &Android
                 include: [core, OpenGL, O3]
                 artifacts:
-                  CFLAGS:
-                    - "-stdlib=libstdc++"
                   C:
                     - "BaconBox/**/Android/*.c"
                   Cpp:
