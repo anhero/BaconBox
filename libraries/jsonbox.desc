@@ -1,10 +1,7 @@
-library = Library.new(name: "JsonBox", version: "0.6.1")
+library = Library.new(name: "JsonBox", version: "0.6.2")
 library.license   = Licenses::MIT
 library.archive   = "#{library.name}-#{library.version}.zip"
 library.url       = "https://github.com/anhero/#{library.name}/archive/#{library.version}.zip"
-#library.verifier  = Verifier::MD5("eeffa55d020de57b34232be8dfaf3b5b")
+library.verifier  = Verifier::MD5("4d81311823ca567804747a1a1efff3d0")
 library.builder   = Builder::CMakeMake()
 library.installer = Installer::MakeInstall()
-
-# MinRelSize default CMAKE_BUILD_TYPE fails because of too much optimizations.
-library.options.CMAKE_BUILD_TYPE = "Release"
