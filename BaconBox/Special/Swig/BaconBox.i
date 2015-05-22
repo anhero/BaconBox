@@ -278,6 +278,9 @@ end
 
 #include "BaconBox/Core/BaseEngine.h"
 
+#include "BaconBox/FileSystem/FileSystem.h"
+#include "BaconBox/FileSystem/File.h"
+
 namespace BaconBox{
 #ifdef BB_FLASH_PLATFORM
 class FlashEngine;
@@ -593,7 +596,7 @@ namespace BaconBox{
 	class Vector2{
 		public:
 		Vector2();
-    Vector(const Vector2 &src);
+    Vector2(const Vector2 &src);
 		#if defined(BB_LUA)
 		Vector2(float x, float y);
 		#endif
@@ -696,6 +699,13 @@ const char *__str__() {
    }
 
 }
+
+%include "std_vector.i"
+
+  namespace std {
+    %template(VectorVector2) vector<BaconBox::Vector2>;
+  }
+
 
 %include "BaconBox/Matrix2D.h"
 %include "BaconBox/Helper/URL.h"
@@ -852,6 +862,10 @@ const char *__str__() {
 
 %include "BaconBox/Audio/SoundParameters.h"
 %include "BaconBox/ResourceManager.h"
+
+%include "BaconBox/FileSystem/File.h"
+%include "BaconBox/FileSystem/FileSystem.h"
+
 
 %include "BaconBox/Helper/Timer.h"
   #if !defined(BB_FLASH_PLATFORM)

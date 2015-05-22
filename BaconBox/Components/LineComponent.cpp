@@ -41,13 +41,18 @@ namespace BaconBox {
 		reinterpret_cast<LineComponent *>(component)->setPatternSpacing(patternSpacing);
 	}
 	
+	void LineComponentProxy::setCrossOffset(float crossOffset){
+		reinterpret_cast<LineComponent *>(component)->setCrossOffset(crossOffset);
+	}
 	float LineComponentProxy::getTextureHeadStartAt(int index){
 		return reinterpret_cast<LineComponent *>(component)->getTextureHeadStartAt(index);
 	}
 	std::vector<Vector2> & LineComponentProxy::getPoints(){
 		return reinterpret_cast<LineComponent *>(component)->getPoints();
 	}
-
+	void LineComponentProxy::clearPoints(){
+		reinterpret_cast<LineComponent *>(component)->clearPoints();
+	}
 	
 	int LineComponentProxy::getPointCount(){
 		return reinterpret_cast<LineComponent *>(component)->getPointCount();

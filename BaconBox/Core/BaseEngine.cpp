@@ -37,7 +37,7 @@
 
 namespace BaconBox {
 	
-#if defined(BB_LUA) && defined(BB_DEBUG)
+#if defined(BB_LUA) && defined(BB_DEBUG) && !defined(BB_WINDOWS_PLATFORM)
 	void
 	handler (int cause, siginfo_t * info, void *uap)
 	{
@@ -47,7 +47,8 @@ namespace BaconBox {
 	
 	void BaseEngine::application(int argc, char *argv[], const std::string &name) {
 
-#if defined(BB_LUA) && defined(BB_DEBUG) && !defined(BB_ANDROID)
+		// POSIX Signal handler.
+#if defined(BB_LUA) && defined(BB_DEBUG) && !defined(BB_ANDROID) && !defined(BB_WINDOWS_PLATFORM)
 		struct sigaction sa;
 		sa.sa_sigaction = handler;
 		sigemptyset (&sa.sa_mask);
@@ -80,10 +81,11 @@ namespace BaconBox {
 		this->argc = argc;
 		this->argv = argv;
 
-		if(argv)this->applicationPath = dirname(argv[0]);
+		if (argv) {
+			this->applicationPath = dirname(argv[0]);
+		}
 
 		this->applicationName = name;
-
 	}
 
 	State *BaseEngine::addState(State *newState) {
@@ -348,12 +350,16 @@ namespace BaconBox {
 	}
 
 	void BaseEngine::registerSingleton(Singleton * singleton) {
-		PRLN("Registering...");
+#ifdef BB_VERBOSE_SINGLETON
+		PRLN("Registering `" + singleton->getName() + "` singleton.");
+#endif
 		std::deque<Singleton * >::iterator
 			searchIt = std::find(singletons.begin(), singletons.end(), singleton);
 		if (searchIt != singletons.end()) {
-			PRLN("WARNING : Adding a Singleton already registerd!!");
+#ifdef BB_DEBUG
+			PRLN("WARNING : Adding a Singleton already registered!! (" + singleton->getName() + ")");
 			PV(singleton);
+#endif
 			return;
 		}
 		singletons.push_back(singleton);
@@ -363,14 +369,19 @@ namespace BaconBox {
 		std::deque<Singleton * >::iterator
 			searchIt = std::find(singletons.begin(), singletons.end(), toDelete);
 		if (searchIt == singletons.end()) {
+#ifdef BB_DEBUG
 			PRLN("WARNING : Trying to erase Singleton which is not registered.");
 			PV(toDelete);
+#endif
 		}
 		singletons.erase(searchIt, ++searchIt);
 		toDelete->destroyInstance();
 	}
 	void BaseEngine::destroyAllSingletons() {
 		while (!singletons.empty()) {
+#ifdef BB_VERBOSE_SINGLETON
+			PRLN("Detroying `" + singletons.back()->getName() + "` singleton.");
+#endif
 			singletons.back()->destroyInstance();
 			singletons.pop_back();
 		}
