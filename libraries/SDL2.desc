@@ -5,3 +5,51 @@ library.url       = "http://www.libsdl.org/release/#{library.archive}"
 library.verifier  = Verifier::MD5("fe6c61d2e9df9ef570e7e80c6e822537") # 2.0.3
 library.builder   = Builder::ConfigureMake()
 library.installer = Installer::MakeInstall()
+
+if (ENV['MSYSTEM']||"").match(/MINGW.*/) then
+	class AutogenConfigureMake < LBT::Step
+		def run
+			@library.options.build_dir = "#{@library.work_dir}/#{@library.build_subdir}" if @library.options.build_dir.empty?
+			Dir.chdir @library.options.build_dir.join
+			env = {}
+			[:CC, :CXX, :AR, :CFLAGS, :CPPFLAGS, :CXXFLAGS, :LDFLAGS, :WINDRES].each do |var|
+				value = @library.options[var]
+				if value.length > 0 then
+					env[var.to_s] = value.join(' ')
+				end
+			end
+
+			make = "make"
+			if (ENV['MSYSTEM']||"").match(/MINGW32/) then
+				make = "mingw32-make"
+			elsif (ENV['MSYSTEM']||"").match(/MINGW64/) then
+				make = "mingw64-make"
+			end
+			env['MAKE'] = make unless env and not env['MAKE'].nil?
+
+			build_command = []
+			build_command.push *(["sh", "./autogen.sh"])
+			Exec.run(env, *build_command) or raise "./autogen.sh failed."
+
+			# Here we pass ./configure through sh because on some platforms, the ./configure call
+			# does not resolve properly.
+			@library.options.CONFIGURE =  ['sh', './configure'] if @library.options.CONFIGURE.empty?
+
+			build_command = []
+			build_command.push *(@library.options.CONFIGURE)
+			build_command.push *(@library.options.configure_options)
+			build_command << "--prefix=#{@library.options.install_dir.join}"
+			Exec.run(env, *build_command) or raise "./configure failed."
+
+			build_command = []
+			build_command << make
+			build_command.push *(@library.options.make_options)
+			Exec.run(env, *build_command) or raise "make failed"
+		end
+	end
+	library.builder  = AutogenConfigureMake.new()
+end
+
+# For now, disable Direct 3D... The engine does not use it
+# and see: http://thread.gmane.org/gmane.comp.gnu.mingw.w64.general/11286
+library.options.configure_options << '--enable-render-d3d=no'

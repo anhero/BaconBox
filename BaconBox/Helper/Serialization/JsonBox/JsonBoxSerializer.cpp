@@ -52,7 +52,7 @@ namespace BaconBox {
 			break;
 
 		case Value::INTEGER:
-			output.setInt(input.getInt());
+			output.setInteger(input.getInt());
 			break;
 
 		case Value::DOUBLE:
@@ -93,7 +93,7 @@ namespace BaconBox {
 			break;
 
 		case JsonBox::Value::INTEGER:
-			output.setInt(input.getInt());
+			output.setInt(input.getInteger());
 			break;
 
 		case JsonBox::Value::DOUBLE:

@@ -354,6 +354,11 @@ namespace BaconBox {
 
 				frameIterator->second.insert(frameIterator->second.begin() + index, tmp);
 			}
+			else
+			{
+				Console__error("setChildIndex(): The supplied DisplayObject must be a child of the caller.");
+				exit(1);
+			}
 		}
 	}
 

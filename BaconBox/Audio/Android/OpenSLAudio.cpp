@@ -6,6 +6,10 @@
 #include "BaconBox/Audio/MusicEngine.h"
 #include "BaconBox/Audio/SoundEngine.h"
 #include "BaconBox/Audio/Android/OpenSLEngine.h"
+
+#include "BaconBox/FileSystem/FileSystem.h"
+#include "BaconBox/FileSystem/PhysFSVFSFile.h"
+
 using namespace BaconBox;
 
 void OpenSLAudio::play(int nbTimes) {
@@ -172,87 +176,114 @@ void OpenSLAudio::playCallback(SLPlayItf caller, void *pContext, SLuint32 event)
 	}
 }
 
-void OpenSLAudio::load(bool isMusic, OpenSLEngine* engine, const std::string &path, SLObjectItf engineObject, SLEngineItf engineEngine, SLObjectItf outputMixObject){
-    this->isMusic = isMusic;
-    this->engine = engine;
+// FIXME : For now, assumes a PhysFSVFSFile.
+void OpenSLAudio::load(bool isMusic, OpenSLEngine* engine, const std::string &path, SLObjectItf engineObject, SLEngineItf engineEngine, SLObjectItf outputMixObject) {
+	this->isMusic = isMusic;
+	this->engine = engine;
 
-    if(isMusic){
-    	engine->musicVolumeChange.connect(this, &OpenSLAudio::musicEngineVolumeChanged);
-    }
-    else{
-    	engine->soundVolumeChange.connect(this, &OpenSLAudio::soundEngineVolumeChanged);
-    }
-    SLresult result;
+	// Use the path to load the File from the VFS.
+	File* file = FileSystem::open(path);
+	if (!file) {
+		Console__error("OpenSLAudio::load() could not load the file asked for.");
+		return;
+	}
 
-    // configure audio source
-	SLDataLocator_URI loc_fd = {SL_DATALOCATOR_URI , (SLchar*)path.c_str()};
+	// Try to get a PhysFSFile
+	PhysFSVFSFile* phys_file = dynamic_cast<PhysFSVFSFile*>(file);
+	if (!phys_file) {
+		Console__error("OpenSLAudio::load() on a non PhysFSVSFile currently does not work.");
+		return;
+	}
+
+	// Connect to the right volume changed events.
+	if(isMusic){
+		engine->musicVolumeChange.connect(this, &OpenSLAudio::musicEngineVolumeChanged);
+	}
+	else{
+		engine->soundVolumeChange.connect(this, &OpenSLAudio::soundEngineVolumeChanged);
+	}
+
+	SLresult result;
+
+	// configure audio source
+	SLDataSource audioSrc;
+	// FIXME : Make the URI locator also work!
+	//	if (false /* use_uri */ ) { // When using a URI locator.
+	//		SLDataLocator_URI loc_fd = {SL_DATALOCATOR_URI , (SLchar*)path.c_str()};
+	//		SLDataFormat_MIME format_mime = {SL_DATAFORMAT_MIME, NULL, SL_CONTAINERTYPE_UNSPECIFIED};
+	//		audioSrc = {&loc_fd, &format_mime};
+	//	}
+	//	else { // Otherwise, AndroidFD
+	// FIXME : BB_ANDROID ifdefs!
+	off_t start, length;
+	int fd = phys_file->toAndroidFD(&start, &length);
+	SLDataLocator_AndroidFD loc_fd = {SL_DATALOCATOR_ANDROIDFD , fd, start, length};
 	SLDataFormat_MIME format_mime = {SL_DATAFORMAT_MIME, NULL, SL_CONTAINERTYPE_UNSPECIFIED};
-    SLDataSource audioSrc = {&loc_fd, &format_mime};
+	audioSrc.pLocator = &loc_fd;
+	audioSrc.pFormat = &format_mime;
+	//	}
 
-    // configure audio sink
-    SLDataLocator_OutputMix loc_outmix = {SL_DATALOCATOR_OUTPUTMIX, outputMixObject};
-    SLDataSink audioSnk = {&loc_outmix, NULL};
+	// configure audio sink
+	SLDataLocator_OutputMix loc_outmix = {SL_DATALOCATOR_OUTPUTMIX, outputMixObject};
+	SLDataSink audioSnk = {&loc_outmix, NULL};
 
+	// create audio player
+	const SLInterfaceID ids[3] = {SL_IID_SEEK, SL_IID_MUTESOLO, SL_IID_VOLUME};
+	const SLboolean req[3] = {SL_BOOLEAN_TRUE, SL_BOOLEAN_TRUE, SL_BOOLEAN_TRUE};
+	result = (*engineEngine)->CreateAudioPlayer(engineEngine, &playerObject, &audioSrc, &audioSnk,
+												3, ids, req);
+	if(SL_RESULT_SUCCESS != result){
+		playerObject = NULL;
+		Console__error("Error creating the player object in OpenSLAudio::load. Result: " << result);
+	}
+	else{
 
-
-    // create audio player
-    const SLInterfaceID ids[3] = {SL_IID_SEEK, SL_IID_MUTESOLO, SL_IID_VOLUME};
-    const SLboolean req[3] = {SL_BOOLEAN_TRUE, SL_BOOLEAN_TRUE, SL_BOOLEAN_TRUE};
-    result = (*engineEngine)->CreateAudioPlayer(engineEngine, &playerObject, &audioSrc, &audioSnk,
-            3, ids, req);
-    if(SL_RESULT_SUCCESS != result){
-    	playerObject = NULL;
-    	Console__error("Error creating the player object in OpenSLAudio::load. Result: " << result);
-    }
-    else{
-
-
-  //   	SLAndroidConfigurationItf playerConfig;
+		// SLAndroidConfigurationItf playerConfig;
 		// result = (*playerObject)->GetInterface(playerObject, SL_IID_ANDROIDCONFIGURATION, &playerConfig);
 		// assert(SL_RESULT_SUCCESS == result);
 		// SLint32 streamType = SL_ANDROID_STREAM_ALARM;
 		// result = (*playerConfig)->SetConfiguration(playerConfig, SL_ANDROID_KEY_STREAM_TYPE, &streamType, sizeof(SLint32));
 		// assert(SL_RESULT_SUCCESS == result);
 
+		// realize the player
+		result = (*playerObject)->Realize(playerObject, SL_BOOLEAN_FALSE);
+		assert(SL_RESULT_SUCCESS == result);
+		(void)result;
 
+		// get the play interface
+		result = (*playerObject)->GetInterface(playerObject, SL_IID_PLAY, &playerPlay);
+		assert(SL_RESULT_SUCCESS == result);
+		(void)result;
 
-	    // realize the player
-	    result = (*playerObject)->Realize(playerObject, SL_BOOLEAN_FALSE);
-	    assert(SL_RESULT_SUCCESS == result);
-	    (void)result;
+		// get the seek interface
+		result = (*playerObject)->GetInterface(playerObject, SL_IID_SEEK, &playerSeek);
+		assert(SL_RESULT_SUCCESS == result);
+		(void)result;
 
-	    // get the play interface
-	    result = (*playerObject)->GetInterface(playerObject, SL_IID_PLAY, &playerPlay);
-	    assert(SL_RESULT_SUCCESS == result);
-	    (void)result;
+		// get the mute/solo interface
+		result = (*playerObject)->GetInterface(playerObject, SL_IID_MUTESOLO, &playerMuteSolo);
+		assert(SL_RESULT_SUCCESS == result);
+		(void)result;
 
-	    // get the seek interface
-	    result = (*playerObject)->GetInterface(playerObject, SL_IID_SEEK, &playerSeek);
-	    assert(SL_RESULT_SUCCESS == result);
-	    (void)result;
+		// get the volume interface
+		result = (*playerObject)->GetInterface(playerObject, SL_IID_VOLUME, &playerVolume);
+		assert(SL_RESULT_SUCCESS == result);
+		(void)result;
 
-	    // get the mute/solo interface
-	    result = (*playerObject)->GetInterface(playerObject, SL_IID_MUTESOLO, &playerMuteSolo);
-	    assert(SL_RESULT_SUCCESS == result);
-	    (void)result;
+		result = (*playerVolume)->GetMaxVolumeLevel(playerVolume, &maxLvl);
+		assert(SL_RESULT_SUCCESS == result);
+		(void)result;
 
-	    // get the volume interface
-	    result = (*playerObject)->GetInterface(playerObject, SL_IID_VOLUME, &playerVolume);
-	    assert(SL_RESULT_SUCCESS == result);
-	    (void)result;
+		result = (*playerPlay)->RegisterCallback(playerPlay, OpenSLAudio::playCallback, this);
+		assert(SL_RESULT_SUCCESS == result);
+		(void)result;
 
-
-
-	    result = (*playerVolume)->GetMaxVolumeLevel(playerVolume, &maxLvl);
-	    assert(SL_RESULT_SUCCESS == result);
-	    (void)result;
-
-	    result = (*playerPlay)->RegisterCallback(playerPlay, OpenSLAudio::playCallback, this);
-	    assert(SL_RESULT_SUCCESS == result);
-	    (void)result; 
-
-    	setVolume(BackgroundMusic::getVolume());
-
+		if (isMusic) {
+			setVolume(BackgroundMusic::getVolume());
+		}
+		else {
+			setVolume(SoundFX::getVolume());
+		}
 	}
 }
 

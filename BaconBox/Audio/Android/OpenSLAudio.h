@@ -7,7 +7,6 @@
 
 #include "BaconBox/Audio/BackgroundMusic.h"
 #include "BaconBox/Audio/SoundFX.h"
- 
 
 #include <SLES/OpenSLES.h>
 #include <SLES/OpenSLES_Android.h>
@@ -16,10 +15,12 @@
 
 namespace BaconBox {
 	class OpenSLEngine;
-
 	/**
-	 * Class used when audio engine implementation instead of returning NULL.
-	 * It makes the game not crash and helps debugging.
+	 * OpenSL implementation of the sound engine's audio "things".
+	 *
+	 * Currently pretty much assumes Android's version of OpenSL, but should be
+	 * easy to fix for other implementations.
+	 *
 	 * @ingroup Audio
 	 */
 	class OpenSLAudio : public BackgroundMusic, public SoundFX, public sigly::HasSlots<SIGLY_DEFAULT_MT_POLICY>  {
@@ -27,7 +28,6 @@ namespace BaconBox {
 		friend class OpenSLEngine;
 
 	public:
-
 		/**
 		 * Plays the sound a given number of times.
 		 * @param nbTimes Number of times the sound will be played in loop. A
@@ -98,39 +98,29 @@ namespace BaconBox {
 
 		void setVolume(int newVolume);
 
-
-
-
-		private:
-
+	private:
 		void soundEngineVolumeChanged();
-		void musicEngineVolumeChanged();			
+		void musicEngineVolumeChanged();
 
 		static void playCallback(SLPlayItf caller, void *pContext, SLuint32 event);
 
 		void load(bool isMusic, OpenSLEngine* engine, const std::string &path, SLObjectItf engineObject, SLEngineItf engineEngine, SLObjectItf outputMixObject);
-			int nbTimes;
-			int nbRemainingTimes;
-			std::string path;
+		int nbTimes;
+		int nbRemainingTimes;
+		std::string path;
+		bool isMusic;
 
-			OpenSLEngine* engine;
-			SLObjectItf engineObject;
-			SLEngineItf engineEngine; 
+		OpenSLEngine* engine;
+		SLObjectItf engineObject;
+		SLEngineItf engineEngine;
 
-			SLObjectItf outputMixObject;
-
-
-
-			SLObjectItf playerObject;
-			SLPlayItf playerPlay;
-			SLSeekItf playerSeek;
-			SLMuteSoloItf playerMuteSolo;
-			SLVolumeItf playerVolume;
-
-			SLmillibel maxLvl;
-
-			bool isMusic;
-
+		SLObjectItf outputMixObject;
+		SLObjectItf playerObject;
+		SLPlayItf playerPlay;
+		SLSeekItf playerSeek;
+		SLMuteSoloItf playerMuteSolo;
+		SLVolumeItf playerVolume;
+		SLmillibel maxLvl;
 	};
 }
 

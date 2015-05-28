@@ -146,9 +146,7 @@ namespace BaconBox {
 		AS3::local::var tempCh = child->getComponent<MovieClipHolder>()->getMovieClip();
 		AS3_CopyVarxxToVar(ch,tempCh);
 		inline_as3(
-			"if(mc.contains(ch)) {\n"
-				"mc.setChildIndex(ch,%0);\n"
-			"}\n"	
+			"mc.setChildIndex(ch,%0);\n"
 			: : "r"(index)
 		);
 	}

@@ -27,57 +27,12 @@ namespace BaconBox {
 		 * @return Full resource path for the file.
 		 */
 		static std::string getResourcePathFor(const std::string& item);
-		/**
-		 * Gets the document path for a file name.
-		 * @return Full document path for the file.
-		 */
-		static std::string getDocumentPathFor(const std::string& item);
-		/**
-		 * Gets the document path.
-		 * @return Full document path.
-		 */
-		static std::string getDocumentPath();
 		
 		static std::string getResourcePath();
-		
-		static void setDebugDocumentPath(const std::string & path);
 
 		static void setDebugResourcePath(const std::string & path);
 		
 		static std::string getPathFromFilename(std::string filename);
-
-		/**
-		 * Creates the folder hierarchy in the document folder.
-		 * @param path Path of folders to create.
-		 */
-		static bool createDocumentFolder(const std::string &path);
-
-		
-		static bool removeDirectory(const std::string &path);
-
-		/**
-		 * Creates a folder at the specified path. Prints a message in the
-		 * console and returns true if there was an error creating the folder.
-		 * If the folder to create already exists, it is not considered as an
-		 * error.
-		 * @param path Absolute path of the folder to create.
-		 * @return True if an error occurred, false if not.
-		 */
-		static bool createFolder(const std::string &path);
-
-		/**
-		 * Creates the folder hierarchy from the path.
-		 * @param path Path of the folders to create.
-		 * @return True if an error occurred, false if not.
-		 */
-		static bool createFolderTree(const std::string &path);
-
-		/**
-		 * Checks if a folder already exists.
-		 * @param path Path to the folder to check.
-		 * @return True if it exists, false if not.
-		 */
-		static bool folderExists(const std::string &path);
 
 		/**
 		 * Checks wether or not a file exists and is readable.
@@ -93,8 +48,6 @@ namespace BaconBox {
 		 */
 		static bool isFileWritable(const std::string &filePath);
 	private:
-		static std::string debugDocumentPath;
-
 		static std::string debugResourcePath;
 		/**
 		 * Default constructor, to make sure no one tries to instantiate this
