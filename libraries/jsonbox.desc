@@ -8,7 +8,8 @@ library.builder = make_step do
 	Dir.chdir "#{@library.work_dir}/#{@library.build_subdir}"
 	# Use the appended makefile as the makefile.
 	f = File.new("Makefile", "w")
-    DATA = File.read(__FILE__).sub(/\A.*\n__END__\n/m, '')
+	# Using '.?' at the end for windows CRLF matching.
+    DATA = File.read(__FILE__).sub(/\A.*\n__END__.?\n/m, '')
 	f.write(DATA)
 	f.close
 
