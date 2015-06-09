@@ -27,6 +27,7 @@ library.builder = make_step do
 end
 
 library.installer = make_step do
+	Dir.chdir "#{@library.work_dir}/#{@library.build_subdir}"
 	prefix = @library.options.install_dir.join()
 	# FIXME : calls to cp should be handled with FileUtils...
 	FileUtils.mkdir_p "#{prefix}/lib"
