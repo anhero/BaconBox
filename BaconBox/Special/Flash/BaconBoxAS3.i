@@ -16,6 +16,7 @@
 	#ifdef BB_LUA
 		#include "BaconBox/Script/Lua/LuaManager.h"
 	#endif
+    #include "BaconBox/FileSystem/FileSystem.h"
 
 %}
 
@@ -78,9 +79,16 @@
 		    static void application(int argc, char *argv[]);
 
 		};
+
+        class FileSystem {
+        public:
+            static bool mount(const std::string& what, const std::string& where = "/", const bool append = false);
+            static bool mountDefaultSavePath(const std::string& where = "/Save");
+            static bool rawMount(const std::string& what, const std::string& where = "/", const bool write = false, const bool append = false);
+        private:
+            FileSystem();
+        };
 	}
-
-
 
 #ifdef BB_LUA
 	%include "BaconBox/Script/Lua/LuaManager.h"
