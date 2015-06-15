@@ -46,7 +46,7 @@ PhysFSVFSFile::PhysFSVFSFile(const std::string& path, const std::string& mode) :
 	if (!internal_file) {
 		// TODO : Release-mode logger.
 #ifdef BB_DEBUG
-		PRLN("Reading of `"+path+"` failed.");
+		PRLN("Opening of `"+path+"` failed.");
 		PRLN("Reason: '" << PHYSFS_getLastError() << "'");
 #endif
 	}
