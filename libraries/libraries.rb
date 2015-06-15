@@ -13,7 +13,7 @@ if $PLATFORM != "Android" and $PLATFORM != "IOS"
 	build 'zlib.desc'
 end
 
-# PhysicsFS is not used for Flash builds.
+# Using the crossbridge-provided PhysicsFS.
 if $PLATFORM != "Flash"
 	build 'physicsfs.desc'
 end
