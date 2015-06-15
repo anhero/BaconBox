@@ -12,6 +12,9 @@ module Platforms
 		end
 
 
+		def validate!
+		end
+
 
 	end
 
