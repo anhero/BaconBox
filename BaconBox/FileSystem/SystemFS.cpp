@@ -5,6 +5,7 @@
 
 #if defined(BB_MAC_PLATFORM) \
 	|| defined(BB_LINUX) \
+	|| defined(BB_FLASH_PLATFORM) /* Is compliant through crossbridge */ \
 	|| defined(BB_WINDOWS_PLATFORM) // Windows platform is for mingw.
 									// FIXME : Make a MINGW32 platform and use it.
 #include <string.h>
@@ -21,7 +22,7 @@ bool SystemFS::exists(const std::string &path) {
 #ifdef BB_IPHONE_PLATFORM
 	// TODO (2015-05-12) : Should we really always return false on iOS?
 	return false;
-#elif defined(BB_MAC_PLATFORM) || defined(BB_LINUX) || defined(BB_WINDOWS_PLATFORM)
+#elif defined(BB_MAC_PLATFORM) || defined(BB_LINUX) || defined(BB_WINDOWS_PLATFORM) || defined(BB_FLASH_PLAFORM)
 	struct stat st;
 	return stat(path.c_str(), &st) == 0;
 #else
@@ -31,7 +32,7 @@ bool SystemFS::exists(const std::string &path) {
 }
 
 bool SystemFS::isDirectory(const std::string &path) {
-#if defined(BB_MAC_PLATFORM) || defined(BB_LINUX) || defined(BB_WINDOWS_PLATFORM) || defined(BB_IPHONE_PLATFORM)
+#if defined(BB_MAC_PLATFORM) || defined(BB_LINUX) || defined(BB_WINDOWS_PLATFORM) || defined(BB_IPHONE_PLATFORM) || defined(BB_FLASH_PLATFORM)
 	struct stat st;
 	if (stat(path.c_str(), &st) != 0) {
 		// TODO : Error handling; it would be nice to give the error to the user.
@@ -109,9 +110,6 @@ bool SystemFS::createDirectoryTree(const std::string &path) {
 
 // TODO : Refactor using SystemFS traversal and delete functions.
 bool SystemFS::removeDirectoryTree(const std::string &path) {
-	// #if defined(BB_FLASH_PLATFORM)
-	// 	return false;
-	// #else
 	// Took from here: http://stackoverflow.com/questions/2256945/removing-a-non-empty-directory-programmatically-in-c-or-c
 	DIR *d = opendir(path.c_str());
 	size_t path_len = strlen(path.c_str());
@@ -151,7 +149,6 @@ bool SystemFS::removeDirectoryTree(const std::string &path) {
 		r = rmdir(path.c_str());
 	}
 	return r;
-	// #endif
 }
 
 
