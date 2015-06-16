@@ -132,8 +132,8 @@ namespace BaconBox {
 		return state->buffer;
 	}
 
+	// Used by the Lua API.
 	int LuaManager::loadfile(lua_State *L) {
-		// TODO : Read path from lua stac.
 		const char * path = luaL_checkstring(L, 1);
 		return LuaManager::loadfile(L, path);
 	}
