@@ -12,10 +12,13 @@ ImageLoader::ImageLoader() {}
 PixMap* ImageLoader::load(const std::string &path) {
 	// For now, as we only support loading PNG files, we
 	// can shortcircuit any testing and directly use loadFromPNG().
+	#ifdef BB_WITH_PNG
 	return loadFromPNG(path);
+	#endif
 	return NULL;
 }
 
+#ifdef BB_WITH_PNG
 PixMap* ImageLoader::loadFromPNG(const std::string &path) {
 	// Create a status struct later one used to stream the PNG file.
 	png_buf_read_status status = png_buf_read_status(FileSystem::open(path));
@@ -143,3 +146,4 @@ void ImageLoader::png_read_data(png_structp png_ptr, png_bytep data, png_size_t 
 	status->bytes_read = status->bytes_read + length;
 	delete[] png_data;
 }
+#endif

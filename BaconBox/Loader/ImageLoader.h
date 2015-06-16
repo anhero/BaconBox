@@ -1,11 +1,14 @@
 #ifndef IMAGELOADER_H
 #define IMAGELOADER_H
 
+#if !defined(BB_FLASH_PLATFORM)
+#define BB_WITH_PNG
+#endif
+
 #include "BaconBox/Display/PixMap.h"
 #include "BaconBox/FileSystem/FileSystem.h"
 
-// TODO: See if we replace with something like BB_WITH_PNG ?
-#if ! defined(BB_FLASH_PLATFORM)
+#ifdef BB_WITH_PNG
 	//For LibPNG
 	#include <png.h>
 	#define PNG_HEADER_SIZE 8
@@ -38,15 +41,17 @@ namespace BaconBox {
 		 */
 		static PixMap* load(const std::string &path);
 
-		/**
-		 * Loads a PNG file as a PixMap, unless it cannot.
-		 * @param path PixMap source file.
-		 * @return Valid PixMap or NULL.
-		 */
-		static PixMap* loadFromPNG(const std::string &path);
 	private:
 		ImageLoader();
 
+	public:
+#ifdef BB_WITH_PNG
+				/**
+				 * Loads a PNG file as a PixMap, unless it cannot.
+				 * @param path PixMap source file.
+				 * @return Valid PixMap or NULL.
+				 */
+				static PixMap* loadFromPNG(const std::string &path);
 		/// Used internally to read data from memory.
 		static void png_read_data(png_structp png_ptr, png_bytep data, png_size_t length);
 
@@ -59,6 +64,7 @@ namespace BaconBox {
 			png_buf_read_status(File* file) : file(file), bytes_read(0) {}
 			~png_buf_read_status() { delete file; }
 		};
+#endif // BB_WITH_PNG
 	};
 }
 
