@@ -65,7 +65,16 @@ PhysFSVFSFile::~PhysFSVFSFile() {
 }
 
 void PhysFSVFSFile::close() {
-	PHYSFS_close(internal_file);
+	// Bail out if file is already closed.
+	if (!internal_file) {
+		return;
+	}
+	if (PHYSFS_close(internal_file) == 0) {
+		#ifdef BB_DEBUG
+		PRLN("Closing of file `"<< this->path <<"` failed.");
+		PRLN("Reason: '" << PHYSFS_getLastError() << "'");
+		#endif
+	}
 	internal_file = NULL;
 }
 
@@ -132,8 +141,10 @@ std::string PhysFSVFSFile::read(unsigned int to_read) {
 }
 
 bool PhysFSVFSFile::write(const std::string data) {
-	int ret = PHYSFS_write(internal_file, data.c_str(), data.length(), 1);
-	if (ret < 0) {
+	// Writing the whole file at once.
+	const int obj_count = 1;
+	int ret = PHYSFS_write(internal_file, data.c_str(), data.length(), obj_count);
+	if (ret < obj_count) {
 		// TODO : Release-mode logger.
 #ifdef BB_DEBUG
 		PRLN("Writing to `"+path+"` failed.");
