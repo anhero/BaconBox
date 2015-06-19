@@ -178,10 +178,17 @@ BaconBox:
               FileUtils.mkpath "#{$project.buildDir}/as3"
               %x{ chmod 766 "#{$project.options['crossbridge']}/usr/share/LSOBackingStore.as"}
               %x{ cp "#{$project.options['crossbridge']}/usr/share/LSOBackingStore.as" "#{$project.buildDir}/as3"}
+              %x{ cp "BaconBox/Special/Flash/BBKernel.as" "#{$project.buildDir}/as3"}
               %x{ cp "BaconBox/Special/Flash/URLLoaderVFS.as" "#{$project.buildDir}/as3"}
 
+              puts_banner 'Compiling BBKernel.abc'
+              puts %x{#{AS3COMPILERARGS} -import #{$project.options['crossbridge']}/usr/lib/builtin.abc \
+                -import #{$project.options['crossbridge']}/usr/lib/PlayerKernel.abc \
+                -import #{$project.options['crossbridge']}/usr/lib/IVFS.abc \
+                #{$project.buildDir}/as3/BBKernel.as -outdir #{$project.buildDir}/as3 -out BBKernel}
+              FileUtils.cp "#{$project.buildDir}/as3/BBKernel.abc", "#{$project.buildDir}/share"
+              
               puts_banner 'Compiling VFS.abc'
-
               puts %x{#{AS3COMPILERARGS} -import #{$project.options['crossbridge']}/usr/lib/builtin.abc \
               -import #{$project.options['crossbridge']}/usr/lib/playerglobal.abc \
               -import #{$project.options['crossbridge']}/usr/lib/BinaryData.abc \
