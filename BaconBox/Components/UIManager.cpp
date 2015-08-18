@@ -50,7 +50,7 @@ namespace BaconBox {
 		int cursor = 0;
         
         if(pointer->isButtonPressed(CursorButton::LEFT) || pointer->isButtonReleased(CursorButton::LEFT) || pointer->hasMoved(CursorButton::LEFT)){
-		const Vector2 & pos = camera->getConcatMatrix().multiplyWithVector(pointer->getPosition());
+		const Vector2 & pos = camera->screenToWorld(pointer->getPosition());
 		if(pointer->isButtonPressed(CursorButton::LEFT)){
 
 			lastPressed = pointer->getPosition();
