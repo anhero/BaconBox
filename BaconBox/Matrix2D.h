@@ -10,6 +10,16 @@
 
 
 namespace BaconBox {
+	/*
+	 * The 2D matrix	 is only affected by those components
+	 * in the transformation matrix:
+	 * ┌        ┐
+	 * │ a b tx │
+	 * │ c d ty │
+	 * │ 0 0 1  │
+	 * └        ┘
+	 *  see: http://help.adobe.com/en_US/AS2LCR/Flash_10.0/help.html?content=00001227.html#332312
+	 */
     struct Matrix2D{
 	float a;
 	float b;
