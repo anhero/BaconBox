@@ -1,8 +1,8 @@
 #include "BaconBox/PlatformFlagger.h"
-
 #include "BaconBox/Input/SDL/SDLInputManager.h"
-
 #include "BaconBox/Core/Engine.h"
+
+#include "BaconBox/Input/Pointer/SDL/SDLPointer.h"
 
 #include <SDL2/SDL.h>
 
@@ -29,6 +29,9 @@ void SDLInputManager::update() {
 			case SDL_QUIT:
 				running = false;
 				break;
+			case SDL_MOUSEWHEEL:
+				SDLInputManager::handleWheel(event);
+				break;
 			default:
 				break;
 		}
@@ -36,3 +39,7 @@ void SDLInputManager::update() {
 	InputManager::update();
 }
 
+void SDLInputManager::handleWheel(SDL_Event event) {
+	// FIXME : When multiple pointers handling is added, filter for the right one.
+	static_cast<SDLPointer*>(this->getPointer(0))->handleWheel(event);
+}
