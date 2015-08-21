@@ -22,13 +22,16 @@ SDLInputManager::~SDLInputManager() {
 
 void SDLInputManager::update() {
 	SDL_Event event;
-	SDL_PollEvent(&event);
-	switch(event.type) {
-		case SDL_QUIT:
-			running = false;
-			break;
-		default:
-			break;
+	// We need to fish all the events otherwise we are getting "lag" from an
+	// event queue that fills up more quickly than we handle.
+	while (SDL_PollEvent(&event)) {
+		switch(event.type) {
+			case SDL_QUIT:
+				running = false;
+				break;
+			default:
+				break;
+		}
 	}
 	InputManager::update();
 }
