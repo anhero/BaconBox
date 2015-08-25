@@ -135,10 +135,16 @@ namespace BaconBox {
 	// Used by the Lua API.
 	int LuaManager::loadfile(lua_State *L) {
 		const char * path = luaL_checkstring(L, 1);
+		lua_pop(L, 1);
 		return LuaManager::loadfile(L, path);
 	}
 	int LuaManager::loadfile(lua_State *L, const std::string path) {
 		reader_state state;
+		if (!FileSystem::exists(path)) {
+			lua_pushnil(L);
+			lua_pushfstring(L, "cannot %s %s: %s", "open", path.c_str(), "File does not exist.");
+			return 2;
+		}
 		state.file = FileSystem::open(path);
 		if (lua_load(L, LuaManager::reader, &state, path.c_str())) {
 			return lua_error(L);
