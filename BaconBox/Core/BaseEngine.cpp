@@ -231,10 +231,14 @@ namespace BaconBox {
 					
 					// We set the next state as the current state.
 					this->currentState = this->nextState;
+
+					// Reset nextState to NULL /before/ calling onGetFocus.
+					// onGetFocus might do stuff that change state, if so, we're
+					// overriding the newly set nextState !!!
+					this->nextState = NULL;
+
 					// We call the onGetFocus method.
 					this->currentState->internalOnGetFocus();
-					
-					this->nextState = NULL;
 				}
 				
 				// We update the current state.
