@@ -198,15 +198,27 @@ namespace BaconBox {
 		static const std::string &getApplicationName();
 		
 		/**
-		 * Gets the application's argument count, generally as passed to main.
+		 * Gets the raw application's argument count, generally as passed to main.
 		 */
 		static int &getApplicationArgc();
-		
+
 		/**
-		 * Gets the application's argument values, generally as passed to main.
+		 * Gets the raw application's argument values, generally as passed to main.
 		 */
 		static char **getApplicationArgv();
-		
+
+		/**
+		 * Gets the number of arguments as an integer
+		 */
+		static int getApplicationArgumentsCount();
+
+		/**
+		 * Gets an application's argument as a string.
+		 * Verify the argument does exist with the count as going over the limit
+		 * will give an empty string.
+		 */
+		static std::string getApplicationArgument(int i);
+
 		/**
 		 * Gets the main window.
 		 * @return Reference to the main window.

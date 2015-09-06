@@ -1,0 +1,24 @@
+library = Library.new(name: "physfs", version: "bb-2.0.3a")
+library.license   = Licenses::Zlib
+library.archive   = "#{library.name}-#{library.version}.zip"
+library.url       = "https://github.com/samueldr/#{library.name}/archive/#{library.version}.zip"
+library.verifier  = Verifier::MD5("842f4b1cc97de8e645373a0f039e1eeb") # bb-2.0.3a
+library.builder   = Builder::CMakeMake()
+library.installer = Installer::MakeInstall()
+
+# MinRelSize default CMAKE_BUILD_TYPE fails because of too much optimizations.
+library.options.CMAKE_BUILD_TYPE = "Release"
+library.options.cmake_options = [ "-DPHYSFS_BUILD_TEST=OFF", "-DPHYSFS_BUILD_WX_TEST=OFF" ]
+
+# For now, building only the static version.
+# The dynamic linking causes issues on Mac OS X, cmake changes the install 
+# name for the bare library name; the library needs to be in the CWD or
+# the linking needs fixing with install_name_tool.
+library.options.cmake_options << "-DPHYSFS_BUILD_SHARED=false"
+library.options.cmake_options << "-DPHYSFS_BUILD_STATIC=true"
+# Can cause issues when statically linking with zlib
+library.options.cmake_options << "-DPHYSFS_INTERNAL_ZLIB=false"
+#library.options.cmake_options << "-DZLIB_ROOT=#{library.options.install_dir}"
+if $libbuildtool_params.platform_name == "Android"
+	library.options.cmake_options << "-DIS_ANDROID=true"
+end

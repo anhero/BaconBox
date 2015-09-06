@@ -13,41 +13,17 @@ library.options.configure_options << "--disable-music-midi"
 library.options.configure_options << "--enable-music-ogg=yes"
 library.options.configure_options << "--with-sdl-prefix=#{library.options.install_dir}"
 library.options.configure_options << "--disable-music-mod"
+library.options.configure_options << "--disable-music-mp3"
 library.options.configure_options << "LIBS=-L#{library.options.install_dir}/lib"
 
+# The Xcode subfolder holds symlinks that breaks the extraction on windows.
+# Anyway, that folder is basically useless in automated builds.
+library.options.unpacker_options << '--exclude=SDL2_mixer*/Xcode'
 
-# FIXME : Fix this build...
-# Those will break with the latest changes in libbuildtool.
-# build_options.CFLAGS = "-L../../../../CYGWIN_NT-6.1/i686/bin"  
-# build_options.LDFLAGS = "-L../../../../CYGWIN_NT-6.1/i686/bin"
-# build_options.environment = "LD_LIBRARY_PATH=../../../../CYGWIN_NT-6.1/i686/bin LIBRARY_PATH=../../../../CYGWIN_NT-6.1/i686/bin"
-# FIXME : cygwin/mingw patch it seems... Get this working!
-# Also, apply only for that kind of build!
-# library.prepare_build = lambda do |library, options|
-# 	Dir.chdir "#{library.work_dir}/#{library.build_subdir}"
-# 	patches = []
-# 		patches << %q{
-# --- old/configure	2013-08-10 13:39:55.000000000 -0400
-# +++ new/configure	2014-01-20 01:51:25.000000000 -0500
-# @@ -10916,2 +10916,2 @@
-# -        BASE_CFLAGS="-I/usr/include/mingw -mno-cygwin"
-# -        BASE_LDFLAGS="-mno-cygwin"
-# +        BASE_CFLAGS="-I/usr/include/mingw"
-# +        BASE_LDFLAGS=""
-# }
-# 	patches.each do |p|
-# 		puts "Applying patch "
-# 		ok = Exec.run "patch", "-p1", {:stdin => p}
-# 		unless ok
-# 			raise "One patch failed to apply."
-# 		end
-# 	end
-# 
-# 	# TODO BUILD WITHOUT MOVING SDL2.dll
-# 	if $options.platform_name == "CygwinMingw" 
-# 		FileUtils.cp("#{library.options.install_dir}/bin/SDL2.dll", '.') or raise "Could not copy SDL2.dll"
-# 	end
-# 
-# 	return true
-# end
-# 
+# These options are for Windows / MinGW
+library.options.CFLAGS  = "-L#{library.options.install_dir}/bin"  
+library.options.LDFLAGS = "-L#{library.options.install_dir}/bin"
+library.options.LD_LIBRARY_PATH = "#{library.options.install_dir}/bin"
+library.options.LIBRARY_PATH    = "#{library.options.install_dir}/bin"
+# FIXME : Either add bin to the path... or add a better helper than that.
+library.options.PATH = "#{library.options.install_dir}/bin#{File::PATH_SEPARATOR}#{ENV['PATH']}"

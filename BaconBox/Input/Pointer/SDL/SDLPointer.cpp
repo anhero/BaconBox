@@ -1,16 +1,18 @@
+#include "BaconBox/Console.h"
 #include "BaconBox/Input/Pointer/SDL/SDLPointer.h"
 #include "BaconBox/Console.h"
 
 #include <stdint.h>
 
 #include <SDL2/SDL.h>
+#include "BaconBox/Input/SDL/SDLInputManager.h"
 
 using namespace BaconBox;
 
 // FIXME : Properly resize in-situ? Geting max pointers seems impossible from SDL.
 #define ASSUME_SDL_MAX_POINTERS 10
 
-SDLPointer::SDLPointer() : Pointer(ASSUME_SDL_MAX_POINTERS) {
+SDLPointer::SDLPointer() : Pointer(ASSUME_SDL_MAX_POINTERS), wheelScroll(0), lastWheelScroll(0) {
 	hasTouchscreen = (SDL_GetNumTouchDevices() > 0);
 	if (hasTouchscreen) {
 		for (unsigned int i=0; i<=ASSUME_SDL_MAX_POINTERS; i++) {
@@ -20,6 +22,14 @@ SDLPointer::SDLPointer() : Pointer(ASSUME_SDL_MAX_POINTERS) {
 }
 
 SDLPointer::~SDLPointer() {
+}
+
+void SDLPointer::handleWheel(SDL_Event event) {
+	wheelScroll += event.wheel.y;
+}
+
+int SDLPointer::getWheelScroll() const {
+	return lastWheelScroll;
 }
 
 void SDLPointer::updateDevice() {
@@ -44,8 +54,6 @@ void SDLPointer::updateDevice() {
 	getCursorButtons(0)[CursorButton::MIDDLE] = static_cast<bool>(buttons & SDL_BUTTON(SDL_BUTTON_MIDDLE));
 	getCursorButtons(0)[CursorButton::OTHER_BUTTON_1] = static_cast<bool>(buttons & SDL_BUTTON(SDL_BUTTON_X1));
 	getCursorButtons(0)[CursorButton::OTHER_BUTTON_2] = static_cast<bool>(buttons & SDL_BUTTON(SDL_BUTTON_X2));
-	//getCursorButtons(0)[CursorButton::SCROLL_UP] = static_cast<bool>(buttons & SDL_BUTTON(SDL_BUTTON_WHEELUP));
-	//getCursorButtons(0)[CursorButton::SCROLL_DOWN] = static_cast<bool>(buttons & SDL_BUTTON(SDL_BUTTON_WHEELDOWN));
 	for(CursorButton::Enum i = 0; i < CursorButton::NB_BUTTONS; ++i) {
 		if(isButtonPressed(i)) {
 			buttonPress(PointerButtonSignalData(state, 0, i));
@@ -55,6 +63,10 @@ void SDLPointer::updateDevice() {
 			buttonRelease(PointerButtonSignalData(state, 0, i));
 		}
 	}
+	getCursorButtons(0)[CursorButton::SCROLL_UP]   = static_cast<bool>(wheelScroll > 0);
+	getCursorButtons(0)[CursorButton::SCROLL_DOWN] = static_cast<bool>(wheelScroll < 0);
+	lastWheelScroll = wheelScroll;
+	wheelScroll = 0;
 
 	// We check the pointer's position.
 	if(hasMoved()) {

@@ -1,28 +1,119 @@
-library = Library.new(name: "JsonBox", version: "0.4.4")
+library = Library.new(name: "JsonBox", version: "0.6.2")
 library.license   = Licenses::MIT
 library.archive   = "#{library.name}-#{library.version}.zip"
 library.url       = "https://github.com/anhero/#{library.name}/archive/#{library.version}.zip"
-library.verifier  = Verifier::MD5("eeffa55d020de57b34232be8dfaf3b5b") #0.4.4
+library.verifier  = Verifier::MD5("4d81311823ca567804747a1a1efff3d0")
 
 library.builder = make_step do
 	Dir.chdir "#{@library.work_dir}/#{@library.build_subdir}"
-	prefix = @library.options.install_dir.join()
+	# Use the appended makefile as the makefile.
+	f = File.new("Makefile", "w")
+	# Using '.?' at the end for windows CRLF matching.
+    DATA = File.read(__FILE__).sub(/\A.*\n__END__.?\n/m, '')
+	f.write(DATA)
+	f.close
+
 	command = []
-	command = ["make"]
+	make = "make"
+	if (ENV['MSYSTEM']||"").match(/MINGW32/) then
+		make = "mingw32-make"
+	elsif (ENV['MSYSTEM']||"").match(/MINGW64/) then
+		make = "mingw64-make"
+	end
+	command = [make]
 	command << "CXX=#{@library.options.CXX.join(" ")}" if @library.options.CXX.length > 0
-	flags = ""
-	flags << "-I./include"
-	flags << " -stdlib=libstdc++" if (OS.osx? and $libbuildtool_params.platform == nil)
-	command << "CXXFLAGS=#{flags}"
 
 	Exec.run *command
+end
 
+library.installer = make_step do
+	Dir.chdir "#{@library.work_dir}/#{@library.build_subdir}"
+	prefix = @library.options.install_dir.join()
 	# FIXME : calls to cp should be handled with FileUtils...
 	FileUtils.mkdir_p "#{prefix}/lib"
 	FileUtils.cp Dir.glob("build/*.a"), "#{prefix}/lib"
 	FileUtils.mkdir_p "#{prefix}/include"
-	FileUtils.cp_r Dir.glob("include/*"), "#{prefix}/include"
-
-	# FIXME : We should not blindly return true!
+	FileUtils.cp_r Dir.glob("build/include/*"), "#{prefix}/include"
 	true
 end
+
+
+# Add a custom makefile.
+__END__
+# JsonBox Makefile
+# Author: Samuel Dionne-Riel <samuel@dionne-riel.com>
+
+# This Makefile is used for platforms where cmake support is not perfect.
+# This is mostly because of flawed and incomplete understanding of cmake.
+
+# Project name. The library name is derived from this
+PROJECT = JsonBox
+
+CFLAGS += -I./include/ -I./build/include/$(PROJECT)/
+CXXFLAGS += $(CFLAGS)
+
+ifeq (1,${DEBUG})
+	CFLAGS += -g
+endif
+
+HEADERS = $(wildcard include/$(PROJECT).h include/$(PROJECT)/*.h)
+OUTHEADERS = $(HEADERS:include/%.h=build/include/%.h)
+SRC = $(wildcard src/*.cpp)
+OBJS = $(SRC:src/%.cpp=build/objs/%.o)
+
+LIBNAME = lib$(PROJECT).a
+
+lib:build/objs build/$(LIBNAME)
+
+all: lib examples
+
+build/$(LIBNAME): $(OBJS) $(OUTHEADERS)
+	$(AR) cr $@ $(OBJS)
+
+build/objs:
+	mkdir -p $@
+
+build/include:
+	mkdir -p build/include
+	mkdir -p build/include/$(PROJECT)
+
+build/include/%.h: include/%.h build/include
+	cp $< $@
+
+build/include/$(PROJECT)/Export.h: build/include
+	# Dirty build a minimal 'Export.h' file.
+	echo '#ifndef JSONBOX_EXPORT_H' > $@
+	echo '#define JSONBOX_EXPORT_H' >> $@
+	echo '/* Shim to replace the basic Export.h built by cmake. */' >> $@
+	echo '#define JSONBOX_EXPORT' >> $@
+	echo '#endif' >> $@
+
+build/objs/%.o: src/%.cpp build/include/$(PROJECT)/Export.h
+	$(CXX) $(CXXFLAGS) -c $< -o $@
+
+# Example programs
+
+examples: build/example1
+
+build/example1: examples/main.cpp build/objs build/$(LIBNAME)
+	$(CXX) $(CXXFLAGS) -o $@ -Lbuild -l$(PROJECT) $<
+	chmod +x $@
+
+# Phony targets
+
+clean:
+	rm -rf build
+
+rebuild: clean all
+
+help:
+	@echo "$(PROJECT) Makefile"
+	@echo "----------------"
+	@echo "To compile everything, simply make."
+	@echo "Available parameters:"
+	@echo "    lib        Builds the library"
+	@echo "    DEBUG=1    Builds with debug symbols"
+
+.PHONY: clean rebuild help \
+	lib \
+	examples

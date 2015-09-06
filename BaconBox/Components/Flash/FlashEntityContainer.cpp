@@ -139,7 +139,16 @@ namespace BaconBox {
 	}
 	
 	void FlashEntityContainer::setChildIndex(MovieClipEntity *child, int index){
-		throw "not implemented yet";
+		AS3_DeclareVar(mc,*);
+		AS3::local::var tempMc = movieClipHolder->getMovieClip();
+		AS3_CopyVarxxToVar(mc,tempMc);
+		AS3_DeclareVar(ch,*);
+		AS3::local::var tempCh = child->getComponent<MovieClipHolder>()->getMovieClip();
+		AS3_CopyVarxxToVar(ch,tempCh);
+		inline_as3(
+			"mc.setChildIndex(ch,%0);\n"
+			: : "r"(index)
+		);
 	}
 	
 	void FlashEntityContainer::swapChildren(MovieClipEntity *child1, MovieClipEntity *child2){
@@ -160,6 +169,22 @@ namespace BaconBox {
 	MovieClipEntity * FlashEntityContainer::getParent() const{
 		AS3::local::var result = movieClipHolder->getProperty("parent");
 		return FlashHelper::getMCEntityFromMC(result);
+	}
+
+	void FlashEntityContainer::removeAllChildren(){
+		AS3_DeclareVar(mc, *);
+		AS3::local::var tempMC = movieClipHolder->getMovieClip();
+		AS3_CopyVarxxToVar(mc, tempMC);
+		inline_as3(
+			"while (mc.numChildren > 0) {\n"
+				"mc.removeChildAt(0);\n"
+			"}\n"
+		);
+
+	}
+
+	void FlashEntityContainer::deleteAllChildren(){
+		removeAllChildren();
 	}
 
 }

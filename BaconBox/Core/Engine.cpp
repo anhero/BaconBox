@@ -124,6 +124,17 @@ namespace BaconBox {
 	char **Engine::getApplicationArgv() {
 		return getInstance().getApplicationArgv();
 	}
+
+	int Engine::getApplicationArgumentsCount() {
+		return getInstance().getApplicationArgc();
+	}
+
+	std::string Engine::getApplicationArgument(int i) {
+		if (i < 0 || i > getApplicationArgumentsCount()-1) {
+			return std::string("");
+		}
+		return std::string(getInstance().getApplicationArgv()[i]);
+	}
 	
 	MainWindow &Engine::getMainWindow() {
 		return getInstance().getMainWindow();
