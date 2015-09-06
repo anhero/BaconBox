@@ -38,6 +38,11 @@ namespace BaconBox {
 		 * @param index Index of the cursor's state to get.
 		 */
 		const CursorState& getCursorState(size_t index = 0) const;
+
+		/**
+		 * Changes the total number of states saved in the Pointer state.
+		 */
+		void resizeState(int new_size);
 	private:
 		/// Cursors' states.
 		std::vector<CursorState> cursors;

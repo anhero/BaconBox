@@ -154,6 +154,13 @@ namespace BaconBox {
 		 * For now, do not assume it is normalized.
 		 */
 		virtual int getWheelScroll() const;
+
+		/**
+		 * Get the number of indices available for this Pointer.
+		 * Generally represents fingers for a touch input device.
+		 * This value is not assumed to stay constant during execution.
+		 */
+		const unsigned int getNumberOfIndices() const;
 	protected:
 		/// State of the pointing device's cursors.
 		PointerState state;

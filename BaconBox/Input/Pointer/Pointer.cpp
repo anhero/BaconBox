@@ -36,6 +36,10 @@ const PointerState& Pointer::getState() const {
 	return state;
 }
 
+const unsigned int Pointer::getNumberOfIndices() const {
+	return state.cursors.size();
+}
+
 Pointer::Pointer(unsigned int nbCursors) : InputDevice(), state(PointerState(nbCursors)) {
 }
 

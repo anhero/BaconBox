@@ -9,13 +9,10 @@
 
 using namespace BaconBox;
 
-// FIXME : Properly resize in-situ? Geting max pointers seems impossible from SDL.
-#define ASSUME_SDL_MAX_POINTERS 10
-
-SDLPointer::SDLPointer() : Pointer(ASSUME_SDL_MAX_POINTERS), wheelScroll(0), lastWheelScroll(0) {
+SDLPointer::SDLPointer() : Pointer(), wheelScroll(0), lastWheelScroll(0) {
 	hasTouchscreen = (SDL_GetNumTouchDevices() > 0);
 	if (hasTouchscreen) {
-		for (unsigned int i=0; i<=ASSUME_SDL_MAX_POINTERS; i++) {
+		for (unsigned int i=0; i<=this->getNumberOfIndices(); i++) {
 			availIDs.insert(i);
 		}
 	}
@@ -101,6 +98,13 @@ bool SDLPointer::updateTouchScreen() {
 				));
 	}
 
+	if (num_active_touches > this->getNumberOfIndices()) {
+		this->state.resizeState(num_active_touches);
+		for (unsigned int i=currTouches.size(); i<=num_active_touches; i++) {
+			availIDs.insert(i);
+		}
+	}
+
 	// Map of removed touches
 	std::map<SDL_FingerID, unsigned int> removedTouches;
 	for (std::map<SDL_FingerID, unsigned int>::iterator it=touchCache.begin();
@@ -143,7 +147,7 @@ bool SDLPointer::updateTouchScreen() {
 	touchCache.insert(addedTouches.begin(), addedTouches.end());
 
 	// Track the last states
-	for (unsigned int i = 0;  i < ASSUME_SDL_MAX_POINTERS; i++) {
+	for (unsigned int i = 0;  i < this->getNumberOfIndices(); i++) {
 		getCursorPreviousPosition(i) = getCursorPosition(i);
 		getCursorPreviousButtons(i)[CursorButton::LEFT] = getCursorButtons(i)[CursorButton::LEFT];
 	}
@@ -166,7 +170,7 @@ bool SDLPointer::updateTouchScreen() {
 	}
 
 	// Do the signal sending dance!
-	for (unsigned int i = 0;  i < ASSUME_SDL_MAX_POINTERS; i++) {
+	for (unsigned int i = 0;  i < this->getNumberOfIndices(); i++) {
 		if (isButtonPressed(CursorButton::LEFT, i)) {
 			buttonPress(PointerButtonSignalData(state, i, CursorButton::LEFT));
 		}
