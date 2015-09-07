@@ -111,6 +111,7 @@ namespace BaconBox {
         size_t getNbOfButton();
         size_t getNbOfThumbstick();
 
+		const std::string getName() const;
         
         
 	protected:
@@ -140,6 +141,12 @@ namespace BaconBox {
         std::vector<float>& getPreviousThumbstick();
 		
         size_t gamePadIndex;
+
+		/**
+		 * Platform-dependent name for the GamePad.
+		 * Do not assume that a GamePad will get the same name under different platforms.
+		 */
+		std::string gamepad_name;
 	};
 }
 
