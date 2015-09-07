@@ -43,7 +43,6 @@ namespace BaconBox {
 
 	private:
 		MovieClipHolder * movieClipHolder;
-		bool isPlayingFlag;
 		void initializeConnections();
 
 	};

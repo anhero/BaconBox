@@ -38,6 +38,14 @@ namespace BaconBox {
 	}
 
 
+	void EntityContainerProxy::deleteAllChildren(){
+		reinterpret_cast<EntityContainer*>(this->component)->deleteAllChildren();
+	}
+
+	void EntityContainerProxy::removeAllChildren(){
+		reinterpret_cast<EntityContainer*>(this->component)->removeAllChildren();
+	}
+
 	void EntityContainerProxy::addChild(MovieClipEntity *newChild) {
 		reinterpret_cast<EntityContainer*>(this->component)->addChild(newChild);
 	}

@@ -147,6 +147,13 @@ namespace BaconBox {
 		 * @return State of the pointing device and its cursors.
 		 */
 		const PointerState& getState() const;
+
+		/**
+		 * Get the wheel delta for this physical pointer.
+		 * Assumes only a up/down mouse wheel, API will change.
+		 * For now, do not assume it is normalized.
+		 */
+		virtual int getWheelScroll() const;
 	protected:
 		/// State of the pointing device's cursors.
 		PointerState state;

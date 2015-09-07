@@ -1,13 +1,24 @@
-
 %module BaconBox
 
 #if defined(BB_LUA)
-	%native(cast) int luacast(lua_State*L);
-  %native(own) int luaOwn(lua_State*L);
-  %native(disown) int luaDisOwn(lua_State*L);
-  %native(getPointer) int luaGetPointer(lua_State*L);
+// Utilities made available globally.
 
-%luacode {
+// Import those methods into the BaconBox table.
+//  → cast, own, disown and getPointer
+%native(cast)       int luacast(lua_State*L);
+%native(own)        int luaOwn(lua_State*L);
+%native(disown)     int luaDisOwn(lua_State*L);
+%native(getPointer) int luaGetPointer(lua_State*L);
+
+
+// Adding start and end of chunk markers as swig does not allow naming the lua
+// chunk and makes one big string with all the luacode concatenated.
+// Some tools (like profilers) like to use the whole string as if it was a
+// good identifier for the chunk, making the data hard to manage.
+
+%luacode { -- [start of chunk] -- }
+
+%luacode { -- class() definition --
  function class(base, init)
    local c = {className = 'class'}    -- a new class instance
    if not init and type(base) == 'function' then
@@ -62,7 +73,9 @@
    setmetatable(c, mt)
    return c
 end
+}
 
+%luacode { -- LuaEntity class definition --
 LuaEntity = class()
 function LuaEntity:init(entity)
   self.entity = entity
@@ -73,9 +86,9 @@ function LuaEntity:init(entity)
       end
   end
 end
+}
 
-
-
+%luacode { -- LuaState class definition --
 LuaState = class(LuaEntity)
 function LuaState:init(params, own, stateConstructor)
   if stateConstructor == nil then stateConstructor = BaconBox.State end
@@ -92,14 +105,17 @@ function LuaState:init(params, own, stateConstructor)
     if not own then BaconBox.disown(self.state) end
 
 end
+}
 
+%luacode { -- printTable() function --
 function printTable(table)
   for k,v in pairs(table) do
     print(k,v)
   end
 end
+}
 
-
+%luacode { -- printUserData() function --
 function printUserData(userdata)
   local meta = getmetatable(userdata)
   if not meta then
@@ -130,8 +146,10 @@ function printUserData(userdata)
     end
   end
 end
-
 }
+
+%luacode { -- [end of chunk] -- }
+
 #endif
 
 
@@ -277,6 +295,9 @@ end
 #endif
 
 #include "BaconBox/Core/BaseEngine.h"
+
+#include "BaconBox/FileSystem/FileSystem.h"
+#include "BaconBox/FileSystem/File.h"
 
 namespace BaconBox{
 #ifdef BB_FLASH_PLATFORM
@@ -593,7 +614,7 @@ namespace BaconBox{
 	class Vector2{
 		public:
 		Vector2();
-    Vector(const Vector2 &src);
+    Vector2(const Vector2 &src);
 		#if defined(BB_LUA)
 		Vector2(float x, float y);
 		#endif
@@ -696,6 +717,13 @@ const char *__str__() {
    }
 
 }
+
+%include "std_vector.i"
+
+  namespace std {
+    %template(VectorVector2) vector<BaconBox::Vector2>;
+  }
+
 
 %include "BaconBox/Matrix2D.h"
 %include "BaconBox/Helper/URL.h"
@@ -852,6 +880,10 @@ const char *__str__() {
 
 %include "BaconBox/Audio/SoundParameters.h"
 %include "BaconBox/ResourceManager.h"
+
+%include "BaconBox/FileSystem/File.h"
+%include "BaconBox/FileSystem/FileSystem.h"
+
 
 %include "BaconBox/Helper/Timer.h"
   #if !defined(BB_FLASH_PLATFORM)

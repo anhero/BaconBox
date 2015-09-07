@@ -1,23 +1,48 @@
-library = Library.new(name: "glew", version: "1.10.0")
+library = Library.new(name: "glew", version: "1.12.0")
 # FIXME : library.license = "Modified BSD License" 
 library.archive   = "#{library.name}-#{library.version}.zip"
 library.url       = "http://sourceforge.net/projects/#{library.name}/files/#{library.name}/#{library.version}/#{library.archive}/download"
 # Hardcoded mirror for hard times,
 #library.url      = "http://download2.polytechnic.edu.na/pub4/sourceforge/#{library.name[0]}/project/#{library.name[0..1]}/#{library.name}/#{library.name}/#{library.version}/#{library.archive}"
-library.verifier  = Verifier::MD5("594eb47b4b1210e25438d51825404d5a") # 1.10.0
+library.verifier  = Verifier::MD5("3941e9cab2f4f9d8faee3e8d57ae7664") # 1.12.0
 
 begin
+	def get_glew_make
+		make = "make"
+		if (ENV['MSYSTEM']||"").match(/MINGW32/) then
+			make = "mingw32-make"
+		elsif (ENV['MSYSTEM']||"").match(/MINGW64/) then
+			make = "mingw64-make"
+		end
+
+		return make
+	end
+	def get_glew_build_command command = nil
+
+		build_command = []
+		build_command << get_glew_make
+		build_command << command if command
+		build_command << "CC=#{@library.options.CC}" if defined? @library.options.CC
+		build_command << "LD=#{@library.options.CC}" if defined? @library.options.CC
+		build_command << "GLEW_DEST=#{@library.options.install_dir}"
+
+		# Glew is dirty...
+		# Its configure.guess script does not properly detect cross-compiling.
+		if $PLATFORM == "CrossCompiler" and $libbuildtool_params.platform.build_options.system.first == "w64"
+			build_command << "SYSTEM=mingw"
+		end
+
+		return build_command
+	end
 	class GlewBuilder < LBT::Step
 		def run
 			Dir.chdir "#{@library.work_dir}/#{@library.build_subdir}"
 			env = {}
 			env["SYSTEM"] = "mingw" if $libbuildtool_params.platform_name == "CygwinMingw"
+			env["SYSTEM"] = "mingw" if (ENV['MSYSTEM']||"").match(/MINGW.*/)
+			env['MAKE'] = get_glew_make unless env and not env['MAKE'].nil?
 
-			build_command = []
-			build_command << "make"
-			build_command << "CC=#{@library.options.CC}" if defined? @library.options.CC
-			build_command << "LD=#{@library.options.CC}" if defined? @library.options.CC
-			puts build_command.join(" ")
+			build_command = get_glew_build_command
 			Exec.run(env, *build_command)
 		end
 	end
@@ -26,14 +51,10 @@ begin
 			Dir.chdir "#{@library.work_dir}/#{@library.build_subdir}"
 			env = {}
 			env["SYSTEM"] = "mingw" if $libbuildtool_params.platform_name == "CygwinMingw"
+			env["SYSTEM"] = "mingw" if (ENV['MSYSTEM']||"").match(/MINGW.*/)
+			env['MAKE'] = get_glew_make unless env and not env['MAKE'].nil?
 
-			build_command = []
-			build_command << "make"
-			build_command << "install.all"
-			build_command << "GLEW_DEST=#{@library.options.install_dir}"
-			build_command << "CC=#{@library.options.CC}" if defined? @library.options.CC
-			build_command << "LD=#{@library.options.CC}" if defined? @library.options.CC
-			puts build_command.join(" ")
+			build_command = get_glew_build_command "install.all"
 			Exec.run(env, *build_command)
 		end
 	end

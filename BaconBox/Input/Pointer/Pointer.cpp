@@ -69,3 +69,7 @@ std::vector<bool>& Pointer::getCursorButtons(unsigned int index) {
 std::vector<bool>& Pointer::getCursorPreviousButtons(unsigned int index) {
 	return state.getCursorPreviousButtons(index);
 }
+
+int Pointer::getWheelScroll() const {
+	return 0;
+}

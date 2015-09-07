@@ -63,8 +63,6 @@ BaconBox:
             - "BaconBox/**/libc/*.cpp"
           Header:
             - "BaconBox/**/libc/*.h"
-          CXXFLAGS:
-            - "-stdlib=libstdc++"
           IncludesPath:
             - "libraries/Darwin/x86_64/include"
 
@@ -74,8 +72,6 @@ BaconBox:
             - "BaconBox/**/libc/*.cpp"
           Header:
             - "BaconBox/**/libc/*.h"
-          CXXFLAGS:
-            - "-stdlib=libstdc++"
           IncludesPath:
             - "libraries/Linux/x86_64/include"
 
@@ -86,10 +82,17 @@ BaconBox:
           Header:
             - "BaconBox/**/Windows/*.h"
           IncludesPath:
+            - "libraries/w64/i686/include"
             - "libraries/MINGW32_NT-6.1/i686/include"
+            - "libraries/MINGW32_NT-6.1-WOW/i686/include"
 
+      # Default native block that auto-discovers the OS.
       native: &native
         include: [core,  OpenGL, [OSX, "OS.osx?"], [WINDOWS, "OS.windows?"], [Linux, "OS.linux?"]]
+      # Use this when Cross Compiling to windows instead of the previous block.
+      # This is a temporary fix while waiting for the generous refactor.
+      #native: &native
+      #  include: [core,  OpenGL, WINDOWS]
 
       Lua: &Lua
         preGenerousScripts:
@@ -141,8 +144,6 @@ BaconBox:
       Android: &Android
                 include: [core, OpenGL, O3]
                 artifacts:
-                  CFLAGS:
-                    - "-stdlib=libstdc++"
                   C:
                     - "BaconBox/**/Android/*.c"
                   Cpp:
@@ -177,10 +178,17 @@ BaconBox:
               FileUtils.mkpath "#{$project.buildDir}/as3"
               %x{ chmod 766 "#{$project.options['crossbridge']}/usr/share/LSOBackingStore.as"}
               %x{ cp "#{$project.options['crossbridge']}/usr/share/LSOBackingStore.as" "#{$project.buildDir}/as3"}
+              %x{ cp "BaconBox/Special/Flash/BBKernel.as" "#{$project.buildDir}/as3"}
               %x{ cp "BaconBox/Special/Flash/URLLoaderVFS.as" "#{$project.buildDir}/as3"}
 
+              puts_banner 'Compiling BBKernel.abc'
+              puts %x{#{AS3COMPILERARGS} -import #{$project.options['crossbridge']}/usr/lib/builtin.abc \
+                -import #{$project.options['crossbridge']}/usr/lib/PlayerKernel.abc \
+                -import #{$project.options['crossbridge']}/usr/lib/IVFS.abc \
+                #{$project.buildDir}/as3/BBKernel.as -outdir #{$project.buildDir}/as3 -out BBKernel}
+              FileUtils.cp "#{$project.buildDir}/as3/BBKernel.abc", "#{$project.buildDir}/share"
+              
               puts_banner 'Compiling VFS.abc'
-
               puts %x{#{AS3COMPILERARGS} -import #{$project.options['crossbridge']}/usr/lib/builtin.abc \
               -import #{$project.options['crossbridge']}/usr/lib/playerglobal.abc \
               -import #{$project.options['crossbridge']}/usr/lib/BinaryData.abc \

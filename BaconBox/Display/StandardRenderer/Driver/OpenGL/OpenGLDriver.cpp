@@ -189,14 +189,18 @@ namespace BaconBox {
 
 		}
 
+		// First reset modelViewMatrix to the identity matrix.
 		loadIdentity();
 
-		
-
+		// Scale it (via matrix multiplication)
 		scale(zoom);
+
+		// Rotate (via matrix multiplication)
 		rotate(-angle);
+
+		// Translate it (via matrix multiplication)
 		translate(-(position));
-		
+
 		if(!isRenderingToTexture){
 		
 		switch (MainWindow::getInstance().getOrientation()) {
@@ -392,13 +396,45 @@ namespace BaconBox {
 
 	void OpenGLDriver::initializeGraphicDriver() {
 		GraphicDriver::initializeGraphicDriver();
-
 		#ifdef BB_GLEW
-		GLenum err;
-		err = glewInit();
-		if (GLEW_OK != err) {
-			Console__error("GLEW INIT FAILED!");
-		}
+			glewExperimental = GL_TRUE;
+			GLenum err;
+			err = glewInit();
+			if (GLEW_OK != err)
+			{
+			Console__error("GLEW initialization failed.");
+			}
+
+			// Then, we check for some features we need
+			if (!glewIsSupported("GL_ARB_framebuffer_object")) {
+				Console__print("GL_ARB_framebuffer_object is not supported on your hardware.");
+				Console__print("Checking for GL_EXT_framebuffer_object...");
+				if (!glewIsSupported("GL_EXT_framebuffer_object")) {
+					Console__error("GL_EXT_framebuffer_object is not supported on your hardware.");
+				}
+				else {
+					Console__print("GL_EXT_framebuffer_object is supported.");
+					Console__print("Remapping framebuffer extension...");
+					glBindFramebuffer = glBindFramebufferEXT;
+					glBindRenderbuffer = glBindRenderbufferEXT;
+					glCheckFramebufferStatus = glCheckFramebufferStatusEXT;
+					glDeleteFramebuffers = glDeleteFramebuffersEXT;
+					glDeleteRenderbuffers = glDeleteRenderbuffersEXT;
+					glFramebufferRenderbuffer = glFramebufferRenderbufferEXT;
+					glFramebufferTexture1D = glFramebufferTexture1DEXT;
+					glFramebufferTexture2D = glFramebufferTexture2DEXT;
+					glFramebufferTexture3D = glFramebufferTexture3DEXT;
+					glGenFramebuffers = glGenFramebuffersEXT;
+					glGenRenderbuffers = glGenRenderbuffersEXT;
+					glGenerateMipmap = glGenerateMipmapEXT;
+					glGetFramebufferAttachmentParameteriv = glGetFramebufferAttachmentParameterivEXT;
+					glGetRenderbufferParameteriv = glGetRenderbufferParameterivEXT;
+					glIsFramebuffer = glIsFramebufferEXT;
+					glIsRenderbuffer = glIsRenderbufferEXT;
+					glRenderbufferStorage = glRenderbufferStorageEXT;
+					Console__print("All done!");
+				}
+			}
 		#endif // BB_GLEW
 
 		if(!shaderCompiled){
@@ -631,27 +667,41 @@ namespace BaconBox {
 		program->sendUniform(uniforms.projection, &(projectionMatrix[0]));
 	}
 
+
 	//inspired by http://www.flashbang.se/archives/148
+	/* https://open.gl/transformations → Translation
+	 *  x = translation.x
+	 *  y = translation.y
+	 * ┌         ┐
+	 * │ 1 0 0 0 │
+	 * │ 0 1 0 0 │
+	 * │ 0 0 1 0 │
+	 * │ x y 0 1 │
+	 * └         ┘
+	 * OpenGL ES cannot transpose a matrix, this means that we need to supply the
+	 * translation matrix as OpenGL will use it.
+	 * > The translation components occupy the 13th, 14th, and 15th elements of the 16-element matrix
+	 */
 	void OpenGLDriver::translate(const Vector2 &translation) {
 
 
-		tempTransformMatrix[0] = 1;
-		tempTransformMatrix[4] = 0;
-		tempTransformMatrix[8] = 0;
-		tempTransformMatrix[12] = translation.x;;
+		tempTransformMatrix[0]  = 1;
+		tempTransformMatrix[4]  = 0;
+		tempTransformMatrix[8]  = 0;
+		tempTransformMatrix[12] = translation.x;
 
-		tempTransformMatrix[1] = 0;
-		tempTransformMatrix[5] = 1;
-		tempTransformMatrix[9] = 0;
+		tempTransformMatrix[1]  = 0;
+		tempTransformMatrix[5]  = 1;
+		tempTransformMatrix[9]  = 0;
 		tempTransformMatrix[13] = translation.y;
 
-		tempTransformMatrix[2] = 0;
-		tempTransformMatrix[6] = 0;
+		tempTransformMatrix[2]  = 0;
+		tempTransformMatrix[6]  = 0;
 		tempTransformMatrix[10] = 1;
 		tempTransformMatrix[14] = 0;
 
-		tempTransformMatrix[3] = 0;//translation.x;
-		tempTransformMatrix[7] = 0;//translation.y;
+		tempTransformMatrix[3]  = 0;//translation.x;
+		tempTransformMatrix[7]  = 0;//translation.y;
 		tempTransformMatrix[11] = 0;
 		tempTransformMatrix[15] = 1;
 
@@ -659,25 +709,35 @@ namespace BaconBox {
 	}
 
 	//inspired by http://www.flashbang.se/archives/148
+	/* https://open.gl/transformations → Scaling
+	 *  x = scale.x
+	 *  y = scale.y
+	 * ┌         ┐
+	 * │ x 0 0 0 │
+	 * │ 0 y 0 0 │
+	 * │ 0 0 1 0 │
+	 * │ 0 0 0 1 │
+	 * └         ┘
+	 */
 	void OpenGLDriver::scale(const Vector2 &scale){
 
-		tempTransformMatrix[0] = scale.x;
-		tempTransformMatrix[4] = 0;
-		tempTransformMatrix[8] = 0;
+		tempTransformMatrix[0]  = scale.x;
+		tempTransformMatrix[4]  = 0;
+		tempTransformMatrix[8]  = 0;
 		tempTransformMatrix[12] = 0;
 
-		tempTransformMatrix[1] = 0;
-		tempTransformMatrix[5] = scale.y;
-		tempTransformMatrix[9] = 0;
+		tempTransformMatrix[1]  = 0;
+		tempTransformMatrix[5]  = scale.y;
+		tempTransformMatrix[9]  = 0;
 		tempTransformMatrix[13] = 0;
 
-		tempTransformMatrix[2] = 0;
-		tempTransformMatrix[6] = 0;
+		tempTransformMatrix[2]  = 0;
+		tempTransformMatrix[6]  = 0;
 		tempTransformMatrix[10] = 1;
 		tempTransformMatrix[14] = 0;
 
-		tempTransformMatrix[3] = 0;
-		tempTransformMatrix[7] = 0;
+		tempTransformMatrix[3]  = 0;
+		tempTransformMatrix[7]  = 0;
 		tempTransformMatrix[11] = 0;
 		tempTransformMatrix[15] = 1;
 
@@ -685,8 +745,17 @@ namespace BaconBox {
 	}
 
 	//inspired by http://www.flashbang.se/archives/148
+	/* https://open.gl/transformations → Rotation
+	 * ┌         ┐
+	 * │ _ _ _ 0 │
+	 * │ _ _ _ 0 │
+	 * │ _ _ _ 0 │
+	 * │ 0 0 0 1 │
+	 * └         ┘
+	 * For the _, see the previously linked resources.
+	 */
 	void OpenGLDriver::rotate(float a){
-		float angle= a * MathHelper::PI_OVER_180 ;
+		float angle    = a * MathHelper::PI_OVER_180 ;
 		float sinAngle = MathHelper::sin(angle);
 		float cosAngle = MathHelper::cos(angle);
 
@@ -694,30 +763,47 @@ namespace BaconBox {
 		float y = 0;
 		float z = 1;
 
-		tempTransformMatrix[0] = 1+(1-cosAngle)*(x*x-1);
-		tempTransformMatrix[4] = -z*sinAngle+(1-cosAngle)*x*y;
-		tempTransformMatrix[8] = y*sinAngle+(1-cosAngle)*x*z;
+		// Matrix multiplications for the different axes are pre-baked.
+		tempTransformMatrix[0]  = 1+(1-cosAngle)*(x*x-1);
+		tempTransformMatrix[4]  = -z*sinAngle+(1-cosAngle)*x*y;
+		tempTransformMatrix[8]  = y*sinAngle+(1-cosAngle)*x*z;
 		tempTransformMatrix[12] = 0;
 
-		tempTransformMatrix[1] = z*sinAngle+(1-cosAngle)*x*y;
-		tempTransformMatrix[5] = 1+(1-cosAngle)*(y*y-1);
-		tempTransformMatrix[9] = -x*sinAngle+(1-cosAngle)*y*z;
+		tempTransformMatrix[1]  = z*sinAngle+(1-cosAngle)*x*y;
+		tempTransformMatrix[5]  = 1+(1-cosAngle)*(y*y-1);
+		tempTransformMatrix[9]  = -x*sinAngle+(1-cosAngle)*y*z;
 		tempTransformMatrix[13] = 0;
 
-		tempTransformMatrix[2] = -y*sinAngle+(1-cosAngle)*x*z;
-		tempTransformMatrix[6] = x*sinAngle+(1-cosAngle)*y*z;
+		tempTransformMatrix[2]  = -y*sinAngle+(1-cosAngle)*x*z;
+		tempTransformMatrix[6]  = x*sinAngle+(1-cosAngle)*y*z;
 		tempTransformMatrix[10] = 1+(1-cosAngle)*(z*z-1);
 		tempTransformMatrix[14] = 0;
 
-		tempTransformMatrix[3] = 0;
-		tempTransformMatrix[7] = 0;
+		tempTransformMatrix[3]  = 0;
+		tempTransformMatrix[7]  = 0;
 		tempTransformMatrix[11] = 0;
 		tempTransformMatrix[15] = 1;
 
 		multMatrix(&(modelViewMatrix[0]),&(tempTransformMatrix[0]));
 	}
 
+
 	//inspired by http://www.flashbang.se/archives/148
+	/*
+	 *                         ┌         ┐┌         ┐
+	 *                         │ a b c d ││ A B C D │
+	 *                         │ e f g h ││ E F G H │
+	 *                         │ i j k l ││ I J K L │ =
+	 *                         │ m n o p ││ M N O P │
+	 *                         └         ┘└         ┘
+	 * ┌                                                                                ┐
+	 * │ aA + bE + cI + dM   aB + bF + cJ + dN   aC + bG + cK + dO   aD + bH + cL + dP │
+	 * │ eA + fE + gI + hM   eB + fF + gJ + hN   eC + fG + gK + hO   eD + fH + gL + hP │
+	 * │ iA + jE + kI + lM   iB + jF + kJ + lN   iC + jG + kK + lO   iD + jH + kL + lP │
+	 * │ mA + nE + oI + pM   mB + nF + oJ + pN   mC + nG + oK + pO   mD + nH + oL + pP │
+	 * └                                                                                ┘
+
+	*/
 	void OpenGLDriver::multMatrix(float *MatrixB,float MatrixA[16])
 	{
 		float NewMatrix[16];
@@ -737,7 +823,15 @@ namespace BaconBox {
 		memcpy(MatrixB,NewMatrix,64);
 	}
 
+
 	//inspired by http://www.flashbang.se/archives/148
+	/* ┌         ┐
+	 * │ 1 0 0 0 │
+	 * │ 0 1 0 0 │
+	 * │ 0 0 1 0 │
+	 * │ 0 0 0 1 │
+	 * └         ┘
+	 */
 	void OpenGLDriver::loadIdentity() {
 		modelViewMatrix[0] = 1;
 		modelViewMatrix[4] = 0;

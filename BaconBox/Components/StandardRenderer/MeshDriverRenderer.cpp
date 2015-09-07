@@ -101,7 +101,16 @@ namespace BaconBox {
 
 								}
 								else{
-									graphicDriver->drawShapeWithTextureColorColorOffset(this->mesh->getPostTransformVertices(), this->texture->getTexture(), this->texture->getTextureCoordinates(), color, colorOffset, (this->renderMode & RenderMode::BLENDED), degenerationStride, degenerationJump);
+									if (this->texture->getTextureCoordinates().size() > 0) {
+										graphicDriver->drawShapeWithTextureColorColorOffset(this->mesh->getPostTransformVertices(), this->texture->getTexture(), this->texture->getTextureCoordinates(), color, colorOffset, (this->renderMode & RenderMode::BLENDED), degenerationStride, degenerationJump);
+									}
+#ifdef BB_DEBUG
+									else {
+										Console::println("Skipping rendering; No texture coordinates for Mesh for Entity of type `"
+														 + this->getEntity()->getEntityName() + "`."
+														 );
+									}
+#endif
 								}
 							} else {
 								// We render without the texture.
