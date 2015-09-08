@@ -16,6 +16,8 @@
 #include "Components/DefaultMatrix.h"
 #include "Core/Engine.h"
 
+#include "BaconBox/Helper/ShapeFactory.h"
+
 #ifdef BB_FLASH_PLATFORM
 #include <AS3/AS3.h>
 #include <AS3/AS3++.h>
@@ -314,6 +316,42 @@ namespace BaconBox {
 		
 		return result;
 	}
+
+	MovieClipEntity *EntityFactory::getRegularPolygon(unsigned int nbSides, float sideLength, bool blend, float scale){
+		getInstance().internalGetRegularPolygon(nbSides, sideLength, blend, scale);
+	}
+
+	MovieClipEntity *EntityFactory::internalGetRegularPolygon(unsigned int nbSides, float sideLength, bool blend, float scale){
+		// It is invalid to ask for les than three sides!
+		if (! (sideLength > 0 && nbSides >= 3) ) {
+			return NULL;
+		}
+
+		MovieClipEntity *result = movieClipPool.create();
+		Mesh *mesh = new Mesh();
+
+		// Prepare the mesh for the right amount of vertices.
+		mesh->getPreTransformVertices().resize(nbSides);
+
+		// Send the mesh to the ShapeFactory.
+		ShapeFactory::createRegularPolygon(nbSides, sideLength, Vector2(), &(mesh->getPreTransformVertices()));
+
+		// Move the origin to the middle.
+		// If that's not where you want it, move it later!
+		// We're only a convenience function!
+		Vector2 origin = mesh->getPreTransformVertices().getCentroid() * -1;
+		mesh->getPreTransformVertices().move(origin.x * scale, origin.y * scale);
+
+		result->addComponent(mesh);
+
+		result->addComponent(new MeshDriverRenderer(
+								 RenderMode::SHAPE | RenderMode::COLOR |
+								 RenderMode::COLOR_TRANSORMED | (blend ? RenderMode::BLENDED : RenderMode::NONE)
+								 ));
+		return result;
+	}
+
+
 #endif
 	
 }

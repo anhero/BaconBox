@@ -33,6 +33,9 @@ namespace BaconBox {
 		static MovieClipEntity *getShapeRectangle(float w, float h, const Vector2 & origin = Vector2(), bool blend = true, float scale = 1.0f);
 		MovieClipEntity *internalGetShapeRectangle(float w, float h, const Vector2 & origin = Vector2(), bool blend = true, float scale = 1.0f);
 
+		static MovieClipEntity *getRegularPolygon(unsigned int nbSides, float sideLength, bool blend = true, float scale = 1.0f);
+		MovieClipEntity *internalGetRegularPolygon(unsigned int nbSides, float sideLength, bool blend = true, float scale = 1.0f);
+
 	private:
 		
 		EntityFactory();
