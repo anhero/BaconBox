@@ -27,6 +27,14 @@ namespace BaconBox {
 			if (nbButtons >= 0 && nbAxes >= 0) {
 				state.init(nbButtons, nbAxes);
 			}
+
+			const char *temp_name = SDL_JoystickName(this->joystick);
+			if (temp_name == NULL) {
+				std::cout << "SDL_JoystickName returned NULL, the error message is:" << std::endl << SDL_GetError() << std::endl;
+			}
+			else {
+				this->gamepad_name = temp_name;
+			}
 		} else {
 			std::cout << "SDL_JoystickOpen for the game pad '" << index << "' returned NULL, the error message is:" << std::endl << SDL_GetError() << std::endl;
 		}

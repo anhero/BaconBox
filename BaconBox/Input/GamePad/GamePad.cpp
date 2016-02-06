@@ -67,3 +67,7 @@ size_t GamePad::getNbOfButton() {
 size_t GamePad::getNbOfThumbstick() {
 	return getThumbstick().size();
 }
+
+const std::string GamePad::getName() const {
+	return this->gamepad_name;
+}

@@ -31,6 +31,9 @@ const CursorState &PointerState::getCursorState(size_t index) const {
 
 	return cursors[index];
 }
+void PointerState::resizeState(int new_size) {
+	cursors.resize(new_size);
+}
 
 const Vector2 &PointerState::getCursorPosition(size_t index) {
 	return cursors[index].position;
