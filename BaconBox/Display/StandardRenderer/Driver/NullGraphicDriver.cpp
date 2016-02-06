@@ -15,18 +15,7 @@ namespace BaconBox {
 																 const Color &colorOffset, bool blend, int degenerationStride, int degenerationJump){
 		
 	}
-	
-	
-	
-	void NullGraphicDriver::drawBatchWithTextureColorColorOffset(const VertexArray &vertices,
-											  const TextureInformation *textureInformation,
-											  const TextureCoordinates &textureCoordinates,
-											  const IndiceArray &indices,
-											  const ColorArray &colors,
-											const ColorArray &colorOffsets, bool blend){
 		
-	}
-	
 	void NullGraphicDriver::resetProjection(){
 		
 	}
@@ -42,15 +31,14 @@ namespace BaconBox {
 		
 	}
 	
+	void NullGraphicDriver::drawBatch(const DynamicBatch *batch, const TextureInformation *texInfo, const bool blend) {}
 	
-	void NullGraphicDriver::drawBatchWithTexture(const VertexArray &vertices,
-							  const TextureInformation *textureInformation,
-							  const TextureCoordinates &textureCoordinates,
-							  const IndiceArray &indices,
-							  bool blend){
-		
-	}
-	
+    void NullGraphicDriver::drawShapeWithColorColorOffset(const VertexArray &vertices,
+                                              const Color &color,
+                                              const Color &colorOffset,
+                                              bool blend, int degenerationStride, int degenerationJump) {
+    }
+
 
 	void NullGraphicDriver::prepareScene(const Vector2 &, float,
 	                                     const Vector2 &, const Color &, bool ) {

@@ -507,6 +507,7 @@ namespace BaconBox {
 			return;
 		}
 
+		hsvColor.H = fmod(hsvColor.H, 360); // Keep H in the range 0,359
 		hsvColor.H /= 60; // Gives the sector of the HSV hexagon
 
 		i = floor(hsvColor.H);

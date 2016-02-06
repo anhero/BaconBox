@@ -53,14 +53,22 @@ namespace BaconBox {
 	}
 
 	void Mesh::syncMesh(){
-	    mustSync = false;
-//	    postTransformVertices.clear();
-		
-	    for(int  i  = 0; i < preTransformVertices.getNbVertices(); i++){
-			postTransformVertices[i] = preTransformVertices[i];
-	    }
+		mustSync = false;
 
-	    if(matrixComponent)postTransformVertices.multiplyWithMatrix(matrixComponent->getConcatMatrix());
+		// First, resize as needed.
+		if (preTransformVertices.getNbVertices() != postTransformVertices.getNbVertices()) {
+			postTransformVertices.resize(preTransformVertices.getNbVertices());
+		}
+		
+		// Sync all positions
+		for(int i = 0; i < preTransformVertices.getNbVertices(); i++){
+			postTransformVertices[i] = preTransformVertices[i];
+		}
+
+		// Apply the transformation
+		if (matrixComponent) {
+			postTransformVertices.multiplyWithMatrix(matrixComponent->getConcatMatrix());
+		}
 	}
 
 
