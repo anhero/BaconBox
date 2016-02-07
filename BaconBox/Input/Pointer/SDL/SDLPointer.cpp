@@ -12,7 +12,7 @@ using namespace BaconBox;
 SDLPointer::SDLPointer() : Pointer(), wheelScroll(0), lastWheelScroll(0) {
 	hasTouchscreen = (SDL_GetNumTouchDevices() > 0);
 	if (hasTouchscreen) {
-		for (unsigned int i=0; i<=this->getNumberOfIndices(); i++) {
+		for (unsigned int i=0; i < this->getNumberOfIndices(); i++) {
 			availIDs.insert(i);
 		}
 	}
@@ -79,7 +79,7 @@ bool SDLPointer::updateTouchScreen() {
 		return false;
 	}
 
-	// Check the number of fingers currently active.
+	// Check the number of fingers that SDL sees as currently active.
 	// Used to track if a new finger is pressed or an old finger is released.
 	int num_active_touches = SDL_GetNumTouchFingers(touchscreenID);
 
@@ -88,7 +88,7 @@ bool SDLPointer::updateTouchScreen() {
 		return false;
 	}
 
-	// Build the set of current touches.
+	// Build the set of touches SDL currently sees.
 	// Used to determine what's new and what's gone.
 	std::map<SDL_FingerID, SDL_Finger*> currTouches;
 	for (int i = 0; i < num_active_touches; i++) {
@@ -98,9 +98,10 @@ bool SDLPointer::updateTouchScreen() {
 				));
 	}
 
+	// Do we need to handle more touches than we previously had to?
 	if (num_active_touches > this->getNumberOfIndices()) {
 		this->state.resizeState(num_active_touches);
-		for (unsigned int i=currTouches.size(); i<=num_active_touches; i++) {
+		for (unsigned int i=touchCache.size(); i<=num_active_touches; i++) {
 			availIDs.insert(i);
 		}
 	}
