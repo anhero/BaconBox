@@ -78,13 +78,23 @@ end
 %luacode { -- LuaEntity class definition --
 LuaEntity = class()
 function LuaEntity:init(entity)
-  self.entity = entity
-  self.entity:setLuaClass(self)
-  for key, value in pairs(getmetatable(self.entity)[".fn"]) do
-      if self[key] == nil  and key ~=  "update" then
-        self[key] = function(self, ...) return self.entity[key](self.entity, ...);end
-      end
-  end
+	self.entity = entity
+	entity:setLuaClass(self)
+	local mt = getmetatable(entity)
+	-- Hoist the entity's functions to this instance
+	for fn_name,fn in pairs(mt[".fn"]) do
+		if self[fn_name] == nil and fn_name ~= "update" then
+			self[fn_name] = function(self, ...) return fn(self.entity, ...);end
+		end
+	end
+	-- Hoist the entity's inherited functions to this instance
+	for _,base in pairs(mt['.bases']) do
+		for fn_name,fn in pairs(base[".fn"]) do
+			if self[fn_name] == nil and fn_name ~= "update" then
+				self[fn_name] = function(self, ...) return fn(self.entity, ...);end
+			end
+		end
+	end
 end
 }
 
