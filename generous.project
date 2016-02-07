@@ -99,6 +99,7 @@ BaconBox:
             - |
               puts_banner 'Generating Lua swig bindings'
               FileUtils.mkpath "#{$project.buildDir}/swig"
+              # -no-old-metatable-bindings should become the default at release
               puts %x{ #{$project.options['swig']} -lua -c++ -module BaconBox -outdir #{$project.buildDir}/swig #{$project.definesString} #{$project.includesString} -o #{$project.buildDir}/swig/BaconBoxLua.cpp BaconBox/Special/Swig/BaconBox.i};
               puts %x{ #{$project.options['swig']} -lua -external-runtime #{$project.buildDir}/swig/swigluarun.h}
         options:
