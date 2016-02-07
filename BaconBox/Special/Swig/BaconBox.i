@@ -93,10 +93,12 @@ function LuaEntity:init(entity)
 		end
 	end
 	-- Hoist the entity's inherited functions to this instance
-	for _,base in pairs(mt['.bases']) do
-		for fn_name,fn in pairs(base[".fn"]) do
-			if self[fn_name] == nil and fn_name ~= "update" then
-				self[fn_name] = function(self, ...) return fn(self.entity, ...);end
+	if mt['.bases'] then
+		for _,base in pairs(mt['.bases']) do
+			for fn_name,fn in pairs(base[".fn"]) do
+				if self[fn_name] == nil and fn_name ~= "update" then
+					self[fn_name] = function(self, ...) return fn(self.entity, ...);end
+				end
 			end
 		end
 	end
