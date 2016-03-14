@@ -1,4 +1,5 @@
 %module BaconBox
+%include "typemaps.i" // Makes use of common typemaps.
 
 // -----------------------------------------------------------------------------
 // Lua definitions
@@ -252,6 +253,8 @@ end
 
 	#include "BaconBox/Helper/TimeHelper.h"
 	#include "BaconBox/Components/Speed.h"
+	#include "BaconBox/StandardVertexArray.h"
+	#include "BaconBox/Components/Mesh.h"
 	#include "BaconBox/Components/Shake.h"
 
 	#include "BaconBox/ParticleEmitter.h"
@@ -809,6 +812,27 @@ namespace std {
 
 %include "BaconBox/Components/TextComponent.h"
 %include "BaconBox/Components/Speed.h"
+
+// Vertex array {{{
+// Apply typemap from typemaps.i to SizeType.
+// SWIG does not handle vector<T>::size_type properly, it seems.
+%apply unsigned int { BaconBox::VertexArray::SizeType };
+// Then, some functions use ConstReference, which maps to vector<T>::const_reference.
+// There, SWIG fails at producing code using references.
+// TODO : Provide working versions of ConstReference using functions.
+%ignore BaconBox::VertexArray::resize(SizeType count, ConstReference value = ValueType());
+%ignore BaconBox::VertexArray::pushBack(ConstReference newVertex);
+%ignore BaconBox::VertexArray::insert(Iterator position, ConstReference value = ValueType());
+%ignore BaconBox::VertexArray::insert(Iterator position, SizeType count, ConstReference value = ValueType());
+%include "BaconBox/VertexArray.h"
+// }}}
+// StandardVertexArray {{{
+// TODO : Provide working versions of ConstReference using functions.
+%ignore StandardVertexArray(SizeType newSize, ConstReference defaultValue = ValueType());
+%include "BaconBox/StandardVertexArray.h"
+// }}}
+
+%include "BaconBox/Components/Mesh.h"
 
 %include "BaconBox/MovieClipEntity/MovieClipEntity.h"
 
