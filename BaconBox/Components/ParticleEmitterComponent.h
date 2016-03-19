@@ -32,6 +32,8 @@ namespace BaconBox {
 		void emit();
 		void reset();
 		void addPhase(ParicleInitInfo * initializationData);
+		/// Add one particle at a time to the particles holder.
+		void addParticle(MovieClipEntity* mc, MovieClipEntity * parent = NULL);
 	protected:
 		int minEmited;
 		int maxEmited;
@@ -67,6 +69,7 @@ namespace BaconBox {
 	public:
 		ParticleEmitterComponentProxy(Entity *entity, bool mustAddComponent = true);
 		void setParticles(std::vector<MovieClipEntity*> & mcs, MovieClipEntity * parent = NULL);
+		void addParticle(MovieClipEntity* mc, MovieClipEntity * parent = NULL);
 		
 		void start(int emitMax = -1);
 		void stop();

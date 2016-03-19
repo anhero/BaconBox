@@ -27,6 +27,18 @@ void ParticleEmitterComponent::setParticles(std::vector<MovieClipEntity*> & mcs,
 	}
 }
 
+void ParticleEmitterComponent::addParticle(MovieClipEntity* mc, MovieClipEntity * parent) {
+	if (!parent) {
+		parent = this->getEntity<ParticleEmitter>();
+	}
+
+	ParticleComponent * particleComponent = mc->getComponent<ParticleComponent>();
+	particles.push_back(particleComponent);
+	particleComponent->standby();
+	parent->addChild(mc);
+	particleComponent->setPhases(phases);
+}
+
 
 	ParticleEmitterComponent::~ParticleEmitterComponent() {
 	}
@@ -153,4 +165,7 @@ void ParticleEmitterComponentProxy::addPhase(ParicleInitInfo * initializationDat
 
 void ParticleEmitterComponentProxy::setParticles(std::vector<MovieClipEntity*> & mcs, MovieClipEntity * parent){
 	reinterpret_cast<ParticleEmitterComponent *>(component)->setParticles(mcs, parent);
+}
+void ParticleEmitterComponentProxy::addParticle(MovieClipEntity* mc, MovieClipEntity * parent){
+	reinterpret_cast<ParticleEmitterComponent *>(component)->addParticle(mc, parent);
 }
