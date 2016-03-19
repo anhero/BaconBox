@@ -278,6 +278,17 @@ namespace BaconBox {
 			result->addComponent(textureComponent);
 			
 			result->addComponent(new MeshDriverRenderer(RenderMode::SHAPE | RenderMode::COLOR | RenderMode::TEXTURE | RenderMode::COLOR_TRANSORMED | (blend ? RenderMode::BLENDED : RenderMode::NONE)));
+
+			// Create a symbol for the subtexture if none exists.
+			Symbol * symbol = ResourceManager::getSymbol(subTex->textureInfo->key);
+			if (!symbol) {
+				symbol = ResourceManager::addSymbol(subTex->textureInfo->key);
+				symbol->subTex = subTex;
+				symbol->isTexture = true;
+				symbol->textureKey = subTex->textureInfo->key;
+			}
+			result->setSymbol(symbol);
+
 		}
 		
 		return result;
