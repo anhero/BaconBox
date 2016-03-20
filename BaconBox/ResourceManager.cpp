@@ -845,6 +845,31 @@ namespace BaconBox {
 		                 overwrite);
 	}
 
+	SoundInfo *ResourceManager::loadSoundFromBuffer(const std::string &key, unsigned char* buf, unsigned int size, bool overwrite) {
+		SoundInfo *newSnd = NULL;
+		if (overwrite) {
+			// We delete the existing sound effect.
+			newSnd = sounds[key];
+			if (newSnd) { delete newSnd; }
+		}
+		// We load the sound effect.
+		newSnd = AudioEngine::getSoundEngine().loadSoundFromBuffer(buf, size);
+
+		// Bail if we did not get a proper sound. (no need to save invalid sounds)
+		if (!newSnd) { return newSnd; }
+
+		// We overwrite the existing sound effect, or insert it, depending.
+		if (overwrite && sounds.find(key) != sounds.end()) {
+			sounds[key] = newSnd;
+		}
+		else {
+			sounds.insert(std::pair<std::string, SoundInfo *>(key, newSnd));
+		}
+
+		// Finally, return the sound info for that sound.
+		return newSnd;
+	}
+
 	SoundInfo *ResourceManager::loadSound(const SoundParameters &params,
 	                                      bool overwrite) {
 		SoundInfo *newSnd = NULL;

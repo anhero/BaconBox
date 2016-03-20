@@ -193,6 +193,12 @@ namespace BaconBox {
 		}
 	}
 
+	SoundInfo* SDLMixerEngine::loadSoundFromBuffer(unsigned char* buf, unsigned int size) {
+		SoundInfo *result = new SoundInfo();
+		result->data = Mix_LoadWAV_RW(SDL_RWFromMem(buf, size), true);
+		return result;
+	}
+
 	SoundInfo *SDLMixerEngine::loadSound(const std::string &filePath) {
 		SoundInfo *result = new SoundInfo();
 

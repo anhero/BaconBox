@@ -170,6 +170,12 @@ namespace BaconBox {
 		SoundInfo *loadSound(const SoundParameters &params);
 
 		/**
+		 * Creates sound data from a buffer, it is in the same loadable formats
+		 * than loadSound would use, but from memory data.
+		 */
+		SoundInfo* loadSoundFromBuffer(unsigned char* buf, unsigned int size);
+
+		/**
 		 * Unloads sound data.
 		 * @param sound Sound data that needs to be unloaded. Delete must not be
 		 * called on it, the resource manager that calls this function takes

@@ -100,6 +100,11 @@ SoundInfo* NullAudioEngine::loadSound(const std::string& filePath) {
 	return new SoundInfo();
 }
 
+SoundInfo* NullAudioEngine::loadSoundFromBuffer(unsigned char* buf, unsigned int size) {
+	Console::println("NullAudioEngine::loadSoundFromBuffer(...)");
+	return new SoundInfo();
+}
+
 SoundInfo* NullAudioEngine::loadSound(const SoundParameters& params) {
 	Console::println("NullAudioEngine::loadSound(params.name: " + params.name +
 				   ")");

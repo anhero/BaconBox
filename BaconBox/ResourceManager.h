@@ -191,6 +191,11 @@ namespace BaconBox {
 		                                        const std::string &relativePath,
 		                                        bool overwrite = false);
 
+		static SoundInfo *loadSoundFromBuffer(const std::string &key,
+		                                        unsigned char* buf,
+		                                        unsigned int size,
+		                                        bool overwrite = false);
+
 		/**
 		 * Loads a sound effect.
 		 * @param info Information in a struct about the sound effect to load.
