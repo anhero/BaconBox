@@ -34,6 +34,9 @@ begin
 				@library.options.AR = "#{@library.options.AR.first} rcu"
 			end
 
+			# Holds patches to apply.
+			patches = []
+
 			# For Android...
 			#http://lua-users.org/lists/lua-l/2012-08/msg00094.html
 			# This would work for 5.2 I guess...
@@ -44,7 +47,6 @@ begin
 			# HACK !
 			if $libbuildtool_params.platform_name == "Android"
 				@platform = "generic"
-				patches = []
 					patches << %q{
 --- old/src/llex.c	2009-11-23 09:58:22.000000000 -0500
 +++ new/src/llex.c	2014-03-09 16:56:59.000000000 -0400
@@ -55,15 +57,21 @@ begin
 -  ls->decpoint = (cv ? cv->decimal_point[0] : '.');
 +  ls->decpoint = '.';//(cv ? cv->decimal_point[0] : '.');
 			}
-				patches.each do |p|
-					puts "Applying patch "
-					ok = Exec.run "patch", "-p1", {:stdin => p}
-					unless ok
-						raise "One patch failed to apply."
-					end
-				end
 			end
 
+			# Adds the "bitop" library
+			# http://bitop.luajit.org/
+			# Ideally this patch would be in two parts, but meh.
+			patches << File.read("#{$global_state.project_dir}/lua-add-bit.patch")
+
+			# Auto-patches
+			patches.each do |p|
+				puts "Applying patch "
+				ok = Exec.run "patch", "-p1", {:stdin => p}
+				unless ok
+					raise "One patch failed to apply."
+				end
+			end
 
 			params = []
 			params << "CC=#{@library.options.CC}" if @library.options.CC.length > 0
