@@ -195,7 +195,14 @@ namespace BaconBox {
 
 	SoundInfo* SDLMixerEngine::loadSoundFromBuffer(unsigned char* buf, unsigned int size) {
 		SoundInfo *result = new SoundInfo();
-		result->data = Mix_LoadWAV_RW(SDL_RWFromMem(buf, size), true);
+		result->data = Mix_LoadWAV_RW(SDL_RWFromMem(buf, size), false);
+		if (!result->data) {
+			// We delete the resulting sound info.
+			delete result;
+			result = NULL;
+			Console::println("Unable to load sound effect from memory,");
+			Console::println(" with SDL_mixer error: " + std::string(Mix_GetError()));
+		}
 		return result;
 	}
 
