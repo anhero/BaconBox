@@ -1,6 +1,9 @@
 %module BaconBox
 %include "typemaps.i" // Makes use of common typemaps.
 
+// For swig purposes, treat "unsigned char*" and "char *" as the same.
+%apply char * { unsigned char * }
+
 // -----------------------------------------------------------------------------
 // Lua definitions
 // -----------------------------------------------------------------------------
