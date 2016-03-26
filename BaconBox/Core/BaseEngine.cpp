@@ -109,6 +109,10 @@ namespace BaconBox {
 
 	void BaseEngine::removeState(const std::string &name) {
 		std::map<std::string, State *>::iterator toDelete = this->states.find(name);
+		if (toDelete == this->states.end()) {
+			Console__error("Could not delete state with name " << name << ".");
+			return;
+		}
 		if(this->currentState == toDelete->second){
 			this->currentState->internalOnLoseFocus();
 			this->currentState = NULL;
@@ -117,7 +121,6 @@ namespace BaconBox {
 			if (toDelete->second) {
 				delete toDelete->second;
 			}
-
 			this->states.erase(toDelete);
 		}
 		
