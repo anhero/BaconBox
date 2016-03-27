@@ -295,7 +295,7 @@ namespace BaconBox {
 	}
 
 	MovieClipEntity *EntityFactory::getShapeRectangle(float w, float h, const Vector2 & origin, bool blend, float scale){
-		getInstance().internalGetShapeRectangle(w, h, origin, blend, scale);
+		return getInstance().internalGetShapeRectangle(w, h, origin, blend, scale);
 	}
 
 	MovieClipEntity *EntityFactory::internalGetShapeRectangle(float w, float h, const Vector2 & origin, bool blend, float scale){
@@ -329,7 +329,7 @@ namespace BaconBox {
 	}
 
 	MovieClipEntity *EntityFactory::getRegularPolygon(unsigned int nbSides, float sideLength, bool blend, float scale){
-		getInstance().internalGetRegularPolygon(nbSides, sideLength, blend, scale);
+		return getInstance().internalGetRegularPolygon(nbSides, sideLength, blend, scale);
 	}
 
 	MovieClipEntity *EntityFactory::internalGetRegularPolygon(unsigned int nbSides, float sideLength, bool blend, float scale){
