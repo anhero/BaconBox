@@ -514,11 +514,19 @@ namespace BaconBox {
 			gl_FragColor = (texColor * color) +colorOffset;\
 			}";
 
+			// This fragment shader keeps around the unused texture stuff
+			// since on some platforms it creates a different "ABI" (in a way)
+			// and the unifrom locations change.
+			// This could (and should?) also be fixed by refresing the uniforms
+			// as needed, but it increases the number of GL calls in a frame.
 			std::string fragmentShaderWithoutTexture =
 			"uniform bool  alphaFormat;\
+			uniform sampler2D  tex;\
+			varying vec2 texcoord;\
 			varying vec4 colorOffset;\
 			varying vec4 color;\
 			void main(void) {\
+			vec4 texColor = texture2D(tex, texcoord);\
 			gl_FragColor = color + colorOffset;\
 			}";
 
